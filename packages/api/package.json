@@ -1,8 +1,7 @@
 {
-  "name": "api",
+  "name": "@fin-track/api",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.ts",
+  "main": "src/index.ts",
   "scripts": {
     "start": "nodemon --exec ts-node src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
