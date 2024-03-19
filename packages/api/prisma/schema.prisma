@@ -13,16 +13,23 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Currency {
+model Type {
+  id    Int         @id @default(autoincrement())
+  name  String
+}
+
+model Category {
   id        Int         @id @default(autoincrement())
   name      String
+  typeId    Int
+  type      Type        @relation(fields: [typeId], references: [id])
   createdAt DateTime    @default(now())
   updatedAt DateTime    @updatedAt
   Log       Log[]
   Recurring Recurring[]
 }
 
-model Category {
+model Currency {
   id        Int         @id @default(autoincrement())
   name      String
   createdAt DateTime    @default(now())
@@ -34,26 +41,27 @@ model Category {
 model Log {
   id         Int      @id @default(autoincrement())
   name       String
-  date       DateTime @db.Date
+  categoryId Int
+  category   Category @relation(fields: [categoryId], references: [id])
   amount     Decimal  @db.Decimal(9, 2)
   currencyId Int
   currency   Currency @relation(fields: [currencyId], references: [id])
-  categoryId Int
-  category   Category @relation(fields: [categoryId], references: [id])
+  date       DateTime @db.Date
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 }
 
 model Recurring {
-  id         Int      @id @default(autoincrement())
-  name       String
-  startDate  DateTime @db.Date
-  endDate    DateTime @db.Date
-  amount     Decimal  @db.Decimal(9, 2)
-  currencyId Int
-  currency   Currency @relation(fields: [currencyId], references: [id])
-  categoryId Int
-  category   Category @relation(fields: [categoryId], references: [id])
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  id              Int      @id @default(autoincrement())
+  name            String
+  categoryId      Int
+  category        Category @relation(fields: [categoryId], references: [id])
+  amount          Decimal  @db.Decimal(9, 2)
+  currencyId      Int
+  currency        Currency @relation(fields: [currencyId], references: [id])
+  startDate       DateTime @db.Date
+  endDate         DateTime @db.Date
+  excludedDates   String[]
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
 }
