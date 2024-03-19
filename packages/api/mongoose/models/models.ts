@@ -12,7 +12,7 @@ const categorySchema = new Schema({
 });
 
 const currencySchema = new Schema({
-  name: String,
+  name: String
 });
 
 const logSchema = new Schema({
@@ -31,7 +31,7 @@ const recurringSchema = new Schema({
   startDate: Date,
   endDate: Date,
   excludedDates: [Date]
-})
+});
 
 const Type = mongoose.model('Type', typeSchema);
 const Category = mongoose.model('Category', categorySchema);
@@ -45,4 +45,4 @@ export default {
   Currency,
   Log,
   Recurring
-}
+};
