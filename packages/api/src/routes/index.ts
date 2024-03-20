@@ -1,7 +1,7 @@
 import express from 'express';
 // import items here
-import types from './items/types';
-import categories from './items/categories';
+import types from './types';
+import categories from './categories';
 
 const router = express.Router();
 
