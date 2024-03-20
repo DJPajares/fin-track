@@ -1,12 +1,7 @@
-import models from '../../mongoose/models/models';
+import { Type } from '../../mongoose/models/models';
+import { TypeProps } from '../../mongoose/interfaces/interfaces';
 
-const { Type } = models;
-
-type Type = {
-  name: string;
-};
-
-const createType = async (data: Type) => {
+const createType = async (data: TypeProps) => {
   try {
     await Type.create(data);
   } catch (error) {
