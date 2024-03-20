@@ -1,16 +1,26 @@
 import express from 'express';
-import services from '../../services/types';
+import { createTypes, getTypes } from '../../services/types';
 
 const router = express.Router();
 
-const { createType } = services;
-
 // get all
+router.get('/', async (req, res, next) => {
+  try {
+    const data = await getTypes(req);
+
+    res.status(200).send({
+      success: true,
+      data
+    });
+  } catch (error) {
+    next(error);
+  }
+});
 
 // create
 router.post('/', async (req, res, next) => {
   try {
-    const data = await createType(req.body);
+    const data = await createTypes(req.body);
 
     res.status(200).send({
       success: true,
