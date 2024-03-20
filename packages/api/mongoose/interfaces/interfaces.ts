@@ -1,8 +1,10 @@
 import { InferSchemaType } from 'mongoose';
 import { Type, Category, Currency, Log, Recurring } from '../models/models';
 
-export type TypeProps = InferSchemaType<typeof Type>;
-export type CategoryProps = InferSchemaType<typeof Category>;
-export type CurrencyProps = InferSchemaType<typeof Currency>;
-export type LogProps = InferSchemaType<typeof Log>;
-export type RecurringProps = InferSchemaType<typeof Recurring>;
+type TypeProps = InferSchemaType<typeof Type>;
+type CategoryProps = InferSchemaType<typeof Category>;
+type CurrencyProps = InferSchemaType<typeof Currency>;
+type LogProps = InferSchemaType<typeof Log>;
+type RecurringProps = InferSchemaType<typeof Recurring>;
+
+export { TypeProps, CategoryProps, CurrencyProps, LogProps, RecurringProps };

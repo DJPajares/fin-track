@@ -31,8 +31,10 @@ const recurringSchema = new Schema({
   excludedDates: [Date]
 });
 
-export const Type = mongoose.model('Type', typeSchema);
-export const Category = mongoose.model('Category', categorySchema);
-export const Currency = mongoose.model('Currency', currencySchema);
-export const Log = mongoose.model('Log', logSchema);
-export const Recurring = mongoose.model('Recurring', recurringSchema);
+const Type = mongoose.model('Type', typeSchema);
+const Category = mongoose.model('Category', categorySchema);
+const Currency = mongoose.model('Currency', currencySchema);
+const Log = mongoose.model('Log', logSchema);
+const Recurring = mongoose.model('Recurring', recurringSchema);
+
+export { Type, Category, Currency, Log, Recurring };
