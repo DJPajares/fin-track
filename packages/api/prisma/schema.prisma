@@ -14,8 +14,9 @@ datasource db {
 }
 
 model Type {
-  id    Int         @id @default(autoincrement())
-  name  String
+  id       Int        @id @default(autoincrement())
+  name     String
+  Category Category[]
 }
 
 model Category {
@@ -52,16 +53,16 @@ model Log {
 }
 
 model Recurring {
-  id              Int      @id @default(autoincrement())
-  name            String
-  categoryId      Int
-  category        Category @relation(fields: [categoryId], references: [id])
-  amount          Decimal  @db.Decimal(9, 2)
-  currencyId      Int
-  currency        Currency @relation(fields: [currencyId], references: [id])
-  startDate       DateTime @db.Date
-  endDate         DateTime @db.Date
-  excludedDates   String[]
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  id            Int      @id @default(autoincrement())
+  name          String
+  categoryId    Int
+  category      Category @relation(fields: [categoryId], references: [id])
+  amount        Decimal  @db.Decimal(9, 2)
+  currencyId    Int
+  currency      Currency @relation(fields: [currencyId], references: [id])
+  startDate     DateTime @db.Date
+  endDate       DateTime @db.Date
+  excludedDates String[]
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 }

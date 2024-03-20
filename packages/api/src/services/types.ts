@@ -1,4 +1,4 @@
-import { Type } from '../../mongoose/models/models';
+import { Type } from '../../mongoose/models/type';
 import { TypeProps } from '../../mongoose/interfaces/interfaces';
 import { Request } from 'express';
 
@@ -20,4 +20,15 @@ const getTypes = async (req: Request) => {
   }
 };
 
-export { createTypes, getTypes };
+const updateTypes = async (data: TypeProps) => {
+  try {
+    const { _id, name } = data;
+
+    await Type.updateOne({ _id }, { name });
+  } catch (error) {
+    console.error(error);
+    throw new Error('Could not update types');
+  }
+};
+
+export { createTypes, getTypes, updateTypes };
