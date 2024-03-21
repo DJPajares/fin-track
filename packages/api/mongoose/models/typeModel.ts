@@ -4,4 +4,6 @@ const typeSchema = new Schema({
   name: { type: String, required: true }
 });
 
-export const Type = mongoose.model('Type', typeSchema);
+const TypeModel = mongoose.model('Type', typeSchema);
+
+export { typeSchema, TypeModel };

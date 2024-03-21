@@ -8,4 +8,6 @@ const logSchema = new Schema({
   date: Date
 });
 
-export const Log = mongoose.model('Log', logSchema);
+const LogModel = mongoose.model('Log', logSchema);
+
+export { logSchema, LogModel };

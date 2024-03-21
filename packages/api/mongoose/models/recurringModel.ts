@@ -10,4 +10,6 @@ const recurringSchema = new Schema({
   excludedDates: [Date]
 });
 
-export const Recurring = mongoose.model('Recurring', recurringSchema);
+const RecurringModel = mongoose.model('Recurring', recurringSchema);
+
+export { recurringSchema, RecurringModel };

@@ -5,4 +5,6 @@ const categorySchema = new Schema({
   type: { type: Schema.Types.ObjectId, ref: 'Type' }
 });
 
-export const Category = mongoose.model('Category', categorySchema);
+const CategoryModel = mongoose.model('Category', categorySchema);
+
+export { categorySchema, CategoryModel };
