@@ -5,11 +5,10 @@ import { currencySchema } from '../models/currencyModel';
 import { logSchema } from '../models/logModel';
 import { recurringSchema } from '../models/recurringModel';
 
-// type TypeProps = HydratedDocument<InferSchemaType<typeof typeSchema>>;
-type TypeProps = InferSchemaType<typeof typeSchema>;
-type CategoryProps = InferSchemaType<typeof categorySchema>;
-type CurrencyProps = InferSchemaType<typeof currencySchema>;
-type LogProps = InferSchemaType<typeof logSchema>;
-type RecurringProps = InferSchemaType<typeof recurringSchema>;
+type TypeProps = HydratedDocument<InferSchemaType<typeof typeSchema>>;
+type CategoryProps = HydratedDocument<InferSchemaType<typeof categorySchema>>;
+type CurrencyProps = HydratedDocument<InferSchemaType<typeof currencySchema>>;
+type LogProps = HydratedDocument<InferSchemaType<typeof logSchema>>;
+type RecurringProps = HydratedDocument<InferSchemaType<typeof recurringSchema>>;
 
 export { TypeProps, CategoryProps, CurrencyProps, LogProps, RecurringProps };
