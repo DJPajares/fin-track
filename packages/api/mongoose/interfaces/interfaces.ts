@@ -1,14 +1,15 @@
-import { InferSchemaType } from 'mongoose';
-import { Type } from '../models/type';
-import { Category } from '../models/category';
-import { Currency } from '../models/currency';
-import { Log } from '../models/log';
-import { Recurring } from '../models/recurring';
+import { HydratedDocument, InferSchemaType } from 'mongoose';
+import { typeSchema } from '../models/typeModel';
+import { categorySchema } from '../models/categoryModel';
+import { currencySchema } from '../models/currencyModel';
+import { logSchema } from '../models/logModel';
+import { recurringSchema } from '../models/recurringModel';
 
-type TypeProps = InferSchemaType<typeof Type>;
-type CategoryProps = InferSchemaType<typeof Category>;
-type CurrencyProps = InferSchemaType<typeof Currency>;
-type LogProps = InferSchemaType<typeof Log>;
-type RecurringProps = InferSchemaType<typeof Recurring>;
+// type TypeProps = HydratedDocument<InferSchemaType<typeof typeSchema>>;
+type TypeProps = InferSchemaType<typeof typeSchema>;
+type CategoryProps = InferSchemaType<typeof categorySchema>;
+type CurrencyProps = InferSchemaType<typeof currencySchema>;
+type LogProps = InferSchemaType<typeof logSchema>;
+type RecurringProps = InferSchemaType<typeof recurringSchema>;
 
 export { TypeProps, CategoryProps, CurrencyProps, LogProps, RecurringProps };
