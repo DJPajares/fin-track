@@ -1,34 +1,45 @@
-import { Type } from '../../mongoose/models/type';
-import { TypeProps } from '../../mongoose/interfaces/interfaces';
+import { TypeModel } from '../../mongoose/models/typeModel';
+import type { TypeProps } from '../../mongoose/interfaces/interfaces';
 import { Request } from 'express';
 
-const createTypes = async (data: TypeProps) => {
+const createType = async (data: TypeProps) => {
   try {
-    await Type.create(data);
+    return await TypeModel.create(data);
   } catch (error) {
     console.error(error);
-    throw new Error('Could not create types');
+    throw new Error('Could not create type');
   }
 };
 
-const getTypes = async (req: Request) => {
+const getType = async (req: Request) => {
   try {
-    return await Type.find({});
+    return await TypeModel.find({});
   } catch (error) {
     console.error(error);
-    throw new Error('Could not get types');
+    throw new Error('Could not get type');
   }
 };
 
-const updateTypes = async (data: TypeProps) => {
+const updateType = async (data: TypeProps) => {
   try {
     const { _id, name } = data;
 
-    await Type.updateOne({ _id }, { name });
+    return await TypeModel.updateOne({ _id }, { name });
   } catch (error) {
     console.error(error);
-    throw new Error('Could not update types');
+    throw new Error('Could not update type');
   }
 };
 
-export { createTypes, getTypes, updateTypes };
+const deleteType = async (data: TypeProps) => {
+  try {
+    const { _id } = data;
+
+    return await TypeModel.deleteOne({ _id });
+  } catch (error) {
+    console.error(error);
+    throw new Error('Could not delete type');
+  }
+};
+
+export { createType, getType, updateType, deleteType };
