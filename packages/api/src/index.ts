@@ -9,7 +9,7 @@ const app = express();
 
 const port = process.env.PORT;
 const databaseUrl =
-  process.env.MONGOOSE_DATABASE_URL || 'mongodb://127.0.0.1/fintrack';
+  process.env.MONGOOSE_DATABASE_URL || 'mongodb://127.0.0.1/database';
 
 // app.get('/', (req, res) => {
 //   res.send('Express + TypeScript Server');
