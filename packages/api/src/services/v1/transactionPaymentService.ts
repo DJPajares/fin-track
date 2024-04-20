@@ -68,6 +68,24 @@ const fetchTransactionPayments = async (data: TransactionPaymentProps) => {
       $match: {
         'type.name': 'Income'
       }
+    },
+    {
+      $project: {
+        _id: 1,
+        name: 1,
+        categoryId: '$category._id',
+        category: '$category.name',
+        typeId: '$type._id',
+        type: '$type.name',
+        amount: 1,
+        currencyId: '$currency._id',
+        currency: '$currency.name',
+        description: 1,
+        recurring: 1,
+        startDate: 1,
+        endDate: 1,
+        excludedDates: 1
+      }
     }
   ]);
 
@@ -94,6 +112,27 @@ const fetchTransactionPayments = async (data: TransactionPaymentProps) => {
             }
           }
         ]
+      }
+    },
+    {
+      // Unwind the payment array to include each payment object separately
+      $unwind: {
+        path: '$payment',
+        preserveNullAndEmptyArrays: true
+      }
+    },
+    {
+      $lookup: {
+        from: CurrencyModel.collection.name,
+        localField: 'payment.currency',
+        foreignField: '_id',
+        as: 'paymentCurrency'
+      }
+    },
+    {
+      $unwind: {
+        path: '$paymentCurrency',
+        preserveNullAndEmptyArrays: true
       }
     },
     {
@@ -139,9 +178,24 @@ const fetchTransactionPayments = async (data: TransactionPaymentProps) => {
       }
     },
     {
-      $addFields: {
-        paidAmount: { $sum: '$payment.amount' },
-        paidCurrency: '$payment.currency'
+      $project: {
+        _id: 1,
+        name: 1,
+        categoryId: '$category._id',
+        category: '$category.name',
+        typeId: '$type._id',
+        typeName: '$type.name',
+        amount: 1,
+        currencyId: '$currency._id',
+        currency: '$currency.name',
+        paidAmount: '$payment.amount',
+        paidCurrencyId: '$paymentCurrency._id',
+        paidCurrency: '$paymentCurrency.name',
+        description: 1,
+        recurring: 1,
+        startDate: 1,
+        endDate: 1,
+        excludedDates: 1
       }
     }
   ]);
@@ -151,30 +205,51 @@ const fetchTransactionPayments = async (data: TransactionPaymentProps) => {
   });
   const rates = latestExchangeRates?.rates || {};
 
+  // console.log('incomeTransactions', incomeTransactions);
+  console.log('expenseTransactionPayments', expenseTransactionPayments);
+
   const processTransactionPaymentData = () => {
     const budget = incomeTransactions.reduce(
-      (accumulator, incomeTransaction) =>
-        accumulator + parseFloat(incomeTransaction.amount),
+      (accumulator, incomeTransaction) => {
+        const value = parseFloat(incomeTransaction.amount);
+        const fromCurrency = incomeTransaction.currency;
+
+        const amount = convertCurrency(value, fromCurrency, currency, rates);
+
+        return accumulator + amount;
+      },
       0
     );
 
-    // const totalAmount = expenseTransactionPayments.reduce(
-    //   (acculumator, expenseTransactionPayment) =>
-    //     acculumator + parseFloat(expenseTransactionPayment.amount),
-    //   0
-    // );
-
-    // const totalPaidAmount = expenseTransactionPayments.reduce(
-    //   (accumulator, expenseTransactionPayment) =>
-    //     accumulator + parseFloat(expenseTransactionPayment.paidAmount),
-    //   0
-    // );
-
     let totalAmount = 0;
     let totalPaidAmount = 0;
+
     expenseTransactionPayments.forEach((expenseTransactionPayment) => {
-      totalAmount += expenseTransactionPayment.amount;
-      totalPaidAmount += expenseTransactionPayment.paidAmount;
+      if (expenseTransactionPayment.amount) {
+        const totalAmountValue = parseFloat(expenseTransactionPayment.amount);
+        const totalAmountCurrency = expenseTransactionPayment.currency;
+
+        totalAmount += convertCurrency(
+          totalAmountValue,
+          totalAmountCurrency,
+          currency,
+          rates
+        );
+      }
+
+      if (expenseTransactionPayment.paidAmount) {
+        const totalPaidAmountValue = parseFloat(
+          expenseTransactionPayment.paidAmount
+        );
+        const totalPaidAmountCurrency = expenseTransactionPayment.paidCurrency;
+
+        totalPaidAmount += convertCurrency(
+          totalPaidAmountValue,
+          totalPaidAmountCurrency,
+          currency,
+          rates
+        );
+      }
     });
 
     const main = {
@@ -190,13 +265,12 @@ const fetchTransactionPayments = async (data: TransactionPaymentProps) => {
     const categories = Object.values(
       expenseTransactionPayments.reduce(
         (accumulator, expenseTransactionPayment) => {
-          const key = expenseTransactionPayment.category._id;
+          const key = expenseTransactionPayment.categoryId;
 
           if (!accumulator[key]) {
             accumulator[key] = {
-              _id: expenseTransactionPayment.category._id,
-              name: expenseTransactionPayment.category.name,
-              currency,
+              _id: expenseTransactionPayment.categoryId,
+              name: expenseTransactionPayment.category,
               totalAmount: 0,
               totalPaidAmount: 0,
               paymentCompletionRate: 0,
@@ -204,28 +278,49 @@ const fetchTransactionPayments = async (data: TransactionPaymentProps) => {
             };
           }
 
-          const amountCurrency = expenseTransactionPayment.currency;
-          const paidCurrency = expenseTransactionPayment.paidCurrency;
+          let amount = 0;
 
-          let amount = parseFloat(expenseTransactionPayment.amount);
-          if (currency !== amountCurrency) {
-            amount = convertCurrency(amount, amountCurrency, currency, rates);
+          if (expenseTransactionPayment.amount) {
+            const amountCurrency = expenseTransactionPayment.currency;
+
+            const transactionAmount = parseFloat(
+              expenseTransactionPayment.amount
+            );
+
+            amount =
+              currency === amountCurrency
+                ? transactionAmount
+                : convertCurrency(
+                    transactionAmount,
+                    amountCurrency,
+                    currency,
+                    rates
+                  );
           }
 
-          let paidAmount = parseFloat(expenseTransactionPayment.paidAmount);
-          if (currency !== paidCurrency) {
-            paidAmount = convertCurrency(
-              paidAmount,
-              paidCurrency,
-              currency,
-              rates
+          let paidAmount = 0;
+
+          if (expenseTransactionPayment.paidAmount) {
+            const paidCurrency = expenseTransactionPayment.paidCurrency;
+
+            const transactionPaidAmount = parseFloat(
+              expenseTransactionPayment.paidAmount
             );
+
+            paidAmount =
+              currency === paidCurrency
+                ? transactionPaidAmount
+                : convertCurrency(
+                    transactionPaidAmount,
+                    paidCurrency,
+                    currency,
+                    rates
+                  );
           }
 
           const transaction = {
             _id: expenseTransactionPayment._id,
             name: expenseTransactionPayment.name,
-            currency,
             amount,
             paidAmount
           };
