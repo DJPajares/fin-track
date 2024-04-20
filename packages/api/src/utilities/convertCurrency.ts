@@ -6,12 +6,10 @@ const convertCurrency = (
   toCurrency: string,
   rates: RateProps
 ): number => {
-  let convertedValue = rates[fromCurrency];
+  const valueInUsd = value / rates[fromCurrency];
 
-  if (toCurrency !== 'USD') {
-    const valueInUsd = value / rates[fromCurrency];
-    convertedValue = valueInUsd * rates[toCurrency];
-  }
+  const convertedValue =
+    toCurrency === 'USD' ? valueInUsd : valueInUsd * rates[toCurrency];
 
   return convertedValue;
 };
