@@ -12,7 +12,7 @@ const getAll = async (query: PaginationProps) => {
   const { skip, limit, pagination } = paginationResult;
 
   const data = await PaymentModel.find()
-    .populate('transaction')
+    .populate(['transaction', 'currency'])
     .skip(skip)
     .limit(limit);
 
@@ -23,7 +23,7 @@ const getAll = async (query: PaginationProps) => {
 };
 
 const get = async (_id: PaymentProps['_id']) => {
-  return await PaymentModel.find({ _id }).populate('transaction');
+  return await PaymentModel.find({ _id }).populate(['transaction', 'currency']);
 };
 
 const update = async (_id: PaymentProps['_id'], data: PaymentProps) => {
