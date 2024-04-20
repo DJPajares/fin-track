@@ -1,22 +1,27 @@
-import Image from 'next/image';
+import axios from 'axios';
 import { useEffect, useState } from 'react';
 
 const dashboardUrl = 'http://localhost:3000/api/v1/transactionPayments';
 
-const fetchDashboardData = async (date: Date, currency: string) => {
+const fetchDashboardData = async (date: any, currency: string) => {
   try {
-    const res = await fetch(dashboardUrl, {
-      method: 'POST',
-      body: {
-        date,
-        currency
-      }
+    // const res = await fetch(dashboardUrl, {
+    //   method: 'POST',
+    //   body: {
+    //     date,
+    //     currency
+    //   }
+    // });
+
+    const { success, data } = axios.get(dashboardUrl, {
+      date,
+      currency
     });
 
-    if (res.status === 200) {
-      console.log(res.data);
+    if (success) {
+      console.log(data);
 
-      return res.data;
+      return data;
     }
   } catch (error) {
     console.error('Fetch failed', error);
@@ -36,6 +41,8 @@ const Dashboard = () => {
 
     fetchInitialData();
   }, []);
+
+  console.log(dashboardData);
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24"></main>
