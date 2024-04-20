@@ -5,7 +5,7 @@ import { Types } from 'mongoose';
 
 const create = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const data = exchangeRateService.create(req.body);
+    const data = await exchangeRateService.create(req.body);
 
     res.status(200).json({
       success: true,
@@ -20,7 +20,7 @@ const getAll = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const query = req.query as unknown as PaginationProps;
 
-    const result = exchangeRateService.getAll(query);
+    const result = await exchangeRateService.getAll(query);
 
     res.status(200).json({
       success: true,
@@ -35,7 +35,7 @@ const get = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const id = new Types.ObjectId(req.params.id);
 
-    const data = exchangeRateService.get(id);
+    const data = await exchangeRateService.get(id);
 
     res.status(200).json({
       success: true,
@@ -50,7 +50,7 @@ const update = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const id = new Types.ObjectId(req.params.id);
 
-    const data = exchangeRateService.update(id, req.body);
+    const data = await exchangeRateService.update(id, req.body);
 
     res.status(200).json({
       success: true,
@@ -65,7 +65,7 @@ const remove = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const id = new Types.ObjectId(req.params.id);
 
-    const data = exchangeRateService.remove(id);
+    const data = await exchangeRateService.remove(id);
 
     res.status(200).json({
       success: true,
