@@ -46,10 +46,13 @@ const Dashboard = () => {
         {dashboardCategories.map((category: any) => (
           <div
             key={category._id}
-            className="border-2 border-solid border-black rounded-lg p-8"
+            className="flex flex-col border-2 border-solid border-black rounded-lg p-8 m-8"
             onClick={openCard}
           >
-            {category.name}
+            <div className="text-lg font-bold">{category.name}</div>
+            <div>{category.totalAmount}</div>
+            <div className="text-sm">Settled</div>
+            <div>{category.paymentCompletionRate}</div>
           </div>
         ))}
       </div>
