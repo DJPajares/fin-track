@@ -205,9 +205,6 @@ const fetchTransactionPayments = async (data: TransactionPaymentProps) => {
   });
   const rates = latestExchangeRates?.rates || {};
 
-  // console.log('incomeTransactions', incomeTransactions);
-  console.log('expenseTransactionPayments', expenseTransactionPayments);
-
   const processTransactionPaymentData = () => {
     const budget = incomeTransactions.reduce(
       (accumulator, incomeTransaction) => {
