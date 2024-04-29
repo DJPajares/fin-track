@@ -20,6 +20,7 @@ import {
   DialogTrigger
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
+import { Progress } from '@/components/ui/progress';
 
 const dashboardUrl = 'http://localhost:3001/api/v1/transactionPayments';
 
@@ -78,12 +79,22 @@ const Dashboard = () => {
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <div>Settled</div>
-                    <div>
-                      {Math.round(
-                        (category.totalPaidAmount / category.totalAmount) * 100
-                      )}
-                      %
+                    <p className="text-xs">Settled</p>
+                    <div className="flex flex-row items-center justify-between pt-2">
+                      <Progress
+                        value={
+                          (category.totalPaidAmount / category.totalAmount) *
+                          100
+                        }
+                        className="w-[60%]"
+                      />
+                      <p className="text-xs">
+                        {Math.round(
+                          (category.totalPaidAmount / category.totalAmount) *
+                            100
+                        )}
+                        %
+                      </p>
                     </div>
                   </CardContent>
                 </Card>
@@ -99,6 +110,12 @@ const Dashboard = () => {
                       className="flex flex-row items-center justify-between"
                     >
                       <div>{transaction.name}: </div>
+                      <Progress
+                        className="w-[60%]"
+                        value={
+                          (transaction.paidAmount / transaction.amount) * 100
+                        }
+                      />
                       <div>
                         {Math.round(
                           (transaction.paidAmount / transaction.amount) * 100
