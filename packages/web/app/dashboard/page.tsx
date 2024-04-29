@@ -53,7 +53,9 @@ const Modal = ({ isOpen, onClose, category }: ModalProps) => {
 
 const dashboardUrl = 'http://localhost:3001/api/v1/transactionPayments';
 
-const useMockedData = process.env.NEXT_PUBLIC_USE_MOCKED_DATA || false;
+const useMockedData = process.env.NEXT_PUBLIC_USE_MOCKED_DATA;
+
+console.log(useMockedData);
 
 const fetchDashboardCategories = async () => {
   try {
