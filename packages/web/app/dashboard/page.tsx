@@ -22,10 +22,19 @@ const Modal = ({ isOpen, onClose, category }: ModalProps) => {
           <h2 className="text-xl font-bold">{name}</h2>
           <button onClick={onClose}>X</button>
         </div>
-        <div className="mb-8">
+        <div className="flex flex-col mb-8">
           {transactions.map((transaction: any) => (
-            <div key={transaction._id}>
-              <div>{transaction.name}</div>
+            <div
+              key={transaction._id}
+              className="flex flex-row items-center justify-between"
+            >
+              <div>{transaction.name}: </div>
+              <div>
+                {Math.round(
+                  (transaction.paidAmount / transaction.amount) * 100
+                )}
+                %
+              </div>
             </div>
           ))}
         </div>
@@ -97,7 +106,16 @@ const Dashboard = () => {
           <div key={category._id} onClick={() => openModal(category)}>
             <div className="border-2 border-solid rounded-lg p-8 m-2">
               <div>{category.name}</div>
-              <div>{category.totalAmount}</div>
+              <div>
+                {category.totalAmount} {dashboardMainData.currency}
+              </div>
+              <div>Settled</div>
+              <div>
+                {Math.round(
+                  (category.totalPaidAmount / category.totalAmount) * 100
+                )}
+                %
+              </div>
             </div>
           </div>
         ))}
