@@ -3,59 +3,27 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import transactionPaymentsData from '../../mockData/transactionPayments.json';
-
-type ModalProps = {
-  isOpen: boolean;
-  onClose: () => void;
-  category: any;
-};
-
-const Modal = ({ isOpen, onClose, category }: ModalProps) => {
-  if (!isOpen) return null;
-
-  const { name, transactions } = category;
-
-  return (
-    <div className="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-75">
-      <div className="bg-black p-8 rounded-lg">
-        <div className="flex flex-row items-center align-middle justify-between mb-8">
-          <h2 className="text-xl font-bold">{name}</h2>
-          <button onClick={onClose}>X</button>
-        </div>
-        <div className="flex flex-col mb-8">
-          {transactions.map((transaction: any) => (
-            <div
-              key={transaction._id}
-              className="flex flex-row items-center justify-between"
-            >
-              <div>{transaction.name}: </div>
-              <div>
-                {Math.round(
-                  (transaction.paidAmount / transaction.amount) * 100
-                )}
-                %
-              </div>
-            </div>
-          ))}
-        </div>
-        <div className="flex flex-col items-end">
-          <button
-            className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-            onClick={onClose}
-          >
-            Close
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-};
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle
+} from '@/components/ui/card';
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger
+} from '@/components/ui/dialog';
+import { Button } from '@/components/ui/button';
 
 const dashboardUrl = 'http://localhost:3001/api/v1/transactionPayments';
 
-const useMockedData = process.env.NEXT_PUBLIC_USE_MOCKED_DATA;
-
-console.log(useMockedData);
+const useMockedData = process.env.NEXT_PUBLIC_USE_MOCKED_DATA === 'true';
 
 const fetchDashboardCategories = async () => {
   try {
@@ -82,8 +50,6 @@ const fetchDashboardCategories = async () => {
 const Dashboard = () => {
   const [dashboardMainData, setDashboardMainData] = useState({});
   const [dashboardCategories, setDashboardCategories] = useState([]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [dashboardCategory, setDashboardCategory] = useState({});
 
   useEffect(() => {
     const fetchInitialData = async () => {
@@ -96,38 +62,62 @@ const Dashboard = () => {
     fetchInitialData();
   }, []);
 
-  const openModal = (category: any) => {
-    setIsModalOpen(true);
-    setDashboardCategory(category);
-  };
-
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="flex flex-row align-middle">
+      <div className="flex flex-row">
         {dashboardCategories.map((category: any) => (
-          <div key={category._id} onClick={() => openModal(category)}>
-            <div className="border-2 border-solid rounded-lg p-8 m-2">
-              <div>{category.name}</div>
-              <div>
-                {category.totalAmount} {dashboardMainData.currency}
-              </div>
-              <div>Settled</div>
-              <div>
-                {Math.round(
-                  (category.totalPaidAmount / category.totalAmount) * 100
-                )}
-                %
-              </div>
-            </div>
+          <div className="p-5" key={category._id}>
+            <Dialog>
+              <DialogTrigger>
+                <Card>
+                  <CardHeader>
+                    <CardTitle>{category.name}</CardTitle>
+                    <CardDescription>
+                      {category.totalAmount.toFixed(2)}{' '}
+                      {dashboardMainData.currency}
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div>Settled</div>
+                    <div>
+                      {Math.round(
+                        (category.totalPaidAmount / category.totalAmount) * 100
+                      )}
+                      %
+                    </div>
+                  </CardContent>
+                </Card>
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>{category.name}</DialogTitle>
+                </DialogHeader>
+                <div className="flex flex-col mb-8">
+                  {category.transactions.map((transaction: any) => (
+                    <div
+                      key={transaction._id}
+                      className="flex flex-row items-center justify-between"
+                    >
+                      <div>{transaction.name}: </div>
+                      <div>
+                        {Math.round(
+                          (transaction.paidAmount / transaction.amount) * 100
+                        )}
+                        %
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <DialogFooter>
+                  <DialogClose>
+                    <Button>OK</Button>
+                  </DialogClose>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
           </div>
         ))}
       </div>
-
-      <Modal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        category={dashboardCategory}
-      />
     </main>
   );
 };
