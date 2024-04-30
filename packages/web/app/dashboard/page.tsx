@@ -21,6 +21,7 @@ import {
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
+import { CheckIcon, HandCoinsIcon } from 'lucide-react';
 
 const dashboardUrl = 'http://localhost:3001/api/v1/transactionPayments';
 
@@ -65,7 +66,7 @@ const Dashboard = () => {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="flex flex-row">
+      <div className="grid grid-cols-2 gap-6">
         {dashboardCategories.map((category: any) => (
           <div className="p-5" key={category._id}>
             <Dialog>
@@ -103,24 +104,37 @@ const Dashboard = () => {
                 <DialogHeader>
                   <DialogTitle>{category.name}</DialogTitle>
                 </DialogHeader>
-                <div className="flex flex-col mb-8">
+                <div className="flex flex-col">
                   {category.transactions.map((transaction: any) => (
                     <div
                       key={transaction._id}
-                      className="flex flex-row items-center justify-between"
+                      // className="grid grid-flow-col auto-cols-max grid-cols-5 gap-2 items-center justify-stretch"
+                      className="grid grid-cols-8 gap-2 items-center justify-stretch"
                     >
-                      <div>{transaction.name}: </div>
-                      <Progress
-                        className="w-[60%]"
-                        value={
-                          (transaction.paidAmount / transaction.amount) * 100
-                        }
-                      />
-                      <div>
+                      <div className="col-span-2">{transaction.name}</div>
+                      <div className="text-center">{transaction.amount}</div>
+                      <div className="col-span-2">
+                        <Progress
+                          value={
+                            (transaction.paidAmount / transaction.amount) * 100
+                          }
+                        />
+                      </div>
+                      <div className="text-center">
                         {Math.round(
                           (transaction.paidAmount / transaction.amount) * 100
                         )}
                         %
+                      </div>
+                      <div className="text-end">
+                        <Button variant="outline" size="icon">
+                          <HandCoinsIcon className="h-4 w-4" />
+                        </Button>
+                      </div>
+                      <div className="text-end">
+                        <Button variant="outline" size="icon">
+                          <CheckIcon className="h-4 w-4" />
+                        </Button>
                       </div>
                     </div>
                   ))}
