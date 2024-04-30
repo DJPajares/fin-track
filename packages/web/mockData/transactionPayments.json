@@ -56,6 +56,52 @@
           "paidAmount": 150
         }
       ]
+    },
+    {
+      "_id": "123catc",
+      "name": "Credit Card",
+      "totalAmount": 25000,
+      "totalPaidAmount": 5000,
+      "transactions": [
+        {
+          "_id": "123catc1",
+          "name": "UOB",
+          "amount": 10000,
+          "paidAmount": 2000
+        },
+        {
+          "_id": "123catc2",
+          "name": "Standard Chartered",
+          "amount": 5000,
+          "paidAmount": 1250
+        },
+        {
+          "_id": "123catc3",
+          "name": "HSBC",
+          "amount": 5000,
+          "paidAmount": 1750
+        },
+        {
+          "_id": "123catc4",
+          "name": "Citibank",
+          "amount": 5000,
+          "paidAmount": 500
+        }
+      ]
+    },
+    {
+      "_id": "123catd",
+      "name": "Healthcare",
+      "totalAmount": 12000,
+      "totalPaidAmount": 12000,
+      "transactions": [
+        {
+          "_id": "123catd1",
+          "name": "AIA",
+          "amount": 12000,
+          "paidAmount": 12000
+        }
+      ]
     }
   ]
 }
