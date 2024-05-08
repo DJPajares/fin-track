@@ -3,6 +3,7 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import transactionPaymentsData from '../../mockData/transactionPayments.json';
+import { formatCurrency } from '../../../shared/utilities/formatCurrency';
 import {
   Card,
   CardContent,
@@ -85,8 +86,10 @@ const Dashboard = () => {
               <CardHeader>
                 <CardTitle>{category.name}</CardTitle>
                 <CardDescription>
-                  {Math.round(category.totalAmount)}{' '}
-                  {dashboardMainData.currency}
+                  {formatCurrency({
+                    value: category.totalAmount,
+                    currency: dashboardMainData.currency
+                  })}
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -126,7 +129,10 @@ const Dashboard = () => {
                   >
                     <div className="col-span-2">{transaction.name}</div>
                     <div className="text-right">
-                      {Math.round(transaction.amount)}
+                      {formatCurrency({
+                        value: transaction.amount,
+                        currency: dashboardMainData.currency
+                      })}
                     </div>
                     <div className="col-span-2">
                       <Progress
