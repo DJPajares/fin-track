@@ -86,12 +86,22 @@ const Dashboard = () => {
         </div>
 
         <div className="text-right">
-          <p>{dashboardMainData.balance}</p>
-          <p>{dashboardMainData.extra}</p>
+          <p>
+            {formatCurrency({
+              value: dashboardMainData.balance,
+              currency: dashboardMainData.currency
+            })}
+          </p>
+          <p>
+            {formatCurrency({
+              value: dashboardMainData.extra,
+              currency: dashboardMainData.currency
+            })}
+          </p>
         </div>
 
         <div className="col-span-2">
-          <div className="flex flex-row items-center justify-between">
+          <div className="flex flex-row items-center">
             <Progress
               value={
                 (dashboardMainData.totalPaidAmount /
@@ -117,13 +127,13 @@ const Dashboard = () => {
           <div className="p-5" key={category._id}>
             <Card onClick={() => handleCardClick(category)}>
               <CardHeader>
-                <CardTitle>{category.name}</CardTitle>
-                <CardDescription>
+                <CardDescription>{category.name}</CardDescription>
+                <CardTitle>
                   {formatCurrency({
                     value: category.totalAmount,
                     currency: dashboardMainData.currency
                   })}
-                </CardDescription>
+                </CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-xs text-gray-500">Settled</p>
