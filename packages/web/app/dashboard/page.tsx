@@ -78,7 +78,40 @@ const Dashboard = () => {
   };
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between">
+    <main className="flex min-h-screen flex-col items-center justify-around">
+      <div className="grid grid-cols-2 gap-2">
+        <div>
+          <p>Balance</p>
+          <p>Extra</p>
+        </div>
+
+        <div className="text-right">
+          <p>{dashboardMainData.balance}</p>
+          <p>{dashboardMainData.extra}</p>
+        </div>
+
+        <div className="col-span-2">
+          <div className="flex flex-row items-center justify-between">
+            <Progress
+              value={
+                (dashboardMainData.totalPaidAmount /
+                  dashboardMainData.totalAmount) *
+                100
+              }
+            />
+
+            <p className="text-xs pr-2">
+              {Math.round(
+                (dashboardMainData.totalPaidAmount /
+                  dashboardMainData.totalAmount) *
+                  100
+              )}
+              %
+            </p>
+          </div>
+        </div>
+      </div>
+
       <div className="grid grid-cols-2 sm:gap-1 lg:gap-6 items-start justify-center">
         {dashboardCategories.map((category: any) => (
           <div className="p-5" key={category._id}>
@@ -125,27 +158,32 @@ const Dashboard = () => {
                   <div
                     key={transaction._id}
                     // className="grid grid-flow-col auto-cols-max grid-cols-5 gap-2 items-center justify-stretch"
-                    className="grid grid-cols-8 gap-2 items-center py-1"
+                    className="grid grid-cols-9 gap-2 items-center py-1"
                   >
                     <div className="col-span-2">{transaction.name}</div>
-                    <div className="text-right">
-                      {formatCurrency({
-                        value: transaction.amount,
-                        currency: dashboardMainData.currency
-                      })}
+                    <div className="col-span-2 text-right">
+                      <p className="text-sm">
+                        {formatCurrency({
+                          value: transaction.amount,
+                          currency: dashboardMainData.currency
+                        })}
+                      </p>
                     </div>
                     <div className="col-span-2">
                       <Progress
                         value={
                           (transaction.paidAmount / transaction.amount) * 100
                         }
+                        className="h-3"
                       />
                     </div>
                     <div className="text-left">
-                      {Math.round(
-                        (transaction.paidAmount / transaction.amount) * 100
-                      )}
-                      %
+                      <p className="text-xs">
+                        {Math.round(
+                          (transaction.paidAmount / transaction.amount) * 100
+                        )}
+                        %
+                      </p>
                     </div>
                     <div className="flex flex-row justify-end col-span-2">
                       <Button variant="outline" size="icon">
