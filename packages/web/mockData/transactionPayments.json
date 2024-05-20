@@ -5,55 +5,52 @@
     "totalAmount": 2000,
     "totalPaidAmount": 1000,
     "balance": 2000,
-    "extra": 1000,
-    "paymentCompletionRate": 0.5
+    "extra": 1000
   },
   "categories": [
     {
       "_id": "123cata",
       "name": "Family",
       "totalAmount": 500,
-      "totalPaidAmount": 250,
-      "paymentCompletionRate": 0.5,
+      "totalPaidAmount": 0,
       "transactions": [
         {
           "_id": "123cata1",
           "name": "Papa meds",
           "amount": 300,
-          "paidAmount": 200
+          "paidAmount": 0
         },
         {
           "_id": "123cata2",
           "name": "Mama meds",
           "amount": 200,
-          "paidAmount": 50
+          "paidAmount": 0
         }
       ]
     },
     {
       "_id": "123catb",
       "name": "Utilities",
-      "totalAmount": 1500,
-      "totalPaidAmount": 500,
-      "paymentCompletionRate": 0.3333,
+      "totalAmount": 2500,
+      "totalPaidAmount": 1000,
       "transactions": [
         {
           "_id": "123catb1",
           "name": "Mobile",
-          "amount": 500,
+          "amount": 750,
           "paidAmount": 200
         },
         {
           "_id": "123catb2",
           "name": "Broadband",
           "amount": 500,
-          "paidAmount": 150
+          "paidAmount": 0
         },
         {
           "_id": "123catb3",
           "name": "PUB",
-          "amount": 500,
-          "paidAmount": 150
+          "amount": 1300,
+          "paidAmount": 800
         }
       ]
     },
@@ -61,13 +58,13 @@
       "_id": "123catc",
       "name": "Credit Card",
       "totalAmount": 25000,
-      "totalPaidAmount": 5000,
+      "totalPaidAmount": 13000,
       "transactions": [
         {
           "_id": "123catc1",
           "name": "UOB",
           "amount": 10000,
-          "paidAmount": 2000
+          "paidAmount": 9500
         },
         {
           "_id": "123catc2",
