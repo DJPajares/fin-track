@@ -5,12 +5,15 @@ type FormatCurrencyProps = {
   currency: string;
 };
 
-export const formatCurrency = ({ value, currency }: FormatCurrencyProps) => {
+export const formatCurrency = ({
+  value,
+  currency = 'PHP'
+}: FormatCurrencyProps) => {
   const locale =
     currencyLocaleMapping[currency as keyof typeof currencyLocaleMapping];
 
   return new Intl.NumberFormat(locale, {
     style: 'currency',
-    currency: currency
+    currency
   }).format(value);
 };
