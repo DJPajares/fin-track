@@ -1,11 +1,16 @@
-type RateProps = Record<string, number>;
+type ConvertCurrencyProps = {
+  value: number;
+  fromCurrency: string;
+  toCurrency: string;
+  rates: Record<string, number>;
+};
 
-const convertCurrency = (
-  value: number,
-  fromCurrency: string,
-  toCurrency: string,
-  rates: RateProps
-): number => {
+const convertCurrency = ({
+  value,
+  fromCurrency,
+  toCurrency,
+  rates
+}: ConvertCurrencyProps): number => {
   const valueInUsd = value / rates[fromCurrency];
 
   const convertedValue =
