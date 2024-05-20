@@ -1,10 +1,7 @@
 import { Types } from 'mongoose';
 import { CategoryModel, CategoryProps } from '../../models/v1/categoryModel';
 import { CurrencyModel, CurrencyProps } from '../../models/v1/currencyModel';
-import {
-  ExchangeRateModel,
-  ExchangeRateProps
-} from '../../models/v1/exchangeRateModel';
+import { ExchangeRateModel } from '../../models/v1/exchangeRateModel';
 import { PaymentModel, PaymentProps } from '../../models/v1/paymentModel';
 import {
   TransactionModel,
@@ -18,49 +15,36 @@ type TransactionPaymentProps = {
   currency: string;
 };
 
-// type IncomeTransactionsProps = {
-//   _id: TransactionProps['_id'];
-//   name: TransactionProps['name'];
-//   categoryId: CategoryProps['_id'];
-//   category: CategoryProps['name'];
-//   typeId: TypeProps['_id'];
-//   type: TypeProps['name'];
-//   amount: TransactionProps['amount'];
-//   currencyId: CurrencyProps['_id'];
-//   currency: CurrencyProps['name'];
-//   description: TransactionProps['description'];
-//   recurring: TransactionProps['recurring'];
-//   startDate: TransactionProps['startDate'];
-//   endDate: TransactionProps['endDate'];
-//   excludedDates: TransactionProps['excludedDates'];
-// }[];
+type IncomeTransactionsProps = TransactionProps & {
+  categoryId: CategoryProps['_id'];
+  category: CategoryProps['name'];
+  typeId: TypeProps['_id'];
+  type: TypeProps['name'];
+  currencyId: CurrencyProps['_id'];
+  currency: CurrencyProps['name'];
+};
 
-type IncomeTransactionsProps = TransactionProps[] &
-  {
-    categoryId: CategoryProps['_id'];
-    category: CategoryProps['name'];
-    typeId: TypeProps['_id'];
-    type: TypeProps['name'];
-    currencyId: CurrencyProps['_id'];
-    currency: CurrencyProps['name'];
-  }[];
+type ExpenseTransactionPaymentsProps = TransactionProps & {
+  categoryId: CategoryProps['_id'];
+  category: CategoryProps['name'];
+  typeId: TypeProps['_id'];
+  type: TypeProps['name'];
+  currencyId: CurrencyProps['_id'];
+  currency: CurrencyProps['name'];
+  paidAmount: PaymentProps['amount'];
+  paidCurrencyId: CurrencyProps['_id'];
+  paidCurrency: CurrencyProps['name'];
+};
 
-type ExpenseTransactionPaymentsProps = TransactionProps[] &
-  {
-    categoryId: CategoryProps['_id'];
-    category: CategoryProps['name'];
-    typeId: TypeProps['_id'];
-    type: TypeProps['name'];
-    currencyId: CurrencyProps['_id'];
-    currency: CurrencyProps['name'];
-    paidAmount: PaymentProps['amount'];
-    paidCurrencyId: CurrencyProps['_id'];
-    paidCurrency: CurrencyProps['name'];
-  }[];
+type ProcessTransactionPaymentDataProps = {
+  incomeTransactions: IncomeTransactionsProps[];
+  expenseTransactionPayments: ExpenseTransactionPaymentsProps[];
+  rates: Record<string, number>;
+  currency: string;
+};
 
 const fetchTransactionPayments = async (data: TransactionPaymentProps) => {
   const date = new Date(data.date);
-  const currency = data.currency;
 
   const incomeTransactions = await TransactionModel.aggregate([
     {
@@ -252,24 +236,33 @@ const fetchTransactionPayments = async (data: TransactionPaymentProps) => {
   });
   const rates = latestExchangeRates?.rates || {};
 
-  return processTransactionPaymentData(
+  const output = processTransactionPaymentData({
     incomeTransactions,
     expenseTransactionPayments,
-    rates
-  );
+    rates,
+    currency: data.currency
+  });
+
+  return output;
 };
 
-const processTransactionPaymentData = (
-  incomeTransactions: IncomeTransactionsProps,
-  expenseTransactionPayments: ExpenseTransactionPaymentsProps,
-  rates: ExchangeRateProps
-) => {
+const processTransactionPaymentData = ({
+  incomeTransactions,
+  expenseTransactionPayments,
+  rates,
+  currency
+}: ProcessTransactionPaymentDataProps) => {
   const budget = incomeTransactions.reduce(
-    (accumulator, incomeTransaction, rates) => {
-      const value = parseFloat(incomeTransaction.amount);
+    (accumulator: number, incomeTransaction: IncomeTransactionsProps) => {
+      const value = parseFloat(incomeTransaction.amount.toString());
       const fromCurrency = incomeTransaction.currency;
 
-      const amount = convertCurrency(value, fromCurrency, currency, rates);
+      const amount = convertCurrency({
+        value,
+        fromCurrency,
+        toCurrency: currency,
+        rates
+      });
 
       return accumulator + amount;
     },
@@ -279,33 +272,37 @@ const processTransactionPaymentData = (
   let totalAmount = 0;
   let totalPaidAmount = 0;
 
-  expenseTransactionPayments.forEach((expenseTransactionPayment) => {
-    if (expenseTransactionPayment.amount) {
-      const totalAmountValue = parseFloat(expenseTransactionPayment.amount);
-      const totalAmountCurrency = expenseTransactionPayment.currency;
+  expenseTransactionPayments.forEach(
+    (expenseTransactionPayment: ExpenseTransactionPaymentsProps) => {
+      if (expenseTransactionPayment.amount) {
+        const totalAmountValue = parseFloat(
+          expenseTransactionPayment.amount.toString()
+        );
+        const totalAmountCurrency = expenseTransactionPayment.currency;
 
-      totalAmount += convertCurrency(
-        totalAmountValue,
-        totalAmountCurrency,
-        currency,
-        rates
-      );
+        totalAmount += convertCurrency({
+          value: totalAmountValue,
+          fromCurrency: totalAmountCurrency,
+          toCurrency: currency,
+          rates
+        });
+      }
+
+      if (expenseTransactionPayment.paidAmount) {
+        const totalPaidAmountValue = parseFloat(
+          expenseTransactionPayment.paidAmount.toString()
+        );
+        const totalPaidAmountCurrency = expenseTransactionPayment.paidCurrency;
+
+        totalPaidAmount += convertCurrency({
+          value: totalPaidAmountValue,
+          fromCurrency: totalPaidAmountCurrency,
+          toCurrency: currency,
+          rates
+        });
+      }
     }
-
-    if (expenseTransactionPayment.paidAmount) {
-      const totalPaidAmountValue = parseFloat(
-        expenseTransactionPayment.paidAmount
-      );
-      const totalPaidAmountCurrency = expenseTransactionPayment.paidCurrency;
-
-      totalPaidAmount += convertCurrency(
-        totalPaidAmountValue,
-        totalPaidAmountCurrency,
-        currency,
-        rates
-      );
-    }
-  });
+  );
 
   const main = {
     currency,
@@ -319,8 +316,11 @@ const processTransactionPaymentData = (
 
   const categories = Object.values(
     expenseTransactionPayments.reduce(
-      (accumulator, expenseTransactionPayment) => {
-        const key = expenseTransactionPayment.categoryId;
+      (
+        accumulator: any,
+        expenseTransactionPayment: ExpenseTransactionPaymentsProps
+      ) => {
+        const key = expenseTransactionPayment.categoryId.toString();
 
         if (!accumulator[key]) {
           accumulator[key] = {
@@ -339,38 +339,36 @@ const processTransactionPaymentData = (
           const amountCurrency = expenseTransactionPayment.currency;
 
           const transactionAmount = parseFloat(
-            expenseTransactionPayment.amount
+            expenseTransactionPayment.amount.toString()
           );
 
           amount =
             currency === amountCurrency
               ? transactionAmount
-              : convertCurrency(
-                  transactionAmount,
-                  amountCurrency,
-                  currency,
+              : convertCurrency({
+                  value: transactionAmount,
+                  fromCurrency: amountCurrency,
+                  toCurrency: currency,
                   rates
-                );
+                });
         }
 
         let paidAmount = 0;
-
         if (expenseTransactionPayment.paidAmount) {
-          const paidCurrency = expenseTransactionPayment.paidCurrency;
-
           const transactionPaidAmount = parseFloat(
-            expenseTransactionPayment.paidAmount
+            expenseTransactionPayment.paidAmount.toString()
           );
+          const paidCurrency = expenseTransactionPayment.paidCurrency;
 
           paidAmount =
             currency === paidCurrency
               ? transactionPaidAmount
-              : convertCurrency(
-                  transactionPaidAmount,
-                  paidCurrency,
-                  currency,
+              : convertCurrency({
+                  value: transactionPaidAmount,
+                  fromCurrency: paidCurrency,
+                  toCurrency: currency,
                   rates
-                );
+                });
         }
 
         const transaction = {
