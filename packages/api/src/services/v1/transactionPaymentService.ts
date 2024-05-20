@@ -1,15 +1,62 @@
-import { CategoryModel } from '../../models/v1/categoryModel';
-import { CurrencyModel } from '../../models/v1/currencyModel';
-import { ExchangeRateModel } from '../../models/v1/exchangeRateModel';
-import { PaymentModel } from '../../models/v1/paymentModel';
-import { TransactionModel } from '../../models/v1/transactionModel';
-import { TypeModel } from '../../models/v1/typeModel';
+import { Types } from 'mongoose';
+import { CategoryModel, CategoryProps } from '../../models/v1/categoryModel';
+import { CurrencyModel, CurrencyProps } from '../../models/v1/currencyModel';
+import {
+  ExchangeRateModel,
+  ExchangeRateProps
+} from '../../models/v1/exchangeRateModel';
+import { PaymentModel, PaymentProps } from '../../models/v1/paymentModel';
+import {
+  TransactionModel,
+  TransactionProps
+} from '../../models/v1/transactionModel';
+import { TypeModel, TypeProps } from '../../models/v1/typeModel';
 import convertCurrency from '../../utilities/convertCurrency';
 
 type TransactionPaymentProps = {
   date: Date;
   currency: string;
 };
+
+// type IncomeTransactionsProps = {
+//   _id: TransactionProps['_id'];
+//   name: TransactionProps['name'];
+//   categoryId: CategoryProps['_id'];
+//   category: CategoryProps['name'];
+//   typeId: TypeProps['_id'];
+//   type: TypeProps['name'];
+//   amount: TransactionProps['amount'];
+//   currencyId: CurrencyProps['_id'];
+//   currency: CurrencyProps['name'];
+//   description: TransactionProps['description'];
+//   recurring: TransactionProps['recurring'];
+//   startDate: TransactionProps['startDate'];
+//   endDate: TransactionProps['endDate'];
+//   excludedDates: TransactionProps['excludedDates'];
+// }[];
+
+type IncomeTransactionsProps = TransactionProps[] &
+  {
+    categoryId: CategoryProps['_id'];
+    category: CategoryProps['name'];
+    typeId: TypeProps['_id'];
+    type: TypeProps['name'];
+    currencyId: CurrencyProps['_id'];
+    currency: CurrencyProps['name'];
+  }[];
+
+type ExpenseTransactionPaymentsProps = TransactionProps[] &
+  {
+    categoryId: CategoryProps['_id'];
+    category: CategoryProps['name'];
+    typeId: TypeProps['_id'];
+    type: TypeProps['name'];
+    currencyId: CurrencyProps['_id'];
+    currency: CurrencyProps['name'];
+    paidAmount: PaymentProps['amount'];
+    paidCurrencyId: CurrencyProps['_id'];
+    paidCurrency: CurrencyProps['name'];
+  }[];
 
 const fetchTransactionPayments = async (data: TransactionPaymentProps) => {
   const date = new Date(data.date);
@@ -205,144 +252,152 @@ const fetchTransactionPayments = async (data: TransactionPaymentProps) => {
   });
   const rates = latestExchangeRates?.rates || {};
 
-  const processTransactionPaymentData = () => {
-    const budget = incomeTransactions.reduce(
-      (accumulator, incomeTransaction) => {
-        const value = parseFloat(incomeTransaction.amount);
-        const fromCurrency = incomeTransaction.currency;
+  return processTransactionPaymentData(
+    incomeTransactions,
+    expenseTransactionPayments,
+    rates
+  );
+};
 
-        const amount = convertCurrency(value, fromCurrency, currency, rates);
+const processTransactionPaymentData = (
+  incomeTransactions: IncomeTransactionsProps,
+  expenseTransactionPayments: ExpenseTransactionPaymentsProps,
+  rates: ExchangeRateProps
+) => {
+  const budget = incomeTransactions.reduce(
+    (accumulator, incomeTransaction, rates) => {
+      const value = parseFloat(incomeTransaction.amount);
+      const fromCurrency = incomeTransaction.currency;
 
-        return accumulator + amount;
-      },
-      0
-    );
+      const amount = convertCurrency(value, fromCurrency, currency, rates);
 
-    let totalAmount = 0;
-    let totalPaidAmount = 0;
+      return accumulator + amount;
+    },
+    0
+  );
 
-    expenseTransactionPayments.forEach((expenseTransactionPayment) => {
-      if (expenseTransactionPayment.amount) {
-        const totalAmountValue = parseFloat(expenseTransactionPayment.amount);
-        const totalAmountCurrency = expenseTransactionPayment.currency;
+  let totalAmount = 0;
+  let totalPaidAmount = 0;
 
-        totalAmount += convertCurrency(
-          totalAmountValue,
-          totalAmountCurrency,
-          currency,
-          rates
-        );
-      }
+  expenseTransactionPayments.forEach((expenseTransactionPayment) => {
+    if (expenseTransactionPayment.amount) {
+      const totalAmountValue = parseFloat(expenseTransactionPayment.amount);
+      const totalAmountCurrency = expenseTransactionPayment.currency;
 
-      if (expenseTransactionPayment.paidAmount) {
-        const totalPaidAmountValue = parseFloat(
-          expenseTransactionPayment.paidAmount
-        );
-        const totalPaidAmountCurrency = expenseTransactionPayment.paidCurrency;
+      totalAmount += convertCurrency(
+        totalAmountValue,
+        totalAmountCurrency,
+        currency,
+        rates
+      );
+    }
 
-        totalPaidAmount += convertCurrency(
-          totalPaidAmountValue,
-          totalPaidAmountCurrency,
-          currency,
-          rates
-        );
-      }
-    });
+    if (expenseTransactionPayment.paidAmount) {
+      const totalPaidAmountValue = parseFloat(
+        expenseTransactionPayment.paidAmount
+      );
+      const totalPaidAmountCurrency = expenseTransactionPayment.paidCurrency;
 
-    const main = {
-      currency,
-      budget,
-      totalAmount,
-      totalPaidAmount,
-      balance: budget - totalPaidAmount,
-      extra: budget - totalAmount,
-      paymentCompletionRate: totalPaidAmount / totalAmount
-    };
+      totalPaidAmount += convertCurrency(
+        totalPaidAmountValue,
+        totalPaidAmountCurrency,
+        currency,
+        rates
+      );
+    }
+  });
 
-    const categories = Object.values(
-      expenseTransactionPayments.reduce(
-        (accumulator, expenseTransactionPayment) => {
-          const key = expenseTransactionPayment.categoryId;
-
-          if (!accumulator[key]) {
-            accumulator[key] = {
-              _id: expenseTransactionPayment.categoryId,
-              name: expenseTransactionPayment.category,
-              totalAmount: 0,
-              totalPaidAmount: 0,
-              paymentCompletionRate: 0,
-              transactions: []
-            };
-          }
-
-          let amount = 0;
-
-          if (expenseTransactionPayment.amount) {
-            const amountCurrency = expenseTransactionPayment.currency;
-
-            const transactionAmount = parseFloat(
-              expenseTransactionPayment.amount
-            );
-
-            amount =
-              currency === amountCurrency
-                ? transactionAmount
-                : convertCurrency(
-                    transactionAmount,
-                    amountCurrency,
-                    currency,
-                    rates
-                  );
-          }
-
-          let paidAmount = 0;
-
-          if (expenseTransactionPayment.paidAmount) {
-            const paidCurrency = expenseTransactionPayment.paidCurrency;
-
-            const transactionPaidAmount = parseFloat(
-              expenseTransactionPayment.paidAmount
-            );
-
-            paidAmount =
-              currency === paidCurrency
-                ? transactionPaidAmount
-                : convertCurrency(
-                    transactionPaidAmount,
-                    paidCurrency,
-                    currency,
-                    rates
-                  );
-          }
-
-          const transaction = {
-            _id: expenseTransactionPayment._id,
-            name: expenseTransactionPayment.name,
-            amount,
-            paidAmount
-          };
-
-          accumulator[key].transactions.push(transaction);
-          accumulator[key].totalAmount += transaction.amount;
-          accumulator[key].totalPaidAmount += transaction.paidAmount;
-          accumulator[key].paymentCompletionRate =
-            accumulator[key].totalPaidAmount / accumulator[key].totalAmount;
-
-          return accumulator;
-        },
-        {}
-      )
-    );
-
-    const output = {
-      main,
-      categories
-    };
-
-    return output;
+  const main = {
+    currency,
+    budget,
+    totalAmount,
+    totalPaidAmount,
+    balance: budget - totalPaidAmount,
+    extra: budget - totalAmount,
+    paymentCompletionRate: totalPaidAmount / totalAmount
   };
 
-  return processTransactionPaymentData();
+  const categories = Object.values(
+    expenseTransactionPayments.reduce(
+      (accumulator, expenseTransactionPayment) => {
+        const key = expenseTransactionPayment.categoryId;
+
+        if (!accumulator[key]) {
+          accumulator[key] = {
+            _id: expenseTransactionPayment.categoryId,
+            name: expenseTransactionPayment.category,
+            totalAmount: 0,
+            totalPaidAmount: 0,
+            paymentCompletionRate: 0,
+            transactions: []
+          };
+        }
+
+        let amount = 0;
+
+        if (expenseTransactionPayment.amount) {
+          const amountCurrency = expenseTransactionPayment.currency;
+
+          const transactionAmount = parseFloat(
+            expenseTransactionPayment.amount
+          );
+
+          amount =
+            currency === amountCurrency
+              ? transactionAmount
+              : convertCurrency(
+                  transactionAmount,
+                  amountCurrency,
+                  currency,
+                  rates
+                );
+        }
+
+        let paidAmount = 0;
+
+        if (expenseTransactionPayment.paidAmount) {
+          const paidCurrency = expenseTransactionPayment.paidCurrency;
+
+          const transactionPaidAmount = parseFloat(
+            expenseTransactionPayment.paidAmount
+          );
+
+          paidAmount =
+            currency === paidCurrency
+              ? transactionPaidAmount
+              : convertCurrency(
+                  transactionPaidAmount,
+                  paidCurrency,
+                  currency,
+                  rates
+                );
+        }
+
+        const transaction = {
+          _id: expenseTransactionPayment._id,
+          name: expenseTransactionPayment.name,
+          amount,
+          paidAmount
+        };
+
+        accumulator[key].transactions.push(transaction);
+        accumulator[key].totalAmount += transaction.amount;
+        accumulator[key].totalPaidAmount += transaction.paidAmount;
+        accumulator[key].paymentCompletionRate =
+          accumulator[key].totalPaidAmount / accumulator[key].totalAmount;
+
+        return accumulator;
+      },
+      {}
+    )
+  );
+
+  const output = {
+    main,
+    categories
+  };
+
+  return output;
 };
 
 export { fetchTransactionPayments };
