@@ -100,29 +100,29 @@ const Dashboard = () => {
           </p>
         </div>
 
-        <div className="col-span-2">
-          <div className="flex flex-row items-center">
-            <Progress
-              value={
-                (dashboardMainData.totalPaidAmount /
-                  dashboardMainData.totalAmount) *
+        <div className="col-span-2 pt-4">
+          <p className="text-2xl font-bold text-center">
+            {Math.round(
+              (dashboardMainData.totalPaidAmount /
+                dashboardMainData.totalAmount) *
                 100
-              }
-            />
+            )}
+            %
+          </p>
+        </div>
 
-            <p className="text-xs pr-2">
-              {Math.round(
-                (dashboardMainData.totalPaidAmount /
-                  dashboardMainData.totalAmount) *
-                  100
-              )}
-              %
-            </p>
-          </div>
+        <div className="col-span-2">
+          <Progress
+            value={
+              (dashboardMainData.totalPaidAmount /
+                dashboardMainData.totalAmount) *
+              100
+            }
+          />
         </div>
       </div>
 
-      <div className="grid grid-cols-2 sm:gap-1 lg:gap-6 items-start justify-center">
+      <div className="grid grid-cols-2 sm:gap-1 lg:gap-6 items-start justify-center cursor-pointer">
         {dashboardCategories.map((category: any) => (
           <div className="p-5" key={category._id}>
             <Card onClick={() => handleCardClick(category)}>
