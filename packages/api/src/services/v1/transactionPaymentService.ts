@@ -45,14 +45,49 @@ type ProcessTransactionPaymentDataProps = {
 
 const fetchTransactionPayments = async (data: TransactionPaymentProps) => {
   const date = new Date(data.date);
+  const year = new Date(date).getFullYear();
+  const month = new Date(date).getMonth() + 1;
 
   const incomeTransactions = await TransactionModel.aggregate([
     {
-      // Find transactions within the specified date range and exclude transactions with the specified date
+      // Find transactions within the specified date range and exclude transactions with the specified date (year-month)
       $match: {
-        startDate: { $lte: date },
-        endDate: { $gte: date },
-        excludedDates: { $nin: [date] }
+        $expr: {
+          $and: [
+            { $lte: [{ $year: '$startDate' }, year] },
+            { $lte: [{ $month: '$startDate' }, month] },
+            { $gte: [{ $year: '$endDate' }, year] },
+            { $gte: [{ $month: '$endDate' }, month] },
+            {
+              $not: {
+                $in: [
+                  month,
+                  {
+                    $map: {
+                      input: '$excludedDates',
+                      as: 'date',
+                      in: { $month: '$$date' }
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              $not: {
+                $in: [
+                  year,
+                  {
+                    $map: {
+                      input: '$excludedDates',
+                      as: 'date',
+                      in: { $year: '$$date' }
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
       }
     },
     {
@@ -122,11 +157,44 @@ const fetchTransactionPayments = async (data: TransactionPaymentProps) => {
 
   const expenseTransactionPayments = await TransactionModel.aggregate([
     {
-      // Find transactions within the specified date range and exclude transactions with the specified date
+      // Find transactions within the specified date range and exclude transactions with the specified date (year-month)
       $match: {
-        startDate: { $lte: date },
-        endDate: { $gte: date },
-        excludedDates: { $nin: [date] }
+        $expr: {
+          $and: [
+            { $lte: [{ $year: '$startDate' }, year] },
+            { $lte: [{ $month: '$startDate' }, month] },
+            { $gte: [{ $year: '$endDate' }, year] },
+            { $gte: [{ $month: '$endDate' }, month] },
+            {
+              $not: {
+                $in: [
+                  month,
+                  {
+                    $map: {
+                      input: '$excludedDates',
+                      as: 'date',
+                      in: { $month: '$$date' }
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              $not: {
+                $in: [
+                  year,
+                  {
+                    $map: {
+                      input: '$excludedDates',
+                      as: 'date',
+                      in: { $year: '$$date' }
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
       }
     },
     {
@@ -139,7 +207,12 @@ const fetchTransactionPayments = async (data: TransactionPaymentProps) => {
         pipeline: [
           {
             $match: {
-              date: { $gte: date }
+              $expr: {
+                $and: [
+                  { $gte: [{ $year: '$date' }, year] },
+                  { $gte: [{ $month: '$date' }, month] }
+                ]
+              }
             }
           }
         ]
