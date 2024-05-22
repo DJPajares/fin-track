@@ -21,7 +21,12 @@ import {
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
-import { CheckIcon, HandCoinsIcon, MenuIcon } from 'lucide-react';
+import {
+  CheckIcon,
+  ChevronDownIcon,
+  HandCoinsIcon,
+  MenuIcon
+} from 'lucide-react';
 import {
   TransactionPaymentMainProps,
   TransactionPaymentCategoryProps
@@ -36,6 +41,13 @@ import {
   SheetTitle,
   SheetTrigger
 } from '@/components/ui/sheet';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger
+} from '@/components/ui/popover';
+import { cn } from '@/lib/utils';
+import { Calendar } from '@/components/ui/calendar';
 
 const dashboardUrl = 'http://localhost:3001/api/v1/transactionPayments';
 
@@ -60,12 +72,11 @@ const initialCategoryData = {
   transactions: []
 };
 
-const fetchDashboardCategories = async () => {
+const fetchTransactionPayments = async (date: Date) => {
   try {
     if (useMockedData) {
       return transactionPaymentsData;
     } else {
-      const date = new Date();
       const currency = 'SGD';
 
       const { status, data } = await axios.post(dashboardUrl, {
@@ -89,17 +100,36 @@ const Dashboard = () => {
   const [dashboardCategory, setDashboardCategory] =
     useState<TransactionPaymentCategoryProps>(initialCategoryData);
   const [openDialog, setOpenDialog] = useState(false);
+  const [date, setDate] = useState(new Date());
+  const [openPopover, setOpenPopover] = useState(false);
 
   useEffect(() => {
-    const fetchInitialData = async () => {
-      const { main, categories } = await fetchDashboardCategories();
-
-      setDashboardCategories(categories);
-      setDashboardMainData(main);
-    };
-
-    fetchInitialData();
+    fetchDashboardData(date);
   }, []);
+
+  const fetchDashboardData = async (date: Date) => {
+    const { main, categories } = await fetchTransactionPayments(date);
+
+    setDashboardCategories(categories);
+    setDashboardMainData(main);
+  };
+
+  const formatDate = (newDate: Date) => {
+    const year = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(
+      newDate
+    );
+    const month = new Intl.DateTimeFormat('en', { month: 'short' }).format(
+      newDate
+    );
+
+    return `${month} ${year}`;
+  };
+
+  const changeDate = async (newDate: Date) => {
+    setDate(newDate);
+    setOpenPopover(false);
+    await fetchDashboardData(newDate);
+  };
 
   const handleCardClick = (category: any) => {
     setDashboardCategory(category);
@@ -112,6 +142,7 @@ const Dashboard = () => {
 
   return (
     <main className="flex flex-col min-h-screen">
+      {/* MAIN MENU */}
       <div className="flex flex-row justify-end p-2">
         <Sheet>
           <SheetTrigger asChild>
@@ -133,7 +164,29 @@ const Dashboard = () => {
           </SheetContent>
         </Sheet>
       </div>
+
+      {/* CONTENT */}
       <div className="flex flex-col justify-between p-10">
+        <Popover open={openPopover}>
+          <PopoverTrigger asChild>
+            <div
+              className="flex flex-row items-center"
+              onClick={() => setOpenPopover(!openPopover)}
+            >
+              <p className="text-2xl font-bold pr-2">{formatDate(date)}</p>
+              <ChevronDownIcon className="h-4 w-4" />
+            </div>
+          </PopoverTrigger>
+          <PopoverContent className="w-auto p-0" align="start">
+            <Calendar
+              mode="single"
+              selected={date}
+              onSelect={changeDate}
+              initialFocus
+            />
+          </PopoverContent>
+        </Popover>
+
         <div className="flex flex-col justify-around">
           <div className="flex flex-row items-center justify-between">
             <p className="text-xl font-medium">Balance</p>
