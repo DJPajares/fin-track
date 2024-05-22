@@ -3,7 +3,7 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import transactionPaymentsData from '../../mockData/transactionPayments.json';
-import { formatCurrency } from '../../../shared/utilities/formatCurrency';
+import { formatCurrency } from '../../../../shared/utilities/formatCurrency';
 import {
   Card,
   CardContent,
@@ -17,17 +17,38 @@ import {
   DialogContent,
   DialogFooter,
   DialogHeader,
-  DialogTitle,
-  DialogTrigger
+  DialogTitle
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { CheckIcon, HandCoinsIcon } from 'lucide-react';
-import { Separator } from '@/components/ui/separator';
+import {
+  TransactionPaymentMainProps,
+  TransactionPaymentCategoryProps
+} from '../../../../shared/types/transactionPaymentTypes';
 
 const dashboardUrl = 'http://localhost:3001/api/v1/transactionPayments';
 
 const useMockedData = process.env.NEXT_PUBLIC_USE_MOCKED_DATA === 'true';
+
+const initialMainData = {
+  currency: 'PHP',
+  budget: 0,
+  totalAmount: 0,
+  totalPaidAmount: 0,
+  balance: 0,
+  extra: 0,
+  paymentCompletionRate: 0
+};
+
+const initialCategoryData = {
+  _id: '',
+  name: '',
+  totalAmount: 0,
+  totalPaidAmount: 0,
+  paymentCompletionRate: 0,
+  transactions: []
+};
 
 const fetchDashboardCategories = async () => {
   try {
@@ -52,9 +73,11 @@ const fetchDashboardCategories = async () => {
 };
 
 const Dashboard = () => {
-  const [dashboardMainData, setDashboardMainData] = useState({});
+  const [dashboardMainData, setDashboardMainData] =
+    useState<TransactionPaymentMainProps>(initialMainData);
   const [dashboardCategories, setDashboardCategories] = useState([]);
-  const [dashboardCategory, setDashboardCategory] = useState({});
+  const [dashboardCategory, setDashboardCategory] =
+    useState<TransactionPaymentCategoryProps>(initialCategoryData);
   const [openDialog, setOpenDialog] = useState(false);
 
   useEffect(() => {

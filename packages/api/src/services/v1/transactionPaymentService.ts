@@ -10,7 +10,7 @@ import {
 import { TypeModel, TypeProps } from '../../models/v1/typeModel';
 import convertCurrency from '../../utilities/convertCurrency';
 
-type TransactionPaymentProps = {
+type FetchTransactionPaymentProps = {
   date: Date;
   currency: string;
 };
@@ -43,7 +43,7 @@ type ProcessTransactionPaymentDataProps = {
   currency: string;
 };
 
-const fetchTransactionPayments = async (data: TransactionPaymentProps) => {
+const fetchTransactionPayments = async (data: FetchTransactionPaymentProps) => {
   const date = new Date(data.date);
   const year = new Date(date).getFullYear();
   const month = new Date(date).getMonth() + 1;
