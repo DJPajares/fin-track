@@ -1,4 +1,4 @@
-import currencyLocaleMapping from '../../../constants/currencyLocaleMapping';
+import currencyLocaleMapping from '../constants/currencyLocaleMapping';
 
 type FormatCurrencyProps = {
   value: number;
