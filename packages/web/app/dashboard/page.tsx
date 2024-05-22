@@ -56,7 +56,7 @@ const fetchDashboardCategories = async () => {
       return transactionPaymentsData;
     } else {
       const date = new Date();
-      const currency = 'SGD';
+      const currency = 'PHP';
 
       const { status, data } = await axios.post(dashboardUrl, {
         date,
@@ -101,21 +101,21 @@ const Dashboard = () => {
   };
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-around">
-      <div className="grid grid-cols-2 gap-2">
-        <div>
-          <p>Balance</p>
-          <p>Extra</p>
-        </div>
-
-        <div className="text-right">
-          <p>
+    <main className="flex min-h-screen flex-col justify-around p-10">
+      <div className="flex flex-col justify-around">
+        <div className="flex flex-row items-center justify-between">
+          <p className="text-xl font-medium">Balance</p>
+          <p className="text-xl font-medium">
             {formatCurrency({
               value: dashboardMainData.balance,
               currency: dashboardMainData.currency
             })}
           </p>
-          <p>
+        </div>
+
+        <div className="flex flex-row items-center justify-between">
+          <p className="text-sm">Extra</p>
+          <p className="text-sm">
             {formatCurrency({
               value: dashboardMainData.extra,
               currency: dashboardMainData.currency
@@ -123,25 +123,31 @@ const Dashboard = () => {
           </p>
         </div>
 
-        <div className="col-span-2 pt-4">
-          <p className="text-2xl font-bold text-center">
-            {Math.round(
-              (dashboardMainData.totalPaidAmount /
-                dashboardMainData.totalAmount) *
+        <div>
+          <div className="pt-8">
+            <Progress
+              value={
+                (dashboardMainData.totalPaidAmount /
+                  dashboardMainData.totalAmount) *
                 100
-            )}
-            %
-          </p>
-        </div>
+              }
+            />
+          </div>
 
-        <div className="col-span-2">
-          <Progress
-            value={
-              (dashboardMainData.totalPaidAmount /
-                dashboardMainData.totalAmount) *
-              100
-            }
-          />
+          <div className="pt-4">
+            <p className="text font-medium text-center">Completed</p>
+          </div>
+
+          <div>
+            <p className="text-2xl font-bold text-center">
+              {Math.round(
+                (dashboardMainData.totalPaidAmount /
+                  dashboardMainData.totalAmount) *
+                  100
+              )}
+              %
+            </p>
+          </div>
         </div>
       </div>
 
