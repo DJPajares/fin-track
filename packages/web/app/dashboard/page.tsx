@@ -56,7 +56,7 @@ const fetchDashboardCategories = async () => {
       return transactionPaymentsData;
     } else {
       const date = new Date();
-      const currency = 'PHP';
+      const currency = 'SGD';
 
       const { status, data } = await axios.post(dashboardUrl, {
         date,
@@ -140,7 +140,7 @@ const Dashboard = () => {
 
           <div>
             <p className="text-2xl font-bold text-center">
-              {Math.round(
+              {Math.floor(
                 (dashboardMainData.totalPaidAmount /
                   dashboardMainData.totalAmount) *
                   100
@@ -169,7 +169,7 @@ const Dashboard = () => {
                 {/* <Separator /> */}
                 <div className="flex flex-row items-center pt-2">
                   <p className="text-xs pr-2">
-                    {Math.round(
+                    {Math.floor(
                       (category.totalPaidAmount / category.totalAmount) * 100
                     )}
                     %
@@ -218,7 +218,7 @@ const Dashboard = () => {
                     </div>
                     <div className="text-left">
                       <p className="text-xs">
-                        {Math.round(
+                        {Math.floor(
                           (transaction.paidAmount / transaction.amount) * 100
                         )}
                         %
