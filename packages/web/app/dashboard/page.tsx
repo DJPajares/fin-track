@@ -48,6 +48,14 @@ import {
 } from '@/components/ui/popover';
 import { cn } from '@/lib/utils';
 import { Calendar } from '@/components/ui/calendar';
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList
+} from '@/components/ui/command';
 
 const dashboardUrl = 'http://localhost:3001/api/v1/transactionPayments';
 
@@ -72,12 +80,31 @@ const initialCategoryData = {
   transactions: []
 };
 
-const fetchTransactionPayments = async (date: Date) => {
+const currencies = [
+  {
+    id: 'sgd',
+    name: 'SGD'
+  },
+  {
+    id: 'php',
+    name: 'PHP'
+  },
+  {
+    id: 'usd',
+    name: 'USD'
+  },
+  {
+    id: 'jpy',
+    name: 'JPY'
+  }
+];
+
+const fetchTransactionPayments = async (date: Date, currency: string) => {
   try {
     if (useMockedData) {
       return transactionPaymentsData;
     } else {
-      const currency = 'SGD';
+      // const currency = 'SGD';
 
       const { status, data } = await axios.post(dashboardUrl, {
         date,
@@ -101,14 +128,16 @@ const Dashboard = () => {
     useState<TransactionPaymentCategoryProps>(initialCategoryData);
   const [openDialog, setOpenDialog] = useState(false);
   const [date, setDate] = useState(new Date());
-  const [openPopover, setOpenPopover] = useState(false);
+  const [openDatePopover, setOpenDatePopover] = useState(false);
+  const [currency, setCurrency] = useState('PHP');
+  const [openCurrencyPopover, setOpenCurrencyPopover] = useState(false);
 
   useEffect(() => {
-    fetchDashboardData(date);
+    fetchDashboardData(date, currency);
   }, []);
 
-  const fetchDashboardData = async (date: Date) => {
-    const { main, categories } = await fetchTransactionPayments(date);
+  const fetchDashboardData = async (date: Date, currency: string) => {
+    const { main, categories } = await fetchTransactionPayments(date, currency);
 
     setDashboardCategories(categories);
     setDashboardMainData(main);
@@ -127,8 +156,12 @@ const Dashboard = () => {
 
   const changeDate = async (newDate: Date) => {
     setDate(newDate);
-    setOpenPopover(false);
-    await fetchDashboardData(newDate);
+    setOpenDatePopover(false);
+    await fetchDashboardData(newDate, currency);
+  };
+
+  const changeCurrency = async (currency: string) => {
+    await fetchDashboardData(date, currency);
   };
 
   const handleCardClick = (category: any) => {
@@ -167,25 +200,63 @@ const Dashboard = () => {
 
       {/* CONTENT */}
       <div className="flex flex-col justify-between p-10">
-        <Popover open={openPopover}>
-          <PopoverTrigger asChild>
-            <div
-              className="flex flex-row items-center"
-              onClick={() => setOpenPopover(!openPopover)}
-            >
-              <p className="text-2xl font-bold pr-2">{formatDate(date)}</p>
-              <ChevronDownIcon className="h-4 w-4" />
-            </div>
-          </PopoverTrigger>
-          <PopoverContent className="w-auto p-0" align="start">
-            <Calendar
-              mode="single"
-              selected={date}
-              onSelect={changeDate}
-              initialFocus
-            />
-          </PopoverContent>
-        </Popover>
+        <div className="flex flex-row items-center justify-between">
+          <Popover open={openDatePopover} onOpenChange={setOpenDatePopover}>
+            <PopoverTrigger asChild>
+              <div className="flex flex-row items-center cursor-pointer">
+                <p className="text-2xl font-bold pr-2">{formatDate(date)}</p>
+                <ChevronDownIcon className="h-4 w-4" />
+              </div>
+            </PopoverTrigger>
+            <PopoverContent className="w-auto p-0" align="start">
+              <Calendar
+                mode="single"
+                selected={date}
+                onSelect={changeDate}
+                initialFocus
+              />
+            </PopoverContent>
+          </Popover>
+
+          <Popover
+            open={openCurrencyPopover}
+            onOpenChange={setOpenCurrencyPopover}
+          >
+            <PopoverTrigger asChild>
+              <div className="flex flex-row items-center cursor-pointer">
+                <p className="text-2xl font-bold">{currency}</p>
+              </div>
+            </PopoverTrigger>
+            <PopoverContent className="w-[200px] p-0">
+              <Command>
+                <CommandInput
+                  placeholder="Search framework..."
+                  className="h-9"
+                />
+                <CommandEmpty>No framework found</CommandEmpty>
+                <CommandGroup>
+                  <CommandList>
+                    {currencies.map((currency) => (
+                      <CommandItem
+                        key={currency.id}
+                        value={currency.name}
+                        onSelect={(currentValue: any) => {
+                          setCurrency(
+                            currentValue === currency ? '' : currentValue
+                          );
+                          setOpenCurrencyPopover(false);
+                          changeCurrency(currentValue);
+                        }}
+                      >
+                        {currency.name}
+                      </CommandItem>
+                    ))}
+                  </CommandList>
+                </CommandGroup>
+              </Command>
+            </PopoverContent>
+          </Popover>
+        </div>
 
         <div className="flex flex-col justify-around">
           <div className="flex flex-row items-center justify-between">
