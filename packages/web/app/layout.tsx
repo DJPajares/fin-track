@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 
 // These styles apply to every route in the application
 import './globals.css';
+import { Providers } from './provider';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -14,8 +15,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body>{children}</body>
+    <html lang="en" className="dark">
+      <body>
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }

@@ -57,6 +57,7 @@ import {
   CommandList
 } from '@/components/ui/command';
 import { formatDate } from '../../../../shared/utilities/formatDate';
+import { CircularProgress } from '@nextui-org/progress';
 
 const dashboardUrl = 'http://localhost:3001/api/v1/transactionPayments';
 
@@ -271,31 +272,30 @@ const Dashboard = () => {
             </p>
           </div>
 
-          <div>
-            <div className="pt-8">
-              <Progress
+          <div className="flex flex-col items-center">
+            {/* <Progress
                 value={
                   (dashboardMainData.totalPaidAmount /
                     dashboardMainData.totalAmount) *
                   100
                 }
-              />
-            </div>
-
-            <div className="pt-4">
-              <p className="text font-medium text-center">Completed</p>
-            </div>
-
-            <div>
-              <p className="text-2xl font-bold text-center">
-                {Math.floor(
-                  (dashboardMainData.totalPaidAmount /
-                    dashboardMainData.totalAmount) *
-                    100
-                ) || 0}
-                %
-              </p>
-            </div>
+              /> */}
+            <CircularProgress
+              classNames={{
+                svg: 'w-36 h-36 drop-shadow-md',
+                indicator: 'stroke-white',
+                track: 'stroke-white/10',
+                value: 'text-3xl font-semibold text-white'
+              }}
+              label="Completed"
+              value={
+                (dashboardMainData.totalPaidAmount /
+                  dashboardMainData.totalAmount) *
+                100
+              }
+              strokeWidth={4}
+              showValueLabel={true}
+            />
           </div>
         </div>
 
