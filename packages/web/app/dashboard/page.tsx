@@ -104,8 +104,6 @@ const fetchTransactionPayments = async (date: Date, currency: string) => {
     if (useMockedData) {
       return transactionPaymentsData;
     } else {
-      // const currency = 'SGD';
-
       const { status, data } = await axios.post(dashboardUrl, {
         date,
         currency
@@ -136,6 +134,10 @@ const Dashboard = () => {
     fetchDashboardData(date, currency);
   }, []);
 
+  useEffect(() => {
+    fetchDashboardData(date, currency);
+  }, [date, currency]);
+
   const fetchDashboardData = async (date: Date, currency: string) => {
     const { main, categories } = await fetchTransactionPayments(date, currency);
 
@@ -157,12 +159,12 @@ const Dashboard = () => {
   const changeDate = async (newDate: Date) => {
     setDate(newDate);
     setOpenDatePopover(false);
-    await fetchDashboardData(newDate, currency);
+    // await fetchDashboardData(newDate, currency);
   };
 
-  const changeCurrency = async (currency: string) => {
-    await fetchDashboardData(date, currency);
-  };
+  // const changeCurrency = async (currency: string) => {
+  //   await fetchDashboardData(date, currency);
+  // };
 
   const handleCardClick = (category: any) => {
     setDashboardCategory(category);
@@ -245,7 +247,7 @@ const Dashboard = () => {
                             currentValue === currency ? '' : currentValue
                           );
                           setOpenCurrencyPopover(false);
-                          changeCurrency(currentValue);
+                          // changeCurrency(currentValue);
                         }}
                       >
                         {currency.name}
