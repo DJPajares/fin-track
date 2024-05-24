@@ -99,6 +99,40 @@
           "paidAmount": 12000
         }
       ]
+    },
+    {
+      "_id": "123cate",
+      "name": "Subscriptions",
+      "totalAmount": 865.5,
+      "totalPaidAmount": 265.5,
+      "transactions": [
+        {
+          "_id": "123cate1",
+          "name": "Spotify",
+          "amount": 340,
+          "paidAmount": 240
+        },
+        {
+          "_id": "123cate2",
+          "name": "Netflix",
+          "amount": 525.5,
+          "paidAmount": 25.5
+        }
+      ]
+    },
+    {
+      "_id": "123catf",
+      "name": "Rent",
+      "totalAmount": 865.5,
+      "totalPaidAmount": 265.5,
+      "transactions": [
+        {
+          "_id": "123catf1",
+          "name": "Singapore, The Anchorage",
+          "amount": 225500,
+          "paidAmount": 225500
+        }
+      ]
     }
   ]
 }

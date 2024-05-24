@@ -20,7 +20,7 @@ import {
   DialogTitle
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
-import { Progress } from '@/components/ui/progress';
+// import { Progress } from '@/components/ui/progress';
 import {
   CheckIcon,
   ChevronDownIcon,
@@ -57,7 +57,15 @@ import {
   CommandList
 } from '@/components/ui/command';
 import { formatDate } from '../../../../shared/utilities/formatDate';
-import { CircularProgress } from '@nextui-org/progress';
+import { CircularProgress, Progress } from '@nextui-org/progress';
+import {
+  Navbar,
+  NavbarContent,
+  NavbarMenu,
+  NavbarMenuItem,
+  NavbarMenuToggle
+} from '@nextui-org/navbar';
+import { Link, ScrollShadow } from '@nextui-org/react';
 
 const dashboardUrl = 'http://localhost:3001/api/v1/transactionPayments';
 
@@ -99,6 +107,19 @@ const currencies = [
     id: 'jpy',
     name: 'JPY'
   }
+];
+
+const menuItems = [
+  'Profile',
+  'Dashboard',
+  'Transactions',
+  'Analytics',
+  'System',
+  'Deployments',
+  'My Settings',
+  'Team Settings',
+  'Help & Feedback',
+  'Log Out'
 ];
 
 const fetchTransactionPayments = async (date: Date, currency: string) => {
@@ -169,7 +190,7 @@ const Dashboard = () => {
   return (
     <main className="flex flex-col min-h-screen">
       {/* MAIN MENU */}
-      <div className="flex flex-row justify-end p-2">
+      {/* <div className="flex flex-row justify-end p-2">
         <Sheet>
           <SheetTrigger asChild>
             <Button variant="ghost" size="icon">
@@ -178,17 +199,42 @@ const Dashboard = () => {
           </SheetTrigger>
           <SheetContent>
             <SheetHeader>
-              {/* <SheetTitle>Test</SheetTitle>
-              <SheetDescription>Description goes here</SheetDescription> */}
               <p className="text-left text-lg font-semibold">Main Menu</p>
             </SheetHeader>
             <div className="flex flex-col justify-start py-6">
               <p>Dashboard</p>
               <p>Transactions</p>
             </div>
-            {/* <SheetFooter>Powered by: wonderTech</SheetFooter> */}
           </SheetContent>
         </Sheet>
+      </div> */}
+
+      <div>
+        <Navbar>
+          <NavbarContent justify="start">
+            <NavbarMenuToggle />
+          </NavbarContent>
+          <NavbarMenu>
+            {menuItems.map((item, index) => (
+              <NavbarMenuItem key={`${item}-${index}`}>
+                <Link
+                  color={
+                    index === 2
+                      ? 'primary'
+                      : index === menuItems.length - 1
+                      ? 'danger'
+                      : 'foreground'
+                  }
+                  className="w-full"
+                  href="#"
+                  size="lg"
+                >
+                  {item}
+                </Link>
+              </NavbarMenuItem>
+            ))}
+          </NavbarMenu>
+        </Navbar>
       </div>
 
       {/* CONTENT */}
@@ -283,9 +329,9 @@ const Dashboard = () => {
             <CircularProgress
               classNames={{
                 svg: 'w-36 h-36 drop-shadow-md',
-                indicator: 'stroke-white',
+                // indicator: 'stroke-white',
                 track: 'stroke-white/10',
-                value: 'text-3xl font-semibold text-white'
+                value: 'text-3xl font-semibold'
               }}
               label="Completed"
               value={
@@ -293,104 +339,124 @@ const Dashboard = () => {
                   dashboardMainData.totalAmount) *
                 100
               }
-              strokeWidth={4}
+              strokeWidth={3}
+              color="success"
               showValueLabel={true}
             />
           </div>
         </div>
 
-        <div className="grid grid-cols-2 sm:gap-1 lg:gap-6 items-start justify-center cursor-pointer">
-          {dashboardCategories.map((category: any) => (
-            <div className="p-5" key={category._id}>
-              <Card onClick={() => handleCardClick(category)}>
-                <CardHeader>
-                  <CardDescription>{category.name}</CardDescription>
-                  <CardTitle>
-                    {formatCurrency({
-                      value: category.totalAmount,
-                      currency: dashboardMainData.currency
-                    })}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-xs text-gray-500">Settled</p>
-                  {/* <Separator /> */}
-                  <div className="flex flex-row items-center pt-2">
-                    <p className="text-xs pr-2">
-                      {Math.floor(
-                        (category.totalPaidAmount / category.totalAmount) * 100
-                      )}
-                      %
-                    </p>
-                    <Progress
+        <ScrollShadow className="max-h-[500px]">
+          <div className="grid grid-cols-2 sm:gap-1 lg:gap-6 items-start justify-center">
+            {dashboardCategories.map((category: any) => (
+              <div className="p-5" key={category._id}>
+                <Card
+                  onClick={() => handleCardClick(category)}
+                  className="cursor-pointer"
+                >
+                  <CardHeader>
+                    <CardDescription>{category.name}</CardDescription>
+                    <CardTitle>
+                      {formatCurrency({
+                        value: category.totalAmount,
+                        currency: dashboardMainData.currency
+                      })}
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-xs text-gray-500">Settled</p>
+
+                    <div className="flex flex-row items-center pt-2">
+                      <p className="text-xs pr-2">
+                        {Math.floor(
+                          (category.totalPaidAmount / category.totalAmount) *
+                            100
+                        )}
+                        %
+                      </p>
+                      {/* <Progress
                       value={
                         (category.totalPaidAmount / category.totalAmount) * 100
                       }
                       className="w-[60%] h-2"
-                    />
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-          ))}
-
-          <Dialog open={openDialog} onOpenChange={handleCloseDialog}>
-            <DialogContent>
-              <DialogHeader>
-                <DialogTitle>{dashboardCategory.name}</DialogTitle>
-              </DialogHeader>
-              <div className="flex flex-col">
-                {Object.keys(dashboardCategory).length > 0 &&
-                  dashboardCategory.transactions.map((transaction: any) => (
-                    <div
-                      key={transaction._id}
-                      // className="grid grid-flow-col auto-cols-max grid-cols-5 gap-2 items-center justify-stretch"
-                      className="grid grid-cols-9 gap-2 items-center py-1"
-                    >
-                      <div className="col-span-2">{transaction.name}</div>
-                      <div className="col-span-2 text-right">
-                        <p className="text-sm">
-                          {formatCurrency({
-                            value: transaction.amount,
-                            currency: dashboardMainData.currency
-                          })}
-                        </p>
-                      </div>
-                      <div className="col-span-2">
-                        <Progress
-                          value={
-                            (transaction.paidAmount / transaction.amount) * 100
-                          }
-                          className="h-3"
-                        />
-                      </div>
-                      <div className="text-left">
-                        <p className="text-xs">
-                          {Math.floor(
-                            (transaction.paidAmount / transaction.amount) * 100
-                          )}
-                          %
-                        </p>
-                      </div>
-                      <div className="flex flex-row justify-end col-span-2">
-                        <Button variant="outline" size="icon">
-                          <HandCoinsIcon className="h-4 w-4" />
-                        </Button>
-                        <Button variant="outline" size="icon">
-                          <CheckIcon className="h-4 w-4" />
-                        </Button>
-                      </div>
+                    /> */}
+                      <Progress
+                        color="success"
+                        aria-label="Loading..."
+                        value={
+                          (category.totalPaidAmount / category.totalAmount) *
+                          100
+                        }
+                        size="sm"
+                      />
                     </div>
-                  ))}
+                  </CardContent>
+                </Card>
               </div>
-              <DialogFooter>
-                <DialogClose>
-                  <Button>OK</Button>
-                </DialogClose>
-              </DialogFooter>
-            </DialogContent>
-          </Dialog>
-        </div>
+            ))}
+
+            <Dialog open={openDialog} onOpenChange={handleCloseDialog}>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>{dashboardCategory.name}</DialogTitle>
+                </DialogHeader>
+                <div className="flex flex-col">
+                  {Object.keys(dashboardCategory).length > 0 &&
+                    dashboardCategory.transactions.map((transaction: any) => (
+                      <div
+                        key={transaction._id}
+                        // className="grid grid-flow-col auto-cols-max grid-cols-5 gap-2 items-center justify-stretch"
+                        className="grid grid-cols-9 gap-2 items-center py-1"
+                      >
+                        <div className="col-span-2">{transaction.name}</div>
+                        <div className="col-span-2 text-right">
+                          <p className="text-sm">
+                            {formatCurrency({
+                              value: transaction.amount,
+                              currency: dashboardMainData.currency
+                            })}
+                          </p>
+                        </div>
+                        <div className="col-span-2">
+                          <Progress
+                            color="success"
+                            aria-label="Loading..."
+                            value={
+                              (transaction.paidAmount / transaction.amount) *
+                              100
+                            }
+                            size="sm"
+                          />
+                        </div>
+                        <div className="text-left">
+                          <p className="text-xs">
+                            {Math.floor(
+                              (transaction.paidAmount / transaction.amount) *
+                                100
+                            )}
+                            %
+                          </p>
+                        </div>
+                        <div className="flex flex-row justify-end col-span-2">
+                          <Button variant="outline" size="icon">
+                            <HandCoinsIcon className="h-4 w-4" />
+                          </Button>
+                          <Button variant="outline" size="icon">
+                            <CheckIcon className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      </div>
+                    ))}
+                </div>
+                <DialogFooter>
+                  <DialogClose>
+                    <Button>OK</Button>
+                  </DialogClose>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
+          </div>
+        </ScrollShadow>
       </div>
     </main>
   );
