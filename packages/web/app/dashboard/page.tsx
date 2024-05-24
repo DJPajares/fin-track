@@ -56,6 +56,7 @@ import {
   CommandItem,
   CommandList
 } from '@/components/ui/command';
+import { formatDate } from '../../../../shared/utilities/formatDate';
 
 const dashboardUrl = 'http://localhost:3001/api/v1/transactionPayments';
 
@@ -145,17 +146,6 @@ const Dashboard = () => {
     setDashboardMainData(main);
   };
 
-  const formatDate = (newDate: Date) => {
-    const year = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(
-      newDate
-    );
-    const month = new Intl.DateTimeFormat('en', { month: 'short' }).format(
-      newDate
-    );
-
-    return `${month} ${year}`;
-  };
-
   const changeDate = async (newDate: Date) => {
     setDate(newDate);
     setOpenDatePopover(false);
@@ -232,10 +222,10 @@ const Dashboard = () => {
             <PopoverContent className="w-[200px] p-0">
               <Command>
                 <CommandInput
-                  placeholder="Search framework..."
+                  placeholder="Search currency..."
                   className="h-9"
                 />
-                <CommandEmpty>No framework found</CommandEmpty>
+                <CommandEmpty>No currencies found</CommandEmpty>
                 <CommandGroup>
                   <CommandList>
                     {currencies.map((currency) => (
