@@ -19,7 +19,10 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className="antialiased">
         <Providers>
-          <main className="min-h-screen" vaul-drawer-wrapper="">
+          <main
+            className="min-h-screen bg-white dark:bg-slate-950"
+            vaul-drawer-wrapper=""
+          >
             <NavMenu />
             {children}
           </main>
