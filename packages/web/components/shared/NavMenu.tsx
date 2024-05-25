@@ -8,11 +8,13 @@ import {
   NavbarMenuItem,
   NavbarMenuToggle
 } from '@nextui-org/navbar';
-import { Avatar, Link } from '@nextui-org/react';
+import { Avatar } from '@nextui-org/react';
 import { Button } from '@/components/ui/button';
 import { MoonIcon, SunIcon } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 const menuItems = [
   {
@@ -40,6 +42,8 @@ const menuItems = [
 const NavMenu = () => {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     setMounted(true);
@@ -49,10 +53,14 @@ const NavMenu = () => {
   if (!mounted) return null;
 
   return (
-    <Navbar shouldHideOnScroll>
+    <Navbar
+      isMenuOpen={isMenuOpen}
+      onMenuOpenChange={setIsMenuOpen}
+      shouldHideOnScroll
+    >
       <NavbarContent justify="start">
         <NavbarMenuToggle />
-        <NavbarBrand>
+        <NavbarBrand onClick={() => router.push('/')}>
           <p className="font-bold text-inherit">FIN-TRACK</p>
         </NavbarBrand>
       </NavbarContent>
@@ -72,16 +80,17 @@ const NavMenu = () => {
         {menuItems.map((item, index) => (
           <NavbarMenuItem key={`${item.name}-${index}`}>
             <Link
-              color={
-                index === 2
-                  ? 'primary'
-                  : index === menuItems.length - 1
-                  ? 'danger'
-                  : 'foreground'
-              }
-              className="w-full"
+              // color={
+              //   index === 2
+              //     ? 'primary'
+              //     : index === menuItems.length - 1
+              //     ? 'danger'
+              //     : 'foreground'
+              // }
+              // className="w-full"
               href={item.route}
-              size="lg"
+              // size="lg"
+              onClick={() => setIsMenuOpen(false)}
             >
               {item.name}
             </Link>
