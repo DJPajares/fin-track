@@ -66,6 +66,7 @@ import {
   NavbarMenuToggle
 } from '@nextui-org/navbar';
 import { Link, ScrollShadow } from '@nextui-org/react';
+import CategoryCard from '@/components/dashboard/CategoryCard';
 
 const dashboardUrl = 'http://localhost:3001/api/v1/transactionPayments';
 
@@ -168,15 +169,10 @@ const Dashboard = () => {
     setDashboardMainData(main);
   };
 
-  const changeDate = async (newDate: Date) => {
+  const changeDate = async (newDate) => {
     setDate(newDate);
     setOpenDatePopover(false);
-    // await fetchDashboardData(newDate, currency);
   };
-
-  // const changeCurrency = async (currency: string) => {
-  //   await fetchDashboardData(date, currency);
-  // };
 
   const handleCardClick = (category: any) => {
     setDashboardCategory(category);
@@ -209,43 +205,41 @@ const Dashboard = () => {
         </Sheet>
       </div> */}
 
-      <div>
-        <Navbar>
-          <NavbarContent justify="start">
-            <NavbarMenuToggle />
-          </NavbarContent>
-          <NavbarMenu>
-            {menuItems.map((item, index) => (
-              <NavbarMenuItem key={`${item}-${index}`}>
-                <Link
-                  color={
-                    index === 2
-                      ? 'primary'
-                      : index === menuItems.length - 1
-                      ? 'danger'
-                      : 'foreground'
-                  }
-                  className="w-full"
-                  href="#"
-                  size="lg"
-                >
-                  {item}
-                </Link>
-              </NavbarMenuItem>
-            ))}
-          </NavbarMenu>
-        </Navbar>
-      </div>
+      <Navbar>
+        <NavbarContent justify="start">
+          <NavbarMenuToggle />
+        </NavbarContent>
+        <NavbarMenu>
+          {menuItems.map((item, index) => (
+            <NavbarMenuItem key={`${item}-${index}`}>
+              <Link
+                color={
+                  index === 2
+                    ? 'primary'
+                    : index === menuItems.length - 1
+                    ? 'danger'
+                    : 'foreground'
+                }
+                className="w-full"
+                href="#"
+                size="lg"
+              >
+                {item}
+              </Link>
+            </NavbarMenuItem>
+          ))}
+        </NavbarMenu>
+      </Navbar>
 
       {/* CONTENT */}
       <div className="flex flex-col justify-between p-10">
         <div className="flex flex-row items-center justify-between">
           <Popover open={openDatePopover} onOpenChange={setOpenDatePopover}>
             <PopoverTrigger asChild>
-              <div className="flex flex-row items-center cursor-pointer">
+              <Button variant="ghost" className="px-0">
                 <p className="text-2xl font-bold pr-2">{formatDate(date)}</p>
-                <ChevronDownIcon className="h-4 w-4" />
-              </div>
+                {/* <ChevronDownIcon className="h-4 w-4" /> */}
+              </Button>
             </PopoverTrigger>
             <PopoverContent className="w-auto p-0" align="start">
               <Calendar
@@ -262,9 +256,9 @@ const Dashboard = () => {
             onOpenChange={setOpenCurrencyPopover}
           >
             <PopoverTrigger asChild>
-              <div className="flex flex-row items-center cursor-pointer">
+              <Button variant="ghost" className="px-0">
                 <p className="text-2xl font-bold">{currency}</p>
-              </div>
+              </Button>
             </PopoverTrigger>
             <PopoverContent className="w-[200px] p-0">
               <Command>
@@ -284,7 +278,6 @@ const Dashboard = () => {
                             currentValue === currency ? '' : currentValue
                           );
                           setOpenCurrencyPopover(false);
-                          // changeCurrency(currentValue);
                         }}
                       >
                         {currency.name}
@@ -319,13 +312,6 @@ const Dashboard = () => {
           </div>
 
           <div className="flex flex-col items-center">
-            {/* <Progress
-                value={
-                  (dashboardMainData.totalPaidAmount /
-                    dashboardMainData.totalAmount) *
-                  100
-                }
-              /> */}
             <CircularProgress
               classNames={{
                 svg: 'w-36 h-36 drop-shadow-md',
@@ -348,52 +334,11 @@ const Dashboard = () => {
 
         <ScrollShadow className="max-h-[500px]">
           <div className="grid grid-cols-2 sm:gap-1 lg:gap-6 items-start justify-center">
-            {dashboardCategories.map((category: any) => (
-              <div className="p-5" key={category._id}>
-                <Card
-                  onClick={() => handleCardClick(category)}
-                  className="cursor-pointer"
-                >
-                  <CardHeader>
-                    <CardDescription>{category.name}</CardDescription>
-                    <CardTitle>
-                      {formatCurrency({
-                        value: category.totalAmount,
-                        currency: dashboardMainData.currency
-                      })}
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-xs text-gray-500">Settled</p>
-
-                    <div className="flex flex-row items-center pt-2">
-                      <p className="text-xs pr-2">
-                        {Math.floor(
-                          (category.totalPaidAmount / category.totalAmount) *
-                            100
-                        )}
-                        %
-                      </p>
-                      {/* <Progress
-                      value={
-                        (category.totalPaidAmount / category.totalAmount) * 100
-                      }
-                      className="w-[60%] h-2"
-                    /> */}
-                      <Progress
-                        color="success"
-                        aria-label="Loading..."
-                        value={
-                          (category.totalPaidAmount / category.totalAmount) *
-                          100
-                        }
-                        size="sm"
-                      />
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-            ))}
+            <CategoryCard
+              categories={dashboardCategories}
+              currency={dashboardMainData.currency}
+              handleCardClick={handleCardClick}
+            />
 
             <Dialog open={openDialog} onOpenChange={handleCloseDialog}>
               <DialogContent>
@@ -405,7 +350,6 @@ const Dashboard = () => {
                     dashboardCategory.transactions.map((transaction: any) => (
                       <div
                         key={transaction._id}
-                        // className="grid grid-flow-col auto-cols-max grid-cols-5 gap-2 items-center justify-stretch"
                         className="grid grid-cols-9 gap-2 items-center py-1"
                       >
                         <div className="col-span-2">{transaction.name}</div>
