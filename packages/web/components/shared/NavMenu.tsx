@@ -1,21 +1,18 @@
+'use client';
+
 import {
   Navbar,
+  NavbarBrand,
   NavbarContent,
   NavbarMenu,
   NavbarMenuItem,
   NavbarMenuToggle
 } from '@nextui-org/navbar';
-import { Link } from '@nextui-org/react';
-import {
-  Sheet,
-  SheetClose,
-  SheetContent,
-  SheetDescription,
-  SheetFooter,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger
-} from '@/components/ui/sheet';
+import { Avatar, Link } from '@nextui-org/react';
+import { Button } from '@/components/ui/button';
+import { MoonIcon, SunIcon } from 'lucide-react';
+import { useTheme } from 'next-themes';
+import { useEffect, useState } from 'react';
 
 const menuItems = [
   {
@@ -29,54 +26,70 @@ const menuItems = [
   {
     name: 'Transactions',
     route: '/transactions'
+  },
+  {
+    name: 'Categories',
+    route: '/categories'
+  },
+  {
+    name: 'Logout',
+    route: '/logout'
   }
 ];
 
-/* <div className="flex flex-row justify-end p-2">
-  <Sheet>
-    <SheetTrigger asChild>
-      <Button variant="ghost" size="icon">
-        <MenuIcon className="h-8 w-8" />
-      </Button>
-    </SheetTrigger>
-    <SheetContent>
-      <SheetHeader>
-        <p className="text-left text-lg font-semibold">Main Menu</p>
-      </SheetHeader>
-      <div className="flex flex-col justify-start py-6">
-        <p>Dashboard</p>
-        <p>Transactions</p>
-      </div>
-    </SheetContent>
-  </Sheet>
-</div> */
+const NavMenu = () => {
+  const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
 
-const NavMenu = () => (
-  <Navbar shouldHideOnScroll>
-    <NavbarContent justify="start">
-      <NavbarMenuToggle />
-    </NavbarContent>
-    <NavbarMenu>
-      {menuItems.map((item, index) => (
-        <NavbarMenuItem key={`${item.name}-${index}`}>
-          <Link
-            color={
-              index === 2
-                ? 'primary'
-                : index === menuItems.length - 1
-                ? 'danger'
-                : 'foreground'
-            }
-            className="w-full"
-            href={item.route}
-            size="lg"
-          >
-            {item.name}
-          </Link>
-        </NavbarMenuItem>
-      ))}
-    </NavbarMenu>
-  </Navbar>
-);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // [!] fixes hydration warning
+  if (!mounted) return null;
+
+  return (
+    <Navbar shouldHideOnScroll>
+      <NavbarContent justify="start">
+        <NavbarMenuToggle />
+        <NavbarBrand>
+          <p className="font-bold text-inherit">FIN-TRACK</p>
+        </NavbarBrand>
+      </NavbarContent>
+      <NavbarContent justify="end">
+        <Button
+          variant="ghost"
+          onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
+        >
+          {theme === 'light' ? <SunIcon /> : <MoonIcon />}
+        </Button>
+        <Avatar
+          src="https://i.pravatar.cc/150?u=a04258114e29026708c"
+          size="sm"
+        />
+      </NavbarContent>
+      <NavbarMenu>
+        {menuItems.map((item, index) => (
+          <NavbarMenuItem key={`${item.name}-${index}`}>
+            <Link
+              color={
+                index === 2
+                  ? 'primary'
+                  : index === menuItems.length - 1
+                  ? 'danger'
+                  : 'foreground'
+              }
+              className="w-full"
+              href={item.route}
+              size="lg"
+            >
+              {item.name}
+            </Link>
+          </NavbarMenuItem>
+        ))}
+      </NavbarMenu>
+    </Navbar>
+  );
+};
 
 export default NavMenu;

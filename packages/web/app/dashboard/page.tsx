@@ -18,15 +18,8 @@ import {
   CommandList
 } from '@/components/ui/command';
 import { Skeleton } from '@/components/ui/skeleton';
-import { Link, ScrollShadow } from '@nextui-org/react';
+import { ScrollShadow } from '@nextui-org/react';
 import { CircularProgress } from '@nextui-org/progress';
-import {
-  Navbar,
-  NavbarContent,
-  NavbarMenu,
-  NavbarMenuItem,
-  NavbarMenuToggle
-} from '@nextui-org/navbar';
 import CategoryCard from '@/components/dashboard/CategoryCard';
 import CategoryModal from '@/components/dashboard/CategoryModal';
 import { formatCurrency } from '../../../../shared/utilities/formatCurrency';
@@ -37,7 +30,7 @@ import type {
   TransactionPaymentMainProps,
   TransactionPaymentCategoryProps
 } from '../../../../shared/types/transactionPaymentTypes';
-import { CurrencyProps } from '../../../api/src/models/v1/currencyModel';
+import type { CurrencyProps } from '../../../api/src/models/v1/currencyModel';
 
 const transactionPaymentsUrl =
   'http://localhost:3001/api/v1/transactionPayments';

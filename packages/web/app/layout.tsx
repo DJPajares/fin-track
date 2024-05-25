@@ -16,10 +16,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en" suppressHydrationWarning>
       <body>
-        <NavMenu />
-        <Providers>{children}</Providers>
+        <Providers>
+          <NavMenu />
+          {children}
+        </Providers>
       </body>
     </html>
   );
