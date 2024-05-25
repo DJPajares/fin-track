@@ -52,7 +52,7 @@ const menuItems = [
 </div> */
 
 const NavMenu = () => (
-  <Navbar>
+  <Navbar shouldHideOnScroll>
     <NavbarContent justify="start">
       <NavbarMenuToggle />
     </NavbarContent>
