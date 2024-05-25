@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 // These styles apply to every route in the application
 import './globals.css';
 import { Providers } from './provider';
+import NavMenu from '@/components/shared/NavMenu';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -15,8 +16,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="light">
+    <html lang="en" className="dark">
       <body>
+        <NavMenu />
         <Providers>{children}</Providers>
       </body>
     </html>

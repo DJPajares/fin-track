@@ -4,16 +4,6 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import {
-  Sheet,
-  SheetClose,
-  SheetContent,
-  SheetDescription,
-  SheetFooter,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger
-} from '@/components/ui/sheet';
-import {
   Popover,
   PopoverContent,
   PopoverTrigger
@@ -54,19 +44,6 @@ const transactionPaymentsUrl =
 const currenciesUrl = 'http://localhost:3001/api/v1/currencies';
 
 const useMockedData = process.env.NEXT_PUBLIC_USE_MOCKED_DATA === 'true';
-
-const menuItems = [
-  'Profile',
-  'Dashboard',
-  'Transactions',
-  'Analytics',
-  'System',
-  'Deployments',
-  'My Settings',
-  'Team Settings',
-  'Help & Feedback',
-  'Log Out'
-];
 
 const fetchTransactionPayments = async (date: Date, currency: string) => {
   try {
@@ -150,53 +127,6 @@ const Dashboard = () => {
 
   return (
     <main className="flex flex-col min-h-screen">
-      {/* MAIN MENU */}
-      {/* <div className="flex flex-row justify-end p-2">
-        <Sheet>
-          <SheetTrigger asChild>
-            <Button variant="ghost" size="icon">
-              <MenuIcon className="h-8 w-8" />
-            </Button>
-          </SheetTrigger>
-          <SheetContent>
-            <SheetHeader>
-              <p className="text-left text-lg font-semibold">Main Menu</p>
-            </SheetHeader>
-            <div className="flex flex-col justify-start py-6">
-              <p>Dashboard</p>
-              <p>Transactions</p>
-            </div>
-          </SheetContent>
-        </Sheet>
-      </div> */}
-
-      <Navbar>
-        <NavbarContent justify="start">
-          <NavbarMenuToggle />
-        </NavbarContent>
-        <NavbarMenu>
-          {menuItems.map((item, index) => (
-            <NavbarMenuItem key={`${item}-${index}`}>
-              <Link
-                color={
-                  index === 2
-                    ? 'primary'
-                    : index === menuItems.length - 1
-                    ? 'danger'
-                    : 'foreground'
-                }
-                className="w-full"
-                href="#"
-                size="lg"
-              >
-                {item}
-              </Link>
-            </NavbarMenuItem>
-          ))}
-        </NavbarMenu>
-      </Navbar>
-
-      {/* CONTENT */}
       <div className="flex flex-col justify-between p-10">
         <div>
           <div className="py-2">
