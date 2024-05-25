@@ -2,35 +2,7 @@
 
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import transactionPaymentsData from '../../mockData/transactionPayments.json';
-import { formatCurrency } from '../../../../shared/utilities/formatCurrency';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle
-} from '@/components/ui/card';
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle
-} from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
-// import { Progress } from '@/components/ui/progress';
-import {
-  CheckIcon,
-  ChevronDownIcon,
-  HandCoinsIcon,
-  MenuIcon
-} from 'lucide-react';
-import {
-  TransactionPaymentMainProps,
-  TransactionPaymentCategoryProps
-} from '../../../../shared/types/transactionPaymentTypes';
 import {
   Sheet,
   SheetClose,
@@ -46,7 +18,6 @@ import {
   PopoverContent,
   PopoverTrigger
 } from '@/components/ui/popover';
-import { cn } from '@/lib/utils';
 import { Calendar } from '@/components/ui/calendar';
 import {
   Command,
@@ -56,8 +27,7 @@ import {
   CommandItem,
   CommandList
 } from '@/components/ui/command';
-import { formatDate } from '../../../../shared/utilities/formatDate';
-import { CircularProgress, Progress } from '@nextui-org/progress';
+import { CircularProgress } from '@nextui-org/progress';
 import {
   Navbar,
   NavbarContent,
@@ -67,6 +37,14 @@ import {
 } from '@nextui-org/navbar';
 import { Link, ScrollShadow } from '@nextui-org/react';
 import CategoryCard from '@/components/dashboard/CategoryCard';
+import CategoryModal from '@/components/dashboard/CategoryModal';
+import transactionPaymentsData from '../../mockData/transactionPayments.json';
+import { formatCurrency } from '../../../../shared/utilities/formatCurrency';
+import { formatDate } from '../../../../shared/utilities/formatDate';
+import type {
+  TransactionPaymentMainProps,
+  TransactionPaymentCategoryProps
+} from '../../../../shared/types/transactionPaymentTypes';
 
 const dashboardUrl = 'http://localhost:3001/api/v1/transactionPayments';
 
@@ -334,73 +312,26 @@ const Dashboard = () => {
 
         <ScrollShadow className="max-h-[500px]">
           <div className="grid grid-cols-2 sm:gap-1 lg:gap-6 items-start justify-center">
-            <CategoryCard
-              categories={dashboardCategories}
-              currency={dashboardMainData.currency}
-              handleCardClick={handleCardClick}
-            />
-
-            <Dialog open={openDialog} onOpenChange={handleCloseDialog}>
-              <DialogContent>
-                <DialogHeader>
-                  <DialogTitle>{dashboardCategory.name}</DialogTitle>
-                </DialogHeader>
-                <div className="flex flex-col">
-                  {Object.keys(dashboardCategory).length > 0 &&
-                    dashboardCategory.transactions.map((transaction: any) => (
-                      <div
-                        key={transaction._id}
-                        className="grid grid-cols-9 gap-2 items-center py-1"
-                      >
-                        <div className="col-span-2">{transaction.name}</div>
-                        <div className="col-span-2 text-right">
-                          <p className="text-sm">
-                            {formatCurrency({
-                              value: transaction.amount,
-                              currency: dashboardMainData.currency
-                            })}
-                          </p>
-                        </div>
-                        <div className="col-span-2">
-                          <Progress
-                            color="success"
-                            aria-label="Loading..."
-                            value={
-                              (transaction.paidAmount / transaction.amount) *
-                              100
-                            }
-                            size="sm"
-                          />
-                        </div>
-                        <div className="text-left">
-                          <p className="text-xs">
-                            {Math.floor(
-                              (transaction.paidAmount / transaction.amount) *
-                                100
-                            )}
-                            %
-                          </p>
-                        </div>
-                        <div className="flex flex-row justify-end col-span-2">
-                          <Button variant="outline" size="icon">
-                            <HandCoinsIcon className="h-4 w-4" />
-                          </Button>
-                          <Button variant="outline" size="icon">
-                            <CheckIcon className="h-4 w-4" />
-                          </Button>
-                        </div>
-                      </div>
-                    ))}
+            {dashboardCategories.map(
+              (category: TransactionPaymentCategoryProps) => (
+                <div className="p-5" key={category._id}>
+                  <CategoryCard
+                    category={category}
+                    currency={dashboardMainData.currency}
+                    handleCardClick={handleCardClick}
+                  />
                 </div>
-                <DialogFooter>
-                  <DialogClose>
-                    <Button>OK</Button>
-                  </DialogClose>
-                </DialogFooter>
-              </DialogContent>
-            </Dialog>
+              )
+            )}
           </div>
         </ScrollShadow>
+
+        <CategoryModal
+          category={dashboardCategory}
+          currency={dashboardMainData.currency}
+          openDialog={openDialog}
+          handleCloseDialog={handleCloseDialog}
+        />
       </div>
     </main>
   );
