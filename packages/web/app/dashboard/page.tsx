@@ -27,6 +27,8 @@ import {
   CommandItem,
   CommandList
 } from '@/components/ui/command';
+import { Skeleton } from '@/components/ui/skeleton';
+import { Link, ScrollShadow } from '@nextui-org/react';
 import { CircularProgress } from '@nextui-org/progress';
 import {
   Navbar,
@@ -35,40 +37,23 @@ import {
   NavbarMenuItem,
   NavbarMenuToggle
 } from '@nextui-org/navbar';
-import { Link, ScrollShadow } from '@nextui-org/react';
 import CategoryCard from '@/components/dashboard/CategoryCard';
 import CategoryModal from '@/components/dashboard/CategoryModal';
-import transactionPaymentsData from '../../mockData/transactionPayments.json';
 import { formatCurrency } from '../../../../shared/utilities/formatCurrency';
 import { formatDate } from '../../../../shared/utilities/formatDate';
+import transactionPaymentsData from '../../mockData/transactionPayments.json';
+import currenciesData from '../../mockData/currencies.json';
 import type {
   TransactionPaymentMainProps,
   TransactionPaymentCategoryProps
 } from '../../../../shared/types/transactionPaymentTypes';
-import { Skeleton } from '@/components/ui/skeleton';
+import { CurrencyProps } from '../../../api/src/models/v1/currencyModel';
 
-const dashboardUrl = 'http://localhost:3001/api/v1/transactionPayments';
+const transactionPaymentsUrl =
+  'http://localhost:3001/api/v1/transactionPayments';
+const currenciesUrl = 'http://localhost:3001/api/v1/currencies';
 
 const useMockedData = process.env.NEXT_PUBLIC_USE_MOCKED_DATA === 'true';
-
-const currencies = [
-  {
-    id: 'sgd',
-    name: 'SGD'
-  },
-  {
-    id: 'php',
-    name: 'PHP'
-  },
-  {
-    id: 'usd',
-    name: 'USD'
-  },
-  {
-    id: 'jpy',
-    name: 'JPY'
-  }
-];
 
 const menuItems = [
   'Profile',
@@ -88,14 +73,26 @@ const fetchTransactionPayments = async (date: Date, currency: string) => {
     if (useMockedData) {
       return transactionPaymentsData;
     } else {
-      const { status, data } = await axios.post(dashboardUrl, {
+      const { status, data } = await axios.post(transactionPaymentsUrl, {
         date,
         currency
       });
 
-      if (status === 200) {
-        return data.data;
-      }
+      if (status === 200) return data.data;
+    }
+  } catch (error) {
+    console.error('Fetch failed', error);
+  }
+};
+
+const fetchCurrencies = async () => {
+  try {
+    if (useMockedData) {
+      return currenciesData;
+    } else {
+      const { status, data } = await axios.get(currenciesUrl);
+
+      if (status === 200) return data.data;
     }
   } catch (error) {
     console.error('Fetch failed', error);
@@ -108,6 +105,7 @@ const Dashboard = () => {
   const [dashboardCategories, setDashboardCategories] = useState([]);
   const [dashboardCategory, setDashboardCategory] =
     useState<TransactionPaymentCategoryProps>({});
+  const [currencies, setCurrencies] = useState<CurrencyProps[]>([]);
   const [openDialog, setOpenDialog] = useState(false);
   const [date, setDate] = useState(new Date());
   const [openDatePopover, setOpenDatePopover] = useState(false);
@@ -116,6 +114,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     fetchDashboardData(date, currency);
+    fetchCurrencyData();
   }, []);
 
   useEffect(() => {
@@ -127,6 +126,12 @@ const Dashboard = () => {
 
     setDashboardCategories(categories);
     setDashboardMainData(main);
+  };
+
+  const fetchCurrencyData = async () => {
+    const data = await fetchCurrencies();
+
+    setCurrencies(data);
   };
 
   const changeDate = async (newDate: any) => {
@@ -239,7 +244,7 @@ const Dashboard = () => {
                         <CommandList>
                           {currencies.map((currency) => (
                             <CommandItem
-                              key={currency.id}
+                              key={currency._id.toString()}
                               value={currency.name}
                               onSelect={(currentValue: any) => {
                                 setCurrency(
