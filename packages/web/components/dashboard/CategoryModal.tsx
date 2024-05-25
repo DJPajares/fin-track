@@ -15,17 +15,17 @@ import { CheckIcon, HandCoinsIcon } from 'lucide-react';
 type CategoryModalProps = {
   category: TransactionPaymentCategoryProps;
   currency: string;
-  openDialog: any;
+  isDialogOpen: boolean;
   handleCloseDialog: () => void;
 };
 
 const CategoryModal = ({
   category,
   currency,
-  openDialog,
+  isDialogOpen,
   handleCloseDialog
 }: CategoryModalProps) => (
-  <Dialog open={openDialog} onOpenChange={handleCloseDialog}>
+  <Dialog open={isDialogOpen} onOpenChange={handleCloseDialog}>
     <DialogContent>
       <DialogHeader>
         <DialogTitle>{category.name}</DialogTitle>

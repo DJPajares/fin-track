@@ -31,6 +31,7 @@ import type {
   TransactionPaymentCategoryProps
 } from '../../../../shared/types/transactionPaymentTypes';
 import type { CurrencyProps } from '../../../api/src/models/v1/currencyModel';
+import CategoryDrawer from '@/components/dashboard/CategoryDrawer';
 
 const transactionPaymentsUrl =
   'http://localhost:3001/api/v1/transactionPayments';
@@ -76,7 +77,7 @@ const Dashboard = () => {
   const [dashboardCategory, setDashboardCategory] =
     useState<TransactionPaymentCategoryProps>({});
   const [currencies, setCurrencies] = useState<CurrencyProps[]>([]);
-  const [openDialog, setOpenDialog] = useState(false);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [date, setDate] = useState(new Date());
   const [openDatePopover, setOpenDatePopover] = useState(false);
   const [currency, setCurrency] = useState('PHP');
@@ -111,11 +112,7 @@ const Dashboard = () => {
 
   const handleCardClick = (category: any) => {
     setDashboardCategory(category);
-    setOpenDialog(true);
-  };
-
-  const handleCloseDialog = () => {
-    setOpenDialog(false);
+    setIsDialogOpen(true);
   };
 
   return (
@@ -268,11 +265,11 @@ const Dashboard = () => {
         </div>
       </ScrollShadow>
 
-      <CategoryModal
+      <CategoryDrawer
         category={dashboardCategory}
         currency={dashboardMainData.currency}
-        openDialog={openDialog}
-        handleCloseDialog={handleCloseDialog}
+        isDialogOpen={isDialogOpen}
+        setIsDialogOpen={setIsDialogOpen}
       />
     </div>
   );
