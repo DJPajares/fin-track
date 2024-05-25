@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import * as exchangeRateService from '../../services/v1/exchangeRateService';
-import { PaginationProps } from '../../types/commonTypes';
+import type { PaginationProps } from '../../types/commonTypes';
 import { Types } from 'mongoose';
 
 const create = async (req: Request, res: Response, next: NextFunction) => {

@@ -1,5 +1,5 @@
 import { CurrencyModel, CurrencyProps } from '../../models/v1/currencyModel';
-import { PaginationProps } from '../../types/commonTypes';
+import type { PaginationProps } from '../../types/commonTypes';
 import createPagination from '../../utilities/createPagination';
 
 const create = async (data: CurrencyProps) => {

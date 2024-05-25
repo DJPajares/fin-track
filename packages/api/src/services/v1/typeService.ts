@@ -1,6 +1,6 @@
 import { TypeModel } from '../../models/v1/typeModel';
 import type { TypeProps } from '../../models/v1/typeModel';
-import { PaginationProps } from '../../types/commonTypes';
+import type { PaginationProps } from '../../types/commonTypes';
 import createPagination from '../../utilities/createPagination';
 
 const create = async (data: TypeProps) => {

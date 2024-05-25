@@ -29,7 +29,7 @@ type TransactionPaymentProps = {
   categories: TransactionPaymentCategoryProps[];
 };
 
-export {
+export type {
   TransactionPaymentMainProps,
   TransactionPaymentCategoryProps,
   TransactionPaymentProps

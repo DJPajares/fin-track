@@ -3,7 +3,7 @@ import {
   ExchangeRateModel,
   ExchangeRateProps
 } from '../../models/v1/exchangeRateModel';
-import { PaginationProps } from '../../types/commonTypes';
+import type { PaginationProps } from '../../types/commonTypes';
 import createPagination from '../../utilities/createPagination';
 
 const create = async (data: ExchangeRateProps) => {

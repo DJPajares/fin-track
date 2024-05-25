@@ -5,4 +5,4 @@ type PaginationProps = Request & {
   limit?: string;
 };
 
-export { PaginationProps };
+export type { PaginationProps };

@@ -1,5 +1,5 @@
 import { CategoryModel, CategoryProps } from '../../models/v1/categoryModel';
-import { PaginationProps } from '../../types/commonTypes';
+import type { PaginationProps } from '../../types/commonTypes';
 import createPagination from '../../utilities/createPagination';
 
 const create = async (data: CategoryProps) => {

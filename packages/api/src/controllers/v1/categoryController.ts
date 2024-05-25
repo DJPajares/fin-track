@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import * as categoryService from '../../services/v1/categoryService';
 import { Types } from 'mongoose';
-import { PaginationProps } from '../../types/commonTypes';
+import type { PaginationProps } from '../../types/commonTypes';
 
 const create = async (req: Request, res: Response, next: NextFunction) => {
   try {

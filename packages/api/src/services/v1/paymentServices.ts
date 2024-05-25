@@ -1,5 +1,5 @@
 import { PaymentModel, PaymentProps } from '../../models/v1/paymentModel';
-import { PaginationProps } from '../../types/commonTypes';
+import type { PaginationProps } from '../../types/commonTypes';
 import createPagination from '../../utilities/createPagination';
 
 const create = async (data: PaymentProps) => {

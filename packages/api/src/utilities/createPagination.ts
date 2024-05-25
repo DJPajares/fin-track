@@ -1,4 +1,4 @@
-import { PaginationProps } from '../types/commonTypes';
+import type { PaginationProps } from '../types/commonTypes';
 
 const createPagination = (query: PaginationProps, totalDocuments: number) => {
   const { page = '1', limit = '10' } = query;
