@@ -19,8 +19,10 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body>
         <Providers>
-          <NavMenu />
-          {children}
+          <main className="min-h-screen">
+            <NavMenu />
+            {children}
+          </main>
         </Providers>
       </body>
     </html>

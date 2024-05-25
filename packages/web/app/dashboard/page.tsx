@@ -119,7 +119,7 @@ const Dashboard = () => {
   };
 
   return (
-    <main className="flex flex-col min-h-screen p-10">
+    <div className="flex flex-col p-10">
       <div className="py-2">
         <div className="pb-4">
           {Object.keys(dashboardMainData).length > 0 ? (
@@ -252,7 +252,7 @@ const Dashboard = () => {
         )}
       </div>
 
-      <ScrollShadow className="max-h-[500px] py-4">
+      <ScrollShadow className="max-h-[400px] py-4">
         <div className="grid grid-cols-2 sm:gap-1 lg:gap-6 items-start justify-center">
           {dashboardCategories.map(
             (category: TransactionPaymentCategoryProps) => (
@@ -274,7 +274,7 @@ const Dashboard = () => {
         openDialog={openDialog}
         handleCloseDialog={handleCloseDialog}
       />
-    </main>
+    </div>
   );
 };
 

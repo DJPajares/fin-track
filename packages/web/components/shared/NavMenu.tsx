@@ -56,12 +56,15 @@ const NavMenu = () => {
     <Navbar
       isMenuOpen={isMenuOpen}
       onMenuOpenChange={setIsMenuOpen}
+      maxWidth="full"
       shouldHideOnScroll
     >
       <NavbarContent justify="start">
         <NavbarMenuToggle />
-        <NavbarBrand onClick={() => router.push('/')}>
-          <p className="font-bold text-inherit">FIN-TRACK</p>
+        <NavbarBrand>
+          <div onClick={() => router.push('/')} className="cursor-pointer">
+            <p className="font-bold text-inherit">FIN-TRACK</p>
+          </div>
         </NavbarBrand>
       </NavbarContent>
       <NavbarContent justify="end">
