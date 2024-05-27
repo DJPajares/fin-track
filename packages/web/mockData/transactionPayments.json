@@ -123,8 +123,8 @@
     {
       "_id": "123catf",
       "name": "Rent",
-      "totalAmount": 865.5,
-      "totalPaidAmount": 265.5,
+      "totalAmount": 225500,
+      "totalPaidAmount": 225500,
       "transactions": [
         {
           "_id": "123catf1",
