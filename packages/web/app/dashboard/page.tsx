@@ -75,15 +75,14 @@ const Dashboard = () => {
   const [dashboardCategories, setDashboardCategories] = useState([]);
   const [dashboardCategory, setDashboardCategory] =
     useState<TransactionPaymentCategoryProps>({});
-  const [currencies, setCurrencies] = useState<CurrencyProps[]>([]);
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [date, setDate] = useState(new Date());
-  const [openDatePopover, setOpenDatePopover] = useState(false);
+  const [currencies, setCurrencies] = useState<CurrencyProps[]>([]);
   const [currency, setCurrency] = useState('PHP');
-  const [openCurrencyPopover, setOpenCurrencyPopover] = useState(false);
+  const [isDatePopoverOpen, setIsDatePopoverOpen] = useState(false);
+  const [isCurrencyPopoverOpen, setIsCurrencyPopoverOpen] = useState(false);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   useEffect(() => {
-    fetchDashboardData(date, currency);
     fetchCurrencyData();
   }, []);
 
@@ -106,7 +105,7 @@ const Dashboard = () => {
 
   const changeDate = async (newDate: any) => {
     setDate(newDate);
-    setOpenDatePopover(false);
+    setIsDatePopoverOpen(false);
   };
 
   const handleCardClick = (category: any) => {
@@ -120,7 +119,10 @@ const Dashboard = () => {
         <div className="pb-2 sm:pb-6">
           {Object.keys(dashboardMainData).length > 0 ? (
             <div className="flex flex-row items-center justify-between">
-              <Popover open={openDatePopover} onOpenChange={setOpenDatePopover}>
+              <Popover
+                open={isDatePopoverOpen}
+                onOpenChange={setIsDatePopoverOpen}
+              >
                 <PopoverTrigger asChild>
                   <Button variant="ghost" className="px-0">
                     <p className="text-3xl sm:text-5xl font-extrabold sm:font-black">
@@ -140,8 +142,8 @@ const Dashboard = () => {
               </Popover>
 
               <Popover
-                open={openCurrencyPopover}
-                onOpenChange={setOpenCurrencyPopover}
+                open={isCurrencyPopoverOpen}
+                onOpenChange={setIsCurrencyPopoverOpen}
               >
                 <PopoverTrigger asChild>
                   <Button variant="ghost" className="px-0">
@@ -167,7 +169,7 @@ const Dashboard = () => {
                               setCurrency(
                                 currentValue === currency ? '' : currentValue
                               );
-                              setOpenCurrencyPopover(false);
+                              setIsCurrencyPopoverOpen(false);
                             }}
                           >
                             {currency.name}

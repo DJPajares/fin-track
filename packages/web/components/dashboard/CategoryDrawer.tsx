@@ -95,7 +95,7 @@ const CategoryDrawer = ({
         <DrawerFooter>
           <Button>Confirm</Button>
           <DrawerClose asChild>
-            <Button variant="outline" onClick={() => setIsDialogOpen(false)}>
+            <Button variant="outline" onClick={() => setIsDialogOpen}>
               Cancel
             </Button>
           </DrawerClose>
