@@ -115,15 +115,15 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="flex flex-col p-6">
+    <div className="flex flex-col px-6 py-2 sm:py-4">
       <div className="py-2">
-        <div className="pb-4">
+        <div className="pb-2 sm:pb-6">
           {Object.keys(dashboardMainData).length > 0 ? (
             <div className="flex flex-row items-center justify-between">
               <Popover open={openDatePopover} onOpenChange={setOpenDatePopover}>
                 <PopoverTrigger asChild>
                   <Button variant="ghost" className="px-0">
-                    <p className="text-3xl font-extrabold pr-2">
+                    <p className="text-3xl sm:text-5xl font-extrabold sm:font-black">
                       {formatDate(date)}
                     </p>
                     {/* <ChevronDownIcon className="h-4 w-4" /> */}
@@ -145,7 +145,9 @@ const Dashboard = () => {
               >
                 <PopoverTrigger asChild>
                   <Button variant="ghost" className="px-0">
-                    <p className="text-3xl font-extrabold">{currency}</p>
+                    <p className="text-3xl sm:text-5xl font-extrabold sm:font-black">
+                      {currency}
+                    </p>
                   </Button>
                 </PopoverTrigger>
                 <PopoverContent className="w-[200px] p-0">
@@ -185,11 +187,13 @@ const Dashboard = () => {
           )}
         </div>
 
-        <div className="pb-2">
+        <div className="pb-1 sm:pb-2">
           {Object.keys(dashboardMainData).length > 0 ? (
             <div className="flex flex-row items-center justify-between">
-              <p className="text-xl font-medium">Balance</p>
-              <p className="text-xl font-medium">
+              <p className="text-xl sm:text-3xl font-semibold sm:font-bold">
+                Balance
+              </p>
+              <p className="text-xl sm:text-3xl font-medium">
                 {formatCurrency({
                   value: dashboardMainData.balance,
                   currency: dashboardMainData.currency
@@ -207,8 +211,10 @@ const Dashboard = () => {
         <div>
           {Object.keys(dashboardMainData).length > 0 ? (
             <div className="flex flex-row items-center justify-between">
-              <p className="text-sm">Extra</p>
-              <p className="text-sm">
+              <p className="text-base sm:text-lg font-medium sm:font-semibold">
+                Extra
+              </p>
+              <p className="text-base sm:text-lg font-medium sm:font-semibold">
                 {formatCurrency({
                   value: dashboardMainData.extra,
                   currency: dashboardMainData.currency

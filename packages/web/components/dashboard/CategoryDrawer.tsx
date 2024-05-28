@@ -31,18 +31,28 @@ const Content = ({ category, currency }: CategoryDrawerContentProps) => (
       category.transactions.map((transaction: any) => (
         <div
           key={transaction._id}
-          className="grid grid-cols-9 gap-2 items-center py-1"
+          className="grid grid-cols-6 gap-2 items-center py-1"
         >
-          <div className="col-span-2">{transaction.name}</div>
-          <div className="col-span-2 text-right">
-            <p className="text-sm">
-              {formatCurrency({
-                value: transaction.amount,
-                currency
-              })}
+          <div className="col-span-2">
+            <p className="text-sm sm:text-base sm:font-medium truncate hover:text-clip">
+              {transaction.name}
             </p>
           </div>
-          <div className="col-span-2">
+          <div className="col-span-3 flex flex-col px-2">
+            <div className="flex flex-row items-center justify-between pb-1">
+              <p className="text-sm">
+                {formatCurrency({
+                  value: transaction.amount,
+                  currency
+                })}
+              </p>
+              <p className="text-xs">
+                {Math.floor(
+                  (transaction.paidAmount / transaction.amount) * 100
+                )}
+                %
+              </p>
+            </div>
             <Progress
               color="success"
               aria-label="Loading..."
@@ -50,15 +60,10 @@ const Content = ({ category, currency }: CategoryDrawerContentProps) => (
               size="sm"
             />
           </div>
-          <div className="text-left">
-            <p className="text-xs">
-              {Math.floor((transaction.paidAmount / transaction.amount) * 100)}%
-            </p>
-          </div>
-          <div className="flex flex-row justify-end col-span-2">
-            <Button variant="outline" size="icon">
+          <div className="flex flex-row justify-end">
+            {/* <Button variant="outline" size="icon">
               <HandCoinsIcon className="h-4 w-4" />
-            </Button>
+            </Button> */}
             <Button variant="outline" size="icon">
               <CheckIcon className="h-4 w-4" />
             </Button>
@@ -90,7 +95,7 @@ const CategoryDrawer = ({
         <DrawerFooter>
           <Button>Confirm</Button>
           <DrawerClose asChild>
-            <Button variant="outline" onClick={setIsDialogOpen}>
+            <Button variant="outline" onClick={() => setIsDialogOpen(false)}>
               Cancel
             </Button>
           </DrawerClose>
