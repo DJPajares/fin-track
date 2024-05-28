@@ -30,6 +30,7 @@ type TransactionPaymentProps = {
 };
 
 export type {
+  TransactionProps,
   TransactionPaymentMainProps,
   TransactionPaymentCategoryProps,
   TransactionPaymentProps
