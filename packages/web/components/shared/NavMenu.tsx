@@ -70,6 +70,7 @@ const NavMenu = () => {
       <NavbarContent justify="end">
         <Button
           variant="ghost"
+          size="rounded_icon"
           onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
         >
           {theme === 'light' ? <SunIcon /> : <MoonIcon />}
