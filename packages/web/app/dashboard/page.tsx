@@ -21,7 +21,6 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { ScrollShadow } from '@nextui-org/react';
 import { CircularProgress } from '@nextui-org/progress';
 import CategoryCard from '@/components/dashboard/CategoryCard';
-import CategoryModal from '@/components/dashboard/CategoryModal';
 import { formatCurrency } from '../../../../shared/utilities/formatCurrency';
 import { formatDate } from '../../../../shared/utilities/formatDate';
 import transactionPaymentsData from '../../mockData/transactionPayments.json';
@@ -116,7 +115,7 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="flex flex-col p-10">
+    <div className="flex flex-col p-6">
       <div className="py-2">
         <div className="pb-4">
           {Object.keys(dashboardMainData).length > 0 ? (
@@ -229,10 +228,10 @@ const Dashboard = () => {
         {Object.keys(dashboardMainData).length > 0 ? (
           <CircularProgress
             classNames={{
-              svg: 'w-36 h-36 drop-shadow-md',
+              svg: 'w-36 sm:w-64 h-36 sm:h-64 drop-shadow-md',
               // indicator: 'stroke-white',
-              track: 'stroke-white/10',
-              value: 'text-3xl font-semibold'
+              // track: 'stroke-white/10',
+              value: 'text-3xl sm:text-6xl font-semibold'
             }}
             label="Completed"
             value={
@@ -249,11 +248,11 @@ const Dashboard = () => {
         )}
       </div>
 
-      <ScrollShadow className="max-h-[400px] py-4">
-        <div className="grid grid-cols-2 sm:gap-1 lg:gap-6 items-start justify-center">
+      <ScrollShadow className="max-h-[400px] py-4" hideScrollBar>
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-5 sm:gap-10 items-start justify-center">
           {dashboardCategories.map(
             (category: TransactionPaymentCategoryProps) => (
-              <div className="p-5" key={category._id}>
+              <div key={category._id}>
                 <CategoryCard
                   category={category}
                   currency={dashboardMainData.currency}

@@ -23,12 +23,19 @@ const CategoryCard = ({
   <Card onClick={() => handleCardClick(category)} className="cursor-pointer">
     <CardHeader>
       <CardDescription>{category.name}</CardDescription>
-      <CardTitle>
+      {/* <CardTitle>
         {formatCurrency({
           value: category.totalAmount,
           currency
         })}
-      </CardTitle>
+      </CardTitle> */}
+      {/* <p className="text-sm">{category.name}</p> */}
+      <h1 className="text-lg font-bold sm:text-xl sm:font-bold">
+        {formatCurrency({
+          value: category.totalAmount,
+          currency
+        })}
+      </h1>
     </CardHeader>
     <CardContent>
       <p className="text-xs text-gray-500">Settled</p>

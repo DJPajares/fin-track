@@ -11,12 +11,13 @@ import { Progress } from '@nextui-org/progress';
 import { formatCurrency } from '../../../../shared/utilities/formatCurrency';
 import type { TransactionPaymentCategoryProps } from '../../../../shared/types/transactionPaymentTypes';
 import { CheckIcon, HandCoinsIcon } from 'lucide-react';
+import { Dispatch, SetStateAction } from 'react';
 
 type CategoryDrawerProps = {
   category: TransactionPaymentCategoryProps;
   currency: string;
   isDialogOpen: boolean;
-  setIsDialogOpen: () => void;
+  setIsDialogOpen: Dispatch<SetStateAction<boolean>>;
 };
 
 type CategoryDrawerContentProps = {
