@@ -275,6 +275,7 @@ const Dashboard = () => {
       <CategoryDrawer
         category={dashboardCategory}
         currency={dashboardMainData.currency}
+        date={date}
         isDialogOpen={isDialogOpen}
         setIsDialogOpen={setIsDialogOpen}
       />
