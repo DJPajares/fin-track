@@ -20,7 +20,10 @@ const CategoryCard = ({
   currency,
   handleCardClick
 }: CategoryCardProps) => (
-  <Card onClick={() => handleCardClick(category)} className="cursor-pointer">
+  <Card
+    onClick={() => handleCardClick(category)}
+    className="bg-gray-100 dark:bg-gray-900 cursor-pointer"
+  >
     <CardHeader>
       <CardDescription>{category.name}</CardDescription>
       {/* <CardTitle>
