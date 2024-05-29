@@ -26,13 +26,6 @@ const CategoryCard = ({
   >
     <CardHeader>
       <CardDescription>{category.name}</CardDescription>
-      {/* <CardTitle>
-        {formatCurrency({
-          value: category.totalAmount,
-          currency
-        })}
-      </CardTitle> */}
-      {/* <p className="text-sm">{category.name}</p> */}
       <h1 className="text-lg font-bold sm:text-xl sm:font-bold">
         {formatCurrency({
           value: category.totalAmount,

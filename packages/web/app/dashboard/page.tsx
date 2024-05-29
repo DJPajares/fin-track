@@ -115,7 +115,7 @@ const Dashboard = () => {
 
   return (
     <div className="flex flex-col px-6 py-2 sm:py-4">
-      <div className="py-2">
+      <div className="pb-4">
         <div className="pb-2 sm:pb-6">
           {Object.keys(dashboardMainData).length > 0 ? (
             <div className="flex flex-row items-center justify-between">
@@ -232,7 +232,7 @@ const Dashboard = () => {
         </div>
       </div>
 
-      <div className="flex flex-col items-center py-4">
+      <div className="flex flex-col items-center pb-4">
         {Object.keys(dashboardMainData).length > 0 ? (
           <CircularProgress
             classNames={{
@@ -256,7 +256,7 @@ const Dashboard = () => {
         )}
       </div>
 
-      <ScrollShadow className="max-h-[400px] py-4" hideScrollBar>
+      <ScrollShadow className="max-h-50vh pb-4" hideScrollBar>
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-5 sm:gap-10 items-start justify-center">
           {dashboardCategoriesData.map(
             (category: TransactionPaymentCategoryProps) => (
@@ -271,6 +271,10 @@ const Dashboard = () => {
           )}
         </div>
       </ScrollShadow>
+
+      <Button variant="outline" className="my-4">
+        Add
+      </Button>
 
       <CategoryDrawer
         category={dashboardCategoryData}
