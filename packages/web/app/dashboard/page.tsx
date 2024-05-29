@@ -31,6 +31,7 @@ import type {
 } from '../../../../shared/types/transactionPaymentTypes';
 import type { CurrencyProps } from '../../../api/src/models/v1/currencyModel';
 import CategoryDrawer from '@/components/dashboard/CategoryDrawer';
+import TransactionDrawer from '@/components/dashboard/TransactionDrawer';
 
 const transactionPaymentsUrl =
   'http://localhost:3001/api/v1/transactionPayments';
@@ -81,6 +82,7 @@ const Dashboard = () => {
   const [isDatePopoverOpen, setIsDatePopoverOpen] = useState(false);
   const [isCurrencyPopoverOpen, setIsCurrencyPopoverOpen] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isTransactionDrawerOpen, setIsTransactionDrawerOpen] = useState(false);
 
   useEffect(() => {
     fetchCurrencyData();
@@ -111,6 +113,10 @@ const Dashboard = () => {
   const handleCardClick = (category: TransactionPaymentCategoryProps) => {
     setDashboardCategoryData(category);
     setIsDialogOpen(true);
+  };
+
+  const handleAddTransactionButton = () => {
+    setIsTransactionDrawerOpen(true);
   };
 
   return (
@@ -272,7 +278,11 @@ const Dashboard = () => {
         </div>
       </ScrollShadow>
 
-      <Button variant="outline" className="my-4">
+      <Button
+        variant="outline"
+        className="my-4"
+        onClick={handleAddTransactionButton}
+      >
         Add
       </Button>
 
@@ -283,6 +293,12 @@ const Dashboard = () => {
         fetchDashboardData={fetchDashboardData}
         isDialogOpen={isDialogOpen}
         setIsDialogOpen={setIsDialogOpen}
+      />
+
+      <TransactionDrawer
+        currencies={currencies}
+        isTransactionDrawerOpen={isTransactionDrawerOpen}
+        setIsTransactionDrawerOpen={setIsTransactionDrawerOpen}
       />
     </div>
   );
