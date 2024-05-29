@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import {
   Drawer,
   DrawerClose,
@@ -16,10 +16,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Progress } from '@nextui-org/progress';
 import { formatCurrency } from '../../../../shared/utilities/formatCurrency';
-import type {
-  TransactionPaymentCategoryProps,
-  TransactionProps
-} from '../../../../shared/types/transactionPaymentTypes';
+import type { TransactionPaymentCategoryProps } from '../../../../shared/types/transactionPaymentTypes';
 import { CheckIcon } from 'lucide-react';
 
 type CategoryDrawerProps = {
@@ -27,6 +24,11 @@ type CategoryDrawerProps = {
   currency: string;
   isDialogOpen: boolean;
   setIsDialogOpen: Dispatch<SetStateAction<boolean>>;
+};
+
+type TransactionDataUpdateProps = {
+  _id: any;
+  paidAmount: number;
 };
 
 // const Content = ({
@@ -91,128 +93,150 @@ const CategoryDrawer = ({
   isDialogOpen,
   setIsDialogOpen
 }: CategoryDrawerProps) => {
-  const [isPaymentDialogOpen, setIsPaymentDialogOpen] = useState(false);
-  const [transactionData, setTransactionData] = useState<TransactionProps>({});
+  const [drawerCategory, setDrawerCategory] =
+    useState<TransactionPaymentCategoryProps>({});
 
-  const openPaymentDialog = (transaction: TransactionProps) => {
-    // console.log(transaction);
-    setTransactionData(transaction);
-    // setIsPaymentDialogOpen(true);
-  };
+  useEffect(() => {
+    if (isDialogOpen) {
+      setDrawerCategory(category);
+    }
+  }, [isDialogOpen, category]);
 
-  const updateTransactionData = () => {
-    console.log('updated transaction');
+  const handleTransactionDataUpdate = ({
+    _id,
+    paidAmount
+  }: TransactionDataUpdateProps) => {
+    const transactions = drawerCategory.transactions;
+
+    const updatedTransactions = transactions.map((transaction) => {
+      if (transaction._id === _id) {
+        return {
+          ...transaction,
+          paidAmount
+        };
+      }
+
+      return transaction;
+    });
+
+    setDrawerCategory({
+      ...drawerCategory,
+      transactions: updatedTransactions
+    });
   };
 
   return (
-    <div>
-      <Drawer
-        open={isDialogOpen}
-        onOpenChange={setIsDialogOpen}
-        shouldScaleBackground
-      >
-        <DrawerContent>
-          <div className="mx-auto w-full max-w-lg">
-            <DrawerHeader>
-              <DrawerTitle>{category.name}</DrawerTitle>
-            </DrawerHeader>
+    <Drawer
+      open={isDialogOpen}
+      onOpenChange={setIsDialogOpen}
+      shouldScaleBackground
+    >
+      <DrawerContent>
+        <div className="mx-auto w-full max-w-lg">
+          <DrawerHeader>
+            <DrawerTitle>{drawerCategory.name}</DrawerTitle>
+          </DrawerHeader>
 
-            <div className="flex flex-col justify-between p-4">
-              {Object.keys(category).length > 0 &&
-                category.transactions.map((transaction: any) => (
-                  <div
-                    key={transaction._id}
-                    className="grid grid-cols-6 gap-2 items-center py-1"
-                  >
-                    <div className="col-span-2">
-                      <p className="text-sm sm:text-base sm:font-medium truncate hover:text-clip">
-                        {transaction.name}
-                      </p>
-                    </div>
-                    <div className="col-span-3">
-                      <Progress
-                        color="success"
-                        label={formatCurrency({
-                          value: transaction.amount,
-                          currency
-                        })}
-                        value={Math.floor(
-                          (transaction.paidAmount / transaction.amount) * 100
-                        )}
-                        size="sm"
-                        radius="sm"
-                        showValueLabel={true}
-                      />
-                    </div>
-                    <div className="flex flex-row justify-end">
-                      {/* <Button
-                        variant="outline"
-                        size="icon"
-                        onClick={() => openPaymentDialog(transaction)}
-                      >
-                        <CheckIcon className="h-4 w-4" />
-                      </Button> */}
-
-                      <Popover onOpenChange={updateTransactionData}>
-                        <PopoverTrigger asChild>
-                          <Button
-                            variant="outline"
-                            size="icon"
-                            onClick={() => openPaymentDialog(transaction)}
-                          >
-                            <CheckIcon className="h-4 w-4" />
-                          </Button>
-                        </PopoverTrigger>
-                        <PopoverContent>
-                          <div className="pb-2">
-                            <p className="sm:text-lg font-semibold sm:font-bold">
-                              {transactionData.name}
-                            </p>
-                          </div>
-                          <div className="flex flex-row items-end justify-between">
+          <div className="flex flex-col justify-between p-4">
+            {Object.keys(drawerCategory).length > 0 &&
+              drawerCategory.transactions.map((transaction) => (
+                <div
+                  key={transaction._id}
+                  className="grid grid-cols-6 gap-2 items-center py-1"
+                >
+                  <div className="col-span-2">
+                    <p className="text-sm sm:text-base sm:font-medium truncate hover:text-clip">
+                      {transaction.name}
+                    </p>
+                  </div>
+                  <div className="col-span-3">
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <Progress
+                          color="success"
+                          label={formatCurrency({
+                            value: transaction.amount,
+                            currency
+                          })}
+                          value={Math.floor(
+                            (transaction.paidAmount / transaction.amount) * 100
+                          )}
+                          size="sm"
+                          radius="sm"
+                          showValueLabel={true}
+                        />
+                      </PopoverTrigger>
+                      <PopoverContent>
+                        <div className="pb-2">
+                          <p className="sm:text-lg font-semibold sm:font-bold">
+                            {transaction.name}
+                          </p>
+                        </div>
+                        <div className="flex flex-row items-end">
+                          <div className="pr-2">
                             <Input
                               className="w-30"
-                              defaultValue={transaction.amount}
-                            ></Input>
-                            <p className="text-sm font-medium">{`/ ${formatCurrency(
-                              {
-                                value: transaction.amount,
-                                currency
+                              type="number"
+                              defaultValue={transaction.paidAmount}
+                              max={transaction.amount}
+                              onBlur={(e) =>
+                                handleTransactionDataUpdate({
+                                  _id: transaction._id,
+                                  paidAmount: parseFloat(e.target.value)
+                                })
                               }
-                            )}`}</p>
+                            />
                           </div>
-                        </PopoverContent>
-                      </Popover>
-                    </div>
+                          <p className="text-sm font-medium">{`/ ${formatCurrency(
+                            {
+                              value: transaction.amount,
+                              currency
+                            }
+                          )}`}</p>
+                        </div>
+                      </PopoverContent>
+                    </Popover>
                   </div>
-                ))}
-            </div>
-
-            <DrawerFooter>
-              <Button>Confirm</Button>
-              <DrawerClose asChild>
-                <Button variant="outline" onClick={() => setIsDialogOpen}>
-                  Cancel
-                </Button>
-              </DrawerClose>
-            </DrawerFooter>
+                  <div className="flex flex-row justify-end">
+                    {Math.floor(transaction.paidAmount / transaction.amount) ===
+                    1 ? (
+                      <Button
+                        variant="outline"
+                        size="icon"
+                        className="bg-green-600"
+                      >
+                        <CheckIcon className="h-4 w-4 text-white" />
+                      </Button>
+                    ) : (
+                      <Button
+                        variant="outline"
+                        size="icon"
+                        onClick={() =>
+                          handleTransactionDataUpdate({
+                            _id: transaction._id,
+                            paidAmount: transaction.amount
+                          })
+                        }
+                      >
+                        <CheckIcon className="h-4 w-4" />
+                      </Button>
+                    )}
+                  </div>
+                </div>
+              ))}
           </div>
-        </DrawerContent>
-      </Drawer>
 
-      {/* Payment Dialog */}
-      {/* <Popover
-        open={isPaymentDialogOpen}
-        onOpenChange={setIsPaymentDialogOpen}
-        // modal={true}
-      >
-        <PopoverContent>
-          <p>{transactionData.name}</p>
-
-          <div></div>
-        </PopoverContent>
-      </Popover> */}
-    </div>
+          <DrawerFooter>
+            <Button>Confirm</Button>
+            <DrawerClose asChild>
+              <Button variant="outline" onClick={() => setIsDialogOpen}>
+                Cancel
+              </Button>
+            </DrawerClose>
+          </DrawerFooter>
+        </div>
+      </DrawerContent>
+    </Drawer>
   );
 };
 
