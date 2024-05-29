@@ -77,9 +77,9 @@ const CategoryDrawer = ({
 
     console.log(postData);
 
-    const { status, data } = await axios.post(paymentUrl, postData);
+    const { status } = await axios.post(paymentUrl, postData);
 
-    if (status === 200) return data.data;
+    if (status === 200) setIsDialogOpen(false);
   };
 
   return (

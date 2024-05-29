@@ -72,8 +72,8 @@ const fetchCurrencies = async () => {
 const Dashboard = () => {
   const [dashboardMainData, setDashboardMainData] =
     useState<TransactionPaymentMainProps>({});
-  const [dashboardCategories, setDashboardCategories] = useState([]);
-  const [dashboardCategory, setDashboardCategory] =
+  const [dashboardCategoriesData, setDashboardCategoriesData] = useState([]);
+  const [dashboardCategoryData, setDashboardCategoryData] =
     useState<TransactionPaymentCategoryProps>({});
   const [date, setDate] = useState(new Date());
   const [currencies, setCurrencies] = useState<CurrencyProps[]>([]);
@@ -93,7 +93,7 @@ const Dashboard = () => {
   const fetchDashboardData = async (date: Date, currency: string) => {
     const { main, categories } = await fetchTransactionPayments(date, currency);
 
-    setDashboardCategories(categories);
+    setDashboardCategoriesData(categories);
     setDashboardMainData(main);
   };
 
@@ -109,7 +109,7 @@ const Dashboard = () => {
   };
 
   const handleCardClick = (category: any) => {
-    setDashboardCategory(category);
+    setDashboardCategoryData(category);
     setIsDialogOpen(true);
   };
 
@@ -258,7 +258,7 @@ const Dashboard = () => {
 
       <ScrollShadow className="max-h-[400px] py-4" hideScrollBar>
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-5 sm:gap-10 items-start justify-center">
-          {dashboardCategories.map(
+          {dashboardCategoriesData.map(
             (category: TransactionPaymentCategoryProps) => (
               <div key={category._id}>
                 <CategoryCard
@@ -273,7 +273,7 @@ const Dashboard = () => {
       </ScrollShadow>
 
       <CategoryDrawer
-        category={dashboardCategory}
+        category={dashboardCategoryData}
         currency={dashboardMainData.currency}
         date={date}
         isDialogOpen={isDialogOpen}
