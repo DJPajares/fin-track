@@ -8,20 +8,14 @@ import {
   DrawerTitle
 } from '@/components/ui/drawer';
 import { Button } from '@/components/ui/button';
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger
-} from '@/components/ui/popover';
-import { Input } from '@/components/ui/input';
-import { Progress } from '@nextui-org/progress';
-import { formatCurrency } from '../../../../shared/utilities/formatCurrency';
 import type { TransactionPaymentCategoryProps } from '../../../../shared/types/transactionPaymentTypes';
-import { CheckIcon } from 'lucide-react';
+import CategoryDrawerContent from './CategoryDrawerContent';
+import axios from 'axios';
 
 type CategoryDrawerProps = {
   category: TransactionPaymentCategoryProps;
   currency: string;
+  date: Date;
   isDialogOpen: boolean;
   setIsDialogOpen: Dispatch<SetStateAction<boolean>>;
 };
@@ -31,65 +25,12 @@ type TransactionDataUpdateProps = {
   paidAmount: number;
 };
 
-// const Content = ({
-//   category,
-//   currency,
-//   openPaymentDialog
-// }: CategoryDrawerContentProps) => (
-//   <div className="flex flex-col justify-between p-4">
-//     {Object.keys(category).length > 0 &&
-//       category.transactions.map((transaction: any) => (
-//         <div
-//           key={transaction._id}
-//           className="grid grid-cols-6 gap-2 items-center py-1"
-//         >
-//           <div className="col-span-2">
-//             <p className="text-sm sm:text-base sm:font-medium truncate hover:text-clip">
-//               {transaction.name}
-//             </p>
-//           </div>
-//           <div className="col-span-3 flex flex-col px-2">
-//             <div className="flex flex-row items-center justify-between pb-1">
-//               <p className="text-sm">
-//                 {formatCurrency({
-//                   value: transaction.amount,
-//                   currency
-//                 })}
-//               </p>
-//               <p className="text-xs">
-//                 {Math.floor(
-//                   (transaction.paidAmount / transaction.amount) * 100
-//                 )}
-//                 %
-//               </p>
-//             </div>
-//             <Progress
-//               color="success"
-//               aria-label="Loading..."
-//               value={(transaction.paidAmount / transaction.amount) * 100}
-//               size="sm"
-//             />
-//           </div>
-//           <div className="flex flex-row justify-end">
-//             {/* <Button variant="outline" size="icon">
-//               <HandCoinsIcon className="h-4 w-4" />
-//             </Button> */}
-//             <Button
-//               variant="outline"
-//               size="icon"
-//               onClick={() => openPaymentDialog({ transaction })}
-//             >
-//               <CheckIcon className="h-4 w-4" />
-//             </Button>
-//           </div>
-//         </div>
-//       ))}
-//   </div>
-// );
+const paymentUrl = 'http://localhost:3001/api/v1/payments';
 
 const CategoryDrawer = ({
   category,
   currency,
+  date,
   isDialogOpen,
   setIsDialogOpen
 }: CategoryDrawerProps) => {
@@ -125,6 +66,22 @@ const CategoryDrawer = ({
     });
   };
 
+  const updatePayment = async () => {
+    const transactionArray = drawerCategory.transactions;
+
+    const postData = transactionArray.map((transaction) => ({
+      transaction: transaction._id,
+      amount: transaction.paidAmount,
+      date
+    }));
+
+    console.log(postData);
+
+    const { status, data } = await axios.post(paymentUrl, postData);
+
+    if (status === 200) return data.data;
+  };
+
   return (
     <Drawer
       open={isDialogOpen}
@@ -137,101 +94,16 @@ const CategoryDrawer = ({
             <DrawerTitle>{drawerCategory.name}</DrawerTitle>
           </DrawerHeader>
 
-          <div className="flex flex-col justify-between p-4">
-            {Object.keys(drawerCategory).length > 0 &&
-              drawerCategory.transactions.map((transaction) => (
-                <div
-                  key={transaction._id}
-                  className="grid grid-cols-6 gap-2 items-center py-1"
-                >
-                  <div className="col-span-2">
-                    <p className="text-sm sm:text-base sm:font-medium truncate hover:text-clip">
-                      {transaction.name}
-                    </p>
-                  </div>
-                  <div className="col-span-3">
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <Progress
-                          color="success"
-                          label={formatCurrency({
-                            value: transaction.amount,
-                            currency
-                          })}
-                          value={Math.floor(
-                            (transaction.paidAmount / transaction.amount) * 100
-                          )}
-                          size="sm"
-                          radius="sm"
-                          showValueLabel={true}
-                        />
-                      </PopoverTrigger>
-                      <PopoverContent>
-                        <div className="pb-2">
-                          <p className="sm:text-lg font-semibold sm:font-bold">
-                            {transaction.name}
-                          </p>
-                        </div>
-                        <div className="flex flex-row items-end">
-                          <div className="pr-2">
-                            <Input
-                              className="w-30"
-                              type="number"
-                              defaultValue={transaction.paidAmount}
-                              max={transaction.amount}
-                              onBlur={(e) =>
-                                handleTransactionDataUpdate({
-                                  _id: transaction._id,
-                                  paidAmount: parseFloat(e.target.value)
-                                })
-                              }
-                            />
-                          </div>
-                          <p className="text-sm font-medium">{`/ ${formatCurrency(
-                            {
-                              value: transaction.amount,
-                              currency
-                            }
-                          )}`}</p>
-                        </div>
-                      </PopoverContent>
-                    </Popover>
-                  </div>
-                  <div className="flex flex-row justify-end">
-                    {Math.floor(transaction.paidAmount / transaction.amount) ===
-                    1 ? (
-                      <Button
-                        variant="outline"
-                        size="icon"
-                        className="bg-green-600"
-                      >
-                        <CheckIcon className="h-4 w-4 text-white" />
-                      </Button>
-                    ) : (
-                      <Button
-                        variant="outline"
-                        size="icon"
-                        onClick={() =>
-                          handleTransactionDataUpdate({
-                            _id: transaction._id,
-                            paidAmount: transaction.amount
-                          })
-                        }
-                      >
-                        <CheckIcon className="h-4 w-4" />
-                      </Button>
-                    )}
-                  </div>
-                </div>
-              ))}
-          </div>
+          <CategoryDrawerContent
+            category={drawerCategory}
+            currency={currency}
+            handleTransactionDataUpdate={handleTransactionDataUpdate}
+          />
 
           <DrawerFooter>
-            <Button>Confirm</Button>
+            <Button onClick={updatePayment}>Confirm</Button>
             <DrawerClose asChild>
-              <Button variant="outline" onClick={() => setIsDialogOpen}>
-                Cancel
-              </Button>
+              <Button variant="outline">Cancel</Button>
             </DrawerClose>
           </DrawerFooter>
         </div>
