@@ -16,6 +16,7 @@ type CategoryDrawerProps = {
   category: TransactionPaymentCategoryProps;
   currency: string;
   date: Date;
+  fetchDashboardData: (date: Date, currency: string) => void;
   isDialogOpen: boolean;
   setIsDialogOpen: Dispatch<SetStateAction<boolean>>;
 };
@@ -31,6 +32,7 @@ const CategoryDrawer = ({
   category,
   currency,
   date,
+  fetchDashboardData,
   isDialogOpen,
   setIsDialogOpen
 }: CategoryDrawerProps) => {
@@ -79,7 +81,10 @@ const CategoryDrawer = ({
 
     const { status } = await axios.post(paymentUrl, postData);
 
-    if (status === 200) setIsDialogOpen(false);
+    if (status === 200) {
+      fetchDashboardData(date, currency);
+      setIsDialogOpen(false);
+    }
   };
 
   return (

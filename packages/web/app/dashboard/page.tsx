@@ -103,12 +103,12 @@ const Dashboard = () => {
     setCurrencies(data);
   };
 
-  const changeDate = async (newDate: any) => {
+  const changeDate = (newDate: any) => {
     setDate(newDate);
     setIsDatePopoverOpen(false);
   };
 
-  const handleCardClick = (category: any) => {
+  const handleCardClick = (category: TransactionPaymentCategoryProps) => {
     setDashboardCategoryData(category);
     setIsDialogOpen(true);
   };
@@ -276,6 +276,7 @@ const Dashboard = () => {
         category={dashboardCategoryData}
         currency={dashboardMainData.currency}
         date={date}
+        fetchDashboardData={fetchDashboardData}
         isDialogOpen={isDialogOpen}
         setIsDialogOpen={setIsDialogOpen}
       />
