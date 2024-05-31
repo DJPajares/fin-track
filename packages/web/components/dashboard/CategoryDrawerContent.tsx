@@ -90,13 +90,17 @@ const CategoryDrawerContent = ({
           </div>
           <div className="flex flex-row justify-end">
             {Math.floor(transaction.paidAmount / transaction.amount) === 1 ? (
-              <Button variant="outline" size="icon" className="bg-green-600">
-                <CheckIcon className="h-4 w-4 text-white" />
+              <Button
+                variant="outline"
+                size="sm_rounded_icon"
+                className="bg-green-600"
+              >
+                <CheckIcon className="h-4 w-4" />
               </Button>
             ) : (
               <Button
                 variant="outline"
-                size="icon"
+                size="sm_rounded_icon"
                 onClick={() =>
                   handleTransactionDataUpdate({
                     _id: transaction._id,
