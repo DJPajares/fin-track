@@ -1,3 +1,4 @@
+import { Types } from 'mongoose';
 import { PaymentModel, PaymentProps } from '../../models/v1/paymentModel';
 import type { PaginationProps } from '../../types/commonTypes';
 import createPagination from '../../utilities/createPagination';
@@ -32,8 +33,33 @@ const update = async (_id: PaymentProps['_id'], data: PaymentProps) => {
   }).populate('transaction');
 };
 
+const upsertMany = async (data: PaymentProps[]) => {
+  const upsertPromises = data.map((payment) => {
+    const _id = payment._id || new Types.ObjectId();
+
+    return PaymentModel.findOneAndUpdate(
+      { _id },
+      {
+        transaction: payment.transaction,
+        currency: payment.currency,
+        amount: payment.amount,
+        date: payment.date
+      },
+      {
+        new: true,
+        update: true,
+        setDefaultsOnInsert: true
+      }
+    ).exec();
+  });
+
+  const results = await Promise.all(upsertPromises);
+
+  return results;
+};
+
 const remove = async (_id: PaymentProps['_id']) => {
   return await PaymentModel.findByIdAndDelete({ _id });
 };
 
-export { create, getAll, get, update, remove };
+export { create, getAll, get, update, upsertMany, remove };

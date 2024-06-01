@@ -61,6 +61,19 @@ const update = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
+const upsertMany = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const data = await paymentService.upsertMany(req.body);
+
+    res.status(200).json({
+      success: true,
+      data
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 const remove = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const id = new Types.ObjectId(req.params.id);
@@ -76,4 +89,4 @@ const remove = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-export { create, getAll, get, update, remove };
+export { create, getAll, get, update, upsertMany, remove };

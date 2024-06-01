@@ -4,6 +4,7 @@ import {
   getAll,
   get,
   update,
+  upsertMany,
   remove
 } from '../../controllers/v1/paymentController';
 
@@ -16,6 +17,8 @@ router.get('/', getAll);
 router.get('/:id', get);
 
 router.put('/:id', update);
+
+router.put('/', upsertMany);
 
 router.delete('/:id', remove);
 
