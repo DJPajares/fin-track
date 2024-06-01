@@ -8,12 +8,10 @@ import { Input } from '@/components/ui/input';
 import { Progress } from '@nextui-org/progress';
 import { formatCurrency } from '../../../../shared/utilities/formatCurrency';
 import { CheckIcon } from 'lucide-react';
-import type { TransactionPaymentCategoryProps } from '../../../../shared/types/transactionPaymentTypes';
-
-type TransactionDataUpdateProps = {
-  _id: any;
-  paidAmount: number;
-};
+import type {
+  TransactionDataUpdateProps,
+  TransactionPaymentCategoryProps
+} from '../../../../shared/types/transactionPaymentTypes';
 
 type CategoryDrawerContentProps = {
   category: TransactionPaymentCategoryProps;
@@ -70,7 +68,7 @@ const CategoryDrawerContent = ({
                     <Input
                       className="w-30"
                       type="number"
-                      defaultValue={transaction.paidAmount}
+                      defaultValue={transaction.paidAmount.toFixed(2)}
                       max={transaction.amount}
                       onBlur={(e) =>
                         handleTransactionDataUpdate({

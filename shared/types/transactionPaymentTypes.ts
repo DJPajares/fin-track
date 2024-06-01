@@ -10,9 +10,12 @@ type TransactionPaymentMainProps = {
 
 type TransactionProps = {
   _id: string;
+  paymentId: string;
   name: string;
   amount: number;
+  paidCurrency: string;
   paidAmount: number;
+  isUpdated?: boolean;
 };
 
 type TransactionPaymentCategoryProps = {
@@ -29,9 +32,16 @@ type TransactionPaymentProps = {
   categories: TransactionPaymentCategoryProps[];
 };
 
+type TransactionDataUpdateProps = {
+  _id: any;
+  paidAmount: number;
+  isUpdated?: boolean;
+};
+
 export type {
   TransactionProps,
   TransactionPaymentMainProps,
   TransactionPaymentCategoryProps,
-  TransactionPaymentProps
+  TransactionPaymentProps,
+  TransactionDataUpdateProps
 };
