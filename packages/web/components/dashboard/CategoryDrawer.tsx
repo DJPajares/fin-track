@@ -59,7 +59,8 @@ const CategoryDrawer = ({
         return {
           ...transaction,
           paidAmount:
-            paidAmount <= transaction.amount ? paidAmount : transaction.amount
+            paidAmount <= transaction.amount ? paidAmount : transaction.amount,
+          isUpdated: true
         };
       }
 
@@ -98,7 +99,8 @@ const CategoryDrawer = ({
 
       return {
         ...transaction,
-        paidAmount
+        paidAmount,
+        isUpdated: true
       };
     });
 
@@ -122,11 +124,14 @@ const CategoryDrawer = ({
   const updatePayment = async () => {
     const transactionArray = drawerCategory.transactions;
 
-    const postData = transactionArray.map((transaction) => ({
-      transaction: transaction._id,
-      amount: transaction.paidAmount,
-      date
-    }));
+    const postData = transactionArray
+      .filter((transaction) => transaction.isUpdated)
+      .map((transaction) => ({
+        transaction: transaction._id,
+        currency,
+        amount: transaction.paidAmount,
+        date
+      }));
 
     console.log(postData);
 
