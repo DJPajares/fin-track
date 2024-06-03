@@ -11,12 +11,13 @@ import { Button } from '@/components/ui/button';
 import type { TransactionPaymentCategoryProps } from '../../../../shared/types/transactionPaymentTypes';
 import CategoryDrawerContent from './CategoryDrawerContent';
 import axios from 'axios';
+import type { DashboardDataProps } from '../../../../shared/types/dashboardTypes';
 
 type CategoryDrawerProps = {
   category: TransactionPaymentCategoryProps;
   currency: string;
   date: Date;
-  fetchDashboardData: (date: Date, currency: string) => void;
+  fetchDashboardData: ({ date, currency }: DashboardDataProps) => void;
   isDialogOpen: boolean;
   setIsDialogOpen: Dispatch<SetStateAction<boolean>>;
 };
@@ -82,7 +83,7 @@ const CategoryDrawer = ({
     const { status } = await axios.post(paymentUrl, postData);
 
     if (status === 200) {
-      fetchDashboardData(date, currency);
+      fetchDashboardData({ date, currency });
       setIsDialogOpen(false);
     }
   };

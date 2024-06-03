@@ -25,13 +25,14 @@ import { formatCurrency } from '../../../../shared/utilities/formatCurrency';
 import { formatDate } from '../../../../shared/utilities/formatDate';
 import transactionPaymentsData from '../../mockData/transactionPayments.json';
 import currenciesData from '../../mockData/currencies.json';
+import CategoryDrawer from '@/components/dashboard/CategoryDrawer';
+import TransactionDrawer from '@/components/dashboard/TransactionDrawer';
 import type {
   TransactionPaymentMainProps,
   TransactionPaymentCategoryProps
 } from '../../../../shared/types/transactionPaymentTypes';
 import type { CurrencyProps } from '../../../api/src/models/v1/currencyModel';
-import CategoryDrawer from '@/components/dashboard/CategoryDrawer';
-import TransactionDrawer from '@/components/dashboard/TransactionDrawer';
+import type { DashboardDataProps } from '../../../../shared/types/dashboardTypes';
 
 const transactionPaymentsUrl =
   'http://localhost:3001/api/v1/transactionPayments';
@@ -39,7 +40,10 @@ const currenciesUrl = 'http://localhost:3001/api/v1/currencies';
 
 const useMockedData = process.env.NEXT_PUBLIC_USE_MOCKED_DATA === 'true';
 
-const fetchTransactionPayments = async (date: Date, currency: string) => {
+const fetchTransactionPayments = async ({
+  date,
+  currency
+}: DashboardDataProps) => {
   try {
     if (useMockedData) {
       return transactionPaymentsData;
@@ -89,11 +93,14 @@ const Dashboard = () => {
   }, []);
 
   useEffect(() => {
-    fetchDashboardData(date, currency);
+    fetchDashboardData({ date, currency });
   }, [date, currency]);
 
-  const fetchDashboardData = async (date: Date, currency: string) => {
-    const { main, categories } = await fetchTransactionPayments(date, currency);
+  const fetchDashboardData = async ({ date, currency }: DashboardDataProps) => {
+    const { main, categories } = await fetchTransactionPayments({
+      date,
+      currency
+    });
 
     setDashboardCategoriesData(categories);
     setDashboardMainData(main);
