@@ -53,6 +53,7 @@ const CategoryDrawer = ({
   }: TransactionDataUpdateProps) => {
     const transactions = drawerCategory.transactions;
 
+    // update transaction data
     const updatedTransactions = transactions.map((transaction) => {
       if (transaction._id === _id) {
         return {
@@ -64,17 +65,54 @@ const CategoryDrawer = ({
       return transaction;
     });
 
-    let totalAmount = 0;
+    // update category data
     let totalPaidAmount = 0;
 
-    updatedTransactions.forEach((transaction) => {
-      totalAmount += transaction.amount;
-      totalPaidAmount += transaction.paidAmount;
-    });
+    updatedTransactions.forEach(
+      (transaction) => (totalPaidAmount += transaction.paidAmount)
+    );
 
+    // set final result
     setDrawerCategory({
       ...drawerCategory,
-      totalAmount,
+      totalPaidAmount,
+      transactions: updatedTransactions
+    });
+  };
+
+  const handleCategoryDataUpdate = () => {
+    const transactions = drawerCategory.transactions;
+    const isTotalPaid =
+      Math.floor(
+        drawerCategory.totalPaidAmount / drawerCategory.totalAmount
+      ) === 1;
+
+    // update transaction data
+    const updatedTransactions = transactions.map((transaction) => {
+      let paidAmount = 0;
+
+      if (!isTotalPaid) {
+        paidAmount = transaction.amount;
+      }
+
+      return {
+        ...transaction,
+        paidAmount
+      };
+    });
+
+    // update category data
+    let totalPaidAmount = 0;
+
+    if (!isTotalPaid) {
+      updatedTransactions.forEach(
+        (transaction) => (totalPaidAmount += transaction.paidAmount)
+      );
+    }
+
+    // set final result
+    setDrawerCategory({
+      ...drawerCategory,
       totalPaidAmount,
       transactions: updatedTransactions
     });
@@ -140,11 +178,12 @@ const CategoryDrawer = ({
             <div className="grid grid-cols-6 gap-2 items-center py-1">
               <CategoryDrawerContent
                 _id={drawerCategory._id}
-                name={`TOTAL`}
+                name="TOTAL"
                 amount={drawerCategory.totalAmount}
                 paidAmount={drawerCategory.totalPaidAmount}
                 currency={currency}
-                handleTransactionDataUpdate={handleTransactionDataUpdate}
+                handleTransactionDataUpdate={handleCategoryDataUpdate}
+                isTotal
               />
             </div>
 

@@ -24,6 +24,7 @@ type CategoryDrawerContentProps = PartialTransactionProps & {
   handleTransactionDataUpdate: (
     transactionData: TransactionDataUpdateProps
   ) => void;
+  isTotal?: boolean;
 };
 
 const CategoryDrawerContent = ({
@@ -32,7 +33,8 @@ const CategoryDrawerContent = ({
   amount,
   paidAmount,
   currency,
-  handleTransactionDataUpdate
+  handleTransactionDataUpdate,
+  isTotal
 }: CategoryDrawerContentProps) => {
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
 
@@ -52,12 +54,21 @@ const CategoryDrawerContent = ({
   return (
     <>
       <div className="col-span-2">
-        <p className="text-sm sm:text-base sm:font-medium truncate hover:text-clip">
-          {name}
-        </p>
+        {isTotal ? (
+          <p className="text-base sm:text-lg font-semibold sm:font-bold truncate hover:text-clip">
+            {name}
+          </p>
+        ) : (
+          <p className="text-sm sm:text-base sm:font-medium truncate hover:text-clip">
+            {name}
+          </p>
+        )}
       </div>
       <div className="col-span-3">
-        <Popover open={isPopoverOpen} onOpenChange={setIsPopoverOpen}>
+        <Popover
+          open={!isTotal && isPopoverOpen}
+          onOpenChange={setIsPopoverOpen}
+        >
           <PopoverTrigger asChild>
             <div className="cursor-pointer">
               <Progress
@@ -70,6 +81,10 @@ const CategoryDrawerContent = ({
                 size="sm"
                 radius="sm"
                 showValueLabel={true}
+                classNames={{
+                  label: `${isTotal && 'text-base font-bold'}`,
+                  value: `${isTotal && 'text-base font-bold'}`
+                }}
               />
             </div>
           </PopoverTrigger>
