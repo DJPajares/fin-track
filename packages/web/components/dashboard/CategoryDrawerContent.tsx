@@ -107,6 +107,12 @@ const CategoryDrawerContent = ({
             variant="outline"
             size="sm_rounded_icon"
             className="bg-green-600"
+            onClick={() =>
+              handleTransactionDataUpdate({
+                _id,
+                paidAmount: 0
+              })
+            }
           >
             <CheckIcon className="h-4 w-4" />
           </Button>
