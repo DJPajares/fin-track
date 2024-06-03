@@ -58,7 +58,8 @@ const CategoryDrawer = ({
       if (transaction._id === _id) {
         return {
           ...transaction,
-          paidAmount
+          paidAmount:
+            paidAmount <= transaction.amount ? paidAmount : transaction.amount
         };
       }
 
