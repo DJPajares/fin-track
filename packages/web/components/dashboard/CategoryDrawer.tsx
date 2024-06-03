@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import {
   Drawer,
@@ -8,9 +9,9 @@ import {
   DrawerTitle
 } from '@/components/ui/drawer';
 import { Button } from '@/components/ui/button';
-import type { TransactionPaymentCategoryProps } from '../../../../shared/types/transactionPaymentTypes';
+import { Separator } from '@/components/ui/separator';
 import CategoryDrawerContent from './CategoryDrawerContent';
-import axios from 'axios';
+import type { TransactionPaymentCategoryProps } from '../../../../shared/types/transactionPaymentTypes';
 import type { DashboardDataProps } from '../../../../shared/types/dashboardTypes';
 
 type CategoryDrawerProps = {
@@ -63,8 +64,18 @@ const CategoryDrawer = ({
       return transaction;
     });
 
+    let totalAmount = 0;
+    let totalPaidAmount = 0;
+
+    updatedTransactions.forEach((transaction) => {
+      totalAmount += transaction.amount;
+      totalPaidAmount += transaction.paidAmount;
+    });
+
     setDrawerCategory({
       ...drawerCategory,
+      totalAmount,
+      totalPaidAmount,
       transactions: updatedTransactions
     });
   };
@@ -100,11 +111,47 @@ const CategoryDrawer = ({
             <DrawerTitle>{drawerCategory.name}</DrawerTitle>
           </DrawerHeader>
 
-          <CategoryDrawerContent
-            category={drawerCategory}
-            currency={currency}
-            handleTransactionDataUpdate={handleTransactionDataUpdate}
-          />
+          <div className="flex flex-col justify-between px-4 py-2">
+            <div className="pb-4">
+              <Separator />
+            </div>
+
+            {Object.keys(drawerCategory).length > 0 &&
+              drawerCategory.transactions.map((transaction) => (
+                <div
+                  key={transaction._id}
+                  className="grid grid-cols-6 gap-2 items-center py-1"
+                >
+                  <CategoryDrawerContent
+                    _id={transaction._id}
+                    name={transaction.name}
+                    amount={transaction.amount}
+                    paidAmount={transaction.paidAmount}
+                    currency={currency}
+                    handleTransactionDataUpdate={handleTransactionDataUpdate}
+                  />
+                </div>
+              ))}
+
+            <div className="py-4">
+              <Separator />
+            </div>
+
+            <div className="grid grid-cols-6 gap-2 items-center py-1">
+              <CategoryDrawerContent
+                _id={drawerCategory._id}
+                name={`TOTAL`}
+                amount={drawerCategory.totalAmount}
+                paidAmount={drawerCategory.totalPaidAmount}
+                currency={currency}
+                handleTransactionDataUpdate={handleTransactionDataUpdate}
+              />
+            </div>
+
+            <div className="pt-4">
+              <Separator />
+            </div>
+          </div>
 
           <DrawerFooter>
             <Button onClick={updatePayment}>Confirm</Button>
