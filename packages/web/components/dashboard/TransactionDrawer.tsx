@@ -24,10 +24,10 @@ import { Input } from '@/components/ui/input';
 import { Calendar } from '@/components/ui/calendar';
 import { ChevronsUpDownIcon } from 'lucide-react';
 import { formatDate } from '../../../../shared/utilities/formatDate';
-import type { CurrencyProps } from '../../../api/src/models/v1/currencyModel';
+import type { DashboardCurrencyProps } from '../../../../shared/types/dashboardTypes';
 
 type TransactionDrawerProps = {
-  currencies: CurrencyProps[];
+  currencies: DashboardCurrencyProps[];
   isTransactionDrawerOpen: boolean;
   setIsTransactionDrawerOpen: Dispatch<SetStateAction<boolean>>;
 };
@@ -38,7 +38,7 @@ const TransactionDrawer = ({
   setIsTransactionDrawerOpen
 }: TransactionDrawerProps) => {
   const [date, setDate] = useState(new Date());
-  const [currency, setCurrency] = useState('PHP');
+  const [currency, setCurrency] = useState();
   const [isCategoryPopoverOpen, setIsCategoryPopoverOpen] = useState(false);
   const [isCurrencyPopoverOpen, setIsCurrencyPopoverOpen] = useState(false);
   const [isDatePopoverOpen, setIsDatePopoverOpen] = useState(false);
@@ -115,6 +115,7 @@ const TransactionDrawer = ({
                   mode="single"
                   selected={date}
                   onSelect={changeDate}
+                  defaultMonth={date} // >>> to-do: doesn't work, should open the calendar based on the date selected
                   initialFocus
                 />
               </PopoverContent>

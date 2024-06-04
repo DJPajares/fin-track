@@ -1,6 +1,13 @@
+import { CurrencyProps } from '../../packages/api/src/models/v1/currencyModel';
+
 type DashboardDataProps = {
   date: Date;
-  currency: string;
+  currencyId: string;
 };
 
-export type { DashboardDataProps };
+type DashboardCurrencyProps = {
+  _id: string;
+  name: string;
+};
+
+export type { DashboardDataProps, DashboardCurrencyProps };

@@ -31,8 +31,10 @@ import type {
   TransactionPaymentMainProps,
   TransactionPaymentCategoryProps
 } from '../../../../shared/types/transactionPaymentTypes';
-import type { CurrencyProps } from '../../../api/src/models/v1/currencyModel';
-import type { DashboardDataProps } from '../../../../shared/types/dashboardTypes';
+import type {
+  DashboardCurrencyProps,
+  DashboardDataProps
+} from '../../../../shared/types/dashboardTypes';
 
 const transactionPaymentsUrl =
   'http://localhost:3001/api/v1/transactionPayments';
@@ -51,9 +53,14 @@ const initialTransactionPaymentCategory: TransactionPaymentCategoryProps = {
   transactions: []
 };
 
+const initialCurrency = {
+  _id: '',
+  name: 'PHP'
+};
+
 const fetchTransactionPayments = async ({
   date,
-  currency
+  currencyId
 }: DashboardDataProps) => {
   try {
     if (useMockedData) {
@@ -61,7 +68,7 @@ const fetchTransactionPayments = async ({
     } else {
       const { status, data } = await axios.post(transactionPaymentsUrl, {
         date,
-        currency
+        currency: currencyId
       });
 
       if (status === 200) return data.data;
@@ -93,8 +100,9 @@ const Dashboard = () => {
     initialTransactionPaymentCategory
   );
   const [date, setDate] = useState(new Date());
-  const [currencies, setCurrencies] = useState<CurrencyProps[]>([]);
-  const [currency, setCurrency] = useState(defaultCurrency);
+  const [currencies, setCurrencies] = useState<DashboardCurrencyProps[]>([]);
+  const [currency, setCurrency] =
+    useState<DashboardCurrencyProps>(initialCurrency);
   const [isDatePopoverOpen, setIsDatePopoverOpen] = useState(false);
   const [isCurrencyPopoverOpen, setIsCurrencyPopoverOpen] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -105,13 +113,16 @@ const Dashboard = () => {
   }, []);
 
   useEffect(() => {
-    fetchDashboardData({ date, currency });
+    fetchDashboardData({ date, currencyId: currency._id });
   }, [date, currency]);
 
-  const fetchDashboardData = async ({ date, currency }: DashboardDataProps) => {
+  const fetchDashboardData = async ({
+    date,
+    currencyId
+  }: DashboardDataProps) => {
     const { main, categories } = await fetchTransactionPayments({
       date,
-      currency
+      currencyId
     });
 
     setDashboardCategoriesData(categories);
@@ -124,9 +135,24 @@ const Dashboard = () => {
     setCurrencies(data);
   };
 
-  const changeDate = (newDate: any) => {
+  const handleDateSelection = (newDate: any) => {
+    console.log(newDate);
     setDate(newDate);
     setIsDatePopoverOpen(false);
+  };
+
+  const handleCurrencySelection = ({
+    selectedCurrency
+  }: {
+    selectedCurrency: DashboardCurrencyProps;
+  }) => {
+    const { _id, name } = selectedCurrency;
+
+    setCurrency({
+      _id,
+      name
+    });
+    setIsCurrencyPopoverOpen(false);
   };
 
   const handleCardClick = (category: TransactionPaymentCategoryProps) => {
@@ -144,6 +170,7 @@ const Dashboard = () => {
         <div className="pb-2 sm:pb-6">
           {Object.keys(dashboardMainData).length > 0 ? (
             <div className="flex flex-row items-center justify-between">
+              {/* CALENDAR */}
               <Popover
                 open={isDatePopoverOpen}
                 onOpenChange={setIsDatePopoverOpen}
@@ -160,12 +187,13 @@ const Dashboard = () => {
                   <Calendar
                     mode="single"
                     selected={date}
-                    onSelect={changeDate}
+                    onSelect={handleDateSelection}
                     initialFocus
                   />
                 </PopoverContent>
               </Popover>
 
+              {/* CURRENCY */}
               <Popover
                 open={isCurrencyPopoverOpen}
                 onOpenChange={setIsCurrencyPopoverOpen}
@@ -173,7 +201,7 @@ const Dashboard = () => {
                 <PopoverTrigger asChild>
                   <Button variant="ghost" className="px-0">
                     <p className="text-3xl sm:text-5xl font-extrabold sm:font-black">
-                      {currency}
+                      {currency.name}
                     </p>
                   </Button>
                 </PopoverTrigger>
@@ -188,14 +216,13 @@ const Dashboard = () => {
                       <CommandList>
                         {currencies.map((currency) => (
                           <CommandItem
-                            key={currency._id.toString()}
+                            key={currency._id}
                             value={currency.name}
-                            onSelect={(currentValue: any) => {
-                              setCurrency(
-                                currentValue === currency ? '' : currentValue
-                              );
-                              setIsCurrencyPopoverOpen(false);
-                            }}
+                            onSelect={() =>
+                              handleCurrencySelection({
+                                selectedCurrency: currency
+                              })
+                            }
                           >
                             {currency.name}
                           </CommandItem>
