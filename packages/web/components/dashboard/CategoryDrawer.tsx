@@ -9,6 +9,16 @@ import {
   DrawerTitle
 } from '@/components/ui/drawer';
 import { Button } from '@/components/ui/button';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger
+} from '@/components/ui/alert-dialog';
 import { Separator } from '@/components/ui/separator';
 import CategoryDrawerContent from './CategoryDrawerContent';
 import type {
@@ -205,7 +215,22 @@ const CategoryDrawer = ({
           </div>
 
           <DrawerFooter>
-            <Button onClick={createUpdatePayment}>Confirm</Button>
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <Button>Confirm</Button>
+              </AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                  <AlertDialogAction onClick={createUpdatePayment}>
+                    Continue
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
             <DrawerClose asChild>
               <Button variant="outline">Cancel</Button>
             </DrawerClose>
