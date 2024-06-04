@@ -40,6 +40,17 @@ const currenciesUrl = 'http://localhost:3001/api/v1/currencies';
 
 const useMockedData = process.env.NEXT_PUBLIC_USE_MOCKED_DATA === 'true';
 
+const defaultCurrency = 'PHP';
+
+const initialTransactionPaymentCategory: TransactionPaymentCategoryProps = {
+  _id: '',
+  name: '',
+  totalAmount: 0,
+  totalPaidAmount: 0,
+  paymentCompletionRate: 0,
+  transactions: []
+};
+
 const fetchTransactionPayments = async ({
   date,
   currency
@@ -78,11 +89,12 @@ const Dashboard = () => {
   const [dashboardMainData, setDashboardMainData] =
     useState<TransactionPaymentMainProps>({});
   const [dashboardCategoriesData, setDashboardCategoriesData] = useState([]);
-  const [dashboardCategoryData, setDashboardCategoryData] =
-    useState<TransactionPaymentCategoryProps>({});
+  const [dashboardCategoryData, setDashboardCategoryData] = useState(
+    initialTransactionPaymentCategory
+  );
   const [date, setDate] = useState(new Date());
   const [currencies, setCurrencies] = useState<CurrencyProps[]>([]);
-  const [currency, setCurrency] = useState('PHP');
+  const [currency, setCurrency] = useState(defaultCurrency);
   const [isDatePopoverOpen, setIsDatePopoverOpen] = useState(false);
   const [isCurrencyPopoverOpen, setIsCurrencyPopoverOpen] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);

@@ -28,6 +28,15 @@ type CategoryDrawerProps = {
 
 const paymentUrl = 'http://localhost:3001/api/v1/payments';
 
+const initialTransactionPaymentCategory: TransactionPaymentCategoryProps = {
+  _id: '',
+  name: '',
+  totalAmount: 0,
+  totalPaidAmount: 0,
+  paymentCompletionRate: 0,
+  transactions: []
+};
+
 const CategoryDrawer = ({
   category,
   currency,
@@ -36,8 +45,9 @@ const CategoryDrawer = ({
   isDialogOpen,
   setIsDialogOpen
 }: CategoryDrawerProps) => {
-  const [drawerCategory, setDrawerCategory] =
-    useState<TransactionPaymentCategoryProps>({});
+  const [drawerCategory, setDrawerCategory] = useState(
+    initialTransactionPaymentCategory
+  );
 
   useEffect(() => {
     if (isDialogOpen) {
