@@ -25,13 +25,16 @@ import type {
   TransactionDataUpdateProps,
   TransactionPaymentCategoryProps
 } from '../../../../shared/types/transactionPaymentTypes';
-import type { DashboardDataProps } from '../../../../shared/types/dashboardTypes';
+import type {
+  DashboardCurrencyProps,
+  DashboardDataProps
+} from '../../../../shared/types/dashboardTypes';
 
 type CategoryDrawerProps = {
   category: TransactionPaymentCategoryProps;
-  currency: string;
+  currency: DashboardCurrencyProps;
   date: Date;
-  fetchDashboardData: ({ date, currency }: DashboardDataProps) => void;
+  fetchDashboardData: ({ date, currencyId }: DashboardDataProps) => void;
   isDialogOpen: boolean;
   setIsDialogOpen: Dispatch<SetStateAction<boolean>>;
 };
@@ -146,7 +149,7 @@ const CategoryDrawer = ({
       .filter((transaction) => transaction.isUpdated)
       .map((transaction) => ({
         transaction: transaction._id,
-        currency,
+        currency: currency._id,
         amount: transaction.paidAmount,
         date
       }));
@@ -154,7 +157,7 @@ const CategoryDrawer = ({
     const { status } = await axios.post(paymentUrl, postData);
 
     if (status === 200) {
-      fetchDashboardData({ date, currency });
+      fetchDashboardData({ date, currencyId: currency._id });
       setIsDialogOpen(false);
     }
   };

@@ -42,8 +42,6 @@ const currenciesUrl = 'http://localhost:3001/api/v1/currencies';
 
 const useMockedData = process.env.NEXT_PUBLIC_USE_MOCKED_DATA === 'true';
 
-const defaultCurrency = 'PHP';
-
 const initialTransactionPaymentCategory: TransactionPaymentCategoryProps = {
   _id: '',
   name: '',
@@ -51,11 +49,6 @@ const initialTransactionPaymentCategory: TransactionPaymentCategoryProps = {
   totalPaidAmount: 0,
   paymentCompletionRate: 0,
   transactions: []
-};
-
-const initialCurrency = {
-  _id: '',
-  name: 'PHP'
 };
 
 const fetchTransactionPayments = async ({
@@ -101,8 +94,7 @@ const Dashboard = () => {
   );
   const [date, setDate] = useState(new Date());
   const [currencies, setCurrencies] = useState<DashboardCurrencyProps[]>([]);
-  const [currency, setCurrency] =
-    useState<DashboardCurrencyProps>(initialCurrency);
+  const [currency, setCurrency] = useState<DashboardCurrencyProps>({});
   const [isDatePopoverOpen, setIsDatePopoverOpen] = useState(false);
   const [isCurrencyPopoverOpen, setIsCurrencyPopoverOpen] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -111,6 +103,12 @@ const Dashboard = () => {
   useEffect(() => {
     fetchCurrencyData();
   }, []);
+
+  useEffect(() => {
+    if (currencies.length > 0) {
+      setCurrency(currencies[0]);
+    }
+  }, [currencies]);
 
   useEffect(() => {
     fetchDashboardData({ date, currencyId: currency._id });
@@ -136,7 +134,6 @@ const Dashboard = () => {
   };
 
   const handleDateSelection = (newDate: any) => {
-    console.log(newDate);
     setDate(newDate);
     setIsDatePopoverOpen(false);
   };
@@ -250,7 +247,7 @@ const Dashboard = () => {
               <p className="text-xl sm:text-3xl font-medium">
                 {formatCurrency({
                   value: dashboardMainData.balance,
-                  currency: dashboardMainData.currency
+                  currency: currency.name
                 })}
               </p>
             </div>
@@ -271,7 +268,7 @@ const Dashboard = () => {
               <p className="text-base sm:text-lg font-medium sm:font-semibold">
                 {formatCurrency({
                   value: dashboardMainData.extra,
-                  currency: dashboardMainData.currency
+                  currency: currency.name
                 })}
               </p>
             </div>
@@ -315,7 +312,7 @@ const Dashboard = () => {
               <div key={category._id}>
                 <CategoryCard
                   category={category}
-                  currency={dashboardMainData.currency}
+                  currency={currency.name}
                   handleCardClick={handleCardClick}
                 />
               </div>
@@ -334,7 +331,7 @@ const Dashboard = () => {
 
       <CategoryDrawer
         category={dashboardCategoryData}
-        currency={dashboardMainData.currency}
+        currency={currency}
         date={date}
         fetchDashboardData={fetchDashboardData}
         isDialogOpen={isDialogOpen}

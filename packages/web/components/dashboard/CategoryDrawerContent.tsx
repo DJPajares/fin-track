@@ -13,6 +13,7 @@ import type {
   TransactionDataUpdateProps,
   TransactionProps
 } from '../../../../shared/types/transactionPaymentTypes';
+import { DashboardCurrencyProps } from '../../../../shared/types/dashboardTypes';
 
 type PartialTransactionProps = Pick<
   TransactionProps,
@@ -20,7 +21,7 @@ type PartialTransactionProps = Pick<
 >;
 
 type CategoryDrawerContentProps = PartialTransactionProps & {
-  currency: string;
+  currency: DashboardCurrencyProps;
   handleTransactionDataUpdate: (
     transactionData: TransactionDataUpdateProps
   ) => void;
@@ -75,7 +76,7 @@ const CategoryDrawerContent = ({
                 color="success"
                 label={formatCurrency({
                   value: amount,
-                  currency
+                  currency: currency.name
                 })}
                 value={Math.floor((paidAmount / amount) * 100)}
                 size="sm"
@@ -110,7 +111,7 @@ const CategoryDrawerContent = ({
               </div>
               <p className="text-sm font-medium">{`/ ${formatCurrency({
                 value: amount,
-                currency
+                currency: currency.name
               })}`}</p>
             </div>
           </PopoverContent>
