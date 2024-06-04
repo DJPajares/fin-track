@@ -111,7 +111,11 @@ const Dashboard = () => {
   }, [currencies]);
 
   useEffect(() => {
-    fetchDashboardData({ date, currencyId: currency._id });
+    const hasCurrency = Object.keys(currency).length > 0;
+
+    if (date && hasCurrency) {
+      fetchDashboardData({ date, currencyId: currency._id });
+    }
   }, [date, currency]);
 
   const fetchDashboardData = async ({
