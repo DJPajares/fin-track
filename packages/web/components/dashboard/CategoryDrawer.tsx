@@ -217,7 +217,7 @@ const CategoryDrawer = ({
           <DrawerFooter>
             <AlertDialog>
               <AlertDialogTrigger asChild>
-                <Button>Confirm</Button>
+                <Button>Update</Button>
               </AlertDialogTrigger>
               <AlertDialogContent>
                 <AlertDialogHeader>

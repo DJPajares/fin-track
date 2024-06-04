@@ -8,9 +8,9 @@ import {
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@nextui-org/progress';
+import { CheckIcon, HandCoinsIcon } from 'lucide-react';
 import { formatCurrency } from '../../../../shared/utilities/formatCurrency';
 import type { TransactionPaymentCategoryProps } from '../../../../shared/types/transactionPaymentTypes';
-import { CheckIcon, HandCoinsIcon } from 'lucide-react';
 
 type CategoryModalProps = {
   category: TransactionPaymentCategoryProps;

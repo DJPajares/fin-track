@@ -1,5 +1,8 @@
 'use client';
 
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import {
   Navbar,
   NavbarBrand,
@@ -12,9 +15,6 @@ import { Avatar } from '@nextui-org/react';
 import { Button } from '@/components/ui/button';
 import { MoonIcon, SunIcon } from 'lucide-react';
 import { useTheme } from 'next-themes';
-import { useEffect, useState } from 'react';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 
 const menuItems = [
   {
@@ -83,19 +83,7 @@ const NavMenu = () => {
       <NavbarMenu>
         {menuItems.map((item, index) => (
           <NavbarMenuItem key={`${item.name}-${index}`}>
-            <Link
-              // color={
-              //   index === 2
-              //     ? 'primary'
-              //     : index === menuItems.length - 1
-              //     ? 'danger'
-              //     : 'foreground'
-              // }
-              // className="w-full"
-              href={item.route}
-              // size="lg"
-              onClick={() => setIsMenuOpen(false)}
-            >
+            <Link href={item.route} onClick={() => setIsMenuOpen(false)}>
               {item.name}
             </Link>
           </NavbarMenuItem>

@@ -22,9 +22,9 @@ import {
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Calendar } from '@/components/ui/calendar';
-import { CurrencyProps } from '../../../api/src/models/v1/currencyModel';
 import { ChevronsUpDownIcon } from 'lucide-react';
 import { formatDate } from '../../../../shared/utilities/formatDate';
+import type { CurrencyProps } from '../../../api/src/models/v1/currencyModel';
 
 type TransactionDrawerProps = {
   currencies: CurrencyProps[];

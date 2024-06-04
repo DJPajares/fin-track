@@ -1,3 +1,4 @@
+import { KeyboardEvent, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import {
   Popover,
@@ -12,7 +13,6 @@ import type {
   TransactionDataUpdateProps,
   TransactionProps
 } from '../../../../shared/types/transactionPaymentTypes';
-import { ChangeEvent, KeyboardEvent, useState } from 'react';
 
 type PartialTransactionProps = Pick<
   TransactionProps,

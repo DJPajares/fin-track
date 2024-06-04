@@ -2,11 +2,10 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardHeader,
-  CardTitle
+  CardHeader
 } from '@/components/ui/card';
-import { formatCurrency } from '../../../../shared/utilities/formatCurrency';
 import { Progress } from '@nextui-org/progress';
+import { formatCurrency } from '../../../../shared/utilities/formatCurrency';
 import type { TransactionPaymentCategoryProps } from '../../../../shared/types/transactionPaymentTypes';
 
 type CategoryCardProps = {
