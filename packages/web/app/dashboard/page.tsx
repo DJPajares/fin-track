@@ -32,9 +32,10 @@ import type {
   TransactionPaymentCategoryProps
 } from '../../../../shared/types/transactionPaymentTypes';
 import type {
-  DashboardCurrencyProps,
+  DashboardSelectionItemsProps,
   DashboardDataProps
 } from '../../../../shared/types/dashboardTypes';
+import { format } from 'date-fns';
 
 const transactionPaymentsUrl =
   'http://localhost:3001/api/v1/transactionPayments';
@@ -93,8 +94,10 @@ const Dashboard = () => {
     initialTransactionPaymentCategory
   );
   const [date, setDate] = useState(new Date());
-  const [currencies, setCurrencies] = useState<DashboardCurrencyProps[]>([]);
-  const [currency, setCurrency] = useState<DashboardCurrencyProps>({});
+  const [currencies, setCurrencies] = useState<DashboardSelectionItemsProps[]>(
+    []
+  );
+  const [currency, setCurrency] = useState<DashboardSelectionItemsProps>({});
   const [isDatePopoverOpen, setIsDatePopoverOpen] = useState(false);
   const [isCurrencyPopoverOpen, setIsCurrencyPopoverOpen] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -105,9 +108,7 @@ const Dashboard = () => {
   }, []);
 
   useEffect(() => {
-    if (currencies.length > 0) {
-      setCurrency(currencies[0]);
-    }
+    if (currencies.length > 0) setCurrency(currencies[0]);
   }, [currencies]);
 
   useEffect(() => {
@@ -145,13 +146,11 @@ const Dashboard = () => {
   const handleCurrencySelection = ({
     selectedCurrency
   }: {
-    selectedCurrency: DashboardCurrencyProps;
+    selectedCurrency: DashboardSelectionItemsProps;
   }) => {
-    const { _id, name } = selectedCurrency;
-
     setCurrency({
-      _id,
-      name
+      _id: selectedCurrency._id,
+      name: selectedCurrency.name
     });
     setIsCurrencyPopoverOpen(false);
   };
@@ -179,7 +178,7 @@ const Dashboard = () => {
                 <PopoverTrigger asChild>
                   <Button variant="ghost" className="px-0">
                     <p className="text-3xl sm:text-5xl font-extrabold sm:font-black">
-                      {formatDate(date)}
+                      {format(date, 'MMM yyyy')}
                     </p>
                     {/* <ChevronDownIcon className="h-4 w-4" /> */}
                   </Button>
@@ -330,7 +329,7 @@ const Dashboard = () => {
         className="my-4"
         onClick={handleAddTransactionButton}
       >
-        Add
+        Add Transaction
       </Button>
 
       <CategoryDrawer
@@ -343,6 +342,7 @@ const Dashboard = () => {
       />
 
       <TransactionDrawer
+        currency={currency}
         currencies={currencies}
         isTransactionDrawerOpen={isTransactionDrawerOpen}
         setIsTransactionDrawerOpen={setIsTransactionDrawerOpen}

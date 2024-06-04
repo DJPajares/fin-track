@@ -13,7 +13,7 @@ import type {
   TransactionDataUpdateProps,
   TransactionProps
 } from '../../../../shared/types/transactionPaymentTypes';
-import { DashboardCurrencyProps } from '../../../../shared/types/dashboardTypes';
+import { DashboardSelectionItemsProps } from '../../../../shared/types/dashboardTypes';
 
 type PartialTransactionProps = Pick<
   TransactionProps,
@@ -21,7 +21,7 @@ type PartialTransactionProps = Pick<
 >;
 
 type CategoryDrawerContentProps = PartialTransactionProps & {
-  currency: DashboardCurrencyProps;
+  currency: DashboardSelectionItemsProps;
   handleTransactionDataUpdate: (
     transactionData: TransactionDataUpdateProps
   ) => void;

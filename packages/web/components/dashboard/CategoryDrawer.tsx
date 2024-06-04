@@ -26,13 +26,13 @@ import type {
   TransactionPaymentCategoryProps
 } from '../../../../shared/types/transactionPaymentTypes';
 import type {
-  DashboardCurrencyProps,
+  DashboardSelectionItemsProps,
   DashboardDataProps
 } from '../../../../shared/types/dashboardTypes';
 
 type CategoryDrawerProps = {
   category: TransactionPaymentCategoryProps;
-  currency: DashboardCurrencyProps;
+  currency: DashboardSelectionItemsProps;
   date: Date;
   fetchDashboardData: ({ date, currencyId }: DashboardDataProps) => void;
   isDialogOpen: boolean;

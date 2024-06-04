@@ -5,9 +5,9 @@ type DashboardDataProps = {
   currencyId: string;
 };
 
-type DashboardCurrencyProps = {
+type DashboardSelectionItemsProps = {
   _id: string;
   name: string;
 };
 
-export type { DashboardDataProps, DashboardCurrencyProps };
+export type { DashboardDataProps, DashboardSelectionItemsProps };

@@ -1,0 +1,38 @@
+{
+  "income": [
+    {
+      "_id": "paycheck",
+      "name": "Paycheck"
+    },
+    {
+      "_id": "investment",
+      "name": "Investment"
+    }
+  ],
+  "expense": [
+    {
+      "_id": "family",
+      "name": "Family"
+    },
+    {
+      "_id": "utilities",
+      "name": "Utilities"
+    },
+    {
+      "_id": "creditCard",
+      "name": "Credit Card"
+    },
+    {
+      "_id": "healthcare",
+      "name": "Healthcare"
+    },
+    {
+      "_id": "subscriptions",
+      "name": "Subscriptions"
+    },
+    {
+      "_id": "rent",
+      "name": "Rent"
+    }
+  ]
+}
