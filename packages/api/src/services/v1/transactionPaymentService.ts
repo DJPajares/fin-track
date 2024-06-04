@@ -31,6 +31,7 @@ type ExpenseTransactionPaymentsProps = TransactionProps & {
   type: TypeProps['name'];
   currencyId: CurrencyProps['_id'];
   currency: CurrencyProps['name'];
+  paymentId: PaymentProps['_id'];
   paidAmount: PaymentProps['amount'];
   paidCurrencyId: CurrencyProps['_id'];
   paidCurrency: CurrencyProps['name'];
@@ -113,11 +114,9 @@ const fetchTransactionPayments = async (data: FetchTransactionPaymentProps) => {
       }
     },
     {
-      // Unwind the array created by populate to get the category object
       $unwind: '$type'
     },
     {
-      // Perform a left outer join with the TypeModel collection based on the 'type' field of the category
       $lookup: {
         from: CurrencyModel.collection.name,
         localField: 'currency',
@@ -126,7 +125,6 @@ const fetchTransactionPayments = async (data: FetchTransactionPaymentProps) => {
       }
     },
     {
-      // Unwind the array created by populate to get the category object
       $unwind: '$currency'
     },
     {
@@ -292,6 +290,7 @@ const fetchTransactionPayments = async (data: FetchTransactionPaymentProps) => {
         amount: 1,
         currencyId: '$currency._id',
         currency: '$currency.name',
+        paymentId: '$payment._id',
         paidAmount: '$payment.amount',
         paidCurrencyId: '$paymentCurrency._id',
         paidCurrency: '$paymentCurrency.name',
@@ -446,6 +445,7 @@ const processTransactionPaymentData = ({
 
         const transaction = {
           _id: expenseTransactionPayment._id,
+          paymentId: expenseTransactionPayment.paymentId,
           name: expenseTransactionPayment.name,
           amount,
           paidAmount

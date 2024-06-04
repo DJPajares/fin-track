@@ -11,7 +11,10 @@ import {
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import CategoryDrawerContent from './CategoryDrawerContent';
-import type { TransactionPaymentCategoryProps } from '../../../../shared/types/transactionPaymentTypes';
+import type {
+  TransactionDataUpdateProps,
+  TransactionPaymentCategoryProps
+} from '../../../../shared/types/transactionPaymentTypes';
 import type { DashboardDataProps } from '../../../../shared/types/dashboardTypes';
 
 type CategoryDrawerProps = {
@@ -21,11 +24,6 @@ type CategoryDrawerProps = {
   fetchDashboardData: ({ date, currency }: DashboardDataProps) => void;
   isDialogOpen: boolean;
   setIsDialogOpen: Dispatch<SetStateAction<boolean>>;
-};
-
-type TransactionDataUpdateProps = {
-  _id: any;
-  paidAmount: number;
 };
 
 const paymentUrl = 'http://localhost:3001/api/v1/payments';
@@ -121,7 +119,7 @@ const CategoryDrawer = ({
     });
   };
 
-  const updatePayment = async () => {
+  const createUpdatePayment = async () => {
     const transactionArray = drawerCategory.transactions;
 
     const postData = transactionArray
@@ -132,8 +130,6 @@ const CategoryDrawer = ({
         amount: transaction.paidAmount,
         date
       }));
-
-    console.log(postData);
 
     const { status } = await axios.post(paymentUrl, postData);
 
@@ -199,7 +195,7 @@ const CategoryDrawer = ({
           </div>
 
           <DrawerFooter>
-            <Button onClick={updatePayment}>Confirm</Button>
+            <Button onClick={createUpdatePayment}>Confirm</Button>
             <DrawerClose asChild>
               <Button variant="outline">Cancel</Button>
             </DrawerClose>
