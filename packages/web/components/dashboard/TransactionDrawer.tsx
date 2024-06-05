@@ -26,8 +26,6 @@ import { Input } from '@/components/ui/input';
 import { Calendar } from '@/components/ui/calendar';
 import { Separator } from '@/components/ui/separator';
 import { CalendarIcon, ChevronsUpDownIcon } from 'lucide-react';
-import { formatDate } from '../../../../shared/utilities/formatDate';
-import { cn } from '@/lib/utils';
 import { format } from 'date-fns';
 import categoriesData from '../../mockData/categories.json';
 import type { DashboardSelectionItemsProps } from '../../../../shared/types/dashboardTypes';
@@ -63,7 +61,8 @@ const TransactionDrawer = ({
   isTransactionDrawerOpen,
   setIsTransactionDrawerOpen
 }: TransactionDrawerProps) => {
-  const [date, setDate] = useState(new Date());
+  const [startDate, setStartDate] = useState<Date | undefined>();
+  const [endDate, setEndDate] = useState<Date | undefined>();
   const [transactionCurrency, setTransactionCurrency] =
     useState<DashboardSelectionItemsProps>({});
   const [categories, setCategories] = useState<DashboardSelectionItemsProps[]>(
@@ -72,7 +71,8 @@ const TransactionDrawer = ({
   const [category, setCategory] = useState<DashboardSelectionItemsProps>({});
   const [isCategoryPopoverOpen, setIsCategoryPopoverOpen] = useState(false);
   const [isCurrencyPopoverOpen, setIsCurrencyPopoverOpen] = useState(false);
-  const [isDatePopoverOpen, setIsDatePopoverOpen] = useState(false);
+  const [isStartDatePopoverOpen, setIsStartDatePopoverOpen] = useState(false);
+  const [isEndDatePopoverOpen, setIsEndDatePopoverOpen] = useState(false);
 
   useEffect(() => {
     fetchCategoryData();
@@ -86,15 +86,18 @@ const TransactionDrawer = ({
     setTransactionCurrency(currency);
   }, [currency]);
 
+  useEffect(() => {
+    if (startDate && endDate) {
+      if (endDate < startDate) {
+        setEndDate(startDate);
+      }
+    }
+  }, [startDate, endDate]);
+
   const fetchCategoryData = async () => {
     const { income, expense } = await fetchCategories();
 
     setCategories(expense);
-  };
-
-  const changeDate = (newDate: any) => {
-    setDate(newDate);
-    setIsDatePopoverOpen(false);
   };
 
   const handleCategorySelection = ({
@@ -102,9 +105,11 @@ const TransactionDrawer = ({
   }: {
     selectedCategory: DashboardSelectionItemsProps;
   }) => {
+    const { _id, name } = selectedCategory;
+
     setCategory({
-      _id: selectedCategory._id,
-      name: selectedCategory.name
+      _id,
+      name
     });
     setIsCategoryPopoverOpen(false);
   };
@@ -114,11 +119,23 @@ const TransactionDrawer = ({
   }: {
     selectedCurrency: DashboardSelectionItemsProps;
   }) => {
+    const { _id, name } = selectedCurrency;
+
     setTransactionCurrency({
-      _id: selectedCurrency._id,
-      name: selectedCurrency.name
+      _id,
+      name
     });
     setIsCurrencyPopoverOpen(false);
+  };
+
+  const handleStartDateSelection = (date: Date | undefined) => {
+    setStartDate(date);
+    setIsStartDatePopoverOpen(false);
+  };
+
+  const handleEndDateSelection = (date: Date | undefined) => {
+    setEndDate(date);
+    setIsEndDatePopoverOpen(false);
   };
 
   return (
@@ -136,34 +153,66 @@ const TransactionDrawer = ({
           <Separator />
 
           <div className="flex flex-col justify-between px-4 py-2">
-            {/* DATE */}
             <div className="flex flex-row items-center justify-end pt-2 pb-7">
-              <Popover
-                open={isDatePopoverOpen}
-                onOpenChange={setIsDatePopoverOpen}
-              >
-                <PopoverTrigger asChild>
-                  <Button
-                    variant="outline"
-                    className={cn(
-                      'w-[240px] pl-3 text-left font-normal',
-                      !date && 'text-muted-foreground'
-                    )}
-                  >
-                    {date ? format(date, 'PPP') : <span>Pick a date</span>}
-                    <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent className="w-auto p-0" align="start">
-                  <Calendar
-                    mode="single"
-                    selected={date}
-                    onSelect={changeDate}
-                    defaultMonth={date} // >>> to-do: doesn't work, should open the calendar based on the date selected
-                    initialFocus
-                  />
-                </PopoverContent>
-              </Popover>
+              {/* START DATE */}
+              <div className="pr-2">
+                <Popover
+                  open={isStartDatePopoverOpen}
+                  onOpenChange={setIsStartDatePopoverOpen}
+                >
+                  <PopoverTrigger asChild>
+                    <Button variant="outline" className="text-left font-normal">
+                      <p className="pr-2">
+                        {startDate ? (
+                          format(startDate, 'MMM yyyy')
+                        ) : (
+                          <span>Start date</span>
+                        )}
+                      </p>
+                      <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-auto p-0" align="start">
+                    <Calendar
+                      mode="single"
+                      defaultMonth={startDate}
+                      selected={startDate}
+                      onSelect={handleStartDateSelection}
+                      initialFocus
+                    />
+                  </PopoverContent>
+                </Popover>
+              </div>
+
+              {/* END DATE */}
+              <div>
+                <Popover
+                  open={isEndDatePopoverOpen}
+                  onOpenChange={setIsEndDatePopoverOpen}
+                >
+                  <PopoverTrigger asChild>
+                    <Button variant="outline" className="text-left font-normal">
+                      <p className="pr-2">
+                        {endDate ? (
+                          format(endDate, 'MMM yyyy')
+                        ) : (
+                          <span>End date</span>
+                        )}
+                      </p>
+                      <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-auto p-0" align="start">
+                    <Calendar
+                      mode="single"
+                      defaultMonth={endDate}
+                      selected={endDate}
+                      onSelect={handleEndDateSelection}
+                      initialFocus
+                    />
+                  </PopoverContent>
+                </Popover>
+              </div>
             </div>
 
             <div className="flex flex-row items-center py-2">

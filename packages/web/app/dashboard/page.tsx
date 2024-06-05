@@ -138,8 +138,8 @@ const Dashboard = () => {
     setCurrencies(data);
   };
 
-  const handleDateSelection = (newDate: any) => {
-    setDate(newDate);
+  const handleDateSelection = (date: any) => {
+    setDate(date);
     setIsDatePopoverOpen(false);
   };
 
@@ -186,6 +186,7 @@ const Dashboard = () => {
                 <PopoverContent className="w-auto p-0" align="start">
                   <Calendar
                     mode="single"
+                    defaultMonth={date}
                     selected={date}
                     onSelect={handleDateSelection}
                     initialFocus
