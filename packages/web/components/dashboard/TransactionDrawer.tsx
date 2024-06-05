@@ -308,106 +308,112 @@ const TransactionDrawer = ({
                         )}
                       </div>
 
-                      <div className="flex flex-row items-center py-2">
-                        {/* CATEGORY */}
-                        <div className="mr-2">
-                          <Popover
-                            open={isCategoryPopoverOpen}
-                            onOpenChange={setIsCategoryPopoverOpen}
-                          >
-                            <PopoverTrigger asChild>
-                              <Button variant="outline" role="combobox">
-                                {category.name ? category.name : 'Category'}
-                                <ChevronsUpDownIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                              </Button>
-                            </PopoverTrigger>
-                            <PopoverContent className="w-[200px] p-0">
-                              <Command>
-                                <CommandInput
-                                  placeholder="Search category..."
-                                  className="h-9"
-                                />
-                                <CommandEmpty>No categories found</CommandEmpty>
-                                <CommandGroup>
-                                  <CommandList>
-                                    {categories.map((category) => (
-                                      <CommandItem
-                                        key={category._id}
-                                        value={category.name}
-                                        onSelect={() =>
-                                          handleCategorySelection({
-                                            selectedCategory: category
-                                          })
-                                        }
-                                      >
-                                        {category.name}
-                                      </CommandItem>
-                                    ))}
-                                  </CommandList>
-                                </CommandGroup>
-                              </Command>
-                            </PopoverContent>
-                          </Popover>
+                      <div className="py-4">
+                        <div className="flex flex-row items-center py-2">
+                          {/* CATEGORY */}
+                          <div className="mr-2">
+                            <Popover
+                              open={isCategoryPopoverOpen}
+                              onOpenChange={setIsCategoryPopoverOpen}
+                            >
+                              <PopoverTrigger asChild>
+                                <Button variant="outline" role="combobox">
+                                  {category.name ? category.name : 'Category'}
+                                  <ChevronsUpDownIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                                </Button>
+                              </PopoverTrigger>
+                              <PopoverContent className="w-[200px] p-0">
+                                <Command>
+                                  <CommandInput
+                                    placeholder="Search category..."
+                                    className="h-9"
+                                  />
+                                  <CommandEmpty>
+                                    No categories found
+                                  </CommandEmpty>
+                                  <CommandGroup>
+                                    <CommandList>
+                                      {categories.map((category) => (
+                                        <CommandItem
+                                          key={category._id}
+                                          value={category.name}
+                                          onSelect={() =>
+                                            handleCategorySelection({
+                                              selectedCategory: category
+                                            })
+                                          }
+                                        >
+                                          {category.name}
+                                        </CommandItem>
+                                      ))}
+                                    </CommandList>
+                                  </CommandGroup>
+                                </Command>
+                              </PopoverContent>
+                            </Popover>
+                          </div>
+
+                          {/* TITLE */}
+                          <Input
+                            placeholder="Title"
+                            value={title}
+                            onChange={(e) => setTitle(e.target.value)}
+                          />
                         </div>
 
-                        {/* TITLE */}
-                        <Input
-                          placeholder="Title"
-                          value={title}
-                          onChange={(e) => setTitle(e.target.value)}
-                        />
-                      </div>
+                        {/* AMOUNT */}
+                        <div className="flex flex-row items-center py-2">
+                          <div className="mr-2">
+                            <Popover
+                              open={isCurrencyPopoverOpen}
+                              onOpenChange={setIsCurrencyPopoverOpen}
+                            >
+                              <PopoverTrigger asChild>
+                                <Button variant="outline" role="combobox">
+                                  {transactionCurrency.name
+                                    ? transactionCurrency.name
+                                    : 'Currency'}
+                                  <ChevronsUpDownIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                                </Button>
+                              </PopoverTrigger>
+                              <PopoverContent className="w-[200px] p-0">
+                                <Command>
+                                  <CommandInput
+                                    placeholder="Search currency..."
+                                    className="h-9"
+                                  />
+                                  <CommandEmpty>
+                                    No currencies found
+                                  </CommandEmpty>
+                                  <CommandGroup>
+                                    <CommandList>
+                                      {currencies.map((currency) => (
+                                        <CommandItem
+                                          key={currency._id}
+                                          value={currency.name}
+                                          onSelect={() =>
+                                            handleCurrencySelection({
+                                              selectedCurrency: currency
+                                            })
+                                          }
+                                        >
+                                          {currency.name}
+                                        </CommandItem>
+                                      ))}
+                                    </CommandList>
+                                  </CommandGroup>
+                                </Command>
+                              </PopoverContent>
+                            </Popover>
+                          </div>
 
-                      {/* AMOUNT */}
-                      <div className="flex flex-row items-center py-2">
-                        <div className="mr-2">
-                          <Popover
-                            open={isCurrencyPopoverOpen}
-                            onOpenChange={setIsCurrencyPopoverOpen}
-                          >
-                            <PopoverTrigger asChild>
-                              <Button variant="outline" role="combobox">
-                                {transactionCurrency.name
-                                  ? transactionCurrency.name
-                                  : 'Currency'}
-                                <ChevronsUpDownIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                              </Button>
-                            </PopoverTrigger>
-                            <PopoverContent className="w-[200px] p-0">
-                              <Command>
-                                <CommandInput
-                                  placeholder="Search currency..."
-                                  className="h-9"
-                                />
-                                <CommandEmpty>No currencies found</CommandEmpty>
-                                <CommandGroup>
-                                  <CommandList>
-                                    {currencies.map((currency) => (
-                                      <CommandItem
-                                        key={currency._id}
-                                        value={currency.name}
-                                        onSelect={() =>
-                                          handleCurrencySelection({
-                                            selectedCurrency: currency
-                                          })
-                                        }
-                                      >
-                                        {currency.name}
-                                      </CommandItem>
-                                    ))}
-                                  </CommandList>
-                                </CommandGroup>
-                              </Command>
-                            </PopoverContent>
-                          </Popover>
+                          <Input
+                            type="number"
+                            placeholder="Amount"
+                            value={amount}
+                            onChange={(e) => setAmount(e.target.value)}
+                          />
                         </div>
-
-                        <Input
-                          type="number"
-                          placeholder="Amount"
-                          value={amount}
-                          onChange={(e) => setAmount(e.target.value)}
-                        />
                       </div>
 
                       {/* RECURRING */}
