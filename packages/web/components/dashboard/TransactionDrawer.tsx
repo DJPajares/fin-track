@@ -40,6 +40,8 @@ import { format } from 'date-fns';
 import categoriesData from '../../mockData/categories.json';
 import type { DashboardSelectionItemsProps } from '../../../../shared/types/dashboardTypes';
 import type { TransactionProps } from '../../../api/src/models/v1/transactionModel';
+import { Tab, Tabs } from '@nextui-org/tabs';
+import { Card } from '../ui/card';
 
 const useMockedData = process.env.NEXT_PUBLIC_USE_MOCKED_DATA === 'true';
 
@@ -53,6 +55,17 @@ type TransactionDrawerProps = {
   isTransactionDrawerOpen: boolean;
   setIsTransactionDrawerOpen: Dispatch<SetStateAction<boolean>>;
 };
+
+const types = [
+  {
+    _id: 'income',
+    name: 'Income'
+  },
+  {
+    _id: 'expense',
+    name: 'Expense'
+  }
+];
 
 const fetchCategories = async () => {
   try {
@@ -100,8 +113,8 @@ const TransactionDrawer = ({
   const [isCreateTransactionDialogOpen, setIsCreateTransactionDialogOpen] =
     useState(false);
   const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
   const [amount, setAmount] = useState('');
+  const [description, setDescription] = useState('');
 
   useEffect(() => {
     fetchCategoryData();
@@ -174,8 +187,8 @@ const TransactionDrawer = ({
 
     const transactionData = {
       name: title,
-      category,
-      currency: transactionCurrency,
+      category: category._id,
+      currency: transactionCurrency._id,
       amount: amount ? parseFloat(amount) : undefined,
       description,
       isRecurring,
@@ -206,192 +219,211 @@ const TransactionDrawer = ({
 
             <Separator />
 
-            <div className="flex flex-col justify-between px-4 py-2">
-              <div className="flex flex-row items-center justify-end pt-2 pb-7">
-                {/* START DATE */}
-                <div className="pr-2">
-                  <Popover
-                    open={isStartDatePopoverOpen}
-                    onOpenChange={setIsStartDatePopoverOpen}
-                  >
-                    <PopoverTrigger asChild>
-                      <Button
-                        variant="outline"
-                        className="text-left font-normal"
-                      >
-                        <p className="pr-2">
-                          {startDate ? (
-                            format(startDate, 'MMM yyyy')
-                          ) : (
-                            <span>{isRecurring ? 'Start date' : 'Date'}</span>
-                          )}
-                        </p>
-                        <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                      </Button>
-                    </PopoverTrigger>
-                    <PopoverContent className="w-auto p-0" align="start">
-                      <Calendar
-                        mode="single"
-                        defaultMonth={startDate}
-                        selected={startDate}
-                        onSelect={handleStartDateSelection}
-                        initialFocus
-                      />
-                    </PopoverContent>
-                  </Popover>
-                </div>
+            <Tabs
+              variant="bordered"
+              className="flex flex-col items-center pt-3"
+            >
+              {types.map((type) => (
+                <Tab key={type._id} title={type.name} className="px-4">
+                  <Card>
+                    <div className="flex flex-col justify-between p-4">
+                      <div className="flex flex-row items-center justify-end py-2">
+                        {/* START DATE */}
+                        <div>
+                          <Popover
+                            open={isStartDatePopoverOpen}
+                            onOpenChange={setIsStartDatePopoverOpen}
+                          >
+                            <PopoverTrigger asChild>
+                              <Button
+                                variant="outline"
+                                className="text-left font-normal"
+                              >
+                                <p className="pr-2">
+                                  {startDate ? (
+                                    format(startDate, 'MMM yyyy')
+                                  ) : (
+                                    <span>
+                                      {isRecurring ? 'Start date' : 'Date'}
+                                    </span>
+                                  )}
+                                </p>
+                                <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                              </Button>
+                            </PopoverTrigger>
+                            <PopoverContent
+                              className="w-auto p-0"
+                              align="start"
+                            >
+                              <Calendar
+                                mode="single"
+                                defaultMonth={startDate}
+                                selected={startDate}
+                                onSelect={handleStartDateSelection}
+                                initialFocus
+                              />
+                            </PopoverContent>
+                          </Popover>
+                        </div>
 
-                {/* END DATE */}
-                {isRecurring && (
-                  <div>
-                    <Popover
-                      open={isEndDatePopoverOpen}
-                      onOpenChange={setIsEndDatePopoverOpen}
-                    >
-                      <PopoverTrigger asChild>
-                        <Button
-                          variant="outline"
-                          className="text-left font-normal"
+                        {/* END DATE */}
+                        {isRecurring && (
+                          <div className="pl-2">
+                            <Popover
+                              open={isEndDatePopoverOpen}
+                              onOpenChange={setIsEndDatePopoverOpen}
+                            >
+                              <PopoverTrigger asChild>
+                                <Button
+                                  variant="outline"
+                                  className="text-left font-normal"
+                                >
+                                  <p className="pr-2">
+                                    {endDate ? (
+                                      format(endDate, 'MMM yyyy')
+                                    ) : (
+                                      <span>End date</span>
+                                    )}
+                                  </p>
+                                  <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                                </Button>
+                              </PopoverTrigger>
+                              <PopoverContent
+                                className="w-auto p-0"
+                                align="start"
+                              >
+                                <Calendar
+                                  mode="single"
+                                  defaultMonth={endDate}
+                                  selected={endDate}
+                                  onSelect={handleEndDateSelection}
+                                  disabled={(date) =>
+                                    startDate ? date < startDate : false
+                                  }
+                                  initialFocus
+                                />
+                              </PopoverContent>
+                            </Popover>
+                          </div>
+                        )}
+                      </div>
+
+                      <div className="flex flex-row items-center py-2">
+                        {/* CATEGORY */}
+                        <div className="mr-2">
+                          <Popover
+                            open={isCategoryPopoverOpen}
+                            onOpenChange={setIsCategoryPopoverOpen}
+                          >
+                            <PopoverTrigger asChild>
+                              <Button variant="outline" role="combobox">
+                                {category.name ? category.name : 'Category'}
+                                <ChevronsUpDownIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                              </Button>
+                            </PopoverTrigger>
+                            <PopoverContent className="w-[200px] p-0">
+                              <Command>
+                                <CommandInput
+                                  placeholder="Search category..."
+                                  className="h-9"
+                                />
+                                <CommandEmpty>No categories found</CommandEmpty>
+                                <CommandGroup>
+                                  <CommandList>
+                                    {categories.map((category) => (
+                                      <CommandItem
+                                        key={category._id}
+                                        value={category.name}
+                                        onSelect={() =>
+                                          handleCategorySelection({
+                                            selectedCategory: category
+                                          })
+                                        }
+                                      >
+                                        {category.name}
+                                      </CommandItem>
+                                    ))}
+                                  </CommandList>
+                                </CommandGroup>
+                              </Command>
+                            </PopoverContent>
+                          </Popover>
+                        </div>
+
+                        {/* TITLE */}
+                        <Input
+                          placeholder="Title"
+                          value={title}
+                          onChange={(e) => setTitle(e.target.value)}
+                        />
+                      </div>
+
+                      {/* AMOUNT */}
+                      <div className="flex flex-row items-center py-2">
+                        <div className="mr-2">
+                          <Popover
+                            open={isCurrencyPopoverOpen}
+                            onOpenChange={setIsCurrencyPopoverOpen}
+                          >
+                            <PopoverTrigger asChild>
+                              <Button variant="outline" role="combobox">
+                                {transactionCurrency.name
+                                  ? transactionCurrency.name
+                                  : 'Currency'}
+                                <ChevronsUpDownIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                              </Button>
+                            </PopoverTrigger>
+                            <PopoverContent className="w-[200px] p-0">
+                              <Command>
+                                <CommandInput
+                                  placeholder="Search currency..."
+                                  className="h-9"
+                                />
+                                <CommandEmpty>No currencies found</CommandEmpty>
+                                <CommandGroup>
+                                  <CommandList>
+                                    {currencies.map((currency) => (
+                                      <CommandItem
+                                        key={currency._id}
+                                        value={currency.name}
+                                        onSelect={() =>
+                                          handleCurrencySelection({
+                                            selectedCurrency: currency
+                                          })
+                                        }
+                                      >
+                                        {currency.name}
+                                      </CommandItem>
+                                    ))}
+                                  </CommandList>
+                                </CommandGroup>
+                              </Command>
+                            </PopoverContent>
+                          </Popover>
+                        </div>
+
+                        <Input
+                          type="number"
+                          placeholder="Amount"
+                          value={amount}
+                          onChange={(e) => setAmount(e.target.value)}
+                        />
+                      </div>
+
+                      {/* RECURRING */}
+                      <div className="flex flex-row items-center justify-end py-2">
+                        <Checkbox
+                          isSelected={isRecurring}
+                          onValueChange={setIsRecurring}
                         >
-                          <p className="pr-2">
-                            {endDate ? (
-                              format(endDate, 'MMM yyyy')
-                            ) : (
-                              <span>End date</span>
-                            )}
-                          </p>
-                          <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                        </Button>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-auto p-0" align="start">
-                        <Calendar
-                          mode="single"
-                          defaultMonth={endDate}
-                          selected={endDate}
-                          onSelect={handleEndDateSelection}
-                          disabled={(date) =>
-                            startDate ? date < startDate : false
-                          }
-                          initialFocus
-                        />
-                      </PopoverContent>
-                    </Popover>
-                  </div>
-                )}
-              </div>
-
-              <div className="flex flex-row items-center py-2">
-                {/* CATEGORY */}
-                <div className="mr-2">
-                  <Popover
-                    open={isCategoryPopoverOpen}
-                    onOpenChange={setIsCategoryPopoverOpen}
-                  >
-                    <PopoverTrigger asChild>
-                      <Button variant="outline" role="combobox">
-                        {category.name ? category.name : 'Category'}
-                        <ChevronsUpDownIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                      </Button>
-                    </PopoverTrigger>
-                    <PopoverContent className="w-[200px] p-0">
-                      <Command>
-                        <CommandInput
-                          placeholder="Search category..."
-                          className="h-9"
-                        />
-                        <CommandEmpty>No categories found</CommandEmpty>
-                        <CommandGroup>
-                          <CommandList>
-                            {categories.map((category) => (
-                              <CommandItem
-                                key={category._id}
-                                value={category.name}
-                                onSelect={() =>
-                                  handleCategorySelection({
-                                    selectedCategory: category
-                                  })
-                                }
-                              >
-                                {category.name}
-                              </CommandItem>
-                            ))}
-                          </CommandList>
-                        </CommandGroup>
-                      </Command>
-                    </PopoverContent>
-                  </Popover>
-                </div>
-
-                {/* TITLE */}
-                <Input
-                  placeholder="Title"
-                  value={title}
-                  onChange={(e) => setTitle(e.target.value)}
-                />
-              </div>
-
-              {/* AMOUNT */}
-              <div className="flex flex-row items-center py-2">
-                <div className="mr-2">
-                  <Popover
-                    open={isCurrencyPopoverOpen}
-                    onOpenChange={setIsCurrencyPopoverOpen}
-                  >
-                    <PopoverTrigger asChild>
-                      <Button variant="outline" role="combobox">
-                        {transactionCurrency.name
-                          ? transactionCurrency.name
-                          : 'Currency'}
-                        <ChevronsUpDownIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                      </Button>
-                    </PopoverTrigger>
-                    <PopoverContent className="w-[200px] p-0">
-                      <Command>
-                        <CommandInput
-                          placeholder="Search currency..."
-                          className="h-9"
-                        />
-                        <CommandEmpty>No currencies found</CommandEmpty>
-                        <CommandGroup>
-                          <CommandList>
-                            {currencies.map((currency) => (
-                              <CommandItem
-                                key={currency._id}
-                                value={currency.name}
-                                onSelect={() =>
-                                  handleCurrencySelection({
-                                    selectedCurrency: currency
-                                  })
-                                }
-                              >
-                                {currency.name}
-                              </CommandItem>
-                            ))}
-                          </CommandList>
-                        </CommandGroup>
-                      </Command>
-                    </PopoverContent>
-                  </Popover>
-                </div>
-
-                <Input
-                  type="number"
-                  placeholder="Amount"
-                  value={amount}
-                  onChange={(e) => setAmount(e.target.value)}
-                />
-              </div>
-
-              {/* RECURRING */}
-              <div className="flex flex-row items-center justify-end py-2 pt-6">
-                <Checkbox
-                  isSelected={isRecurring}
-                  onValueChange={setIsRecurring}
-                >
-                  Recurring?
-                </Checkbox>
-              </div>
-            </div>
+                          Recurring?
+                        </Checkbox>
+                      </div>
+                    </div>
+                  </Card>
+                </Tab>
+              ))}
+            </Tabs>
 
             <Separator />
 

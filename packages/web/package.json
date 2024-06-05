@@ -18,6 +18,7 @@
     "@nextui-org/react": "^2.3.6",
     "@nextui-org/scroll-shadow": "^2.1.16",
     "@nextui-org/system": "^2.1.2",
+    "@nextui-org/tabs": "^2.0.31",
     "@nextui-org/theme": "^2.2.3",
     "@radix-ui/react-alert-dialog": "^1.0.5",
     "@radix-ui/react-dialog": "^1.0.5",
