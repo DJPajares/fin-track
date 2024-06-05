@@ -145,7 +145,7 @@ const fetchTransactionPayments = async (data: FetchTransactionPaymentProps) => {
         currencyId: '$currency._id',
         currency: '$currency.name',
         description: 1,
-        recurring: 1,
+        isRecurring: 1,
         startDate: 1,
         endDate: 1,
         excludedDates: 1
@@ -295,7 +295,7 @@ const fetchTransactionPayments = async (data: FetchTransactionPaymentProps) => {
         paidCurrencyId: '$paymentCurrency._id',
         paidCurrency: '$paymentCurrency.name',
         description: 1,
-        recurring: 1,
+        isRecurring: 1,
         startDate: 1,
         endDate: 1,
         excludedDates: 1

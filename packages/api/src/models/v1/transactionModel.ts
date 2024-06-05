@@ -7,7 +7,7 @@ const transactionSchema = new Schema(
     currency: { type: Schema.Types.ObjectId, ref: 'Currency' },
     amount: { type: Schema.Types.Decimal128, default: 0 },
     description: String,
-    recurring: Boolean,
+    isRecurring: Boolean,
     startDate: Date,
     endDate: Date,
     excludedDates: [Date]
