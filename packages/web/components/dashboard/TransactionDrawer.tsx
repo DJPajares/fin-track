@@ -208,6 +208,9 @@ const TransactionDrawer = ({
                       defaultMonth={endDate}
                       selected={endDate}
                       onSelect={handleEndDateSelection}
+                      disabled={(date) =>
+                        startDate ? date < startDate : false
+                      }
                       initialFocus
                     />
                   </PopoverContent>
