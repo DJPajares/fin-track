@@ -225,7 +225,7 @@ const TransactionDrawer = ({
             >
               {types.map((type) => (
                 <Tab key={type._id} title={type.name} className="px-4">
-                  <Card>
+                  <Card className="bg-gray-100 dark:bg-gray-900">
                     <div className="flex flex-col justify-between p-4">
                       <div className="flex flex-row items-center justify-end py-2">
                         {/* START DATE */}
