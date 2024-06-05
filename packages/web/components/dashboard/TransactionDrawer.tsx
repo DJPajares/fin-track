@@ -294,7 +294,7 @@ const TransactionDrawer = ({
                               >
                                 <Calendar
                                   mode="single"
-                                  defaultMonth={endDate}
+                                  defaultMonth={endDate ? endDate : startDate}
                                   selected={endDate}
                                   onSelect={handleEndDateSelection}
                                   disabled={(date) =>
