@@ -170,15 +170,13 @@ const CategoryDrawer = ({
     >
       <DrawerContent>
         <div className="mx-auto w-full max-w-lg">
-          <DrawerHeader>
+          <DrawerHeader className="my-2">
             <DrawerTitle>{drawerCategory.name}</DrawerTitle>
           </DrawerHeader>
 
-          <div className="flex flex-col justify-between px-4 py-2">
-            <div className="pb-4">
-              <Separator />
-            </div>
+          <Separator />
 
+          <div className="flex flex-col justify-between px-4 py-2">
             {Object.keys(drawerCategory).length > 0 &&
               drawerCategory.transactions.map((transaction) => (
                 <div
@@ -196,11 +194,11 @@ const CategoryDrawer = ({
                 </div>
               ))}
 
-            <div className="py-4">
+            <div className="pt-2">
               <Separator />
             </div>
 
-            <div className="grid grid-cols-6 gap-2 items-center py-1">
+            <div className="grid grid-cols-6 gap-2 items-center py-2">
               <CategoryDrawerContent
                 _id={drawerCategory._id}
                 name="TOTAL"
@@ -211,13 +209,11 @@ const CategoryDrawer = ({
                 isTotal
               />
             </div>
-
-            <div className="pt-4">
-              <Separator />
-            </div>
           </div>
 
-          <DrawerFooter>
+          <Separator />
+
+          <DrawerFooter className="my-2">
             <AlertDialog>
               <AlertDialogTrigger asChild>
                 <Button>Update</Button>
