@@ -36,12 +36,13 @@ import {
 } from '@/components/ui/alert-dialog';
 import { Checkbox } from '@nextui-org/checkbox';
 import { CalendarIcon, ChevronsUpDownIcon } from 'lucide-react';
-import { format } from 'date-fns';
+import { addMonths, differenceInMonths, format, setDate } from 'date-fns';
 import categoriesData from '../../mockData/categories.json';
 import type { DashboardSelectionItemsProps } from '../../../../shared/types/dashboardTypes';
 import type { TransactionProps } from '../../../api/src/models/v1/transactionModel';
 import { Tab, Tabs } from '@nextui-org/tabs';
 import { Card } from '../ui/card';
+import { Select, SelectItem } from '@nextui-org/select';
 
 const useMockedData = process.env.NEXT_PUBLIC_USE_MOCKED_DATA === 'true';
 
@@ -115,6 +116,7 @@ const TransactionDrawer = ({
   const [title, setTitle] = useState('');
   const [amount, setAmount] = useState('');
   const [description, setDescription] = useState('');
+  const [excludedDates, setExcludedDates] = useState<Date[]>([]);
 
   useEffect(() => {
     fetchCategoryData();
@@ -133,6 +135,8 @@ const TransactionDrawer = ({
       if (endDate < startDate) {
         setEndDate(startDate);
       }
+
+      handleSettingExcludedDates(startDate, endDate);
     }
   }, [startDate, endDate]);
 
@@ -140,6 +144,23 @@ const TransactionDrawer = ({
     const { income, expense } = await fetchCategories();
 
     setCategories(expense);
+  };
+
+  const handleSettingExcludedDates = (startDate: Date, endDate: Date) => {
+    const startDateDay1 = setDate(startDate, 1);
+    const endDateDay1 = setDate(endDate, 1);
+
+    const totalMonths = differenceInMonths(endDateDay1, startDateDay1);
+
+    let excludedDatesArray = [];
+
+    for (let months = 0; months <= totalMonths; months++) {
+      const date = addMonths(startDateDay1, months);
+
+      excludedDatesArray.push(date);
+    }
+
+    setExcludedDates(excludedDatesArray);
   };
 
   const handleCategorySelection = ({
@@ -308,8 +329,8 @@ const TransactionDrawer = ({
                         )}
                       </div>
 
-                      <div className="py-2">
-                        <div className="flex flex-row items-center py-2">
+                      <div className="py-5">
+                        <div className="flex flex-row items-center py-1">
                           {/* CATEGORY */}
                           <div className="mr-2">
                             <Popover
@@ -367,7 +388,7 @@ const TransactionDrawer = ({
                           />
                         </div>
 
-                        <div className="flex flex-row items-center py-2">
+                        <div className="flex flex-row items-center py-1">
                           {/* CURRENCY */}
                           <div className="mr-2">
                             <Popover
@@ -429,8 +450,26 @@ const TransactionDrawer = ({
                         </div>
                       </div>
 
+                      {/* EXCLUDED DATES */}
+                      {isRecurring && excludedDates.length > 0 && (
+                        <div className="flex flex-row items-center justify-center py-2">
+                          <Select
+                            label="Excluded Dates"
+                            placeholder="Select dates to be excluded"
+                            selectionMode="multiple"
+                            className="max-w-xs"
+                          >
+                            {excludedDates.map((excludedDate, index) => (
+                              <SelectItem key={index}>
+                                {format(excludedDate, 'MMM yyyy')}
+                              </SelectItem>
+                            ))}
+                          </Select>
+                        </div>
+                      )}
+
                       {/* RECURRING */}
-                      <div className="flex flex-row items-center justify-end py-2">
+                      <div className="flex flex-row items-center justify-start py-2">
                         <Checkbox
                           isSelected={isRecurring}
                           onValueChange={setIsRecurring}
