@@ -220,7 +220,7 @@ const TransactionDrawer = ({
             <Separator />
 
             <Tabs
-              variant="bordered"
+              variant="underlined"
               className="flex flex-col items-center pt-3"
             >
               {types.map((type) => (
@@ -308,7 +308,7 @@ const TransactionDrawer = ({
                         )}
                       </div>
 
-                      <div className="py-4">
+                      <div className="py-2">
                         <div className="flex flex-row items-center py-2">
                           {/* CATEGORY */}
                           <div className="mr-2">
@@ -317,8 +317,14 @@ const TransactionDrawer = ({
                               onOpenChange={setIsCategoryPopoverOpen}
                             >
                               <PopoverTrigger asChild>
-                                <Button variant="outline" role="combobox">
-                                  {category.name ? category.name : 'Category'}
+                                <Button
+                                  variant="outline"
+                                  role="combobox"
+                                  className="flex flex-row items-center justify-between w-36"
+                                >
+                                  <p className="truncate hover:text-clip">
+                                    {category.name ? category.name : 'Category'}
+                                  </p>
                                   <ChevronsUpDownIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                                 </Button>
                               </PopoverTrigger>
@@ -361,18 +367,24 @@ const TransactionDrawer = ({
                           />
                         </div>
 
-                        {/* AMOUNT */}
                         <div className="flex flex-row items-center py-2">
+                          {/* CURRENCY */}
                           <div className="mr-2">
                             <Popover
                               open={isCurrencyPopoverOpen}
                               onOpenChange={setIsCurrencyPopoverOpen}
                             >
                               <PopoverTrigger asChild>
-                                <Button variant="outline" role="combobox">
-                                  {transactionCurrency.name
-                                    ? transactionCurrency.name
-                                    : 'Currency'}
+                                <Button
+                                  variant="outline"
+                                  role="combobox"
+                                  className="flex flex-row items-center justify-between w-36"
+                                >
+                                  <p className="truncate hover:text-clip">
+                                    {transactionCurrency.name
+                                      ? transactionCurrency.name
+                                      : 'Currency'}
+                                  </p>
                                   <ChevronsUpDownIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                                 </Button>
                               </PopoverTrigger>
@@ -407,6 +419,7 @@ const TransactionDrawer = ({
                             </Popover>
                           </div>
 
+                          {/* AMOUNT */}
                           <Input
                             type="number"
                             placeholder="Amount"
