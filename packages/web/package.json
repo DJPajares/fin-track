@@ -17,6 +17,7 @@
     "@nextui-org/progress": "^2.0.28",
     "@nextui-org/react": "^2.3.6",
     "@nextui-org/scroll-shadow": "^2.1.16",
+    "@nextui-org/select": "^2.2.1",
     "@nextui-org/system": "^2.1.2",
     "@nextui-org/tabs": "^2.0.31",
     "@nextui-org/theme": "^2.2.3",
