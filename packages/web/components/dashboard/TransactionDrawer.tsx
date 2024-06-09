@@ -43,6 +43,7 @@ import type { TransactionProps } from '../../../api/src/models/v1/transactionMod
 import { Tab, Tabs } from '@nextui-org/tabs';
 import { Card } from '../ui/card';
 import { Select, SelectItem } from '@nextui-org/select';
+import { MultiSelectBox } from '../shared/MultiSelectBox';
 
 const useMockedData = process.env.NEXT_PUBLIC_USE_MOCKED_DATA === 'true';
 
@@ -456,7 +457,7 @@ const TransactionDrawer = ({
                       {/* EXCLUDED DATES */}
                       {isRecurring && excludedDates.length > 0 && (
                         <div className="flex flex-row items-center justify-center py-2">
-                          <Select
+                          {/* <Select
                             label="Excluded Dates"
                             placeholder="Select dates to be excluded"
                             selectionMode="multiple"
@@ -467,7 +468,8 @@ const TransactionDrawer = ({
                                 {format(excludedDate, 'MMM yyyy')}
                               </SelectItem>
                             ))}
-                          </Select>
+                          </Select> */}
+                          <MultiSelectBox dates={excludedDates} />
                         </div>
                       )}
 
