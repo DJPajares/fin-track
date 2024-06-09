@@ -54,7 +54,7 @@ const initialTransactionPaymentCategory: TransactionPaymentCategoryProps = {
 
 const fetchTransactionPayments = async ({
   date,
-  currencyId
+  currency
 }: DashboardDataProps) => {
   try {
     if (useMockedData) {
@@ -62,7 +62,7 @@ const fetchTransactionPayments = async ({
     } else {
       const { status, data } = await axios.post(transactionPaymentsUrl, {
         date,
-        currency: currencyId
+        currency
       });
 
       if (status === 200) return data.data;
@@ -115,17 +115,14 @@ const Dashboard = () => {
     const hasCurrency = Object.keys(currency).length > 0;
 
     if (date && hasCurrency) {
-      fetchDashboardData({ date, currencyId: currency._id });
+      fetchDashboardData({ date, currency: currency.name });
     }
   }, [date, currency]);
 
-  const fetchDashboardData = async ({
-    date,
-    currencyId
-  }: DashboardDataProps) => {
+  const fetchDashboardData = async ({ date, currency }: DashboardDataProps) => {
     const { main, categories } = await fetchTransactionPayments({
       date,
-      currencyId
+      currency
     });
 
     setDashboardCategoriesData(categories);

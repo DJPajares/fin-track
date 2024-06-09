@@ -141,9 +141,12 @@ const TransactionDrawer = ({
   }, [startDate, endDate]);
 
   const fetchCategoryData = async () => {
-    const { income, expense } = await fetchCategories();
+    // const { income, expense } = await fetchCategories();
 
-    setCategories(expense);
+    // setCategories(expense);
+
+    const data = await fetchCategories();
+    setCategories(data);
   };
 
   const handleSettingExcludedDates = (startDate: Date, endDate: Date) => {
