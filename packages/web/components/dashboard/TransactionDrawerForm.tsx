@@ -169,7 +169,10 @@ const TransactionDrawerForm = ({
                       mode="single"
                       defaultMonth={field.value}
                       selected={field.value}
-                      onSelect={field.onChange}
+                      onSelect={(date) => {
+                        field.onChange(date);
+                        setIsStartDatePopoverOpen(false);
+                      }}
                       initialFocus
                     />
                   </PopoverContent>
@@ -214,7 +217,10 @@ const TransactionDrawerForm = ({
                           mode="single"
                           defaultMonth={field.value}
                           selected={field.value}
-                          onSelect={field.onChange}
+                          onSelect={(date) => {
+                            field.onChange(date);
+                            setIsEndDatePopoverOpen(false);
+                          }}
                           disabled={(date) =>
                             startDate ? date < startDate : false
                           }
