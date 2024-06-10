@@ -464,14 +464,6 @@ const TransactionDrawer = ({
                         </div>
                       </div>
 
-                      {/* EXCLUDED DATES */}
-                      {isRecurring && excludedDates.length > 0 && (
-                        <div className="flex flex-col my-2">
-                          <p className="font-medium pb-1">Excluded Dates:</p>
-                          <MultiSelectBox dataArray={excludedDates} />
-                        </div>
-                      )}
-
                       {/* RECURRING */}
                       <div className="flex flex-row items-center justify-start py-2">
                         <Checkbox
@@ -481,6 +473,14 @@ const TransactionDrawer = ({
                           Recurring?
                         </Checkbox>
                       </div>
+
+                      {/* EXCLUDED DATES */}
+                      {isRecurring && excludedDates.length > 0 && (
+                        <div className="flex flex-col mt-6">
+                          <p className="font-medium pb-1">Excluded Dates:</p>
+                          <MultiSelectBox dataArray={excludedDates} />
+                        </div>
+                      )}
                     </div>
                   </Card>
                 </Tab>

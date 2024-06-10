@@ -1,8 +1,6 @@
 'use client';
 
-import * as React from 'react';
-import { X } from 'lucide-react';
-
+import { KeyboardEvent, useCallback, useEffect, useRef, useState } from 'react';
 import { Badge } from '@/components/ui/badge';
 import {
   Command,
@@ -11,7 +9,7 @@ import {
   CommandList
 } from '@/components/ui/command';
 import { Command as CommandPrimitive } from 'cmdk';
-import { format } from 'date-fns';
+import { X } from 'lucide-react';
 
 type MultiSelectBoxDataProps = {
   value: unknown;
@@ -23,40 +21,37 @@ type MultiSelectBoxProps = {
 };
 
 const MultiSelectBox = ({ dataArray }: MultiSelectBoxProps) => {
-  const inputRef = React.useRef<HTMLInputElement>(null);
-  const [open, setOpen] = React.useState(false);
-  const [selected, setSelected] = React.useState<MultiSelectBoxDataProps[]>([]);
-  const [inputValue, setInputValue] = React.useState('');
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [open, setOpen] = useState(false);
+  const [selected, setSelected] = useState<MultiSelectBoxDataProps[]>([]);
+  const [inputValue, setInputValue] = useState('');
 
-  React.useEffect(() => {
+  useEffect(() => {
     setSelected([]);
   }, [dataArray]);
 
-  const handleUnselect = React.useCallback((data: MultiSelectBoxDataProps) => {
+  const handleUnselect = useCallback((data: MultiSelectBoxDataProps) => {
     setSelected((prev) => prev.filter((s) => s !== data));
   }, []);
 
-  const handleKeyDown = React.useCallback(
-    (e: React.KeyboardEvent<HTMLDivElement>) => {
-      const input = inputRef.current;
-      if (input) {
-        if (e.key === 'Delete' || e.key === 'Backspace') {
-          if (input.value === '') {
-            setSelected((prev) => {
-              const newSelected = [...prev];
-              newSelected.pop();
-              return newSelected;
-            });
-          }
-        }
-        // This is not a default behaviour of the <input /> field
-        if (e.key === 'Escape') {
-          input.blur();
+  const handleKeyDown = useCallback((e: KeyboardEvent<HTMLDivElement>) => {
+    const input = inputRef.current;
+    if (input) {
+      if (e.key === 'Delete' || e.key === 'Backspace') {
+        if (input.value === '') {
+          setSelected((prev) => {
+            const newSelected = [...prev];
+            newSelected.pop();
+            return newSelected;
+          });
         }
       }
-    },
-    []
-  );
+      // This is not a default behaviour of the <input /> field
+      if (e.key === 'Escape') {
+        input.blur();
+      }
+    }
+  }, []);
 
   const selectables = dataArray.filter(
     (data: MultiSelectBoxDataProps) => !selected.includes(data)
@@ -107,7 +102,7 @@ const MultiSelectBox = ({ dataArray }: MultiSelectBoxProps) => {
         <CommandList>
           {open && selectables.length > 0 ? (
             <div className="absolute top-0 z-10 w-full rounded-md border bg-popover text-popover-foreground shadow-md outline-none animate-in">
-              <CommandGroup className="h-full overflow-auto">
+              <CommandGroup className="h-36 overflow-auto">
                 {selectables.map((data, index) => {
                   return (
                     <CommandItem
@@ -116,7 +111,7 @@ const MultiSelectBox = ({ dataArray }: MultiSelectBoxProps) => {
                         e.preventDefault();
                         e.stopPropagation();
                       }}
-                      onSelect={(value) => {
+                      onSelect={() => {
                         setInputValue('');
                         setSelected((prev) => [...prev, data]);
                       }}
