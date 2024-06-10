@@ -13,51 +13,27 @@ import {
 import { Command as CommandPrimitive } from 'cmdk';
 import { format } from 'date-fns';
 
-// type Framework = Record<'value' | 'label', string>;
+type MultiSelectBoxDataProps = {
+  value: unknown;
+  label: string;
+};
 
-// const FRAMEWORKS = [
-//   {
-//     value: 'next.js',
-//     label: 'Next.js'
-//   },
-//   {
-//     value: 'sveltekit',
-//     label: 'SvelteKit'
-//   },
-//   {
-//     value: 'nuxt.js',
-//     label: 'Nuxt.js'
-//   },
-//   {
-//     value: 'remix',
-//     label: 'Remix'
-//   },
-//   {
-//     value: 'astro',
-//     label: 'Astro'
-//   },
-//   {
-//     value: 'wordpress',
-//     label: 'WordPress'
-//   },
-//   {
-//     value: 'express.js',
-//     label: 'Express.js'
-//   },
-//   {
-//     value: 'nest.js',
-//     label: 'Nest.js'
-//   }
-// ] satisfies Framework[];
+type MultiSelectBoxProps = {
+  dataArray: MultiSelectBoxDataProps[];
+};
 
-const MultiSelectBox = ({ dates }) => {
+const MultiSelectBox = ({ dataArray }: MultiSelectBoxProps) => {
   const inputRef = React.useRef<HTMLInputElement>(null);
   const [open, setOpen] = React.useState(false);
-  const [selected, setSelected] = React.useState<Date[]>([]);
+  const [selected, setSelected] = React.useState<MultiSelectBoxDataProps[]>([]);
   const [inputValue, setInputValue] = React.useState('');
 
-  const handleUnselect = React.useCallback((date: any) => {
-    setSelected((prev) => prev.filter((s) => s !== date));
+  React.useEffect(() => {
+    setSelected([]);
+  }, [dataArray]);
+
+  const handleUnselect = React.useCallback((data: MultiSelectBoxDataProps) => {
+    setSelected((prev) => prev.filter((s) => s !== data));
   }, []);
 
   const handleKeyDown = React.useCallback(
@@ -82,9 +58,9 @@ const MultiSelectBox = ({ dates }) => {
     []
   );
 
-  const selectables = dates.filter((date: any) => !selected.includes(date));
-
-  console.log('>>> selectables: ', selectables, selected, inputValue);
+  const selectables = dataArray.filter(
+    (data: MultiSelectBoxDataProps) => !selected.includes(data)
+  );
 
   return (
     <Command
@@ -93,22 +69,22 @@ const MultiSelectBox = ({ dates }) => {
     >
       <div className="group rounded-md border border-input px-3 py-2 text-sm ring-offset-background focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2">
         <div className="flex flex-wrap gap-1">
-          {selected.map((date, index) => {
+          {selected.map((data, index) => {
             return (
               <Badge key={index} variant="secondary">
-                {format(date, 'MMM yyyy')}
+                {data.label}
                 <button
                   className="ml-1 rounded-full outline-none ring-offset-background focus:ring-2 focus:ring-ring focus:ring-offset-2"
                   onKeyDown={(e) => {
                     if (e.key === 'Enter') {
-                      handleUnselect(date);
+                      handleUnselect(data);
                     }
                   }}
                   onMouseDown={(e) => {
                     e.preventDefault();
                     e.stopPropagation();
                   }}
-                  onClick={() => handleUnselect(date)}
+                  onClick={() => handleUnselect(data)}
                 >
                   <X className="h-3 w-3 text-muted-foreground hover:text-foreground" />
                 </button>
@@ -132,7 +108,7 @@ const MultiSelectBox = ({ dates }) => {
           {open && selectables.length > 0 ? (
             <div className="absolute top-0 z-10 w-full rounded-md border bg-popover text-popover-foreground shadow-md outline-none animate-in">
               <CommandGroup className="h-full overflow-auto">
-                {selectables.map((date: Date, index: number) => {
+                {selectables.map((data, index) => {
                   return (
                     <CommandItem
                       key={index}
@@ -142,11 +118,11 @@ const MultiSelectBox = ({ dates }) => {
                       }}
                       onSelect={(value) => {
                         setInputValue('');
-                        setSelected((prev) => [...prev, date]);
+                        setSelected((prev) => [...prev, data]);
                       }}
                       className={'cursor-pointer'}
                     >
-                      {format(date, 'MMM yyyy')}
+                      {data.label}
                     </CommandItem>
                   );
                 })}

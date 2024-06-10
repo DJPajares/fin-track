@@ -58,6 +58,11 @@ type TransactionDrawerProps = {
   setIsTransactionDrawerOpen: Dispatch<SetStateAction<boolean>>;
 };
 
+type ExcludedDatesProps = {
+  value: Date;
+  label: string;
+};
+
 const types = [
   {
     _id: 'income',
@@ -72,7 +77,7 @@ const types = [
 const fetchCategories = async () => {
   try {
     if (useMockedData) {
-      return categoriesData;
+      return categoriesData.expense;
     } else {
       const { status, data } = await axios.get(categoriesUrl);
 
@@ -117,7 +122,7 @@ const TransactionDrawer = ({
   const [title, setTitle] = useState('');
   const [amount, setAmount] = useState('');
   const [description, setDescription] = useState('');
-  const [excludedDates, setExcludedDates] = useState<Date[]>([]);
+  const [excludedDates, setExcludedDates] = useState<ExcludedDatesProps[]>([]);
 
   useEffect(() => {
     fetchCategoryData();
@@ -132,13 +137,11 @@ const TransactionDrawer = ({
   }, [currency]);
 
   useEffect(() => {
-    if (startDate && endDate) {
-      if (endDate < startDate) {
-        setEndDate(startDate);
-      }
-
-      handleSettingExcludedDates(startDate, endDate);
+    if (startDate && endDate && endDate < startDate) {
+      setEndDate(startDate);
     }
+
+    handleSettingExcludedDates(startDate, endDate);
   }, [startDate, endDate]);
 
   const fetchCategoryData = async () => {
@@ -151,17 +154,24 @@ const TransactionDrawer = ({
   };
 
   const handleSettingExcludedDates = (startDate: Date, endDate: Date) => {
-    const startDateDay1 = setDate(startDate, 1);
-    const endDateDay1 = setDate(endDate, 1);
-
-    const totalMonths = differenceInMonths(endDateDay1, startDateDay1);
-
     let excludedDatesArray = [];
 
-    for (let months = 0; months <= totalMonths; months++) {
-      const date = addMonths(startDateDay1, months);
+    if (startDate && endDate) {
+      const startDateDay1 = setDate(startDate, 1);
+      const endDateDay1 = setDate(endDate, 1);
 
-      excludedDatesArray.push(date);
+      const totalMonths = differenceInMonths(endDateDay1, startDateDay1);
+
+      for (let months = 0; months <= totalMonths; months++) {
+        const date = addMonths(startDateDay1, months);
+
+        const data = {
+          value: date,
+          label: format(date, 'MMM yyyy')
+        };
+
+        excludedDatesArray.push(data);
+      }
     }
 
     setExcludedDates(excludedDatesArray);
@@ -456,20 +466,9 @@ const TransactionDrawer = ({
 
                       {/* EXCLUDED DATES */}
                       {isRecurring && excludedDates.length > 0 && (
-                        <div className="flex flex-row items-center justify-center py-2">
-                          {/* <Select
-                            label="Excluded Dates"
-                            placeholder="Select dates to be excluded"
-                            selectionMode="multiple"
-                            className="max-w-xs"
-                          >
-                            {excludedDates.map((excludedDate, index) => (
-                              <SelectItem key={index}>
-                                {format(excludedDate, 'MMM yyyy')}
-                              </SelectItem>
-                            ))}
-                          </Select> */}
-                          <MultiSelectBox dates={excludedDates} />
+                        <div className="flex flex-col my-2">
+                          <p className="font-medium pb-1">Excluded Dates:</p>
+                          <MultiSelectBox dataArray={excludedDates} />
                         </div>
                       )}
 
