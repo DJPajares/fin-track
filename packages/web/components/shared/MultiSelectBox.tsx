@@ -102,7 +102,7 @@ const MultiSelectBox = ({ dataArray }: MultiSelectBoxProps) => {
         <CommandList>
           {open && selectables.length > 0 ? (
             <div className="absolute top-0 z-10 w-full rounded-md border bg-popover text-popover-foreground shadow-md outline-none animate-in">
-              <CommandGroup className="h-36 overflow-auto">
+              <CommandGroup className="max-h-36 overflow-auto">
                 {selectables.map((data, index) => {
                   return (
                     <CommandItem
