@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import {
   Drawer,
@@ -8,22 +8,7 @@ import {
   DrawerHeader,
   DrawerTitle
 } from '@/components/ui/drawer';
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger
-} from '@/components/ui/popover';
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList
-} from '@/components/ui/command';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Calendar } from '@/components/ui/calendar';
 import { Separator } from '@/components/ui/separator';
 import { Card } from '@/components/ui/card';
 import {
@@ -35,11 +20,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle
 } from '@/components/ui/alert-dialog';
-import { Checkbox } from '@nextui-org/checkbox';
-import { Select, SelectItem } from '@nextui-org/select';
 import { MultiSelectBox } from '@/components/shared/MultiSelectBox';
-import { CalendarIcon, ChevronsUpDownIcon } from 'lucide-react';
-import { addMonths, differenceInMonths, format, setDate } from 'date-fns';
 import categoriesData from '../../mockData/categories.json';
 import type { DashboardSelectionItemsProps } from '../../../../shared/types/dashboardTypes';
 import type { TransactionProps } from '../../../api/src/models/v1/transactionModel';
@@ -111,6 +92,8 @@ const TransactionDrawer = ({
   const [isCreateTransactionDialogOpen, setIsCreateTransactionDialogOpen] =
     useState(false);
 
+  const formRef = useRef();
+
   useEffect(() => {
     fetchCategoryData();
   }, []);
@@ -142,6 +125,11 @@ const TransactionDrawer = ({
     // console.log(transactionData);
     // const result = await createTransaction(transactionData);
     // // setIsCreateTransactionDialogOpen(true);
+
+    // Request submit to the child component
+    formRef.current.requestSubmit();
+
+    // setIsTransactionDrawerOpen(false);
   };
 
   return (
@@ -171,6 +159,7 @@ const TransactionDrawer = ({
                         categories={categories}
                         currencies={currencies}
                         currency={currency}
+                        formRef={formRef}
                       />
                     </div>
                   </Card>
