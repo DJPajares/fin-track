@@ -22,6 +22,7 @@ import {
 } from '@/components/ui/alert-dialog';
 import { MultiSelectBox } from '@/components/shared/MultiSelectBox';
 import categoriesData from '../../mockData/categories.json';
+import typesData from '../../mockData/types.json';
 import type { DashboardSelectionItemsProps } from '../../../../shared/types/dashboardTypes';
 import type { TransactionProps } from '../../../api/src/models/v1/transactionModel';
 import { Tab, Tabs } from '@nextui-org/tabs';
@@ -31,6 +32,8 @@ const useMockedData = process.env.NEXT_PUBLIC_USE_MOCKED_DATA === 'true';
 
 const categoriesUrl = 'http://localhost:3001/api/v1/categories';
 
+const typesUrl = 'http://localhost:3001/api/v1/types';
+
 type TransactionDrawerProps = {
   currency: DashboardSelectionItemsProps;
   currencies: DashboardSelectionItemsProps[];
@@ -38,21 +41,24 @@ type TransactionDrawerProps = {
   setIsTransactionDrawerOpen: Dispatch<SetStateAction<boolean>>;
 };
 
-const types = [
-  {
-    _id: 'income',
-    name: 'Income'
-  },
-  {
-    _id: 'expense',
-    name: 'Expense'
+const fetchTypes = async () => {
+  try {
+    if (useMockedData) {
+      return typesData;
+    } else {
+      const { status, data } = await axios.get(typesUrl);
+
+      if (status === 200) return data.data;
+    }
+  } catch (error) {
+    console.error('Fetch failed', error);
   }
-];
+};
 
 const fetchCategories = async () => {
   try {
     if (useMockedData) {
-      return categoriesData.expense;
+      return categoriesData;
     } else {
       const { status, data } = await axios.get(categoriesUrl);
 
@@ -69,6 +75,7 @@ const TransactionDrawer = ({
   isTransactionDrawerOpen,
   setIsTransactionDrawerOpen
 }: TransactionDrawerProps) => {
+  const [types, setTypes] = useState([]);
   const [categories, setCategories] = useState<DashboardSelectionItemsProps[]>(
     []
   );
@@ -78,8 +85,14 @@ const TransactionDrawer = ({
   const formRef = useRef();
 
   useEffect(() => {
+    fetchTypeData();
     fetchCategoryData();
   }, []);
+
+  const fetchTypeData = async () => {
+    const data = await fetchTypes();
+    setTypes(data);
+  };
 
   const fetchCategoryData = async () => {
     // const { income, expense } = await fetchCategories();
@@ -121,7 +134,8 @@ const TransactionDrawer = ({
                   <Card className="bg-gray-100 dark:bg-gray-900">
                     <div className="flex flex-col justify-between p-4">
                       <TransactionDrawerForm
-                        categories={categories}
+                        type={type}
+                        categories={categories[type._id]}
                         currencies={currencies}
                         currency={currency}
                         formRef={formRef}

@@ -1,0 +1,10 @@
+[
+  {
+    "_id": "income",
+    "name": "Income"
+  },
+  {
+    "_id": "expense",
+    "name": "Expense"
+  }
+]

@@ -38,8 +38,10 @@ import { cn } from '@/lib/utils';
 import type { DashboardSelectionItemsProps } from '../../../../shared/types/dashboardTypes';
 import axios from 'axios';
 import type { TransactionProps } from '../../../api/src/models/v1/transactionModel';
+import type { TypeProps } from '../../../api/src/models/v1/typeModel';
 
 type TransactionDrawerFormProps = {
+  type: TypeProps;
   categories: DashboardSelectionItemsProps[];
   currencies: DashboardSelectionItemsProps[];
   currency: DashboardSelectionItemsProps;
@@ -84,6 +86,7 @@ const createTransaction = async (transactionData: TransactionProps) => {
 };
 
 const TransactionDrawerForm = ({
+  type,
   categories,
   currencies,
   currency,
@@ -116,6 +119,8 @@ const TransactionDrawerForm = ({
   //   control: form.control,
   //   name: 'excludedDates'
   // });
+
+  // console.log(categories[type._id]);
 
   useEffect(() => {
     if (startDate && endDate && endDate < startDate) {
