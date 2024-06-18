@@ -31,18 +31,11 @@ const useMockedData = process.env.NEXT_PUBLIC_USE_MOCKED_DATA === 'true';
 
 const categoriesUrl = 'http://localhost:3001/api/v1/categories';
 
-const transactionsUrl = 'http://localhost:3001/api/v1/transactions';
-
 type TransactionDrawerProps = {
   currency: DashboardSelectionItemsProps;
   currencies: DashboardSelectionItemsProps[];
   isTransactionDrawerOpen: boolean;
   setIsTransactionDrawerOpen: Dispatch<SetStateAction<boolean>>;
-};
-
-type ExcludedDatesProps = {
-  value: Date;
-  label: string;
 };
 
 const types = [
@@ -67,16 +60,6 @@ const fetchCategories = async () => {
     }
   } catch (error) {
     console.error('Fetch failed', error);
-  }
-};
-
-const createTransaction = async (transactionData: TransactionProps) => {
-  try {
-    const { status, data } = await axios.post(transactionsUrl, transactionData);
-
-    if (status === 200) return data.data;
-  } catch (error) {
-    console.error(error);
   }
 };
 
@@ -108,24 +91,6 @@ const TransactionDrawer = ({
   };
 
   const handleAddingTransaction = async () => {
-    // // no states
-    // const description = '';
-    // const excludedDates = [] as Date[];
-    // const transactionData = {
-    //   name: title,
-    //   category: category._id,
-    //   currency: transactionCurrency._id,
-    //   amount: amount ? parseFloat(amount) : undefined,
-    //   description,
-    //   isRecurring,
-    //   startDate,
-    //   endDate: isRecurring ? endDate : undefined,
-    //   excludedDates
-    // };
-    // console.log(transactionData);
-    // const result = await createTransaction(transactionData);
-    // // setIsCreateTransactionDialogOpen(true);
-
     // Request submit to the child component
     formRef.current.requestSubmit();
 

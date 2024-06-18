@@ -36,6 +36,8 @@ import { useForm, useWatch } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { cn } from '@/lib/utils';
 import type { DashboardSelectionItemsProps } from '../../../../shared/types/dashboardTypes';
+import axios from 'axios';
+import type { TransactionProps } from '../../../api/src/models/v1/transactionModel';
 
 type TransactionDrawerFormProps = {
   categories: DashboardSelectionItemsProps[];
@@ -69,6 +71,18 @@ const formSchema = z.object({
   //   .optional()
 });
 
+const transactionsUrl = 'http://localhost:3001/api/v1/transactions';
+
+const createTransaction = async (transactionData: TransactionProps) => {
+  try {
+    const { status, data } = await axios.post(transactionsUrl, transactionData);
+
+    if (status === 200) return data.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 const TransactionDrawerForm = ({
   categories,
   currencies,
@@ -93,10 +107,6 @@ const TransactionDrawerForm = ({
       // excludedDates: []
     }
   });
-
-  const onSubmit = (values: FormDataProps) => {
-    console.log(values);
-  };
 
   // Watch form fields that are used for conditions
   const startDate = useWatch({ control: form.control, name: 'startDate' });
@@ -142,6 +152,29 @@ const TransactionDrawerForm = ({
   //   // form.setValue('excludedDates', excludedDatesArray);
   //   // setExcludedDates(excludedDatesArray);
   // };
+
+  const onSubmit = async (values: FormDataProps) => {
+    // no states
+    const description = '';
+    const excludedDates = [] as Date[];
+
+    const transactionData = {
+      name: values.title,
+      category: values.category._id,
+      currency: values.currency._id,
+      amount: values.amount ? values.amount : undefined,
+      description,
+      isRecurring,
+      startDate: values.startDate,
+      endDate: isRecurring ? values.endDate : undefined,
+      excludedDates
+    };
+
+    console.log(transactionData);
+    // const result = await createTransaction(transactionData);
+
+    // console.log(values);
+  };
 
   return (
     <Form {...form}>
