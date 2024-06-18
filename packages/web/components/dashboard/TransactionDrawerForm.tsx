@@ -41,6 +41,7 @@ type TransactionDrawerFormProps = {
   categories: DashboardSelectionItemsProps[];
   currencies: DashboardSelectionItemsProps[];
   currency: DashboardSelectionItemsProps;
+  formRef: any;
 };
 
 type FormDataProps = z.infer<typeof formSchema>;
@@ -58,20 +59,21 @@ const formSchema = z.object({
     name: z.string()
   }),
   amount: z.number(),
-  isRecurring: z.boolean(),
-  excludedDates: z
-    .object({
-      value: z.string(),
-      label: z.string()
-    })
-    .array()
-    .optional()
+  isRecurring: z.boolean()
+  // excludedDates: z
+  //   .object({
+  //     value: z.string(),
+  //     label: z.string()
+  //   })
+  //   .array()
+  //   .optional()
 });
 
 const TransactionDrawerForm = ({
   categories,
   currencies,
-  currency
+  currency,
+  formRef
 }: TransactionDrawerFormProps) => {
   const [isStartDatePopoverOpen, setIsStartDatePopoverOpen] = useState(false);
   const [isEndDatePopoverOpen, setIsEndDatePopoverOpen] = useState(false);
@@ -87,8 +89,8 @@ const TransactionDrawerForm = ({
       title: '',
       currency,
       amount: 0,
-      isRecurring: false,
-      excludedDates: []
+      isRecurring: false
+      // excludedDates: []
     }
   });
 
@@ -100,50 +102,54 @@ const TransactionDrawerForm = ({
   const startDate = useWatch({ control: form.control, name: 'startDate' });
   const endDate = useWatch({ control: form.control, name: 'endDate' });
   const isRecurring = useWatch({ control: form.control, name: 'isRecurring' });
-  const excludedDates = useWatch({
-    control: form.control,
-    name: 'excludedDates'
-  });
+  // const excludedDates = useWatch({
+  //   control: form.control,
+  //   name: 'excludedDates'
+  // });
 
   useEffect(() => {
     if (startDate && endDate && endDate < startDate) {
       form.setValue('endDate', startDate);
     }
 
-    handleSettingExcludedDates({ startDate, endDate });
+    // handleSettingExcludedDates({ startDate, endDate });
   }, [startDate, endDate]);
 
-  const handleSettingExcludedDates = ({ startDate, endDate }) => {
-    let excludedDatesArray = [];
+  // const handleSettingExcludedDates = ({ startDate, endDate }) => {
+  //   let excludedDatesArray = [];
 
-    if (startDate && endDate) {
-      const startDateDay1 = setDate(startDate, 1);
-      const endDateDay1 = setDate(endDate, 1);
+  //   if (startDate && endDate) {
+  //     const startDateDay1 = setDate(startDate, 1);
+  //     const endDateDay1 = setDate(endDate, 1);
 
-      const totalMonths = differenceInCalendarMonths(
-        endDateDay1,
-        startDateDay1
-      );
+  //     const totalMonths = differenceInCalendarMonths(
+  //       endDateDay1,
+  //       startDateDay1
+  //     );
 
-      for (let months = 0; months <= totalMonths; months++) {
-        const date = addMonths(startDateDay1, months);
+  //     for (let months = 0; months <= totalMonths; months++) {
+  //       const date = addMonths(startDateDay1, months);
 
-        const data = {
-          value: date,
-          label: format(date, 'MMM yyyy')
-        };
+  //       const data = {
+  //         value: date,
+  //         label: format(date, 'MMM yyyy')
+  //       };
 
-        excludedDatesArray.push(data);
-      }
-    }
+  //       excludedDatesArray.push(data);
+  //     }
+  //   }
 
-    form.setValue('excludedDates', excludedDatesArray);
-    // setExcludedDates(excludedDatesArray);
-  };
+  //   // form.setValue('excludedDates', excludedDatesArray);
+  //   // setExcludedDates(excludedDatesArray);
+  // };
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form
+        ref={formRef}
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="space-y-8"
+      >
         <div className="flex flex-row items-center justify-end">
           {/* START DATE */}
           <FormField
@@ -430,7 +436,7 @@ const TransactionDrawerForm = ({
 
         <div className="space-y-4">
           {/* EXCLUDED DATES */}
-          {isRecurring && excludedDates?.length > 0 && (
+          {/* {isRecurring && excludedDates?.length > 0 && (
             <div className="flex flex-col space-y-2">
               <p className="font-medium">Excluded Dates:</p>
               <FormField
@@ -447,7 +453,7 @@ const TransactionDrawerForm = ({
                 )}
               />
             </div>
-          )}
+          )} */}
 
           {/* RECURRING */}
           <div className="flex flex-row items-center justify-start">
@@ -471,8 +477,6 @@ const TransactionDrawerForm = ({
             />
           </div>
         </div>
-
-        <Button type="submit">Submit</Button>
       </form>
     </Form>
   );
