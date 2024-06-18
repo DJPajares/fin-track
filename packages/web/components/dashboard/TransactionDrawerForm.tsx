@@ -24,7 +24,12 @@ import { Button } from '@/components/ui/button';
 import { Calendar } from '@/components/ui/calendar';
 import { Checkbox } from '@nextui-org/checkbox';
 import { CalendarIcon, CheckIcon, ChevronsUpDownIcon } from 'lucide-react';
-import { addMonths, differenceInMonths, format, setDate } from 'date-fns';
+import {
+  addMonths,
+  differenceInCalendarMonths,
+  format,
+  setDate
+} from 'date-fns';
 import { MultiSelectBox } from '@/components/shared/MultiSelectBox';
 import { z } from 'zod';
 import { useForm, useWatch } from 'react-hook-form';
@@ -115,7 +120,10 @@ const TransactionDrawerForm = ({
       const startDateDay1 = setDate(startDate, 1);
       const endDateDay1 = setDate(endDate, 1);
 
-      const totalMonths = differenceInMonths(endDateDay1, startDateDay1);
+      const totalMonths = differenceInCalendarMonths(
+        endDateDay1,
+        startDateDay1
+      );
 
       for (let months = 0; months <= totalMonths; months++) {
         const date = addMonths(startDateDay1, months);
