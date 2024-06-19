@@ -17,6 +17,7 @@ import {
   FormControl,
   FormField,
   FormItem,
+  FormLabel,
   FormMessage
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
@@ -37,7 +38,6 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { cn } from '@/lib/utils';
 import type { DashboardSelectionItemsProps } from '../../../../shared/types/dashboardTypes';
 import axios from 'axios';
-import type { TransactionProps } from '../../../api/src/models/v1/transactionModel';
 import type { TypeProps } from '../../../api/src/models/v1/typeModel';
 
 type TransactionDrawerFormProps = {
@@ -50,19 +50,44 @@ type TransactionDrawerFormProps = {
 
 type FormDataProps = z.infer<typeof formSchema>;
 
+type TransactionProps = {
+  name: string;
+  category: string;
+  currency: string;
+  amount: number;
+  description: string;
+  isRecurring: boolean;
+  startDate: Date;
+  excludedDates: Date[];
+  endDate?: Date;
+};
+
 const formSchema = z.object({
-  startDate: z.date(),
+  startDate: z.date({
+    required_error: 'Please select a start date.'
+  }),
   endDate: z.date(),
   category: z.object({
-    _id: z.string(),
+    _id: z.string().min(1, {
+      message: 'Please select a category'
+    }),
     name: z.string()
   }),
-  title: z.string(),
+  // title: z.string({
+  //   required_error: 'Please enter a title'
+  // }),
+  title: z.string().min(1, {
+    message: 'Please enter a title'
+  }),
   currency: z.object({
     _id: z.string(),
-    name: z.string()
+    name: z.string({
+      required_error: 'Please select a currency'
+    })
   }),
-  amount: z.number(),
+  amount: z.coerce.number({
+    required_error: 'Please enter an amount'
+  }),
   isRecurring: z.boolean()
   // excludedDates: z
   //   .object({
@@ -102,10 +127,13 @@ const TransactionDrawerForm = ({
     defaultValues: {
       startDate: new Date(),
       endDate: new Date(),
-      category: {},
+      category: {
+        _id: '',
+        name: ''
+      },
       title: '',
       currency,
-      amount: 0,
+      // amount: 0,
       isRecurring: false
       // excludedDates: []
     }
@@ -128,7 +156,7 @@ const TransactionDrawerForm = ({
     }
 
     // handleSettingExcludedDates({ startDate, endDate });
-  }, [startDate, endDate]);
+  }, [startDate, endDate, form]);
 
   // const handleSettingExcludedDates = ({ startDate, endDate }) => {
   //   let excludedDatesArray = [];
@@ -163,17 +191,18 @@ const TransactionDrawerForm = ({
     const description = '';
     const excludedDates = [] as Date[];
 
-    const transactionData = {
+    const transactionData: TransactionProps = {
       name: values.title,
       category: values.category._id,
       currency: values.currency._id,
-      amount: values.amount ? values.amount : undefined,
+      amount: values.amount,
       description,
       isRecurring,
       startDate: values.startDate,
-      endDate: isRecurring ? values.endDate : undefined,
       excludedDates
     };
+
+    if (isRecurring) transactionData.endDate = values.endDate;
 
     console.log(transactionData);
     // const result = await createTransaction(transactionData);
@@ -194,7 +223,9 @@ const TransactionDrawerForm = ({
             control={form.control}
             name="startDate"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="flex flex-col">
+                <FormLabel>{isRecurring ? 'Start date' : 'Date'}</FormLabel>
+
                 <Popover
                   open={isStartDatePopoverOpen}
                   onOpenChange={setIsStartDatePopoverOpen}
@@ -242,7 +273,9 @@ const TransactionDrawerForm = ({
                 control={form.control}
                 name="endDate"
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className="flex flex-col">
+                    <FormLabel>End date</FormLabel>
+
                     <Popover
                       open={isEndDatePopoverOpen}
                       onOpenChange={setIsEndDatePopoverOpen}
@@ -289,190 +322,179 @@ const TransactionDrawerForm = ({
           )}
         </div>
 
-        <div className="space-y-2">
+        <div className="space-y-4">
+          {/* CATEGORY */}
+          <FormField
+            control={form.control}
+            name="category"
+            render={({ field }) => (
+              <FormItem className="flex flex-col">
+                <FormLabel>Category</FormLabel>
+
+                <Popover
+                  open={isCategoryPopoverOpen}
+                  onOpenChange={setIsCategoryPopoverOpen}
+                >
+                  <PopoverTrigger asChild>
+                    <FormControl>
+                      <Button
+                        variant="outline"
+                        role="combobox"
+                        className="justify-between w-36"
+                      >
+                        <p className="truncate hover:text-clip">
+                          {field.value.name ? field.value.name : 'Select...'}
+                        </p>
+                        <ChevronsUpDownIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                      </Button>
+                    </FormControl>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-[200px] p-0">
+                    <Command>
+                      <CommandInput placeholder="Search category..." />
+                      <CommandEmpty>No categories found</CommandEmpty>
+                      <CommandGroup>
+                        <CommandList>
+                          {categories.map((category) => (
+                            <CommandItem
+                              key={category._id}
+                              value={category.name}
+                              onSelect={() => {
+                                form.setValue('category', category);
+                                setIsCategoryPopoverOpen(false);
+                              }}
+                            >
+                              <CheckIcon
+                                className={cn(
+                                  'mr-2 h-4 w-4',
+                                  field.value.name === category.name
+                                    ? 'opacity-100'
+                                    : 'opacity-0'
+                                )}
+                              />
+                              {category.name}
+                            </CommandItem>
+                          ))}
+                        </CommandList>
+                      </CommandGroup>
+                    </Command>
+                  </PopoverContent>
+                </Popover>
+
+                {/* <FormMessage /> */}
+              </FormItem>
+            )}
+          />
+
+          {/* TITLE */}
+          <FormField
+            control={form.control}
+            name="title"
+            render={({ field }) => (
+              <FormItem className="flex flex-col">
+                <FormLabel>Title</FormLabel>
+
+                <FormControl>
+                  <Input placeholder="e.g. Electricity bill" {...field} />
+                </FormControl>
+
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
           <div className="flex flex-row items-center space-x-2">
-            {/* CATEGORY */}
-            <div>
-              <FormField
-                control={form.control}
-                name="category"
-                render={({ field }) => (
-                  <FormItem>
-                    <Popover
-                      open={isCategoryPopoverOpen}
-                      onOpenChange={setIsCategoryPopoverOpen}
-                    >
-                      <PopoverTrigger asChild>
-                        <FormControl>
-                          <Button
-                            variant="outline"
-                            role="combobox"
-                            className="flex flex-row items-center justify-between w-36"
-                          >
-                            <p className="truncate hover:text-clip">
-                              {field.value.name ? field.value.name : 'Category'}
-                            </p>
-                            <ChevronsUpDownIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                          </Button>
-                        </FormControl>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-[200px] p-0">
-                        <Command>
-                          <CommandInput
-                            placeholder="Search category..."
-                            // className="h-9"
-                          />
-                          <CommandEmpty>No categories found</CommandEmpty>
-                          <CommandGroup>
-                            <CommandList>
-                              {categories.map((category) => (
-                                <CommandItem
-                                  key={category._id}
-                                  value={category.name}
-                                  onSelect={() => {
-                                    form.setValue('category', category);
-                                    setIsCategoryPopoverOpen(false);
-                                  }}
-                                >
-                                  <CheckIcon
-                                    className={cn(
-                                      'mr-2 h-4 w-4',
-                                      field.value.name === category.name
-                                        ? 'opacity-100'
-                                        : 'opacity-0'
-                                    )}
-                                  />
-                                  {category.name}
-                                </CommandItem>
-                              ))}
-                            </CommandList>
-                          </CommandGroup>
-                        </Command>
-                      </PopoverContent>
-                    </Popover>
-
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-
-            {/* TITLE */}
+            {/* CURRENCY */}
             <FormField
               control={form.control}
-              name="title"
+              name="currency"
               render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <Input placeholder="Title" {...field} />
-                  </FormControl>
+                <FormItem className="flex flex-col">
+                  <FormLabel>Currency</FormLabel>
+
+                  <Popover
+                    open={isCurrencyPopoverOpen}
+                    onOpenChange={setIsCurrencyPopoverOpen}
+                  >
+                    <PopoverTrigger asChild>
+                      <FormControl>
+                        <Button
+                          variant="outline"
+                          role="combobox"
+                          className="justify-between"
+                        >
+                          <p className="truncate hover:text-clip">
+                            {field.value.name ? field.value.name : 'Currency'}
+                          </p>
+                          <ChevronsUpDownIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                        </Button>
+                      </FormControl>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-[200px] p-0">
+                      <Command>
+                        <CommandInput placeholder="Search currency..." />
+                        <CommandEmpty>No currencies found</CommandEmpty>
+                        <CommandGroup>
+                          <CommandList>
+                            {currencies.map((currency) => (
+                              <CommandItem
+                                key={currency._id}
+                                value={currency.name}
+                                onSelect={() => {
+                                  // handleCurrencySelection({
+                                  //   selectedCurrency: currency
+                                  // })
+                                  form.setValue('currency', currency);
+                                  setIsCurrencyPopoverOpen(false);
+                                }}
+                              >
+                                <CheckIcon
+                                  className={cn(
+                                    'mr-2 h-4 w-4',
+                                    field.value.name === currency.name
+                                      ? 'opacity-100'
+                                      : 'opacity-0'
+                                  )}
+                                />
+                                {currency.name}
+                              </CommandItem>
+                            ))}
+                          </CommandList>
+                        </CommandGroup>
+                      </Command>
+                    </PopoverContent>
+                  </Popover>
+
                   <FormMessage />
                 </FormItem>
               )}
             />
-          </div>
-
-          <div className="flex flex-row items-center space-x-2">
-            {/* CURRENCY */}
-            <div>
-              <FormField
-                control={form.control}
-                name="currency"
-                render={({ field }) => (
-                  <FormItem>
-                    <Popover
-                      open={isCurrencyPopoverOpen}
-                      onOpenChange={setIsCurrencyPopoverOpen}
-                    >
-                      <PopoverTrigger asChild>
-                        <FormControl>
-                          <Button
-                            variant="outline"
-                            role="combobox"
-                            className="flex flex-row items-center justify-between w-36"
-                          >
-                            <p className="truncate hover:text-clip">
-                              {field.value.name ? field.value.name : 'Currency'}
-                            </p>
-                            <ChevronsUpDownIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                          </Button>
-                        </FormControl>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-[200px] p-0">
-                        <Command>
-                          <CommandInput
-                            placeholder="Search currency..."
-                            // className="h-9"
-                          />
-                          <CommandEmpty>No currencies found</CommandEmpty>
-                          <CommandGroup>
-                            <CommandList>
-                              {currencies.map((currency) => (
-                                <CommandItem
-                                  key={currency._id}
-                                  value={currency.name}
-                                  onSelect={() => {
-                                    // handleCurrencySelection({
-                                    //   selectedCurrency: currency
-                                    // })
-                                    form.setValue('currency', currency);
-                                    setIsCurrencyPopoverOpen(false);
-                                  }}
-                                >
-                                  <CheckIcon
-                                    className={cn(
-                                      'mr-2 h-4 w-4',
-                                      field.value.name === currency.name
-                                        ? 'opacity-100'
-                                        : 'opacity-0'
-                                    )}
-                                  />
-                                  {currency.name}
-                                </CommandItem>
-                              ))}
-                            </CommandList>
-                          </CommandGroup>
-                        </Command>
-                      </PopoverContent>
-                    </Popover>
-
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
 
             {/* AMOUNT */}
             <FormField
               control={form.control}
               name="amount"
               render={({ field }) => (
-                <FormItem>
+                <FormItem className="flex flex-col">
+                  <FormLabel>Amount</FormLabel>
+
                   <FormControl>
                     <Input
                       type="number"
-                      placeholder="Amount"
+                      placeholder="0"
                       {...field}
                       value={field.value || ''}
-                      onChange={(e) =>
-                        field.onChange(
-                          e.target.value === ''
-                            ? ''
-                            : // : parseFloat(e.target.value)
-                              e.target.valueAsNumber
-                        )
-                      }
                     />
                   </FormControl>
 
-                  <FormMessage />
+                  {/* <FormMessage /> */}
                 </FormItem>
               )}
             />
           </div>
         </div>
 
-        <div className="space-y-4">
+        <div>
           {/* EXCLUDED DATES */}
           {/* {isRecurring && excludedDates?.length > 0 && (
             <div className="flex flex-col space-y-2">
@@ -481,7 +503,7 @@ const TransactionDrawerForm = ({
                 control={form.control}
                 name="excludedDates"
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className="flex flex-col">
                     <FormControl>
                       <MultiSelectBox dataArray={field.value} />
                     </FormControl>
@@ -499,7 +521,7 @@ const TransactionDrawerForm = ({
               control={form.control}
               name="isRecurring"
               render={({ field }) => (
-                <FormItem>
+                <FormItem className="flex flex-col">
                   <FormControl>
                     <Checkbox
                       isSelected={field.value}
