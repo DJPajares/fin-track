@@ -11,6 +11,7 @@
     {
       "_id": "123cata",
       "name": "Family",
+      "icon": "users",
       "totalAmount": 500,
       "totalPaidAmount": 0,
       "transactions": [
@@ -31,6 +32,7 @@
     {
       "_id": "123catb",
       "name": "Utilities",
+      "icon": "lightbulb",
       "totalAmount": 2500,
       "totalPaidAmount": 1000,
       "transactions": [
@@ -57,6 +59,7 @@
     {
       "_id": "123catc",
       "name": "Credit Card",
+      "icon": "credit-card",
       "totalAmount": 25000,
       "totalPaidAmount": 13000,
       "transactions": [
@@ -89,6 +92,7 @@
     {
       "_id": "123catd",
       "name": "Healthcare",
+      "icon": "activity",
       "totalAmount": 12000,
       "totalPaidAmount": 12000,
       "transactions": [
@@ -103,6 +107,7 @@
     {
       "_id": "123cate",
       "name": "Subscriptions",
+      "icon": "clapperboard",
       "totalAmount": 865.5,
       "totalPaidAmount": 265.5,
       "transactions": [
@@ -123,6 +128,7 @@
     {
       "_id": "123catf",
       "name": "Rent",
+      "icon": "bed-double",
       "totalAmount": 225500,
       "totalPaidAmount": 225500,
       "transactions": [

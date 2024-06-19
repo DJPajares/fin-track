@@ -7,6 +7,7 @@ import {
 import { Progress } from '@nextui-org/progress';
 import { formatCurrency } from '../../../../shared/utilities/formatCurrency';
 import type { TransactionPaymentCategoryProps } from '../../../../shared/types/transactionPaymentTypes';
+import CardIcon from '../shared/CardIcon';
 
 type CategoryCardProps = {
   category: TransactionPaymentCategoryProps;
@@ -24,7 +25,14 @@ const CategoryCard = ({
     className="bg-gray-100 dark:bg-gray-900 cursor-pointer"
   >
     <CardHeader>
-      <CardDescription>{category.name}</CardDescription>
+      {/* <CardDescription>{category.name}</CardDescription> */}
+      <div className="flex flex-row items-center justify-between">
+        <p className="text-sm text-slate-500 dark:text-slate-400">
+          {category.name}
+        </p>
+
+        {<CardIcon icon={category.icon} />}
+      </div>
       <h1 className="text-lg font-bold sm:text-xl sm:font-bold">
         {formatCurrency({
           value: category.totalAmount,
