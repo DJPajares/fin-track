@@ -1,5 +1,5 @@
 {
-  "income": [
+  "Income": [
     {
       "_id": "paycheck",
       "name": "Paycheck"
@@ -9,7 +9,7 @@
       "name": "Investment"
     }
   ],
-  "expense": [
+  "Expense": [
     {
       "_id": "family",
       "name": "Family"

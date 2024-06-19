@@ -20,13 +20,13 @@ import {
   AlertDialogHeader,
   AlertDialogTitle
 } from '@/components/ui/alert-dialog';
+import { Tab, Tabs } from '@nextui-org/tabs';
+import TransactionDrawerForm from './TransactionDrawerForm';
 import { MultiSelectBox } from '@/components/shared/MultiSelectBox';
 import categoriesData from '../../mockData/categories.json';
 import typesData from '../../mockData/types.json';
 import type { DashboardSelectionItemsProps } from '../../../../shared/types/dashboardTypes';
-import type { TransactionProps } from '../../../api/src/models/v1/transactionModel';
-import { Tab, Tabs } from '@nextui-org/tabs';
-import TransactionDrawerForm from './TransactionDrawerForm';
+import type { TypeProps } from '../../../api/src/models/v1/typeModel';
 
 const useMockedData = process.env.NEXT_PUBLIC_USE_MOCKED_DATA === 'true';
 
@@ -39,6 +39,10 @@ type TransactionDrawerProps = {
   currencies: DashboardSelectionItemsProps[];
   isTransactionDrawerOpen: boolean;
   setIsTransactionDrawerOpen: Dispatch<SetStateAction<boolean>>;
+};
+
+type CategoryProps = {
+  [key: string]: DashboardSelectionItemsProps[];
 };
 
 const fetchTypes = async () => {
@@ -75,14 +79,12 @@ const TransactionDrawer = ({
   isTransactionDrawerOpen,
   setIsTransactionDrawerOpen
 }: TransactionDrawerProps) => {
-  const [types, setTypes] = useState([]);
-  const [categories, setCategories] = useState<DashboardSelectionItemsProps[]>(
-    []
-  );
+  const [types, setTypes] = useState<TypeProps[]>([]);
+  const [categories, setCategories] = useState<CategoryProps>({});
   const [isCreateTransactionDialogOpen, setIsCreateTransactionDialogOpen] =
     useState(false);
 
-  const formRef = useRef();
+  const formRef = useRef<HTMLFormElement>();
 
   useEffect(() => {
     fetchTypeData();
@@ -105,7 +107,7 @@ const TransactionDrawer = ({
 
   const handleAddingTransaction = async () => {
     // Request submit to the child component
-    formRef.current.requestSubmit();
+    if (formRef.current) formRef.current.requestSubmit();
 
     // setIsTransactionDrawerOpen(false);
   };
@@ -130,12 +132,16 @@ const TransactionDrawer = ({
               className="flex flex-col items-center pt-3"
             >
               {types.map((type) => (
-                <Tab key={type._id} title={type.name} className="px-4">
+                <Tab
+                  key={type._id.toString()}
+                  title={type.name}
+                  className="px-4"
+                >
                   <Card className="bg-gray-100 dark:bg-gray-900">
                     <div className="flex flex-col justify-between p-4">
                       <TransactionDrawerForm
                         type={type}
-                        categories={categories[type._id]}
+                        categories={categories[type.name]}
                         currencies={currencies}
                         currency={currency}
                         formRef={formRef}
