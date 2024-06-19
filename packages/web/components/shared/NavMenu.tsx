@@ -3,16 +3,16 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { Button } from '@/components/ui/button';
 import {
   Navbar,
   NavbarBrand,
   NavbarContent,
   NavbarMenu,
   NavbarMenuItem,
-  NavbarMenuToggle
-} from '@nextui-org/navbar';
-import { Avatar } from '@nextui-org/react';
-import { Button } from '@/components/ui/button';
+  NavbarMenuToggle,
+  Avatar
+} from '@nextui-org/react';
 import { MoonIcon, SunIcon } from 'lucide-react';
 import { useTheme } from 'next-themes';
 

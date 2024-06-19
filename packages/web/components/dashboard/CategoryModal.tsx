@@ -7,7 +7,7 @@ import {
   DialogTitle
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
-import { Progress } from '@nextui-org/progress';
+import { Progress } from '@nextui-org/react';
 import { CheckIcon, HandCoinsIcon } from 'lucide-react';
 import { formatCurrency } from '../../../../shared/utilities/formatCurrency';
 import type { TransactionPaymentCategoryProps } from '../../../../shared/types/transactionPaymentTypes';

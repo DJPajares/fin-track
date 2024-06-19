@@ -6,7 +6,7 @@ import {
   PopoverTrigger
 } from '@/components/ui/popover';
 import { Input } from '@/components/ui/input';
-import { Progress } from '@nextui-org/progress';
+import { Progress } from '@nextui-org/react';
 import { formatCurrency } from '../../../../shared/utilities/formatCurrency';
 import { CheckIcon } from 'lucide-react';
 import type {

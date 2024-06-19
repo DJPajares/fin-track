@@ -23,7 +23,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Calendar } from '@/components/ui/calendar';
-import { Checkbox } from '@nextui-org/checkbox';
+import { Checkbox } from '@nextui-org/react';
 import { CalendarIcon, CheckIcon, ChevronsUpDownIcon } from 'lucide-react';
 import {
   addMonths,

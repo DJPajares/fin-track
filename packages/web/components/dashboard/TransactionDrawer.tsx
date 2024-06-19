@@ -20,7 +20,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle
 } from '@/components/ui/alert-dialog';
-import { Tab, Tabs } from '@nextui-org/tabs';
+import { Tab, Tabs } from '@nextui-org/react';
 import TransactionDrawerForm from './TransactionDrawerForm';
 import { MultiSelectBox } from '@/components/shared/MultiSelectBox';
 import categoriesData from '../../mockData/categories.json';

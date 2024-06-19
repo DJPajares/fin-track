@@ -4,7 +4,7 @@ import {
   CardDescription,
   CardHeader
 } from '@/components/ui/card';
-import { Progress } from '@nextui-org/progress';
+import { Progress } from '@nextui-org/react';
 import { formatCurrency } from '../../../../shared/utilities/formatCurrency';
 import type { TransactionPaymentCategoryProps } from '../../../../shared/types/transactionPaymentTypes';
 import CardIcon from '../shared/CardIcon';

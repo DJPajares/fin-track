@@ -18,8 +18,7 @@ import {
   CommandList
 } from '@/components/ui/command';
 import { Skeleton } from '@/components/ui/skeleton';
-import { ScrollShadow } from '@nextui-org/react';
-import { CircularProgress } from '@nextui-org/progress';
+import { ScrollShadow, CircularProgress } from '@nextui-org/react';
 import CategoryCard from '@/components/dashboard/CategoryCard';
 import { formatCurrency } from '../../../../shared/utilities/formatCurrency';
 import { formatDate } from '../../../../shared/utilities/formatDate';
@@ -46,6 +45,7 @@ const useMockedData = process.env.NEXT_PUBLIC_USE_MOCKED_DATA === 'true';
 const initialTransactionPaymentCategory: TransactionPaymentCategoryProps = {
   _id: '',
   name: '',
+  icon: '',
   totalAmount: 0,
   totalPaidAmount: 0,
   paymentCompletionRate: 0,
