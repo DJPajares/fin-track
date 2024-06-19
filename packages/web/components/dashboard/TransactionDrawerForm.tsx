@@ -217,112 +217,112 @@ const TransactionDrawerForm = ({
         onSubmit={form.handleSubmit(onSubmit)}
         className="space-y-8"
       >
-        <div className="flex flex-row items-center justify-end">
-          {/* START DATE */}
-          <FormField
-            control={form.control}
-            name="startDate"
-            render={({ field }) => (
-              <FormItem className="flex flex-col">
-                <FormLabel>{isRecurring ? 'Start date' : 'Date'}</FormLabel>
-
-                <Popover
-                  open={isStartDatePopoverOpen}
-                  onOpenChange={setIsStartDatePopoverOpen}
-                >
-                  <PopoverTrigger asChild>
-                    <FormControl>
-                      <Button
-                        variant="outline"
-                        className="text-left font-normal"
-                      >
-                        <p className="pr-2">
-                          {field.value ? (
-                            format(field.value, 'MMM yyyy')
-                          ) : (
-                            <span>{isRecurring ? 'Start date' : 'Date'}</span>
-                          )}
-                        </p>
-                        <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                      </Button>
-                    </FormControl>
-                  </PopoverTrigger>
-                  <PopoverContent className="w-auto p-0" align="start">
-                    <Calendar
-                      mode="single"
-                      defaultMonth={field.value}
-                      selected={field.value}
-                      onSelect={(date) => {
-                        field.onChange(date);
-                        setIsStartDatePopoverOpen(false);
-                      }}
-                      initialFocus
-                    />
-                  </PopoverContent>
-                </Popover>
-
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          {/* END DATE */}
-          {isRecurring && (
-            <div className="pl-2">
-              <FormField
-                control={form.control}
-                name="endDate"
-                render={({ field }) => (
-                  <FormItem className="flex flex-col">
-                    <FormLabel>End date</FormLabel>
-
-                    <Popover
-                      open={isEndDatePopoverOpen}
-                      onOpenChange={setIsEndDatePopoverOpen}
-                    >
-                      <PopoverTrigger asChild>
-                        <FormControl>
-                          <Button
-                            variant="outline"
-                            className="text-left font-normal"
-                          >
-                            <p className="pr-2">
-                              {field.value ? (
-                                format(field.value, 'MMM yyyy')
-                              ) : (
-                                <span>End date</span>
-                              )}
-                            </p>
-                            <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                          </Button>
-                        </FormControl>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-auto p-0" align="start">
-                        <Calendar
-                          mode="single"
-                          defaultMonth={field.value}
-                          selected={field.value}
-                          onSelect={(date) => {
-                            field.onChange(date);
-                            setIsEndDatePopoverOpen(false);
-                          }}
-                          disabled={(date) =>
-                            startDate ? date < startDate : false
-                          }
-                          initialFocus
-                        />
-                      </PopoverContent>
-                    </Popover>
-
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-          )}
-        </div>
-
         <div className="space-y-4">
+          <div className="flex flex-row items-center justify-end">
+            {/* START DATE */}
+            <FormField
+              control={form.control}
+              name="startDate"
+              render={({ field }) => (
+                <FormItem className="flex flex-col">
+                  <FormLabel>{isRecurring ? 'Start date' : 'Date'}</FormLabel>
+
+                  <Popover
+                    open={isStartDatePopoverOpen}
+                    onOpenChange={setIsStartDatePopoverOpen}
+                  >
+                    <PopoverTrigger asChild>
+                      <FormControl>
+                        <Button
+                          variant="outline"
+                          className="text-left font-normal"
+                        >
+                          <p className="pr-2">
+                            {field.value ? (
+                              format(field.value, 'MMM yyyy')
+                            ) : (
+                              <span>{isRecurring ? 'Start date' : 'Date'}</span>
+                            )}
+                          </p>
+                          <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                        </Button>
+                      </FormControl>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0" align="start">
+                      <Calendar
+                        mode="single"
+                        defaultMonth={field.value}
+                        selected={field.value}
+                        onSelect={(date) => {
+                          field.onChange(date);
+                          setIsStartDatePopoverOpen(false);
+                        }}
+                        initialFocus
+                      />
+                    </PopoverContent>
+                  </Popover>
+
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            {/* END DATE */}
+            {isRecurring && (
+              <div className="pl-2">
+                <FormField
+                  control={form.control}
+                  name="endDate"
+                  render={({ field }) => (
+                    <FormItem className="flex flex-col">
+                      <FormLabel>End date</FormLabel>
+
+                      <Popover
+                        open={isEndDatePopoverOpen}
+                        onOpenChange={setIsEndDatePopoverOpen}
+                      >
+                        <PopoverTrigger asChild>
+                          <FormControl>
+                            <Button
+                              variant="outline"
+                              className="text-left font-normal"
+                            >
+                              <p className="pr-2">
+                                {field.value ? (
+                                  format(field.value, 'MMM yyyy')
+                                ) : (
+                                  <span>End date</span>
+                                )}
+                              </p>
+                              <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                            </Button>
+                          </FormControl>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-auto p-0" align="start">
+                          <Calendar
+                            mode="single"
+                            defaultMonth={field.value}
+                            selected={field.value}
+                            onSelect={(date) => {
+                              field.onChange(date);
+                              setIsEndDatePopoverOpen(false);
+                            }}
+                            disabled={(date) =>
+                              startDate ? date < startDate : false
+                            }
+                            initialFocus
+                          />
+                        </PopoverContent>
+                      </Popover>
+
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+            )}
+          </div>
+
           {/* CATEGORY */}
           <FormField
             control={form.control}
