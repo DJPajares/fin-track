@@ -10,7 +10,7 @@ import { Button } from '@/components/ui/button';
 import { Progress } from '@nextui-org/react';
 import { CheckIcon, HandCoinsIcon } from 'lucide-react';
 import { formatCurrency } from '../../../../shared/utilities/formatCurrency';
-import type { TransactionPaymentCategoryProps } from '../../../../shared/types/transactionPaymentTypes';
+import type { TransactionPaymentCategoryProps } from '../../types/transactionPaymentTypes';
 
 type CategoryModalProps = {
   category: TransactionPaymentCategoryProps;

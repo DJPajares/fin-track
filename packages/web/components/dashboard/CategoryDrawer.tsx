@@ -24,11 +24,11 @@ import CategoryDrawerContent from './CategoryDrawerContent';
 import type {
   TransactionDataUpdateProps,
   TransactionPaymentCategoryProps
-} from '../../../../shared/types/transactionPaymentTypes';
+} from '../../types/transactionPaymentTypes';
 import type {
   DashboardSelectionItemsProps,
   DashboardDataProps
-} from '../../../../shared/types/dashboardTypes';
+} from '../../types/dashboardTypes';
 
 type CategoryDrawerProps = {
   category: TransactionPaymentCategoryProps;

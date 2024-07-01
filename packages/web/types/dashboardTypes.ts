@@ -1,4 +1,4 @@
-import { CurrencyProps } from '../../packages/api/src/models/v1/currencyModel';
+import { CurrencyProps } from '../../api/src/models/v1/currencyModel';
 
 type DashboardDataProps = {
   date: Date;

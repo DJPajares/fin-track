@@ -36,7 +36,7 @@ import { z } from 'zod';
 import { useForm, useWatch } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { cn } from '@/lib/utils';
-import type { DashboardSelectionItemsProps } from '../../../../shared/types/dashboardTypes';
+import type { DashboardSelectionItemsProps } from '../../types/dashboardTypes';
 import axios from 'axios';
 import type { TypeProps } from '../../../api/src/models/v1/typeModel';
 

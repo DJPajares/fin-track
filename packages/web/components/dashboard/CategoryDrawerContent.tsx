@@ -12,8 +12,8 @@ import { CheckIcon } from 'lucide-react';
 import type {
   TransactionDataUpdateProps,
   TransactionProps
-} from '../../../../shared/types/transactionPaymentTypes';
-import { DashboardSelectionItemsProps } from '../../../../shared/types/dashboardTypes';
+} from '../../types/transactionPaymentTypes';
+import { DashboardSelectionItemsProps } from '../../types/dashboardTypes';
 
 type PartialTransactionProps = Pick<
   TransactionProps,

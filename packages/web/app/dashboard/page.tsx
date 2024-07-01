@@ -29,11 +29,11 @@ import TransactionDrawer from '@/components/dashboard/TransactionDrawer';
 import type {
   TransactionPaymentMainProps,
   TransactionPaymentCategoryProps
-} from '../../../../shared/types/transactionPaymentTypes';
+} from '../../types/transactionPaymentTypes';
 import type {
   DashboardSelectionItemsProps,
   DashboardDataProps
-} from '../../../../shared/types/dashboardTypes';
+} from '../../types/dashboardTypes';
 import { format } from 'date-fns';
 
 const transactionPaymentsUrl =
