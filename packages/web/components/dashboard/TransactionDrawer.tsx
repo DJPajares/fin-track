@@ -26,7 +26,7 @@ import { MultiSelectBox } from '@/components/shared/MultiSelectBox';
 import categoriesData from '../../mockData/categories.json';
 import typesData from '../../mockData/types.json';
 import type { DashboardSelectionItemsProps } from '../../types/dashboardTypes';
-import type { TypeProps } from '../../../api/src/models/v1/typeModel';
+import type { TypeProps } from '../../types/type';
 
 const useMockedData = process.env.NEXT_PUBLIC_USE_MOCKED_DATA === 'true';
 

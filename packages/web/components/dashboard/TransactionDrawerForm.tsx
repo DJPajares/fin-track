@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import axios from 'axios';
 import {
   Popover,
   PopoverContent,
@@ -25,20 +26,14 @@ import { Button } from '@/components/ui/button';
 import { Calendar } from '@/components/ui/calendar';
 import { Checkbox } from '@nextui-org/react';
 import { CalendarIcon, CheckIcon, ChevronsUpDownIcon } from 'lucide-react';
-import {
-  addMonths,
-  differenceInCalendarMonths,
-  format,
-  setDate
-} from 'date-fns';
+import { format } from 'date-fns';
 import { MultiSelectBox } from '@/components/shared/MultiSelectBox';
 import { z } from 'zod';
 import { useForm, useWatch } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { cn } from '@/lib/utils';
 import type { DashboardSelectionItemsProps } from '../../types/dashboardTypes';
-import axios from 'axios';
-import type { TypeProps } from '../../../api/src/models/v1/typeModel';
+import type { TypeProps } from '../../types/type';
 
 type TransactionDrawerFormProps = {
   type: TypeProps;
