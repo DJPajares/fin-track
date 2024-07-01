@@ -1,5 +1,3 @@
-import { CurrencyProps } from '../../api/src/models/v1/currencyModel';
-
 type DashboardDataProps = {
   date: Date;
   currency: string;
