@@ -1,6 +1,9 @@
-import type { PaginationProps } from '../types/commonTypes';
+import type { PaginationProps, PaginationResult } from '../types/commonTypes';
 
-const createPagination = (query: PaginationProps, totalDocuments: number) => {
+const createPagination = (
+  query: PaginationProps,
+  totalDocuments: number
+): PaginationResult => {
   const { page = '1', limit = '10' } = query;
 
   const skip = (parseInt(page) - 1) * parseInt(limit);
