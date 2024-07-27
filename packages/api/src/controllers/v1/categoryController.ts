@@ -21,15 +21,8 @@ const create = async (req: Request, res: Response, next: NextFunction) => {
 };
 
 const getAll = async (req: Request, res: Response, next: NextFunction) => {
+  console.log('getAll');
   try {
-    // const query = req.query as unknown as PaginationProps;
-
-    // const result = await categoryService.getAll(query);
-
-    // res.status(200).json({
-    //   success: true,
-    //   ...result
-    // });
     const query = req.query as unknown as QueryParamsProps;
 
     const result = await categoryService.getAll(query);
@@ -56,18 +49,21 @@ const get = async (req: Request, res: Response, next: NextFunction) => {
 };
 
 const getByType = async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    const query = req.query as unknown as PaginationProps;
+  console.log('getByType');
+  // try {
+  //   // const query = req.query as unknown as PaginationProps;
+  //   const query = req.query as any;
 
-    const result = await categoryService.getByType(query);
+  //   const { getByType } = query;
 
-    res.status(200).json({
-      success: true,
-      ...result
-    });
-  } catch (error) {
-    next(error);
-  }
+  //   if (getByType) {
+  //     const result = await categoryService.getByType(query);
+
+  //     res.status(200).json(result);
+  //   }
+  // } catch (error) {
+  //   next(error);
+  // }
 };
 
 const getSpecificType = async (
@@ -76,9 +72,10 @@ const getSpecificType = async (
   next: NextFunction
 ) => {
   try {
-    const query = req.query as unknown as SpecificTypeProps;
+    const id = new Types.ObjectId(req.params.id);
+    const query = req.query as unknown as QueryParamsProps;
 
-    const result = await categoryService.getSpecificType(query);
+    const result = await categoryService.getSpecificType(id, query);
 
     res.status(200).json(result);
   } catch (error) {

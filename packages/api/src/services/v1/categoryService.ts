@@ -16,6 +16,7 @@ const create = async (data: CategoryProps) => {
 const getAll = async (query: QueryParamsProps) => {
   // [SAMPLE ENDPOINT]: /categories?page=2&limit=4&sort=-name
 
+  console.log('getAll');
   const { filter, sort } = query;
 
   // Pagination
@@ -50,14 +51,16 @@ const getAll = async (query: QueryParamsProps) => {
 };
 
 const get = async (_id: CategoryProps['_id']) => {
+  console.log('get');
   return await CategoryModel.findOne({ _id }).populate('type');
 };
 
-const getByType = async (query: PaginationProps) => {
+const getByType = async (query: QueryParamsProps) => {
   const totalDocuments = await CategoryModel.countDocuments();
   const paginationResult = createPagination(query, totalDocuments);
   const { skip, limit, pagination } = paginationResult;
 
+  console.log('getByType');
   const data = await CategoryModel.aggregate([
     {
       $lookup: {
@@ -96,6 +99,7 @@ const getByType = async (query: PaginationProps) => {
     }
   ]);
 
+  console.log(data);
   // const result = {};
 
   // data.forEach((item) => {
@@ -113,17 +117,30 @@ const getByType = async (query: PaginationProps) => {
   };
 };
 
-const getSpecificType = async (query: SpecificTypeProps) => {
-  const typeId = new Types.ObjectId(query.typeId);
+const getSpecificType = async (id: Types.ObjectId, query: QueryParamsProps) => {
+  const { sort } = query;
 
+  // Pagination
   const totalDocuments = await CategoryModel.countDocuments({
-    type: typeId
+    type: id
   });
-
   const paginationResult = createPagination(query, totalDocuments);
   const { skip, limit, pagination } = paginationResult;
 
-  const data = await CategoryModel.find({ type: typeId })
+  // Sort
+  let sortObj: any = {};
+  if (sort) {
+    sort.split(',').forEach((sortField: any) => {
+      const order = sortField.startsWith('-') ? -1 : 1;
+      const field = sortField.replace(/^[-+]/, '');
+
+      sortObj[field] = order;
+    });
+  }
+
+  const data = await CategoryModel.find({ type: id })
+    .populate('type')
+    .sort(sortObj)
     .skip(skip)
     .limit(limit);
 
