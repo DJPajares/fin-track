@@ -13,13 +13,13 @@ const router = express.Router();
 
 router.post('/', create);
 
-router.get('/', getAll);
+router.get('/types/', getByType);
+
+router.get('/types/:id', getSpecificType);
 
 router.get('/:id', get);
 
-router.get('/getByType', getByType);
-
-router.get('/:typeId', getSpecificType);
+router.get('/', getAll);
 
 router.put('/:id', update);
 
