@@ -1,20 +1,32 @@
 import { Types } from 'mongoose';
-import { CategoryModel, CategoryProps } from '../../models/v1/categoryModel';
+import { CategoryModel } from '../../models/v1/categoryModel';
 import { TypeModel } from '../../models/v1/typeModel';
+import type { CategoryProps } from '../../models/v1/categoryModel';
 import type { SpecificTypeProps } from '../../types/categoryTypes';
-import type { PaginationProps } from '../../types/commonTypes';
+import type {
+  QueryParamsProps,
+  PaginationProps
+} from '../../types/commonTypes';
 import createPagination from '../../utilities/createPagination';
 
 const create = async (data: CategoryProps) => {
   return await CategoryModel.create(data);
 };
 
-const get = async (query) => {
-  const { filter, sort, page, limit } = query;
+const getAll = async (query: QueryParamsProps) => {
+  // [SAMPLE ENDPOINT]: /categories?page=2&limit=4&sort=-name
 
-  const queryObj = filter ? JSON.parse(filter) : {};
+  const { filter, sort } = query;
 
-  // const sortObj = sort ? JSON.parse(sort) : {};
+  // Pagination
+  const totalDocuments = await CategoryModel.countDocuments();
+  const paginationResult = createPagination(query, totalDocuments);
+  const { skip, limit, pagination } = paginationResult;
+
+  // Filter
+  const filterObj = filter ? JSON.parse(filter) : {};
+
+  // Sort
   let sortObj: any = {};
   if (sort) {
     sort.split(',').forEach((sortField: any) => {
@@ -24,15 +36,10 @@ const get = async (query) => {
       sortObj[field] = order;
     });
   }
-};
 
-const getAll = async (query: PaginationProps) => {
-  const totalDocuments = await CategoryModel.countDocuments();
-  const paginationResult = createPagination(query, totalDocuments);
-  const { skip, limit, pagination } = paginationResult;
-
-  const data = await CategoryModel.find()
+  const data = await CategoryModel.find(filterObj)
     .populate('type')
+    .sort(sortObj)
     .skip(skip)
     .limit(limit);
 
@@ -42,9 +49,9 @@ const getAll = async (query: PaginationProps) => {
   };
 };
 
-// const get = async (_id: CategoryProps['_id']) => {
-//   return await CategoryModel.findOne({ _id }).populate('type');
-// };
+const get = async (_id: CategoryProps['_id']) => {
+  return await CategoryModel.findOne({ _id }).populate('type');
+};
 
 const getByType = async (query: PaginationProps) => {
   const totalDocuments = await CategoryModel.countDocuments();

@@ -1,7 +1,10 @@
 import { NextFunction, Request, Response } from 'express';
 import * as categoryService from '../../services/v1/categoryService';
 import { Types } from 'mongoose';
-import type { PaginationProps } from '../../types/commonTypes';
+import type {
+  PaginationProps,
+  QueryParamsProps
+} from '../../types/commonTypes';
 import type { SpecificTypeProps } from '../../types/categoryTypes';
 
 const create = async (req: Request, res: Response, next: NextFunction) => {
@@ -19,14 +22,19 @@ const create = async (req: Request, res: Response, next: NextFunction) => {
 
 const getAll = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const query = req.query as unknown as PaginationProps;
+    // const query = req.query as unknown as PaginationProps;
+
+    // const result = await categoryService.getAll(query);
+
+    // res.status(200).json({
+    //   success: true,
+    //   ...result
+    // });
+    const query = req.query as unknown as QueryParamsProps;
 
     const result = await categoryService.getAll(query);
 
-    res.status(200).json({
-      success: true,
-      ...result
-    });
+    res.status(200).json(result);
   } catch (error) {
     next(error);
   }
