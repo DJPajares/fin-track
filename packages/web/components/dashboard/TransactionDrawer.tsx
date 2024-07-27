@@ -30,7 +30,7 @@ import type { TypeProps } from '../../types/type';
 
 const useMockedData = process.env.NEXT_PUBLIC_USE_MOCKED_DATA === 'true';
 
-const categoriesUrl = 'http://localhost:3001/api/v1/categories';
+const categoriesUrl = 'http://localhost:3001/api/v1/categories/types';
 
 const typesUrl = 'http://localhost:3001/api/v1/types';
 
@@ -93,15 +93,13 @@ const TransactionDrawer = ({
 
   const fetchTypeData = async () => {
     const data = await fetchTypes();
+
     setTypes(data);
   };
 
   const fetchCategoryData = async () => {
-    // const { income, expense } = await fetchCategories();
-
-    // setCategories(expense);
-
     const data = await fetchCategories();
+
     setCategories(data);
   };
 
