@@ -4,16 +4,19 @@ const createPagination = (
   query: PaginationProps,
   totalDocuments: number
 ): PaginationResult => {
-  const { page = '1', limit = '10' } = query;
+  const { page = '1', limit } = query;
 
-  const skip = (parseInt(page) - 1) * parseInt(limit);
-  const totalPages = Math.ceil(totalDocuments / parseInt(limit));
+  // Use totalDocuments if limit is not defined
+  const effectiveLimit = limit ? limit : totalDocuments.toString();
+
+  const skip = (parseInt(page) - 1) * parseInt(effectiveLimit);
+  const totalPages = Math.ceil(totalDocuments / parseInt(effectiveLimit));
 
   return {
     skip,
-    limit: parseInt(limit),
+    limit: parseInt(effectiveLimit),
     pagination: {
-      limit: parseInt(limit),
+      limit: parseInt(effectiveLimit),
       currentPage: parseInt(page),
       totalPages,
       totalDocuments
