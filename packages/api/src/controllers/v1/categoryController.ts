@@ -49,21 +49,15 @@ const get = async (req: Request, res: Response, next: NextFunction) => {
 };
 
 const getByType = async (req: Request, res: Response, next: NextFunction) => {
-  console.log('getByType');
-  // try {
-  //   // const query = req.query as unknown as PaginationProps;
-  //   const query = req.query as any;
+  try {
+    const query = req.query as unknown as QueryParamsProps;
 
-  //   const { getByType } = query;
+    const result = await categoryService.getByType(query);
 
-  //   if (getByType) {
-  //     const result = await categoryService.getByType(query);
-
-  //     res.status(200).json(result);
-  //   }
-  // } catch (error) {
-  //   next(error);
-  // }
+    res.status(200).json(result);
+  } catch (error) {
+    next(error);
+  }
 };
 
 const getSpecificType = async (
