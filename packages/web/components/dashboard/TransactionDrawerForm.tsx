@@ -194,15 +194,13 @@ const TransactionDrawerForm = ({
       description,
       isRecurring,
       startDate: values.startDate,
+      endDate: isRecurring ? values.endDate : values.startDate,
       excludedDates
     };
 
-    if (isRecurring) transactionData.endDate = values.endDate;
+    const result = await createTransaction(transactionData);
 
-    console.log(transactionData);
-    // const result = await createTransaction(transactionData);
-
-    // console.log(values);
+    console.log(result);
   };
 
   return (
