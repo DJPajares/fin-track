@@ -23,8 +23,8 @@ import {
 import { Tab, Tabs } from '@nextui-org/react';
 import TransactionDrawerForm from './TransactionDrawerForm';
 import { MultiSelectBox } from '@/components/shared/MultiSelectBox';
-import categoriesData from '../../mockData/categories.json';
-import typesData from '../../mockData/types.json';
+import categoriesData from '../../../../shared/mockData/categories.json';
+import typesData from '../../../../shared/mockData/types.json';
 import type { DashboardSelectionItemsProps } from '../../types/dashboardTypes';
 import type { TypeProps } from '../../types/type';
 

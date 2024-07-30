@@ -22,8 +22,8 @@ import { ScrollShadow, CircularProgress } from '@nextui-org/react';
 import CategoryCard from '@/components/dashboard/CategoryCard';
 import { formatCurrency } from '../../../../shared/utilities/formatCurrency';
 import { formatDate } from '../../../../shared/utilities/formatDate';
-import transactionPaymentsData from '../../mockData/transactionPayments.json';
-import currenciesData from '../../mockData/currencies.json';
+import transactionPaymentsData from '../../../../shared/mockData/transactionPayments.json';
+import currenciesData from '../../../../shared/mockData/currencies.json';
 import CategoryDrawer from '@/components/dashboard/CategoryDrawer';
 import TransactionDrawer from '@/components/dashboard/TransactionDrawer';
 import type {

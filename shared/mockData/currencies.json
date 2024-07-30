@@ -1,0 +1,38 @@
+[
+  {
+    "_id": "sgd",
+    "name": "SGD"
+  },
+  {
+    "_id": "php",
+    "name": "PHP"
+  },
+  {
+    "_id": "usd",
+    "name": "USD"
+  },
+  {
+    "_id": "qar",
+    "name": "QAR"
+  },
+  {
+    "_id": "jpy",
+    "name": "JPY"
+  },
+  {
+    "_id": "myr",
+    "name": "MYR"
+  },
+  {
+    "_id": "eur",
+    "name": "EUR"
+  },
+  {
+    "_id": "usd",
+    "name": "USD"
+  },
+  {
+    "_id": "egp",
+    "name": "EGP"
+  }
+]
