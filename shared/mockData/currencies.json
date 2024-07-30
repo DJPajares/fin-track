@@ -34,5 +34,33 @@
   {
     "_id": "egp",
     "name": "EGP"
+  },
+  {
+    "_id": "pkr",
+    "name": "PKR"
+  },
+  {
+    "_id": "pab",
+    "name": "PAB"
+  },
+  {
+    "_id": "rub",
+    "name": "RUB"
+  },
+  {
+    "_id": "rwf",
+    "name": "RWF"
+  },
+  {
+    "_id": "wst",
+    "name": "WST"
+  },
+  {
+    "_id": "sar",
+    "name": "SAR"
+  },
+  {
+    "_id": "sbd",
+    "name": "SBD"
   }
 ]
