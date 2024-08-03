@@ -5,12 +5,18 @@ type DashboardDateProps = {
 };
 
 type DashboardCurrencyProps = {
-  currency: string;
+  currency: {
+    _id: string;
+    name: string;
+  };
 };
 
 const initialState: DashboardDateProps & DashboardCurrencyProps = {
   date: new Date(),
-  currency: ''
+  currency: {
+    _id: '',
+    name: ''
+  }
 };
 
 const dashboardSlice = createSlice({

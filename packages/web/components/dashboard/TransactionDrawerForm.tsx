@@ -41,7 +41,6 @@ type TransactionDrawerFormProps = {
   type: TypeProps;
   categories: DashboardSelectionItemsProps[];
   currencies: DashboardSelectionItemsProps[];
-  currency: DashboardSelectionItemsProps;
   formRef: any;
 };
 
@@ -111,7 +110,6 @@ const TransactionDrawerForm = ({
   type,
   categories,
   currencies,
-  currency,
   formRef
 }: TransactionDrawerFormProps) => {
   const [isStartDatePopoverOpen, setIsStartDatePopoverOpen] = useState(false);
@@ -119,9 +117,7 @@ const TransactionDrawerForm = ({
   const [isCategoryPopoverOpen, setIsCategoryPopoverOpen] = useState(false);
   const [isCurrencyPopoverOpen, setIsCurrencyPopoverOpen] = useState(false);
 
-  const { date } = useSelector((state: RootState) => state.dashboard);
-
-  console.log('date', date);
+  const { date, currency } = useSelector((state: RootState) => state.dashboard);
 
   const form = useForm<FormDataProps>({
     resolver: zodResolver(formSchema),
@@ -204,9 +200,7 @@ const TransactionDrawerForm = ({
       excludedDates
     };
 
-    // const result = await createTransaction(transactionData);
-
-    // console.log(result);
+    await createTransaction(transactionData);
   };
 
   return (

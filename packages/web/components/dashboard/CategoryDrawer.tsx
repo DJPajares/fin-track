@@ -29,12 +29,11 @@ import type {
   DashboardSelectionItemsProps,
   DashboardDataProps
 } from '../../types/dashboardTypes';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/lib/feature/rootSlice';
 
 type CategoryDrawerProps = {
   category: TransactionPaymentCategoryProps;
-  currency: DashboardSelectionItemsProps;
-  date: Date;
-  fetchDashboardData: ({ date, currencyId }: DashboardDataProps) => void;
   isDialogOpen: boolean;
   setIsDialogOpen: Dispatch<SetStateAction<boolean>>;
 };
@@ -52,12 +51,11 @@ const initialTransactionPaymentCategory: TransactionPaymentCategoryProps = {
 
 const CategoryDrawer = ({
   category,
-  currency,
-  date,
-  fetchDashboardData,
   isDialogOpen,
   setIsDialogOpen
 }: CategoryDrawerProps) => {
+  const { date, currency } = useSelector((state: RootState) => state.dashboard);
+
   const [drawerCategory, setDrawerCategory] = useState(
     initialTransactionPaymentCategory
   );
@@ -157,7 +155,7 @@ const CategoryDrawer = ({
     const { status } = await axios.post(paymentUrl, postData);
 
     if (status === 200) {
-      fetchDashboardData({ date, currencyId: currency._id });
+      // fetchDashboardData({ date, currencyId: currency._id });
       setIsDialogOpen(false);
     }
   };

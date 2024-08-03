@@ -35,7 +35,6 @@ const categoriesUrl = 'http://localhost:3001/api/v1/categories/types';
 const typesUrl = 'http://localhost:3001/api/v1/types';
 
 type TransactionDrawerProps = {
-  currency: DashboardSelectionItemsProps;
   currencies: DashboardSelectionItemsProps[];
   isTransactionDrawerOpen: boolean;
   setIsTransactionDrawerOpen: Dispatch<SetStateAction<boolean>>;
@@ -74,7 +73,6 @@ const fetchCategories = async () => {
 };
 
 const TransactionDrawer = ({
-  currency,
   currencies,
   isTransactionDrawerOpen,
   setIsTransactionDrawerOpen
@@ -141,7 +139,6 @@ const TransactionDrawer = ({
                         type={type}
                         categories={categories[type.name]}
                         currencies={currencies}
-                        currency={currency}
                         formRef={formRef}
                       />
                     </div>

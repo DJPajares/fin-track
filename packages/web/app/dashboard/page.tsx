@@ -75,7 +75,17 @@ const Dashboard = () => {
   }, []);
 
   useEffect(() => {
-    if (currencies.length > 0) setCurrency(currencies[0]);
+    if (currencies.length > 0) {
+      // store in redux state
+      dispatch(
+        setDashboardCurrency({
+          currency: currencies[0]
+        })
+      );
+
+      // store in component state
+      setCurrency(currencies[0]);
+    }
   }, [currencies]);
 
   useEffect(() => {
@@ -103,14 +113,16 @@ const Dashboard = () => {
   };
 
   const handleDateSelection = (date: any) => {
-    // store in redux
+    // store in redux state
     dispatch(
       setDashboardDate({
         date: date
       })
     );
 
+    // store in component state
     setDate(date);
+
     setIsDatePopoverOpen(false);
   };
 
@@ -119,13 +131,14 @@ const Dashboard = () => {
   }: {
     selectedCurrency: DashboardSelectionItemsProps;
   }) => {
-    // store in redux
+    // store in redux state
     dispatch(
       setDashboardCurrency({
-        currency: selectedCurrency.name
+        currency: selectedCurrency
       })
     );
 
+    // store in component state
     setCurrency({
       _id: selectedCurrency._id,
       name: selectedCurrency.name
@@ -314,15 +327,11 @@ const Dashboard = () => {
 
       <CategoryDrawer
         category={dashboardCategoryData}
-        currency={currency}
-        date={date}
-        fetchDashboardData={fetchDashboardData}
         isDialogOpen={isDialogOpen}
         setIsDialogOpen={setIsDialogOpen}
       />
 
       <TransactionDrawer
-        currency={currency}
         currencies={currencies}
         isTransactionDrawerOpen={isTransactionDrawerOpen}
         setIsTransactionDrawerOpen={setIsTransactionDrawerOpen}
