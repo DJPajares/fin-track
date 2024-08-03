@@ -25,10 +25,6 @@ import type {
   TransactionDataUpdateProps,
   TransactionPaymentCategoryProps
 } from '../../types/transactionPaymentTypes';
-import type {
-  DashboardSelectionItemsProps,
-  DashboardDataProps
-} from '../../types/dashboardTypes';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/lib/feature/rootSlice';
 
@@ -43,6 +39,7 @@ const paymentUrl = 'http://localhost:3001/api/v1/payments';
 const initialTransactionPaymentCategory: TransactionPaymentCategoryProps = {
   _id: '',
   name: '',
+  icon: '',
   totalAmount: 0,
   totalPaidAmount: 0,
   paymentCompletionRate: 0,

@@ -1,6 +1,5 @@
 'use client';
 
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import {
@@ -24,13 +23,11 @@ import { formatCurrency } from '../../../../shared/utilities/formatCurrency';
 import { formatDate } from '../../../../shared/utilities/formatDate';
 import CategoryDrawer from '@/components/dashboard/CategoryDrawer';
 import TransactionDrawer from '@/components/dashboard/TransactionDrawer';
-import type {
-  TransactionPaymentMainProps,
-  TransactionPaymentCategoryProps
-} from '../../types/transactionPaymentTypes';
-import type {
-  DashboardSelectionItemsProps,
-  DashboardDataProps
+import {
+  type DashboardSelectionItemsProps,
+  type DashboardDataProps,
+  type DashboardDataCategoryResults,
+  DashboardDataResults
 } from '../../types/dashboardTypes';
 import { format } from 'date-fns';
 import fetchTransactionPayments from '@/providers/fetchTransactionPayments';
@@ -41,7 +38,20 @@ import {
   setDashboardDate
 } from '@/lib/feature/dashboard/dashboardSlice';
 
-const initialTransactionPaymentCategory: TransactionPaymentCategoryProps = {
+const initialDashboardData = {
+  main: {
+    currency: '',
+    budget: 0,
+    totalAmount: 0,
+    totalPaidAmount: 0,
+    balance: 0,
+    extra: 0,
+    paymentCompletionRate: 0
+  },
+  categories: []
+};
+
+const initialTransactionPaymentCategory = {
   _id: '',
   name: '',
   icon: '',
@@ -51,10 +61,14 @@ const initialTransactionPaymentCategory: TransactionPaymentCategoryProps = {
   transactions: []
 };
 
+const initialCurrency = {
+  _id: 'php',
+  name: 'PHP'
+};
+
 const Dashboard = () => {
-  const [dashboardMainData, setDashboardMainData] =
-    useState<TransactionPaymentMainProps>({});
-  const [dashboardCategoriesData, setDashboardCategoriesData] = useState([]);
+  const [dashboardData, setDashboardData] =
+    useState<DashboardDataResults>(initialDashboardData);
   const [dashboardCategoryData, setDashboardCategoryData] = useState(
     initialTransactionPaymentCategory
   );
@@ -62,7 +76,8 @@ const Dashboard = () => {
   const [currencies, setCurrencies] = useState<DashboardSelectionItemsProps[]>(
     []
   );
-  const [currency, setCurrency] = useState<DashboardSelectionItemsProps>({});
+  const [currency, setCurrency] =
+    useState<DashboardSelectionItemsProps>(initialCurrency);
   const [isDatePopoverOpen, setIsDatePopoverOpen] = useState(false);
   const [isCurrencyPopoverOpen, setIsCurrencyPopoverOpen] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -97,13 +112,12 @@ const Dashboard = () => {
   }, [date, currency]);
 
   const fetchDashboardData = async ({ date, currency }: DashboardDataProps) => {
-    const { main, categories } = await fetchTransactionPayments({
+    const data = await fetchTransactionPayments({
       date,
       currency
     });
 
-    setDashboardCategoriesData(categories);
-    setDashboardMainData(main);
+    setDashboardData(data);
   };
 
   const fetchCurrencyData = async () => {
@@ -147,7 +161,7 @@ const Dashboard = () => {
     setIsCurrencyPopoverOpen(false);
   };
 
-  const handleCardClick = (category: TransactionPaymentCategoryProps) => {
+  const handleCardClick = (category: DashboardDataCategoryResults) => {
     setDashboardCategoryData(category);
     setIsDialogOpen(true);
   };
@@ -160,7 +174,7 @@ const Dashboard = () => {
     <div className="flex flex-col px-6 py-2 sm:py-4">
       <div className="pb-4">
         <div className="pb-2 sm:pb-6">
-          {Object.keys(dashboardMainData).length > 0 ? (
+          {Object.keys(dashboardData.main).length > 0 ? (
             <div className="flex flex-row items-center justify-between">
               {/* CALENDAR */}
               <Popover
@@ -235,14 +249,14 @@ const Dashboard = () => {
         </div>
 
         <div className="pb-1 sm:pb-2">
-          {Object.keys(dashboardMainData).length > 0 ? (
+          {Object.keys(dashboardData.main).length > 0 ? (
             <div className="flex flex-row items-center justify-between">
               <p className="text-xl sm:text-3xl font-semibold sm:font-bold">
                 Balance
               </p>
               <p className="text-xl sm:text-3xl font-medium">
                 {formatCurrency({
-                  value: dashboardMainData.balance,
+                  value: dashboardData.main.balance,
                   currency: currency.name
                 })}
               </p>
@@ -256,14 +270,14 @@ const Dashboard = () => {
         </div>
 
         <div>
-          {Object.keys(dashboardMainData).length > 0 ? (
+          {Object.keys(dashboardData.main).length > 0 ? (
             <div className="flex flex-row items-center justify-between">
               <p className="text-base sm:text-lg font-medium sm:font-semibold">
                 Extra
               </p>
               <p className="text-base sm:text-lg font-medium sm:font-semibold">
                 {formatCurrency({
-                  value: dashboardMainData.extra,
+                  value: dashboardData.main.extra,
                   currency: currency.name
                 })}
               </p>
@@ -278,7 +292,7 @@ const Dashboard = () => {
       </div>
 
       <div className="flex flex-col items-center pb-4">
-        {Object.keys(dashboardMainData).length > 0 ? (
+        {Object.keys(dashboardData.main).length > 0 ? (
           <CircularProgress
             classNames={{
               svg: 'w-36 sm:w-64 h-36 sm:h-64 drop-shadow-md',
@@ -288,8 +302,8 @@ const Dashboard = () => {
             }}
             label="Completed"
             value={
-              (dashboardMainData.totalPaidAmount /
-                dashboardMainData.totalAmount) *
+              (dashboardData.main.totalPaidAmount /
+                dashboardData.main.totalAmount) *
               100
             }
             strokeWidth={3}
@@ -303,8 +317,8 @@ const Dashboard = () => {
 
       <ScrollShadow className="max-h-50vh pb-4" hideScrollBar>
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-5 sm:gap-10 items-start justify-center">
-          {dashboardCategoriesData.map(
-            (category: TransactionPaymentCategoryProps) => (
+          {dashboardData.categories.map(
+            (category: DashboardDataCategoryResults) => (
               <div key={category._id}>
                 <CategoryCard
                   category={category}
