@@ -304,7 +304,6 @@ const Dashboard = () => {
         currencies={currencies}
         isTransactionDrawerOpen={isTransactionDrawerOpen}
         setIsTransactionDrawerOpen={setIsTransactionDrawerOpen}
-        fetchDashboardData={fetchDashboardData}
       />
     </div>
   );
