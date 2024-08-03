@@ -35,6 +35,11 @@ import type {
 import { format } from 'date-fns';
 import fetchTransactionPayments from '@/providers/fetchTransactionPayments';
 import fetchCurrencies from '@/providers/fetchCurrencies';
+import { useDispatch } from 'react-redux';
+import {
+  setDashboardCurrency,
+  setDashboardDate
+} from '@/lib/feature/dashboard/dashboardSlice';
 
 const initialTransactionPaymentCategory: TransactionPaymentCategoryProps = {
   _id: '',
@@ -62,6 +67,8 @@ const Dashboard = () => {
   const [isCurrencyPopoverOpen, setIsCurrencyPopoverOpen] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isTransactionDrawerOpen, setIsTransactionDrawerOpen] = useState(false);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     fetchCurrencyData();
@@ -96,6 +103,13 @@ const Dashboard = () => {
   };
 
   const handleDateSelection = (date: any) => {
+    // store in redux
+    dispatch(
+      setDashboardDate({
+        date: date
+      })
+    );
+
     setDate(date);
     setIsDatePopoverOpen(false);
   };
@@ -105,10 +119,18 @@ const Dashboard = () => {
   }: {
     selectedCurrency: DashboardSelectionItemsProps;
   }) => {
+    // store in redux
+    dispatch(
+      setDashboardCurrency({
+        currency: selectedCurrency.name
+      })
+    );
+
     setCurrency({
       _id: selectedCurrency._id,
       name: selectedCurrency.name
     });
+
     setIsCurrencyPopoverOpen(false);
   };
 

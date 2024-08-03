@@ -34,6 +34,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { cn } from '@/lib/utils';
 import type { DashboardSelectionItemsProps } from '../../types/dashboardTypes';
 import type { TypeProps } from '../../types/type';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/lib/feature/rootSlice';
 
 type TransactionDrawerFormProps = {
   type: TypeProps;
@@ -117,6 +119,10 @@ const TransactionDrawerForm = ({
   const [isCategoryPopoverOpen, setIsCategoryPopoverOpen] = useState(false);
   const [isCurrencyPopoverOpen, setIsCurrencyPopoverOpen] = useState(false);
 
+  const { date } = useSelector((state: RootState) => state.dashboard);
+
+  console.log('date', date);
+
   const form = useForm<FormDataProps>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -198,9 +204,9 @@ const TransactionDrawerForm = ({
       excludedDates
     };
 
-    const result = await createTransaction(transactionData);
+    // const result = await createTransaction(transactionData);
 
-    console.log(result);
+    // console.log(result);
   };
 
   return (
