@@ -22,8 +22,6 @@ import { ScrollShadow, CircularProgress } from '@nextui-org/react';
 import CategoryCard from '@/components/dashboard/CategoryCard';
 import { formatCurrency } from '../../../../shared/utilities/formatCurrency';
 import { formatDate } from '../../../../shared/utilities/formatDate';
-import transactionPaymentsData from '../../../../shared/mockData/transactionPayments.json';
-import currenciesData from '../../../../shared/mockData/currencies.json';
 import CategoryDrawer from '@/components/dashboard/CategoryDrawer';
 import TransactionDrawer from '@/components/dashboard/TransactionDrawer';
 import type {
@@ -35,12 +33,8 @@ import type {
   DashboardDataProps
 } from '../../types/dashboardTypes';
 import { format } from 'date-fns';
-
-const transactionPaymentsUrl =
-  'http://localhost:3001/api/v1/transactionPayments';
-const currenciesUrl = 'http://localhost:3001/api/v1/currencies';
-
-const useMockedData = process.env.NEXT_PUBLIC_USE_MOCKED_DATA === 'true';
+import fetchTransactionPayments from '@/providers/fetchTransactionPayments';
+import fetchCurrencies from '@/providers/fetchCurrencies';
 
 const initialTransactionPaymentCategory: TransactionPaymentCategoryProps = {
   _id: '',
@@ -50,40 +44,6 @@ const initialTransactionPaymentCategory: TransactionPaymentCategoryProps = {
   totalPaidAmount: 0,
   paymentCompletionRate: 0,
   transactions: []
-};
-
-const fetchTransactionPayments = async ({
-  date,
-  currency
-}: DashboardDataProps) => {
-  try {
-    if (useMockedData) {
-      return transactionPaymentsData;
-    } else {
-      const { status, data } = await axios.post(transactionPaymentsUrl, {
-        date,
-        currency
-      });
-
-      if (status === 200) return data.data;
-    }
-  } catch (error) {
-    console.error('Fetch failed', error);
-  }
-};
-
-const fetchCurrencies = async () => {
-  try {
-    if (useMockedData) {
-      return currenciesData;
-    } else {
-      const { status, data } = await axios.get(`${currenciesUrl}?limit=20`);
-
-      if (status === 200) return data.data;
-    }
-  } catch (error) {
-    console.error('Fetch failed', error);
-  }
 };
 
 const Dashboard = () => {
@@ -344,6 +304,7 @@ const Dashboard = () => {
         currencies={currencies}
         isTransactionDrawerOpen={isTransactionDrawerOpen}
         setIsTransactionDrawerOpen={setIsTransactionDrawerOpen}
+        fetchDashboardData={fetchDashboardData}
       />
     </div>
   );
