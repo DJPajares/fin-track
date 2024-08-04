@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import axios from 'axios';
 import {
   Popover,
@@ -32,15 +32,21 @@ import { z } from 'zod';
 import { useForm, useWatch } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { cn } from '@/lib/utils';
-import type { DashboardSelectionItemsProps } from '../../types/dashboardTypes';
+import type {
+  DashboardDataResult,
+  DashboardSelectionItemsProps
+} from '../../types/dashboardTypes';
 import type { TypeProps } from '../../types/type';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/lib/feature/rootSlice';
+import fetchTransactionPayments from '@/providers/fetchTransactionPayments';
 
 type TransactionDrawerFormProps = {
   type: TypeProps;
   categories: DashboardSelectionItemsProps[];
   currencies: DashboardSelectionItemsProps[];
+  setDashboardData: Dispatch<SetStateAction<DashboardDataResult>>;
+  setIsTransactionDrawerOpen: Dispatch<SetStateAction<boolean>>;
   formRef: any;
 };
 
@@ -96,20 +102,12 @@ const formSchema = z.object({
 
 const transactionsUrl = 'http://localhost:3001/api/v1/transactions';
 
-const createTransaction = async (transactionData: TransactionProps) => {
-  try {
-    const { status, data } = await axios.post(transactionsUrl, transactionData);
-
-    if (status === 200) return data.data;
-  } catch (error) {
-    console.error(error);
-  }
-};
-
 const TransactionDrawerForm = ({
   type,
   categories,
   currencies,
+  setDashboardData,
+  setIsTransactionDrawerOpen,
   formRef
 }: TransactionDrawerFormProps) => {
   const [isStartDatePopoverOpen, setIsStartDatePopoverOpen] = useState(false);
@@ -118,6 +116,27 @@ const TransactionDrawerForm = ({
   const [isCurrencyPopoverOpen, setIsCurrencyPopoverOpen] = useState(false);
 
   const { date, currency } = useSelector((state: RootState) => state.dashboard);
+
+  const createTransaction = async (transactionData: TransactionProps) => {
+    try {
+      const { status, data } = await axios.post(
+        transactionsUrl,
+        transactionData
+      );
+
+      if (status === 200) {
+        const result = await fetchTransactionPayments({
+          date,
+          currency: currency.name
+        });
+
+        setDashboardData(result);
+        setIsTransactionDrawerOpen(false);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const form = useForm<FormDataProps>({
     resolver: zodResolver(formSchema),

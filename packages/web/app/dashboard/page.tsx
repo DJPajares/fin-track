@@ -26,8 +26,8 @@ import TransactionDrawer from '@/components/dashboard/TransactionDrawer';
 import {
   type DashboardSelectionItemsProps,
   type DashboardDataProps,
-  type DashboardDataCategoryResults,
-  DashboardDataResults
+  type DashboardDataCategoryResult,
+  DashboardDataResult
 } from '../../types/dashboardTypes';
 import { format } from 'date-fns';
 import fetchTransactionPayments from '@/providers/fetchTransactionPayments';
@@ -68,7 +68,7 @@ const initialCurrency = {
 
 const Dashboard = () => {
   const [dashboardData, setDashboardData] =
-    useState<DashboardDataResults>(initialDashboardData);
+    useState<DashboardDataResult>(initialDashboardData);
   const [dashboardCategoryData, setDashboardCategoryData] = useState(
     initialTransactionPaymentCategory
   );
@@ -116,7 +116,6 @@ const Dashboard = () => {
       date,
       currency
     });
-
     setDashboardData(data);
   };
 
@@ -161,7 +160,7 @@ const Dashboard = () => {
     setIsCurrencyPopoverOpen(false);
   };
 
-  const handleCardClick = (category: DashboardDataCategoryResults) => {
+  const handleCardClick = (category: DashboardDataCategoryResult) => {
     setDashboardCategoryData(category);
     setIsDialogOpen(true);
   };
@@ -318,7 +317,7 @@ const Dashboard = () => {
       <ScrollShadow className="max-h-50vh pb-4" hideScrollBar>
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-5 sm:gap-10 items-start justify-center">
           {dashboardData.categories.map(
-            (category: DashboardDataCategoryResults) => (
+            (category: DashboardDataCategoryResult) => (
               <div key={category._id}>
                 <CategoryCard
                   category={category}
@@ -347,6 +346,7 @@ const Dashboard = () => {
 
       <TransactionDrawer
         currencies={currencies}
+        setDashboardData={setDashboardData}
         isTransactionDrawerOpen={isTransactionDrawerOpen}
         setIsTransactionDrawerOpen={setIsTransactionDrawerOpen}
       />

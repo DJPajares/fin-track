@@ -5,12 +5,12 @@ type DashboardDataProps = {
   currency: string;
 };
 
-type DashboardDataResults = {
-  main: DashboardDataMainResults;
-  categories: DashboardDataCategoryResults[];
+type DashboardDataResult = {
+  main: DashboardDataMainResult;
+  categories: DashboardDataCategoryResult[];
 };
 
-type DashboardDataMainResults = {
+type DashboardDataMainResult = {
   currency: string;
   budget: number;
   totalAmount: number;
@@ -20,7 +20,7 @@ type DashboardDataMainResults = {
   paymentCompletionRate: number;
 };
 
-type DashboardDataCategoryResults = {
+type DashboardDataCategoryResult = {
   _id: string;
   name: string;
   icon: string;
@@ -37,8 +37,8 @@ type DashboardSelectionItemsProps = {
 
 export type {
   DashboardDataProps,
-  DashboardDataResults,
-  DashboardDataMainResults,
-  DashboardDataCategoryResults,
+  DashboardDataResult,
+  DashboardDataMainResult,
+  DashboardDataCategoryResult,
   DashboardSelectionItemsProps
 };

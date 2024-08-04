@@ -25,7 +25,10 @@ import TransactionDrawerForm from './TransactionDrawerForm';
 import { MultiSelectBox } from '@/components/shared/MultiSelectBox';
 import categoriesData from '../../../../shared/mockData/categories.json';
 import typesData from '../../../../shared/mockData/types.json';
-import type { DashboardSelectionItemsProps } from '../../types/dashboardTypes';
+import type {
+  DashboardDataResult,
+  DashboardSelectionItemsProps
+} from '../../types/dashboardTypes';
 import type { TypeProps } from '../../types/type';
 
 const useMockedData = process.env.NEXT_PUBLIC_USE_MOCKED_DATA === 'true';
@@ -36,6 +39,7 @@ const typesUrl = 'http://localhost:3001/api/v1/types';
 
 type TransactionDrawerProps = {
   currencies: DashboardSelectionItemsProps[];
+  setDashboardData: Dispatch<SetStateAction<DashboardDataResult>>;
   isTransactionDrawerOpen: boolean;
   setIsTransactionDrawerOpen: Dispatch<SetStateAction<boolean>>;
 };
@@ -74,6 +78,7 @@ const fetchCategories = async () => {
 
 const TransactionDrawer = ({
   currencies,
+  setDashboardData,
   isTransactionDrawerOpen,
   setIsTransactionDrawerOpen
 }: TransactionDrawerProps) => {
@@ -104,8 +109,6 @@ const TransactionDrawer = ({
   const handleAddingTransaction = async () => {
     // Request submit to the child component
     if (formRef.current) formRef.current.requestSubmit();
-
-    // setIsTransactionDrawerOpen(false);
   };
 
   return (
@@ -139,6 +142,8 @@ const TransactionDrawer = ({
                         type={type}
                         categories={categories[type.name]}
                         currencies={currencies}
+                        setDashboardData={setDashboardData}
+                        setIsTransactionDrawerOpen={setIsTransactionDrawerOpen}
                         formRef={formRef}
                       />
                     </div>
