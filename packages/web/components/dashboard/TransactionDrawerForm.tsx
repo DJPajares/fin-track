@@ -141,8 +141,8 @@ const TransactionDrawerForm = ({
   const form = useForm<FormDataProps>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      startDate: new Date(),
-      endDate: new Date(),
+      startDate: date,
+      endDate: date,
       category: {
         _id: '',
         name: ''
