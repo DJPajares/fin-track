@@ -303,7 +303,7 @@ const Dashboard = () => {
             value={
               (dashboardData.main.totalPaidAmount /
                 dashboardData.main.totalAmount) *
-              100
+                100 || 0
             }
             strokeWidth={3}
             color="success"
@@ -340,6 +340,7 @@ const Dashboard = () => {
 
       <CategoryDrawer
         category={dashboardCategoryData}
+        setDashboardData={setDashboardData}
         isDialogOpen={isDialogOpen}
         setIsDialogOpen={setIsDialogOpen}
       />

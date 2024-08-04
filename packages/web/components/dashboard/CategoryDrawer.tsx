@@ -27,9 +27,12 @@ import type {
 } from '../../types/transactionPaymentTypes';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/lib/feature/rootSlice';
+import { DashboardDataResult } from '@/types/dashboardTypes';
+import fetchTransactionPayments from '@/providers/fetchTransactionPayments';
 
 type CategoryDrawerProps = {
   category: TransactionPaymentCategoryProps;
+  setDashboardData: Dispatch<SetStateAction<DashboardDataResult>>;
   isDialogOpen: boolean;
   setIsDialogOpen: Dispatch<SetStateAction<boolean>>;
 };
@@ -48,6 +51,7 @@ const initialTransactionPaymentCategory: TransactionPaymentCategoryProps = {
 
 const CategoryDrawer = ({
   category,
+  setDashboardData,
   isDialogOpen,
   setIsDialogOpen
 }: CategoryDrawerProps) => {
@@ -152,7 +156,13 @@ const CategoryDrawer = ({
     const { status } = await axios.post(paymentUrl, postData);
 
     if (status === 200) {
-      // fetchDashboardData({ date, currencyId: currency._id });
+      const result = await fetchTransactionPayments({
+        date,
+        currency: currency.name
+      });
+
+      setDashboardData(result);
+
       setIsDialogOpen(false);
     }
   };
