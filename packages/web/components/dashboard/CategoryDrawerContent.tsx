@@ -122,7 +122,7 @@ const CategoryDrawerContent = ({
           <Button
             variant="outline"
             size="sm_rounded_icon"
-            className="bg-green-600"
+            className="bg-primary text-primary-foreground"
             onClick={() =>
               handleTransactionDataUpdate({
                 _id,
