@@ -295,9 +295,8 @@ const Dashboard = () => {
           <CircularProgress
             classNames={{
               svg: 'w-36 sm:w-64 h-36 sm:h-64 drop-shadow-md',
-              // indicator: 'stroke-white',
-              // track: 'stroke-white/10',
-              value: 'text-3xl sm:text-6xl font-semibold'
+              value: 'text-3xl sm:text-6xl font-semibold',
+              indicator: 'stroke-primary'
             }}
             label="Completed"
             value={

@@ -48,9 +48,11 @@ const CategoryCard = ({
           {Math.floor((category.totalPaidAmount / category.totalAmount) * 100)}%
         </p>
         <Progress
-          color="success"
           aria-label="Loading..."
           value={(category.totalPaidAmount / category.totalAmount) * 100}
+          classNames={{
+            indicator: 'bg-primary'
+          }}
           size="sm"
         />
       </div>

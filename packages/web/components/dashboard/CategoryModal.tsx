@@ -48,9 +48,11 @@ const CategoryModal = ({
               </div>
               <div className="col-span-2">
                 <Progress
-                  color="success"
                   aria-label="Loading..."
                   value={(transaction.paidAmount / transaction.amount) * 100}
+                  classNames={{
+                    indicator: 'bg-primary'
+                  }}
                   size="sm"
                 />
               </div>

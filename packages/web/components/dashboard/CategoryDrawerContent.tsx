@@ -73,7 +73,6 @@ const CategoryDrawerContent = ({
           <PopoverTrigger asChild>
             <div className="cursor-pointer">
               <Progress
-                color="success"
                 label={formatCurrency({
                   value: amount,
                   currency: currency.name
@@ -84,7 +83,8 @@ const CategoryDrawerContent = ({
                 showValueLabel={true}
                 classNames={{
                   label: `${isTotal && 'text-base font-bold'}`,
-                  value: `${isTotal && 'text-base font-bold'}`
+                  value: `${isTotal && 'text-base font-bold'}`,
+                  indicator: 'bg-primary'
                 }}
               />
             </div>
