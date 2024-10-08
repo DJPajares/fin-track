@@ -269,7 +269,6 @@ const TransactionDrawerForm = ({
                           field.onChange(date);
                           setIsStartDatePopoverOpen(false);
                         }}
-                        initialFocus
                       />
                     </PopoverContent>
                   </Popover>
@@ -322,7 +321,6 @@ const TransactionDrawerForm = ({
                             disabled={(date) =>
                               startDate ? date < startDate : false
                             }
-                            initialFocus
                           />
                         </PopoverContent>
                       </Popover>
