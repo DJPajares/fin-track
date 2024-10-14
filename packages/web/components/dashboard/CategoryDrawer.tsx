@@ -20,7 +20,7 @@ import {
   AlertDialogTrigger
 } from '@/components/ui/alert-dialog';
 import { Separator } from '@/components/ui/separator';
-import CategoryDrawerContent from './CategoryDrawerContent';
+import CategoryDrawerContent from './CategoryContent';
 import type {
   TransactionDataUpdateProps,
   TransactionPaymentCategoryProps

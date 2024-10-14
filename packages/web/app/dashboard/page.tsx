@@ -37,6 +37,7 @@ import {
   setDashboardCurrency,
   setDashboardDate
 } from '@/lib/feature/dashboard/dashboardSlice';
+import CategoryDialog from '@/components/dashboard/CategoryDialog';
 
 const initialDashboardData = {
   main: {
@@ -337,7 +338,14 @@ const Dashboard = () => {
         Add Transaction
       </Button>
 
-      <CategoryDrawer
+      {/* <CategoryDrawer
+        category={dashboardCategoryData}
+        setDashboardData={setDashboardData}
+        isDialogOpen={isDialogOpen}
+        setIsDialogOpen={setIsDialogOpen}
+      /> */}
+
+      <CategoryDialog
         category={dashboardCategoryData}
         setDashboardData={setDashboardData}
         isDialogOpen={isDialogOpen}

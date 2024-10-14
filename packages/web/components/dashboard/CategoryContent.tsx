@@ -9,18 +9,19 @@ import { Input } from '@/components/ui/input';
 import { Progress } from '@nextui-org/react';
 import { formatCurrency } from '../../../../shared/utilities/formatCurrency';
 import { CheckIcon } from 'lucide-react';
+
 import type {
   TransactionDataUpdateProps,
   TransactionProps
 } from '../../types/transactionPaymentTypes';
-import { DashboardSelectionItemsProps } from '../../types/dashboardTypes';
+import type { DashboardSelectionItemsProps } from '../../types/dashboardTypes';
 
 type PartialTransactionProps = Pick<
   TransactionProps,
   '_id' | 'name' | 'amount' | 'paidAmount'
 >;
 
-type CategoryDrawerContentProps = PartialTransactionProps & {
+type CategoryContentProps = PartialTransactionProps & {
   currency: DashboardSelectionItemsProps;
   handleTransactionDataUpdate: (
     transactionData: TransactionDataUpdateProps
@@ -28,7 +29,7 @@ type CategoryDrawerContentProps = PartialTransactionProps & {
   isTotal?: boolean;
 };
 
-const CategoryDrawerContent = ({
+const CategoryContent = ({
   _id,
   name,
   amount,
@@ -36,7 +37,7 @@ const CategoryDrawerContent = ({
   currency,
   handleTransactionDataUpdate,
   isTotal
-}: CategoryDrawerContentProps) => {
+}: CategoryContentProps) => {
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
 
   const handleKeyboardEvent = (event: KeyboardEvent<HTMLInputElement>) => {
@@ -151,4 +152,4 @@ const CategoryDrawerContent = ({
   );
 };
 
-export default CategoryDrawerContent;
+export default CategoryContent;
