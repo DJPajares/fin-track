@@ -195,7 +195,6 @@ const Dashboard = () => {
                     defaultMonth={date}
                     selected={date}
                     onSelect={handleDateSelection}
-                    initialFocus
                   />
                 </PopoverContent>
               </Popover>
