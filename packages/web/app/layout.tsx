@@ -24,7 +24,7 @@ export default function RootLayout({
             vaul-drawer-wrapper=""
           >
             <NavMenu />
-            {children}
+            <div className="flex flex-col px-6 py-2 sm:py-4">{children}</div>
           </main>
         </Providers>
       </body>
