@@ -45,7 +45,6 @@ const paymentUrl = 'http://localhost:3001/api/v1/payments';
 const initialTransactionPaymentCategory: TransactionPaymentCategoryProps = {
   _id: '',
   name: '',
-  icon: '',
   totalAmount: 0,
   totalPaidAmount: 0,
   paymentCompletionRate: 0,
@@ -174,7 +173,7 @@ const CategoryDialog = ({
     <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
       <DialogContent className="max-w-[400px]">
         <DialogHeader>
-          <DialogTitle>{drawerCategory.name}</DialogTitle>
+          <DialogTitle>{drawerCategory.name.toUpperCase()}</DialogTitle>
         </DialogHeader>
 
         <div className="grid gap-4 py-4">

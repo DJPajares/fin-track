@@ -7,17 +7,16 @@ import {
   UsersIcon
 } from 'lucide-react';
 
-export type CardIconProps = {
-  icon:
-    | 'activity'
-    | 'users'
-    | 'credit-card'
-    | 'lightbulb'
-    | 'clapperboard'
-    | 'bed-double';
-};
+export type CardIconProps =
+  | 'activity'
+  | 'users'
+  | 'credit-card'
+  | 'lightbulb'
+  | 'clapperboard'
+  | 'bed-double'
+  | undefined;
 
-const CardIcon = ({ icon }: CardIconProps) => {
+const CardIcon = ({ icon }: { icon: CardIconProps }) => {
   const iconClassName = 'h-4 w-4 text-slate-500 dark:text-slate-400';
 
   switch (icon) {
