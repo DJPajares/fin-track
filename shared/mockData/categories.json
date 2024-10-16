@@ -1,38 +1,46 @@
 {
-  "Income": [
+  "income": [
     {
       "_id": "paycheck",
-      "name": "Paycheck"
+      "name": "Paycheck",
+      "icon": "banknote"
     },
     {
       "_id": "investment",
-      "name": "Investment"
+      "name": "Investment",
+      "icon": "coins"
     }
   ],
-  "Expense": [
+  "expense": [
     {
       "_id": "family",
-      "name": "Family"
+      "name": "Family",
+      "icon": "users"
     },
     {
       "_id": "utilities",
-      "name": "Utilities"
+      "name": "Utilities",
+      "icon": "lightbulb"
     },
     {
       "_id": "creditCard",
-      "name": "Credit Card"
+      "name": "Credit Card",
+      "icon": "credit-card"
     },
     {
       "_id": "healthcare",
-      "name": "Healthcare"
+      "name": "Healthcare",
+      "icon": "activity"
     },
     {
       "_id": "subscriptions",
-      "name": "Subscriptions"
+      "name": "Subscriptions",
+      "icon": "clapperboard"
     },
     {
       "_id": "rent",
-      "name": "Rent"
+      "name": "Rent",
+      "icon": "bed-double"
     }
   ]
 }
