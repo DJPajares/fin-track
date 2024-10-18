@@ -32,7 +32,7 @@ import type { DashboardDataResult } from '@/types/Dashboard';
 import type {
   TransactionDataUpdateProps,
   TransactionPaymentCategoryProps
-} from '@/types/transactionPaymentTypes';
+} from '@/types/TransactionPayment';
 
 type CategoryDrawerProps = {
   category: TransactionPaymentCategoryProps;

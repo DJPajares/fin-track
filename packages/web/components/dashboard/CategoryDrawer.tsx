@@ -1,5 +1,8 @@
 import axios from 'axios';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import moment from 'moment';
+import { useAppSelector } from '@/lib/hooks';
+
 import {
   Drawer,
   DrawerClose,
@@ -21,13 +24,15 @@ import {
 } from '@/components/ui/alert-dialog';
 import { Separator } from '@/components/ui/separator';
 import CategoryDrawerContent from './CategoryContent';
+
+import fetchTransactionPayments from '@/providers/fetchTransactionPayments';
+import { dateStringFormat } from '../../../../shared/constants/dateStringFormat';
+
 import type {
   TransactionDataUpdateProps,
   TransactionPaymentCategoryProps
-} from '../../types/transactionPaymentTypes';
-import { useAppSelector } from '@/lib/hooks';
-import { DashboardDataResult } from '@/types/Dashboard';
-import fetchTransactionPayments from '@/providers/fetchTransactionPayments';
+} from '@/types/TransactionPayment';
+import type { DashboardDataResult } from '@/types/Dashboard';
 
 type CategoryDrawerProps = {
   category: TransactionPaymentCategoryProps;
@@ -53,7 +58,10 @@ const CategoryDrawer = ({
   isDialogOpen,
   setIsDialogOpen
 }: CategoryDrawerProps) => {
-  const { date, currency } = useAppSelector((state) => state.dashboard);
+  const dashboard = useAppSelector((state) => state.dashboard);
+
+  const date = moment(dashboard.date, dateStringFormat).toDate();
+  const currency = dashboard.currency;
 
   const [drawerCategory, setDrawerCategory] = useState(
     initialTransactionPaymentCategory

@@ -2,7 +2,7 @@ import type {
   TransactionPaymentCategoryProps,
   TransactionPaymentMainProps,
   TransactionPaymentProps
-} from './transactionPaymentTypes';
+} from './TransactionPayment';
 import type { ListProps } from './List';
 
 type DashboardDataProps = {

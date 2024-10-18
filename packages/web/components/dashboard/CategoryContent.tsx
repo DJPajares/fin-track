@@ -7,14 +7,15 @@ import {
 } from '@/components/ui/popover';
 import { Input } from '@/components/ui/input';
 import { Progress } from '@nextui-org/react';
-import { formatCurrency } from '../../../../shared/utilities/formatCurrency';
 import { CheckIcon } from 'lucide-react';
+
+import { formatCurrency } from '../../../../shared/utilities/formatCurrency';
 
 import type {
   TransactionDataUpdateProps,
   TransactionProps
-} from '../../types/transactionPaymentTypes';
-import type { DashboardSelectionItemsProps } from '../../types/Dashboard';
+} from '@/types/TransactionPayment';
+import type { DashboardSelectionItemsProps } from '@/types/Dashboard';
 
 type PartialTransactionProps = Pick<
   TransactionProps,

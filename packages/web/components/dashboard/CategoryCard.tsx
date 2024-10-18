@@ -1,13 +1,10 @@
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader
-} from '@/components/ui/card';
+import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Progress } from '@nextui-org/react';
+import CardIcon from '@/components/shared/CardIcon';
+
 import { formatCurrency } from '../../../../shared/utilities/formatCurrency';
-import type { TransactionPaymentCategoryProps } from '../../types/transactionPaymentTypes';
-import CardIcon from '../shared/CardIcon';
+
+import type { TransactionPaymentCategoryProps } from '@/types/TransactionPayment';
 
 type CategoryCardProps = {
   category: TransactionPaymentCategoryProps;
