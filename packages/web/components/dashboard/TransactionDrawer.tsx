@@ -41,8 +41,7 @@ const TransactionDrawer = ({
   isTransactionDrawerOpen,
   setIsTransactionDrawerOpen
 }: TransactionDrawerProps) => {
-  const [isCreateTransactionDialogOpen, setIsCreateTransactionDialogOpen] =
-    useState(false);
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const { types, categories } = useAppSelector((state) => state.main);
 
@@ -97,9 +96,7 @@ const TransactionDrawer = ({
             {/* <Separator /> */}
 
             <DrawerFooter className="my-2">
-              <Button onClick={() => setIsCreateTransactionDialogOpen(true)}>
-                Add
-              </Button>
+              <Button onClick={() => setIsDrawerOpen(true)}>Add</Button>
               <DrawerClose asChild>
                 <Button variant="outline">Cancel</Button>
               </DrawerClose>
@@ -108,10 +105,7 @@ const TransactionDrawer = ({
         </DrawerContent>
       </Drawer>
 
-      <AlertDialog
-        open={isCreateTransactionDialogOpen}
-        onOpenChange={setIsCreateTransactionDialogOpen}
-      >
+      <AlertDialog open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>Are you sure?</AlertDialogTitle>
