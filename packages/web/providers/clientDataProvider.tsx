@@ -1,17 +1,31 @@
 'use client';
 
-import { ReactNode, useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { ReactNode, useEffect } from 'react';
 import axios from 'axios';
-import { setCategory } from '@/lib/feature/category/categorySlice';
-
-import type { CategoryProps } from '@/types/Category';
+import { setCategories, setTypes } from '@/lib/feature/main/mainDataSlice';
+import { useAppDispatch } from '@/lib/hooks';
 
 import categoriesData from '../../../shared/mockData/categories.json';
+import typesData from '../../../shared/mockData/types.json';
 
 const useMockedData = process.env.NEXT_PUBLIC_USE_MOCKED_DATA === 'true';
 
+const typesUrl = 'http://localhost:3001/api/v1/types';
 const categoriesUrl = 'http://localhost:3001/api/v1/categories/types';
+
+const fetchTypes = async () => {
+  try {
+    if (useMockedData) {
+      return typesData;
+    } else {
+      const { status, data } = await axios.get(typesUrl);
+
+      if (status === 200) return data.data;
+    }
+  } catch (error) {
+    console.error('Fetch failed', error);
+  }
+};
 
 const fetchCategories = async () => {
   try {
@@ -32,19 +46,23 @@ type ClientDataProviderProps = {
 };
 
 export const ClientDataProvider = ({ children }: ClientDataProviderProps) => {
-  const dispatch = useDispatch();
-  // const [categories, setCategories] = useState<CategoryProps>({});
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
+    const fetchCategoryData = async () => {
+      const result = await fetchCategories();
+      dispatch(setCategories(result));
+    };
+
+    const fetchTypeData = async () => {
+      const result = await fetchTypes();
+
+      dispatch(setTypes(result));
+    };
+
     fetchCategoryData();
-  }, []);
-
-  const fetchCategoryData = async () => {
-    const data = await fetchCategories();
-
-    // setCategories(data);
-    dispatch(setCategory(data));
-  };
+    fetchTypeData();
+  }, [dispatch]);
 
   return <>{children}</>;
 };

@@ -1,9 +1,10 @@
 import { combineReducers } from '@reduxjs/toolkit';
 import dashboardSlice from './dashboard/dashboardSlice';
+import mainDataSlice from './main/mainDataSlice';
 
 const rootSlice = combineReducers({
-  dashboard: dashboardSlice
+  dashboard: dashboardSlice,
+  main: mainDataSlice
 });
 
-export type RootState = ReturnType<typeof rootSlice>;
 export default rootSlice;
