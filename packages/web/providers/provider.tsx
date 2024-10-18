@@ -3,11 +3,21 @@
 import { NextUIProvider } from '@nextui-org/react';
 import { ThemeProvider as NextThemesProvider } from 'next-themes';
 import { Provider as ReduxProvider } from 'react-redux';
-import store from '@/lib/store';
+import { AppStore, store } from '@/lib/store';
+import { useRef } from 'react';
 
-export function Providers({ children }: { children: React.ReactNode }) {
+type ProviderProps = {
+  children: React.ReactNode;
+};
+
+export function Providers({ children }: ProviderProps) {
+  const storeRef = useRef<AppStore>();
+  if (!storeRef.current) {
+    storeRef.current = store();
+  }
+
   return (
-    <ReduxProvider store={store}>
+    <ReduxProvider store={storeRef.current}>
       <NextUIProvider>
         <NextThemesProvider attribute="class" defaultTheme="dark">
           {children}

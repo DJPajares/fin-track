@@ -32,12 +32,14 @@ import {
 import { format } from 'date-fns';
 import fetchTransactionPayments from '@/providers/fetchTransactionPayments';
 import fetchCurrencies from '@/providers/fetchCurrencies';
-import { useDispatch } from 'react-redux';
 import {
   setDashboardCurrency,
   setDashboardDate
 } from '@/lib/feature/dashboard/dashboardSlice';
 import CategoryDialog from '@/components/dashboard/CategoryDialog';
+import { useAppDispatch } from '@/lib/hooks';
+import { dateStringFormat } from '../../../../shared/constants/dateStringFormat';
+import moment from 'moment';
 
 const initialDashboardData = {
   main: {
@@ -55,7 +57,6 @@ const initialDashboardData = {
 const initialTransactionPaymentCategory = {
   _id: '',
   name: '',
-  icon: '',
   totalAmount: 0,
   totalPaidAmount: 0,
   paymentCompletionRate: 0,
@@ -84,7 +85,7 @@ const Dashboard = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isTransactionDrawerOpen, setIsTransactionDrawerOpen] = useState(false);
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     fetchCurrencyData();
@@ -130,7 +131,7 @@ const Dashboard = () => {
     // store in redux state
     dispatch(
       setDashboardDate({
-        date: date
+        date: moment(date, dateStringFormat).toString()
       })
     );
 
