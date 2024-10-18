@@ -1,20 +1,14 @@
 import {
   ActivityIcon,
+  BanknoteIcon,
   BedDoubleIcon,
   ClapperboardIcon,
+  CoinsIcon,
   CreditCardIcon,
   DollarSignIcon,
   UsersIcon
 } from 'lucide-react';
-
-export type CardIconProps =
-  | 'activity'
-  | 'users'
-  | 'credit-card'
-  | 'lightbulb'
-  | 'clapperboard'
-  | 'bed-double'
-  | undefined;
+import type { CardIconProps } from '@/types/CardIcon';
 
 const CardIcon = ({ icon }: { icon: CardIconProps }) => {
   const iconClassName = 'h-4 w-4 text-slate-500 dark:text-slate-400';
@@ -32,6 +26,10 @@ const CardIcon = ({ icon }: { icon: CardIconProps }) => {
       return <ClapperboardIcon className={iconClassName} />;
     case 'bed-double':
       return <BedDoubleIcon className={iconClassName} />;
+    case 'banknote':
+      return <BanknoteIcon className={iconClassName} />;
+    case 'coins':
+      return <CoinsIcon className={iconClassName} />;
 
     default:
       return <DollarSignIcon className={iconClassName} />;
