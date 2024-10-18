@@ -18,6 +18,7 @@ import {
   Dialog,
   DialogClose,
   DialogContent,
+  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle
@@ -175,6 +176,7 @@ const CategoryDialog = ({
       <DialogContent className="max-w-[400px]">
         <DialogHeader>
           <DialogTitle>{drawerCategory.name.toUpperCase()}</DialogTitle>
+          <DialogDescription>Sub-categories</DialogDescription>
         </DialogHeader>
 
         <div className="grid gap-4 py-4">
