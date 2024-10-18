@@ -1,39 +1,22 @@
-import { TransactionProps } from './transactionPaymentTypes';
+import type {
+  TransactionPaymentCategoryProps,
+  TransactionPaymentMainProps,
+  TransactionPaymentProps
+} from './transactionPaymentTypes';
+import type { TypeProps } from './type';
 
 type DashboardDataProps = {
   date: Date;
   currency: string;
 };
 
-type DashboardDataResult = {
-  main: DashboardDataMainResult;
-  categories: DashboardDataCategoryResult[];
-};
+type DashboardDataResult = TransactionPaymentProps;
 
-type DashboardDataMainResult = {
-  currency: string;
-  budget: number;
-  totalAmount: number;
-  totalPaidAmount: number;
-  balance: number;
-  extra: number;
-  paymentCompletionRate: number;
-};
+type DashboardDataMainResult = TransactionPaymentMainProps;
 
-type DashboardDataCategoryResult = {
-  _id: string;
-  name: string;
-  icon: string;
-  totalAmount: number;
-  totalPaidAmount: number;
-  paymentCompletionRate: number;
-  transactions: TransactionProps[];
-};
+type DashboardDataCategoryResult = TransactionPaymentCategoryProps;
 
-type DashboardSelectionItemsProps = {
-  _id: string;
-  name: string;
-};
+type DashboardSelectionItemsProps = TypeProps;
 
 export type {
   DashboardDataProps,

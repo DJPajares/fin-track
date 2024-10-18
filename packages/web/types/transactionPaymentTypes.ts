@@ -1,4 +1,4 @@
-import { CardIconProps } from '@/components/shared/CardIcon';
+import type { CardIconProps } from './CardIcon';
 
 type TransactionPaymentMainProps = {
   currency: string;
