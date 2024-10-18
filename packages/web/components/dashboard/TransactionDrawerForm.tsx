@@ -3,6 +3,7 @@ import axios from 'axios';
 import { format } from 'date-fns';
 import { z } from 'zod';
 import { useForm, useWatch } from 'react-hook-form';
+import moment from 'moment';
 import { useAppSelector } from '@/lib/hooks';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { cn } from '@/lib/utils';
@@ -36,17 +37,16 @@ import { CalendarIcon, CheckIcon, ChevronsUpDownIcon } from 'lucide-react';
 import { MultiSelectBox } from '@/components/shared/MultiSelectBox';
 
 import fetchTransactionPayments from '@/providers/fetchTransactionPayments';
+import { dateStringFormat } from '../../../../shared/constants/dateStringFormat';
 
 import type {
   DashboardDataResult,
   DashboardSelectionItemsProps
-} from '../../types/Dashboard';
-import type { TypeProps } from '../../types/type';
-import moment from 'moment';
-import { dateStringFormat } from '../../../../shared/constants/dateStringFormat';
+} from '@/types/Dashboard';
+import type { ListProps } from '@/types/List';
 
 type TransactionDrawerFormProps = {
-  type: TypeProps;
+  type: ListProps;
   categories: DashboardSelectionItemsProps[];
   currencies: DashboardSelectionItemsProps[];
   setDashboardData: Dispatch<SetStateAction<DashboardDataResult>>;

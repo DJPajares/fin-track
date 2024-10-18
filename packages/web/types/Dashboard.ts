@@ -3,7 +3,7 @@ import type {
   TransactionPaymentMainProps,
   TransactionPaymentProps
 } from './transactionPaymentTypes';
-import type { TypeProps } from './type';
+import type { ListProps } from './List';
 
 type DashboardDataProps = {
   date: Date;
@@ -16,7 +16,7 @@ type DashboardDataMainResult = TransactionPaymentMainProps;
 
 type DashboardDataCategoryResult = TransactionPaymentCategoryProps;
 
-type DashboardSelectionItemsProps = TypeProps;
+type DashboardSelectionItemsProps = ListProps;
 
 export type {
   DashboardDataProps,
