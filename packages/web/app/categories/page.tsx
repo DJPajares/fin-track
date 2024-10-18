@@ -18,7 +18,7 @@ const Categories = () => {
               <div className="space-y-4">
                 <h6 className="font-semibold text-lg">CURRENT</h6>
 
-                <>
+                <div className="space-y-2">
                   {categories[type._id].map((category) => (
                     <div
                       key={category._id}
@@ -28,7 +28,7 @@ const Categories = () => {
                       <p>{category.name}</p>
                     </div>
                   ))}
-                </>
+                </div>
 
                 <Separator />
 
