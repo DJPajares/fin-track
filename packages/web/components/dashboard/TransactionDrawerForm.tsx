@@ -1,5 +1,12 @@
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import axios from 'axios';
+import { format } from 'date-fns';
+import { z } from 'zod';
+import { useForm, useWatch } from 'react-hook-form';
+import { useAppSelector } from '@/lib/hooks';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { cn } from '@/lib/utils';
+
 import {
   Popover,
   PopoverContent,
@@ -26,20 +33,17 @@ import { Button } from '@/components/ui/button';
 import { Calendar } from '@/components/ui/calendar';
 import { Checkbox } from '@nextui-org/react';
 import { CalendarIcon, CheckIcon, ChevronsUpDownIcon } from 'lucide-react';
-import { format } from 'date-fns';
 import { MultiSelectBox } from '@/components/shared/MultiSelectBox';
-import { z } from 'zod';
-import { useForm, useWatch } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { cn } from '@/lib/utils';
+
+import fetchTransactionPayments from '@/providers/fetchTransactionPayments';
+
 import type {
   DashboardDataResult,
   DashboardSelectionItemsProps
-} from '../../types/dashboardTypes';
+} from '../../types/Dashboard';
 import type { TypeProps } from '../../types/type';
-import { useSelector } from 'react-redux';
-import { RootState } from '@/lib/feature/rootSlice';
-import fetchTransactionPayments from '@/providers/fetchTransactionPayments';
+import moment from 'moment';
+import { dateStringFormat } from '../../../../shared/constants/dateStringFormat';
 
 type TransactionDrawerFormProps = {
   type: TypeProps;
@@ -110,12 +114,19 @@ const TransactionDrawerForm = ({
   setIsTransactionDrawerOpen,
   formRef
 }: TransactionDrawerFormProps) => {
+  const [date, setDate] = useState(new Date());
   const [isStartDatePopoverOpen, setIsStartDatePopoverOpen] = useState(false);
   const [isEndDatePopoverOpen, setIsEndDatePopoverOpen] = useState(false);
   const [isCategoryPopoverOpen, setIsCategoryPopoverOpen] = useState(false);
   const [isCurrencyPopoverOpen, setIsCurrencyPopoverOpen] = useState(false);
 
-  const { date, currency } = useSelector((state: RootState) => state.dashboard);
+  const dashboard = useAppSelector((state) => state.dashboard);
+
+  const currency = dashboard.currency;
+
+  useEffect(() => {
+    setDate(moment(dashboard.date, dateStringFormat).toDate());
+  }, [dashboard]);
 
   const createTransaction = async (transactionData: TransactionProps) => {
     try {

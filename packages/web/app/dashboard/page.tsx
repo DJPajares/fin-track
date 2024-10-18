@@ -1,6 +1,15 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import moment from 'moment';
+import { format } from 'date-fns';
+import { useAppDispatch, useAppSelector } from '@/lib/hooks';
+import {
+  setDashboardCurrency,
+  setDashboardDate
+} from '@/lib/feature/dashboard/dashboardSlice';
+
+import { ScrollShadow, CircularProgress } from '@nextui-org/react';
 import { Button } from '@/components/ui/button';
 import {
   Popover,
@@ -17,29 +26,21 @@ import {
   CommandList
 } from '@/components/ui/command';
 import { Skeleton } from '@/components/ui/skeleton';
-import { ScrollShadow, CircularProgress } from '@nextui-org/react';
 import CategoryCard from '@/components/dashboard/CategoryCard';
-import { formatCurrency } from '../../../../shared/utilities/formatCurrency';
-import { formatDate } from '../../../../shared/utilities/formatDate';
-import CategoryDrawer from '@/components/dashboard/CategoryDrawer';
 import TransactionDrawer from '@/components/dashboard/TransactionDrawer';
-import {
-  type DashboardSelectionItemsProps,
-  type DashboardDataProps,
-  type DashboardDataCategoryResult,
-  DashboardDataResult
-} from '../../types/dashboardTypes';
-import { format } from 'date-fns';
+import CategoryDialog from '@/components/dashboard/CategoryDialog';
+
 import fetchTransactionPayments from '@/providers/fetchTransactionPayments';
 import fetchCurrencies from '@/providers/fetchCurrencies';
-import {
-  setDashboardCurrency,
-  setDashboardDate
-} from '@/lib/feature/dashboard/dashboardSlice';
-import CategoryDialog from '@/components/dashboard/CategoryDialog';
-import { useAppDispatch } from '@/lib/hooks';
+import { formatCurrency } from '../../../../shared/utilities/formatCurrency';
 import { dateStringFormat } from '../../../../shared/constants/dateStringFormat';
-import moment from 'moment';
+
+import type {
+  DashboardSelectionItemsProps,
+  DashboardDataProps,
+  DashboardDataCategoryResult,
+  DashboardDataResult
+} from '../../types/Dashboard';
 
 const initialDashboardData = {
   main: {
@@ -87,9 +88,15 @@ const Dashboard = () => {
 
   const dispatch = useAppDispatch();
 
+  const dashboard = useAppSelector((state) => state.dashboard);
+
   useEffect(() => {
     fetchCurrencyData();
   }, []);
+
+  useEffect(() => {
+    setDate(moment(dashboard.date, dateStringFormat).toDate());
+  }, [dashboard]);
 
   useEffect(() => {
     if (currencies.length > 0) {
@@ -131,7 +138,7 @@ const Dashboard = () => {
     // store in redux state
     dispatch(
       setDashboardDate({
-        date: moment(date, dateStringFormat).toString()
+        date: moment(date).format(dateStringFormat)
       })
     );
 

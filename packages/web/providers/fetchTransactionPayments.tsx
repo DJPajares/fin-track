@@ -1,6 +1,6 @@
 import axios from 'axios';
 import transactionPaymentsData from '../../../shared/mockData/transactionPayments.json';
-import type { DashboardDataProps } from '@/types/dashboardTypes';
+import type { DashboardDataProps } from '@/types/Dashboard';
 
 const useMockedData = process.env.NEXT_PUBLIC_USE_MOCKED_DATA === 'true';
 

@@ -14,7 +14,7 @@ import type {
   TransactionDataUpdateProps,
   TransactionProps
 } from '../../types/transactionPaymentTypes';
-import type { DashboardSelectionItemsProps } from '../../types/dashboardTypes';
+import type { DashboardSelectionItemsProps } from '../../types/Dashboard';
 
 type PartialTransactionProps = Pick<
   TransactionProps,

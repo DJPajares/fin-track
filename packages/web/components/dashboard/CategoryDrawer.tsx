@@ -25,9 +25,8 @@ import type {
   TransactionDataUpdateProps,
   TransactionPaymentCategoryProps
 } from '../../types/transactionPaymentTypes';
-import { useSelector } from 'react-redux';
-import { RootState } from '@/lib/feature/rootSlice';
-import { DashboardDataResult } from '@/types/dashboardTypes';
+import { useAppSelector } from '@/lib/hooks';
+import { DashboardDataResult } from '@/types/Dashboard';
 import fetchTransactionPayments from '@/providers/fetchTransactionPayments';
 
 type CategoryDrawerProps = {
@@ -42,7 +41,6 @@ const paymentUrl = 'http://localhost:3001/api/v1/payments';
 const initialTransactionPaymentCategory: TransactionPaymentCategoryProps = {
   _id: '',
   name: '',
-  icon: '',
   totalAmount: 0,
   totalPaidAmount: 0,
   paymentCompletionRate: 0,
@@ -55,7 +53,7 @@ const CategoryDrawer = ({
   isDialogOpen,
   setIsDialogOpen
 }: CategoryDrawerProps) => {
-  const { date, currency } = useSelector((state: RootState) => state.dashboard);
+  const { date, currency } = useAppSelector((state) => state.dashboard);
 
   const [drawerCategory, setDrawerCategory] = useState(
     initialTransactionPaymentCategory

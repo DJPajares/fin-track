@@ -16,7 +16,7 @@ type DashboardCurrencyProps = {
 };
 
 const initialState: DashboardProps = {
-  date: moment(new Date(), dateStringFormat).toString(),
+  date: moment(new Date()).format(dateStringFormat),
   currency: {
     _id: '',
     name: ''

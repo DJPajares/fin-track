@@ -1,5 +1,7 @@
-import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
-// import axios from 'axios';
+import { Dispatch, SetStateAction, useRef, useState } from 'react';
+import { useAppSelector } from '@/lib/hooks';
+
+import { Tab, Tabs } from '@nextui-org/react';
 import {
   Drawer,
   DrawerClose,
@@ -9,7 +11,6 @@ import {
   DrawerTitle
 } from '@/components/ui/drawer';
 import { Button } from '@/components/ui/button';
-// import { Separator } from '@/components/ui/separator';
 import { Card } from '@/components/ui/card';
 import {
   AlertDialog,
@@ -20,24 +21,12 @@ import {
   AlertDialogHeader,
   AlertDialogTitle
 } from '@/components/ui/alert-dialog';
-import { Tab, Tabs } from '@nextui-org/react';
 import TransactionDrawerForm from './TransactionDrawerForm';
-// import { MultiSelectBox } from '@/components/shared/MultiSelectBox';
-// import categoriesData from '../../../../shared/mockData/categories.json';
-// import typesData from '../../../../shared/mockData/types.json';
+
 import type {
   DashboardDataResult,
   DashboardSelectionItemsProps
-} from '../../types/dashboardTypes';
-// import type { CategoryProps } from '@/types/Category';
-// import type { ListProps } from '@/types/List';
-import { useAppSelector } from '@/lib/hooks';
-
-// const useMockedData = process.env.NEXT_PUBLIC_USE_MOCKED_DATA === 'true';
-
-// const categoriesUrl = 'http://localhost:3001/api/v1/categories/types';
-
-// const typesUrl = 'http://localhost:3001/api/v1/types';
+} from '@/types/Dashboard';
 
 type TransactionDrawerProps = {
   currencies: DashboardSelectionItemsProps[];
@@ -46,46 +35,15 @@ type TransactionDrawerProps = {
   setIsTransactionDrawerOpen: Dispatch<SetStateAction<boolean>>;
 };
 
-// const fetchTypes = async () => {
-//   try {
-//     if (useMockedData) {
-//       return typesData;
-//     } else {
-//       const { status, data } = await axios.get(typesUrl);
-
-//       if (status === 200) return data.data;
-//     }
-//   } catch (error) {
-//     console.error('Fetch failed', error);
-//   }
-// };
-
-// const fetchCategories = async () => {
-//   try {
-//     if (useMockedData) {
-//       return categoriesData;
-//     } else {
-//       const { status, data } = await axios.get(categoriesUrl);
-
-//       if (status === 200) return data.data;
-//     }
-//   } catch (error) {
-//     console.error('Fetch failed', error);
-//   }
-// };
-
 const TransactionDrawer = ({
   currencies,
   setDashboardData,
   isTransactionDrawerOpen,
   setIsTransactionDrawerOpen
 }: TransactionDrawerProps) => {
-  // const [types, setTypes] = useState<ListProps[]>([]);
-  // const [categories, setCategories] = useState<CategoryProps>({});
   const [isCreateTransactionDialogOpen, setIsCreateTransactionDialogOpen] =
     useState(false);
 
-  // const { category } = useAppSelector((state) => state.category);
   const { types, categories } = useAppSelector((state) => state.main);
 
   const formRef = useRef<HTMLFormElement>();

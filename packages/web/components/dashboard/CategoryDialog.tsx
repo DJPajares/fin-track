@@ -1,5 +1,7 @@
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import axios from 'axios';
+import moment from 'moment';
+import { useAppSelector } from '@/lib/hooks';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -24,13 +26,13 @@ import { Separator } from '@/components/ui/separator';
 import CategoryContent from './CategoryContent';
 
 import fetchTransactionPayments from '@/providers/fetchTransactionPayments';
+import { dateStringFormat } from '../../../../shared/constants/dateStringFormat';
 
-import type { DashboardDataResult } from '@/types/dashboardTypes';
+import type { DashboardDataResult } from '@/types/Dashboard';
 import type {
   TransactionDataUpdateProps,
   TransactionPaymentCategoryProps
 } from '@/types/transactionPaymentTypes';
-import { useAppSelector } from '@/lib/hooks';
 
 type CategoryDrawerProps = {
   category: TransactionPaymentCategoryProps;
@@ -158,7 +160,7 @@ const CategoryDialog = ({
 
     if (status === 200) {
       const result = await fetchTransactionPayments({
-        date,
+        date: moment(date, dateStringFormat).toDate(),
         currency: currency.name
       });
 
