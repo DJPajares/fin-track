@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
-import axios from 'axios';
+// import axios from 'axios';
 import {
   Drawer,
   DrawerClose,
@@ -9,7 +9,7 @@ import {
   DrawerTitle
 } from '@/components/ui/drawer';
 import { Button } from '@/components/ui/button';
-import { Separator } from '@/components/ui/separator';
+// import { Separator } from '@/components/ui/separator';
 import { Card } from '@/components/ui/card';
 import {
   AlertDialog,
@@ -22,20 +22,22 @@ import {
 } from '@/components/ui/alert-dialog';
 import { Tab, Tabs } from '@nextui-org/react';
 import TransactionDrawerForm from './TransactionDrawerForm';
-import { MultiSelectBox } from '@/components/shared/MultiSelectBox';
-import categoriesData from '../../../../shared/mockData/categories.json';
-import typesData from '../../../../shared/mockData/types.json';
+// import { MultiSelectBox } from '@/components/shared/MultiSelectBox';
+// import categoriesData from '../../../../shared/mockData/categories.json';
+// import typesData from '../../../../shared/mockData/types.json';
 import type {
   DashboardDataResult,
   DashboardSelectionItemsProps
 } from '../../types/dashboardTypes';
-import type { TypeProps } from '../../types/type';
+// import type { CategoryProps } from '@/types/Category';
+// import type { ListProps } from '@/types/List';
+import { useAppSelector } from '@/lib/hooks';
 
-const useMockedData = process.env.NEXT_PUBLIC_USE_MOCKED_DATA === 'true';
+// const useMockedData = process.env.NEXT_PUBLIC_USE_MOCKED_DATA === 'true';
 
-const categoriesUrl = 'http://localhost:3001/api/v1/categories/types';
+// const categoriesUrl = 'http://localhost:3001/api/v1/categories/types';
 
-const typesUrl = 'http://localhost:3001/api/v1/types';
+// const typesUrl = 'http://localhost:3001/api/v1/types';
 
 type TransactionDrawerProps = {
   currencies: DashboardSelectionItemsProps[];
@@ -44,37 +46,33 @@ type TransactionDrawerProps = {
   setIsTransactionDrawerOpen: Dispatch<SetStateAction<boolean>>;
 };
 
-type CategoryProps = {
-  [key: string]: DashboardSelectionItemsProps[];
-};
+// const fetchTypes = async () => {
+//   try {
+//     if (useMockedData) {
+//       return typesData;
+//     } else {
+//       const { status, data } = await axios.get(typesUrl);
 
-const fetchTypes = async () => {
-  try {
-    if (useMockedData) {
-      return typesData;
-    } else {
-      const { status, data } = await axios.get(typesUrl);
+//       if (status === 200) return data.data;
+//     }
+//   } catch (error) {
+//     console.error('Fetch failed', error);
+//   }
+// };
 
-      if (status === 200) return data.data;
-    }
-  } catch (error) {
-    console.error('Fetch failed', error);
-  }
-};
+// const fetchCategories = async () => {
+//   try {
+//     if (useMockedData) {
+//       return categoriesData;
+//     } else {
+//       const { status, data } = await axios.get(categoriesUrl);
 
-const fetchCategories = async () => {
-  try {
-    if (useMockedData) {
-      return categoriesData;
-    } else {
-      const { status, data } = await axios.get(categoriesUrl);
-
-      if (status === 200) return data.data;
-    }
-  } catch (error) {
-    console.error('Fetch failed', error);
-  }
-};
+//       if (status === 200) return data.data;
+//     }
+//   } catch (error) {
+//     console.error('Fetch failed', error);
+//   }
+// };
 
 const TransactionDrawer = ({
   currencies,
@@ -82,29 +80,15 @@ const TransactionDrawer = ({
   isTransactionDrawerOpen,
   setIsTransactionDrawerOpen
 }: TransactionDrawerProps) => {
-  const [types, setTypes] = useState<TypeProps[]>([]);
-  const [categories, setCategories] = useState<CategoryProps>({});
+  // const [types, setTypes] = useState<ListProps[]>([]);
+  // const [categories, setCategories] = useState<CategoryProps>({});
   const [isCreateTransactionDialogOpen, setIsCreateTransactionDialogOpen] =
     useState(false);
 
+  // const { category } = useAppSelector((state) => state.category);
+  const { types, categories } = useAppSelector((state) => state.main);
+
   const formRef = useRef<HTMLFormElement>();
-
-  useEffect(() => {
-    fetchTypeData();
-    fetchCategoryData();
-  }, []);
-
-  const fetchTypeData = async () => {
-    const data = await fetchTypes();
-
-    setTypes(data);
-  };
-
-  const fetchCategoryData = async () => {
-    const data = await fetchCategories();
-
-    setCategories(data);
-  };
 
   const handleAddingTransaction = async () => {
     // Request submit to the child component
@@ -140,7 +124,7 @@ const TransactionDrawer = ({
                     <div className="flex flex-col justify-between p-4">
                       <TransactionDrawerForm
                         type={type}
-                        categories={categories[type.name]}
+                        categories={categories[type._id]}
                         currencies={currencies}
                         setDashboardData={setDashboardData}
                         setIsTransactionDrawerOpen={setIsTransactionDrawerOpen}

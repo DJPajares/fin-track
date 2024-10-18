@@ -1,7 +1,5 @@
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import axios from 'axios';
-import { useSelector } from 'react-redux';
-import { RootState } from '@/lib/feature/rootSlice';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -32,6 +30,7 @@ import type {
   TransactionDataUpdateProps,
   TransactionPaymentCategoryProps
 } from '@/types/transactionPaymentTypes';
+import { useAppSelector } from '@/lib/hooks';
 
 type CategoryDrawerProps = {
   category: TransactionPaymentCategoryProps;
@@ -57,7 +56,7 @@ const CategoryDialog = ({
   isDialogOpen,
   setIsDialogOpen
 }: CategoryDrawerProps) => {
-  const { date, currency } = useSelector((state: RootState) => state.dashboard);
+  const { date, currency } = useAppSelector((state) => state.dashboard);
 
   const [drawerCategory, setDrawerCategory] = useState(
     initialTransactionPaymentCategory
