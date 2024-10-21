@@ -1,4 +1,6 @@
 import {
+  // icons,
+  // LucideProps,
   ActivityIcon,
   BanknoteIcon,
   BedDoubleIcon,
@@ -6,8 +8,12 @@ import {
   CoinsIcon,
   CreditCardIcon,
   DollarSignIcon,
+  ShoppingCartIcon,
   UsersIcon
 } from 'lucide-react';
+// import dynamicIconImports from 'lucide-react/dynamicIconImports';
+// import dynamic from 'next/dynamic';
+
 import type { CardIconProps } from '@/types/CardIcon';
 
 const CardIcon = ({ icon }: { icon: CardIconProps }) => {
@@ -30,10 +36,23 @@ const CardIcon = ({ icon }: { icon: CardIconProps }) => {
       return <BanknoteIcon className={iconClassName} />;
     case 'coins':
       return <CoinsIcon className={iconClassName} />;
+    case 'shopping-cart':
+      return <ShoppingCartIcon className={iconClassName} />;
 
     default:
       return <DollarSignIcon className={iconClassName} />;
   }
 };
+
+// type CardIconProps = LucideProps & {
+//   icon: keyof typeof dynamicIconImports;
+// };
+
+// const CardIcon = ({ icon }: CardIconProps) => {
+//   const LucideIcon = dynamic(dynamicIconImports[icon]);
+//   const className = 'h-4 w-4 text-slate-500 dark:text-slate-400';
+
+//   return <LucideIcon className={className} />;
+// };
 
 export default CardIcon;

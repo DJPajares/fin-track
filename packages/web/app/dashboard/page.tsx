@@ -41,6 +41,7 @@ import type {
   DashboardDataCategoryResult,
   DashboardDataResult
 } from '../../types/Dashboard';
+import CategoryDrawer from '@/components/dashboard/CategoryDrawer';
 
 const initialDashboardData = {
   main: {

@@ -7,4 +7,5 @@ export type CardIconProps =
   | 'bed-double'
   | 'banknote'
   | 'coins'
+  | 'shopping-cart'
   | undefined;

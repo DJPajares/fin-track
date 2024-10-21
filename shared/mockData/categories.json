@@ -3,44 +3,58 @@
     {
       "_id": "paycheck",
       "name": "Paycheck",
-      "icon": "banknote"
+      "icon": "banknote",
+      "active": true
     },
     {
       "_id": "investment",
       "name": "Investment",
-      "icon": "coins"
+      "icon": "coins",
+      "active": true
     }
   ],
   "expense": [
     {
       "_id": "family",
       "name": "Family",
-      "icon": "users"
+      "icon": "users",
+      "active": true
     },
     {
       "_id": "utilities",
       "name": "Utilities",
-      "icon": "lightbulb"
+      "icon": "lightbulb",
+      "active": true
     },
     {
       "_id": "creditCard",
       "name": "Credit Card",
-      "icon": "credit-card"
+      "icon": "credit-card",
+      "active": true
     },
     {
       "_id": "healthcare",
       "name": "Healthcare",
-      "icon": "activity"
+      "icon": "activity",
+      "active": true
     },
     {
       "_id": "subscriptions",
       "name": "Subscriptions",
-      "icon": "clapperboard"
+      "icon": "clapperboard",
+      "active": true
     },
     {
       "_id": "rent",
       "name": "Rent",
-      "icon": "bed-double"
+      "icon": "bed-double",
+      "active": true
+    },
+    {
+      "_id": "groceries",
+      "name": "Groceries",
+      "icon": "shopping-cart",
+      "active": false
     }
   ]
 }
