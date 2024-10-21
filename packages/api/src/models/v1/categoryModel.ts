@@ -14,7 +14,9 @@ const categorySchema = new Schema(
       required: [true, CONSTANTS.validations.common.name.required],
       unique: [true, CONSTANTS.validations.common.name.unique]
     },
-    type: { type: Types.ObjectId, ref: 'Type' }
+    type: { type: Types.ObjectId, ref: 'Type' },
+    icon: String,
+    active: Boolean
   },
   { timestamps: true }
 );
