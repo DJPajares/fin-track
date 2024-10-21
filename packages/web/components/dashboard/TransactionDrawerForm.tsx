@@ -559,7 +559,7 @@ const TransactionDrawerForm = ({
           />
 
           {isRecurring && (
-            <div className="pl-2">
+            <div>
               <FormField
                 control={form.control}
                 name="endDate"
