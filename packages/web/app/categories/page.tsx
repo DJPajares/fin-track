@@ -27,7 +27,7 @@ const Categories = () => {
         variant="bordered"
         radius="full"
         color="secondary"
-        className="flex flex-col items-center pt-3"
+        className="flex flex-col items-center"
       >
         {types.map((type) => (
           <Tab key={type._id.toString()} title={type.name}>
