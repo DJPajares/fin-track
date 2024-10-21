@@ -55,6 +55,18 @@
       "name": "Groceries",
       "icon": "shopping-cart",
       "active": false
+    },
+    {
+      "_id": "food",
+      "name": "Food",
+      "icon": "utensils",
+      "active": false
+    },
+    {
+      "_id": "transport",
+      "name": "Transport",
+      "icon": "bus-front",
+      "active": false
     }
   ]
 }
