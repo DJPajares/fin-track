@@ -4,45 +4,17 @@ import {
   ActivityIcon,
   BanknoteIcon,
   BedDoubleIcon,
+  BusFrontIcon,
   ClapperboardIcon,
   CoinsIcon,
   CreditCardIcon,
   DollarSignIcon,
   ShoppingCartIcon,
-  UsersIcon
+  UsersIcon,
+  UtensilsIcon
 } from 'lucide-react';
 // import dynamicIconImports from 'lucide-react/dynamicIconImports';
 // import dynamic from 'next/dynamic';
-
-import type { CardIconProps } from '@/types/CardIcon';
-
-const CardIcon = ({ icon }: { icon: CardIconProps }) => {
-  const iconClassName = 'h-4 w-4 text-slate-500 dark:text-slate-400';
-
-  switch (icon) {
-    case 'activity':
-      return <ActivityIcon className={iconClassName} />;
-    case 'users':
-      return <UsersIcon className={iconClassName} />;
-    case 'credit-card':
-      return <CreditCardIcon className={iconClassName} />;
-    case 'lightbulb':
-      return <ActivityIcon className={iconClassName} />;
-    case 'clapperboard':
-      return <ClapperboardIcon className={iconClassName} />;
-    case 'bed-double':
-      return <BedDoubleIcon className={iconClassName} />;
-    case 'banknote':
-      return <BanknoteIcon className={iconClassName} />;
-    case 'coins':
-      return <CoinsIcon className={iconClassName} />;
-    case 'shopping-cart':
-      return <ShoppingCartIcon className={iconClassName} />;
-
-    default:
-      return <DollarSignIcon className={iconClassName} />;
-  }
-};
 
 // type CardIconProps = LucideProps & {
 //   icon: keyof typeof dynamicIconImports;
@@ -54,5 +26,29 @@ const CardIcon = ({ icon }: { icon: CardIconProps }) => {
 
 //   return <LucideIcon className={className} />;
 // };
+
+const iconMap = {
+  activity: ActivityIcon,
+  users: UsersIcon,
+  'credit-card': CreditCardIcon,
+  lightbulb: ActivityIcon,
+  clapperboard: ClapperboardIcon,
+  'bed-double': BedDoubleIcon,
+  banknote: BanknoteIcon,
+  coins: CoinsIcon,
+  'shopping-cart': ShoppingCartIcon,
+  utensils: UtensilsIcon,
+  'bus-front': BusFrontIcon,
+  default: DollarSignIcon // Default case
+} as const;
+
+export type CardIconProps = keyof typeof iconMap;
+
+const CardIcon = ({ icon }: { icon: CardIconProps }) => {
+  const IconComponent = iconMap[icon] || iconMap.default;
+  const iconClassName = 'h-4 w-4 text-slate-500 dark:text-slate-400';
+
+  return <IconComponent className={iconClassName} />;
+};
 
 export default CardIcon;

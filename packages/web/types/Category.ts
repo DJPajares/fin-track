@@ -1,8 +1,7 @@
 // import { LucideProps } from 'lucide-react';
 // import dynamicIconImports from 'lucide-react/dynamicIconImports';
 
-import type { CardIconProps } from './CardIcon';
-
+import type { CardIconProps } from '@/components/shared/CardIcon';
 import type { ListProps } from './List';
 
 // type CardIconProps = LucideProps & {
