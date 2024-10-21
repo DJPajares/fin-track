@@ -61,15 +61,15 @@ const TransactionDrawer = ({
       >
         <DrawerContent className="">
           <div className="mx-auto w-full max-w-lg overflow-y-scroll max-h-screen">
-            <DrawerHeader className="my-2">
+            <DrawerHeader>
               <DrawerTitle>TRANSACTION</DrawerTitle>
             </DrawerHeader>
 
-            {/* <Separator /> */}
-
             <Tabs
-              variant="underlined"
-              className="flex flex-col items-center pt-3"
+              variant="bordered"
+              radius="full"
+              color="secondary"
+              className="flex flex-col items-center"
             >
               {types.map((type) => (
                 <Tab
@@ -77,23 +77,19 @@ const TransactionDrawer = ({
                   title={type.name}
                   className="px-4"
                 >
-                  <Card className="bg-gray-100 dark:bg-gray-900">
-                    <div className="flex flex-col justify-between p-4">
-                      <TransactionDrawerForm
-                        type={type}
-                        categories={categories[type._id]}
-                        currencies={currencies}
-                        setDashboardData={setDashboardData}
-                        setIsTransactionDrawerOpen={setIsTransactionDrawerOpen}
-                        formRef={formRef}
-                      />
-                    </div>
-                  </Card>
+                  <div className="flex flex-col justify-between p-4">
+                    <TransactionDrawerForm
+                      type={type}
+                      categories={categories[type._id]}
+                      currencies={currencies}
+                      setDashboardData={setDashboardData}
+                      setIsTransactionDrawerOpen={setIsTransactionDrawerOpen}
+                      formRef={formRef}
+                    />
+                  </div>
                 </Tab>
               ))}
             </Tabs>
-
-            {/* <Separator /> */}
 
             <DrawerFooter className="my-2">
               <Button onClick={() => setIsDrawerOpen(true)}>Add</Button>
