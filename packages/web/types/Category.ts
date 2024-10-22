@@ -1,7 +1,7 @@
 // import { LucideProps } from 'lucide-react';
 // import dynamicIconImports from 'lucide-react/dynamicIconImports';
 
-import type { CardIconProps } from '@/components/shared/CardIcon';
+import type { IconProps } from '@/components/shared/CardIcon';
 import type { ListProps } from './List';
 
 // type CardIconProps = LucideProps & {
@@ -9,8 +9,8 @@ import type { ListProps } from './List';
 // };
 
 export type CategoryItemProps = ListProps & {
-  icon: CardIconProps;
-  active: boolean;
+  icon: IconProps;
+  active?: boolean;
 };
 
 export type CategoryProps = {

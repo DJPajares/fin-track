@@ -41,7 +41,7 @@ const TransactionDrawer = ({
   isTransactionDrawerOpen,
   setIsTransactionDrawerOpen
 }: TransactionDrawerProps) => {
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const { types, categories } = useAppSelector((state) => state.main);
 
@@ -59,7 +59,7 @@ const TransactionDrawer = ({
         onOpenChange={setIsTransactionDrawerOpen}
         shouldScaleBackground
       >
-        <DrawerContent className="">
+        <DrawerContent>
           <div className="mx-auto w-full max-w-lg overflow-y-scroll max-h-screen">
             <DrawerHeader>
               <DrawerTitle>TRANSACTION</DrawerTitle>
@@ -92,7 +92,7 @@ const TransactionDrawer = ({
             </Tabs>
 
             <DrawerFooter className="my-2">
-              <Button onClick={() => setIsDrawerOpen(true)}>Add</Button>
+              <Button onClick={() => setIsDialogOpen(true)}>Add</Button>
               <DrawerClose asChild>
                 <Button variant="outline">Cancel</Button>
               </DrawerClose>
@@ -101,7 +101,7 @@ const TransactionDrawer = ({
         </DrawerContent>
       </Drawer>
 
-      <AlertDialog open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
+      <AlertDialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>Are you sure?</AlertDialogTitle>
