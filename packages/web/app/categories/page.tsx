@@ -29,8 +29,6 @@ const Categories = () => {
     setCategoryItemType(type);
     setCategoryItem(category);
     setIsDrawerOpen(true);
-
-    console.log(category);
   };
 
   const handleAddSuggestion = (category: CategoryItemProps) => {

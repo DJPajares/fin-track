@@ -9,6 +9,7 @@ import {
   CoinsIcon,
   CreditCardIcon,
   DollarSignIcon,
+  LightbulbIcon,
   ShoppingCartIcon,
   UsersIcon,
   UtensilsIcon
@@ -31,7 +32,7 @@ export const iconMap = {
   activity: ActivityIcon,
   users: UsersIcon,
   'credit-card': CreditCardIcon,
-  lightbulb: ActivityIcon,
+  lightbulb: LightbulbIcon,
   clapperboard: ClapperboardIcon,
   'bed-double': BedDoubleIcon,
   banknote: BanknoteIcon,
