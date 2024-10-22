@@ -1,4 +1,14 @@
-import { Dispatch, ReactNode, SetStateAction, useRef, useState } from 'react';
+import {
+  Children,
+  cloneElement,
+  Dispatch,
+  isValidElement,
+  ReactElement,
+  ReactNode,
+  SetStateAction,
+  useRef,
+  useState
+} from 'react';
 import {
   Drawer,
   DrawerClose,
@@ -25,6 +35,7 @@ type CustomDrawerProps = {
   footerOk?: string;
   footerCancel?: string;
   children: ReactNode;
+  handleSubmit: any;
 };
 
 const CustomDrawer = ({
@@ -33,16 +44,37 @@ const CustomDrawer = ({
   title,
   footerOk = 'Ok',
   footerCancel = 'Cancel',
-  children
+  children,
+  handleSubmit
 }: CustomDrawerProps) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-  const formRef = useRef<HTMLFormElement>();
+  // const formRef = useRef<HTMLFormElement>(null);
 
-  const handleAddButton = async () => {
-    // Request submit to the child component
+  const handleSubmitButton = () => {
     if (formRef.current) formRef.current.requestSubmit();
+
+    handleSubmit();
+    setIsDrawerOpen(false);
   };
+
+  // const handleSubmit = async () => {
+  //   // Request submit to the child component
+  //   if (formRef.current) formRef.current.requestSubmit();
+
+  //   // // Call the handleSubmit function attached in the formRef
+  //   // if (formRef.current) formRef.current();
+  // };
+
+  // Function to clone the children and pass formRef as prop
+  // const renderChildrenWithProps = () => {
+  //   return Children.map(children, (child) => {
+  //     if (isValidElement(child)) {
+  //       return cloneElement(child, { formRef });
+  //     }
+  //     return child;
+  //   });
+  // };
 
   return (
     <>
@@ -60,6 +92,9 @@ const CustomDrawer = ({
             )}
 
             {children}
+            {/* {cloneElement(children as ReactElement<any>, {
+              formRef
+            })} */}
 
             <DrawerFooter className="my-2">
               <Button onClick={() => setIsDialogOpen(true)}>{footerOk}</Button>
@@ -78,7 +113,9 @@ const CustomDrawer = ({
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction onClick={handleAddButton}>Ok</AlertDialogAction>
+            <AlertDialogAction onClick={handleSubmitButton}>
+              Ok
+            </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
