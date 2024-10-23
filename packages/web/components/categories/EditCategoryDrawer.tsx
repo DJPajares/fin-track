@@ -28,12 +28,17 @@ import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
 import { Button } from '../ui/button';
 
 import { useAppDispatch } from '@/lib/hooks';
-import { addCategory, updateCategory } from '@/lib/feature/main/mainDataSlice';
+import {
+  addCategory,
+  deleteCategory,
+  updateCategory
+} from '@/lib/feature/main/mainDataSlice';
 
 import CardIcon, { iconMap, type IconProps } from '../shared/CardIcon';
 
 import type { ListProps } from '@/types/List';
 import type { CategoryItemProps } from '@/types/Category';
+import { Trash2 } from 'lucide-react';
 
 type EditCategoryDrawerProps = {
   type?: ListProps;
@@ -82,6 +87,15 @@ const EditCategoryDrawer = ({
     if (formRef.current) formRef.current.requestSubmit();
 
     setIsDrawerOpen(false);
+  };
+
+  const handleCategoryRemoval = () => {
+    const result = {
+      type,
+      category
+    };
+
+    dispatch(deleteCategory(result));
   };
 
   const onSubmit: SubmitHandler<CategoryItemProps> = (data) => {
@@ -157,6 +171,26 @@ const EditCategoryDrawer = ({
               />
             )}
           />
+
+          <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <Button variant="outline" size="icon">
+                <Trash2 className="w-4 h-4" />
+              </Button>
+            </AlertDialogTrigger>
+
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogAction onClick={handleCategoryRemoval}>
+                  Ok
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
         </form>
 
         <DrawerFooter>

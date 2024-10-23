@@ -34,6 +34,18 @@ const categorySlice = createSlice({
     setCategories: (state, action: PayloadAction<CategoryProps>) => {
       state.categories = action.payload;
     },
+    addCategory: (state, action: PayloadAction<UpdateCategoryProps>) => {
+      const { type, category } = action.payload;
+
+      const categories = state.categories[type._id];
+
+      categories.push(category);
+
+      state.categories = {
+        ...state.categories,
+        [type._id]: categories
+      };
+    },
     updateCategory: (state, action: PayloadAction<UpdateCategoryProps>) => {
       const { type, category } = action.payload;
 
@@ -51,21 +63,28 @@ const categorySlice = createSlice({
         [type._id]: updatedCategories
       };
     },
-    addCategory: (state, action: PayloadAction<UpdateCategoryProps>) => {
+    deleteCategory: (state, action: PayloadAction<UpdateCategoryProps>) => {
       const { type, category } = action.payload;
 
       const categories = state.categories[type._id];
 
-      categories.push(category);
+      const updatedCategories = categories.filter(
+        (item) => item._id !== category._id
+      );
 
       state.categories = {
         ...state.categories,
-        [type._id]: categories
+        [type._id]: updatedCategories
       };
     }
   }
 });
 
-export const { setTypes, setCategories, updateCategory, addCategory } =
-  categorySlice.actions;
+export const {
+  setTypes,
+  setCategories,
+  addCategory,
+  updateCategory,
+  deleteCategory
+} = categorySlice.actions;
 export default categorySlice.reducer;
