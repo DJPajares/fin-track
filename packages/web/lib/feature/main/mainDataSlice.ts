@@ -32,9 +32,14 @@ const categorySlice = createSlice({
 
       const categories = state.categories[type._id];
 
-      categories.map((item) => (item._id === category._id ? category : item));
+      const updatedCategories = categories.map((item) =>
+        item._id === category._id ? category : item
+      );
 
-      state.categories[type._id] = categories;
+      state.categories = {
+        ...state.categories,
+        [type._id]: updatedCategories
+      };
     }
   }
 });
