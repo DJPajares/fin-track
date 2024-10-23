@@ -43,7 +43,7 @@ type EditCategoryDrawerProps = {
   children: ReactNode;
 };
 
-const iconMapArray = Object.keys(iconMap).map((key) => key);
+const iconMapArray = Object.keys(iconMap) as (keyof typeof iconMap)[];
 
 const EditCategoryDrawer = ({
   type,
@@ -113,7 +113,6 @@ const EditCategoryDrawer = ({
               <Popover open={isPopoverOpen} onOpenChange={setIsPopoverOpen}>
                 <PopoverTrigger asChild>
                   <Button variant="outline" size="icon">
-                    {/* <CardIcon icon={category.icon} /> */}
                     <CardIcon icon={field.value} />
                   </Button>
                 </PopoverTrigger>

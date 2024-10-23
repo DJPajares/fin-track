@@ -15,7 +15,7 @@ import { updateCategory } from '@/lib/feature/main/mainDataSlice';
 import { ListProps } from '@/types/List';
 
 const baseCategory: CategoryItemProps = {
-  _id: '123',
+  _id: '',
   name: '',
   icon: 'default',
   active: true
@@ -37,9 +37,6 @@ const Categories = () => {
         active: true
       }
     };
-
-    console.log('category', category);
-    console.log('newCategory', newCategory);
 
     dispatch(updateCategory(newCategory));
   };
