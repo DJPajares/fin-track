@@ -1,6 +1,6 @@
 'use client';
 
-import { useAppSelector } from '@/lib/hooks';
+import { useAppDispatch, useAppSelector } from '@/lib/hooks';
 
 import { Separator } from '@/components/ui/separator';
 import { Button } from '@/components/ui/button';
@@ -11,17 +11,37 @@ import EditCategoryDrawer from '@/components/categories/EditCategoryDrawer';
 import { PlusIcon } from 'lucide-react';
 
 import type { CategoryItemProps } from '@/types/Category';
+import { updateCategory } from '@/lib/feature/main/mainDataSlice';
+import { ListProps } from '@/types/List';
+
+const baseCategory: CategoryItemProps = {
+  _id: '123',
+  name: '',
+  icon: 'default',
+  active: true
+};
 
 const Categories = () => {
   const { types, categories } = useAppSelector((state) => state.main);
 
-  const handleAddNewCategory = () => {
-    // Open the add/edit category
-    // setIsDrawerOpen(true);
-  };
+  const dispatch = useAppDispatch();
 
-  const handleAddSuggestedCategory = (category: CategoryItemProps) => {
-    console.log(category);
+  const handleAddSuggestedCategory = (
+    type: ListProps,
+    category: CategoryItemProps
+  ) => {
+    const newCategory = {
+      type,
+      category: {
+        ...category,
+        active: true
+      }
+    };
+
+    console.log('category', category);
+    console.log('newCategory', newCategory);
+
+    dispatch(updateCategory(newCategory));
   };
 
   return (
@@ -38,13 +58,16 @@ const Categories = () => {
               <div className="flex flex-row items-center justify-between">
                 <h6 className="font-semibold text-lg">CATEGORIES</h6>
 
-                <Button
-                  variant="ghost"
-                  size="sm_rounded_icon"
-                  onClick={handleAddNewCategory}
+                <EditCategoryDrawer
+                  type={type}
+                  category={baseCategory}
+                  title="Add New Category"
+                  okButton="Add"
                 >
-                  <PlusIcon className="h-4 w-4" />
-                </Button>
+                  <Button variant="ghost" size="sm_rounded_icon">
+                    <PlusIcon className="h-4 w-4" />
+                  </Button>
+                </EditCategoryDrawer>
               </div>
 
               <div className="bg-secondary rounded-lg">
@@ -52,7 +75,12 @@ const Categories = () => {
                   .filter((category) => category.active)
                   .map((category, i, { length }) => (
                     <div key={category._id}>
-                      <EditCategoryDrawer type={type} category={category}>
+                      <EditCategoryDrawer
+                        type={type}
+                        category={category}
+                        title="Edit Category"
+                        okButton="Update"
+                      >
                         <div className="flex flex-row items-center space-x-4 p-2 hover:bg-border cursor-pointer">
                           <CardIcon icon={category.icon} />
                           <p>{category.name}</p>
@@ -73,7 +101,9 @@ const Categories = () => {
                     <div key={category._id}>
                       <div
                         className="flex flex-row items-center justify-between p-2"
-                        onClick={() => handleAddSuggestedCategory(category)}
+                        onClick={() =>
+                          handleAddSuggestedCategory(type, category)
+                        }
                       >
                         <div className="flex flex-row items-center space-x-4">
                           <CardIcon icon={category.icon} />

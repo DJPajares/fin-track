@@ -38,6 +38,8 @@ import type { CategoryItemProps } from '@/types/Category';
 type EditCategoryDrawerProps = {
   type?: ListProps;
   category: CategoryItemProps;
+  title?: string;
+  okButton?: string;
   children: ReactNode;
 };
 
@@ -46,6 +48,8 @@ const iconMapArray = Object.keys(iconMap).map((key) => key);
 const EditCategoryDrawer = ({
   type,
   category,
+  title = 'Edit Category',
+  okButton = 'Update',
   children
 }: EditCategoryDrawerProps) => {
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
@@ -68,7 +72,6 @@ const EditCategoryDrawer = ({
   });
 
   const handleChangeIcon = (icon: IconProps) => {
-    // setTempCategory({ ...tempCategory, icon });
     form.setValue('icon', icon);
     setIsPopoverOpen(false);
   };
@@ -94,7 +97,7 @@ const EditCategoryDrawer = ({
 
       <DrawerContent className="mx-auto w-full max-w-lg overflow-y-scroll max-h-screen">
         <DrawerHeader>
-          <DrawerTitle>Edit Category</DrawerTitle>
+          <DrawerTitle>{title}</DrawerTitle>
           <DrawerDescription>{category.name}</DrawerDescription>
         </DrawerHeader>
 
@@ -154,7 +157,7 @@ const EditCategoryDrawer = ({
         <DrawerFooter>
           <AlertDialog>
             <AlertDialogTrigger asChild>
-              <Button>Ok</Button>
+              <Button>{okButton}</Button>
             </AlertDialogTrigger>
             <AlertDialogContent>
               <AlertDialogHeader>
