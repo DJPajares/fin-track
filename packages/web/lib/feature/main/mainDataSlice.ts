@@ -39,8 +39,11 @@ const categorySlice = createSlice({
 
       const categories = state.categories[type._id];
 
+      // Create a new array with the updated category, spreading each item to avoid mutation
       const updatedCategories = categories.map((item) =>
-        item._id === category._id ? category : item
+        item._id === category._id
+          ? { ...item, ...category } // Spread the old item and update the properties from category
+          : item
       );
 
       state.categories = {
