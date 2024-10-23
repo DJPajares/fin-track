@@ -28,7 +28,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
 import { Button } from '../ui/button';
 
 import { useAppDispatch } from '@/lib/hooks';
-import { updateCategory } from '@/lib/feature/main/mainDataSlice';
+import { addCategory, updateCategory } from '@/lib/feature/main/mainDataSlice';
 
 import CardIcon, { iconMap, type IconProps } from '../shared/CardIcon';
 
@@ -40,6 +40,7 @@ type EditCategoryDrawerProps = {
   category: CategoryItemProps;
   title?: string;
   okButton?: string;
+  isNew?: boolean;
   children: ReactNode;
 };
 
@@ -50,6 +51,7 @@ const EditCategoryDrawer = ({
   category,
   title = 'Edit Category',
   okButton = 'Update',
+  isNew = false,
   children
 }: EditCategoryDrawerProps) => {
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
@@ -88,7 +90,11 @@ const EditCategoryDrawer = ({
       category: data
     };
 
-    dispatch(updateCategory(result));
+    if (isNew) {
+      dispatch(addCategory(result));
+    } else {
+      dispatch(updateCategory(result));
+    }
   };
 
   return (

@@ -60,6 +60,7 @@ const Categories = () => {
                   category={baseCategory}
                   title="Add New Category"
                   okButton="Add"
+                  isNew
                 >
                   <Button variant="ghost" size="sm_rounded_icon">
                     <PlusIcon className="h-4 w-4" />

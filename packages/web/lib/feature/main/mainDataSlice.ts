@@ -50,10 +50,22 @@ const categorySlice = createSlice({
         ...state.categories,
         [type._id]: updatedCategories
       };
+    },
+    addCategory: (state, action: PayloadAction<UpdateCategoryProps>) => {
+      const { type, category } = action.payload;
+
+      const categories = state.categories[type._id];
+
+      categories.push(category);
+
+      state.categories = {
+        ...state.categories,
+        [type._id]: categories
+      };
     }
   }
 });
 
-export const { setTypes, setCategories, updateCategory } =
+export const { setTypes, setCategories, updateCategory, addCategory } =
   categorySlice.actions;
 export default categorySlice.reducer;
