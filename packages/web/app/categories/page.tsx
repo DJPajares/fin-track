@@ -31,6 +31,16 @@ const Categories = () => {
     setIsDrawerOpen(true);
   };
 
+  const handleAddNewCategory = () => {
+    setCategoryItem({
+      _id: '',
+      name: '',
+      icon: 'default'
+    });
+    // Open the add/edit category
+    setIsDrawerOpen(true);
+  };
+
   const handleAddSuggestion = (category: CategoryItemProps) => {
     console.log(category);
   };
@@ -47,7 +57,17 @@ const Categories = () => {
           {types.map((type) => (
             <Tab key={type._id.toString()} title={type.name}>
               <div className="space-y-4">
-                <h6 className="font-semibold text-lg">CATEGORIES</h6>
+                <div className="flex flex-row items-center justify-between">
+                  <h6 className="font-semibold text-lg">CATEGORIES</h6>
+
+                  <Button
+                    variant="ghost"
+                    size="sm_rounded_icon"
+                    onClick={handleAddNewCategory}
+                  >
+                    <PlusIcon className="h-4 w-4" />
+                  </Button>
+                </div>
 
                 <div className="bg-secondary rounded-lg">
                   {categories[type._id]
