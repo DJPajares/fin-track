@@ -13,6 +13,7 @@ import {
   Drawer,
   DrawerClose,
   DrawerContent,
+  DrawerDescription,
   DrawerFooter,
   DrawerHeader,
   DrawerTitle
@@ -32,6 +33,7 @@ type CustomDrawerProps = {
   isDrawerOpen: boolean;
   setIsDrawerOpen: Dispatch<SetStateAction<boolean>>;
   title?: string;
+  description?: string;
   footerOk?: string;
   footerCancel?: string;
   children: ReactNode;
@@ -42,6 +44,7 @@ const CustomDrawer = ({
   isDrawerOpen,
   setIsDrawerOpen,
   title,
+  description,
   footerOk = 'Ok',
   footerCancel = 'Cancel',
   children,
@@ -52,7 +55,7 @@ const CustomDrawer = ({
   // const formRef = useRef<HTMLFormElement>(null);
 
   const handleSubmitButton = () => {
-    if (formRef.current) formRef.current.requestSubmit();
+    // if (formRef.current) formRef.current.requestSubmit();
 
     handleSubmit();
     setIsDrawerOpen(false);
@@ -85,11 +88,12 @@ const CustomDrawer = ({
       >
         <DrawerContent>
           <div className="mx-auto w-full max-w-lg overflow-y-scroll max-h-screen">
-            {title && (
-              <DrawerHeader>
-                <DrawerTitle>{title.toUpperCase()}</DrawerTitle>
-              </DrawerHeader>
-            )}
+            <DrawerHeader>
+              {title && <DrawerTitle>{title.toUpperCase()}</DrawerTitle>}
+              {description && (
+                <DrawerDescription>{description}</DrawerDescription>
+              )}
+            </DrawerHeader>
 
             {children}
             {/* {cloneElement(children as ReactElement<any>, {
