@@ -1,7 +1,7 @@
 'use client';
 
-import { useState } from 'react';
-import { useAppSelector } from '@/lib/hooks';
+import { useEffect, useRef, useState } from 'react';
+import { useAppDispatch, useAppSelector } from '@/lib/hooks';
 
 import { Separator } from '@/components/ui/separator';
 import { Button } from '@/components/ui/button';
@@ -13,36 +13,71 @@ import { PlusIcon } from 'lucide-react';
 
 import type { CategoryItemProps } from '@/types/Category';
 import type { ListProps } from '@/types/List';
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger
+} from '@/components/ui/drawer';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger
+} from '@/components/ui/alert-dialog';
+import { updateCategory } from '@/lib/feature/main/mainDataSlice';
 
 const Categories = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const [categoryItemType, setCategoryItemType] = useState<ListProps>();
-  const [categoryItem, setCategoryItem] = useState<CategoryItemProps>({
-    _id: '',
-    name: '',
-    icon: 'default'
-  });
+  const [openDrawerId, setOpenDrawerId] = useState<string | null>(null); // Track which category's drawer is open
 
   const { types, categories } = useAppSelector((state) => state.main);
 
+  const formRef = useRef<HTMLFormElement>(null);
+
+  useEffect(() => {
+    console.log('categories', categories);
+  }, [categories]);
+
+  // const handleEditCategory = (type: ListProps, category: CategoryItemProps) => {
+  //   setCategoryItemType(type);
+  //   setCategoryItem(category);
+  //   // setIsDrawerOpen(true);
+  // };
+
   const handleEditCategory = (type: ListProps, category: CategoryItemProps) => {
-    setCategoryItemType(type);
-    setCategoryItem(category);
-    setIsDrawerOpen(true);
+    // Set the currently opened drawer's id
+    // setOpenDrawerId(category._id);
   };
 
+  // const closeDrawer = () => {
+  //   setOpenDrawerId(null); // Close the drawer
+  // };
+
   const handleAddNewCategory = () => {
-    setCategoryItem({
-      _id: '',
-      name: '',
-      icon: 'default'
-    });
     // Open the add/edit category
-    setIsDrawerOpen(true);
+    // setIsDrawerOpen(true);
   };
 
   const handleAddSuggestion = (category: CategoryItemProps) => {
     console.log(category);
+  };
+
+  const handleSubmitButton = () => {
+    if (formRef.current) formRef.current.requestSubmit();
+
+    // console.log('categoryItem', categoryItem);
+    // dispatch(updateCategory(categoryItem));
+    // closeDrawer();
+    // setIsDrawerOpen(false);
   };
 
   return (
@@ -74,13 +109,60 @@ const Categories = () => {
                     .filter((category) => category.active)
                     .map((category, i, { length }) => (
                       <div key={category._id}>
-                        <div
-                          className="flex flex-row items-center space-x-4 p-2 hover:bg-border cursor-pointer"
-                          onClick={() => handleEditCategory(type, category)}
-                        >
-                          <CardIcon icon={category.icon} />
-                          <p>{category.name}</p>
-                        </div>
+                        <Drawer>
+                          <DrawerTrigger asChild>
+                            <div
+                              className="flex flex-row items-center space-x-4 p-2 hover:bg-border cursor-pointer"
+                              // onClick={() => handleEditCategory(type, category)}
+                            >
+                              <CardIcon icon={category.icon} />
+                              <p>{category.name}</p>
+                            </div>
+                          </DrawerTrigger>
+
+                          <DrawerContent className="mx-auto w-full max-w-lg overflow-y-scroll max-h-screen">
+                            <DrawerHeader>
+                              <DrawerTitle>Edit Category</DrawerTitle>
+                              <DrawerDescription>
+                                {category.name}
+                              </DrawerDescription>
+                            </DrawerHeader>
+
+                            <EditCategoryDrawer
+                              type={type}
+                              category={category}
+                              formRef={formRef}
+                            />
+
+                            <DrawerFooter>
+                              <AlertDialog>
+                                <AlertDialogTrigger asChild>
+                                  <Button>Ok</Button>
+                                </AlertDialogTrigger>
+                                <AlertDialogContent>
+                                  <AlertDialogHeader>
+                                    <AlertDialogTitle>
+                                      Are you sure?
+                                    </AlertDialogTitle>
+                                  </AlertDialogHeader>
+                                  <AlertDialogFooter>
+                                    <AlertDialogCancel>
+                                      Cancel
+                                    </AlertDialogCancel>
+                                    <AlertDialogAction
+                                      onClick={handleSubmitButton}
+                                    >
+                                      Ok
+                                    </AlertDialogAction>
+                                  </AlertDialogFooter>
+                                </AlertDialogContent>
+                              </AlertDialog>
+                              <DrawerClose asChild>
+                                <Button variant="outline">Cancel</Button>
+                              </DrawerClose>
+                            </DrawerFooter>
+                          </DrawerContent>
+                        </Drawer>
 
                         {i + 1 !== length && <Separator />}
                       </div>
@@ -118,13 +200,13 @@ const Categories = () => {
         </Tabs>
       </div>
 
-      <EditCategoryDrawer
+      {/* <EditCategoryDrawer
         isDrawerOpen={isDrawerOpen}
         setIsDrawerOpen={setIsDrawerOpen}
         type={categoryItemType}
         category={categoryItem}
         setCategory={setCategoryItem}
-      />
+      /> */}
     </>
   );
 };
