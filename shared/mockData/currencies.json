@@ -28,10 +28,6 @@
     "name": "EUR"
   },
   {
-    "_id": "usd",
-    "name": "USD"
-  },
-  {
     "_id": "egp",
     "name": "EGP"
   },
