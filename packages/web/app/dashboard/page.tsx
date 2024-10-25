@@ -42,6 +42,7 @@ import type {
   DashboardDataResult
 } from '../../types/Dashboard';
 import CategoryDrawer from '@/components/dashboard/CategoryDrawer';
+import { DatePicker } from '@/components/shared/DatePicker';
 
 const initialDashboardData = {
   main: {
@@ -186,16 +187,23 @@ const Dashboard = () => {
           {Object.keys(dashboardData.main).length > 0 ? (
             <div className="flex flex-row items-center justify-between">
               {/* CALENDAR */}
-              <Popover
+              <DatePicker date={date} onChange={handleDateSelection}>
+                <Button variant="ghost" className="px-0">
+                  <p className="text-3xl sm:text-5xl font-extrabold sm:font-black hover:underline hover:bg-background">
+                    {moment(date).format('MMM yyyy')}
+                  </p>
+                </Button>
+              </DatePicker>
+
+              {/* <Popover
                 open={isDatePopoverOpen}
                 onOpenChange={setIsDatePopoverOpen}
               >
                 <PopoverTrigger asChild>
                   <Button variant="ghost" className="px-0">
-                    <p className="text-3xl sm:text-5xl font-extrabold sm:font-black">
+                    <p className="text-3xl sm:text-5xl font-extrabold sm:font-black hover:underline hover:bg-background">
                       {format(date, 'MMM yyyy')}
                     </p>
-                    {/* <ChevronDownIcon className="h-4 w-4" /> */}
                   </Button>
                 </PopoverTrigger>
                 <PopoverContent className="w-auto p-0" align="start">
@@ -206,7 +214,7 @@ const Dashboard = () => {
                     onSelect={handleDateSelection}
                   />
                 </PopoverContent>
-              </Popover>
+              </Popover> */}
 
               {/* CURRENCY */}
               <Popover
@@ -215,7 +223,7 @@ const Dashboard = () => {
               >
                 <PopoverTrigger asChild>
                   <Button variant="ghost" className="px-0">
-                    <p className="text-3xl sm:text-5xl font-extrabold sm:font-black">
+                    <p className="text-3xl sm:text-5xl font-extrabold sm:font-black hover:underline hover:bg-background0">
                       {currency.name}
                     </p>
                   </Button>
@@ -346,19 +354,19 @@ const Dashboard = () => {
         Add Transaction
       </Button>
 
-      {/* <CategoryDrawer
-        category={dashboardCategoryData}
-        setDashboardData={setDashboardData}
-        isDialogOpen={isDialogOpen}
-        setIsDialogOpen={setIsDialogOpen}
-      /> */}
-
-      <CategoryDialog
+      <CategoryDrawer
         category={dashboardCategoryData}
         setDashboardData={setDashboardData}
         isDialogOpen={isDialogOpen}
         setIsDialogOpen={setIsDialogOpen}
       />
+
+      {/* <CategoryDialog
+        category={dashboardCategoryData}
+        setDashboardData={setDashboardData}
+        isDialogOpen={isDialogOpen}
+        setIsDialogOpen={setIsDialogOpen}
+      /> */}
 
       <TransactionDrawer
         currencies={currencies}
