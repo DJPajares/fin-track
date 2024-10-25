@@ -90,6 +90,7 @@ const EditCategoryDrawer = ({
   };
 
   const handleCategoryRemoval = () => {
+    // to-do: remove completely if not part of the master list (stored in category collection/table)
     const result = {
       type,
       category
@@ -115,10 +116,10 @@ const EditCategoryDrawer = ({
     <Drawer open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
       <DrawerTrigger asChild>{children}</DrawerTrigger>
 
-      <DrawerContent className="mx-auto w-full max-w-lg overflow-y-scroll max-h-screen">
+      <DrawerContent className="mx-auto w-full max-w-lg max-h-screen">
         <DrawerHeader>
           <DrawerTitle>{title}</DrawerTitle>
-          <DrawerDescription>{category.name}</DrawerDescription>
+          <DrawerDescription>{type.name}</DrawerDescription>
         </DrawerHeader>
 
         <form
