@@ -7,7 +7,8 @@ const createPagination = (
   const { page = '1', limit } = query;
 
   // Use totalDocuments if limit is not defined
-  const effectiveLimit = limit ? limit : totalDocuments.toString();
+  const effectiveLimit =
+    limit && parseInt(limit) > 0 ? limit : totalDocuments.toString();
 
   const skip = (parseInt(page) - 1) * parseInt(effectiveLimit);
   const totalPages = Math.ceil(totalDocuments / parseInt(effectiveLimit));
