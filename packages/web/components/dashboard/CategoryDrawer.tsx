@@ -23,7 +23,7 @@ import {
   AlertDialogTrigger
 } from '@/components/ui/alert-dialog';
 import { Separator } from '@/components/ui/separator';
-import CategoryDrawerContent from './CategoryContent';
+import CategoryContent from './CategoryContent';
 
 import fetchTransactionPayments from '@/providers/fetchTransactionPayments';
 import { dateStringFormat } from '../../../../shared/constants/dateStringFormat';
@@ -194,7 +194,7 @@ const CategoryDrawer = ({
                   key={transaction._id}
                   className="grid grid-cols-6 gap-2 items-center py-1"
                 >
-                  <CategoryDrawerContent
+                  <CategoryContent
                     _id={transaction._id}
                     name={transaction.name}
                     amount={transaction.amount}
@@ -210,7 +210,7 @@ const CategoryDrawer = ({
             </div>
 
             <div className="grid grid-cols-6 gap-2 items-center py-2">
-              <CategoryDrawerContent
+              <CategoryContent
                 _id={drawerCategory._id}
                 name="TOTAL"
                 amount={drawerCategory.totalAmount}
