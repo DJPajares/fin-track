@@ -27,6 +27,7 @@ type IncomeTransactionsProps = TransactionProps & {
 type ExpenseTransactionPaymentsProps = TransactionProps & {
   categoryId: CategoryProps['_id'];
   category: CategoryProps['name'];
+  categoryIcon: CategoryProps['icon'];
   typeId: TypeProps['_id'];
   type: TypeProps['name'];
   currencyId: CurrencyProps['_id'];
@@ -139,6 +140,7 @@ const fetchTransactionPayments = async (data: FetchTransactionPaymentProps) => {
         name: 1,
         categoryId: '$category._id',
         category: '$category.name',
+        categoryIcon: '$category.icon',
         typeId: '$type._id',
         type: '$type.name',
         amount: 1,
@@ -285,6 +287,7 @@ const fetchTransactionPayments = async (data: FetchTransactionPaymentProps) => {
         name: 1,
         categoryId: '$category._id',
         category: '$category.name',
+        categoryIcon: '$category.icon',
         typeId: '$type._id',
         typeName: '$type.name',
         amount: 1,
@@ -398,6 +401,7 @@ const processTransactionPaymentData = ({
           accumulator[key] = {
             _id: expenseTransactionPayment.categoryId,
             name: expenseTransactionPayment.category,
+            icon: expenseTransactionPayment.categoryIcon,
             totalAmount: 0,
             totalPaidAmount: 0,
             paymentCompletionRate: 0,
