@@ -17,6 +17,10 @@ import type { ListProps } from '@/types/List';
 const baseCategory: CategoryItemProps = {
   _id: '',
   name: '',
+  type: {
+    _id: '',
+    name: ''
+  },
   icon: 'default',
   active: true
 };
@@ -26,19 +30,13 @@ const Categories = () => {
 
   const dispatch = useAppDispatch();
 
-  const handleAddSuggestedCategory = (
-    type: ListProps,
-    category: CategoryItemProps
-  ) => {
-    const newCategory = {
-      type,
-      category: {
+  const handleAddSuggestedCategory = (category: CategoryItemProps) => {
+    dispatch(
+      updateCategory({
         ...category,
         active: true
-      }
-    };
-
-    dispatch(updateCategory(newCategory));
+      })
+    );
   };
 
   return (
@@ -70,8 +68,11 @@ const Categories = () => {
                 </div>
 
                 <div className="bg-secondary rounded-lg">
-                  {categories[type._id]
-                    .filter((category) => category.active)
+                  {categories
+                    .filter(
+                      (category) =>
+                        category.type._id === type._id && category.active
+                    )
                     .map((category, i, { length }) => (
                       <div key={category._id}>
                         <EditCategoryDrawer
@@ -96,15 +97,16 @@ const Categories = () => {
                 <h6 className="font-semibold text-lg">SUGGESTIONS</h6>
 
                 <div className="bg-secondary rounded-lg">
-                  {categories[type._id]
-                    .filter((category) => !category.active)
+                  {categories
+                    .filter(
+                      (category) =>
+                        category.type._id === type._id && !category.active
+                    )
                     .map((category, i, { length }) => (
                       <div key={category._id}>
                         <div
                           className="flex flex-row items-center justify-between p-2 hover:bg-border cursor-pointer"
-                          onClick={() =>
-                            handleAddSuggestedCategory(type, category)
-                          }
+                          onClick={() => handleAddSuggestedCategory(category)}
                         >
                           <div className="flex flex-row items-center space-x-4">
                             <CardIcon icon={category.icon} />

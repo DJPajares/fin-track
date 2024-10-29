@@ -2,14 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import type { CategoryItemProps } from '@/types/Category';
 import type { ListProps } from '@/types/List';
 
-type CategoryProps = {
-  [key: string]: CategoryItemProps[];
-};
-
-type UpdateCategoryProps = {
-  type: ListProps;
-  category: CategoryItemProps;
-};
+type CategoryProps = CategoryItemProps[];
 
 type MainDataProps = {
   types: ListProps[];
@@ -18,10 +11,7 @@ type MainDataProps = {
 
 const initialState: MainDataProps = {
   types: [],
-  categories: {
-    income: [],
-    expense: []
-  }
+  categories: []
 };
 
 const categorySlice = createSlice({
@@ -34,48 +24,64 @@ const categorySlice = createSlice({
     setCategories: (state, action: PayloadAction<CategoryProps>) => {
       state.categories = action.payload;
     },
-    addCategory: (state, action: PayloadAction<UpdateCategoryProps>) => {
-      const { type, category } = action.payload;
+    addCategory: (state, action: PayloadAction<CategoryItemProps>) => {
+      const category = action.payload;
 
-      const categories = state.categories[type._id];
+      state.categories.push(category);
 
-      categories.push(category);
+      // const categories = state.categories;
 
-      state.categories = {
-        ...state.categories,
-        [type._id]: categories
-      };
+      // categories.push(category);
+
+      // state.categories = {
+      //   ...state.categories,
+      //   [type._id]: categories
+      // };
     },
-    updateCategory: (state, action: PayloadAction<UpdateCategoryProps>) => {
-      const { type, category } = action.payload;
+    updateCategory: (state, action: PayloadAction<CategoryItemProps>) => {
+      const category = action.payload;
 
-      const categories = state.categories[type._id];
-
-      // Create a new array with the updated category, spreading each item to avoid mutation
-      const updatedCategories = categories.map((item) =>
-        item._id === category._id
-          ? { ...item, ...category } // Spread the old item and update the properties from category
-          : item
+      const updatedCategories = state.categories.map((stateCategory) =>
+        stateCategory._id === category._id
+          ? (stateCategory = category)
+          : stateCategory
       );
 
-      state.categories = {
-        ...state.categories,
-        [type._id]: updatedCategories
-      };
+      state.categories = updatedCategories;
+
+      // const categories = state.categories[type._id];
+
+      // // Create a new array with the updated category, spreading each item to avoid mutation
+      // const updatedCategories = categories.map((item) =>
+      //   item._id === category._id
+      //     ? { ...item, ...category } // Spread the old item and update the properties from category
+      //     : item
+      // );
+
+      // state.categories = {
+      //   ...state.categories,
+      //   [type._id]: updatedCategories
+      // };
     },
-    deleteCategory: (state, action: PayloadAction<UpdateCategoryProps>) => {
-      const { type, category } = action.payload;
+    deleteCategory: (state, action: PayloadAction<CategoryItemProps>) => {
+      const category = action.payload;
 
-      const categories = state.categories[type._id];
-
-      const updatedCategories = categories.filter(
-        (item) => item._id !== category._id
+      const updatedCategories = state.categories.filter(
+        (stateCategory) => stateCategory._id !== category._id
       );
 
-      state.categories = {
-        ...state.categories,
-        [type._id]: updatedCategories
-      };
+      state.categories = updatedCategories;
+
+      // const categories = state.categories[type._id];
+
+      // const updatedCategories = categories.filter(
+      //   (item) => item._id !== category._id
+      // );
+
+      // state.categories = {
+      //   ...state.categories,
+      //   [type._id]: updatedCategories
+      // };
     }
   }
 });

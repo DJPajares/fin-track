@@ -11,7 +11,8 @@ import typesData from '../../../shared/mockData/types.json';
 const useMockedData = process.env.NEXT_PUBLIC_USE_MOCKED_DATA === 'true';
 
 const typesUrl = 'http://localhost:3001/api/v1/types';
-const categoriesUrl = 'http://localhost:3001/api/v1/categories/types';
+const categoriesUrl =
+  'http://localhost:3001/api/v1/categories?page=1&sort=-name';
 
 const fetchTypes = async () => {
   try {

@@ -91,24 +91,22 @@ const EditCategoryDrawer = ({
 
   const handleCategoryRemoval = () => {
     // to-do: remove completely if not part of the master list (stored in category collection/table)
-    const result = {
-      type,
-      category
-    };
-
-    dispatch(deleteCategory(result));
+    dispatch(deleteCategory(category));
   };
 
   const onSubmit: SubmitHandler<CategoryItemProps> = (data) => {
-    const result = {
-      type,
-      category: data
-    };
-
     if (isNew) {
-      dispatch(addCategory(result));
+      dispatch(
+        addCategory({
+          ...data,
+          type: {
+            _id: type ? type._id : '',
+            name: type ? type.name : ''
+          }
+        })
+      );
     } else {
-      dispatch(updateCategory(result));
+      dispatch(updateCategory(data));
     }
   };
 
@@ -119,7 +117,7 @@ const EditCategoryDrawer = ({
       <DrawerContent className="mx-auto w-full max-w-lg max-h-screen">
         <DrawerHeader>
           <DrawerTitle>{title}</DrawerTitle>
-          <DrawerDescription>{type.name}</DrawerDescription>
+          <DrawerDescription>{type?.name}</DrawerDescription>
         </DrawerHeader>
 
         <form
