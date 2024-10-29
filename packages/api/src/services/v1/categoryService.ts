@@ -1,8 +1,10 @@
 import { Types } from 'mongoose';
 import { CategoryModel } from '../../models/v1/categoryModel';
+
+import createPagination from '../../utilities/createPagination';
+
 import type { CategoryProps } from '../../models/v1/categoryModel';
 import type { QueryParamsProps } from '../../types/commonTypes';
-import createPagination from '../../utilities/createPagination';
 
 const create = async (data: CategoryProps) => {
   return await CategoryModel.create(data);
@@ -53,7 +55,8 @@ const getByType = async (query: QueryParamsProps) => {
   const paginationResult = createPagination(query, totalDocuments);
   const { skip, limit, pagination } = paginationResult;
 
-  // const data = await CategoryModel.aggregate([
+  // ORIGINAL:
+  // const result = await CategoryModel.aggregate([
   //   {
   //     $lookup: {
   //       from: 'types', // Adjust 'types' if your collection name is different
@@ -67,11 +70,13 @@ const getByType = async (query: QueryParamsProps) => {
   //   },
   //   {
   //     $group: {
-  //       _id: '$type.name',
+  //       _id: '$type._id',
   //       categories: {
   //         $push: {
   //           _id: '$_id',
-  //           name: '$name'
+  //           name: '$name',
+  //           icon: '$icon',
+  //           active: '$active'
   //         }
   //       }
   //     }
@@ -87,13 +92,19 @@ const getByType = async (query: QueryParamsProps) => {
   //       }
   //     }
   //   },
-  //   {
-  //     $replaceRoot: {
-  //       newRoot: {
-  //         $arrayToObject: '$types'
-  //       }
-  //     }
-  //   },
+  //   // { $replaceRoot: { newRoot: '$types' } },
+  //   // {
+  //   //   $replaceRoot: {
+  //   //     newRoot: {
+  //   //       $arrayToObject: '$types'
+  //   //     }
+  //   //   }
+  //   // },
+  //   // {
+  //   //   $project: {
+  //   //     _id: 0
+  //   //   }
+  //   // },
   //   {
   //     $skip: skip
   //   },
@@ -102,25 +113,69 @@ const getByType = async (query: QueryParamsProps) => {
   //   }
   // ]);
 
+  // // OPTION 1:
+  // const result = await CategoryModel.aggregate([
+  //   {
+  //     $lookup: {
+  //       from: 'types',
+  //       localField: 'type',
+  //       foreignField: '_id',
+  //       as: 'type'
+  //     }
+  //   },
+  //   { $unwind: '$type' },
+  //   {
+  //     $group: {
+  //       _id: '$type._id',
+  //       categories: {
+  //         $push: {
+  //           _id: '$_id',
+  //           name: '$name',
+  //           icon: '$icon',
+  //           active: '$active'
+  //         }
+  //       }
+  //     }
+  //   },
+  //   {
+  //     $group: {
+  //       _id: null,
+  //       types: {
+  //         $push: { k: '$_id', v: '$categories' }
+  //       }
+  //     }
+  //   },
+  //   {
+  //     $set: {
+  //       types: { $arrayToObject: '$types' }
+  //     }
+  //   },
+  //   { $project: { _id: 0 } },
+  //   { $skip: skip },
+  //   { $limit: limit }
+  // ]);
+
+  // OPTION 2:
   const result = await CategoryModel.aggregate([
     {
       $lookup: {
-        from: 'types', // Adjust 'types' if your collection name is different
+        from: 'types',
         localField: 'type',
         foreignField: '_id',
         as: 'type'
       }
     },
-    {
-      $unwind: '$type'
-    },
+    { $unwind: '$type' },
     {
       $group: {
-        _id: '$type.name',
+        _id: '$type._id',
+        name: { $first: '$type.name' }, // Include name field
         categories: {
           $push: {
             _id: '$_id',
-            name: '$name'
+            name: '$name',
+            icon: '$icon',
+            active: '$active'
           }
         }
       }
@@ -130,30 +185,16 @@ const getByType = async (query: QueryParamsProps) => {
         _id: null,
         types: {
           $push: {
-            k: '$_id',
-            v: '$categories'
+            _id: '$_id',
+            name: '$name',
+            categories: '$categories'
           }
         }
       }
     },
-    {
-      $replaceRoot: {
-        newRoot: {
-          $arrayToObject: '$types'
-        }
-      }
-    },
-    {
-      $project: {
-        _id: 0
-      }
-    },
-    {
-      $skip: skip
-    },
-    {
-      $limit: limit
-    }
+    { $project: { _id: 0, types: 1 } },
+    { $skip: skip },
+    { $limit: limit }
   ]);
 
   // The result is transformed from an array to an object:
