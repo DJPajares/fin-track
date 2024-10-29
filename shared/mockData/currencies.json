@@ -1,62 +1,130 @@
 [
   {
-    "_id": "sgd",
-    "name": "SGD"
+    "_id": "671f0180855aa876c09f12f9",
+    "name": "QAR",
+    "description": "Qatar Riyal",
+    "createdAt": "2024-10-28T03:14:08.620Z",
+    "updatedAt": "2024-10-28T03:14:08.620Z",
+    "__v": 0
   },
   {
-    "_id": "php",
-    "name": "PHP"
+    "_id": "671f018c855aa876c09f12fb",
+    "name": "SGD",
+    "description": "Singapore Dollar",
+    "createdAt": "2024-10-28T03:14:20.500Z",
+    "updatedAt": "2024-10-28T03:14:20.500Z",
+    "__v": 0
   },
   {
-    "_id": "usd",
-    "name": "USD"
+    "_id": "671f01a6855aa876c09f12fd",
+    "name": "USD",
+    "description": "United States Dollar",
+    "createdAt": "2024-10-28T03:14:46.122Z",
+    "updatedAt": "2024-10-28T03:14:46.122Z",
+    "__v": 0
   },
   {
-    "_id": "qar",
-    "name": "QAR"
+    "_id": "671f01db855aa876c09f12ff",
+    "name": "PHP",
+    "description": "Philippine Peso",
+    "createdAt": "2024-10-28T03:15:39.527Z",
+    "updatedAt": "2024-10-28T03:15:39.527Z",
+    "__v": 0
   },
   {
-    "_id": "jpy",
-    "name": "JPY"
+    "_id": "671f01e2855aa876c09f1301",
+    "name": "EUR",
+    "description": "Euro",
+    "createdAt": "2024-10-28T03:15:46.114Z",
+    "updatedAt": "2024-10-28T03:15:46.114Z",
+    "__v": 0
   },
   {
-    "_id": "myr",
-    "name": "MYR"
+    "_id": "671f01ed855aa876c09f1303",
+    "name": "GBP",
+    "description": "British Pound",
+    "createdAt": "2024-10-28T03:15:57.823Z",
+    "updatedAt": "2024-10-28T03:15:57.823Z",
+    "__v": 0
   },
   {
-    "_id": "eur",
-    "name": "EUR"
+    "_id": "671f01fa855aa876c09f1305",
+    "name": "AUD",
+    "description": "Australian Dollar",
+    "createdAt": "2024-10-28T03:16:10.645Z",
+    "updatedAt": "2024-10-28T03:16:10.645Z",
+    "__v": 0
   },
   {
-    "_id": "egp",
-    "name": "EGP"
+    "_id": "671f0203855aa876c09f1307",
+    "name": "CAD",
+    "description": "Canadian Dollar",
+    "createdAt": "2024-10-28T03:16:19.545Z",
+    "updatedAt": "2024-10-28T03:16:19.545Z",
+    "__v": 0
   },
   {
-    "_id": "pkr",
-    "name": "PKR"
+    "_id": "671f0210855aa876c09f1309",
+    "name": "JPY",
+    "description": "Japanese Yen",
+    "createdAt": "2024-10-28T03:16:32.553Z",
+    "updatedAt": "2024-10-28T03:16:32.553Z",
+    "__v": 0
   },
   {
-    "_id": "pab",
-    "name": "PAB"
+    "_id": "671f0224855aa876c09f130b",
+    "name": "AED",
+    "description": "Emirati Dirham",
+    "createdAt": "2024-10-28T03:16:52.774Z",
+    "updatedAt": "2024-10-28T03:16:52.774Z",
+    "__v": 0
   },
   {
-    "_id": "rub",
-    "name": "RUB"
+    "_id": "671f024b855aa876c09f130d",
+    "name": "HKD",
+    "description": "Hong Kong Dollar",
+    "createdAt": "2024-10-28T03:17:31.986Z",
+    "updatedAt": "2024-10-28T03:17:31.986Z",
+    "__v": 0
   },
   {
-    "_id": "rwf",
-    "name": "RWF"
+    "_id": "671f0260855aa876c09f130f",
+    "name": "IDR",
+    "description": "Indonesian Rupiah",
+    "createdAt": "2024-10-28T03:17:52.577Z",
+    "updatedAt": "2024-10-28T03:17:52.577Z",
+    "__v": 0
   },
   {
-    "_id": "wst",
-    "name": "WST"
+    "_id": "671f0275855aa876c09f1311",
+    "name": "KRW",
+    "description": "South Korean Won",
+    "createdAt": "2024-10-28T03:18:13.740Z",
+    "updatedAt": "2024-10-28T03:18:13.740Z",
+    "__v": 0
   },
   {
-    "_id": "sar",
-    "name": "SAR"
+    "_id": "671f028c855aa876c09f1313",
+    "name": "MYR",
+    "description": "Malaysian Ringgit",
+    "createdAt": "2024-10-28T03:18:36.358Z",
+    "updatedAt": "2024-10-28T03:18:36.358Z",
+    "__v": 0
   },
   {
-    "_id": "sbd",
-    "name": "SBD"
+    "_id": "671f029e855aa876c09f1315",
+    "name": "NZD",
+    "description": "New Zealand Dollar",
+    "createdAt": "2024-10-28T03:18:54.394Z",
+    "updatedAt": "2024-10-28T03:18:54.394Z",
+    "__v": 0
+  },
+  {
+    "_id": "671f030f855aa876c09f1317",
+    "name": "CHF",
+    "description": "Swiss Franc",
+    "createdAt": "2024-10-28T03:20:47.982Z",
+    "updatedAt": "2024-10-28T03:20:47.982Z",
+    "__v": 0
   }
 ]

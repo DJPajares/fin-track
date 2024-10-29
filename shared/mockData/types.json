@@ -1,10 +1,16 @@
 [
   {
-    "_id": "income",
-    "name": "Income"
+    "_id": "671f009d855aa876c09f12db",
+    "name": "Income",
+    "createdAt": "2024-10-28T03:10:21.572Z",
+    "updatedAt": "2024-10-28T03:10:21.572Z",
+    "__v": 0
   },
   {
-    "_id": "expense",
-    "name": "Expense"
+    "_id": "671f00b4855aa876c09f12dd",
+    "name": "Expense",
+    "createdAt": "2024-10-28T03:10:44.993Z",
+    "updatedAt": "2024-10-28T03:10:44.993Z",
+    "__v": 0
   }
 ]
