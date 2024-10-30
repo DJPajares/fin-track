@@ -39,16 +39,14 @@ import { MultiSelectBox } from '@/components/shared/MultiSelectBox';
 import fetchTransactionPayments from '@/providers/fetchTransactionPayments';
 import { dateStringFormat } from '../../../../shared/constants/dateStringFormat';
 
-import type {
-  DashboardDataResult,
-  DashboardSelectionItemsProps
-} from '@/types/Dashboard';
+import type { DashboardDataResult } from '@/types/Dashboard';
 import type { ListProps } from '@/types/List';
+import { CategoryItemProps } from '@/types/Category';
 
 type TransactionDrawerFormProps = {
   type: ListProps;
-  categories: DashboardSelectionItemsProps[];
-  currencies: DashboardSelectionItemsProps[];
+  categories: CategoryItemProps[];
+  currencies: ListProps[];
   setDashboardData: Dispatch<SetStateAction<DashboardDataResult>>;
   setIsTransactionDrawerOpen: Dispatch<SetStateAction<boolean>>;
   formRef: any;
@@ -174,8 +172,6 @@ const TransactionDrawerForm = ({
   //   control: form.control,
   //   name: 'excludedDates'
   // });
-
-  // console.log(categories[type._id]);
 
   useEffect(() => {
     if (startDate && endDate && endDate < startDate) {
@@ -373,26 +369,31 @@ const TransactionDrawerForm = ({
                     <CommandEmpty>No categories found</CommandEmpty>
                     <CommandGroup>
                       <CommandList>
-                        {categories.map((category) => (
-                          <CommandItem
-                            key={category._id}
-                            value={category.name}
-                            onSelect={() => {
-                              form.setValue('category', category);
-                              setIsCategoryPopoverOpen(false);
-                            }}
-                          >
-                            <CheckIcon
-                              className={cn(
-                                'mr-2 h-4 w-4',
-                                field.value.name === category.name
-                                  ? 'opacity-100'
-                                  : 'opacity-0'
-                              )}
-                            />
-                            {category.name}
-                          </CommandItem>
-                        ))}
+                        {categories
+                          .filter(
+                            (category) =>
+                              category.type._id === type._id && category.active
+                          )
+                          .map((category) => (
+                            <CommandItem
+                              key={category._id}
+                              value={category.name}
+                              onSelect={() => {
+                                form.setValue('category', category);
+                                setIsCategoryPopoverOpen(false);
+                              }}
+                            >
+                              <CheckIcon
+                                className={cn(
+                                  'mr-2 h-4 w-4',
+                                  field.value.name === category.name
+                                    ? 'opacity-100'
+                                    : 'opacity-0'
+                                )}
+                              />
+                              {category.name}
+                            </CommandItem>
+                          ))}
                       </CommandList>
                     </CommandGroup>
                   </Command>

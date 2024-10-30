@@ -80,7 +80,7 @@ const TransactionDrawer = ({
                   <div className="flex flex-col justify-between p-4">
                     <TransactionDrawerForm
                       type={type}
-                      categories={categories[type._id]}
+                      categories={categories}
                       currencies={currencies}
                       setDashboardData={setDashboardData}
                       setIsTransactionDrawerOpen={setIsTransactionDrawerOpen}
