@@ -23,8 +23,8 @@ const CategoryCard = ({
   >
     <CardHeader>
       {/* <CardDescription>{category.name}</CardDescription> */}
-      <div className="flex flex-row items-center justify-between">
-        <p className="text-sm text-slate-500 dark:text-slate-400">
+      <div className="flex flex-row items-center justify-between gap-4">
+        <p className="text-sm text-slate-500 dark:text-slate-400 truncate hover:text-clip">
           {category.name}
         </p>
 
