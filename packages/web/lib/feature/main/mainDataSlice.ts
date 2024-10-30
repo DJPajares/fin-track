@@ -2,11 +2,9 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import type { CategoryItemProps } from '@/types/Category';
 import type { ListProps } from '@/types/List';
 
-type CategoryProps = CategoryItemProps[];
-
 type MainDataProps = {
   types: ListProps[];
-  categories: CategoryProps;
+  categories: CategoryItemProps[];
 };
 
 const initialState: MainDataProps = {
@@ -21,7 +19,7 @@ const categorySlice = createSlice({
     setTypes: (state, action: PayloadAction<ListProps[]>) => {
       state.types = action.payload;
     },
-    setCategories: (state, action: PayloadAction<CategoryProps>) => {
+    setCategories: (state, action: PayloadAction<CategoryItemProps[]>) => {
       state.categories = action.payload;
     },
     addCategory: (state, action: PayloadAction<CategoryItemProps>) => {
