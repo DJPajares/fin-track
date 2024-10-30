@@ -38,7 +38,7 @@ import CardIcon, { iconMap, type IconProps } from '../shared/CardIcon';
 
 import type { ListProps } from '@/types/List';
 import type { CategoryItemProps } from '@/types/Category';
-import { Trash2 } from 'lucide-react';
+import { Trash2Icon } from 'lucide-react';
 
 type EditCategoryDrawerProps = {
   type?: ListProps;
@@ -174,7 +174,7 @@ const EditCategoryDrawer = ({
           <AlertDialog>
             <AlertDialogTrigger asChild>
               <Button variant="outline" size="icon">
-                <Trash2 className="w-4 h-4" />
+                <Trash2Icon className="w-4 h-4" />
               </Button>
             </AlertDialogTrigger>
 
