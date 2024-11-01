@@ -1,8 +1,7 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import moment from 'moment';
-import { format } from 'date-fns';
 import { useAppDispatch, useAppSelector } from '@/lib/hooks';
 import {
   setDashboardCurrency,
@@ -66,53 +65,46 @@ const initialTransactionPaymentCategory = {
   transactions: []
 };
 
-const initialCurrency = {
-  _id: 'php',
-  name: 'PHP'
-};
-
 const Dashboard = () => {
   const [dashboardData, setDashboardData] =
     useState<DashboardDataResult>(initialDashboardData);
   const [dashboardCategoryData, setDashboardCategoryData] = useState(
     initialTransactionPaymentCategory
   );
-  const [date, setDate] = useState(new Date());
   const [currencies, setCurrencies] = useState<DashboardSelectionItemsProps[]>(
     []
   );
-  const [currency, setCurrency] =
-    useState<DashboardSelectionItemsProps>(initialCurrency);
-  const [isDatePopoverOpen, setIsDatePopoverOpen] = useState(false);
   const [isCurrencyPopoverOpen, setIsCurrencyPopoverOpen] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isTransactionDrawerOpen, setIsTransactionDrawerOpen] = useState(false);
 
   const dispatch = useAppDispatch();
 
-  const dashboard = useAppSelector((state) => state.dashboard);
+  const dateString = useAppSelector((state) => state.dashboard.date);
+  const currency = useAppSelector((state) => state.dashboard.currency);
+
+  const date = useMemo(
+    () => moment(dateString, dateStringFormat).toDate(),
+    [dateString]
+  );
 
   useEffect(() => {
     fetchCurrencyData();
   }, []);
 
   useEffect(() => {
-    setDate(moment(dashboard.date, dateStringFormat).toDate());
-  }, [dashboard]);
-
-  useEffect(() => {
     if (currencies.length > 0) {
-      // store in redux state
-      dispatch(
-        setDashboardCurrency({
-          currency: currencies[0]
-        })
+      const dashboardCurrency = currencies.filter(
+        (thisCurrency) => thisCurrency.name === currency.name
       );
 
-      // store in component state
-      setCurrency(currencies[0]);
+      dispatch(
+        setDashboardCurrency({
+          currency: dashboardCurrency[0]
+        })
+      );
     }
-  }, [currencies]);
+  }, [currencies, currency]);
 
   useEffect(() => {
     const hasCurrency = Object.keys(currency).length > 0;
@@ -127,6 +119,7 @@ const Dashboard = () => {
       date,
       currency
     });
+
     setDashboardData(data);
   };
 
@@ -137,17 +130,11 @@ const Dashboard = () => {
   };
 
   const handleDateSelection = (date: any) => {
-    // store in redux state
     dispatch(
       setDashboardDate({
         date: moment(date).format(dateStringFormat)
       })
     );
-
-    // store in component state
-    setDate(date);
-
-    setIsDatePopoverOpen(false);
   };
 
   const handleCurrencySelection = ({
@@ -161,12 +148,6 @@ const Dashboard = () => {
         currency: selectedCurrency
       })
     );
-
-    // store in component state
-    setCurrency({
-      _id: selectedCurrency._id,
-      name: selectedCurrency.name
-    });
 
     setIsCurrencyPopoverOpen(false);
   };
@@ -184,9 +165,9 @@ const Dashboard = () => {
     <div className="space-y-4 sm:space-y-8">
       <div>
         <div className="pb-2 sm:pb-6">
-          {Object.keys(dashboardData.main).length > 0 ? (
-            <div className="flex flex-row items-center justify-between">
-              {/* CALENDAR */}
+          <div className="flex flex-row items-center justify-between">
+            {/* CALENDAR */}
+            {date ? (
               <DatePicker date={date} onChange={handleDateSelection}>
                 <Button variant="ghost" className="px-0">
                   <p className="text-3xl sm:text-5xl font-extrabold sm:font-black hover:underline hover:bg-background">
@@ -194,29 +175,12 @@ const Dashboard = () => {
                   </p>
                 </Button>
               </DatePicker>
+            ) : (
+              <Skeleton className="h-6 w-20" />
+            )}
 
-              {/* <Popover
-                open={isDatePopoverOpen}
-                onOpenChange={setIsDatePopoverOpen}
-              >
-                <PopoverTrigger asChild>
-                  <Button variant="ghost" className="px-0">
-                    <p className="text-3xl sm:text-5xl font-extrabold sm:font-black hover:underline hover:bg-background">
-                      {format(date, 'MMM yyyy')}
-                    </p>
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent className="w-auto p-0" align="start">
-                  <Calendar
-                    mode="single"
-                    defaultMonth={date}
-                    selected={date}
-                    onSelect={handleDateSelection}
-                  />
-                </PopoverContent>
-              </Popover> */}
-
-              {/* CURRENCY */}
+            {/* CURRENCY */}
+            {currency ? (
               <Popover
                 open={isCurrencyPopoverOpen}
                 onOpenChange={setIsCurrencyPopoverOpen}
@@ -255,55 +219,48 @@ const Dashboard = () => {
                   </Command>
                 </PopoverContent>
               </Popover>
-            </div>
-          ) : (
-            <div className="flex flex-row items-center justify-between">
+            ) : (
               <Skeleton className="h-6 w-20" />
-              <Skeleton className="h-6 w-20" />
-            </div>
-          )}
+            )}
+          </div>
         </div>
 
         <div className="pb-1 sm:pb-2">
-          {Object.keys(dashboardData.main).length > 0 ? (
-            <div className="flex flex-row items-center justify-between">
-              <p className="text-xl sm:text-3xl font-semibold sm:font-bold">
-                Balance
-              </p>
+          <div className="flex flex-row items-center justify-between">
+            <p className="text-xl sm:text-3xl font-semibold sm:font-bold">
+              Balance
+            </p>
+
+            {dashboardData.main.balance ? (
               <p className="text-xl sm:text-3xl font-medium">
                 {formatCurrency({
                   value: dashboardData.main.balance,
                   currency: currency.name
                 })}
               </p>
-            </div>
-          ) : (
-            <div className="flex flex-row items-center justify-between">
+            ) : (
               <Skeleton className="h-6 w-20" />
-              <Skeleton className="h-6 w-20" />
-            </div>
-          )}
+            )}
+          </div>
         </div>
 
         <div>
-          {Object.keys(dashboardData.main).length > 0 ? (
-            <div className="flex flex-row items-center justify-between">
-              <p className="text-base sm:text-lg font-medium sm:font-semibold">
-                Extra
-              </p>
+          <div className="flex flex-row items-center justify-between">
+            <p className="text-base sm:text-lg font-medium sm:font-semibold">
+              Extra
+            </p>
+
+            {dashboardData.main.extra ? (
               <p className="text-base sm:text-lg font-medium sm:font-semibold">
                 {formatCurrency({
                   value: dashboardData.main.extra,
                   currency: currency.name
                 })}
               </p>
-            </div>
-          ) : (
-            <div className="flex flex-row items-center justify-between">
+            ) : (
               <Skeleton className="h-4 w-20" />
-              <Skeleton className="h-4 w-20" />
-            </div>
-          )}
+            )}
+          </div>
         </div>
       </div>
 

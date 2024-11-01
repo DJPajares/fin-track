@@ -19,7 +19,7 @@ const initialState: DashboardProps = {
   date: moment(new Date()).format(dateStringFormat),
   currency: {
     _id: '',
-    name: ''
+    name: 'SGD'
   }
 };
 
