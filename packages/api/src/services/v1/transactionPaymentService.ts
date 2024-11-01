@@ -49,6 +49,10 @@ const fetchTransactionPayments = async (data: FetchTransactionPaymentProps) => {
   const date = new Date(data.date);
   const year = new Date(date).getFullYear();
   const month = new Date(date).getMonth() + 1;
+  const paddedMonth = month.toString().padStart(2, '0');
+  const yearMonth = parseInt(`${year}${paddedMonth}`);
+
+  console.log(yearMonth);
 
   const incomeTransactions = await TransactionModel.aggregate([
     {
@@ -56,10 +60,34 @@ const fetchTransactionPayments = async (data: FetchTransactionPaymentProps) => {
       $match: {
         $expr: {
           $and: [
-            { $lte: [{ $year: '$startDate' }, year] },
-            { $lte: [{ $month: '$startDate' }, month] },
-            { $gte: [{ $year: '$endDate' }, year] },
-            { $gte: [{ $month: '$endDate' }, month] },
+            // { $lte: [{ $year: '$startDate' }, year] },
+            // { $lte: [{ $month: '$startDate' }, month] },
+            // { $gte: [{ $year: '$endDate' }, year] },
+            // { $gte: [{ $month: '$endDate' }, month] },
+            // { $lte: ['$startDate', new Date(data.date)] },
+            // { $gte: ['$endDate', new Date(data.date)] },
+            {
+              $lte: [
+                {
+                  $add: [
+                    { $multiply: [{ $year: '$startDate' }, 100] },
+                    { $month: '$startDate' }
+                  ]
+                },
+                yearMonth
+              ]
+            },
+            {
+              $gte: [
+                {
+                  $add: [
+                    { $multiply: [{ $year: '$endDate' }, 100] },
+                    { $month: '$endDate' }
+                  ]
+                },
+                yearMonth
+              ]
+            },
             {
               $not: {
                 $in: [
@@ -161,10 +189,34 @@ const fetchTransactionPayments = async (data: FetchTransactionPaymentProps) => {
       $match: {
         $expr: {
           $and: [
-            { $lte: [{ $year: '$startDate' }, year] },
-            { $lte: [{ $month: '$startDate' }, month] },
-            { $gte: [{ $year: '$endDate' }, year] },
-            { $gte: [{ $month: '$endDate' }, month] },
+            // { $lte: [{ $year: '$startDate' }, year] },
+            // { $lte: [{ $month: '$startDate' }, month] },
+            // { $gte: [{ $year: '$endDate' }, year] },
+            // { $gte: [{ $month: '$endDate' }, month] },
+            // { $lte: ['$startDate', new Date(data.date)] },
+            // { $gte: ['$endDate', new Date(data.date)] },
+            {
+              $lte: [
+                {
+                  $add: [
+                    { $multiply: [{ $year: '$startDate' }, 100] },
+                    { $month: '$startDate' }
+                  ]
+                },
+                yearMonth
+              ]
+            },
+            {
+              $gte: [
+                {
+                  $add: [
+                    { $multiply: [{ $year: '$endDate' }, 100] },
+                    { $month: '$endDate' }
+                  ]
+                },
+                yearMonth
+              ]
+            },
             {
               $not: {
                 $in: [
