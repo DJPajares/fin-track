@@ -29,7 +29,8 @@ const get = async (_id: PaymentProps['_id']) => {
 
 const update = async (_id: PaymentProps['_id'], data: PaymentProps) => {
   return await PaymentModel.findOneAndUpdate({ _id }, data, {
-    new: true
+    new: true,
+    upsert: true
   }).populate('transaction');
 };
 
@@ -47,7 +48,7 @@ const upsertMany = async (data: PaymentProps[]) => {
       },
       {
         new: true,
-        update: true,
+        upsert: true,
         setDefaultsOnInsert: true
       }
     ).exec();
