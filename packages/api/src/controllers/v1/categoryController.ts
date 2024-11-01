@@ -1,11 +1,8 @@
 import { NextFunction, Request, Response } from 'express';
 import * as categoryService from '../../services/v1/categoryService';
 import { Types } from 'mongoose';
-import type {
-  PaginationProps,
-  QueryParamsProps
-} from '../../types/commonTypes';
-import type { SpecificTypeProps } from '../../types/categoryTypes';
+
+import type { QueryParamsProps } from '../../types/commonTypes';
 
 const create = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -21,7 +18,6 @@ const create = async (req: Request, res: Response, next: NextFunction) => {
 };
 
 const getAll = async (req: Request, res: Response, next: NextFunction) => {
-  console.log('getAll');
   try {
     const query = req.query as unknown as QueryParamsProps;
 

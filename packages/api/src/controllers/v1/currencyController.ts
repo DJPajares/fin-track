@@ -1,7 +1,8 @@
 import { NextFunction, Request, Response } from 'express';
 import * as currencyService from '../../services/v1/currencyService';
-import type { PaginationProps } from '../../types/commonTypes';
 import { Types } from 'mongoose';
+
+import type { QueryParamsProps } from '../../types/commonTypes';
 
 const create = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -18,14 +19,11 @@ const create = async (req: Request, res: Response, next: NextFunction) => {
 
 const getAll = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const query = req.query as unknown as PaginationProps;
+    const query = req.query as unknown as QueryParamsProps;
 
     const result = await currencyService.getAll(query);
 
-    res.status(200).json({
-      success: true,
-      ...result
-    });
+    res.status(200).json(result);
   } catch (error) {
     next(error);
   }
