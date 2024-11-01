@@ -60,7 +60,8 @@ const CategoryDrawer = ({
 }: CategoryDrawerProps) => {
   const dashboard = useAppSelector((state) => state.dashboard);
 
-  const date = moment(dashboard.date, dateStringFormat).toDate();
+  const date = moment.utc(dashboard.date, dateStringFormat);
+
   const currency = dashboard.currency;
 
   const [drawerCategory, setDrawerCategory] = useState(
@@ -153,17 +154,20 @@ const CategoryDrawer = ({
     const postData = transactionArray
       .filter((transaction) => transaction.isUpdated)
       .map((transaction) => ({
+        _id: transaction.paymentId,
         transaction: transaction._id,
         currency: currency._id,
         amount: transaction.paidAmount,
         date
       }));
 
-    const { status } = await axios.post(paymentUrl, postData);
+    // Create or update (upsert) payments
+    const { status } = await axios.put(paymentUrl, postData);
 
+    // Fetch the updated transaction payments
     if (status === 200) {
       const result = await fetchTransactionPayments({
-        date,
+        date: date.toDate(),
         currency: currency.name
       });
 
