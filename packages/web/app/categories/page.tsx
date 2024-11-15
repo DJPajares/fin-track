@@ -7,12 +7,11 @@ import { Tab, Tabs } from '@nextui-org/react';
 import { Separator } from '@/components/ui/separator';
 import { Button } from '@/components/ui/button';
 import CardIcon from '@/components/shared/CardIcon';
-import EditCategoryDrawer from '@/components/categories/EditCategoryDrawer';
+import EditCategoryDrawer from '@/app/categories/EditCategory/EditCategoryDrawer';
 
 import { PlusIcon } from 'lucide-react';
 
 import type { CategoryItemProps } from '@/types/Category';
-import type { ListProps } from '@/types/List';
 
 const baseCategory: CategoryItemProps = {
   _id: '',

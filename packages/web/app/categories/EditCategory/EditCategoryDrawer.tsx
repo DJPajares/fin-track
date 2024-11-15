@@ -12,7 +12,7 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger
-} from '../ui/drawer';
+} from '../../../components/ui/drawer';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -23,10 +23,14 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger
-} from '../ui/alert-dialog';
-import { Input } from '../ui/input';
-import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
-import { Button } from '../ui/button';
+} from '../../../components/ui/alert-dialog';
+import { Input } from '../../../components/ui/input';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger
+} from '../../../components/ui/popover';
+import { Button } from '../../../components/ui/button';
 
 import { useAppDispatch } from '@/lib/hooks';
 import {
@@ -35,11 +39,15 @@ import {
   updateCategory
 } from '@/lib/feature/main/mainDataSlice';
 
-import CardIcon, { iconMap, type IconProps } from '../shared/CardIcon';
+import CardIcon, {
+  iconMap,
+  type IconProps
+} from '../../../components/shared/CardIcon';
+
+import { Trash2Icon } from 'lucide-react';
 
 import type { ListProps } from '@/types/List';
 import type { CategoryItemProps } from '@/types/Category';
-import { Trash2Icon } from 'lucide-react';
 
 type EditCategoryDrawerProps = {
   type?: ListProps;
@@ -66,11 +74,6 @@ const EditCategoryDrawer = ({
   const dispatch = useAppDispatch();
 
   const formRef = useRef<HTMLFormElement>(null);
-
-  // useEffect(() => {
-  //   form.setValue('icon', category.icon);
-  //   form.setValue('name', category.name);
-  // }, [category]);
 
   const categorySchema = z.custom<CategoryItemProps>();
 
