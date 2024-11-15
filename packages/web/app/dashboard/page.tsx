@@ -71,15 +71,13 @@ const Dashboard = () => {
   const [dashboardCategoryData, setDashboardCategoryData] = useState(
     initialTransactionPaymentCategory
   );
-  const [currencies, setCurrencies] = useState<DashboardSelectionItemsProps[]>(
-    []
-  );
   const [isCurrencyPopoverOpen, setIsCurrencyPopoverOpen] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isTransactionDrawerOpen, setIsTransactionDrawerOpen] = useState(false);
 
   const dispatch = useAppDispatch();
 
+  const { currencies } = useAppSelector((state) => state.main);
   const dateString = useAppSelector((state) => state.dashboard.date);
   const currency = useAppSelector((state) => state.dashboard.currency);
 
@@ -87,10 +85,6 @@ const Dashboard = () => {
     () => moment(dateString, dateStringFormat).toDate(),
     [dateString]
   );
-
-  useEffect(() => {
-    fetchCurrencyData();
-  }, []);
 
   useEffect(() => {
     if (currencies.length > 0) {
@@ -121,12 +115,6 @@ const Dashboard = () => {
     });
 
     setDashboardData(data);
-  };
-
-  const fetchCurrencyData = async () => {
-    const data = await fetchCurrencies();
-
-    setCurrencies(data);
   };
 
   const handleDateSelection = (date: Date) => {
