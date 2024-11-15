@@ -37,6 +37,7 @@ const getAll = async (query: QueryParamsProps) => {
   const data = await CategoryModel.find(filterObj)
     .populate('type')
     .sort(sortObj)
+    .collation({ locale: 'en' }) // case insensitive sorting
     .skip(skip)
     .limit(limit);
 
@@ -230,6 +231,7 @@ const getSpecificType = async (id: Types.ObjectId, query: QueryParamsProps) => {
   const data = await CategoryModel.find({ type: id })
     .populate('type')
     .sort(sortObj)
+    .collation({ locale: 'en' }) // case insensitive sorting
     .skip(skip)
     .limit(limit);
 
