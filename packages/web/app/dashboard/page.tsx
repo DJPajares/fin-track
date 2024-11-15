@@ -32,7 +32,6 @@ import CategoryDrawer from '@/app/dashboard/Category/CategoryDrawer';
 import TransactionDrawer from '@/app/dashboard/Transaction/TransactionDrawer';
 
 import fetchTransactionPayments from '@/providers/fetchTransactionPayments';
-import fetchCurrencies from '@/providers/fetchCurrencies';
 import { formatCurrency } from '../../../../shared/utilities/formatCurrency';
 import { dateStringFormat } from '../../../../shared/constants/dateStringFormat';
 
