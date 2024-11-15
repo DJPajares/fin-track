@@ -5,11 +5,13 @@ import type { ListProps } from '@/types/List';
 type MainDataProps = {
   types: ListProps[];
   categories: CategoryItemProps[];
+  currencies: ListProps[];
 };
 
 const initialState: MainDataProps = {
   types: [],
-  categories: []
+  categories: [],
+  currencies: []
 };
 
 const categorySlice = createSlice({
@@ -80,6 +82,9 @@ const categorySlice = createSlice({
       //   ...state.categories,
       //   [type._id]: updatedCategories
       // };
+    },
+    setCurrencies: (state, action: PayloadAction<ListProps[]>) => {
+      state.currencies = action.payload;
     }
   }
 });
@@ -89,6 +94,7 @@ export const {
   setCategories,
   addCategory,
   updateCategory,
-  deleteCategory
+  deleteCategory,
+  setCurrencies
 } = categorySlice.actions;
 export default categorySlice.reducer;

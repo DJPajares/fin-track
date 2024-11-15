@@ -1,11 +1,11 @@
 import axios from 'axios';
-import mockData from '../../../shared/mockData/currencies.json';
+import mockData from '../../../shared/mockData/types.json';
 
-const url = 'http://localhost:3001/api/v1/currencies?sort=name';
+const url = 'http://localhost:3001/api/v1/types?sort=name';
 
 const useMockedData = process.env.NEXT_PUBLIC_USE_MOCKED_DATA === 'true';
 
-const fetchCurrencies = async () => {
+const fetchTypes = async () => {
   try {
     if (useMockedData) {
       return mockData;
@@ -19,4 +19,4 @@ const fetchCurrencies = async () => {
   }
 };
 
-export default fetchCurrencies;
+export default fetchTypes;
