@@ -28,7 +28,7 @@ import { Separator } from '@/components/ui/separator';
 import CategoryContent from './CategoryContent';
 
 import fetchTransactionPayments from '@/providers/fetchTransactionPayments';
-import { dateStringFormat } from '../../../../shared/constants/dateStringFormat';
+import { dateStringFormat } from '../../../../../shared/constants/dateStringFormat';
 
 import type { DashboardDataResult } from '@/types/Dashboard';
 import type {

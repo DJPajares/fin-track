@@ -9,7 +9,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Progress } from '@nextui-org/react';
 import { CheckIcon, HandCoinsIcon } from 'lucide-react';
-import { formatCurrency } from '../../../../shared/utilities/formatCurrency';
+import { formatCurrency } from '../../../../../shared/utilities/formatCurrency';
 
 import type { TransactionPaymentCategoryProps } from '@/types/TransactionPayment';
 

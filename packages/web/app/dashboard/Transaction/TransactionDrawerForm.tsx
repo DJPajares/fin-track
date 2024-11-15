@@ -37,7 +37,7 @@ import { CalendarIcon, CheckIcon, ChevronsUpDownIcon } from 'lucide-react';
 import { MultiSelectBox } from '@/components/shared/MultiSelectBox';
 
 import fetchTransactionPayments from '@/providers/fetchTransactionPayments';
-import { dateStringFormat } from '../../../../shared/constants/dateStringFormat';
+import { dateStringFormat } from '../../../../../shared/constants/dateStringFormat';
 
 import type { DashboardDataResult } from '@/types/Dashboard';
 import type { ListProps } from '@/types/List';

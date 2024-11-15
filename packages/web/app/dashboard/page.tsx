@@ -15,7 +15,6 @@ import {
   PopoverContent,
   PopoverTrigger
 } from '@/components/ui/popover';
-import { Calendar } from '@/components/ui/calendar';
 import {
   Command,
   CommandEmpty,
@@ -25,9 +24,12 @@ import {
   CommandList
 } from '@/components/ui/command';
 import { Skeleton } from '@/components/ui/skeleton';
-import CategoryCard from '@/components/dashboard/CategoryCard';
-import TransactionDrawer from '@/components/dashboard/TransactionDrawer';
-import CategoryDialog from '@/components/dashboard/CategoryDialog';
+import { DatePicker } from '@/components/shared/DatePicker';
+
+// import CategoryDialog from '@/app/dashboard/Category/CategoryDialog';
+import CategoryCard from '@/app/dashboard/Category/CategoryCard';
+import CategoryDrawer from '@/app/dashboard/Category/CategoryDrawer';
+import TransactionDrawer from '@/app/dashboard/Transaction/TransactionDrawer';
 
 import fetchTransactionPayments from '@/providers/fetchTransactionPayments';
 import fetchCurrencies from '@/providers/fetchCurrencies';
@@ -40,8 +42,6 @@ import type {
   DashboardDataCategoryResult,
   DashboardDataResult
 } from '../../types/Dashboard';
-import CategoryDrawer from '@/components/dashboard/CategoryDrawer';
-import { DatePicker } from '@/components/shared/DatePicker';
 
 const initialDashboardData = {
   main: {
