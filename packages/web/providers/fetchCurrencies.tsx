@@ -10,7 +10,7 @@ const fetchCurrencies = async () => {
     if (useMockedData) {
       return currenciesData;
     } else {
-      const { status, data } = await axios.get(`${currenciesUrl}?limit=20`);
+      const { status, data } = await axios.get(currenciesUrl);
 
       if (status === 200) return data.data;
     }
