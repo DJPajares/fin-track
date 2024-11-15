@@ -52,8 +52,6 @@ const fetchTransactionPayments = async (data: FetchTransactionPaymentProps) => {
   const paddedMonth = month.toString().padStart(2, '0');
   const yearMonth = parseInt(`${year}${paddedMonth}`);
 
-  console.log(yearMonth);
-
   const incomeTransactions = await TransactionModel.aggregate([
     {
       // Find transactions within the specified date range and exclude transactions with the specified date (year-month)
