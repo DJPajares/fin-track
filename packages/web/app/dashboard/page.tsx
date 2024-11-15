@@ -129,7 +129,7 @@ const Dashboard = () => {
     setCurrencies(data);
   };
 
-  const handleDateSelection = (date: any) => {
+  const handleDateSelection = (date: Date) => {
     dispatch(
       setDashboardDate({
         date: moment(date).format(dateStringFormat)
