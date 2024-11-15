@@ -24,6 +24,7 @@ import {
   AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
+  AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle
@@ -81,11 +82,7 @@ const CustomDrawer = ({
 
   return (
     <>
-      <Drawer
-        open={isDrawerOpen}
-        onOpenChange={setIsDrawerOpen}
-        shouldScaleBackground
-      >
+      <Drawer open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
         <DrawerContent>
           <div className="mx-auto w-full max-w-lg overflow-y-scroll max-h-screen">
             <DrawerHeader>
@@ -114,6 +111,9 @@ const CustomDrawer = ({
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+            <AlertDialogDescription>
+              This cannot be undone
+            </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>

@@ -9,6 +9,7 @@ import {
   AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
+  AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
@@ -242,7 +243,6 @@ const CategoryDialog = ({
     // <Drawer
     //   open={isDialogOpen}
     //   onOpenChange={setIsDialogOpen}
-    //   shouldScaleBackground
     // >
     //   <DrawerContent>
     //     <div className="mx-auto w-full max-w-lg">
@@ -297,6 +297,7 @@ const CategoryDialog = ({
     //           <AlertDialogContent>
     //             <AlertDialogHeader>
     //               <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+    //               <AlertDialogDescription>This cannot be undone</AlertDialogDescription>
     //             </AlertDialogHeader>
     //             <AlertDialogFooter>
     //               <AlertDialogCancel>Cancel</AlertDialogCancel>

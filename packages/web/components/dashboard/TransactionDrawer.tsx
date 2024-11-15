@@ -6,6 +6,7 @@ import {
   Drawer,
   DrawerClose,
   DrawerContent,
+  DrawerDescription,
   DrawerFooter,
   DrawerHeader,
   DrawerTitle
@@ -17,6 +18,7 @@ import {
   AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
+  AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle
@@ -57,12 +59,12 @@ const TransactionDrawer = ({
       <Drawer
         open={isTransactionDrawerOpen}
         onOpenChange={setIsTransactionDrawerOpen}
-        shouldScaleBackground
       >
         <DrawerContent>
           <div className="mx-auto w-full max-w-lg overflow-y-scroll max-h-screen">
             <DrawerHeader>
               <DrawerTitle>TRANSACTION</DrawerTitle>
+              <DrawerDescription>Add new transactions</DrawerDescription>
             </DrawerHeader>
 
             <Tabs
@@ -105,6 +107,9 @@ const TransactionDrawer = ({
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+            <AlertDialogDescription>
+              This cannot be undone
+            </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>

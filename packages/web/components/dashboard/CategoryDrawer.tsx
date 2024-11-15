@@ -7,6 +7,7 @@ import {
   Drawer,
   DrawerClose,
   DrawerContent,
+  DrawerDescription,
   DrawerFooter,
   DrawerHeader,
   DrawerTitle
@@ -17,6 +18,7 @@ import {
   AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
+  AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
@@ -178,15 +180,12 @@ const CategoryDrawer = ({
   };
 
   return (
-    <Drawer
-      open={isDialogOpen}
-      onOpenChange={setIsDialogOpen}
-      shouldScaleBackground
-    >
+    <Drawer open={isDialogOpen} onOpenChange={setIsDialogOpen}>
       <DrawerContent>
         <div className="mx-auto w-full max-w-lg">
           <DrawerHeader className="my-2">
             <DrawerTitle>{drawerCategory.name}</DrawerTitle>
+            <DrawerDescription>{`Settle ${drawerCategory.name.toLowerCase()} transactions`}</DrawerDescription>
           </DrawerHeader>
 
           <Separator />
@@ -236,6 +235,9 @@ const CategoryDrawer = ({
               <AlertDialogContent>
                 <AlertDialogHeader>
                   <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+                  <AlertDialogDescription>
+                    This cannot be undone
+                  </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
                   <AlertDialogCancel>Cancel</AlertDialogCancel>
