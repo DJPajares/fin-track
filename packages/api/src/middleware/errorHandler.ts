@@ -7,7 +7,6 @@ const validationErrorHandler = (error: any, res: Response) => {
 
   return res.status(400).send({
     type: 'ValidationError',
-    success: false,
     message: errorMessage
   });
 };
@@ -17,7 +16,6 @@ const mongoServerErrorHandler = (error: any, res: Response) => {
 
   return res.status(400).send({
     type: 'MongoServerError',
-    success: false,
     message: `${value} is already used`
   });
 };
@@ -37,15 +35,14 @@ const errorHandler = (
       mongoServerErrorHandler(error, res);
     } else {
       return res.status(500).send({
-        success: false,
         message: error.errmsg
       });
     }
   }
 
   return res.status(500).send({
-    success: false,
-    message: 'Something went wrong'
+    message: 'Something went wrong',
+    error
   });
 };
 
