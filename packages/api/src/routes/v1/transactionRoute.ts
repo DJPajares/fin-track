@@ -2,6 +2,7 @@ import express from 'express';
 import {
   create,
   getAll,
+  getAdvanced,
   get,
   update,
   remove
@@ -12,6 +13,8 @@ const router = express.Router();
 router.post('/', create);
 
 router.get('/', getAll);
+
+router.post('/getAdvanced/', getAdvanced);
 
 router.get('/:id', get);
 
