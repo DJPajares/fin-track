@@ -4,23 +4,17 @@ import mockData from '../../../shared/mockData/transactions.json';
 const useMockedData = process.env.NEXT_PUBLIC_USE_MOCKED_DATA === 'true';
 
 type TransactionProps = {
-  page: string;
-  limit: string;
-  sortField: string;
+  date: Date;
 };
 
-const fetchTransactions = async ({
-  page,
-  limit,
-  sortField
-}: TransactionProps) => {
-  const url = `http://localhost:3001/api/v1/transactions?page=${page}&limit=${limit}&sort=${sortField}`;
+const fetchTransactions = async ({ date }: TransactionProps) => {
+  const url = `http://localhost:3001/api/v1/transactions/getAdvanced/`;
 
   try {
     if (useMockedData) {
       return mockData;
     } else {
-      const { status, data } = await axios.get(url);
+      const { status, data } = await axios.post(url, { date });
 
       if (status === 200) return data.data;
     }
