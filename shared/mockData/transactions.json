@@ -1,453 +1,141 @@
 [
   {
-    "_id": "671f5a694d4c5cc00ea56a62",
-    "name": "Salary",
-    "category": {
-      "_id": "671f0117855aa876c09f12e1",
-      "name": "Paycheck",
-      "type": "671f009d855aa876c09f12db",
-      "createdAt": "2024-10-28T03:12:23.035Z",
-      "updatedAt": "2024-10-28T04:10:03.569Z",
-      "__v": 0,
-      "active": true,
-      "icon": "banknote"
-    },
-    "currency": {
-      "_id": "671f018c855aa876c09f12fb",
-      "name": "SGD",
-      "description": "Singapore Dollar",
-      "createdAt": "2024-10-28T03:14:20.500Z",
-      "updatedAt": "2024-10-28T03:14:20.500Z",
-      "__v": 0
-    },
-    "amount": {
-      "$numberDecimal": "3000"
-    },
-    "description": "Monthly salary",
-    "isRecurring": true,
-    "startDate": "2024-01-01T00:00:00.000Z",
-    "endDate": "2026-01-01T00:00:00.000Z",
-    "excludedDates": [],
-    "createdAt": "2024-10-28T09:33:29.426Z",
-    "updatedAt": "2024-10-28T09:33:29.426Z",
-    "__v": 0
+    "transactions": [
+      {
+        "_id": "6736b5e817d2aa0f77b1b2a2",
+        "name": "SC",
+        "currencyId": "671f018c855aa876c09f12fb",
+        "currencyName": "SGD",
+        "amount": 850,
+        "description": ""
+      }
+    ],
+    "categoryId": "671f0150855aa876c09f12ef",
+    "categoryName": "Credit Card",
+    "typeId": "671f00b4855aa876c09f12dd",
+    "typeName": "Expense"
   },
   {
-    "_id": "671f5ab94d4c5cc00ea56a64",
-    "name": "SG Rent",
-    "category": {
-      "_id": "671f012a855aa876c09f12e3",
-      "name": "Rent",
-      "type": "671f00b4855aa876c09f12dd",
-      "createdAt": "2024-10-28T03:12:42.643Z",
-      "updatedAt": "2024-10-28T04:10:19.034Z",
-      "__v": 0,
-      "active": true,
-      "icon": "bed-double"
-    },
-    "currency": {
-      "_id": "671f018c855aa876c09f12fb",
-      "name": "SGD",
-      "description": "Singapore Dollar",
-      "createdAt": "2024-10-28T03:14:20.500Z",
-      "updatedAt": "2024-10-28T03:14:20.500Z",
-      "__v": 0
-    },
-    "amount": {
-      "$numberDecimal": "1900"
-    },
-    "description": "Master bedroom rental",
-    "startDate": "2024-10-01T00:00:00.000Z",
-    "endDate": "2025-10-01T00:00:00.000Z",
-    "excludedDates": [],
-    "createdAt": "2024-10-28T09:34:49.491Z",
-    "updatedAt": "2024-10-28T09:34:49.491Z",
-    "__v": 0
+    "transactions": [
+      {
+        "_id": "671f5b0f4d4c5cc00ea56a6a",
+        "name": "Meds",
+        "currencyId": "671f01db855aa876c09f12ff",
+        "currencyName": "PHP",
+        "amount": 15500
+      }
+    ],
+    "categoryId": "671f0142855aa876c09f12eb",
+    "categoryName": "Family",
+    "typeId": "671f00b4855aa876c09f12dd",
+    "typeName": "Expense"
   },
   {
-    "_id": "671f5ad04d4c5cc00ea56a66",
-    "name": "Grocery",
-    "category": {
-      "_id": "671f0130855aa876c09f12e5",
-      "name": "Food",
-      "type": "671f00b4855aa876c09f12dd",
-      "createdAt": "2024-10-28T03:12:48.010Z",
-      "updatedAt": "2024-10-28T04:10:32.112Z",
-      "__v": 0,
-      "active": false,
-      "icon": "utensils"
-    },
-    "currency": {
-      "_id": "671f018c855aa876c09f12fb",
-      "name": "SGD",
-      "description": "Singapore Dollar",
-      "createdAt": "2024-10-28T03:14:20.500Z",
-      "updatedAt": "2024-10-28T03:14:20.500Z",
-      "__v": 0
-    },
-    "amount": {
-      "$numberDecimal": "300"
-    },
-    "startDate": "2024-10-01T00:00:00.000Z",
-    "endDate": "2025-10-01T00:00:00.000Z",
-    "excludedDates": [],
-    "createdAt": "2024-10-28T09:35:12.886Z",
-    "updatedAt": "2024-10-28T09:35:12.886Z",
-    "__v": 0
+    "transactions": [
+      {
+        "_id": "671f5ad04d4c5cc00ea56a66",
+        "name": "Grocery",
+        "currencyId": "671f018c855aa876c09f12fb",
+        "currencyName": "SGD",
+        "amount": 300
+      }
+    ],
+    "categoryId": "671f0130855aa876c09f12e5",
+    "categoryName": "Food",
+    "typeId": "671f00b4855aa876c09f12dd",
+    "typeName": "Expense"
   },
   {
-    "_id": "671f5af44d4c5cc00ea56a68",
-    "name": "Netflix",
-    "category": {
-      "_id": "671f013d855aa876c09f12e9",
-      "name": "Subscriptions",
-      "type": "671f00b4855aa876c09f12dd",
-      "createdAt": "2024-10-28T03:13:01.267Z",
-      "updatedAt": "2024-10-28T04:11:11.112Z",
-      "__v": 0,
-      "active": true,
-      "icon": "clapperboard"
-    },
-    "currency": {
-      "_id": "671f018c855aa876c09f12fb",
-      "name": "SGD",
-      "description": "Singapore Dollar",
-      "createdAt": "2024-10-28T03:14:20.500Z",
-      "updatedAt": "2024-10-28T03:14:20.500Z",
-      "__v": 0
-    },
-    "amount": {
-      "$numberDecimal": "20"
-    },
-    "startDate": "2024-10-01T00:00:00.000Z",
-    "endDate": "2025-10-01T00:00:00.000Z",
-    "excludedDates": [],
-    "createdAt": "2024-10-28T09:35:48.970Z",
-    "updatedAt": "2024-10-28T09:35:48.970Z",
-    "__v": 0
+    "transactions": [
+      {
+        "_id": "671f5b4e4d4c5cc00ea56a6e",
+        "name": "Bank financing (Cainta)",
+        "currencyId": "671f01db855aa876c09f12ff",
+        "currencyName": "PHP",
+        "amount": 48000
+      }
+    ],
+    "categoryId": "671f015a855aa876c09f12f1",
+    "categoryName": "Loans",
+    "typeId": "671f00b4855aa876c09f12dd",
+    "typeName": "Expense"
   },
   {
-    "_id": "671f5b0f4d4c5cc00ea56a6a",
-    "name": "Meds",
-    "category": {
-      "_id": "671f0142855aa876c09f12eb",
-      "name": "Family",
-      "type": "671f00b4855aa876c09f12dd",
-      "createdAt": "2024-10-28T03:13:06.240Z",
-      "updatedAt": "2024-10-28T04:06:14.443Z",
-      "__v": 0,
-      "active": true,
-      "icon": "users"
-    },
-    "currency": {
-      "_id": "671f01db855aa876c09f12ff",
-      "name": "PHP",
-      "description": "Philippine Peso",
-      "createdAt": "2024-10-28T03:15:39.527Z",
-      "updatedAt": "2024-10-28T03:15:39.527Z",
-      "__v": 0
-    },
-    "amount": {
-      "$numberDecimal": "15500"
-    },
-    "startDate": "2024-10-01T00:00:00.000Z",
-    "endDate": "2025-10-01T00:00:00.000Z",
-    "excludedDates": [],
-    "createdAt": "2024-10-28T09:36:15.620Z",
-    "updatedAt": "2024-10-28T09:36:15.620Z",
-    "__v": 0
+    "transactions": [
+      {
+        "_id": "671f5a694d4c5cc00ea56a62",
+        "name": "Salary",
+        "currencyId": "671f018c855aa876c09f12fb",
+        "currencyName": "SGD",
+        "amount": 3000,
+        "description": "Monthly salary"
+      }
+    ],
+    "categoryId": "671f0117855aa876c09f12e1",
+    "categoryName": "Paycheck",
+    "typeId": "671f009d855aa876c09f12db",
+    "typeName": "Income"
   },
   {
-    "_id": "671f5b274d4c5cc00ea56a6c",
-    "name": "PUB",
-    "category": {
-      "_id": "671f0149855aa876c09f12ed",
-      "name": "Utilities",
-      "type": "671f00b4855aa876c09f12dd",
-      "createdAt": "2024-10-28T03:13:13.061Z",
-      "updatedAt": "2024-10-28T04:11:32.156Z",
-      "__v": 0,
-      "active": true,
-      "icon": "lightbulb"
-    },
-    "currency": {
-      "_id": "671f018c855aa876c09f12fb",
-      "name": "SGD",
-      "description": "Singapore Dollar",
-      "createdAt": "2024-10-28T03:14:20.500Z",
-      "updatedAt": "2024-10-28T03:14:20.500Z",
-      "__v": 0
-    },
-    "amount": {
-      "$numberDecimal": "100"
-    },
-    "startDate": "2024-10-01T00:00:00.000Z",
-    "endDate": "2025-10-01T00:00:00.000Z",
-    "excludedDates": [],
-    "createdAt": "2024-10-28T09:36:39.217Z",
-    "updatedAt": "2024-10-28T09:36:39.217Z",
-    "__v": 0
+    "transactions": [
+      {
+        "_id": "671f5ab94d4c5cc00ea56a64",
+        "name": "SG Rent",
+        "currencyId": "671f018c855aa876c09f12fb",
+        "currencyName": "SGD",
+        "amount": 1900,
+        "description": "Master bedroom rental"
+      }
+    ],
+    "categoryId": "671f012a855aa876c09f12e3",
+    "categoryName": "Rent",
+    "typeId": "671f00b4855aa876c09f12dd",
+    "typeName": "Expense"
   },
   {
-    "_id": "671f5b4e4d4c5cc00ea56a6e",
-    "name": "Bank financing (Cainta)",
-    "category": {
-      "_id": "671f015a855aa876c09f12f1",
-      "name": "Loans",
-      "type": "671f00b4855aa876c09f12dd",
-      "createdAt": "2024-10-28T03:13:30.957Z",
-      "updatedAt": "2024-10-28T04:12:39.595Z",
-      "__v": 0,
-      "active": true,
-      "icon": "banknote"
-    },
-    "currency": {
-      "_id": "671f01db855aa876c09f12ff",
-      "name": "PHP",
-      "description": "Philippine Peso",
-      "createdAt": "2024-10-28T03:15:39.527Z",
-      "updatedAt": "2024-10-28T03:15:39.527Z",
-      "__v": 0
-    },
-    "amount": {
-      "$numberDecimal": "48000"
-    },
-    "startDate": "2024-10-01T00:00:00.000Z",
-    "endDate": "2025-10-01T00:00:00.000Z",
-    "excludedDates": [],
-    "createdAt": "2024-10-28T09:37:18.515Z",
-    "updatedAt": "2024-10-28T09:37:18.515Z",
-    "__v": 0
+    "transactions": [
+      {
+        "_id": "6735c6d054db24ac7f97eb63",
+        "name": "Savings",
+        "currencyId": "671f018c855aa876c09f12fb",
+        "currencyName": "SGD",
+        "amount": 2000,
+        "description": ""
+      }
+    ],
+    "categoryId": "671f0163855aa876c09f12f3",
+    "categoryName": "Savings",
+    "typeId": "671f00b4855aa876c09f12dd",
+    "typeName": "Expense"
   },
   {
-    "_id": "6724a17554db24ac7f97ea81",
-    "name": "TEST",
-    "category": {
-      "_id": "671f016f855aa876c09f12f7",
-      "name": "Debts",
-      "type": "671f00b4855aa876c09f12dd",
-      "createdAt": "2024-10-28T03:13:51.722Z",
-      "updatedAt": "2024-10-28T04:14:01.932Z",
-      "__v": 0,
-      "active": true,
-      "icon": "banknote"
-    },
-    "currency": {
-      "_id": "671f018c855aa876c09f12fb",
-      "name": "SGD",
-      "description": "Singapore Dollar",
-      "createdAt": "2024-10-28T03:14:20.500Z",
-      "updatedAt": "2024-10-28T03:14:20.500Z",
-      "__v": 0
-    },
-    "amount": {
-      "$numberDecimal": "1000"
-    },
-    "description": "",
-    "isRecurring": false,
-    "startDate": "2024-11-01T09:37:40.429Z",
-    "endDate": "2024-11-01T09:37:40.429Z",
-    "excludedDates": [],
-    "createdAt": "2024-11-01T09:37:57.854Z",
-    "updatedAt": "2024-11-01T09:37:57.854Z",
-    "__v": 0
+    "transactions": [
+      {
+        "_id": "671f5af44d4c5cc00ea56a68",
+        "name": "Netflix",
+        "currencyId": "671f018c855aa876c09f12fb",
+        "currencyName": "SGD",
+        "amount": 20
+      }
+    ],
+    "categoryId": "671f013d855aa876c09f12e9",
+    "categoryName": "Subscriptions",
+    "typeId": "671f00b4855aa876c09f12dd",
+    "typeName": "Expense"
   },
   {
-    "_id": "6724a22d54db24ac7f97eaa1",
-    "name": "Common room #2 deposit",
-    "category": {
-      "_id": "671f016f855aa876c09f12f7",
-      "name": "Debts",
-      "type": "671f00b4855aa876c09f12dd",
-      "createdAt": "2024-10-28T03:13:51.722Z",
-      "updatedAt": "2024-10-28T04:14:01.932Z",
-      "__v": 0,
-      "active": true,
-      "icon": "banknote"
-    },
-    "currency": {
-      "_id": "671f018c855aa876c09f12fb",
-      "name": "SGD",
-      "description": "Singapore Dollar",
-      "createdAt": "2024-10-28T03:14:20.500Z",
-      "updatedAt": "2024-10-28T03:14:20.500Z",
-      "__v": 0
-    },
-    "amount": {
-      "$numberDecimal": "1270"
-    },
-    "description": "",
-    "isRecurring": false,
-    "startDate": "2025-02-28T16:00:00.000Z",
-    "endDate": "2025-02-28T16:00:00.000Z",
-    "excludedDates": [],
-    "createdAt": "2024-11-01T09:41:01.104Z",
-    "updatedAt": "2024-11-01T09:41:01.104Z",
-    "__v": 0
-  },
-  {
-    "_id": "6735c6d054db24ac7f97eb63",
-    "name": "Savings",
-    "category": {
-      "_id": "671f0163855aa876c09f12f3",
-      "name": "Savings",
-      "type": "671f00b4855aa876c09f12dd",
-      "createdAt": "2024-10-28T03:13:39.812Z",
-      "updatedAt": "2024-10-28T04:13:19.546Z",
-      "__v": 0,
-      "active": true,
-      "icon": "banknote"
-    },
-    "currency": {
-      "_id": "671f018c855aa876c09f12fb",
-      "name": "SGD",
-      "description": "Singapore Dollar",
-      "createdAt": "2024-10-28T03:14:20.500Z",
-      "updatedAt": "2024-10-28T03:14:20.500Z",
-      "__v": 0
-    },
-    "amount": {
-      "$numberDecimal": "2000"
-    },
-    "description": "",
-    "isRecurring": true,
-    "startDate": "2024-10-31T16:00:00.000Z",
-    "endDate": "2025-12-30T16:00:00.000Z",
-    "excludedDates": [],
-    "createdAt": "2024-11-14T09:45:52.673Z",
-    "updatedAt": "2024-11-14T09:45:52.673Z",
-    "__v": 0
-  },
-  {
-    "_id": "6736b5e817d2aa0f77b1b2a2",
-    "name": "SC",
-    "category": {
-      "_id": "671f0150855aa876c09f12ef",
-      "name": "Credit Card",
-      "type": "671f00b4855aa876c09f12dd",
-      "createdAt": "2024-10-28T03:13:20.631Z",
-      "updatedAt": "2024-10-28T04:12:03.727Z",
-      "__v": 0,
-      "active": true,
-      "icon": "credit-card"
-    },
-    "currency": {
-      "_id": "671f018c855aa876c09f12fb",
-      "name": "SGD",
-      "description": "Singapore Dollar",
-      "createdAt": "2024-10-28T03:14:20.500Z",
-      "updatedAt": "2024-10-28T03:14:20.500Z",
-      "__v": 0
-    },
-    "amount": {
-      "$numberDecimal": "850"
-    },
-    "description": "",
-    "isRecurring": false,
-    "startDate": "2024-12-03T16:00:00.000Z",
-    "endDate": "2024-12-03T16:00:00.000Z",
-    "excludedDates": [],
-    "createdAt": "2024-11-15T02:46:00.235Z",
-    "updatedAt": "2024-11-15T02:46:00.235Z",
-    "__v": 0
-  },
-  {
-    "_id": "6736b64017d2aa0f77b1b2b5",
-    "name": "Charlotte",
-    "category": {
-      "_id": "671f016f855aa876c09f12f7",
-      "name": "Debts",
-      "type": "671f00b4855aa876c09f12dd",
-      "createdAt": "2024-10-28T03:13:51.722Z",
-      "updatedAt": "2024-10-28T04:14:01.932Z",
-      "__v": 0,
-      "active": true,
-      "icon": "banknote"
-    },
-    "currency": {
-      "_id": "671f01db855aa876c09f12ff",
-      "name": "PHP",
-      "description": "Philippine Peso",
-      "createdAt": "2024-10-28T03:15:39.527Z",
-      "updatedAt": "2024-10-28T03:15:39.527Z",
-      "__v": 0
-    },
-    "amount": {
-      "$numberDecimal": "25000"
-    },
-    "description": "",
-    "isRecurring": false,
-    "startDate": "2024-11-15T02:47:13.171Z",
-    "endDate": "2024-11-15T02:47:13.171Z",
-    "excludedDates": [],
-    "createdAt": "2024-11-15T02:47:28.548Z",
-    "updatedAt": "2024-11-15T02:47:28.548Z",
-    "__v": 0
-  },
-  {
-    "_id": "6736ffce965215c93c83b360",
-    "name": "Ma",
-    "category": {
-      "_id": "671f0163855aa876c09f12f3",
-      "name": "Savings",
-      "type": "671f00b4855aa876c09f12dd",
-      "createdAt": "2024-10-28T03:13:39.812Z",
-      "updatedAt": "2024-10-28T04:13:19.546Z",
-      "__v": 0,
-      "active": true,
-      "icon": "banknote"
-    },
-    "currency": {
-      "_id": "671f018c855aa876c09f12fb",
-      "name": "SGD",
-      "description": "Singapore Dollar",
-      "createdAt": "2024-10-28T03:14:20.500Z",
-      "updatedAt": "2024-10-28T03:14:20.500Z",
-      "__v": 0
-    },
-    "amount": {
-      "$numberDecimal": "200"
-    },
-    "description": "",
-    "isRecurring": false,
-    "startDate": "2024-11-15T08:01:06.181Z",
-    "endDate": "2024-11-15T08:01:06.181Z",
-    "excludedDates": [],
-    "createdAt": "2024-11-15T08:01:18.776Z",
-    "updatedAt": "2024-11-15T08:01:18.776Z",
-    "__v": 0
-  },
-  {
-    "_id": "6736ffdd965215c93c83b365",
-    "name": "Pa",
-    "category": {
-      "_id": "671f0163855aa876c09f12f3",
-      "name": "Savings",
-      "type": "671f00b4855aa876c09f12dd",
-      "createdAt": "2024-10-28T03:13:39.812Z",
-      "updatedAt": "2024-10-28T04:13:19.546Z",
-      "__v": 0,
-      "active": true,
-      "icon": "banknote"
-    },
-    "currency": {
-      "_id": "671f018c855aa876c09f12fb",
-      "name": "SGD",
-      "description": "Singapore Dollar",
-      "createdAt": "2024-10-28T03:14:20.500Z",
-      "updatedAt": "2024-10-28T03:14:20.500Z",
-      "__v": 0
-    },
-    "amount": {
-      "$numberDecimal": "200"
-    },
-    "description": "",
-    "isRecurring": false,
-    "startDate": "2024-11-15T08:01:26.507Z",
-    "endDate": "2024-11-15T08:01:26.507Z",
-    "excludedDates": [],
-    "createdAt": "2024-11-15T08:01:33.990Z",
-    "updatedAt": "2024-11-15T08:01:33.990Z",
-    "__v": 0
+    "transactions": [
+      {
+        "_id": "671f5b274d4c5cc00ea56a6c",
+        "name": "PUB",
+        "currencyId": "671f018c855aa876c09f12fb",
+        "currencyName": "SGD",
+        "amount": 100
+      }
+    ],
+    "categoryId": "671f0149855aa876c09f12ed",
+    "categoryName": "Utilities",
+    "typeId": "671f00b4855aa876c09f12dd",
+    "typeName": "Expense"
   }
 ]
