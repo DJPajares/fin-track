@@ -53,7 +53,10 @@ const Transactions = () => {
 
           {transactionCategory.transactions.map((transaction) => (
             <div key={transaction._id}>
-              <EditTransactionDrawer transaction={transaction}>
+              <EditTransactionDrawer
+                transaction={transaction}
+                fetchTransactions={fetchTransactionsData}
+              >
                 <Card>
                   <CardHeader>
                     <p className="text-sm truncate hover:text-clip">

@@ -25,6 +25,8 @@ import {
 } from '@/components/ui/drawer';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { z } from 'zod';
+import updateTransaction from '@/providers/updateTransaction';
 
 type EditTransactionDrawerProps = {
   transaction: {
@@ -35,25 +37,41 @@ type EditTransactionDrawerProps = {
     amount: number;
     description: string;
   };
+  fetchTransactions: () => void;
   children: ReactNode;
 };
 
 const EditTransactionDrawer = ({
   transaction,
+  fetchTransactions,
   children
 }: EditTransactionDrawerProps) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const formRef = useRef<HTMLFormElement>(null);
 
-  const form = useForm({
+  const formSchema = z.object({
+    name: z.string(),
+    amount: z.number()
+  });
+
+  type FormDataProps = z.infer<typeof formSchema>;
+
+  const form = useForm<FormDataProps>({
     defaultValues: {
       name: transaction.name,
       amount: transaction.amount
     }
   });
 
-  const onSubmit = () => {};
+  const onSubmit = (data: FormDataProps) => {
+    updateTransaction({
+      id: transaction._id,
+      data
+    });
+
+    fetchTransactions();
+  };
 
   const handleConfirmSubmit = () => {
     if (formRef.current) formRef.current.requestSubmit();
@@ -82,7 +100,7 @@ const EditTransactionDrawer = ({
             render={({ field }) => (
               <div className="space-y-1">
                 <Label className="font-semibold">Name</Label>
-                <Input defaultValue={field.value} />
+                <Input defaultValue={field.value} onChange={field.onChange} />
               </div>
             )}
           />
@@ -95,7 +113,7 @@ const EditTransactionDrawer = ({
                 <Label className="font-semibold">Amount</Label>
 
                 <div className="flex flex-row items-center">
-                  <Input defaultValue={field.value} />
+                  <Input defaultValue={field.value} onChange={field.onChange} />
                 </div>
               </div>
             )}
