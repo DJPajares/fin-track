@@ -6,6 +6,7 @@ import { Label } from '@/components/ui/label';
 import fetchTransactions from '@/providers/fetchTransactions';
 
 import { formatCurrency } from '../../../../shared/utilities/formatCurrency';
+import EditTransactionDrawer from './EditTransaction/EditTransactionDrawer';
 
 type TransactionProps = {
   transactions: [
@@ -41,40 +42,45 @@ const Transactions = () => {
 
   return (
     <div className="space-y-2">
-      {transactions.map((category) => (
-        <div key={category.categoryId} className="space-y-2">
-          <Label className="text-lg font-bold" key={category.categoryId}>
-            {category.categoryName}
+      {transactions.map((transactionCategory) => (
+        <div key={transactionCategory.categoryId} className="space-y-2">
+          <Label
+            className="text-lg font-bold"
+            key={transactionCategory.categoryId}
+          >
+            {transactionCategory.categoryName}
           </Label>
 
-          {category.transactions.map((transaction) => (
+          {transactionCategory.transactions.map((transaction) => (
             <div key={transaction._id}>
-              <Card>
-                <CardHeader>
-                  <p className="text-sm truncate hover:text-clip">
-                    {transaction.name}
-                  </p>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-2">
-                    <div className="flex flex-row justify-between items-center">
-                      <p className="text-lg font-bold">
-                        {formatCurrency({
-                          value: transaction.amount,
-                          currency: transaction.currencyName,
-                          decimal: 2
-                        })}
-                      </p>
-
-                      <p>{`(${transaction.currencyName})`}</p>
-                    </div>
-
-                    <p className="italic text-slate-500 dark:text-slate-400">
-                      {transaction.description}
+              <EditTransactionDrawer transaction={transaction}>
+                <Card>
+                  <CardHeader>
+                    <p className="text-sm truncate hover:text-clip">
+                      {transaction.name}
                     </p>
-                  </div>
-                </CardContent>
-              </Card>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-2">
+                      <div className="flex flex-row justify-between items-center">
+                        <p className="text-lg font-bold">
+                          {formatCurrency({
+                            value: transaction.amount,
+                            currency: transaction.currencyName,
+                            decimal: 2
+                          })}
+                        </p>
+
+                        <p>{`(${transaction.currencyName})`}</p>
+                      </div>
+
+                      <p className="italic text-slate-500 dark:text-slate-400">
+                        {transaction.description}
+                      </p>
+                    </div>
+                  </CardContent>
+                </Card>
+              </EditTransactionDrawer>
             </div>
           ))}
         </div>
