@@ -1,28 +1,27 @@
 'use client';
 
-import { Card, CardContent, CardHeader } from '@/components/ui/card';
-import fetchTransactions from '@/providers/fetchTransactions';
 import { useEffect, useState } from 'react';
+import { Card, CardContent, CardHeader } from '@/components/ui/card';
+import { Label } from '@/components/ui/label';
+import fetchTransactions from '@/providers/fetchTransactions';
+
+import { formatCurrency } from '../../../../shared/utilities/formatCurrency';
 
 type TransactionProps = {
-  _id: string;
-  name: string;
-  category: {
-    _id: string;
-    name: string;
-    type: string;
-    active: boolean;
-    icon: string;
-  };
-  currency: {
-    _id: string;
-    name: string;
-    description: string;
-  };
-  amount: any;
-  startDate: string;
-  endDate: string;
-  excludedDates: any[];
+  transactions: [
+    {
+      _id: string;
+      name: string;
+      currencyId: string;
+      currencyName: string;
+      amount: number;
+      description: string;
+    }
+  ];
+  categoryId: string;
+  categoryName: string;
+  typeId: string;
+  typeName: string;
 };
 
 const Transactions = () => {
@@ -33,24 +32,52 @@ const Transactions = () => {
   }, []);
 
   const fetchTransactionsData = async () => {
-    const result = await fetchTransactions({
-      page: '1',
-      limit: '0',
-      sortField: 'name'
-    });
+    const date = new Date();
+
+    const result = await fetchTransactions({ date });
 
     setTransactions(result);
   };
 
   return (
-    <div>
-      {transactions.map((transaction) => (
-        <Card key={transaction._id}>
-          <CardHeader>{transaction.name}</CardHeader>
-          <CardContent>
-            {/* <p>{transaction.amount.$numberDecimal}</p> */}
-          </CardContent>
-        </Card>
+    <div className="space-y-2">
+      {transactions.map((category) => (
+        <div key={category.categoryId} className="space-y-2">
+          <Label className="text-lg font-bold" key={category.categoryId}>
+            {category.categoryName}
+          </Label>
+
+          {category.transactions.map((transaction) => (
+            <div key={transaction._id}>
+              <Card>
+                <CardHeader>
+                  <p className="text-sm truncate hover:text-clip">
+                    {transaction.name}
+                  </p>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-2">
+                    <div className="flex flex-row justify-between items-center">
+                      <p className="text-lg font-bold">
+                        {formatCurrency({
+                          value: transaction.amount,
+                          currency: transaction.currencyName,
+                          decimal: 2
+                        })}
+                      </p>
+
+                      <p>{`(${transaction.currencyName})`}</p>
+                    </div>
+
+                    <p className="italic text-slate-500 dark:text-slate-400">
+                      {transaction.description}
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          ))}
+        </div>
       ))}
     </div>
   );
