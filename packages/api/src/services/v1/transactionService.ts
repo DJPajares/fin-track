@@ -1,16 +1,14 @@
-import { CategoryModel } from '../../models/v1/categoryModel';
-import { CurrencyModel } from '../../models/v1/currencyModel';
 import {
   TransactionModel,
   TransactionProps
 } from '../../models/v1/transactionModel';
-import { TypeModel } from '../../models/v1/typeModel';
-import type { QueryParamsProps } from '../../types/commonTypes';
 import createPagination from '../../utilities/createPagination';
+
+import type { QueryParamsProps } from '../../types/commonTypes';
 
 type FetchTransactionPaymentProps = {
   date: Date;
-  currency: string;
+  type: string;
 };
 
 const create = async (data: TransactionProps) => {
@@ -91,75 +89,7 @@ const getAdvanced = async (
   const paddedMonth = month.toString().padStart(2, '0');
   const yearMonth = parseInt(`${year}${paddedMonth}`);
 
-  // const transactions = await TransactionModel.aggregate([
-  //   {
-  //     $match: {
-  //       $expr: {
-  //         $and: [
-  //           {
-  //             $lte: [
-  //               {
-  //                 $add: [
-  //                   { $multiply: [{ $year: '$startDate' }, 100] },
-  //                   { $month: '$startDate' }
-  //                 ]
-  //               },
-  //               yearMonth
-  //             ]
-  //           },
-  //           {
-  //             $gte: [
-  //               {
-  //                 $add: [
-  //                   { $multiply: [{ $year: '$endDate' }, 100] },
-  //                   { $month: '$endDate' }
-  //                 ]
-  //               },
-  //               yearMonth
-  //             ]
-  //           },
-  //           {
-  //             $not: {
-  //               $in: [
-  //                 month,
-  //                 {
-  //                   $map: {
-  //                     input: '$excludedDates',
-  //                     as: 'date',
-  //                     in: { $month: '$$date' }
-  //                   }
-  //                 }
-  //               ]
-  //             }
-  //           },
-  //           {
-  //             $not: {
-  //               $in: [
-  //                 year,
-  //                 {
-  //                   $map: {
-  //                     input: '$excludedDates',
-  //                     as: 'date',
-  //                     in: { $year: '$$date' }
-  //                   }
-  //                 }
-  //               ]
-  //             }
-  //           }
-  //         ]
-  //       }
-  //     }
-  //   },
-  //   { $sort: { name: 1 } }
-  // ]);
-
-  // const categories = await CategoryModel.populate(transactions, {
-  //   path: 'category'
-  // });
-
-  // const output = await CurrencyModel.populate(categories, {
-  //   path: 'currency'
-  // });
+  const type = data.type;
 
   const output = await TransactionModel.aggregate([
     {
@@ -226,10 +156,10 @@ const getAdvanced = async (
         from: 'categories',
         localField: 'category',
         foreignField: '_id',
-        as: 'categoryDetails'
+        as: 'category'
       }
     },
-    { $unwind: '$categoryDetails' },
+    { $unwind: '$category' },
 
     // Lookup to populate currency
     {
@@ -237,21 +167,27 @@ const getAdvanced = async (
         from: 'currencies',
         localField: 'currency',
         foreignField: '_id',
-        as: 'currencyDetails'
+        as: 'currency'
       }
     },
-    { $unwind: '$currencyDetails' },
+    { $unwind: '$currency' },
 
     // Lookup to populate type from category
     {
       $lookup: {
         from: 'types',
-        localField: 'categoryDetails.type',
+        localField: 'category.type',
         foreignField: '_id',
-        as: 'typeDetails'
+        as: 'type'
       }
     },
-    { $unwind: '$typeDetails' },
+    { $unwind: '$type' },
+    {
+      // Filter transactions where the category type is passed in body
+      $match: {
+        'type.name': type
+      }
+    },
 
     // Add a sort stage before grouping transactions
     {
@@ -264,22 +200,19 @@ const getAdvanced = async (
     {
       $group: {
         _id: {
-          categoryId: '$categoryDetails._id',
-          categoryName: '$categoryDetails.name',
-          typeId: '$typeDetails._id',
-          typeName: '$typeDetails.name'
+          categoryId: '$category._id',
+          categoryName: '$category.name',
+          typeId: '$type._id',
+          typeName: '$type.name'
         },
         transactions: {
           $push: {
             _id: '$_id',
             name: '$name',
-            currencyId: '$currencyDetails._id',
-            currencyName: '$currencyDetails.name',
+            currencyId: '$currency._id',
+            currencyName: '$currency.name',
             amount: { $toDouble: '$amount' },
             description: '$description'
-            // startDate: '$startDate',
-            // endDate: '$endDate',
-            // excludedDates: '$excludedDates'
           }
         }
       }
