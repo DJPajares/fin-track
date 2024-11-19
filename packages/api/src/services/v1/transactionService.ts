@@ -4,8 +4,9 @@ import {
 } from '../../models/v1/transactionModel';
 import createPagination from '../../utilities/createPagination';
 
-import type { QueryParamsProps } from '../../types/commonTypes';
+import { Types } from 'mongoose';
 
+import type { QueryParamsProps } from '../../types/commonTypes';
 type FetchTransactionPaymentProps = {
   date: Date;
   type: string;
@@ -89,7 +90,8 @@ const getAdvanced = async (
   const paddedMonth = month.toString().padStart(2, '0');
   const yearMonth = parseInt(`${year}${paddedMonth}`);
 
-  const type = data.type;
+  // const type = data.type;
+  const type = new Types.ObjectId(data.type);
 
   const output = await TransactionModel.aggregate([
     {
@@ -185,7 +187,7 @@ const getAdvanced = async (
     {
       // Filter transactions where the category type is passed in body
       $match: {
-        'type.name': type
+        'type._id': type
       }
     },
 
