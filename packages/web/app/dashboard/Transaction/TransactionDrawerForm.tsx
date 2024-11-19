@@ -102,7 +102,7 @@ const formSchema = z.object({
   //   .optional()
 });
 
-const transactionsUrl = 'http://localhost:3001/api/v1/transactions';
+const transactionsUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/transactions`;
 
 const TransactionDrawerForm = ({
   type,

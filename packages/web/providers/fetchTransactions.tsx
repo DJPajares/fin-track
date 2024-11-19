@@ -9,7 +9,7 @@ type TransactionProps = {
 };
 
 const fetchTransactions = async ({ type, date }: TransactionProps) => {
-  const url = `http://localhost:3001/api/v1/transactions/getAdvanced/`;
+  const url = `${process.env.NEXT_PUBLIC_BASE_URL}/transactions/getAdvanced/`;
 
   try {
     if (useMockedData) {

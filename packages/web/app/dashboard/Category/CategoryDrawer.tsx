@@ -43,7 +43,7 @@ type CategoryDrawerProps = {
   setIsDialogOpen: Dispatch<SetStateAction<boolean>>;
 };
 
-const paymentUrl = 'http://localhost:3001/api/v1/payments';
+const paymentUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/payments`;
 
 const initialTransactionPaymentCategory: TransactionPaymentCategoryProps = {
   _id: '',

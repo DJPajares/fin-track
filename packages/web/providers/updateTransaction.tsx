@@ -9,7 +9,7 @@ type UpdateTransactionProps = {
 };
 
 const updateTransaction = async ({ id, data }: UpdateTransactionProps) => {
-  const url = `http://localhost:3001/api/v1/transactions/${id}`;
+  const url = `${process.env.NEXT_PUBLIC_BASE_URL}/transactions/${id}`;
 
   const result = await axios.put(url, data);
 };

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import mockData from '../../../shared/mockData/currencies.json';
 
-const url = 'http://localhost:3001/api/v1/currencies?sort=name';
+const url = `${process.env.NEXT_PUBLIC_BASE_URL}/currencies?sort=name`;
 
 const useMockedData = process.env.NEXT_PUBLIC_USE_MOCKED_DATA === 'true';
 

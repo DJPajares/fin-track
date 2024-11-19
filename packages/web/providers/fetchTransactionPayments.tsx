@@ -4,8 +4,7 @@ import type { DashboardDataProps } from '@/types/Dashboard';
 
 const useMockedData = process.env.NEXT_PUBLIC_USE_MOCKED_DATA === 'true';
 
-const transactionPaymentsUrl =
-  'http://localhost:3001/api/v1/transactionPayments';
+const transactionPaymentsUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/transactionPayments`;
 
 const fetchTransactionPayments = async ({
   date,
