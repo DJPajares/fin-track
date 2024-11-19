@@ -2,19 +2,19 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import type { CategoryItemProps } from '@/types/Category';
 import type { ListProps } from '@/types/List';
 
-type MainDataProps = {
-  types: ListProps[];
-  categories: CategoryItemProps[];
-  currencies: ListProps[];
-};
-
-const initialState: MainDataProps = {
+const initialState: MainSliceProps = {
   types: [],
   categories: [],
   currencies: []
 };
 
-const categorySlice = createSlice({
+type MainSliceProps = {
+  types: ListProps[];
+  categories: CategoryItemProps[];
+  currencies: ListProps[];
+};
+
+const mainSlice = createSlice({
   name: 'main',
   initialState,
   reducers: {
@@ -96,5 +96,6 @@ export const {
   updateCategory,
   deleteCategory,
   setCurrencies
-} = categorySlice.actions;
-export default categorySlice.reducer;
+} = mainSlice.actions;
+
+export default mainSlice.reducer;

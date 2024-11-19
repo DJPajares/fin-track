@@ -37,7 +37,7 @@ import {
   addCategory,
   deleteCategory,
   updateCategory
-} from '@/lib/feature/main/mainDataSlice';
+} from '@/lib/feature/main/mainSlice';
 
 import CardIcon, {
   iconMap,

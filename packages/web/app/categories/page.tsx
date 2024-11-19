@@ -1,7 +1,7 @@
 'use client';
 
 import { useAppDispatch, useAppSelector } from '@/lib/hooks';
-import { updateCategory } from '@/lib/feature/main/mainDataSlice';
+import { updateCategory } from '@/lib/feature/main/mainSlice';
 
 import { Tab, Tabs } from '@nextui-org/react';
 import { Separator } from '@/components/ui/separator';

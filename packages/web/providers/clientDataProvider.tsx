@@ -5,7 +5,7 @@ import {
   setCategories,
   setCurrencies,
   setTypes
-} from '@/lib/feature/main/mainDataSlice';
+} from '@/lib/feature/main/mainSlice';
 import { useAppDispatch } from '@/lib/hooks';
 
 import fetchTypes from './fetchTypes';
