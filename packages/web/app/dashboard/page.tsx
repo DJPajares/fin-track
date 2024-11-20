@@ -41,6 +41,9 @@ import type {
   DashboardDataCategoryResult,
   DashboardDataResult
 } from '../../types/Dashboard';
+import { Card, CardContent } from '@/components/ui/card';
+import { Separator } from '@/components/ui/separator';
+import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
 
 const initialDashboardData = {
   main: {
@@ -70,6 +73,7 @@ const Dashboard = () => {
   const [dashboardCategoryData, setDashboardCategoryData] = useState(
     initialTransactionPaymentCategory
   );
+  const [stateDate, setStateDate] = useState(new Date());
   const [isCurrencyPopoverOpen, setIsCurrencyPopoverOpen] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isTransactionDrawerOpen, setIsTransactionDrawerOpen] = useState(false);
@@ -106,6 +110,10 @@ const Dashboard = () => {
       fetchDashboardData({ date, currency: currency.name });
     }
   }, [date, currency]);
+
+  useEffect(() => {
+    handleDateSelection(stateDate);
+  }, [stateDate]);
 
   const fetchDashboardData = async ({ date, currency }: DashboardDataProps) => {
     const data = await fetchTransactionPayments({
@@ -148,109 +156,86 @@ const Dashboard = () => {
     setIsTransactionDrawerOpen(true);
   };
 
+  const handlePrevMonth = () => {
+    const newDate = moment(date).add(-1, 'months');
+
+    setStateDate(moment(newDate).toDate());
+  };
+
+  const handleNextMonth = () => {
+    const newDate = moment(date).add(1, 'months');
+
+    setStateDate(moment(newDate).toDate());
+  };
+
   return (
     <div className="space-y-4 sm:space-y-8">
-      <div>
-        <div className="pb-2 sm:pb-6">
-          <div className="flex flex-row items-center justify-between">
-            {/* CALENDAR */}
-            {date ? (
-              <DatePicker date={date} onChange={handleDateSelection}>
-                <Button variant="ghost" className="px-0">
-                  <p className="text-3xl sm:text-5xl font-extrabold sm:font-black hover:underline hover:bg-background">
-                    {moment(date).format('MMM yyyy')}
-                  </p>
-                </Button>
-              </DatePicker>
-            ) : (
-              <Skeleton className="h-6 w-20" />
-            )}
+      {/* CALENDAR */}
+      <div className="flex flex-row justify-center items-center">
+        <Button variant="ghost" size="icon" onClick={handlePrevMonth}>
+          <ChevronLeftIcon className="h-4 w-4" />
+        </Button>
 
-            {/* CURRENCY */}
-            {currency ? (
-              <Popover
-                open={isCurrencyPopoverOpen}
-                onOpenChange={setIsCurrencyPopoverOpen}
-              >
-                <PopoverTrigger asChild>
-                  <Button variant="ghost" className="px-0">
-                    <p className="text-3xl sm:text-5xl font-extrabold sm:font-black hover:underline hover:bg-background0">
-                      {currency.name}
-                    </p>
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent className="w-[200px] p-0">
-                  <Command>
-                    <CommandInput
-                      placeholder="Search currency..."
-                      className="h-9"
-                    />
-                    <CommandEmpty>No currencies found</CommandEmpty>
-                    <CommandGroup>
-                      <CommandList>
-                        {currencies.map((currency) => (
-                          <CommandItem
-                            key={currency._id}
-                            value={currency.name}
-                            onSelect={() =>
-                              handleCurrencySelection({
-                                selectedCurrency: currency
-                              })
-                            }
-                          >
-                            {currency.name}
-                          </CommandItem>
-                        ))}
-                      </CommandList>
-                    </CommandGroup>
-                  </Command>
-                </PopoverContent>
-              </Popover>
-            ) : (
-              <Skeleton className="h-6 w-20" />
-            )}
-          </div>
-        </div>
-
-        <div className="pb-1 sm:pb-2">
-          <div className="flex flex-row items-center justify-between">
-            <p className="text-xl sm:text-3xl font-semibold sm:font-bold">
-              Balance
+        <DatePicker date={stateDate} onChange={setStateDate}>
+          <Button variant="ghost" className="px-0">
+            <p className="text-3xl sm:text-5xl font-extrabold sm:font-black hover:underline hover:bg-background">
+              {moment(stateDate).format('MMM yyyy')}
             </p>
+          </Button>
+        </DatePicker>
 
-            {dashboardData.main.balance ? (
-              <p className="text-xl sm:text-3xl font-medium">
-                {formatCurrency({
-                  value: dashboardData.main.balance,
-                  currency: currency.name
-                })}
-              </p>
-            ) : (
-              <Skeleton className="h-6 w-20" />
-            )}
-          </div>
-        </div>
-
-        <div>
-          <div className="flex flex-row items-center justify-between">
-            <p className="text-base sm:text-lg font-medium sm:font-semibold">
-              Extra
-            </p>
-
-            {dashboardData.main.extra ? (
-              <p className="text-base sm:text-lg font-medium sm:font-semibold">
-                {formatCurrency({
-                  value: dashboardData.main.extra,
-                  currency: currency.name
-                })}
-              </p>
-            ) : (
-              <Skeleton className="h-4 w-20" />
-            )}
-          </div>
-        </div>
+        <Button variant="ghost" size="icon" onClick={handleNextMonth}>
+          <ChevronRightIcon className="h-4 w-4" />
+        </Button>
       </div>
 
+      {/* CURRENCY */}
+      <div className="flex flex-row justify-center items-center">
+        {currency ? (
+          <Popover
+            open={isCurrencyPopoverOpen}
+            onOpenChange={setIsCurrencyPopoverOpen}
+          >
+            <PopoverTrigger asChild>
+              <Button variant="ghost" className="px-0">
+                <p className="text-lg sm:text-2xl font-semibold sm:font-bold hover:underline hover:bg-background0">
+                  {currency.name}
+                </p>
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-[200px] p-0">
+              <Command>
+                <CommandInput
+                  placeholder="Search currency..."
+                  className="h-9"
+                />
+                <CommandEmpty>No currencies found</CommandEmpty>
+                <CommandGroup>
+                  <CommandList>
+                    {currencies.map((currency) => (
+                      <CommandItem
+                        key={currency._id}
+                        value={currency.name}
+                        onSelect={() =>
+                          handleCurrencySelection({
+                            selectedCurrency: currency
+                          })
+                        }
+                      >
+                        {currency.name}
+                      </CommandItem>
+                    ))}
+                  </CommandList>
+                </CommandGroup>
+              </Command>
+            </PopoverContent>
+          </Popover>
+        ) : (
+          <Skeleton className="h-6 w-20" />
+        )}
+      </div>
+
+      {/* PROGRESS BAR */}
       <div className="flex flex-col items-center">
         {Object.keys(dashboardData.main).length > 0 ? (
           <CircularProgress
@@ -273,6 +258,42 @@ const Dashboard = () => {
         )}
       </div>
 
+      {/* BALANCE CARD */}
+      <Card className="p-4 space-y-2">
+        <div className="flex flex-row items-center justify-between">
+          <p className="text-xl sm:text-3xl font-bold sm:font-black">Balance</p>
+
+          {dashboardData.main.balance ? (
+            <p className="text-xl sm:text-3xl font-bold sm:font-black">
+              {formatCurrency({
+                value: dashboardData.main.balance,
+                currency: currency.name
+              })}
+            </p>
+          ) : (
+            <Skeleton className="h-6 w-20" />
+          )}
+        </div>
+
+        <div className="flex flex-row items-center justify-between">
+          <p className="text-base sm:text-lg font-medium sm:font-semibold">
+            Extra
+          </p>
+
+          {dashboardData.main.extra ? (
+            <p className="text-base sm:text-lg font-medium sm:font-semibold">
+              {formatCurrency({
+                value: dashboardData.main.extra,
+                currency: currency.name
+              })}
+            </p>
+          ) : (
+            <Skeleton className="h-4 w-20" />
+          )}
+        </div>
+      </Card>
+
+      {/* CATEGORY CARD */}
       <ScrollShadow className="max-h-50vh" hideScrollBar>
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-5 sm:gap-10 items-start justify-center">
           {dashboardData.categories.map(
@@ -289,6 +310,7 @@ const Dashboard = () => {
         </div>
       </ScrollShadow>
 
+      {/* TRANSACTION BUTTON */}
       <Button
         variant="outline"
         className="w-full my-4"
@@ -297,6 +319,7 @@ const Dashboard = () => {
         Add Transaction
       </Button>
 
+      {/* HIDDEN DRAWERS */}
       <CategoryDrawer
         category={dashboardCategoryData}
         setDashboardData={setDashboardData}
