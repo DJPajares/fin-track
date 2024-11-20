@@ -43,8 +43,13 @@ const Categories = () => {
       <Tabs
         variant="bordered"
         radius="full"
-        color="secondary"
+        size="lg"
+        color="primary"
         className="flex flex-col items-center"
+        classNames={{
+          tabContent:
+            'group-data-[selected=true]:text-primary-foreground text-sm font-bold uppercase'
+        }}
       >
         {types.map((type) => (
           <Tab key={type._id.toString()} title={type.name}>
