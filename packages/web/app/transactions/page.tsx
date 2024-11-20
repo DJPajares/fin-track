@@ -11,6 +11,15 @@ import { useAppSelector } from '@/lib/hooks';
 import fetchTransactions from '@/providers/fetchTransactions';
 
 import { formatCurrency } from '../../../../shared/utilities/formatCurrency';
+import { DatePicker } from '@/components/shared/DatePicker';
+import { Button } from '@/components/ui/button';
+import moment from 'moment';
+import {
+  AlignLeftIcon,
+  ArrowLeftIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon
+} from 'lucide-react';
 
 type TransactionProps = {
   _id: string;
@@ -36,6 +45,7 @@ type PaginationProps = {
 const Transactions = () => {
   const { types } = useAppSelector((state) => state.main);
 
+  const [date, setDate] = useState<Date>(new Date());
   const [transactions, setTransactions] = useState<TransactionProps[]>([]);
   const [pagination, setPagination] = useState<PaginationProps>({
     limit: 0,
@@ -50,15 +60,19 @@ const Transactions = () => {
     setCurrentPage(1);
 
     fetchTransactionsData();
-  }, [tabType]);
+  }, [date, tabType]);
+
+  // useEffect(() => {
+  //   setCurrentPage(1);
+
+  //   fetchTransactionsData();
+  // }, [tabType]);
 
   useEffect(() => {
     fetchTransactionsData();
   }, [currentPage]);
 
   const fetchTransactionsData = async () => {
-    const date = new Date();
-
     if (tabType) {
       const result = await fetchTransactions({
         type: tabType,
@@ -72,8 +86,38 @@ const Transactions = () => {
     }
   };
 
+  const handlePrevMonth = () => {
+    const newDate = moment(date).add(-1, 'months');
+
+    setDate(moment(newDate).toDate());
+  };
+
+  const handleNextMonth = () => {
+    const newDate = moment(date).add(1, 'months');
+
+    setDate(moment(newDate).toDate());
+  };
+
   return (
-    <div className="space-y-4 sm:space-y-8">
+    <div className="space-y-8 sm:space-y-12">
+      <div className="flex flex-row justify-center items-center">
+        <Button variant="ghost" size="icon" onClick={handlePrevMonth}>
+          <ChevronLeftIcon className="h-4 w-4" />
+        </Button>
+
+        <DatePicker date={date} onChange={setDate}>
+          <Button variant="ghost" className="px-0">
+            <p className="text-3xl sm:text-5xl font-extrabold sm:font-black hover:underline hover:bg-background">
+              {moment(date).format('MMM yyyy')}
+            </p>
+          </Button>
+        </DatePicker>
+
+        <Button variant="ghost" size="icon" onClick={handleNextMonth}>
+          <ChevronRightIcon className="h-4 w-4" />
+        </Button>
+      </div>
+
       <Tabs
         variant="bordered"
         radius="full"
