@@ -24,7 +24,10 @@ import {
   CommandList
 } from '@/components/ui/command';
 import { Skeleton } from '@/components/ui/skeleton';
+import { Card } from '@/components/ui/card';
 import { DatePicker } from '@/components/shared/DatePicker';
+
+import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
 
 // import CategoryDialog from '@/app/dashboard/Category/CategoryDialog';
 import CategoryCard from '@/app/dashboard/Category/CategoryCard';
@@ -41,9 +44,6 @@ import type {
   DashboardDataCategoryResult,
   DashboardDataResult
 } from '../../types/Dashboard';
-import { Card, CardContent } from '@/components/ui/card';
-import { Separator } from '@/components/ui/separator';
-import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
 
 const initialDashboardData = {
   main: {
@@ -190,7 +190,7 @@ const Dashboard = () => {
       </div>
 
       {/* CURRENCY */}
-      <div className="flex flex-row justify-center items-center">
+      {/* <div className="flex flex-row justify-center items-center">
         {currency ? (
           <Popover
             open={isCurrencyPopoverOpen}
@@ -233,7 +233,7 @@ const Dashboard = () => {
         ) : (
           <Skeleton className="h-6 w-20" />
         )}
-      </div>
+      </div> */}
 
       {/* PROGRESS BAR */}
       <div className="flex flex-col items-center">
