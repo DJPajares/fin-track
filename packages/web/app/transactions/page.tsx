@@ -106,14 +106,14 @@ const Transactions = () => {
                           {<CardIcon icon={transaction.categoryIcon} />}
                         </div>
 
-                        <h1 className="text-lg font-bold sm:text-xl sm:font-bold">
+                        <p className="text-lg font-semibold sm:text-xl sm:font-bold">
                           {transaction.name}
-                        </h1>
+                        </p>
                       </CardHeader>
                       <CardContent>
                         <div className="space-y-2">
-                          <div className="flex flex-row justify-between items-center">
-                            <p className="text-lg font-bold">
+                          <div className="flex flex-row justify-end items-center space-x-1">
+                            <p className="text-lg font-semibold sm:text-xl sm:font-bold">
                               {formatCurrency({
                                 value: transaction.amount,
                                 currency: transaction.currencyName,
@@ -121,7 +121,7 @@ const Transactions = () => {
                               })}
                             </p>
 
-                            <p>{`(${transaction.currencyName})`}</p>
+                            <p className="text-xs font-extralight">{`(${transaction.currencyName})`}</p>
                           </div>
 
                           <p className="italic text-slate-500 dark:text-slate-400">
