@@ -6,10 +6,17 @@ const useMockedData = process.env.NEXT_PUBLIC_USE_MOCKED_DATA === 'true';
 type TransactionProps = {
   type: string;
   date: Date;
+  page?: number;
+  limit?: number;
 };
 
-const fetchTransactions = async ({ type, date }: TransactionProps) => {
-  const url = `${process.env.NEXT_PUBLIC_BASE_URL}/transactions/getAdvanced/`;
+const fetchTransactions = async ({
+  type,
+  date,
+  page = 1,
+  limit = 5
+}: TransactionProps) => {
+  const url = `${process.env.NEXT_PUBLIC_BASE_URL}/transactions/getAdvanced?page=${page}&limit=${limit}`;
 
   try {
     if (useMockedData) {
