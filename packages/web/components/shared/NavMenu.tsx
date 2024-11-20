@@ -16,28 +16,7 @@ import {
 import { MoonIcon, SunIcon } from 'lucide-react';
 import { useTheme } from 'next-themes';
 
-const menuItems = [
-  {
-    name: 'Home',
-    route: '/'
-  },
-  {
-    name: 'Dashboard',
-    route: '/dashboard'
-  },
-  {
-    name: 'Transactions',
-    route: '/transactions'
-  },
-  {
-    name: 'Categories',
-    route: '/categories'
-  },
-  {
-    name: 'Logout',
-    route: '/logout'
-  }
-];
+import { MENU_ITEMS } from '../../../../shared/constants/menuItems';
 
 const NavMenu = () => {
   const { theme, setTheme } = useTheme();
@@ -81,7 +60,7 @@ const NavMenu = () => {
         />
       </NavbarContent>
       <NavbarMenu>
-        {menuItems.map((item, index) => (
+        {MENU_ITEMS.map((item, index) => (
           <NavbarMenuItem key={`${item.name}-${index}`}>
             <Link href={item.route} onClick={() => setIsMenuOpen(false)}>
               {item.name}
