@@ -266,7 +266,6 @@ const Dashboard = () => {
                 100 || 0
             }
             strokeWidth={3}
-            color="success"
             showValueLabel={true}
           />
         ) : (
