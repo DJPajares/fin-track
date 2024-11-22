@@ -24,7 +24,7 @@ export default function RootLayout({
             vaul-drawer-wrapper=""
           >
             <NavBar>
-              <div className="p-6 sm:p-8">{children}</div>
+              <div className="py-2 px-6 sm:px-8">{children}</div>
             </NavBar>
           </main>
         </Providers>
