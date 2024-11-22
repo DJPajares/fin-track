@@ -28,6 +28,10 @@ import {
 import { Switch } from '../ui/switch';
 
 import packageInfo from '@/package.json';
+import { languages, LocaleProps } from '@/i18n/config';
+import { setUserLocale } from '@/services/locale';
+
+import { useLocale, useTranslations } from 'next-intl';
 
 type NavDropdownMenuProps = {
   children: ReactNode;
@@ -36,11 +40,13 @@ type NavDropdownMenuProps = {
 const NavDropdownMenu = ({ children }: NavDropdownMenuProps) => {
   const { theme, setTheme } = useTheme();
 
+  const locale = useLocale();
+
   const [isDarkMode, setIsDarkMode] = useState(theme === 'dark');
 
-  // const handleChangeLanguage = (language: LocaleProps) => {
-  //   setUserLocale(language);
-  // };
+  const handleChangeLanguage = (language: LocaleProps) => {
+    setUserLocale(language);
+  };
 
   const handleDarkModeToggle = () => {
     setTheme(isDarkMode ? 'light' : 'dark');
@@ -75,7 +81,7 @@ const NavDropdownMenu = ({ children }: NavDropdownMenuProps) => {
             </DropdownMenuSubTrigger>
             <DropdownMenuPortal>
               <DropdownMenuSubContent>
-                {/* {languages.map((language) => (
+                {languages.map((language) => (
                   <DropdownMenuCheckboxItem
                     key={language.value}
                     checked={locale === language.value}
@@ -83,7 +89,7 @@ const NavDropdownMenu = ({ children }: NavDropdownMenuProps) => {
                   >
                     {language.label}
                   </DropdownMenuCheckboxItem>
-                ))} */}
+                ))}
               </DropdownMenuSubContent>
             </DropdownMenuPortal>
           </DropdownMenuSub>
