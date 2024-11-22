@@ -1,8 +1,13 @@
 'use client';
 
 import { ReactNode, useEffect, useState } from 'react';
+import { useIsMobile } from '@/hooks/use-mobile';
+
+import { Avatar } from '@nextui-org/react';
 import { SidebarInset, SidebarProvider, SidebarTrigger } from '../ui/sidebar';
+
 import SideNav from './SideNav';
+import NavDropdownMenu from './NavDropdownMenu';
 
 type NavBarProps = {
   children: ReactNode;
@@ -10,6 +15,8 @@ type NavBarProps = {
 
 const NavBar = ({ children }: NavBarProps) => {
   const [isVisible, setIsVisible] = useState(true);
+
+  const isMobile = useIsMobile();
 
   let lastScroll = 0;
 
@@ -42,10 +49,26 @@ const NavBar = ({ children }: NavBarProps) => {
             isVisible ? 'translate-y-0' : '-translate-y-full'
           }`}
         >
-          {/* <nav className="nav sticky top-0 z-50 h-12 sm:h-16 bg-background/85 backdrop-blur-sm flex items-center justify-between p-3"> */}
           <SidebarTrigger className="-ml-1" />
 
-          <p className="font-bold text-inherit">FIN-TRACK</p>
+          {/* <p className="font-bold text-inherit">FIN-TRACK</p> */}
+
+          <NavDropdownMenu>
+            {isMobile ? (
+              <Avatar
+                src="https://i.pravatar.cc/150?u=a04258114e29026708c"
+                className="w-6 h-6 text-tiny hover:border-primary"
+                isBordered
+              />
+            ) : (
+              <Avatar
+                src="https://i.pravatar.cc/150?u=a04258114e29026708c"
+                size="sm"
+                className="cursor-pointer hover:border-primary"
+                isBordered
+              />
+            )}
+          </NavDropdownMenu>
         </nav>
 
         <div>{children}</div>
