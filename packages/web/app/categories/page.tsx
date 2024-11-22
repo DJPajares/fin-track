@@ -12,6 +12,7 @@ import EditCategoryDrawer from '@/app/categories/EditCategory/EditCategoryDrawer
 import { PlusIcon } from 'lucide-react';
 
 import type { CategoryItemProps } from '@/types/Category';
+import { useTranslations } from 'next-intl';
 
 const baseCategory: CategoryItemProps = {
   _id: '',
@@ -25,9 +26,10 @@ const baseCategory: CategoryItemProps = {
 };
 
 const Categories = () => {
-  const { types, categories } = useAppSelector((state) => state.main);
-
+  const t = useTranslations('Page.categories');
   const dispatch = useAppDispatch();
+
+  const { types, categories } = useAppSelector((state) => state.main);
 
   const handleAddSuggestedCategory = (category: CategoryItemProps) => {
     dispatch(
@@ -56,7 +58,9 @@ const Categories = () => {
             <div className="space-y-4">
               <div className="space-y-1">
                 <div className="flex flex-row items-center justify-between">
-                  <h6 className="font-semibold text-lg">CATEGORIES</h6>
+                  <h6 className="font-semibold text-lg">
+                    {t('titleCategories').toLocaleUpperCase()}
+                  </h6>
 
                   <EditCategoryDrawer
                     type={type}
@@ -98,7 +102,9 @@ const Categories = () => {
               </div>
 
               <div className="space-y-1">
-                <h6 className="font-semibold text-lg">SUGGESTIONS</h6>
+                <h6 className="font-semibold text-lg">
+                  {t('titleSuggestions').toLocaleUpperCase()}
+                </h6>
 
                 <div className="bg-secondary rounded-lg">
                   {categories

@@ -44,6 +44,7 @@ import type {
   DashboardDataCategoryResult,
   DashboardDataResult
 } from '../../types/Dashboard';
+import { useTranslations } from 'next-intl';
 
 const initialDashboardData = {
   main: {
@@ -78,6 +79,7 @@ const Dashboard = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isTransactionDrawerOpen, setIsTransactionDrawerOpen] = useState(false);
 
+  const t = useTranslations('Page.dashboard');
   const dispatch = useAppDispatch();
 
   const { currencies } = useAppSelector((state) => state.main);
@@ -261,7 +263,9 @@ const Dashboard = () => {
       {/* BALANCE CARD */}
       <Card className="p-4 space-y-2">
         <div className="flex flex-row items-center justify-between">
-          <p className="text-xl sm:text-3xl font-bold sm:font-black">Balance</p>
+          <p className="text-xl sm:text-3xl font-bold sm:font-black">
+            {t('balance')}
+          </p>
 
           {dashboardData.main.balance ? (
             <p className="text-xl sm:text-3xl font-bold sm:font-black">
@@ -277,7 +281,7 @@ const Dashboard = () => {
 
         <div className="flex flex-row items-center justify-between">
           <p className="text-base sm:text-lg font-medium sm:font-semibold">
-            Extra
+            {t('extra')}
           </p>
 
           {dashboardData.main.extra ? (
@@ -316,7 +320,7 @@ const Dashboard = () => {
         className="w-full my-4"
         onClick={handleAddTransactionButton}
       >
-        Add Transaction
+        {t('transactionButton')}
       </Button>
 
       {/* HIDDEN DRAWERS */}
