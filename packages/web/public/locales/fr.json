@@ -24,6 +24,7 @@
     "dashboard": {
       "balance": "Solde",
       "extra": "Supplémentaire",
+      "completed": "Terminé",
       "transactionButton": "Ajouter une Transaction"
     },
     "categories": {

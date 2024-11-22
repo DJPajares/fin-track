@@ -24,6 +24,7 @@
     "dashboard": {
       "balance": "Kontostand",
       "extra": "Extra",
+      "completed": "Abgeschlossen",
       "transactionButton": "Transaktion hinzufügen"
     },
     "categories": {

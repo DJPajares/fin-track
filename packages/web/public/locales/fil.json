@@ -24,6 +24,7 @@
     "dashboard": {
       "balance": "Balanse",
       "extra": "Dagdag",
+      "completed": "Tapos",
       "transactionButton": "Magdagdag ng Transaksyon"
     },
     "categories": {

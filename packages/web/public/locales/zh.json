@@ -24,6 +24,7 @@
     "dashboard": {
       "balance": "余额",
       "extra": "额外",
+      "completed": "已完成",
       "transactionButton": "添加交易"
     },
     "categories": {

@@ -24,6 +24,7 @@
     "dashboard": {
       "balance": "Balance",
       "extra": "Extra",
+      "completed": "Completed",
       "transactionButton": "Add Transaction"
     },
     "categories": {

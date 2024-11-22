@@ -187,7 +187,7 @@ const Dashboard = () => {
               value: 'text-3xl sm:text-6xl font-semibold',
               indicator: 'stroke-primary'
             }}
-            label="Completed"
+            label={t('completed')}
             value={
               (dashboardData.main.totalPaidAmount /
                 dashboardData.main.totalAmount) *
