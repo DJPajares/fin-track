@@ -27,7 +27,7 @@ const SideNav = () => {
     <Sidebar collapsible="icon">
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>Application</SidebarGroupLabel>
+          <SidebarGroupLabel>FIN-TRACK</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {MENU_ITEMS.map((item) => (

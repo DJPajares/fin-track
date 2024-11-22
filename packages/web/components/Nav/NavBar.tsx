@@ -8,6 +8,7 @@ import { SidebarInset, SidebarProvider, SidebarTrigger } from '../ui/sidebar';
 
 import SideNav from './SideNav';
 import NavDropdownMenu from './NavDropdownMenu';
+import Link from 'next/link';
 
 type NavBarProps = {
   children: ReactNode;
@@ -51,7 +52,9 @@ const NavBar = ({ children }: NavBarProps) => {
         >
           <SidebarTrigger className="-ml-1" />
 
-          <p className="font-bold text-inherit">FIN-TRACK</p>
+          <Link href="/">
+            <p className="font-bold text-inherit">FIN-TRACK</p>
+          </Link>
 
           <NavDropdownMenu>
             {isMobile ? (
