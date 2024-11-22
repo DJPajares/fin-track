@@ -1,8 +1,7 @@
 import axios from 'axios';
 import mockData from '../../../shared/mockData/types.json';
 
-// const url = `${process.env.NEXT_PUBLIC_BASE_URL}/types?sort=name`;
-const url = `${process.env.NEXT_PUBLIC_BASE_URL}/types`;
+const url = `${process.env.NEXT_PUBLIC_BASE_URL}/types?sort=name`;
 
 const useMockedData = process.env.NEXT_PUBLIC_USE_MOCKED_DATA === 'true';
 
