@@ -53,6 +53,7 @@ const NavDropdownMenu = ({ children }: NavDropdownMenuProps) => {
   const [isDarkMode, setIsDarkMode] = useState(theme === 'dark');
 
   const { currencies } = useAppSelector((state) => state.main);
+  const dashboardCurrency = useAppSelector((state) => state.dashboard.currency);
 
   const handleLanguageChange = (language: LocaleProps) => {
     setUserLocale(language);
@@ -123,7 +124,7 @@ const NavDropdownMenu = ({ children }: NavDropdownMenuProps) => {
                 {currencies.map((currency) => (
                   <DropdownMenuCheckboxItem
                     key={currency._id}
-                    checked={locale === currency._id}
+                    checked={dashboardCurrency === currency}
                     onClick={() => handleCurrencyChange(currency)}
                   >
                     {currency.name}
