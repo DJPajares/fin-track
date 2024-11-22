@@ -14,12 +14,7 @@ import { formatCurrency } from '../../../../shared/utilities/formatCurrency';
 import { DatePicker } from '@/components/shared/DatePicker';
 import { Button } from '@/components/ui/button';
 import moment from 'moment';
-import {
-  AlignLeftIcon,
-  ArrowLeftIcon,
-  ChevronLeftIcon,
-  ChevronRightIcon
-} from 'lucide-react';
+import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
 
 type TransactionProps = {
   _id: string;
@@ -134,8 +129,20 @@ const Transactions = () => {
         {types.map((type) => (
           <Tab key={type._id.toString()} title={type.name}>
             <div className="space-y-2">
+              <div className="flex flex-col items-center">
+                <Pagination
+                  variant="light"
+                  color="primary"
+                  total={pagination.totalPages}
+                  page={currentPage}
+                  initialPage={1}
+                  onChange={setCurrentPage}
+                  showControls
+                />
+              </div>
+
               {transactions.map((transaction) => (
-                <div key={transaction._id}>
+                <div key={transaction._id} className="space-y-2">
                   <EditTransactionDrawer
                     transaction={transaction}
                     fetchTransactions={fetchTransactionsData}
@@ -156,7 +163,7 @@ const Transactions = () => {
                       </CardHeader>
                       <CardContent>
                         <div className="space-y-2">
-                          <div className="flex flex-row justify-end items-center space-x-1">
+                          <div className="flex flex-col items-end">
                             <p className="text-lg font-semibold sm:text-xl sm:font-bold">
                               {formatCurrency({
                                 value: transaction.amount,
@@ -181,18 +188,6 @@ const Transactions = () => {
           </Tab>
         ))}
       </Tabs>
-
-      <div className="flex flex-col items-center">
-        <Pagination
-          variant="light"
-          color="primary"
-          total={pagination.totalPages}
-          page={currentPage}
-          initialPage={1}
-          onChange={setCurrentPage}
-          showControls
-        />
-      </div>
     </div>
   );
 };
