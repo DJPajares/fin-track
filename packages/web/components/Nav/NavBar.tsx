@@ -51,7 +51,7 @@ const NavBar = ({ children }: NavBarProps) => {
         >
           <SidebarTrigger className="-ml-1" />
 
-          {/* <p className="font-bold text-inherit">FIN-TRACK</p> */}
+          <p className="font-bold text-inherit">FIN-TRACK</p>
 
           <NavDropdownMenu>
             {isMobile ? (
