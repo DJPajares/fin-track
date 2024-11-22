@@ -1,141 +1,36 @@
-[
-  {
-    "transactions": [
-      {
-        "_id": "6736b5e817d2aa0f77b1b2a2",
-        "name": "SC",
-        "currencyId": "671f018c855aa876c09f12fb",
-        "currencyName": "SGD",
-        "amount": 850,
-        "description": ""
-      }
-    ],
-    "categoryId": "671f0150855aa876c09f12ef",
-    "categoryName": "Credit Card",
-    "typeId": "671f00b4855aa876c09f12dd",
-    "typeName": "Expense"
-  },
-  {
-    "transactions": [
-      {
-        "_id": "671f5b0f4d4c5cc00ea56a6a",
-        "name": "Meds",
-        "currencyId": "671f01db855aa876c09f12ff",
-        "currencyName": "PHP",
-        "amount": 15500
-      }
-    ],
-    "categoryId": "671f0142855aa876c09f12eb",
-    "categoryName": "Family",
-    "typeId": "671f00b4855aa876c09f12dd",
-    "typeName": "Expense"
-  },
-  {
-    "transactions": [
-      {
-        "_id": "671f5ad04d4c5cc00ea56a66",
-        "name": "Grocery",
-        "currencyId": "671f018c855aa876c09f12fb",
-        "currencyName": "SGD",
-        "amount": 300
-      }
-    ],
-    "categoryId": "671f0130855aa876c09f12e5",
-    "categoryName": "Food",
-    "typeId": "671f00b4855aa876c09f12dd",
-    "typeName": "Expense"
-  },
-  {
-    "transactions": [
-      {
-        "_id": "671f5b4e4d4c5cc00ea56a6e",
-        "name": "Bank financing (Cainta)",
-        "currencyId": "671f01db855aa876c09f12ff",
-        "currencyName": "PHP",
-        "amount": 48000
-      }
-    ],
-    "categoryId": "671f015a855aa876c09f12f1",
-    "categoryName": "Loans",
-    "typeId": "671f00b4855aa876c09f12dd",
-    "typeName": "Expense"
-  },
-  {
-    "transactions": [
-      {
-        "_id": "671f5a694d4c5cc00ea56a62",
-        "name": "Salary",
-        "currencyId": "671f018c855aa876c09f12fb",
-        "currencyName": "SGD",
-        "amount": 3000,
-        "description": "Monthly salary"
-      }
-    ],
-    "categoryId": "671f0117855aa876c09f12e1",
-    "categoryName": "Paycheck",
-    "typeId": "671f009d855aa876c09f12db",
-    "typeName": "Income"
-  },
-  {
-    "transactions": [
-      {
-        "_id": "671f5ab94d4c5cc00ea56a64",
-        "name": "SG Rent",
-        "currencyId": "671f018c855aa876c09f12fb",
-        "currencyName": "SGD",
-        "amount": 1900,
-        "description": "Master bedroom rental"
-      }
-    ],
-    "categoryId": "671f012a855aa876c09f12e3",
-    "categoryName": "Rent",
-    "typeId": "671f00b4855aa876c09f12dd",
-    "typeName": "Expense"
-  },
-  {
-    "transactions": [
-      {
-        "_id": "6735c6d054db24ac7f97eb63",
-        "name": "Savings",
-        "currencyId": "671f018c855aa876c09f12fb",
-        "currencyName": "SGD",
-        "amount": 2000,
-        "description": ""
-      }
-    ],
-    "categoryId": "671f0163855aa876c09f12f3",
-    "categoryName": "Savings",
-    "typeId": "671f00b4855aa876c09f12dd",
-    "typeName": "Expense"
-  },
-  {
-    "transactions": [
-      {
-        "_id": "671f5af44d4c5cc00ea56a68",
-        "name": "Netflix",
-        "currencyId": "671f018c855aa876c09f12fb",
-        "currencyName": "SGD",
-        "amount": 20
-      }
-    ],
-    "categoryId": "671f013d855aa876c09f12e9",
-    "categoryName": "Subscriptions",
-    "typeId": "671f00b4855aa876c09f12dd",
-    "typeName": "Expense"
-  },
-  {
-    "transactions": [
-      {
-        "_id": "671f5b274d4c5cc00ea56a6c",
-        "name": "PUB",
-        "currencyId": "671f018c855aa876c09f12fb",
-        "currencyName": "SGD",
-        "amount": 100
-      }
-    ],
-    "categoryId": "671f0149855aa876c09f12ed",
-    "categoryName": "Utilities",
-    "typeId": "671f00b4855aa876c09f12dd",
-    "typeName": "Expense"
+{
+  "data": [
+    {
+      "_id": "673eaa1c12224a2b44d1911b",
+      "name": "Master bedroom (Singapore)",
+      "typeId": "660d73af8a4a6723c905bd0c",
+      "typeName": "Expense",
+      "categoryId": "673ea65e12224a2b44d1909b",
+      "categoryName": "Rent",
+      "categoryIcon": "bed-double",
+      "currencyId": "6610b4910fcd1af34036ad93",
+      "currencyName": "SGD",
+      "amount": 1900,
+      "description": ""
+    },
+    {
+      "_id": "673eaa3912224a2b44d19120",
+      "name": "Netflix",
+      "typeId": "660d73af8a4a6723c905bd0c",
+      "typeName": "Expense",
+      "categoryId": "673ea6c212224a2b44d190a7",
+      "categoryName": "Subscription",
+      "categoryIcon": "clapperboard",
+      "currencyId": "6610b4910fcd1af34036ad93",
+      "currencyName": "SGD",
+      "amount": 20,
+      "description": ""
+    }
+  ],
+  "pagination": {
+    "limit": 3,
+    "currentPage": 1,
+    "totalPages": 1,
+    "totalDocuments": 2
   }
-]
+}
