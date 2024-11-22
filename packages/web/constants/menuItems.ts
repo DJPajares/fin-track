@@ -3,8 +3,7 @@ import {
   GaugeIcon,
   HandCoinsIcon,
   HouseIcon,
-  Layers3Icon,
-  LogOutIcon
+  Layers3Icon
 } from 'lucide-react';
 
 export const MENU_ITEMS = [
@@ -37,11 +36,5 @@ export const MENU_ITEMS = [
     label: 'Categories',
     route: '/categories',
     icon: Layers3Icon
-  },
-  {
-    value: 'logout',
-    label: 'Logout',
-    route: '/logout',
-    icon: LogOutIcon
   }
 ];
