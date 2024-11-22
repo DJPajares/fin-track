@@ -1,0 +1,33 @@
+{
+  "MetaData": {
+    "description": "由 create next app 生成"
+  },
+  "Menu": {
+    "home": "主页",
+    "dashboard": "仪表盘",
+    "charts": "图表",
+    "transactions": "交易",
+    "categories": "类别"
+  },
+  "MenuDropdown": {
+    "editProfile": "编辑资料",
+    "language": "语言",
+    "darkMode": "深色模式",
+    "logout": "登出"
+  },
+  "Page": {
+    "home": {
+      "greetings": "欢迎",
+      "dashboardButton": "前往仪表盘"
+    },
+    "dashboard": {
+      "balance": "余额",
+      "extra": "额外",
+      "transactionButton": "添加交易"
+    },
+    "categories": {
+      "titleCategories": "类别",
+      "titleSuggestions": "建议"
+    }
+  }
+}

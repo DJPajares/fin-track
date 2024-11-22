@@ -1,0 +1,33 @@
+{
+  "MetaData": {
+    "description": "create next app द्वारा निर्मित"
+  },
+  "Menu": {
+    "home": "होम",
+    "dashboard": "डैशबोर्ड",
+    "charts": "चार्ट",
+    "transactions": "लेनदेन",
+    "categories": "श्रेणियाँ"
+  },
+  "MenuDropdown": {
+    "editProfile": "प्रोफ़ाइल संपादित करें",
+    "language": "भाषा",
+    "darkMode": "डार्क मोड",
+    "logout": "लॉगआउट"
+  },
+  "Page": {
+    "home": {
+      "greetings": "स्वागत है",
+      "dashboardButton": "डैशबोर्ड पर जाएं"
+    },
+    "dashboard": {
+      "balance": "शेष राशि",
+      "extra": "अतिरिक्त",
+      "transactionButton": "लेनदेन जोड़ें"
+    },
+    "categories": {
+      "titleCategories": "श्रेणियाँ",
+      "titleSuggestions": "सुझाव"
+    }
+  }
+}

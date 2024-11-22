@@ -1,0 +1,33 @@
+{
+  "MetaData": {
+    "description": "create next app によって生成されました"
+  },
+  "Menu": {
+    "home": "ホーム",
+    "dashboard": "ダッシュボード",
+    "charts": "チャート",
+    "transactions": "取引",
+    "categories": "カテゴリー"
+  },
+  "MenuDropdown": {
+    "editProfile": "プロフィールを編集",
+    "language": "言語",
+    "darkMode": "ダークモード",
+    "logout": "ログアウト"
+  },
+  "Page": {
+    "home": {
+      "greetings": "ようこそ",
+      "dashboardButton": "ダッシュボードへ"
+    },
+    "dashboard": {
+      "balance": "残高",
+      "extra": "追加",
+      "transactionButton": "取引を追加"
+    },
+    "categories": {
+      "titleCategories": "カテゴリー",
+      "titleSuggestions": "提案"
+    }
+  }
+}

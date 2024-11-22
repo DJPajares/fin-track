@@ -1,0 +1,33 @@
+{
+  "MetaData": {
+    "description": "Ginawa ng create next app"
+  },
+  "Menu": {
+    "home": "Home",
+    "dashboard": "Dashboard",
+    "charts": "Tsart",
+    "transactions": "Transaksyon",
+    "categories": "Mga Kategorya"
+  },
+  "MenuDropdown": {
+    "editProfile": "I-edit ang Profile",
+    "language": "Wika",
+    "darkMode": "Madilim na Mode",
+    "logout": "Mag-logout"
+  },
+  "Page": {
+    "home": {
+      "greetings": "Maligayang Pagdating",
+      "dashboardButton": "Pumunta sa Dashboard"
+    },
+    "dashboard": {
+      "balance": "Balanse",
+      "extra": "Dagdag",
+      "transactionButton": "Magdagdag ng Transaksyon"
+    },
+    "categories": {
+      "titleCategories": "Mga Kategorya",
+      "titleSuggestions": "Mga Mungkahi"
+    }
+  }
+}

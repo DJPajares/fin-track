@@ -1,0 +1,33 @@
+{
+  "MetaData": {
+    "description": "Généré par create next app"
+  },
+  "Menu": {
+    "home": "Accueil",
+    "dashboard": "Tableau de bord",
+    "charts": "Graphiques",
+    "transactions": "Transactions",
+    "categories": "Catégories"
+  },
+  "MenuDropdown": {
+    "editProfile": "Modifier le Profil",
+    "language": "Langue",
+    "darkMode": "Mode Sombre",
+    "logout": "Déconnexion"
+  },
+  "Page": {
+    "home": {
+      "greetings": "Bienvenue",
+      "dashboardButton": "Aller au Tableau de Bord"
+    },
+    "dashboard": {
+      "balance": "Solde",
+      "extra": "Supplémentaire",
+      "transactionButton": "Ajouter une Transaction"
+    },
+    "categories": {
+      "titleCategories": "Catégories",
+      "titleSuggestions": "Suggestions"
+    }
+  }
+}
