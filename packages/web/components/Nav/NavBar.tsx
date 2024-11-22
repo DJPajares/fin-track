@@ -10,7 +10,6 @@ type NavBarProps = {
 
 const NavBar = ({ children }: NavBarProps) => {
   const [isVisible, setIsVisible] = useState(true);
-  const [open, setOpen] = useState(false);
 
   let lastScroll = 0;
 
@@ -33,13 +32,9 @@ const NavBar = ({ children }: NavBarProps) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  useEffect(() => {
-    console.log(open);
-  }, [open]);
-
   return (
-    <SidebarProvider open={open} onOpenChange={setOpen}>
-      <SideNav open={open} setOpen={setOpen} />
+    <SidebarProvider>
+      <SideNav />
 
       <SidebarInset>
         <nav
