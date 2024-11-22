@@ -12,6 +12,7 @@
   "MenuDropdown": {
     "editProfile": "プロフィールを編集",
     "language": "言語",
+    "currency": "通貨",
     "darkMode": "ダークモード",
     "logout": "ログアウト"
   },

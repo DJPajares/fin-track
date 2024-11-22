@@ -12,6 +12,7 @@
   "MenuDropdown": {
     "editProfile": "编辑资料",
     "language": "语言",
+    "currency": "货币",
     "darkMode": "深色模式",
     "logout": "登出"
   },

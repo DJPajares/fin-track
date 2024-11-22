@@ -10,19 +10,6 @@ import {
 
 import { ScrollShadow, CircularProgress } from '@nextui-org/react';
 import { Button } from '@/components/ui/button';
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger
-} from '@/components/ui/popover';
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList
-} from '@/components/ui/command';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Card } from '@/components/ui/card';
 import { DatePicker } from '@/components/shared/DatePicker';
@@ -190,52 +177,6 @@ const Dashboard = () => {
           <ChevronRightIcon className="h-4 w-4" />
         </Button>
       </div>
-
-      {/* CURRENCY */}
-      {/* <div className="flex flex-row justify-center items-center">
-        {currency ? (
-          <Popover
-            open={isCurrencyPopoverOpen}
-            onOpenChange={setIsCurrencyPopoverOpen}
-          >
-            <PopoverTrigger asChild>
-              <Button variant="ghost" className="px-0">
-                <p className="text-lg sm:text-2xl font-semibold sm:font-bold hover:underline hover:bg-background0">
-                  {currency.name}
-                </p>
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent className="w-[200px] p-0">
-              <Command>
-                <CommandInput
-                  placeholder="Search currency..."
-                  className="h-9"
-                />
-                <CommandEmpty>No currencies found</CommandEmpty>
-                <CommandGroup>
-                  <CommandList>
-                    {currencies.map((currency) => (
-                      <CommandItem
-                        key={currency._id}
-                        value={currency.name}
-                        onSelect={() =>
-                          handleCurrencySelection({
-                            selectedCurrency: currency
-                          })
-                        }
-                      >
-                        {currency.name}
-                      </CommandItem>
-                    ))}
-                  </CommandList>
-                </CommandGroup>
-              </Command>
-            </PopoverContent>
-          </Popover>
-        ) : (
-          <Skeleton className="h-6 w-20" />
-        )}
-      </div> */}
 
       {/* PROGRESS BAR */}
       <div className="flex flex-col items-center">

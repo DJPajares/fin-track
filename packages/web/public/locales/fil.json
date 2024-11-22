@@ -12,6 +12,7 @@
   "MenuDropdown": {
     "editProfile": "I-edit ang Profile",
     "language": "Wika",
+    "currency": "Pera",
     "darkMode": "Madilim na Mode",
     "logout": "Mag-logout"
   },

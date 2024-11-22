@@ -12,6 +12,7 @@
   "MenuDropdown": {
     "editProfile": "Profil bearbeiten",
     "language": "Sprache",
+    "currency": "Währung",
     "darkMode": "Dunkler Modus",
     "logout": "Abmelden"
   },

@@ -12,6 +12,7 @@
   "MenuDropdown": {
     "editProfile": "Modifier le Profil",
     "language": "Langue",
+    "currency": "Devise",
     "darkMode": "Mode Sombre",
     "logout": "Déconnexion"
   },

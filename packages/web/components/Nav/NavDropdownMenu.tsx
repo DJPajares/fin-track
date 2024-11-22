@@ -19,6 +19,7 @@ import {
   DropdownMenuTrigger
 } from '../ui/dropdown-menu';
 import {
+  DollarSignIcon,
   GlobeIcon,
   LogOutIcon,
   MoonIcon,
@@ -32,6 +33,11 @@ import { languages, LocaleProps } from '@/i18n/config';
 import { setUserLocale } from '@/services/locale';
 
 import { useLocale, useTranslations } from 'next-intl';
+import { useAppSelector } from '@/lib/hooks';
+import { useDispatch } from 'react-redux';
+import { setDashboardCurrency } from '@/lib/feature/dashboard/dashboardSlice';
+
+import type { ListProps } from '@/types/List';
 
 type NavDropdownMenuProps = {
   children: ReactNode;
@@ -41,11 +47,24 @@ const NavDropdownMenu = ({ children }: NavDropdownMenuProps) => {
   const { theme, setTheme } = useTheme();
 
   const locale = useLocale();
+  const dispatch = useDispatch();
+  const t = useTranslations('MenuDropdown');
 
   const [isDarkMode, setIsDarkMode] = useState(theme === 'dark');
 
-  const handleChangeLanguage = (language: LocaleProps) => {
+  const { currencies } = useAppSelector((state) => state.main);
+
+  const handleLanguageChange = (language: LocaleProps) => {
     setUserLocale(language);
+  };
+
+  const handleCurrencyChange = (currency: ListProps) => {
+    // store in redux state
+    dispatch(
+      setDashboardCurrency({
+        currency
+      })
+    );
   };
 
   const handleDarkModeToggle = () => {
@@ -71,13 +90,13 @@ const NavDropdownMenu = ({ children }: NavDropdownMenuProps) => {
         <DropdownMenuGroup>
           <DropdownMenuItem>
             <SquarePenIcon className="mr-2 h-4 w-4" />
-            <span>Edit Profile</span>
+            <span>{t('editProfile')}</span>
           </DropdownMenuItem>
 
           <DropdownMenuSub>
             <DropdownMenuSubTrigger>
               <GlobeIcon className="mr-2 h-4 w-4" />
-              <span>Language</span>
+              <span>{t('language')}</span>
             </DropdownMenuSubTrigger>
             <DropdownMenuPortal>
               <DropdownMenuSubContent>
@@ -85,7 +104,7 @@ const NavDropdownMenu = ({ children }: NavDropdownMenuProps) => {
                   <DropdownMenuCheckboxItem
                     key={language.value}
                     checked={locale === language.value}
-                    onClick={() => handleChangeLanguage(language.value)}
+                    onClick={() => handleLanguageChange(language.value)}
                   >
                     {language.label}
                   </DropdownMenuCheckboxItem>
@@ -93,13 +112,34 @@ const NavDropdownMenu = ({ children }: NavDropdownMenuProps) => {
               </DropdownMenuSubContent>
             </DropdownMenuPortal>
           </DropdownMenuSub>
+
+          <DropdownMenuSub>
+            <DropdownMenuSubTrigger>
+              <DollarSignIcon className="mr-2 h-4 w-4" />
+              <span>{t('currency')}</span>
+            </DropdownMenuSubTrigger>
+            <DropdownMenuPortal>
+              <DropdownMenuSubContent>
+                {currencies.map((currency) => (
+                  <DropdownMenuCheckboxItem
+                    key={currency._id}
+                    checked={locale === currency._id}
+                    onClick={() => handleCurrencyChange(currency)}
+                  >
+                    {currency.name}
+                  </DropdownMenuCheckboxItem>
+                ))}
+              </DropdownMenuSubContent>
+            </DropdownMenuPortal>
+          </DropdownMenuSub>
+
           <DropdownMenuItem>
             {isDarkMode ? (
               <MoonIcon className="mr-2 h-4 w-4" />
             ) : (
               <SunIcon className="mr-2 h-4 w-4" />
             )}
-            <span>Dark Mode</span>
+            <span>{t('darkMode')}</span>
             <DropdownMenuShortcut>
               <Switch
                 checked={isDarkMode}
@@ -114,7 +154,7 @@ const NavDropdownMenu = ({ children }: NavDropdownMenuProps) => {
         <DropdownMenuGroup>
           <DropdownMenuItem>
             <LogOutIcon className="mr-2 h-4 w-4" />
-            <span>Logout</span>
+            <span>{t('logout')}</span>
             <DropdownMenuShortcut>
               <p className="text-xs leading-none text-muted-foreground">
                 {`v${packageInfo.version}`}
