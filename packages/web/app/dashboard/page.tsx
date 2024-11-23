@@ -256,11 +256,7 @@ const Dashboard = () => {
       </ScrollShadow>
 
       {/* TRANSACTION BUTTON */}
-      <Button
-        variant="outline"
-        className="w-full my-4"
-        onClick={handleAddTransactionButton}
-      >
+      <Button className="w-full my-4" onClick={handleAddTransactionButton}>
         {t('transactionButton')}
       </Button>
 
