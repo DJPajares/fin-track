@@ -1,6 +1,32 @@
 {
   "data": [
     {
+      "_id": "67414cab993fea84e0b689a0",
+      "name": "Groceries and restaurants",
+      "typeId": "660d73af8a4a6723c905bd0c",
+      "typeName": "Expense",
+      "categoryId": "673ea6aa12224a2b44d190a3",
+      "categoryName": "Food",
+      "categoryIcon": "utensils",
+      "currencyId": "6610b4910fcd1af34036ad93",
+      "currencyName": "SGD",
+      "amount": 350,
+      "description": ""
+    },
+    {
+      "_id": "67414c82993fea84e0b6899b",
+      "name": "AIA",
+      "typeId": "660d73af8a4a6723c905bd0c",
+      "typeName": "Expense",
+      "categoryId": "673ea6e512224a2b44d190ad",
+      "categoryName": "Healthcare",
+      "categoryIcon": "activity",
+      "currencyId": "6610b4910fcd1af34036ad93",
+      "currencyName": "SGD",
+      "amount": 145,
+      "description": ""
+    },
+    {
       "_id": "673eaa1c12224a2b44d1911b",
       "name": "Master bedroom (Singapore)",
       "typeId": "660d73af8a4a6723c905bd0c",
@@ -25,12 +51,25 @@
       "currencyName": "SGD",
       "amount": 20,
       "description": ""
+    },
+    {
+      "_id": "67414cf3993fea84e0b689b2",
+      "name": "Transpoortation",
+      "typeId": "660d73af8a4a6723c905bd0c",
+      "typeName": "Expense",
+      "categoryId": "673ea6b412224a2b44d190a5",
+      "categoryName": "Transportation",
+      "categoryIcon": "bus-front",
+      "currencyId": "6610b4910fcd1af34036ad93",
+      "currencyName": "SGD",
+      "amount": 50,
+      "description": ""
     }
   ],
   "pagination": {
-    "limit": 3,
+    "limit": 5,
     "currentPage": 1,
     "totalPages": 1,
-    "totalDocuments": 2
+    "totalDocuments": 5
   }
 }
