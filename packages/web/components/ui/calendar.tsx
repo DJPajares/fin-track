@@ -103,118 +103,46 @@ const Calendar = ({
           const Icon = orientation === 'left' ? ChevronLeft : ChevronRight;
           return <Icon className="h-4 w-4" />;
         },
-        Nav: ({ className, children, ...props }) => {
-          const { nextMonth, previousMonth, goToMonth } = useDayPicker();
+        Nav: ({ className, children, previousMonth, nextMonth, ...props }) => {
+          const { onPreviousClick, onNextClick, ...rest } = props; // Remove unnecessary props
 
-          const isPreviousDisabled = (() => {
-            if (navView === 'years') {
-              return (
-                (startMonth &&
-                  differenceInCalendarDays(
-                    new Date(displayYears.from - 1, 0, 1),
-                    startMonth
-                  ) < 0) ||
-                (endMonth &&
-                  differenceInCalendarDays(
-                    new Date(displayYears.from - 1, 0, 1),
-                    endMonth
-                  ) > 0)
-              );
-            }
-            return !previousMonth;
-          })();
+          const { goToMonth } = useDayPicker();
+          const isPreviousDisabled = !previousMonth;
+          const isNextDisabled = !nextMonth;
 
-          const isNextDisabled = (() => {
-            if (navView === 'years') {
-              return (
-                (startMonth &&
-                  differenceInCalendarDays(
-                    new Date(displayYears.to + 1, 0, 1),
-                    startMonth
-                  ) < 0) ||
-                (endMonth &&
-                  differenceInCalendarDays(
-                    new Date(displayYears.to + 1, 0, 1),
-                    endMonth
-                  ) > 0)
-              );
+          const handlePreviousClick = () => {
+            if (previousMonth) {
+              goToMonth(previousMonth);
+              onPreviousClick?.(previousMonth);
             }
-            return !nextMonth;
-          })();
+          };
 
-          const handlePreviousClick = React.useCallback(() => {
-            if (!previousMonth) return;
-            if (navView === 'years') {
-              setDisplayYears((prev) => ({
-                from: prev.from - (prev.to - prev.from + 1),
-                to: prev.to - (prev.to - prev.from + 1)
-              }));
-              onPrevClick?.(
-                new Date(
-                  displayYears.from - (displayYears.to - displayYears.from),
-                  0,
-                  1
-                )
-              );
-              return;
+          const handleNextClick = () => {
+            if (nextMonth) {
+              goToMonth(nextMonth);
+              onNextClick?.(nextMonth);
             }
-            goToMonth(previousMonth);
-            onPrevClick?.(previousMonth);
-          }, [previousMonth, goToMonth]);
+          };
 
-          const handleNextClick = React.useCallback(() => {
-            if (!nextMonth) return;
-            if (navView === 'years') {
-              setDisplayYears((prev) => ({
-                from: prev.from + (prev.to - prev.from + 1),
-                to: prev.to + (prev.to - prev.from + 1)
-              }));
-              onNextClick?.(
-                new Date(
-                  displayYears.from + (displayYears.to - displayYears.from),
-                  0,
-                  1
-                )
-              );
-              return;
-            }
-            goToMonth(nextMonth);
-            onNextClick?.(nextMonth);
-          }, [goToMonth, nextMonth]);
           return (
-            <nav className={cn('flex items-center', className)} {...props}>
+            <nav className={cn('flex items-center', className)} {...rest}>
               <Button
                 variant="outline"
                 className="absolute left-0 h-7 w-7 bg-transparent p-0 opacity-80 hover:opacity-100"
                 type="button"
-                tabIndex={isPreviousDisabled ? undefined : -1}
                 disabled={isPreviousDisabled}
-                aria-label={
-                  navView === 'years'
-                    ? `Go to the previous ${
-                        displayYears.to - displayYears.from + 1
-                      } years`
-                    : labelPrevious(previousMonth)
-                }
                 onClick={handlePreviousClick}
+                aria-label="Previous"
               >
                 <ChevronLeft className="h-4 w-4" />
               </Button>
-
               <Button
                 variant="outline"
                 className="absolute right-0 h-7 w-7 bg-transparent p-0 opacity-80 hover:opacity-100"
                 type="button"
-                tabIndex={isNextDisabled ? undefined : -1}
                 disabled={isNextDisabled}
-                aria-label={
-                  navView === 'years'
-                    ? `Go to the next ${
-                        displayYears.to - displayYears.from + 1
-                      } years`
-                    : labelNext(nextMonth)
-                }
                 onClick={handleNextClick}
+                aria-label="Next"
               >
                 <ChevronRight className="h-4 w-4" />
               </Button>
