@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 
-// These styles apply to every route in the application
 import './globals.css';
 import { Providers } from '../providers/providers';
 import NavBar from '@/components/Nav/NavBar';
@@ -23,11 +22,17 @@ export default async function RootLayout({
 
   return (
     <html lang={locale} suppressHydrationWarning>
+      <head>
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+        />
+      </head>
       <body className="antialiased">
         <NextIntlClientProvider messages={messages}>
           <Providers>
             <main
-              className="w-screen bg-white dark:bg-slate-950"
+              className="min-w-full bg-white dark:bg-slate-950"
               vaul-drawer-wrapper=""
             >
               <NavBar>
