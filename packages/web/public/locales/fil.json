@@ -19,7 +19,27 @@
   "Page": {
     "home": {
       "greetings": "Maligayang Pagdating",
-      "dashboardButton": "Pumunta sa Dashboard"
+      "dashboardButton": "Pumunta sa Dashboard",
+      "motivation": {
+        "title": "Motibasyon ngayong araw",
+        "quotes": [
+          "Mag-ipon ng pera, at ililigtas ka nito!",
+          "Ang budget ay paraan upang malaman kung saan napupunta ang pera kaysa tanungin kung saan ito napunta.",
+          "Mag-invest sa sarili; ito ang pinakamagandang interes.",
+          "Subaybayan ang iyong gastusin at maging matalino sa pananalapi!",
+          "Ang bawat sentimos ay mahalaga. Mag-ipon ngayon, tamasahin mamaya!",
+          "Maliit na hakbang ngayon, malaking ipon bukas.",
+          "Iwasan ang di-kailangang utang at yakapin ang kalayaan sa pananalapi.",
+          "Hindi kailangang maging mayaman para magtayo ng yaman – maging pare-pareho lamang.",
+          "Ang disiplina sa pananalapi ngayon ay magbibigay gantimpala sa hinaharap.",
+          "Ang pagbabawas ng maliit na gastusin ay maaaring magbigay ng malaking ipon.",
+          "Ang pera ay isang kasangkapan; gamitin ito nang tama upang matupad ang iyong mga pangarap.",
+          "Gumastos ng mas kaunti kaysa sa iyong kinikita at i-invest ang sobra.",
+          "Ang pinakamagandang investment na maaari mong gawin ay sa iyong kaalaman.",
+          "Mag-umpisang mag-ipon para sa emergencies – pasasalamatan ka ng iyong sarili sa hinaharap.",
+          "Magtakda ng mga layunin sa pananalapi, at unti-unting gawin ang mga hakbang upang maabot ito."
+        ]
+      }
     },
     "dashboard": {
       "balance": "Balanse",

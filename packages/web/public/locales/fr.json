@@ -10,22 +10,42 @@
     "categories": "Catégories"
   },
   "MenuDropdown": {
-    "editProfile": "Modifier le Profil",
+    "editProfile": "Modifier le profil",
     "language": "Langue",
     "currency": "Devise",
-    "darkMode": "Mode Sombre",
+    "darkMode": "Mode sombre",
     "logout": "Déconnexion"
   },
   "Page": {
     "home": {
       "greetings": "Bienvenue",
-      "dashboardButton": "Aller au Tableau de Bord"
+      "dashboardButton": "Aller au tableau de bord",
+      "motivation": {
+        "title": "Motivation aujourd'hui",
+        "quotes": [
+          "Économisez de l'argent, et l'argent vous sauvera!",
+          "Un budget consiste à dire à votre argent où aller plutôt que de vous demander où il est passé.",
+          "Investissez en vous-même; c'est ce qui rapporte le plus.",
+          "Suivez vos dépenses et restez financièrement intelligent!",
+          "Chaque centime compte. Économisez maintenant, profitez plus tard!",
+          "De petits pas aujourd'hui mènent à de grandes économies demain.",
+          "Évitez les dettes inutiles et adoptez la liberté financière.",
+          "Vous n'avez pas besoin d'être riche pour accumuler de la richesse - soyez juste constant.",
+          "La discipline financière d'aujourd'hui vous récompensera à l'avenir.",
+          "Réduire les petites dépenses peut mener à de grandes économies.",
+          "L'argent est un outil; utilisez-le intelligemment pour réaliser vos rêves.",
+          "Dépensez moins que ce que vous gagnez et investissez le reste.",
+          "Le meilleur investissement que vous puissiez faire est dans votre propre connaissance.",
+          "Commencez à épargner pour les urgences - votre futur vous remerciera.",
+          "Fixez-vous des objectifs financiers et avancez étape par étape pour les atteindre."
+        ]
+      }
     },
     "dashboard": {
       "balance": "Solde",
-      "extra": "Supplémentaire",
+      "extra": "Extra",
       "completed": "Terminé",
-      "transactionButton": "Ajouter une Transaction"
+      "transactionButton": "Ajouter une transaction"
     },
     "categories": {
       "titleCategories": "Catégories",

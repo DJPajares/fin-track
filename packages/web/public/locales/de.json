@@ -19,7 +19,27 @@
   "Page": {
     "home": {
       "greetings": "Willkommen",
-      "dashboardButton": "Zum Dashboard gehen"
+      "dashboardButton": "Zum Dashboard gehen",
+      "motivation": {
+        "title": "Motivation heute",
+        "quotes": [
+          "Sparen Sie Geld, und Geld wird Sie retten!",
+          "Ein Budget zeigt Ihrem Geld, wohin es gehen soll, anstatt sich zu fragen, wo es geblieben ist.",
+          "Investieren Sie in sich selbst; das bringt die besten Zinsen.",
+          "Verfolgen Sie Ihre Ausgaben und bleiben Sie finanziell schlau!",
+          "Jeder Cent zählt. Jetzt sparen, später genießen!",
+          "Kleine Schritte heute führen zu großen Einsparungen morgen.",
+          "Vermeiden Sie unnötige Schulden und umarmen Sie finanzielle Freiheit.",
+          "Man muss nicht reich sein, um Wohlstand aufzubauen – nur konsequent.",
+          "Finanzielle Disziplin heute wird sich in der Zukunft auszahlen.",
+          "Das Kürzen kleiner Ausgaben kann zu großen Einsparungen führen.",
+          "Geld ist ein Werkzeug; verwenden Sie es klug, um Ihre Träume zu verwirklichen.",
+          "Geben Sie weniger aus, als Sie verdienen, und investieren Sie den Rest.",
+          "Die beste Investition, die Sie tätigen können, ist in Ihr eigenes Wissen.",
+          "Sparen Sie für Notfälle – Ihr zukünftiges Ich wird es Ihnen danken.",
+          "Setzen Sie sich finanzielle Ziele und gehen Sie Schritt für Schritt darauf zu."
+        ]
+      }
     },
     "dashboard": {
       "balance": "Kontostand",

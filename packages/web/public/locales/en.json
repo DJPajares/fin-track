@@ -19,7 +19,27 @@
   "Page": {
     "home": {
       "greetings": "Welcome",
-      "dashboardButton": "Go to Dashboard"
+      "dashboardButton": "Go to Dashboard",
+      "motivation": {
+        "title": "Motivation today",
+        "quotes": [
+          "Save money, and money will save you!",
+          "A budget is telling your money where to go instead of wondering where it went.",
+          "Invest in yourself; it pays the best interest.",
+          "Track your expenses and stay financially smart!",
+          "Every penny counts. Save now, enjoy later!",
+          "Small steps today lead to big savings tomorrow.",
+          "Avoid unnecessary debt and embrace financial freedom.",
+          "You don't need to be rich to build wealth—just consistent.",
+          "Financial discipline today will reward you in the future.",
+          "Cutting small expenses can lead to big savings.",
+          "Money is a tool; use it wisely to build your dreams.",
+          "Spend less than you earn, and invest the rest.",
+          "The best investment you can make is in your own knowledge.",
+          "Start saving for emergencies—your future self will thank you.",
+          "Set financial goals, and take one step at a time to achieve them."
+        ]
+      }
     },
     "dashboard": {
       "balance": "Balance",
