@@ -34,7 +34,7 @@ const SideNav = () => {
             <SidebarMenu>
               {MENU_ITEMS.map((item) => (
                 <SidebarMenuItem key={item.value}>
-                  <SidebarMenuButton asChild>
+                  <SidebarMenuButton size="md" asChild>
                     <Link
                       href={item.route}
                       onClick={handleLinkClick} // Close the sidebar on navigation
