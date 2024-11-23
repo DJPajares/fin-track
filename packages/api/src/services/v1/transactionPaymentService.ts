@@ -178,6 +178,9 @@ const fetchTransactionPayments = async (data: FetchTransactionPaymentProps) => {
         endDate: 1,
         excludedDates: 1
       }
+    },
+    {
+      $sort: { category: 1, name: 1 }
     }
   ]);
 
@@ -353,6 +356,9 @@ const fetchTransactionPayments = async (data: FetchTransactionPaymentProps) => {
         endDate: 1,
         excludedDates: 1
       }
+    },
+    {
+      $sort: { category: 1, name: 1 }
     }
   ]);
 
