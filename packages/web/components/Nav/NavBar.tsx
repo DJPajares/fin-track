@@ -61,14 +61,12 @@ const NavBar = ({ children }: NavBarProps) => {
               <Avatar
                 src="https://i.pravatar.cc/150?u=a04258114e29026708c"
                 className="w-6 h-6 text-tiny hover:border-primary"
-                isBordered
               />
             ) : (
               <Avatar
                 src="https://i.pravatar.cc/150?u=a04258114e29026708c"
                 size="sm"
                 className="cursor-pointer hover:border-primary"
-                isBordered
               />
             )}
           </NavDropdownMenu>
