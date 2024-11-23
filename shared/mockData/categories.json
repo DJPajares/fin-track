@@ -1,210 +1,210 @@
 [
   {
-    "_id": "671f0149855aa876c09f12ed",
-    "name": "Utilities",
-    "type": {
-      "_id": "671f00b4855aa876c09f12dd",
-      "name": "Expense",
-      "createdAt": "2024-10-28T03:10:44.993Z",
-      "updatedAt": "2024-10-28T03:10:44.993Z",
-      "__v": 0
-    },
-    "createdAt": "2024-10-28T03:13:13.061Z",
-    "updatedAt": "2024-10-28T04:11:32.156Z",
-    "__v": 0,
-    "active": true,
-    "icon": "lightbulb"
-  },
-  {
-    "_id": "671f0136855aa876c09f12e7",
-    "name": "Transport",
-    "type": {
-      "_id": "671f00b4855aa876c09f12dd",
-      "name": "Expense",
-      "createdAt": "2024-10-28T03:10:44.993Z",
-      "updatedAt": "2024-10-28T03:10:44.993Z",
-      "__v": 0
-    },
-    "createdAt": "2024-10-28T03:12:54.754Z",
-    "updatedAt": "2024-10-28T04:10:56.514Z",
-    "__v": 0,
-    "active": false,
-    "icon": "bus-front"
-  },
-  {
-    "_id": "671f013d855aa876c09f12e9",
-    "name": "Subscriptions",
-    "type": {
-      "_id": "671f00b4855aa876c09f12dd",
-      "name": "Expense",
-      "createdAt": "2024-10-28T03:10:44.993Z",
-      "updatedAt": "2024-10-28T03:10:44.993Z",
-      "__v": 0
-    },
-    "createdAt": "2024-10-28T03:13:01.267Z",
-    "updatedAt": "2024-10-28T04:11:11.112Z",
-    "__v": 0,
-    "active": true,
-    "icon": "clapperboard"
-  },
-  {
-    "_id": "671f0163855aa876c09f12f3",
-    "name": "Savings",
-    "type": {
-      "_id": "671f00b4855aa876c09f12dd",
-      "name": "Expense",
-      "createdAt": "2024-10-28T03:10:44.993Z",
-      "updatedAt": "2024-10-28T03:10:44.993Z",
-      "__v": 0
-    },
-    "createdAt": "2024-10-28T03:13:39.812Z",
-    "updatedAt": "2024-10-28T04:13:19.546Z",
-    "__v": 0,
-    "active": true,
-    "icon": "banknote"
-  },
-  {
-    "_id": "671f012a855aa876c09f12e3",
-    "name": "Rent",
-    "type": {
-      "_id": "671f00b4855aa876c09f12dd",
-      "name": "Expense",
-      "createdAt": "2024-10-28T03:10:44.993Z",
-      "updatedAt": "2024-10-28T03:10:44.993Z",
-      "__v": 0
-    },
-    "createdAt": "2024-10-28T03:12:42.643Z",
-    "updatedAt": "2024-10-28T04:10:19.034Z",
-    "__v": 0,
-    "active": true,
-    "icon": "bed-double"
-  },
-  {
-    "_id": "671f0117855aa876c09f12e1",
-    "name": "Paycheck",
-    "type": {
-      "_id": "671f009d855aa876c09f12db",
-      "name": "Income",
-      "createdAt": "2024-10-28T03:10:21.572Z",
-      "updatedAt": "2024-10-28T03:10:21.572Z",
-      "__v": 0
-    },
-    "createdAt": "2024-10-28T03:12:23.035Z",
-    "updatedAt": "2024-10-28T04:10:03.569Z",
-    "__v": 0,
-    "active": true,
-    "icon": "banknote"
-  },
-  {
-    "_id": "671f015a855aa876c09f12f1",
-    "name": "Loans",
-    "type": {
-      "_id": "671f00b4855aa876c09f12dd",
-      "name": "Expense",
-      "createdAt": "2024-10-28T03:10:44.993Z",
-      "updatedAt": "2024-10-28T03:10:44.993Z",
-      "__v": 0
-    },
-    "createdAt": "2024-10-28T03:13:30.957Z",
-    "updatedAt": "2024-10-28T04:12:39.595Z",
-    "__v": 0,
-    "active": true,
-    "icon": "banknote"
-  },
-  {
-    "_id": "671f010a855aa876c09f12df",
-    "name": "Investment",
-    "type": {
-      "_id": "671f009d855aa876c09f12db",
-      "name": "Income",
-      "createdAt": "2024-10-28T03:10:21.572Z",
-      "updatedAt": "2024-10-28T03:10:21.572Z",
-      "__v": 0
-    },
-    "createdAt": "2024-10-28T03:12:10.825Z",
-    "updatedAt": "2024-10-28T04:09:41.994Z",
-    "__v": 0,
-    "active": true,
-    "icon": "coins"
-  },
-  {
-    "_id": "671f016a855aa876c09f12f5",
-    "name": "Healthcare",
-    "type": {
-      "_id": "671f00b4855aa876c09f12dd",
-      "name": "Expense",
-      "createdAt": "2024-10-28T03:10:44.993Z",
-      "updatedAt": "2024-10-28T03:10:44.993Z",
-      "__v": 0
-    },
-    "createdAt": "2024-10-28T03:13:46.678Z",
-    "updatedAt": "2024-10-28T04:13:33.114Z",
-    "__v": 0,
-    "active": true,
-    "icon": "activity"
-  },
-  {
-    "_id": "671f0130855aa876c09f12e5",
-    "name": "Food",
-    "type": {
-      "_id": "671f00b4855aa876c09f12dd",
-      "name": "Expense",
-      "createdAt": "2024-10-28T03:10:44.993Z",
-      "updatedAt": "2024-10-28T03:10:44.993Z",
-      "__v": 0
-    },
-    "createdAt": "2024-10-28T03:12:48.010Z",
-    "updatedAt": "2024-10-28T04:10:32.112Z",
-    "__v": 0,
-    "active": false,
-    "icon": "utensils"
-  },
-  {
-    "_id": "671f0142855aa876c09f12eb",
-    "name": "Family",
-    "type": {
-      "_id": "671f00b4855aa876c09f12dd",
-      "name": "Expense",
-      "createdAt": "2024-10-28T03:10:44.993Z",
-      "updatedAt": "2024-10-28T03:10:44.993Z",
-      "__v": 0
-    },
-    "createdAt": "2024-10-28T03:13:06.240Z",
-    "updatedAt": "2024-10-28T04:06:14.443Z",
-    "__v": 0,
-    "active": true,
-    "icon": "users"
-  },
-  {
-    "_id": "671f016f855aa876c09f12f7",
-    "name": "Debts",
-    "type": {
-      "_id": "671f00b4855aa876c09f12dd",
-      "name": "Expense",
-      "createdAt": "2024-10-28T03:10:44.993Z",
-      "updatedAt": "2024-10-28T03:10:44.993Z",
-      "__v": 0
-    },
-    "createdAt": "2024-10-28T03:13:51.722Z",
-    "updatedAt": "2024-10-28T04:14:01.932Z",
-    "__v": 0,
-    "active": true,
-    "icon": "banknote"
-  },
-  {
-    "_id": "671f0150855aa876c09f12ef",
+    "_id": "673ea65b12224a2b44d19099",
     "name": "Credit Card",
     "type": {
-      "_id": "671f00b4855aa876c09f12dd",
+      "_id": "660d73af8a4a6723c905bd0c",
       "name": "Expense",
-      "createdAt": "2024-10-28T03:10:44.993Z",
-      "updatedAt": "2024-10-28T03:10:44.993Z",
+      "createdAt": "2024-04-03T15:20:15.228Z",
+      "updatedAt": "2024-04-03T15:20:15.228Z",
       "__v": 0
     },
-    "createdAt": "2024-10-28T03:13:20.631Z",
-    "updatedAt": "2024-10-28T04:12:03.727Z",
+    "createdAt": "2024-11-21T03:17:47.162Z",
+    "updatedAt": "2024-11-21T03:17:47.162Z",
     "__v": 0,
-    "active": true,
-    "icon": "credit-card"
+    "icon": "credit-card",
+    "active": true
+  },
+  {
+    "_id": "673ea67a12224a2b44d1909f",
+    "name": "Debt",
+    "type": {
+      "_id": "660d73af8a4a6723c905bd0c",
+      "name": "Expense",
+      "createdAt": "2024-04-03T15:20:15.228Z",
+      "updatedAt": "2024-04-03T15:20:15.228Z",
+      "__v": 0
+    },
+    "createdAt": "2024-11-21T03:18:18.806Z",
+    "updatedAt": "2024-11-21T03:18:18.806Z",
+    "__v": 0,
+    "icon": "banknote",
+    "active": true
+  },
+  {
+    "_id": "673ea67f12224a2b44d190a1",
+    "name": "Family",
+    "type": {
+      "_id": "660d73af8a4a6723c905bd0c",
+      "name": "Expense",
+      "createdAt": "2024-04-03T15:20:15.228Z",
+      "updatedAt": "2024-04-03T15:20:15.228Z",
+      "__v": 0
+    },
+    "createdAt": "2024-11-21T03:18:23.184Z",
+    "updatedAt": "2024-11-21T03:18:23.184Z",
+    "__v": 0,
+    "icon": "users",
+    "active": true
+  },
+  {
+    "_id": "673ea6aa12224a2b44d190a3",
+    "name": "Food",
+    "type": {
+      "_id": "660d73af8a4a6723c905bd0c",
+      "name": "Expense",
+      "createdAt": "2024-04-03T15:20:15.228Z",
+      "updatedAt": "2024-04-03T15:20:15.228Z",
+      "__v": 0
+    },
+    "icon": "utensils",
+    "createdAt": "2024-11-21T03:19:06.897Z",
+    "updatedAt": "2024-11-21T03:19:06.897Z",
+    "__v": 0,
+    "active": true
+  },
+  {
+    "_id": "673ea6e512224a2b44d190ad",
+    "name": "Healthcare",
+    "type": {
+      "_id": "660d73af8a4a6723c905bd0c",
+      "name": "Expense",
+      "createdAt": "2024-04-03T15:20:15.228Z",
+      "updatedAt": "2024-04-03T15:20:15.228Z",
+      "__v": 0
+    },
+    "icon": "activity",
+    "createdAt": "2024-11-21T03:20:05.956Z",
+    "updatedAt": "2024-11-21T03:20:05.956Z",
+    "__v": 0,
+    "active": true
+  },
+  {
+    "_id": "673ea64e12224a2b44d19097",
+    "name": "Investment",
+    "type": {
+      "_id": "660d73c18a4a6723c905bd10",
+      "name": "Income",
+      "createdAt": "2024-04-03T15:20:33.799Z",
+      "updatedAt": "2024-04-03T15:20:33.799Z",
+      "__v": 0
+    },
+    "createdAt": "2024-11-21T03:17:34.705Z",
+    "updatedAt": "2024-11-21T03:17:34.705Z",
+    "__v": 0,
+    "icon": "coins",
+    "active": true
+  },
+  {
+    "_id": "673ea6ce12224a2b44d190a9",
+    "name": "Loan",
+    "type": {
+      "_id": "660d73af8a4a6723c905bd0c",
+      "name": "Expense",
+      "createdAt": "2024-04-03T15:20:15.228Z",
+      "updatedAt": "2024-04-03T15:20:15.228Z",
+      "__v": 0
+    },
+    "icon": "banknote",
+    "createdAt": "2024-11-21T03:19:42.819Z",
+    "updatedAt": "2024-11-21T03:19:42.819Z",
+    "__v": 0,
+    "active": true
+  },
+  {
+    "_id": "673ea64912224a2b44d19095",
+    "name": "Paycheck",
+    "type": {
+      "_id": "660d73c18a4a6723c905bd10",
+      "name": "Income",
+      "createdAt": "2024-04-03T15:20:33.799Z",
+      "updatedAt": "2024-04-03T15:20:33.799Z",
+      "__v": 0
+    },
+    "createdAt": "2024-11-21T03:17:29.843Z",
+    "updatedAt": "2024-11-21T03:17:29.843Z",
+    "__v": 0,
+    "icon": "banknote",
+    "active": true
+  },
+  {
+    "_id": "673ea65e12224a2b44d1909b",
+    "name": "Rent",
+    "type": {
+      "_id": "660d73af8a4a6723c905bd0c",
+      "name": "Expense",
+      "createdAt": "2024-04-03T15:20:15.228Z",
+      "updatedAt": "2024-04-03T15:20:15.228Z",
+      "__v": 0
+    },
+    "createdAt": "2024-11-21T03:17:50.939Z",
+    "updatedAt": "2024-11-21T03:17:50.939Z",
+    "__v": 0,
+    "icon": "bed-double",
+    "active": true
+  },
+  {
+    "_id": "673ea6da12224a2b44d190ab",
+    "name": "Savings",
+    "type": {
+      "_id": "660d73af8a4a6723c905bd0c",
+      "name": "Expense",
+      "createdAt": "2024-04-03T15:20:15.228Z",
+      "updatedAt": "2024-04-03T15:20:15.228Z",
+      "__v": 0
+    },
+    "icon": "banknote",
+    "createdAt": "2024-11-21T03:19:54.760Z",
+    "updatedAt": "2024-11-21T03:19:54.760Z",
+    "__v": 0,
+    "active": true
+  },
+  {
+    "_id": "673ea6c212224a2b44d190a7",
+    "name": "Subscription",
+    "type": {
+      "_id": "660d73af8a4a6723c905bd0c",
+      "name": "Expense",
+      "createdAt": "2024-04-03T15:20:15.228Z",
+      "updatedAt": "2024-04-03T15:20:15.228Z",
+      "__v": 0
+    },
+    "icon": "clapperboard",
+    "createdAt": "2024-11-21T03:19:30.576Z",
+    "updatedAt": "2024-11-21T03:19:30.576Z",
+    "__v": 0,
+    "active": true
+  },
+  {
+    "_id": "673ea6b412224a2b44d190a5",
+    "name": "Transport",
+    "type": {
+      "_id": "660d73af8a4a6723c905bd0c",
+      "name": "Expense",
+      "createdAt": "2024-04-03T15:20:15.228Z",
+      "updatedAt": "2024-04-03T15:20:15.228Z",
+      "__v": 0
+    },
+    "icon": "bus-front",
+    "createdAt": "2024-11-21T03:19:16.473Z",
+    "updatedAt": "2024-11-21T03:19:16.473Z",
+    "__v": 0,
+    "active": true
+  },
+  {
+    "_id": "673ea66212224a2b44d1909d",
+    "name": "Utilities",
+    "type": {
+      "_id": "660d73af8a4a6723c905bd0c",
+      "name": "Expense",
+      "createdAt": "2024-04-03T15:20:15.228Z",
+      "updatedAt": "2024-04-03T15:20:15.228Z",
+      "__v": 0
+    },
+    "createdAt": "2024-11-21T03:17:54.769Z",
+    "updatedAt": "2024-11-21T03:17:54.769Z",
+    "__v": 0,
+    "icon": "lightbulb",
+    "active": true
   }
 ]
