@@ -57,12 +57,6 @@ const Transactions = () => {
     fetchTransactionsData();
   }, [date, tabType]);
 
-  // useEffect(() => {
-  //   setCurrentPage(1);
-
-  //   fetchTransactionsData();
-  // }, [tabType]);
-
   useEffect(() => {
     fetchTransactionsData();
   }, [currentPage]);
@@ -168,14 +162,6 @@ const Transactions = () => {
                         <div className="space-y-2">
                           <div className="flex flex-col items-end">
                             <div className="flex flex-row items-center space-x-2">
-                              <p className="text-xl font-semibold sm:text-2xl sm:font-bold">
-                                {formatCurrency({
-                                  value: transaction.amount,
-                                  currency: transaction.currencyName,
-                                  decimal: 2
-                                })}
-                              </p>
-
                               <Chip
                                 variant="flat"
                                 size="sm"
@@ -184,6 +170,14 @@ const Transactions = () => {
                               >
                                 {transaction.currencyName}
                               </Chip>
+
+                              <p className="text-xl font-semibold sm:text-2xl sm:font-bold">
+                                {formatCurrency({
+                                  value: transaction.amount,
+                                  currency: transaction.currencyName,
+                                  decimal: 2
+                                })}
+                              </p>
                             </div>
                           </div>
 
