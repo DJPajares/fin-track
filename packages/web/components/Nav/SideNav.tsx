@@ -15,9 +15,11 @@ import {
 } from '../ui/sidebar';
 
 import { MENU_ITEMS } from '@/constants/menuItems';
+import { useTranslations } from 'next-intl';
 
 const SideNav = () => {
   const { setOpenMobile } = useSidebar();
+  const t = useTranslations('Menu');
 
   const handleLinkClick = () => {
     setOpenMobile(false);
@@ -39,7 +41,7 @@ const SideNav = () => {
                       passHref
                     >
                       <item.icon />
-                      <span>{item.label}</span>
+                      <span>{t(item.value)}</span>
                     </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
