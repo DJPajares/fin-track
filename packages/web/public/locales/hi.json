@@ -45,7 +45,10 @@
       "balance": "शेष राशि",
       "extra": "अतिरिक्त",
       "completed": "पूर्ण",
-      "transactionButton": "लेनदेन जोड़ें"
+      "transactionButton": "लेनदेन जोड़ें",
+      "card": {
+        "settled": "सुलझा हुआ"
+      }
     },
     "categories": {
       "titleCategories": "श्रेणियां",

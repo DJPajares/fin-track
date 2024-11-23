@@ -45,7 +45,10 @@
       "balance": "残高",
       "extra": "追加",
       "completed": "完了",
-      "transactionButton": "取引を追加"
+      "transactionButton": "取引を追加",
+      "card": {
+        "settled": "決済済み"
+      }
     },
     "categories": {
       "titleCategories": "カテゴリ",

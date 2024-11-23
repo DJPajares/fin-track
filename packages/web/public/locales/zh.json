@@ -45,7 +45,10 @@
       "balance": "余额",
       "extra": "额外",
       "completed": "完成",
-      "transactionButton": "添加交易"
+      "transactionButton": "添加交易",
+      "card": {
+        "settled": "已结算"
+      }
     },
     "categories": {
       "titleCategories": "类别",

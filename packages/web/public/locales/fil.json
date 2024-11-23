@@ -45,7 +45,10 @@
       "balance": "Balanse",
       "extra": "Dagdag",
       "completed": "Tapos",
-      "transactionButton": "Magdagdag ng Transaksyon"
+      "transactionButton": "Magdagdag ng Transaksyon",
+      "card": {
+        "settled": "Nabayaran"
+      }
     },
     "categories": {
       "titleCategories": "Mga Kategorya",

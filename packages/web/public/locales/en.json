@@ -45,7 +45,10 @@
       "balance": "Balance",
       "extra": "Extra",
       "completed": "Completed",
-      "transactionButton": "Add Transaction"
+      "transactionButton": "Add Transaction",
+      "card": {
+        "settled": "Settled"
+      }
     },
     "categories": {
       "titleCategories": "Categories",

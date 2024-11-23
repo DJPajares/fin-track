@@ -45,7 +45,10 @@
       "balance": "Kontostand",
       "extra": "Extra",
       "completed": "Abgeschlossen",
-      "transactionButton": "Transaktion hinzufügen"
+      "transactionButton": "Transaktion hinzufügen",
+      "card": {
+        "settled": "Bezahlt"
+      }
     },
     "categories": {
       "titleCategories": "Kategorien",

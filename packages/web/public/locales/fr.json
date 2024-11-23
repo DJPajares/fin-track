@@ -45,7 +45,10 @@
       "balance": "Solde",
       "extra": "Extra",
       "completed": "Terminé",
-      "transactionButton": "Ajouter une transaction"
+      "transactionButton": "Ajouter une transaction",
+      "card": {
+        "settled": "Réglé"
+      }
     },
     "categories": {
       "titleCategories": "Catégories",
