@@ -1,3 +1,4 @@
+import { cn } from '@/lib/utils';
 import {
   ActivityIcon,
   BanknoteIcon,
@@ -32,13 +33,14 @@ export type IconProps = keyof typeof iconMap;
 
 type CardIconProps = {
   icon?: IconProps;
+  className?: string;
 };
 
-const CardIcon = ({ icon = 'default' }: CardIconProps) => {
+const CardIcon = ({ icon = 'default', className }: CardIconProps) => {
   const IconComponent = iconMap[icon];
   const iconClassName = 'h-4 w-4';
 
-  return <IconComponent className={iconClassName} />;
+  return <IconComponent className={cn(iconClassName, className)} />;
 };
 
 export default CardIcon;
