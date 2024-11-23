@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Pagination, Tab, Tabs } from '@nextui-org/react';
+import { Chip, Pagination, Tab, Tabs } from '@nextui-org/react';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import CardIcon, { type IconProps } from '@/components/shared/CardIcon';
 
@@ -149,33 +149,45 @@ const Transactions = () => {
                   >
                     <Card className="cursor-pointer">
                       <CardHeader>
-                        <div className="flex flex-row items-center justify-between gap-4">
-                          <p className="text-sm text-slate-500 dark:text-slate-400 truncate hover:text-clip">
-                            {transaction.categoryName}
-                          </p>
-
-                          {<CardIcon icon={transaction.categoryIcon} />}
-                        </div>
-
                         <p className="text-lg font-semibold sm:text-xl sm:font-bold">
                           {transaction.name}
                         </p>
+
+                        <div className="flex flex-row items-center space-x-2">
+                          <CardIcon
+                            icon={transaction.categoryIcon}
+                            className="text-muted-foreground w-3 h-3 sm:w-4 sm:h-4"
+                          />
+
+                          <p className="text-xs sm:text-base text-muted-foreground truncate hover:text-clip">
+                            {transaction.categoryName}
+                          </p>
+                        </div>
                       </CardHeader>
                       <CardContent>
                         <div className="space-y-2">
                           <div className="flex flex-col items-end">
-                            <p className="text-lg font-semibold sm:text-xl sm:font-bold">
-                              {formatCurrency({
-                                value: transaction.amount,
-                                currency: transaction.currencyName,
-                                decimal: 2
-                              })}
-                            </p>
+                            <div className="flex flex-row items-center space-x-2">
+                              <p className="text-xl font-semibold sm:text-2xl sm:font-bold">
+                                {formatCurrency({
+                                  value: transaction.amount,
+                                  currency: transaction.currencyName,
+                                  decimal: 2
+                                })}
+                              </p>
 
-                            <p className="text-xs font-extralight">{`(${transaction.currencyName})`}</p>
+                              <Chip
+                                variant="flat"
+                                size="sm"
+                                radius="lg"
+                                classNames={{ content: 'font-semibold' }}
+                              >
+                                {transaction.currencyName}
+                              </Chip>
+                            </div>
                           </div>
 
-                          <p className="italic text-slate-500 dark:text-slate-400">
+                          <p className="italic text-muted-foreground">
                             {transaction.description}
                           </p>
                         </div>
