@@ -3,6 +3,7 @@ import {
   create,
   getAll,
   getAdvanced,
+  getTransactionsByCategory,
   get,
   update,
   remove
@@ -15,6 +16,8 @@ router.post('/', create);
 router.get('/', getAll);
 
 router.post('/getAdvanced/', getAdvanced);
+
+router.post('/getTransactionsByCategory', getTransactionsByCategory);
 
 router.get('/:id', get);
 
