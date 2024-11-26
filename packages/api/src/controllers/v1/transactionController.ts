@@ -1,9 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import * as transactionService from '../../services/v1/transactionService';
-import type {
-  PaginationProps,
-  QueryParamsProps
-} from '../../types/commonTypes';
+import type { QueryParamsProps } from '../../types/commonTypes';
 import { Types } from 'mongoose';
 
 const create = async (req: Request, res: Response, next: NextFunction) => {
@@ -45,22 +42,29 @@ const getAdvanced = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-const getTransactionsByCategory = async (
+const getDateRangeByType = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   try {
-    const query = req.query as unknown as QueryParamsProps;
+    const result = await transactionService.getDateRangeByType(req.body);
 
-    const data = await transactionService.getTransactionsByCategory(
-      query,
-      req.body
-    );
+    res.status(200).json(result);
+  } catch (error) {
+    next(error);
+  }
+};
 
-    res.status(200).json({
-      data
-    });
+const getDateRangeByCategory = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const result = await transactionService.getDateRangeByCategory(req.body);
+
+    res.status(200).json(result);
   } catch (error) {
     next(error);
   }
@@ -115,7 +119,8 @@ export {
   create,
   getAll,
   getAdvanced,
-  getTransactionsByCategory,
+  getDateRangeByType,
+  getDateRangeByCategory,
   get,
   update,
   remove

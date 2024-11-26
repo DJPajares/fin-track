@@ -8,16 +8,19 @@ import { Types } from 'mongoose';
 
 import type { QueryParamsProps } from '../../types/commonTypes';
 import { CategoryModel } from '../../models/v1/categoryModel';
+import { ExchangeRateModel } from '../../models/v1/exchangeRateModel';
+import convertCurrency from '../../utilities/convertCurrency';
+import moment from 'moment';
 
 type FetchTransactionProps = {
   date: Date;
-  type: string;
+  type?: string;
 };
 
-type FetchTransactionDateRangeProps = {
+type FetchByDateRangeProps = {
   startDate: Date;
   endDate: Date;
-  type: string;
+  currency: string;
 };
 
 const create = async (data: TransactionProps) => {
@@ -65,14 +68,14 @@ const buildFilters = (data: FetchTransactionProps) => {
   const date = new Date(data.date);
   const year = new Date(date).getFullYear();
   const month = new Date(date).getMonth() + 1;
-  const paddedMonth = month.toString().padStart(2, '0');
-  const yearMonth = parseInt(`${year}${paddedMonth}`);
+
+  const yearMonth = parseInt(`${year}${month.toString().padStart(2, '0')}`);
 
   // const yearMonth = parseInt(
   //   `${date.getFullYear()}${(date.getMonth() + 1).toString().padStart(2, '0')}`
   // );
 
-  const type = new Types.ObjectId(data.type);
+  const type = data?.type ? new Types.ObjectId(data.type) : '';
 
   return {
     date: {
@@ -298,193 +301,34 @@ const getAdvanced = async (
   };
 };
 
-// const getTransactionsByCategory = async (
-//   query: QueryParamsProps,
-//   data: FetchTransactionDateRangeProps
-// ) => {
-//   // const { startDate, endDate } = data;
-
-//   const startDate = new Date(data.startDate);
-//   const startDateYear = new Date(startDate).getFullYear();
-//   const startDateMonth = new Date(startDate).getMonth() + 1;
-//   const startDateYearMonth = parseInt(
-//     `${startDateYear}${startDateMonth.toString().padStart(2, '0')}`
-//   );
-
-//   const endDate = new Date(data.endDate);
-//   const endDateYear = new Date(endDate).getFullYear();
-//   const endDateMonth = new Date(endDate).getMonth() + 1;
-//   const endDateYearMonth = parseInt(
-//     `${endDateYear}${endDateMonth.toString().padStart(2, '0')}`
-//   );
-
-//   const transactions = await TransactionModel.aggregate([
-//     // Match transactions based on year-month range
-//     // {
-//     //   $match: {
-//     //     $expr: {
-//     //       $and: [
-//     //         {
-//     //           $gte: [
-//     //             {
-//     //               $add: [
-//     //                 { $multiply: [{ $year: '$startDate' }, 100] },
-//     //                 { $month: '$startDate' }
-//     //               ]
-//     //             },
-//     //             startDateYearMonth
-//     //           ]
-//     //         },
-//     //         {
-//     //           $lte: [
-//     //             {
-//     //               $add: [
-//     //                 { $multiply: [{ $year: '$startDate' }, 100] },
-//     //                 { $month: '$startDate' }
-//     //               ]
-//     //             },
-//     //             endDateYearMonth
-//     //           ]
-//     //         }
-//     //       ]
-//     //     }
-//     //   }
-//     // },
-//     {
-//       $match: {
-//         $expr: {
-//           $and: [
-//             {
-//               $lte: [
-//                 {
-//                   $add: [
-//                     { $multiply: [{ $year: '$startDate' }, 100] },
-//                     { $month: '$startDate' }
-//                   ]
-//                 },
-//                 endDateYearMonth
-//               ]
-//             },
-//             {
-//               $gte: [
-//                 {
-//                   $add: [
-//                     { $multiply: [{ $year: '$endDate' }, 100] },
-//                     { $month: '$endDate' }
-//                   ]
-//                 },
-//                 startDateYearMonth
-//               ]
-//             }
-//           ]
-//         }
-//       }
-//     },
-//     // Lookup categories
-//     {
-//       $lookup: {
-//         from: 'categories',
-//         localField: 'category',
-//         foreignField: '_id',
-//         as: 'categoryDetails'
-//       }
-//     },
-//     {
-//       $lookup: {
-//         from: 'types',
-//         localField: 'categoryDetails.type',
-//         foreignField: '_id',
-//         as: 'typeDetails'
-//       }
-//     },
-//     {
-//       $lookup: {
-//         from: 'currencies',
-//         localField: 'currency',
-//         foreignField: '_id',
-//         as: 'currencyDetails'
-//       }
-//     },
-//     // Unwind arrays
-//     { $unwind: '$categoryDetails' },
-//     { $unwind: '$typeDetails' },
-//     { $unwind: '$currencyDetails' },
-//     // Add year-month field for grouping
-//     {
-//       $addFields: {
-//         yearMonth: {
-//           $dateToString: { format: '%Y-%m', date: '$startDate' }
-//         }
-//       }
-//     },
-//     // Group by year-month
-//     {
-//       $group: {
-//         _id: '$yearMonth',
-//         // _id: 0,
-//         transactions: {
-//           $push: {
-//             _id: '$_id',
-//             name: '$name',
-//             typeId: '$typeDetails._id',
-//             typeName: '$typeDetails.name',
-//             categoryId: '$categoryDetails._id',
-//             categoryName: '$categoryDetails.name',
-//             categoryIcon: '$categoryDetails.icon',
-//             currencyId: '$currencyDetails._id',
-//             currencyName: '$currencyDetails.name',
-//             amount: '$amount',
-//             description: '$description'
-//           }
-//         }
-//       }
-//     },
-//     // Sort results by year-month
-//     { $sort: { _id: 1 } }
-//   ]);
-
-//   return transactions;
-// };
-
-const getDatesArray = (startDate: string, endDate: string): string[] => {
-  const start = new Date(startDate);
-  const end = new Date(endDate);
-  const datesArray = [];
-
-  // Iterate through each month between startDate and endDate
-  while (start <= end) {
-    datesArray.push(new Date(start).toISOString());
-    start.setUTCMonth(start.getUTCMonth() + 1); // Move to the next month
-  }
-
-  return datesArray;
-};
-
-const getTransactionsByCategory = async (
-  query: QueryParamsProps,
-  data: FetchTransactionDateRangeProps
-) => {
-  const start = new Date(data.startDate);
-  const end = new Date(data.endDate);
+const getByDateRange = async (data: FetchByDateRangeProps) => {
+  const startDate = new Date(data.startDate);
+  const endDate = new Date(data.endDate);
+  const currency = data.currency;
 
   let datesArray = [];
 
+  // Fetch exchange rates
+  const latestExchangeRates = await ExchangeRateModel.findOne().sort({
+    date: -1
+  });
+  const rates = latestExchangeRates?.rates || {};
+
   // Iterate through each month between startDate and endDate
-  while (start <= end) {
-    datesArray.push(new Date(start).toISOString());
-    start.setUTCMonth(start.getUTCMonth() + 1); // Move to the next month
+  while (startDate <= endDate) {
+    datesArray.push(new Date(startDate).toISOString());
+    startDate.setUTCMonth(startDate.getUTCMonth() + 1); // Move to the next month
   }
 
   const output = await Promise.all(
     datesArray.map(async (date) => {
       const dataToFilter = {
-        date: new Date(date),
-        type: data.type
+        date: new Date(date)
       };
 
       const filters = buildFilters(dataToFilter);
 
-      const result = await TransactionModel.aggregate([
+      const transactions = await TransactionModel.aggregate([
         { $match: filters.date },
         {
           $lookup: {
@@ -513,7 +357,6 @@ const getTransactionsByCategory = async (
           }
         },
         { $unwind: '$type' },
-        { $match: filters.type },
         {
           $project: {
             _id: '$_id',
@@ -529,15 +372,128 @@ const getTransactionsByCategory = async (
             description: '$description'
           }
         },
-        { $sort: { categoryName: 1, name: 1 } }
+        { $sort: { typeName: 1, categoryName: 1, name: 1 } }
       ]);
+
+      const convertedTransactions = transactions.map((transaction) => {
+        const fromCurrency = transaction.currencyName;
+        const amount = transaction.amount;
+
+        const convertedAmount = convertCurrency({
+          value: amount,
+          fromCurrency,
+          toCurrency: currency,
+          rates
+        });
+
+        return {
+          ...transaction,
+          convertedAmount,
+          convertedCurrency: currency
+        };
+      });
 
       return {
         date,
-        result
+        transactions: convertedTransactions
       };
     })
   );
+
+  return {
+    data: output
+  };
+};
+
+const getDateRangeByType = async (data: FetchByDateRangeProps) => {
+  const result = await getByDateRange(data);
+
+  const output = result.data.map((dataRow) => {
+    // const groupedTransactions: Record<string, any> = {};
+    // const { date, transactions } = dataRow;
+
+    // transactions.forEach((transaction) => {
+    //   const { typeId, typeName, convertedAmount, convertedCurrency } =
+    //     transaction;
+
+    //   if (!groupedTransactions[typeId]) {
+    //     groupedTransactions[typeId] = {
+    //       typeId,
+    //       typeName,
+    //       convertedAmount: 0,
+    //       convertedCurrency
+    //     };
+    //   }
+
+    //   groupedTransactions[typeId].convertedAmount += convertedAmount;
+    // });
+
+    // return {
+    //   date,
+    //   transactions: Object.values(groupedTransactions)
+    // };
+
+    const types: Record<string, number> = {};
+    const { date, transactions } = dataRow;
+
+    transactions.forEach((transaction) => {
+      const { typeName, convertedAmount } = transaction;
+      const key = typeName.toLowerCase();
+
+      if (!types[key]) {
+        types[key] = 0;
+      }
+
+      types[key] += Math.floor(convertedAmount);
+    });
+
+    return {
+      month: moment(date).format('MMMM'),
+      ...types
+    };
+  });
+
+  return output;
+};
+
+const getDateRangeByCategory = async (data: FetchByDateRangeProps) => {
+  const result = await getByDateRange(data);
+
+  const output = result.data.map((dataRow) => {
+    const groupedTransactions: Record<string, any> = {};
+    const { date, transactions } = dataRow;
+
+    transactions.forEach((transaction) => {
+      const {
+        categoryId,
+        categoryName,
+        categoryIcon,
+        typeId,
+        typeName,
+        convertedAmount,
+        convertedCurrency
+      } = transaction;
+
+      if (!groupedTransactions[categoryId]) {
+        groupedTransactions[categoryId] = {
+          categoryId,
+          categoryName,
+          categoryIcon,
+          typeId,
+          typeName,
+          convertedAmount: 0,
+          convertedCurrency
+        };
+      }
+
+      groupedTransactions[categoryId].convertedAmount += convertedAmount;
+    });
+
+    return {
+      date,
+      transactions: Object.values(groupedTransactions)
+    };
+  });
 
   return output;
 };
@@ -560,7 +516,8 @@ export {
   create,
   getAll,
   getAdvanced,
-  getTransactionsByCategory,
+  getDateRangeByType,
+  getDateRangeByCategory,
   get,
   update,
   remove

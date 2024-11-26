@@ -3,7 +3,8 @@ import {
   create,
   getAll,
   getAdvanced,
-  getTransactionsByCategory,
+  getDateRangeByType,
+  getDateRangeByCategory,
   get,
   update,
   remove
@@ -17,7 +18,9 @@ router.get('/', getAll);
 
 router.post('/getAdvanced/', getAdvanced);
 
-router.post('/getTransactionsByCategory', getTransactionsByCategory);
+router.post('/getDateRangeByType', getDateRangeByType);
+
+router.post('/getDateRangeByCategory', getDateRangeByCategory);
 
 router.get('/:id', get);
 
