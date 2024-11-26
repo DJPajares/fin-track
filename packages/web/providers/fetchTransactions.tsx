@@ -3,14 +3,20 @@ import mockData from '../../../shared/mockData/transactions.json';
 
 const useMockedData = process.env.NEXT_PUBLIC_USE_MOCKED_DATA === 'true';
 
-type TransactionProps = {
+export type TransactionProps = {
   type: string;
   date: Date;
   page?: number;
   limit?: number;
 };
 
-type TransactionsDateRangeByTypeProps = {
+export type TransactionsDateByCategoryProps = {
+  date: Date;
+  currency: string;
+  type?: string;
+};
+
+export type TransactionsDateRangeByTypeProps = {
   startDate: Date;
   endDate: Date;
   currency: string;
@@ -29,6 +35,32 @@ const fetchTransactions = async ({
       return mockData;
     } else {
       const postData = { type, date };
+
+      const { status, data } = await axios.post(url, postData);
+
+      if (status === 200) return data.data;
+    }
+  } catch (error) {
+    console.error('Fetch failed', error);
+  }
+};
+
+const fetchTransactionsDateByCategory = async ({
+  date,
+  currency,
+  type
+}: TransactionsDateByCategoryProps) => {
+  const url = `${process.env.NEXT_PUBLIC_BASE_URL}/transactions/getDateByCategory`;
+
+  try {
+    if (useMockedData) {
+      return mockData;
+    } else {
+      const postData = {
+        date,
+        currency,
+        type
+      };
 
       const { status, data } = await axios.post(url, postData);
 
@@ -65,4 +97,8 @@ const fetchTransactionsDateRangeByType = async ({
   }
 };
 
-export { fetchTransactions, fetchTransactionsDateRangeByType };
+export {
+  fetchTransactions,
+  fetchTransactionsDateByCategory,
+  fetchTransactionsDateRangeByType
+};
