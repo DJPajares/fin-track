@@ -10,6 +10,12 @@ type TransactionProps = {
   limit?: number;
 };
 
+type TransactionsDateRangeByTypeProps = {
+  startDate: Date;
+  endDate: Date;
+  currency: string;
+};
+
 const fetchTransactions = async ({
   type,
   date,
@@ -33,4 +39,30 @@ const fetchTransactions = async ({
   }
 };
 
-export default fetchTransactions;
+const fetchTransactionsDateRangeByType = async ({
+  startDate,
+  endDate,
+  currency
+}: TransactionsDateRangeByTypeProps) => {
+  const url = `${process.env.NEXT_PUBLIC_BASE_URL}/transactions/getDateRangeByType`;
+
+  try {
+    if (useMockedData) {
+      return mockData;
+    } else {
+      const postData = {
+        startDate,
+        endDate,
+        currency
+      };
+
+      const { status, data } = await axios.post(url, postData);
+
+      if (status === 200) return data;
+    }
+  } catch (error) {
+    console.error('Fetch failed', error);
+  }
+};
+
+export { fetchTransactions, fetchTransactionsDateRangeByType };

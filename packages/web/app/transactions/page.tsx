@@ -8,7 +8,7 @@ import CardIcon, { type IconProps } from '@/components/shared/CardIcon';
 import EditTransactionDrawer from './EditTransaction/EditTransactionDrawer';
 
 import { useAppSelector } from '@/lib/hooks';
-import fetchTransactions from '@/providers/fetchTransactions';
+import { fetchTransactions } from '@/providers/fetchTransactions';
 
 import { formatCurrency } from '../../../../shared/utilities/formatCurrency';
 import { DatePicker } from '@/components/shared/DatePicker';
