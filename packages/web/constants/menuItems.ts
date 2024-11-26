@@ -21,8 +21,14 @@ export const MENU_ITEMS = [
   },
   {
     value: 'charts',
-    label: 'Charts',
-    route: '/charts',
+    label: 'Charts (Month)',
+    route: '/charts/month',
+    icon: ChartColumnBigIcon
+  },
+  {
+    value: 'chartsYear',
+    label: 'Charts (Year)',
+    route: '/charts/year',
     icon: ChartColumnBigIcon
   },
   {
