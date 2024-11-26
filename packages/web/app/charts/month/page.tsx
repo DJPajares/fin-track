@@ -91,7 +91,6 @@ const Charts = () => {
   };
 
   const handleSelectionChange = (e) => {
-    console.log(e.target.value);
     setSelectedType(e.target.value);
   };
 
