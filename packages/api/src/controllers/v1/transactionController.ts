@@ -42,6 +42,20 @@ const getAdvanced = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
+const getDateByCategory = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const result = await transactionService.getDateByCategory(req.body);
+
+    res.status(200).json(result);
+  } catch (error) {
+    next(error);
+  }
+};
+
 const getDateRangeByType = async (
   req: Request,
   res: Response,
@@ -119,6 +133,7 @@ export {
   create,
   getAll,
   getAdvanced,
+  getDateByCategory,
   getDateRangeByType,
   getDateRangeByCategory,
   get,

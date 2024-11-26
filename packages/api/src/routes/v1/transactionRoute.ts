@@ -3,6 +3,7 @@ import {
   create,
   getAll,
   getAdvanced,
+  getDateByCategory,
   getDateRangeByType,
   getDateRangeByCategory,
   get,
@@ -17,6 +18,8 @@ router.post('/', create);
 router.get('/', getAll);
 
 router.post('/getAdvanced/', getAdvanced);
+
+router.post('/getDateByCategory', getDateByCategory);
 
 router.post('/getDateRangeByType', getDateRangeByType);
 
