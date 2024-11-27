@@ -402,7 +402,7 @@ const getDateByCategory = async (data: FetchByDateProps) => {
 
     return {
       category: categoryName,
-      amount: convertedAmount
+      amount: Math.floor(convertedAmount)
     };
   });
 
