@@ -23,7 +23,7 @@ const CategoryCard = ({
   return (
     <Card
       onClick={() => handleCardClick(category)}
-      className="bg-secondary/70 cursor-pointer"
+      className="bg-accent/70 cursor-pointer"
     >
       <CardHeader>
         <div className="flex flex-row items-center justify-between gap-4">

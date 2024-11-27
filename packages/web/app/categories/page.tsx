@@ -75,7 +75,7 @@ const Categories = () => {
                   </EditCategoryDrawer>
                 </div>
 
-                <div className="bg-secondary rounded-lg">
+                <div className="bg-accent rounded-lg">
                   {categories
                     .filter(
                       (category) =>
@@ -106,7 +106,7 @@ const Categories = () => {
                   {t('titleSuggestions').toLocaleUpperCase()}
                 </h6>
 
-                <div className="bg-secondary rounded-lg">
+                <div className="bg-accent rounded-lg">
                   {categories
                     .filter(
                       (category) =>
