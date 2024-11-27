@@ -1,0 +1,62 @@
+[
+  {
+    "month": "January",
+    "expense": 7155,
+    "income": 8700
+  },
+  {
+    "month": "February",
+    "expense": 7155,
+    "income": 8700
+  },
+  {
+    "month": "March",
+    "expense": 7155,
+    "income": 8700
+  },
+  {
+    "month": "April",
+    "expense": 6701,
+    "income": 8700
+  },
+  {
+    "month": "May",
+    "expense": 6226,
+    "income": 8700
+  },
+  {
+    "month": "June",
+    "expense": 6226,
+    "income": 8700
+  },
+  {
+    "month": "July",
+    "expense": 6226,
+    "income": 8700
+  },
+  {
+    "month": "August",
+    "expense": 6226,
+    "income": 8700
+  },
+  {
+    "month": "September",
+    "expense": 5066,
+    "income": 8700
+  },
+  {
+    "month": "October",
+    "expense": 3466,
+    "income": 8700
+  },
+  {
+    "month": "November",
+    "expense": 3466,
+    "income": 8700
+  },
+  {
+    "month": "December",
+    "expense": 3406,
+    "income": 8700
+  }
+]

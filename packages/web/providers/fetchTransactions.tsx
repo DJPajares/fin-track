@@ -1,5 +1,8 @@
 import axios from 'axios';
-import mockData from '../../../shared/mockData/transactions.json';
+
+import transactionsData from '../../../shared/mockData/transactions.json';
+import transactionsByCategoryData from '../../../shared/mockData/transactionsByCategory.json';
+import transactionsDateRangeByTypeData from '../../../shared/mockData/transactionsDateRangeByType.json';
 
 const useMockedData = process.env.NEXT_PUBLIC_USE_MOCKED_DATA === 'true';
 
@@ -32,7 +35,7 @@ const fetchTransactions = async ({
 
   try {
     if (useMockedData) {
-      return mockData;
+      return transactionsData;
     } else {
       const postData = { type, date };
 
@@ -54,7 +57,7 @@ const fetchTransactionsDateByCategory = async ({
 
   try {
     if (useMockedData) {
-      return mockData;
+      return transactionsByCategoryData;
     } else {
       const postData = {
         date,
@@ -80,7 +83,7 @@ const fetchTransactionsDateRangeByType = async ({
 
   try {
     if (useMockedData) {
-      return mockData;
+      return transactionsDateRangeByTypeData;
     } else {
       const postData = {
         startDate,
