@@ -23,34 +23,19 @@ import {
 import { useAppSelector } from '@/lib/hooks';
 import {
   fetchTransactionsDateByCategory,
-  fetchTransactionsDateRangeByType,
   TransactionsDateByCategoryProps
 } from '@/providers/fetchTransactions';
-import { ListProps } from '@/types/List';
 import { Select, SelectItem } from '@nextui-org/react';
-import {
-  ChevronLeftIcon,
-  ChevronRightIcon,
-  TrendingDownIcon,
-  TrendingUpIcon
-} from 'lucide-react';
+import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
 import moment from 'moment';
-import { useEffect, useState } from 'react';
-import {
-  Area,
-  AreaChart,
-  CartesianGrid,
-  Cell,
-  Pie,
-  PieChart,
-  XAxis
-} from 'recharts';
+import { ChangeEvent, useEffect, useState } from 'react';
+import { Cell, Pie, PieChart } from 'recharts';
 
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 
 const Charts = () => {
   const [date, setDate] = useState(new Date());
-  const [selectedType, setSelectedType] = useState();
+  const [selectedType, setSelectedType] = useState<string>();
   const [chartData, setChartData] = useState([]);
 
   const { currency } = useAppSelector((state) => state.dashboard);
@@ -90,7 +75,7 @@ const Charts = () => {
     setDate(moment(newDate).toDate());
   };
 
-  const handleSelectionChange = (e) => {
+  const handleSelectionChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSelectedType(e.target.value);
   };
 
