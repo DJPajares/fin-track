@@ -26,7 +26,7 @@ const baseCategory: CategoryItemProps = {
 };
 
 const Categories = () => {
-  const t = useTranslations('Page.categories');
+  const t = useTranslations();
   const dispatch = useAppDispatch();
 
   const { types, categories } = useAppSelector((state) => state.main);
@@ -59,14 +59,14 @@ const Categories = () => {
               <div className="space-y-1">
                 <div className="flex flex-row items-center justify-between">
                   <h6 className="font-semibold text-lg">
-                    {t('titleCategories').toLocaleUpperCase()}
+                    {t('Page.categories.titleCategories').toLocaleUpperCase()}
                   </h6>
 
                   <EditCategoryDrawer
                     type={type}
                     category={baseCategory}
-                    title="Add New Category"
-                    okButton="Add"
+                    title={t('Page.categories.categoryDrawer.titleAdd')}
+                    okButton={t('Common.button.add')}
                     isNew
                   >
                     <Button variant="ghost" size="sm_rounded_icon">
@@ -86,8 +86,8 @@ const Categories = () => {
                         <EditCategoryDrawer
                           type={type}
                           category={category}
-                          title="Edit Category"
-                          okButton="Update"
+                          title={t('Page.categories.categoryDrawer.titleEdit')}
+                          okButton={t('Common.button.update')}
                         >
                           <div className="flex flex-row items-center space-x-4 p-2 hover:bg-border cursor-pointer">
                             <CardIcon icon={category.icon} />
@@ -103,7 +103,7 @@ const Categories = () => {
 
               <div className="space-y-1">
                 <h6 className="font-semibold text-lg">
-                  {t('titleSuggestions').toLocaleUpperCase()}
+                  {t('Page.categories.titleSuggestions').toLocaleUpperCase()}
                 </h6>
 
                 <div className="bg-accent rounded-lg">

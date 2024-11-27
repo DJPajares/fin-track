@@ -70,14 +70,19 @@
     },
     "categories": {
       "titleCategories": "Categories",
-      "titleSuggestions": "Suggestions"
+      "titleSuggestions": "Suggestions",
+      "categoryDrawer": {
+        "titleAdd": "Add New Category",
+        "titleEdit": "Edit Category"
+      }
     }
   },
   "Common": {
     "button": {
       "ok": "OK",
       "cancel": "Cancel",
-      "add": "Add"
+      "add": "Add",
+      "update": "Update"
     },
     "alertDialog": {
       "triggerButton": "Update",

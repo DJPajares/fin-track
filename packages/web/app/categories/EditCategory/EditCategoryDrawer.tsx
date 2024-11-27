@@ -53,8 +53,8 @@ import { useTranslations } from 'next-intl';
 type EditCategoryDrawerProps = {
   type?: ListProps;
   category: CategoryItemProps;
-  title?: string;
-  okButton?: string;
+  title: string;
+  okButton: string;
   isNew?: boolean;
   children: ReactNode;
 };
@@ -64,8 +64,8 @@ const iconMapArray = Object.keys(iconMap) as (keyof typeof iconMap)[];
 const EditCategoryDrawer = ({
   type,
   category,
-  title = 'Edit Category',
-  okButton = 'Update',
+  title,
+  okButton,
   isNew = false,
   children
 }: EditCategoryDrawerProps) => {

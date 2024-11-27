@@ -1,11 +1,13 @@
 {
   "MetaData": {
-    "description": "Erstellt von create next app"
+    "description": "Finanz-Tracker-Tool"
   },
   "Menu": {
     "home": "Startseite",
     "dashboard": "Dashboard",
     "charts": "Diagramme",
+    "chartsMonth": "Diagramme (Monat)",
+    "chartsYear": "Diagramme (Jahr)",
     "transactions": "Transaktionen",
     "categories": "Kategorien"
   },
@@ -13,31 +15,31 @@
     "editProfile": "Profil bearbeiten",
     "language": "Sprache",
     "currency": "Währung",
-    "darkMode": "Dunkler Modus",
+    "darkMode": "Dunkelmodus",
     "logout": "Abmelden"
   },
   "Page": {
     "home": {
       "greetings": "Willkommen",
-      "dashboardButton": "Zum Dashboard gehen",
+      "dashboardButton": "Zum Dashboard",
       "motivation": {
-        "title": "Motivation heute",
+        "title": "Tagesmotivation",
         "quotes": [
-          "Sparen Sie Geld, und Geld wird Sie retten!",
-          "Ein Budget zeigt Ihrem Geld, wohin es gehen soll, anstatt sich zu fragen, wo es geblieben ist.",
-          "Investieren Sie in sich selbst; das bringt die besten Zinsen.",
-          "Verfolgen Sie Ihre Ausgaben und bleiben Sie finanziell schlau!",
-          "Jeder Cent zählt. Jetzt sparen, später genießen!",
+          "Spare Geld, und das Geld wird dir helfen!",
+          "Ein Budget sagt deinem Geld, wohin es gehen soll, nicht andersherum.",
+          "Investiere in dich selbst; es bringt die besten Renditen.",
+          "Verfolge deine Ausgaben und verwalte sie klug!",
+          "Jeder Cent zählt. Spare heute, genieße morgen!",
           "Kleine Schritte heute führen zu großen Einsparungen morgen.",
-          "Vermeiden Sie unnötige Schulden und umarmen Sie finanzielle Freiheit.",
-          "Man muss nicht reich sein, um Wohlstand aufzubauen – nur konsequent.",
-          "Finanzielle Disziplin heute wird sich in der Zukunft auszahlen.",
-          "Das Kürzen kleiner Ausgaben kann zu großen Einsparungen führen.",
-          "Geld ist ein Werkzeug; verwenden Sie es klug, um Ihre Träume zu verwirklichen.",
-          "Geben Sie weniger aus, als Sie verdienen, und investieren Sie den Rest.",
-          "Die beste Investition, die Sie tätigen können, ist in Ihr eigenes Wissen.",
-          "Sparen Sie für Notfälle – Ihr zukünftiges Ich wird es Ihnen danken.",
-          "Setzen Sie sich finanzielle Ziele und gehen Sie Schritt für Schritt darauf zu."
+          "Vermeide unnötige Schulden und strebe finanzielle Freiheit an.",
+          "Man muss nicht reich sein, um Vermögen aufzubauen.",
+          "Die finanzielle Disziplin von heute zahlt sich in der Zukunft aus.",
+          "Kleine Ausgabenreduzierungen können zu großen Einsparungen führen.",
+          "Geld ist ein Werkzeug, setze es klug ein, um deine Träume zu verwirklichen.",
+          "Gib weniger aus, als du verdienst, und investiere den Rest.",
+          "Die beste Investition ist das Wissen in dich selbst.",
+          "Beginne jetzt mit dem Sparen für Notfälle.",
+          "Setze dir finanzielle Ziele und erreiche sie Schritt für Schritt."
         ]
       }
     },
@@ -47,12 +49,46 @@
       "completed": "Abgeschlossen",
       "transactionButton": "Transaktion hinzufügen",
       "card": {
-        "settled": "Bezahlt"
+        "settled": "Erledigt"
+      },
+      "cardDrawer": {
+        "title": "",
+        "description": "{category}-Transaktionen abschließen",
+        "totalLabel": "Gesamt"
+      },
+      "transactionDrawer": {
+        "title": "Transaktionen",
+        "description": "Neue Transaktion hinzufügen"
+      }
+    },
+    "transactions": {
+      "form": {
+        "name": "Name",
+        "amount": "Betrag",
+        "currency": "Währung"
       }
     },
     "categories": {
       "titleCategories": "Kategorien",
-      "titleSuggestions": "Vorschläge"
+      "titleSuggestions": "Vorschläge",
+      "categoryDrawer": {
+        "titleAdd": "Neue Kategorie hinzufügen",
+        "titleEdit": "Kategorie bearbeiten"
+      }
+    }
+  },
+  "Common": {
+    "button": {
+      "ok": "OK",
+      "cancel": "Abbrechen",
+      "add": "Hinzufügen",
+      "update": "Fortfahren"
+    },
+    "alertDialog": {
+      "triggerButton": "Aktualisieren",
+      "title": "Bist du sicher?",
+      "description": "Diese Aktion kann nicht rückgängig gemacht werden.",
+      "okButton": "Fortfahren"
     }
   }
 }

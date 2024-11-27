@@ -1,11 +1,13 @@
 {
   "MetaData": {
-    "description": "Généré par create next app"
+    "description": "Outil de suivi financier"
   },
   "Menu": {
     "home": "Accueil",
     "dashboard": "Tableau de bord",
     "charts": "Graphiques",
+    "chartsMonth": "Graphiques (Mois)",
+    "chartsYear": "Graphiques (Année)",
     "transactions": "Transactions",
     "categories": "Catégories"
   },
@@ -23,36 +25,70 @@
       "motivation": {
         "title": "Motivation aujourd'hui",
         "quotes": [
-          "Économisez de l'argent, et l'argent vous sauvera!",
-          "Un budget consiste à dire à votre argent où aller plutôt que de vous demander où il est passé.",
-          "Investissez en vous-même; c'est ce qui rapporte le plus.",
-          "Suivez vos dépenses et restez financièrement intelligent!",
-          "Chaque centime compte. Économisez maintenant, profitez plus tard!",
+          "Économisez de l'argent, et l'argent vous sauvera !",
+          "Un budget indique où va votre argent au lieu de vous demander où il est passé.",
+          "Investissez en vous-même ; c'est le meilleur investissement.",
+          "Suivez vos dépenses et restez financièrement intelligent !",
+          "Chaque centime compte. Épargnez maintenant, profitez plus tard !",
           "De petits pas aujourd'hui mènent à de grandes économies demain.",
           "Évitez les dettes inutiles et adoptez la liberté financière.",
-          "Vous n'avez pas besoin d'être riche pour accumuler de la richesse - soyez juste constant.",
-          "La discipline financière d'aujourd'hui vous récompensera à l'avenir.",
-          "Réduire les petites dépenses peut mener à de grandes économies.",
-          "L'argent est un outil; utilisez-le intelligemment pour réaliser vos rêves.",
+          "Vous n'avez pas besoin d'être riche pour bâtir votre patrimoine : soyez simplement cohérent.",
+          "La discipline financière aujourd'hui sera récompensée dans le futur.",
+          "Réduire les petites dépenses peut entraîner de grandes économies.",
+          "L'argent est un outil ; utilisez-le sagement pour réaliser vos rêves.",
           "Dépensez moins que ce que vous gagnez et investissez le reste.",
-          "Le meilleur investissement que vous puissiez faire est dans votre propre connaissance.",
-          "Commencez à épargner pour les urgences - votre futur vous remerciera.",
-          "Fixez-vous des objectifs financiers et avancez étape par étape pour les atteindre."
+          "Le meilleur investissement que vous puissiez faire est dans vos propres connaissances.",
+          "Commencez à économiser pour les urgences – votre futur vous remerciera.",
+          "Fixez-vous des objectifs financiers et avancez pas à pas pour les atteindre."
         ]
       }
     },
     "dashboard": {
       "balance": "Solde",
-      "extra": "Extra",
+      "extra": "Supplémentaire",
       "completed": "Terminé",
       "transactionButton": "Ajouter une transaction",
       "card": {
         "settled": "Réglé"
+      },
+      "cardDrawer": {
+        "title": "",
+        "description": "Régler les transactions de {category}",
+        "totalLabel": "Total"
+      },
+      "transactionDrawer": {
+        "title": "Transaction",
+        "description": "Ajouter de nouvelles transactions"
+      }
+    },
+    "transactions": {
+      "form": {
+        "name": "Nom",
+        "amount": "Montant",
+        "currency": "Devise"
       }
     },
     "categories": {
       "titleCategories": "Catégories",
-      "titleSuggestions": "Suggestions"
+      "titleSuggestions": "Suggestions",
+      "categoryDrawer": {
+        "titleAdd": "Ajouter une nouvelle catégorie",
+        "titleEdit": "Modifier la catégorie"
+      }
+    }
+  },
+  "Common": {
+    "button": {
+      "ok": "D'accord",
+      "cancel": "Annuler",
+      "add": "Ajouter",
+      "update": "Continuer"
+    },
+    "alertDialog": {
+      "triggerButton": "Mettre à jour",
+      "title": "Êtes-vous sûr ?",
+      "description": "Cela ne peut pas être annulé",
+      "okButton": "Continuer"
     }
   }
 }

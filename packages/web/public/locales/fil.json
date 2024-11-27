@@ -1,12 +1,14 @@
 {
   "MetaData": {
-    "description": "Ginawa ng create next app"
+    "description": "Gamit na pangsubaybay ng pananalapi"
   },
   "Menu": {
     "home": "Home",
     "dashboard": "Dashboard",
-    "charts": "Tsart",
-    "transactions": "Transaksyon",
+    "charts": "Mga Tsart",
+    "chartsMonth": "Mga Tsart (Buwan)",
+    "chartsYear": "Mga Tsart (Taon)",
+    "transactions": "Mga Transaksyon",
     "categories": "Mga Kategorya"
   },
   "MenuDropdown": {
@@ -18,26 +20,26 @@
   },
   "Page": {
     "home": {
-      "greetings": "Maligayang Pagdating",
+      "greetings": "Maligayang pagdating",
       "dashboardButton": "Pumunta sa Dashboard",
       "motivation": {
-        "title": "Motibasyon ngayong araw",
+        "title": "Motibasyon ngayon",
         "quotes": [
-          "Mag-ipon ng pera, at ililigtas ka nito!",
-          "Ang budget ay paraan upang malaman kung saan napupunta ang pera kaysa tanungin kung saan ito napunta.",
-          "Mag-invest sa sarili; ito ang pinakamagandang interes.",
-          "Subaybayan ang iyong gastusin at maging matalino sa pananalapi!",
-          "Ang bawat sentimos ay mahalaga. Mag-ipon ngayon, tamasahin mamaya!",
-          "Maliit na hakbang ngayon, malaking ipon bukas.",
-          "Iwasan ang di-kailangang utang at yakapin ang kalayaan sa pananalapi.",
-          "Hindi kailangang maging mayaman para magtayo ng yaman – maging pare-pareho lamang.",
-          "Ang disiplina sa pananalapi ngayon ay magbibigay gantimpala sa hinaharap.",
-          "Ang pagbabawas ng maliit na gastusin ay maaaring magbigay ng malaking ipon.",
-          "Ang pera ay isang kasangkapan; gamitin ito nang tama upang matupad ang iyong mga pangarap.",
-          "Gumastos ng mas kaunti kaysa sa iyong kinikita at i-invest ang sobra.",
-          "Ang pinakamagandang investment na maaari mong gawin ay sa iyong kaalaman.",
-          "Mag-umpisang mag-ipon para sa emergencies – pasasalamatan ka ng iyong sarili sa hinaharap.",
-          "Magtakda ng mga layunin sa pananalapi, at unti-unting gawin ang mga hakbang upang maabot ito."
+          "Magtipid ng pera, at maililigtas ka ng pera!",
+          "Ang badyet ay nagsasabi kung saan pupunta ang pera mo.",
+          "Mag-invest sa sarili; ito ang may pinakamataas na interes.",
+          "I-track ang mga gastusin at maging matalino sa pananalapi!",
+          "Bawat sentimo ay mahalaga. Magtipid ngayon, mag-enjoy bukas!",
+          "Maliit na hakbang ngayon, malaking tipid bukas.",
+          "Iwasan ang utang at yakapin ang kalayaan sa pananalapi.",
+          "Hindi kailangang mayaman para magparami ng yaman.",
+          "Ang disiplina ngayon ay magiging gantimpala bukas.",
+          "Ang pagbawas sa maliliit na gastos ay nagdudulot ng malaking ipon.",
+          "Ang pera ay kasangkapan; gamitin ito ng matalino.",
+          "Gumastos ng mas kaunti kaysa kinikita at mag-invest.",
+          "Ang pinakamahusay na investment ay sa kaalaman mo.",
+          "Simulan ang ipon para sa emerhensya.",
+          "Magtakda ng mga layuning pinansyal, isa-isang hakbangin ito."
         ]
       }
     },
@@ -47,12 +49,46 @@
       "completed": "Tapos",
       "transactionButton": "Magdagdag ng Transaksyon",
       "card": {
-        "settled": "Nabayaran"
+        "settled": "Naayos na"
+      },
+      "cardDrawer": {
+        "title": "",
+        "description": "Ayusin ang mga transaksyon sa {category}",
+        "totalLabel": "Kabuuan"
+      },
+      "transactionDrawer": {
+        "title": "Mga Transaksyon",
+        "description": "Magdagdag ng Bagong Transaksyon"
+      }
+    },
+    "transactions": {
+      "form": {
+        "name": "Pangalan",
+        "amount": "Halaga",
+        "currency": "Pera"
       }
     },
     "categories": {
       "titleCategories": "Mga Kategorya",
-      "titleSuggestions": "Mga Mungkahi"
+      "titleSuggestions": "Mga Panukala",
+      "categoryDrawer": {
+        "titleAdd": "Magdagdag ng Bagong Kategorya",
+        "titleEdit": "I-edit ang Kategorya"
+      }
+    }
+  },
+  "Common": {
+    "button": {
+      "ok": "Sige",
+      "cancel": "Kanselahin",
+      "add": "Idagdag",
+      "update": "Magpatuloy"
+    },
+    "alertDialog": {
+      "triggerButton": "Update",
+      "title": "Sigurado ka?",
+      "description": "Hindi na ito maaaring bawiin.",
+      "okButton": "Magpatuloy"
     }
   }
 }

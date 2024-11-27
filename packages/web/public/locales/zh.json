@@ -1,16 +1,18 @@
 {
   "MetaData": {
-    "description": "由 create next app 生成"
+    "description": "财务追踪工具"
   },
   "Menu": {
     "home": "首页",
-    "dashboard": "仪表板",
+    "dashboard": "仪表盘",
     "charts": "图表",
+    "chartsMonth": "图表（月）",
+    "chartsYear": "图表（年）",
     "transactions": "交易",
     "categories": "类别"
   },
   "MenuDropdown": {
-    "editProfile": "编辑个人资料",
+    "editProfile": "编辑资料",
     "language": "语言",
     "currency": "货币",
     "darkMode": "深色模式",
@@ -19,40 +21,74 @@
   "Page": {
     "home": {
       "greetings": "欢迎",
-      "dashboardButton": "前往仪表板",
+      "dashboardButton": "前往仪表盘",
       "motivation": {
-        "title": "今日激励",
+        "title": "今日动力",
         "quotes": [
-          "省钱，钱会帮你！",
-          "预算是告诉你的钱去哪儿，而不是问它去哪了。",
-          "投资自己；它带来最好的收益。",
-          "跟踪你的开销，保持财务智慧！",
-          "每一分钱都重要。现在存钱，未来享受！",
-          "今天的小步伐，明天的大储蓄。",
+          "存钱，钱会救你！",
+          "预算是告诉你的钱去哪，而不是疑惑它去了哪。",
+          "投资自己；这是最划算的投资。",
+          "记录你的支出，保持财务明智！",
+          "每一分钱都重要。现在存，未来享！",
+          "今天的小步伐，成就明天的大储蓄。",
           "避免不必要的债务，拥抱财务自由。",
-          "你不需要很富有来积累财富——只需要持续。",
-          "今天的财务纪律将在未来奖励你。",
-          "削减小额开支可以带来巨大储蓄。",
-          "钱是工具；明智地使用它来实现你的梦想。",
-          "花费少于收入，投资其余的。",
-          "你可以对自己的知识进行最佳投资。",
-          "为紧急情况开始储蓄 - 未来的你会感谢你。",
-          "设定财务目标，一步步实现它们。"
+          "你无需富有即可积累财富，只需坚持。",
+          "今天的财务纪律将来会回报你。",
+          "削减小额支出可带来大储蓄。",
+          "金钱是工具，明智使用以实现梦想。",
+          "少花赚的钱，剩下的投资。",
+          "最好的投资是提升自己的知识。",
+          "开始为紧急情况储蓄，你将感谢现在的自己。",
+          "设定财务目标，一步一步去实现。"
         ]
       }
     },
     "dashboard": {
       "balance": "余额",
       "extra": "额外",
-      "completed": "完成",
+      "completed": "已完成",
       "transactionButton": "添加交易",
       "card": {
         "settled": "已结算"
+      },
+      "cardDrawer": {
+        "title": "",
+        "description": "结算 {category} 交易",
+        "totalLabel": "总计"
+      },
+      "transactionDrawer": {
+        "title": "交易",
+        "description": "添加新交易"
+      }
+    },
+    "transactions": {
+      "form": {
+        "name": "名称",
+        "amount": "金额",
+        "currency": "货币"
       }
     },
     "categories": {
       "titleCategories": "类别",
-      "titleSuggestions": "建议"
+      "titleSuggestions": "建议",
+      "categoryDrawer": {
+        "titleAdd": "添加新类别",
+        "titleEdit": "编辑类别"
+      }
+    }
+  },
+  "Common": {
+    "button": {
+      "ok": "确定",
+      "cancel": "取消",
+      "add": "添加",
+      "update": "继续"
+    },
+    "alertDialog": {
+      "triggerButton": "更新",
+      "title": "确定吗？",
+      "description": "此操作无法撤销",
+      "okButton": "继续"
     }
   }
 }
