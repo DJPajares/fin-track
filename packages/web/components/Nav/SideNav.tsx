@@ -70,39 +70,37 @@ const SideNav = () => {
                 asChild
               >
                 <SidebarMenuItem>
-                  <CollapsibleTrigger asChild>
-                    <SidebarMenuButton
-                      // className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
-                      size="lg"
-                      tooltip={item.label}
-                    >
-                      <div className="flex aspect-square size-8 items-center justify-center rounded-lg">
-                        {item.icon && <item.icon />}
-                      </div>
+                  {item.items?.length ? (
+                    <CollapsibleTrigger asChild>
+                      <SidebarMenuButton
+                        // className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+                        size="lg"
+                        tooltip={item.label}
+                      >
+                        <div className="flex aspect-square size-8 items-center justify-center rounded-lg">
+                          {item.icon && <item.icon />}
+                        </div>
 
-                      {item.items?.length ? (
-                        <>
-                          <div className="grid flex-1 text-left text-sm leading-tight">
-                            <p>{t(item.value)}</p>
-                          </div>
+                        <div className="grid flex-1 text-left text-sm leading-tight">
+                          <p className="font-medium">{t(item.value)}</p>
+                        </div>
 
-                          <ChevronRightIcon className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
-                        </>
-                      ) : (
-                        <>
-                          <div className="grid flex-1 text-left text-sm leading-tight">
-                            <Link
-                              href={item.route}
-                              onClick={handleLinkClick}
-                              passHref
-                            >
-                              <p className="font-medium">{t(item.value)}</p>
-                            </Link>
-                          </div>
-                        </>
-                      )}
-                    </SidebarMenuButton>
-                  </CollapsibleTrigger>
+                        <ChevronRightIcon className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
+                      </SidebarMenuButton>
+                    </CollapsibleTrigger>
+                  ) : (
+                    <Link href={item.route} onClick={handleLinkClick} passHref>
+                      <SidebarMenuButton size="lg" tooltip={item.label}>
+                        <div className="flex aspect-square size-8 items-center justify-center rounded-lg">
+                          {item.icon && <item.icon />}
+                        </div>
+
+                        <div className="grid flex-1 text-left text-sm leading-tight">
+                          <p className="font-medium">{t(item.value)}</p>
+                        </div>
+                      </SidebarMenuButton>
+                    </Link>
+                  )}
 
                   <CollapsibleContent>
                     <SidebarMenuSub>
