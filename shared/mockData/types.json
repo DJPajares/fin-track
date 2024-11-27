@@ -1,16 +1,16 @@
 [
   {
-    "_id": "671f009d855aa876c09f12db",
-    "name": "Income",
-    "createdAt": "2024-10-28T03:10:21.572Z",
-    "updatedAt": "2024-10-28T03:10:21.572Z",
+    "_id": "660d73af8a4a6723c905bd0c",
+    "name": "Expense",
+    "createdAt": "2024-04-03T15:20:15.228Z",
+    "updatedAt": "2024-04-03T15:20:15.228Z",
     "__v": 0
   },
   {
-    "_id": "671f00b4855aa876c09f12dd",
-    "name": "Expense",
-    "createdAt": "2024-10-28T03:10:44.993Z",
-    "updatedAt": "2024-10-28T03:10:44.993Z",
+    "_id": "660d73c18a4a6723c905bd10",
+    "name": "Income",
+    "createdAt": "2024-04-03T15:20:33.799Z",
+    "updatedAt": "2024-04-03T15:20:33.799Z",
     "__v": 0
   }
 ]
