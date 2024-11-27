@@ -31,6 +31,7 @@ import {
 import moment from 'moment';
 import { useEffect, useState } from 'react';
 import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from 'recharts';
+import { formatCurrency } from '../../../../../shared/utilities/formatCurrency';
 
 const generateYearsArray = (range: number): number[] => {
   const currentYear = new Date().getFullYear();
@@ -87,12 +88,12 @@ const Charts = () => {
   const chartConfig = {
     expense: {
       label: 'Expense',
-      color: 'hsl(var(--chart-primary))',
+      color: 'hsl(var(--primary))',
       icon: TrendingDownIcon
     },
     income: {
       label: 'Income',
-      color: 'hsl(var(--chart-secondary))',
+      color: 'hsl(var(--secondary))',
       icon: TrendingUpIcon
     }
   } satisfies ChartConfig;
@@ -156,7 +157,13 @@ const Charts = () => {
                 tickMargin={8}
                 tickFormatter={(value) => value.slice(0, 3)}
               />
-              <YAxis />
+              <YAxis
+                axisLine={false}
+                // tickMargin={8}
+                tickFormatter={(value) =>
+                  formatCurrency({ value, currency: currency.name })
+                }
+              />
               <ChartTooltip
                 cursor={false}
                 content={<ChartTooltipContent indicator="line" />}
@@ -165,23 +172,23 @@ const Charts = () => {
                 dataKey="expense"
                 type="natural"
                 fill="var(--color-expense)"
-                fillOpacity={0.4}
+                // fillOpacity={0.4}
                 stroke="var(--color-expense)"
                 stackId="a"
-                dot={{
-                  fill: 'var(--color-expense)'
-                }}
+                // dot={{
+                //   fill: 'var(--color-expense)'
+                // }}
               />
               <Area
                 dataKey="income"
                 type="natural"
                 fill="var(--color-income)"
-                fillOpacity={0.4}
+                // fillOpacity={0.4}
                 stroke="var(--color-income)"
                 stackId="a"
-                dot={{
-                  fill: 'var(--color-income)'
-                }}
+                // dot={{
+                //   fill: 'var(--color-income)'
+                // }}
               />
               <ChartLegend content={<ChartLegendContent />} />
             </AreaChart>
