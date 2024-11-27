@@ -4,15 +4,15 @@ import { format } from 'date-fns';
 import { z } from 'zod';
 import { useForm, useWatch } from 'react-hook-form';
 import moment from 'moment';
-import { useAppSelector } from '@/lib/hooks';
+import { useAppSelector } from '../../../lib/hooks';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { cn } from '@/lib/utils';
+import { cn } from '../../../lib/utils';
 
 import {
   Popover,
   PopoverContent,
   PopoverTrigger
-} from '@/components/ui/popover';
+} from '../../../components/ui/popover';
 import {
   Command,
   CommandEmpty,
@@ -20,7 +20,7 @@ import {
   CommandInput,
   CommandItem,
   CommandList
-} from '@/components/ui/command';
+} from '../../../components/ui/command';
 import {
   Form,
   FormControl,
@@ -28,20 +28,21 @@ import {
   FormItem,
   FormLabel,
   FormMessage
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-import { Calendar } from '@/components/ui/calendar';
+} from '../../../components/ui/form';
+import { Input } from '../../../components/ui/input';
+import { Button } from '../../../components/ui/button';
+import { Calendar } from '../../../components/ui/calendar';
 import { Checkbox } from '@nextui-org/react';
 import { CalendarIcon, CheckIcon, ChevronsUpDownIcon } from 'lucide-react';
-import { MultiSelectBox } from '@/components/shared/MultiSelectBox';
+import { MultiSelectBox } from '../../../components/shared/MultiSelectBox';
 
-import fetchTransactionPayments from '@/providers/fetchTransactionPayments';
-import { dateStringFormat } from '../../../../../shared/constants/dateStringFormat';
+import fetchTransactionPayments from '../../../providers/fetchTransactionPayments';
 
-import type { DashboardDataResult } from '@/types/Dashboard';
-import type { ListProps } from '@/types/List';
-import { CategoryItemProps } from '@/types/Category';
+import type { DashboardDataResult } from '../../../types/Dashboard';
+import type { ListProps } from '../../../types/List';
+import type { CategoryItemProps } from '../../../types/Category';
+
+import { dateStringFormat } from '@shared/constants/dateStringFormat';
 
 type TransactionDrawerFormProps = {
   type: ListProps;

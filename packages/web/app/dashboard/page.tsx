@@ -2,28 +2,29 @@
 
 import { useEffect, useMemo, useState } from 'react';
 import moment from 'moment';
-import { useAppDispatch, useAppSelector } from '@/lib/hooks';
+import { useTranslations } from 'next-intl';
+import { useAppDispatch, useAppSelector } from '../../lib/hooks';
 import {
   setDashboardCurrency,
   setDashboardDate
-} from '@/lib/feature/dashboard/dashboardSlice';
+} from '../../lib/feature/dashboard/dashboardSlice';
 
 import { ScrollShadow, CircularProgress } from '@nextui-org/react';
-import { Button } from '@/components/ui/button';
-import { Skeleton } from '@/components/ui/skeleton';
-import { Card } from '@/components/ui/card';
-import { DatePicker } from '@/components/shared/DatePicker';
+import { Button } from '../../components/ui/button';
+import { Skeleton } from '../../components/ui/skeleton';
+import { Card } from '../../components/ui/card';
+import { DatePicker } from '../../components/shared/DatePicker';
 
 import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
 
-// import CategoryDialog from '@/app/dashboard/Category/CategoryDialog';
-import CategoryCard from '@/app/dashboard/Category/CategoryCard';
-import CategoryDrawer from '@/app/dashboard/Category/CategoryDrawer';
-import TransactionDrawer from '@/app/dashboard/Transaction/TransactionDrawer';
+// import CategoryDialog from '../../app/dashboard/Category/CategoryDialog';
+import CategoryCard from '../../app/dashboard/Category/CategoryCard';
+import CategoryDrawer from '../../app/dashboard/Category/CategoryDrawer';
+import TransactionDrawer from '../../app/dashboard/Transaction/TransactionDrawer';
 
-import fetchTransactionPayments from '@/providers/fetchTransactionPayments';
-import { formatCurrency } from '../../../../shared/utilities/formatCurrency';
-import { dateStringFormat } from '../../../../shared/constants/dateStringFormat';
+import fetchTransactionPayments from '../../providers/fetchTransactionPayments';
+import { formatCurrency } from '@shared/utilities/formatCurrency';
+import { dateStringFormat } from '@shared/constants/dateStringFormat';
 
 import type {
   DashboardSelectionItemsProps,
@@ -31,7 +32,6 @@ import type {
   DashboardDataCategoryResult,
   DashboardDataResult
 } from '../../types/Dashboard';
-import { useTranslations } from 'next-intl';
 
 const initialDashboardData = {
   main: {
@@ -58,9 +58,8 @@ const initialTransactionPaymentCategory = {
 const Dashboard = () => {
   const [dashboardData, setDashboardData] =
     useState<DashboardDataResult>(initialDashboardData);
-  const [dashboardCategoryData, setDashboardCategoryData] = useState(
-    initialTransactionPaymentCategory
-  );
+  const [dashboardCategoryData, setDashboardCategoryData] =
+    useState<DashboardDataCategoryResult>(initialTransactionPaymentCategory);
   const [stateDate, setStateDate] = useState(new Date());
   const [isCurrencyPopoverOpen, setIsCurrencyPopoverOpen] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);

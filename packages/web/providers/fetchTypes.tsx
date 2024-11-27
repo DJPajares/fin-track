@@ -1,5 +1,6 @@
 import axios from 'axios';
-import mockData from '../../../shared/mockData/types.json';
+
+import mockData from '@shared/mockData/types.json';
 
 const url = `${process.env.NEXT_PUBLIC_BASE_URL}/types?sort=name`;
 

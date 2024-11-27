@@ -1,17 +1,17 @@
 'use client';
 
-import { useAppDispatch, useAppSelector } from '@/lib/hooks';
-import { updateCategory } from '@/lib/feature/main/mainSlice';
+import { useAppDispatch, useAppSelector } from '../../lib/hooks';
+import { updateCategory } from '../../lib/feature/main/mainSlice';
 
 import { Tab, Tabs } from '@nextui-org/react';
-import { Separator } from '@/components/ui/separator';
-import { Button } from '@/components/ui/button';
-import CardIcon from '@/components/shared/CardIcon';
-import EditCategoryDrawer from '@/app/categories/EditCategory/EditCategoryDrawer';
+import { Separator } from '../../components/ui/separator';
+import { Button } from '../../components/ui/button';
+import CardIcon from '../../components/shared/CardIcon';
+import EditCategoryDrawer from '../../app/categories/EditCategory/EditCategoryDrawer';
 
 import { PlusIcon } from 'lucide-react';
 
-import type { CategoryItemProps } from '@/types/Category';
+import type { CategoryItemProps } from '../../types/Category';
 import { useTranslations } from 'next-intl';
 
 const baseCategory: CategoryItemProps = {

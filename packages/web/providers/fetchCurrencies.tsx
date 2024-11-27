@@ -1,5 +1,6 @@
 import axios from 'axios';
-import mockData from '../../../shared/mockData/currencies.json';
+
+import mockData from '@shared/mockData/currencies.json';
 
 const url = `${process.env.NEXT_PUBLIC_BASE_URL}/currencies?sort=name`;
 

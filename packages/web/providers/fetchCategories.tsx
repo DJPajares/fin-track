@@ -1,5 +1,7 @@
 import axios from 'axios';
-import mockData from '../../../shared/mockData/categories.json';
+
+// import mockData from '@shared/mockData/categories.json';
+import mockData from '@shared/mockData/categories.json';
 
 const url = `${process.env.NEXT_PUBLIC_BASE_URL}/categories?sort=name`;
 

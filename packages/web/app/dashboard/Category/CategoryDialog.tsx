@@ -1,9 +1,9 @@
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import axios from 'axios';
 import moment from 'moment';
-import { useAppSelector } from '@/lib/hooks';
+import { useAppSelector } from '../../../lib/hooks';
 
-import { Button } from '@/components/ui/button';
+import { Button } from '../../../components/ui/button';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -14,7 +14,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger
-} from '@/components/ui/alert-dialog';
+} from '../../../components/ui/alert-dialog';
 import {
   Dialog,
   DialogClose,
@@ -23,18 +23,18 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle
-} from '@/components/ui/dialog';
-import { Separator } from '@/components/ui/separator';
+} from '../../../components/ui/dialog';
+import { Separator } from '../../../components/ui/separator';
 import CategoryContent from './CategoryContent';
 
-import fetchTransactionPayments from '@/providers/fetchTransactionPayments';
-import { dateStringFormat } from '../../../../../shared/constants/dateStringFormat';
+import fetchTransactionPayments from '../../../providers/fetchTransactionPayments';
+import { dateStringFormat } from '@shared/constants/dateStringFormat';
 
-import type { DashboardDataResult } from '@/types/Dashboard';
+import type { DashboardDataResult } from '../../../types/Dashboard';
 import type {
   TransactionDataUpdateProps,
   TransactionPaymentCategoryProps
-} from '@/types/TransactionPayment';
+} from '../../../types/TransactionPayment';
 
 type CategoryDrawerProps = {
   category: TransactionPaymentCategoryProps;

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import moment from 'moment';
-import { useAppSelector } from '@/lib/hooks';
+import { useAppSelector } from '../../../lib/hooks';
 
 import {
   Drawer,
@@ -11,8 +11,8 @@ import {
   DrawerFooter,
   DrawerHeader,
   DrawerTitle
-} from '@/components/ui/drawer';
-import { Button } from '@/components/ui/button';
+} from '../../../components/ui/drawer';
+import { Button } from '../../../components/ui/button';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -23,18 +23,18 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger
-} from '@/components/ui/alert-dialog';
-import { Separator } from '@/components/ui/separator';
+} from '../../../components/ui/alert-dialog';
+import { Separator } from '../../../components/ui/separator';
 import CategoryContent from './CategoryContent';
 
-import fetchTransactionPayments from '@/providers/fetchTransactionPayments';
-import { dateStringFormat } from '../../../../../shared/constants/dateStringFormat';
+import fetchTransactionPayments from '../../../providers/fetchTransactionPayments';
+import { dateStringFormat } from '@shared/constants/dateStringFormat';
 
 import type {
   TransactionDataUpdateProps,
   TransactionPaymentCategoryProps
-} from '@/types/TransactionPayment';
-import type { DashboardDataResult } from '@/types/Dashboard';
+} from '../../../types/TransactionPayment';
+import type { DashboardDataResult } from '../../../types/Dashboard';
 import { useTranslations } from 'next-intl';
 
 type CategoryDrawerProps = {

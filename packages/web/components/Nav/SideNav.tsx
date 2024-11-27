@@ -19,7 +19,7 @@ import {
   useSidebar
 } from '../ui/sidebar';
 
-import { MENU_ITEMS } from '@/constants/menuItems';
+import { MENU_ITEMS } from '../../constants/menuItems';
 import { useTranslations } from 'next-intl';
 import {
   Collapsible,
