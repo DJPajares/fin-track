@@ -1,8 +1,7 @@
 'use client';
 
-import { DatePicker } from '@/components/shared/DatePicker';
-import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
+import { Button } from '../../../components/ui/button';
+import { Card } from '../../../components/ui/card';
 import {
   ChartConfig,
   ChartContainer,
@@ -10,7 +9,7 @@ import {
   ChartLegendContent,
   ChartTooltip,
   ChartTooltipContent
-} from '@/components/ui/chart';
+} from '../../../components/ui/chart';
 import {
   Select,
   SelectContent,
@@ -19,9 +18,9 @@ import {
   SelectLabel,
   SelectTrigger,
   SelectValue
-} from '@/components/ui/select';
-import { useAppSelector } from '@/lib/hooks';
-import { fetchTransactionsDateRangeByType } from '@/providers/fetchTransactions';
+} from '../../../components/ui/select';
+import { useAppSelector } from '../../../lib/hooks';
+import { fetchTransactionsDateRangeByType } from '../../../providers/fetchTransactions';
 import {
   ChevronLeftIcon,
   ChevronRightIcon,
@@ -31,7 +30,7 @@ import {
 import moment from 'moment';
 import { useEffect, useState } from 'react';
 import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from 'recharts';
-import { formatCurrency } from '../../../../../shared/utilities/formatCurrency';
+import { formatCurrency } from '@shared/utilities/formatCurrency';
 
 const generateYearsArray = (range: number): number[] => {
   const currentYear = new Date().getFullYear();

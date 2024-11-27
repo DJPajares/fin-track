@@ -2,11 +2,11 @@
 
 import { ChangeEvent, useEffect, useMemo, useState } from 'react';
 import moment from 'moment';
-import { useAppSelector } from '@/lib/hooks';
+import { useAppSelector } from '../../../lib/hooks';
 
-import { DatePicker } from '@/components/shared/DatePicker';
-import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
+import { DatePicker } from '../../../components/shared/DatePicker';
+import { Button } from '../../../components/ui/button';
+import { Card } from '../../../components/ui/card';
 import {
   ChartConfig,
   ChartContainer,
@@ -14,24 +14,29 @@ import {
   ChartLegendContent,
   ChartTooltip,
   ChartTooltipContent
-} from '@/components/ui/chart';
+} from '../../../components/ui/chart';
 import {
   fetchTransactionsDateByCategory,
   TransactionsDateByCategoryProps
-} from '@/providers/fetchTransactions';
+} from '../../../providers/fetchTransactions';
 import { Tab, Tabs } from '@nextui-org/react';
 import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
 import { Cell, Label, Pie, PieChart } from 'recharts';
 
-import { formatCurrency } from '../../../../../shared/utilities/formatCurrency';
-import { CHART_COLORS } from '@/constants/chartColorPalettes';
+import { formatCurrency } from '@shared/utilities/formatCurrency';
+import { CHART_COLORS } from '../../../constants/chartColorPalettes';
+
+type TransactionByCategory = {
+  category: string;
+  amount: number;
+};
 
 const Charts = () => {
   const { currency } = useAppSelector((state) => state.dashboard);
   const { types } = useAppSelector((state) => state.main);
 
   const [date, setDate] = useState(new Date());
-  const [chartData, setChartData] = useState([]);
+  const [chartData, setChartData] = useState<TransactionByCategory[]>([]);
   const [selectedType, setSelectedType] = useState('');
 
   const totalAmount = useMemo(() => {
@@ -113,7 +118,7 @@ const Charts = () => {
             'group-data-[selected=true]:text-primary-foreground text-sm font-bold uppercase'
         }}
         selectedKey={selectedType}
-        onSelectionChange={setSelectedType}
+        onSelectionChange={(key) => setSelectedType(key as string)}
       >
         {types.map((type) => (
           <Tab key={type._id.toString()} title={type.name}>

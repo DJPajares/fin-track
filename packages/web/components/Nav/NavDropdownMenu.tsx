@@ -28,16 +28,16 @@ import {
 } from 'lucide-react';
 import { Switch } from '../ui/switch';
 
-import packageInfo from '@/package.json';
-import { languages, LocaleProps } from '@/i18n/config';
-import { setUserLocale } from '@/services/locale';
+import packageInfo from '../../package.json';
+import { languages, LocaleProps } from '../../i18n/config';
+import { setUserLocale } from '../../services/locale';
 
 import { useLocale, useTranslations } from 'next-intl';
-import { useAppSelector } from '@/lib/hooks';
+import { useAppSelector } from '../../lib/hooks';
 import { useDispatch } from 'react-redux';
-import { setDashboardCurrency } from '@/lib/feature/dashboard/dashboardSlice';
+import { setDashboardCurrency } from '../../lib/feature/dashboard/dashboardSlice';
 
-import type { ListProps } from '@/types/List';
+import type { ListProps } from '../../types/List';
 
 type NavDropdownMenuProps = {
   children: ReactNode;

@@ -1,8 +1,8 @@
 'use client';
 
 import * as React from 'react';
-import { Button, buttonVariants } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
+import { Button, buttonVariants } from '@web/components/ui/button';
+import { cn } from '@web/lib/utils';
 import { differenceInCalendarDays } from 'date-fns';
 import {
   DayPicker,
@@ -113,14 +113,14 @@ const Calendar = ({
           const handlePreviousClick = () => {
             if (previousMonth) {
               goToMonth(previousMonth);
-              onPreviousClick?.(previousMonth);
+              onPreviousClick?.(previousMonth as any);
             }
           };
 
           const handleNextClick = () => {
             if (nextMonth) {
               goToMonth(nextMonth);
-              onNextClick?.(nextMonth);
+              onNextClick?.(nextMonth as any);
             }
           };
 

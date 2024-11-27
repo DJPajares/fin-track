@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 
 import './globals.css';
 import { Providers } from '../providers/providers';
-import NavBar from '@/components/Nav/NavBar';
+import NavBar from '../components/Nav/NavBar';
 import { getLocale, getMessages } from 'next-intl/server';
 import { NextIntlClientProvider } from 'next-intl';
 

@@ -1,21 +1,21 @@
 import { KeyboardEvent, useState } from 'react';
-import { Button } from '@/components/ui/button';
+import { Button } from '../../../components/ui/button';
 import {
   Popover,
   PopoverContent,
   PopoverTrigger
-} from '@/components/ui/popover';
-import { Input } from '@/components/ui/input';
+} from '../../../components/ui/popover';
+import { Input } from '../../../components/ui/input';
 import { Progress } from '@nextui-org/react';
 import { CheckIcon } from 'lucide-react';
 
-import { formatCurrency } from '../../../../../shared/utilities/formatCurrency';
+import { formatCurrency } from '@shared/utilities/formatCurrency';
 
 import type {
   TransactionDataUpdateProps,
   TransactionProps
-} from '@/types/TransactionPayment';
-import type { DashboardSelectionItemsProps } from '@/types/Dashboard';
+} from '../../../types/TransactionPayment';
+import type { DashboardSelectionItemsProps } from '../../../types/Dashboard';
 
 type PartialTransactionProps = Pick<
   TransactionProps,

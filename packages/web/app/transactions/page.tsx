@@ -1,20 +1,21 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import moment from 'moment';
+import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
+
+import { useAppSelector } from '../../lib/hooks';
+import { fetchTransactions } from '../../providers/fetchTransactions';
+
 import { Chip, Pagination, Tab, Tabs } from '@nextui-org/react';
-import { Card, CardContent, CardHeader } from '@/components/ui/card';
-import CardIcon, { type IconProps } from '@/components/shared/CardIcon';
+import { DatePicker } from '../../components/shared/DatePicker';
+import { Button } from '../../components/ui/button';
+import { Card, CardContent, CardHeader } from '../../components/ui/card';
+import CardIcon, { type IconProps } from '../../components/shared/CardIcon';
 
 import EditTransactionDrawer from './EditTransaction/EditTransactionDrawer';
 
-import { useAppSelector } from '@/lib/hooks';
-import { fetchTransactions } from '@/providers/fetchTransactions';
-
-import { formatCurrency } from '../../../../shared/utilities/formatCurrency';
-import { DatePicker } from '@/components/shared/DatePicker';
-import { Button } from '@/components/ui/button';
-import moment from 'moment';
-import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
+import { formatCurrency } from '@shared/utilities/formatCurrency';
 
 type TransactionProps = {
   _id: string;
@@ -118,7 +119,7 @@ const Transactions = () => {
             'group-data-[selected=true]:text-primary-foreground text-sm font-bold uppercase'
         }}
         selectedKey={tabType}
-        onSelectionChange={setTabType}
+        onSelectionChange={(key) => setTabType(key as string)}
       >
         {types.map((type) => (
           <Tab key={type._id.toString()} title={type.name}>

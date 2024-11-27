@@ -1,5 +1,7 @@
 import { ReactNode, useRef, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
+import { useTranslations } from 'next-intl';
+import { z } from 'zod';
 
 import {
   AlertDialog,
@@ -11,8 +13,8 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger
-} from '@/components/ui/alert-dialog';
-import { Button } from '@/components/ui/button';
+} from '../../../components/ui/alert-dialog';
+import { Button } from '../../../components/ui/button';
 import {
   Drawer,
   DrawerClose,
@@ -22,12 +24,11 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger
-} from '@/components/ui/drawer';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { z } from 'zod';
-import updateTransaction from '@/providers/updateTransaction';
-import { useTranslations } from 'next-intl';
+} from '../../../components/ui/drawer';
+import { Input } from '../../../components/ui/input';
+import { Label } from '../../../components/ui/label';
+
+import updateTransaction from '../../../providers/updateTransaction';
 
 type EditTransactionDrawerProps = {
   transaction: {

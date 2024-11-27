@@ -1,5 +1,6 @@
 import { Dispatch, SetStateAction, useRef, useState } from 'react';
-import { useAppSelector } from '@/lib/hooks';
+import { useTranslations } from 'next-intl';
+import { useAppSelector } from '../../../lib/hooks';
 
 import { Tab, Tabs } from '@nextui-org/react';
 import {
@@ -10,8 +11,8 @@ import {
   DrawerFooter,
   DrawerHeader,
   DrawerTitle
-} from '@/components/ui/drawer';
-import { Button } from '@/components/ui/button';
+} from '../../../components/ui/drawer';
+import { Button } from '../../../components/ui/button';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -21,15 +22,14 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle
-} from '@/components/ui/alert-dialog';
+} from '../../../components/ui/alert-dialog';
 
 import TransactionDrawerForm from './TransactionDrawerForm';
 
 import type {
   DashboardDataResult,
   DashboardSelectionItemsProps
-} from '@/types/Dashboard';
-import { useTranslations } from 'next-intl';
+} from '../../../types/Dashboard';
 
 type TransactionDrawerProps = {
   currencies: DashboardSelectionItemsProps[];

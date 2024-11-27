@@ -1,7 +1,7 @@
 'use client';
 
 import { ReactNode, useEffect, useState } from 'react';
-import { useIsMobile } from '@/hooks/use-mobile';
+import { useIsMobile } from '../../hooks/use-mobile';
 
 import { Avatar } from '@nextui-org/react';
 import { SidebarInset, SidebarProvider, SidebarTrigger } from '../ui/sidebar';

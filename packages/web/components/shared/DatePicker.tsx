@@ -2,8 +2,8 @@ import {
   Popover,
   PopoverTrigger,
   PopoverContent
-} from '@/components/ui/popover';
-import { Calendar } from '@/components/ui/calendar';
+} from '../../components/ui/popover';
+import { Calendar } from '../../components/ui/calendar';
 import { ReactNode, useState } from 'react';
 import { Button } from '../ui/button';
 

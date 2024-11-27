@@ -5,13 +5,13 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle
-} from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
+} from '../../../components/ui/dialog';
+import { Button } from '../../../components/ui/button';
 import { Progress } from '@nextui-org/react';
 import { CheckIcon, HandCoinsIcon } from 'lucide-react';
-import { formatCurrency } from '../../../../../shared/utilities/formatCurrency';
+import { formatCurrency } from '@shared/utilities/formatCurrency';
 
-import type { TransactionPaymentCategoryProps } from '@/types/TransactionPayment';
+import type { TransactionPaymentCategoryProps } from '../../../types/TransactionPayment';
 
 type CategoryModalProps = {
   category: TransactionPaymentCategoryProps;

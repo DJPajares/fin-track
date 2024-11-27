@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-import transactionsData from '../../../shared/mockData/transactions.json';
-import transactionsByCategoryData from '../../../shared/mockData/transactionsByCategory.json';
-import transactionsDateRangeByTypeData from '../../../shared/mockData/transactionsDateRangeByType.json';
+import transactionsData from '@shared/mockData/transactions.json';
+import transactionsByCategoryData from '@shared/mockData/transactionsByCategory.json';
+import transactionsDateRangeByTypeData from '@shared/mockData/transactionsDateRangeByType.json';
 
 const useMockedData = process.env.NEXT_PUBLIC_USE_MOCKED_DATA === 'true';
 

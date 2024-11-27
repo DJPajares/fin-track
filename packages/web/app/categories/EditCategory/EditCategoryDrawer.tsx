@@ -32,12 +32,12 @@ import {
 } from '../../../components/ui/popover';
 import { Button } from '../../../components/ui/button';
 
-import { useAppDispatch } from '@/lib/hooks';
+import { useAppDispatch } from '../../../lib/hooks';
 import {
   addCategory,
   deleteCategory,
   updateCategory
-} from '@/lib/feature/main/mainSlice';
+} from '../../../lib/feature/main/mainSlice';
 
 import CardIcon, {
   iconMap,
@@ -46,8 +46,8 @@ import CardIcon, {
 
 import { Trash2Icon } from 'lucide-react';
 
-import type { ListProps } from '@/types/List';
-import type { CategoryItemProps } from '@/types/Category';
+import type { ListProps } from '../../../types/List';
+import type { CategoryItemProps } from '../../../types/Category';
 import { useTranslations } from 'next-intl';
 
 type EditCategoryDrawerProps = {
