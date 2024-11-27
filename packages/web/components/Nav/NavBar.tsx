@@ -1,14 +1,13 @@
 'use client';
 
 import { ReactNode, useEffect, useState } from 'react';
-import { useIsMobile } from '../../hooks/use-mobile';
+import Link from 'next/link';
 
-import { Avatar } from '@nextui-org/react';
+import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 import { SidebarInset, SidebarProvider, SidebarTrigger } from '../ui/sidebar';
 
 import SideNav from './SideNav';
 import NavDropdownMenu from './NavDropdownMenu';
-import Link from 'next/link';
 
 type NavBarProps = {
   children: ReactNode;
@@ -16,8 +15,6 @@ type NavBarProps = {
 
 const NavBar = ({ children }: NavBarProps) => {
   const [isVisible, setIsVisible] = useState(true);
-
-  const isMobile = useIsMobile();
 
   let lastScroll = 0;
 
@@ -57,18 +54,10 @@ const NavBar = ({ children }: NavBarProps) => {
           </Link>
 
           <NavDropdownMenu>
-            {isMobile ? (
-              <Avatar
-                src="https://i.pravatar.cc/150?u=a04258114e29026708c"
-                className="w-6 h-6 text-tiny hover:border-primary"
-              />
-            ) : (
-              <Avatar
-                src="https://i.pravatar.cc/150?u=a04258114e29026708c"
-                size="sm"
-                className="cursor-pointer hover:border-primary"
-              />
-            )}
+            <Avatar className="cursor-pointer hover:border-primary">
+              <AvatarImage src="https://i.pravatar.cc/150?u=a04258114e29026708c" />
+              <AvatarFallback>DJ</AvatarFallback>
+            </Avatar>
           </NavDropdownMenu>
         </nav>
 
