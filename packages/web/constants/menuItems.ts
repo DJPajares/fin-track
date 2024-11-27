@@ -27,7 +27,7 @@ export const MENU_ITEMS = [
     isActive: true,
     items: [
       {
-        value: 'charts',
+        value: 'chartsMonth',
         label: 'By Month',
         route: '/charts/month'
         // icon: ChartColumnBigIcon

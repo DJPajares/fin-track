@@ -35,6 +35,7 @@ import type {
   TransactionPaymentCategoryProps
 } from '@/types/TransactionPayment';
 import type { DashboardDataResult } from '@/types/Dashboard';
+import { useTranslations } from 'next-intl';
 
 type CategoryDrawerProps = {
   category: TransactionPaymentCategoryProps;
@@ -60,6 +61,8 @@ const CategoryDrawer = ({
   isDialogOpen,
   setIsDialogOpen
 }: CategoryDrawerProps) => {
+  const t = useTranslations();
+
   const dashboard = useAppSelector((state) => state.dashboard);
 
   const date = moment.utc(dashboard.date, dateStringFormat);
@@ -185,7 +188,12 @@ const CategoryDrawer = ({
         <div className="mx-auto w-full max-w-lg">
           <DrawerHeader className="my-2">
             <DrawerTitle>{drawerCategory.name}</DrawerTitle>
-            <DrawerDescription>{`Settle ${drawerCategory.name.toLowerCase()} transactions`}</DrawerDescription>
+            {/* <DrawerDescription>{`Settle ${drawerCategory.name.toLowerCase()} transactions`}</DrawerDescription> */}
+            <DrawerDescription>
+              {t('Page.dashboard.cardDrawer.description', {
+                category: drawerCategory.name.toLowerCase()
+              })}
+            </DrawerDescription>
           </DrawerHeader>
 
           <Separator />
@@ -215,7 +223,9 @@ const CategoryDrawer = ({
             <div className="grid grid-cols-6 gap-2 items-center py-2">
               <CategoryContent
                 _id={drawerCategory._id}
-                name="TOTAL"
+                name={t(
+                  'Page.dashboard.cardDrawer.totalLabel'
+                ).toLocaleUpperCase()}
                 amount={drawerCategory.totalAmount}
                 paidAmount={drawerCategory.totalPaidAmount}
                 currency={currency}
@@ -230,25 +240,31 @@ const CategoryDrawer = ({
           <DrawerFooter className="my-2">
             <AlertDialog>
               <AlertDialogTrigger asChild>
-                <Button>Update</Button>
+                <Button>{t('Common.alertDialog.triggerButton')}</Button>
               </AlertDialogTrigger>
               <AlertDialogContent>
                 <AlertDialogHeader>
-                  <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+                  <AlertDialogTitle>
+                    {t('Common.alertDialog.title')}
+                  </AlertDialogTitle>
                   <AlertDialogDescription>
-                    This cannot be undone
+                    {t('Common.alertDialog.description')}
                   </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
-                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                  <AlertDialogCancel>
+                    {t('Common.alertDialog.cancelButton')}
+                  </AlertDialogCancel>
                   <AlertDialogAction onClick={createUpdatePayment}>
-                    Continue
+                    {t('Common.alertDialog.okButton')}
                   </AlertDialogAction>
                 </AlertDialogFooter>
               </AlertDialogContent>
             </AlertDialog>
             <DrawerClose asChild>
-              <Button variant="outline">Cancel</Button>
+              <Button variant="outline">
+                {t('Common.alertDialog.cancelButton')}
+              </Button>
             </DrawerClose>
           </DrawerFooter>
         </div>
