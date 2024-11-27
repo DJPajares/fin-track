@@ -141,7 +141,7 @@ const Transactions = () => {
                     transaction={transaction}
                     fetchTransactions={fetchTransactionsData}
                   >
-                    <Card className="cursor-pointer">
+                    <Card className="bg-accent/70 cursor-pointer">
                       <CardHeader>
                         <p className="text-lg font-semibold sm:text-xl sm:font-bold">
                           {transaction.name}

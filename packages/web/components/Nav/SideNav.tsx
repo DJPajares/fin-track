@@ -26,14 +26,7 @@ import {
   CollapsibleContent,
   CollapsibleTrigger
 } from '../ui/collapsible';
-import {
-  ChevronRightIcon,
-  GalleryVerticalEnd,
-  GemIcon,
-  MinusIcon,
-  PlusIcon
-} from 'lucide-react';
-import { Label } from '../ui/label';
+import { ChevronRightIcon, GemIcon } from 'lucide-react';
 
 const SideNav = () => {
   const { setOpenMobile } = useSidebar();
@@ -44,61 +37,6 @@ const SideNav = () => {
   };
 
   return (
-    // <Sidebar collapsible="icon">
-    //   <SidebarContent>
-    //     <SidebarGroup>
-    //       <SidebarGroupLabel>FIN-TRACK</SidebarGroupLabel>
-    //       <SidebarGroupContent>
-    //         <SidebarMenu>
-    //           {MENU_ITEMS.map((item, index) => (
-    //             <Collapsible
-    //               key={item.value}
-    //               defaultOpen={index === 1}
-    //               className="group/collapsible"
-    //             >
-    //               <SidebarMenuItem key={item.value}>
-    //                 <CollapsibleTrigger asChild>
-    //                   <SidebarMenuButton size="md" asChild>
-    //                     <Link
-    //                       href={item.route}
-    //                       onClick={handleLinkClick} // Close the sidebar on navigation
-    //                       passHref
-    //                     >
-    //                       <item.icon />
-    //                       <span>{t(item.value)}</span>
-    //                     </Link>
-    //                     <PlusIcon className="ml-auto group-data-[state=open]/collapsible:hidden" />
-    //                     <MinusIcon className="ml-auto group-data-[state=closed]/collapsible:hidden" />
-    //                   </SidebarMenuButton>
-    //                 </CollapsibleTrigger>
-
-    //                 {item.items?.length ? (
-    //                   <CollapsibleContent>
-    //                     <SidebarMenuSub>
-    //                       {item.items.map((item) => (
-    //                         <SidebarMenuSubItem key={item.title}>
-    //                           <SidebarMenuSubButton
-    //                             asChild
-    //                             isActive={item.isActive}
-    //                           >
-    //                             <a href={item.url}>{item.title}</a>
-    //                           </SidebarMenuSubButton>
-    //                         </SidebarMenuSubItem>
-    //                       ))}
-    //                     </SidebarMenuSub>
-    //                   </CollapsibleContent>
-    //                 ) : null}
-    //               </SidebarMenuItem>
-    //             </Collapsible>
-    //           ))}
-    //         </SidebarMenu>
-    //       </SidebarGroupContent>
-    //     </SidebarGroup>
-    //   </SidebarContent>
-
-    //   <SidebarRail />
-    // </Sidebar>
-
     <Sidebar collapsible="icon">
       <SidebarHeader>
         <SidebarMenu>

@@ -32,7 +32,7 @@ const Home = () => {
 
   return (
     <div className="flex flex-col items-center py-2 px-6 sm:px-8 space-y-8 sm:space-y-12">
-      <Card className="w-full max-w-md mx-auto flex flex-col justify-between h-44 max-h-40 py-6 px-2">
+      <Card className="w-full max-w-md mx-auto flex flex-col justify-between h-44 max-h-40 py-6 px-2 bg-accent/70">
         <p className="text-center text-lg font-semibold sm:text-xl sm:font-bold">
           {t('motivation.title')}
         </p>
