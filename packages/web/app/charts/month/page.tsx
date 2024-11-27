@@ -28,8 +28,9 @@ import {
 import { Select, SelectItem } from '@nextui-org/react';
 import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
 import moment from 'moment';
-import { ChangeEvent, useEffect, useState } from 'react';
-import { Cell, Pie, PieChart } from 'recharts';
+import { ChangeEvent, useEffect, useMemo, useState } from 'react';
+import { Cell, Label, LabelList, Pie, PieChart, Sector } from 'recharts';
+import { PieSectorDataItem } from 'recharts/types/polar/Pie';
 
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 
@@ -40,6 +41,10 @@ const Charts = () => {
 
   const { currency } = useAppSelector((state) => state.dashboard);
   const { types } = useAppSelector((state) => state.main);
+
+  const totalAmount = useMemo(() => {
+    return chartData.reduce((acc, curr) => acc + curr.amount, 0);
+  }, [chartData]);
 
   useEffect(() => {
     fetchData({
@@ -152,7 +157,7 @@ const Charts = () => {
             config={chartConfig}
             className="mx-auto aspect-square max-h-[250px]"
           >
-            <PieChart>
+            {/* <PieChart>
               <ChartTooltip
                 cursor={false}
                 content={<ChartTooltipContent hideLabel />}
@@ -164,6 +169,61 @@ const Charts = () => {
                     fill={COLORS[index % COLORS.length]}
                   />
                 ))}
+              </Pie>
+            </PieChart> */}
+
+            <PieChart>
+              <ChartTooltip
+                cursor={false}
+                content={<ChartTooltipContent nameKey="category" hideLabel />}
+              />
+              {/* <ChartLegend
+                content={<ChartLegendContent nameKey="category" />}
+              /> */}
+              <Pie
+                data={chartData}
+                dataKey="amount"
+                nameKey="category"
+                innerRadius={60}
+                strokeWidth={5}
+                activeIndex={0}
+              >
+                {chartData.map((entry, index) => (
+                  <Cell
+                    key={`cell-${index}`}
+                    fill={COLORS[index % COLORS.length]}
+                  />
+                ))}
+
+                <Label
+                  content={({ viewBox }) => {
+                    if (viewBox && 'cx' in viewBox && 'cy' in viewBox) {
+                      return (
+                        <text
+                          x={viewBox.cx}
+                          y={viewBox.cy}
+                          textAnchor="middle"
+                          dominantBaseline="middle"
+                        >
+                          <tspan
+                            x={viewBox.cx}
+                            y={viewBox.cy}
+                            className="fill-foreground text-3xl font-bold"
+                          >
+                            {totalAmount.toLocaleString()}
+                          </tspan>
+                          <tspan
+                            x={viewBox.cx}
+                            y={(viewBox.cy || 0) + 24}
+                            className="fill-muted-foreground"
+                          >
+                            Amount
+                          </tspan>
+                        </text>
+                      );
+                    }
+                  }}
+                />
               </Pie>
             </PieChart>
           </ChartContainer>

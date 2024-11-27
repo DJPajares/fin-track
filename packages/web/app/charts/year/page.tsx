@@ -30,7 +30,7 @@ import {
 } from 'lucide-react';
 import moment from 'moment';
 import { useEffect, useState } from 'react';
-import { Area, AreaChart, CartesianGrid, XAxis } from 'recharts';
+import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from 'recharts';
 
 const generateYearsArray = (range: number): number[] => {
   const currentYear = new Date().getFullYear();
@@ -147,14 +147,16 @@ const Charts = () => {
                 right: 12
               }}
             >
-              <CartesianGrid vertical={false} />
+              {/* <CartesianGrid vertical={false} /> */}
+              <CartesianGrid strokeDasharray="3 3" />
               <XAxis
                 dataKey="month"
-                tickLine={false}
+                // tickLine={false}
                 axisLine={false}
                 tickMargin={8}
                 tickFormatter={(value) => value.slice(0, 3)}
               />
+              <YAxis />
               <ChartTooltip
                 cursor={false}
                 content={<ChartTooltipContent indicator="line" />}
@@ -163,17 +165,23 @@ const Charts = () => {
                 dataKey="expense"
                 type="natural"
                 fill="var(--color-expense)"
-                // fillOpacity={0.4}
+                fillOpacity={0.4}
                 stroke="var(--color-expense)"
                 stackId="a"
+                dot={{
+                  fill: 'var(--color-expense)'
+                }}
               />
               <Area
                 dataKey="income"
                 type="natural"
                 fill="var(--color-income)"
-                // fillOpacity={0.4}
+                fillOpacity={0.4}
                 stroke="var(--color-income)"
                 stackId="a"
+                dot={{
+                  fill: 'var(--color-income)'
+                }}
               />
               <ChartLegend content={<ChartLegendContent />} />
             </AreaChart>
