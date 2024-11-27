@@ -113,14 +113,14 @@ const Calendar = ({
           const handlePreviousClick = () => {
             if (previousMonth) {
               goToMonth(previousMonth);
-              onPreviousClick?.(previousMonth);
+              onPreviousClick?.(previousMonth as any);
             }
           };
 
           const handleNextClick = () => {
             if (nextMonth) {
               goToMonth(nextMonth);
-              onNextClick?.(nextMonth);
+              onNextClick?.(nextMonth as any);
             }
           };
 
