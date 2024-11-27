@@ -153,7 +153,7 @@ const Charts = () => {
 
       {/* CHART */}
       <div>
-        <Card className="py-3 px-1">
+        <Card className="py-3 px-1 bg-accent/70">
           <ChartContainer
             config={chartConfig}
             className="mx-auto aspect-square max-h-[250px]"
