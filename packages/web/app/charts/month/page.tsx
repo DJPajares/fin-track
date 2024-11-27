@@ -33,15 +33,14 @@ import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
 import { Cell, Label, Pie, PieChart } from 'recharts';
 
 import { formatCurrency } from '../../../../../shared/utilities/formatCurrency';
-
-const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
+import { CHART_COLORS } from '@/constants/chartColorPalettes';
 
 const Charts = () => {
   const { currency } = useAppSelector((state) => state.dashboard);
   const { types } = useAppSelector((state) => state.main);
 
   const [date, setDate] = useState(new Date());
-  const [selectedType, setSelectedType] = useState<string>(types[0]._id);
+  const [selectedType, setSelectedType] = useState<string>(types[0]?._id);
   const [chartData, setChartData] = useState([]);
 
   const totalAmount = useMemo(() => {
@@ -174,11 +173,12 @@ const Charts = () => {
                 innerRadius={60}
                 strokeWidth={5}
                 activeIndex={0}
+                paddingAngle={2}
               >
                 {chartData.map((entry, index) => (
                   <Cell
                     key={`cell-${index}`}
-                    fill={COLORS[index % COLORS.length]}
+                    fill={CHART_COLORS[index % CHART_COLORS.length]}
                   />
                 ))}
 
