@@ -21,15 +21,24 @@ export const MENU_ITEMS = [
   },
   {
     value: 'charts',
-    label: 'Charts (Month)',
-    route: '/charts/month',
-    icon: ChartColumnBigIcon
-  },
-  {
-    value: 'chartsYear',
-    label: 'Charts (Year)',
-    route: '/charts/year',
-    icon: ChartColumnBigIcon
+    label: 'Charts',
+    route: '/charts',
+    icon: ChartColumnBigIcon,
+    isActive: true,
+    items: [
+      {
+        value: 'charts',
+        label: 'By Month',
+        route: '/charts/month'
+        // icon: ChartColumnBigIcon
+      },
+      {
+        value: 'chartsYear',
+        label: 'By Year',
+        route: '/charts/year'
+        // icon: ChartColumnBigIcon
+      }
+    ]
   },
   {
     value: 'transactions',
