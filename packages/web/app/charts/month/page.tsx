@@ -1,5 +1,9 @@
 'use client';
 
+import { ChangeEvent, useEffect, useMemo, useState } from 'react';
+import moment from 'moment';
+import { useAppSelector } from '@/lib/hooks';
+
 import { DatePicker } from '@/components/shared/DatePicker';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
@@ -20,27 +24,25 @@ import {
 //   SelectTrigger,
 //   SelectValue
 // } from '@/components/ui/select';
-import { useAppSelector } from '@/lib/hooks';
 import {
   fetchTransactionsDateByCategory,
   TransactionsDateByCategoryProps
 } from '@/providers/fetchTransactions';
 import { Select, SelectItem } from '@nextui-org/react';
 import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
-import moment from 'moment';
-import { ChangeEvent, useEffect, useMemo, useState } from 'react';
-import { Cell, Label, LabelList, Pie, PieChart, Sector } from 'recharts';
-import { PieSectorDataItem } from 'recharts/types/polar/Pie';
+import { Cell, Label, Pie, PieChart } from 'recharts';
+
+import { formatCurrency } from '../../../../../shared/utilities/formatCurrency';
 
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 
 const Charts = () => {
-  const [date, setDate] = useState(new Date());
-  const [selectedType, setSelectedType] = useState<string>();
-  const [chartData, setChartData] = useState([]);
-
   const { currency } = useAppSelector((state) => state.dashboard);
   const { types } = useAppSelector((state) => state.main);
+
+  const [date, setDate] = useState(new Date());
+  const [selectedType, setSelectedType] = useState<string>(types[0]._id);
+  const [chartData, setChartData] = useState([]);
 
   const totalAmount = useMemo(() => {
     return chartData.reduce((acc, curr) => acc + curr.amount, 0);
@@ -112,31 +114,31 @@ const Charts = () => {
         </div>
 
         {/* <Select
-        value={selectedType}
-        onValueChange={(value) => {
-          console.log(value);
-          // setSelectedType(value);
-        }}
-      >
-        <SelectTrigger className="w-24">
-          <SelectValue placeholder="Select a year"></SelectValue>
-        </SelectTrigger>
-        <SelectContent>
-          <SelectGroup>
-            <SelectLabel>
-              {types.map((type) => (
-                <SelectItem
-                  key={type._id}
-                  value={type.toString()}
-                  defaultValue={selectedType}
-                >
-                  {type.name}
-                </SelectItem>
-              ))}
-            </SelectLabel>
-          </SelectGroup>
-        </SelectContent>
-      </Select> */}
+          value={selectedType}
+          onValueChange={(value) => {
+            console.log(value);
+            // setSelectedType(value);
+          }}
+        >
+          <SelectTrigger className="w-24">
+            <SelectValue placeholder="Select a year"></SelectValue>
+          </SelectTrigger>
+          <SelectContent>
+            <SelectGroup>
+              <SelectLabel>
+                {types.map((type) => (
+                  <SelectItem
+                    key={type._id}
+                    value={type.toString()}
+                    defaultValue={selectedType}
+                  >
+                    {type.name}
+                  </SelectItem>
+                ))}
+              </SelectLabel>
+            </SelectGroup>
+          </SelectContent>
+        </Select> */}
 
         <Select
           items={types}
@@ -157,21 +159,6 @@ const Charts = () => {
             config={chartConfig}
             className="mx-auto aspect-square max-h-[250px]"
           >
-            {/* <PieChart>
-              <ChartTooltip
-                cursor={false}
-                content={<ChartTooltipContent hideLabel />}
-              />
-              <Pie data={chartData} dataKey="amount" nameKey="category">
-                {chartData.map((entry, index) => (
-                  <Cell
-                    key={`cell-${index}`}
-                    fill={COLORS[index % COLORS.length]}
-                  />
-                ))}
-              </Pie>
-            </PieChart> */}
-
             <PieChart>
               <ChartTooltip
                 cursor={false}
@@ -208,9 +195,12 @@ const Charts = () => {
                           <tspan
                             x={viewBox.cx}
                             y={viewBox.cy}
-                            className="fill-foreground text-3xl font-bold"
+                            className="fill-foreground text-2xl font-semibold"
                           >
-                            {totalAmount.toLocaleString()}
+                            {formatCurrency({
+                              value: totalAmount,
+                              currency: currency.name
+                            })}
                           </tspan>
                           <tspan
                             x={viewBox.cx}
