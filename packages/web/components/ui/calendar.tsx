@@ -1,8 +1,8 @@
 'use client';
 
 import * as React from 'react';
-import { Button, buttonVariants } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
+import { Button, buttonVariants } from '@web/components/ui/button';
+import { cn } from '@web/lib/utils';
 import { differenceInCalendarDays } from 'date-fns';
 import {
   DayPicker,
