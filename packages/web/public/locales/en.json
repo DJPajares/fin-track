@@ -55,6 +55,17 @@
         "title": "",
         "description": "Settle {category} transactions",
         "totalLabel": "Total"
+      },
+      "transactionDrawer": {
+        "title": "Transaction",
+        "description": "Add new transactions"
+      }
+    },
+    "transactions": {
+      "form": {
+        "name": "Name",
+        "amount": "Amount",
+        "currency": "Currency"
       }
     },
     "categories": {
@@ -63,12 +74,16 @@
     }
   },
   "Common": {
+    "button": {
+      "ok": "OK",
+      "cancel": "Cancel",
+      "add": "Add"
+    },
     "alertDialog": {
       "triggerButton": "Update",
       "title": "Are you sure?",
       "description": "This cannot be undone",
-      "okButton": "Continue",
-      "cancelButton": "Cancel"
+      "okButton": "Continue"
     }
   }
 }

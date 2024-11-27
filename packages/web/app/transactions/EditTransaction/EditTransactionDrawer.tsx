@@ -27,6 +27,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { z } from 'zod';
 import updateTransaction from '@/providers/updateTransaction';
+import { useTranslations } from 'next-intl';
 
 type EditTransactionDrawerProps = {
   transaction: {
@@ -46,6 +47,8 @@ const EditTransactionDrawer = ({
   fetchTransactions,
   children
 }: EditTransactionDrawerProps) => {
+  const t = useTranslations();
+
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const formRef = useRef<HTMLFormElement>(null);
@@ -99,7 +102,9 @@ const EditTransactionDrawer = ({
             control={form.control}
             render={({ field }) => (
               <div className="space-y-1">
-                <Label className="font-semibold">Name</Label>
+                <Label className="font-semibold">
+                  {t('Page.transactions.form.name')}
+                </Label>
                 <Input defaultValue={field.value} onChange={field.onChange} />
               </div>
             )}
@@ -110,7 +115,9 @@ const EditTransactionDrawer = ({
             control={form.control}
             render={({ field }) => (
               <div className="space-y-1">
-                <Label className="font-semibold">Amount</Label>
+                <Label className="font-semibold">
+                  {t('Page.transactions.form.amount')}
+                </Label>
 
                 <div className="flex flex-row items-center">
                   <Input defaultValue={field.value} onChange={field.onChange} />
@@ -123,26 +130,30 @@ const EditTransactionDrawer = ({
         <DrawerFooter>
           <AlertDialog>
             <AlertDialogTrigger asChild>
-              <Button>Update</Button>
+              <Button>{t('Common.alertDialog.triggerButton')}</Button>
             </AlertDialogTrigger>
             <AlertDialogContent>
               <AlertDialogHeader>
-                <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+                <AlertDialogTitle>
+                  {t('Common.alertDialog.title')}
+                </AlertDialogTitle>
                 <AlertDialogDescription>
-                  This cannot be undone
+                  {t('Common.alertDialog.description')}
                 </AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter>
-                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogCancel>
+                  {t('Common.button.cancel')}
+                </AlertDialogCancel>
                 <AlertDialogAction onClick={handleConfirmSubmit}>
-                  Ok
+                  {t('Common.alertDialog.okButton')}
                 </AlertDialogAction>
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialog>
 
           <DrawerClose asChild>
-            <Button variant="outline">Cancel</Button>
+            <Button variant="outline">{t('Common.button.cancel')}</Button>
           </DrawerClose>
         </DrawerFooter>
       </DrawerContent>

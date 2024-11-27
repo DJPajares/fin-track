@@ -29,6 +29,7 @@ import type {
   DashboardDataResult,
   DashboardSelectionItemsProps
 } from '@/types/Dashboard';
+import { useTranslations } from 'next-intl';
 
 type TransactionDrawerProps = {
   currencies: DashboardSelectionItemsProps[];
@@ -43,6 +44,8 @@ const TransactionDrawer = ({
   isTransactionDrawerOpen,
   setIsTransactionDrawerOpen
 }: TransactionDrawerProps) => {
+  const t = useTranslations();
+
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const { types, categories } = useAppSelector((state) => state.main);
@@ -63,8 +66,14 @@ const TransactionDrawer = ({
         <DrawerContent>
           <div className="mx-auto w-full max-w-lg overflow-y-scroll max-h-screen">
             <DrawerHeader>
-              <DrawerTitle>TRANSACTION</DrawerTitle>
-              <DrawerDescription>Add new transactions</DrawerDescription>
+              <DrawerTitle>
+                {t(
+                  'Page.dashboard.transactionDrawer.title'
+                ).toLocaleUpperCase()}
+              </DrawerTitle>
+              <DrawerDescription>
+                {t('Page.dashboard.transactionDrawer.description')}
+              </DrawerDescription>
             </DrawerHeader>
 
             <Tabs
@@ -99,9 +108,11 @@ const TransactionDrawer = ({
             </Tabs>
 
             <DrawerFooter className="my-2">
-              <Button onClick={() => setIsDialogOpen(true)}>Add</Button>
+              <Button onClick={() => setIsDialogOpen(true)}>
+                {t('Common.button.add')}
+              </Button>
               <DrawerClose asChild>
-                <Button variant="outline">Cancel</Button>
+                <Button variant="outline">{t('Common.button.cancel')}</Button>
               </DrawerClose>
             </DrawerFooter>
           </div>
@@ -111,15 +122,15 @@ const TransactionDrawer = ({
       <AlertDialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+            <AlertDialogTitle>{t('Common.alertDialog.title')}</AlertDialogTitle>
             <AlertDialogDescription>
-              This cannot be undone
+              {t('Common.alertDialog.description')}
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogCancel>{t('Common.button.cancel')}</AlertDialogCancel>
             <AlertDialogAction onClick={handleAddingTransaction}>
-              Ok
+              {t('Common.alertDialog.okButton')}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>

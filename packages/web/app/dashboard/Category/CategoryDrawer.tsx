@@ -253,7 +253,7 @@ const CategoryDrawer = ({
                 </AlertDialogHeader>
                 <AlertDialogFooter>
                   <AlertDialogCancel>
-                    {t('Common.alertDialog.cancelButton')}
+                    {t('Common.button.cancel')}
                   </AlertDialogCancel>
                   <AlertDialogAction onClick={createUpdatePayment}>
                     {t('Common.alertDialog.okButton')}
@@ -262,9 +262,7 @@ const CategoryDrawer = ({
               </AlertDialogContent>
             </AlertDialog>
             <DrawerClose asChild>
-              <Button variant="outline">
-                {t('Common.alertDialog.cancelButton')}
-              </Button>
+              <Button variant="outline">{t('Common.button.cancel')}</Button>
             </DrawerClose>
           </DrawerFooter>
         </div>

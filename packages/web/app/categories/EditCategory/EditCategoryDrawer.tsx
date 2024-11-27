@@ -48,6 +48,7 @@ import { Trash2Icon } from 'lucide-react';
 
 import type { ListProps } from '@/types/List';
 import type { CategoryItemProps } from '@/types/Category';
+import { useTranslations } from 'next-intl';
 
 type EditCategoryDrawerProps = {
   type?: ListProps;
@@ -68,6 +69,8 @@ const EditCategoryDrawer = ({
   isNew = false,
   children
 }: EditCategoryDrawerProps) => {
+  const t = useTranslations();
+
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
@@ -184,13 +187,19 @@ const EditCategoryDrawer = ({
 
             <AlertDialogContent>
               <AlertDialogHeader>
-                <AlertDialogTitle>Are you sure?</AlertDialogTitle>
-                <AlertDialogDescription>{`(this can't be undone)`}</AlertDialogDescription>
+                <AlertDialogTitle>
+                  {t('Common.alertDialog.title')}
+                </AlertDialogTitle>
+                <AlertDialogDescription>
+                  {t('Common.alertDialog.description')}
+                </AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter>
-                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogCancel>
+                  {t('Common.button.cancel')}
+                </AlertDialogCancel>
                 <AlertDialogAction onClick={handleCategoryRemoval}>
-                  Ok
+                  {t('Common.alertDialog.okButton')}
                 </AlertDialogAction>
               </AlertDialogFooter>
             </AlertDialogContent>
@@ -204,21 +213,25 @@ const EditCategoryDrawer = ({
             </AlertDialogTrigger>
             <AlertDialogContent>
               <AlertDialogHeader>
-                <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+                <AlertDialogTitle>
+                  {t('Common.alertDialog.title')}
+                </AlertDialogTitle>
                 <AlertDialogDescription>
-                  This cannot be undone
+                  {t('Common.alertDialog.description')}
                 </AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter>
-                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogCancel>
+                  {t('Common.button.cancel')}
+                </AlertDialogCancel>
                 <AlertDialogAction onClick={handleConfirmSubmit}>
-                  Ok
+                  {t('Common.alertDialog.okButton')}
                 </AlertDialogAction>
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialog>
           <DrawerClose asChild>
-            <Button variant="outline">Cancel</Button>
+            <Button variant="outline">{t('Common.button.cancel')}</Button>
           </DrawerClose>
         </DrawerFooter>
       </DrawerContent>
