@@ -1,0 +1,94 @@
+{
+  "MetaData": {
+    "description": "Strumento di monitoraggio finanziario"
+  },
+  "Menu": {
+    "home": "Home",
+    "dashboard": "Cruscotto",
+    "charts": "Grafici",
+    "chartsMonth": "Grafici (Mese)",
+    "chartsYear": "Grafici (Anno)",
+    "transactions": "Transazioni",
+    "categories": "Categorie"
+  },
+  "MenuDropdown": {
+    "editProfile": "Modifica Profilo",
+    "language": "Lingua",
+    "currency": "Valuta",
+    "darkMode": "Modalità Scura",
+    "logout": "Esci"
+  },
+  "Page": {
+    "home": {
+      "greetings": "Benvenuto",
+      "dashboardButton": "Vai al Cruscotto",
+      "motivation": {
+        "title": "Motivazione del giorno",
+        "quotes": [
+          "Risparmia denaro e il denaro ti salverà!",
+          "Un budget è dire ai tuoi soldi dove andare invece di chiederti dove siano finiti.",
+          "Investi in te stesso; è l'investimento migliore.",
+          "Monitora le tue spese e sii intelligente finanziariamente!",
+          "Ogni centesimo conta. Risparmia ora, goditi dopo!",
+          "Piccoli passi oggi portano a grandi risparmi domani.",
+          "Evita debiti inutili e abbraccia la libertà finanziaria.",
+          "Non devi essere ricco per costruire ricchezza: sii solo costante.",
+          "La disciplina finanziaria di oggi ti ricompenserà in futuro.",
+          "Tagliare piccole spese può portare a grandi risparmi.",
+          "Il denaro è uno strumento; usalo saggiamente per costruire i tuoi sogni.",
+          "Spendi meno di quanto guadagni e investi il resto.",
+          "Il miglior investimento che puoi fare è nella tua conoscenza.",
+          "Inizia a risparmiare per le emergenze: il tuo futuro ti ringrazierà.",
+          "Stabilisci obiettivi finanziari e raggiungili un passo alla volta."
+        ]
+      }
+    },
+    "dashboard": {
+      "balance": "Saldo",
+      "extra": "Extra",
+      "completed": "Completato",
+      "transactionButton": "Aggiungi Transazione",
+      "card": {
+        "settled": "Liquidato"
+      },
+      "cardDrawer": {
+        "title": "",
+        "description": "Regola le transazioni di {category}",
+        "totalLabel": "Totale"
+      },
+      "transactionDrawer": {
+        "title": "Transazione",
+        "description": "Aggiungi nuove transazioni"
+      }
+    },
+    "transactions": {
+      "form": {
+        "name": "Nome",
+        "amount": "Importo",
+        "currency": "Valuta"
+      }
+    },
+    "categories": {
+      "titleCategories": "Categorie",
+      "titleSuggestions": "Suggerimenti",
+      "categoryDrawer": {
+        "titleAdd": "Aggiungi Nuova Categoria",
+        "titleEdit": "Modifica Categoria"
+      }
+    }
+  },
+  "Common": {
+    "button": {
+      "ok": "Ok",
+      "cancel": "Annulla",
+      "add": "Aggiungi",
+      "update": "Aggiorna"
+    },
+    "alertDialog": {
+      "triggerButton": "Aggiorna",
+      "title": "Sei sicuro?",
+      "description": "Questo non può essere annullato",
+      "okButton": "Continua"
+    }
+  }
+}

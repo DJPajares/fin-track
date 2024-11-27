@@ -26,6 +26,42 @@ export const languages = [
   {
     value: 'zh',
     label: 'Mandarin'
+  },
+  {
+    value: 'es',
+    label: 'Spanish'
+  },
+  {
+    value: 'ar',
+    label: 'Arabic'
+  },
+  {
+    value: 'ru',
+    label: 'Russian'
+  },
+  {
+    value: 'it',
+    label: 'Italian'
+  },
+  {
+    value: 'tr',
+    label: 'Turkish'
+  },
+  {
+    value: 'vi',
+    label: 'Vietnamese'
+  },
+  {
+    value: 'th',
+    label: 'Thai'
+  },
+  {
+    value: 'id',
+    label: 'Indonesian'
+  },
+  {
+    value: 'ms',
+    label: 'Malay'
   }
 ] as const;
 

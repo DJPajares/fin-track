@@ -79,7 +79,7 @@
   },
   "Common": {
     "button": {
-      "ok": "OK",
+      "ok": "Ok",
       "cancel": "Cancel",
       "add": "Add",
       "update": "Update"

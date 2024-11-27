@@ -1,0 +1,94 @@
+{
+  "MetaData": {
+    "description": "Alat pemantauan keuangan"
+  },
+  "Menu": {
+    "home": "Beranda",
+    "dashboard": "Dasbor",
+    "charts": "Grafik",
+    "chartsMonth": "Grafik (Bulan)",
+    "chartsYear": "Grafik (Tahun)",
+    "transactions": "Transaksi",
+    "categories": "Kategori"
+  },
+  "MenuDropdown": {
+    "editProfile": "Edit Profil",
+    "language": "Bahasa",
+    "currency": "Mata Uang",
+    "darkMode": "Mode Gelap",
+    "logout": "Keluar"
+  },
+  "Page": {
+    "home": {
+      "greetings": "Selamat Datang",
+      "dashboardButton": "Ke Dasbor",
+      "motivation": {
+        "title": "Motivasi Hari Ini",
+        "quotes": [
+          "Hemat uang, uang akan menyelamatkanmu!",
+          "Anggaran adalah memberi tahu uangmu ke mana harus pergi daripada bertanya ke mana uang itu pergi.",
+          "Investasikan pada dirimu sendiri; itu investasi terbaik.",
+          "Pantau pengeluaranmu dan bijak dalam keuangan!",
+          "Setiap sen berharga. Hemat sekarang, nikmati nanti!",
+          "Langkah kecil hari ini akan membawa pada tabungan besar besok.",
+          "Hindari utang yang tidak perlu dan raih kebebasan finansial.",
+          "Kamu tidak perlu kaya untuk membangun kekayaan—cukup konsisten.",
+          "Disiplin finansial hari ini akan memberi imbalan di masa depan.",
+          "Mengurangi pengeluaran kecil dapat mengarah pada tabungan besar.",
+          "Uang adalah alat; gunakan dengan bijak untuk membangun mimpimu.",
+          "Belanjakan lebih sedikit dari penghasilanmu dan investasikan sisanya.",
+          "Investasi terbaik yang bisa kamu lakukan adalah dalam pengetahuanmu.",
+          "Mulailah menabung untuk keadaan darurat—masa depanmu akan berterima kasih.",
+          "Tetapkan tujuan keuangan dan capailah satu langkah demi satu langkah."
+        ]
+      }
+    },
+    "dashboard": {
+      "balance": "Saldo",
+      "extra": "Ekstra",
+      "completed": "Selesai",
+      "transactionButton": "Tambah Transaksi",
+      "card": {
+        "settled": "Lunas"
+      },
+      "cardDrawer": {
+        "title": "",
+        "description": "Atur transaksi {category}",
+        "totalLabel": "Total"
+      },
+      "transactionDrawer": {
+        "title": "Transaksi",
+        "description": "Tambah transaksi baru"
+      }
+    },
+    "transactions": {
+      "form": {
+        "name": "Nama",
+        "amount": "Jumlah",
+        "currency": "Mata Uang"
+      }
+    },
+    "categories": {
+      "titleCategories": "Kategori",
+      "titleSuggestions": "Saran",
+      "categoryDrawer": {
+        "titleAdd": "Tambah Kategori Baru",
+        "titleEdit": "Ubah Kategori"
+      }
+    }
+  },
+  "Common": {
+    "button": {
+      "ok": "Ok",
+      "cancel": "Batal",
+      "add": "Tambah",
+      "update": "Perbarui"
+    },
+    "alertDialog": {
+      "triggerButton": "Perbarui",
+      "title": "Apakah Anda Yakin?",
+      "description": "Ini tidak dapat dibatalkan",
+      "okButton": "Lanjutkan"
+    }
+  }
+}

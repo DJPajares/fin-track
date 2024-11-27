@@ -1,0 +1,94 @@
+{
+  "MetaData": {
+    "description": "Công cụ theo dõi tài chính"
+  },
+  "Menu": {
+    "home": "Trang Chủ",
+    "dashboard": "Bảng Điều Khiển",
+    "charts": "Biểu Đồ",
+    "chartsMonth": "Biểu Đồ (Tháng)",
+    "chartsYear": "Biểu Đồ (Năm)",
+    "transactions": "Giao Dịch",
+    "categories": "Danh Mục"
+  },
+  "MenuDropdown": {
+    "editProfile": "Chỉnh Sửa Hồ Sơ",
+    "language": "Ngôn Ngữ",
+    "currency": "Tiền Tệ",
+    "darkMode": "Chế Độ Tối",
+    "logout": "Đăng Xuất"
+  },
+  "Page": {
+    "home": {
+      "greetings": "Chào Mừng",
+      "dashboardButton": "Đi đến Bảng Điều Khiển",
+      "motivation": {
+        "title": "Động Lực Hôm Nay",
+        "quotes": [
+          "Tiết kiệm tiền, tiền sẽ giúp bạn!",
+          "Một ngân sách là việc nói cho tiền của bạn đi đâu thay vì tự hỏi tiền đã đi đâu.",
+          "Đầu tư vào bản thân bạn; nó sẽ mang lại lợi nhuận cao nhất.",
+          "Theo dõi chi tiêu của bạn và luôn thông minh tài chính!",
+          "Mỗi đồng đều có giá trị. Tiết kiệm ngay, tận hưởng sau!",
+          "Những bước nhỏ hôm nay sẽ dẫn đến tiết kiệm lớn vào ngày mai.",
+          "Tránh nợ nần không cần thiết và đón nhận tự do tài chính.",
+          "Bạn không cần phải giàu có để xây dựng tài sản—chỉ cần kiên trì.",
+          "Kỷ luật tài chính hôm nay sẽ thưởng cho bạn trong tương lai.",
+          "Giảm chi tiêu nhỏ có thể dẫn đến tiết kiệm lớn.",
+          "Tiền là một công cụ; sử dụng nó một cách khôn ngoan để xây dựng ước mơ của bạn.",
+          "Chi tiêu ít hơn thu nhập của bạn và đầu tư phần còn lại.",
+          "Khoản đầu tư tốt nhất bạn có thể thực hiện là vào kiến thức của chính mình.",
+          "Hãy bắt đầu tiết kiệm cho các tình huống khẩn cấp—tương lai của bạn sẽ cảm ơn bạn.",
+          "Đặt mục tiêu tài chính và tiến một bước mỗi lần để đạt được chúng."
+        ]
+      }
+    },
+    "dashboard": {
+      "balance": "Số Dư",
+      "extra": "Phụ Trội",
+      "completed": "Hoàn Thành",
+      "transactionButton": "Thêm Giao Dịch",
+      "card": {
+        "settled": "Đã Thanh Toán"
+      },
+      "cardDrawer": {
+        "title": "",
+        "description": "Thanh toán giao dịch {category}",
+        "totalLabel": "Tổng"
+      },
+      "transactionDrawer": {
+        "title": "Giao Dịch",
+        "description": "Thêm giao dịch mới"
+      }
+    },
+    "transactions": {
+      "form": {
+        "name": "Tên",
+        "amount": "Số Tiền",
+        "currency": "Tiền Tệ"
+      }
+    },
+    "categories": {
+      "titleCategories": "Danh Mục",
+      "titleSuggestions": "Gợi Ý",
+      "categoryDrawer": {
+        "titleAdd": "Thêm Danh Mục Mới",
+        "titleEdit": "Chỉnh Sửa Danh Mục"
+      }
+    }
+  },
+  "Common": {
+    "button": {
+      "ok": "Đồng Ý",
+      "cancel": "Hủy",
+      "add": "Thêm",
+      "update": "Cập Nhật"
+    },
+    "alertDialog": {
+      "triggerButton": "Cập Nhật",
+      "title": "Bạn Có Chắc Không?",
+      "description": "Không thể hoàn tác",
+      "okButton": "Tiếp Tục"
+    }
+  }
+}

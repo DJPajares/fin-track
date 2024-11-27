@@ -1,0 +1,94 @@
+{
+  "MetaData": {
+    "description": "Alat pemantauan kewangan"
+  },
+  "Menu": {
+    "home": "Laman Utama",
+    "dashboard": "Papan Pemuka",
+    "charts": "Graf",
+    "chartsMonth": "Graf (Bulan)",
+    "chartsYear": "Graf (Tahun)",
+    "transactions": "Transaksi",
+    "categories": "Kategori"
+  },
+  "MenuDropdown": {
+    "editProfile": "Edit Profil",
+    "language": "Bahasa",
+    "currency": "Mata Wang",
+    "darkMode": "Mod Gelap",
+    "logout": "Log Keluar"
+  },
+  "Page": {
+    "home": {
+      "greetings": "Selamat Datang",
+      "dashboardButton": "Pergi ke Papan Pemuka",
+      "motivation": {
+        "title": "Motivasi Hari Ini",
+        "quotes": [
+          "Jimat wang, wang akan menyelamatkan anda!",
+          "Bajet adalah memberitahu wang anda ke mana ia pergi daripada bertanya ke mana wang itu pergi.",
+          "Melabur dalam diri anda sendiri; itu adalah pelaburan terbaik.",
+          "Jejaki perbelanjaan anda dan bijak dalam kewangan!",
+          "Setiap sen berharga. Jimat sekarang, nikmati kemudian!",
+          "Langkah kecil hari ini akan membawa kepada simpanan besar esok.",
+          "Elakkan hutang yang tidak perlu dan capai kebebasan kewangan.",
+          "Anda tidak perlu kaya untuk membina kekayaan—hanya perlu konsisten.",
+          "Disiplin kewangan hari ini akan memberi ganjaran kepada anda di masa hadapan.",
+          "Mengurangkan perbelanjaan kecil boleh membawa kepada simpanan besar.",
+          "Wang adalah alat; gunakannya dengan bijak untuk membina impian anda.",
+          "Belanja kurang daripada pendapatan anda dan laburkan bakinya.",
+          "Pelaburan terbaik yang boleh anda buat adalah dalam pengetahuan anda.",
+          "Mula menyimpan untuk kecemasan—masa depan anda akan berterima kasih.",
+          "Tetapkan matlamat kewangan dan capai satu langkah pada satu masa."
+        ]
+      }
+    },
+    "dashboard": {
+      "balance": "Baki",
+      "extra": "Tambahan",
+      "completed": "Selesai",
+      "transactionButton": "Tambah Transaksi",
+      "card": {
+        "settled": "Berlunas"
+      },
+      "cardDrawer": {
+        "title": "",
+        "description": "Tetapkan transaksi {category}",
+        "totalLabel": "Jumlah"
+      },
+      "transactionDrawer": {
+        "title": "Transaksi",
+        "description": "Tambah transaksi baharu"
+      }
+    },
+    "transactions": {
+      "form": {
+        "name": "Nama",
+        "amount": "Jumlah",
+        "currency": "Mata Wang"
+      }
+    },
+    "categories": {
+      "titleCategories": "Kategori",
+      "titleSuggestions": "Cadangan",
+      "categoryDrawer": {
+        "titleAdd": "Tambah Kategori Baharu",
+        "titleEdit": "Sunting Kategori"
+      }
+    }
+  },
+  "Common": {
+    "button": {
+      "ok": "Ok",
+      "cancel": "Batal",
+      "add": "Tambah",
+      "update": "Kemaskini"
+    },
+    "alertDialog": {
+      "triggerButton": "Kemaskini",
+      "title": "Adakah Anda Pasti?",
+      "description": "Ini tidak boleh dibatalkan",
+      "okButton": "Teruskan"
+    }
+  }
+}

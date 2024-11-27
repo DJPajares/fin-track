@@ -1,0 +1,94 @@
+{
+  "MetaData": {
+    "description": "Finansal izleme aracı"
+  },
+  "Menu": {
+    "home": "Ana Sayfa",
+    "dashboard": "Gösterge Paneli",
+    "charts": "Grafikler",
+    "chartsMonth": "Grafikler (Ay)",
+    "chartsYear": "Grafikler (Yıl)",
+    "transactions": "İşlemler",
+    "categories": "Kategoriler"
+  },
+  "MenuDropdown": {
+    "editProfile": "Profili Düzenle",
+    "language": "Dil",
+    "currency": "Para Birimi",
+    "darkMode": "Karanlık Mod",
+    "logout": "Çıkış Yap"
+  },
+  "Page": {
+    "home": {
+      "greetings": "Hoşgeldiniz",
+      "dashboardButton": "Gösterge Paneline Git",
+      "motivation": {
+        "title": "Bugünün Motivasyonu",
+        "quotes": [
+          "Paranızı biriktirin, paranız sizi kurtaracak!",
+          "Bütçe yapmak, paranızın nereye gittiğini bilmek demektir.",
+          "Kendinize yatırım yapın; bu en iyi yatırımdır.",
+          "Harcamalarınızı takip edin ve finansal olarak akıllı olun!",
+          "Her kuruş değerlidir. Şimdi tasarruf edin, sonra keyfini çıkarın!",
+          "Bugün küçük adımlar yarın büyük tasarruflara yol açar.",
+          "Gereksiz borçlardan kaçının ve finansal özgürlüğe ulaşın.",
+          "Zengin olmak zorunda değilsiniz; tutarlı olun yeter.",
+          "Bugünün finansal disiplini gelecekte sizi ödüllendirecektir.",
+          "Küçük masrafları azaltmak büyük tasarruflara yol açabilir.",
+          "Para bir araçtır; hayallerinizi gerçekleştirmek için akıllıca kullanın.",
+          "Kazandığınızdan az harcayın ve kalanını yatırın.",
+          "Yapabileceğiniz en iyi yatırım kendi bilginize yapacağınız yatırımdır.",
+          "Acil durumlar için tasarruf yapmaya başlayın; gelecekte kendinize teşekkür edeceksiniz.",
+          "Finansal hedefler belirleyin ve bunlara ulaşmak için adım adım ilerleyin."
+        ]
+      }
+    },
+    "dashboard": {
+      "balance": "Bakiye",
+      "extra": "Ekstra",
+      "completed": "Tamamlandı",
+      "transactionButton": "İşlem Ekle",
+      "card": {
+        "settled": "Ödendi"
+      },
+      "cardDrawer": {
+        "title": "",
+        "description": "{category} işlemlerini düzenle",
+        "totalLabel": "Toplam"
+      },
+      "transactionDrawer": {
+        "title": "İşlem",
+        "description": "Yeni işlemler ekleyin"
+      }
+    },
+    "transactions": {
+      "form": {
+        "name": "Ad",
+        "amount": "Tutar",
+        "currency": "Para Birimi"
+      }
+    },
+    "categories": {
+      "titleCategories": "Kategoriler",
+      "titleSuggestions": "Öneriler",
+      "categoryDrawer": {
+        "titleAdd": "Yeni Kategori Ekle",
+        "titleEdit": "Kategoriyi Düzenle"
+      }
+    }
+  },
+  "Common": {
+    "button": {
+      "ok": "Tamam",
+      "cancel": "İptal",
+      "add": "Ekle",
+      "update": "Güncelle"
+    },
+    "alertDialog": {
+      "triggerButton": "Güncelle",
+      "title": "Emin misiniz?",
+      "description": "Bu işlem geri alınamaz",
+      "okButton": "Devam Et"
+    }
+  }
+}

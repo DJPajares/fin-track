@@ -1,0 +1,94 @@
+{
+  "MetaData": {
+    "description": "Herramienta de seguimiento financiero"
+  },
+  "Menu": {
+    "home": "Inicio",
+    "dashboard": "Tablero",
+    "charts": "Gráficos",
+    "chartsMonth": "Gráficos (Mes)",
+    "chartsYear": "Gráficos (Año)",
+    "transactions": "Transacciones",
+    "categories": "Categorías"
+  },
+  "MenuDropdown": {
+    "editProfile": "Editar perfil",
+    "language": "Idioma",
+    "currency": "Moneda",
+    "darkMode": "Modo oscuro",
+    "logout": "Cerrar sesión"
+  },
+  "Page": {
+    "home": {
+      "greetings": "Bienvenido",
+      "dashboardButton": "Ir al tablero",
+      "motivation": {
+        "title": "Motivación de hoy",
+        "quotes": [
+          "¡Ahorra dinero, y el dinero te salvará!",
+          "Un presupuesto es decirle a tu dinero a dónde ir en lugar de preguntarte a dónde se fue.",
+          "Invierte en ti mismo; es la inversión que mejor paga.",
+          "¡Controla tus gastos y sé financieramente inteligente!",
+          "Cada centavo cuenta. ¡Ahorra ahora, disfruta después!",
+          "Los pequeños pasos de hoy conducen a grandes ahorros mañana.",
+          "Evita deudas innecesarias y abraza la libertad financiera.",
+          "No necesitas ser rico para acumular riqueza, solo constante.",
+          "La disciplina financiera de hoy te recompensará en el futuro.",
+          "Reducir pequeños gastos puede generar grandes ahorros.",
+          "El dinero es una herramienta; úsala sabiamente para construir tus sueños.",
+          "Gasta menos de lo que ganas e invierte el resto.",
+          "La mejor inversión que puedes hacer es en tu propio conocimiento.",
+          "Comienza a ahorrar para emergencias; tu yo futuro te lo agradecerá.",
+          "Establece metas financieras y da un paso a la vez para lograrlas."
+        ]
+      }
+    },
+    "dashboard": {
+      "balance": "Saldo",
+      "extra": "Extra",
+      "completed": "Completado",
+      "transactionButton": "Agregar transacción",
+      "card": {
+        "settled": "Liquidado"
+      },
+      "cardDrawer": {
+        "title": "",
+        "description": "Liquidar transacciones de {category}",
+        "totalLabel": "Total"
+      },
+      "transactionDrawer": {
+        "title": "Transacción",
+        "description": "Agregar nuevas transacciones"
+      }
+    },
+    "transactions": {
+      "form": {
+        "name": "Nombre",
+        "amount": "Cantidad",
+        "currency": "Moneda"
+      }
+    },
+    "categories": {
+      "titleCategories": "Categorías",
+      "titleSuggestions": "Sugerencias",
+      "categoryDrawer": {
+        "titleAdd": "Agregar nueva categoría",
+        "titleEdit": "Editar categoría"
+      }
+    }
+  },
+  "Common": {
+    "button": {
+      "ok": "Aceptar",
+      "cancel": "Cancelar",
+      "add": "Agregar",
+      "update": "Actualizar"
+    },
+    "alertDialog": {
+      "triggerButton": "Actualizar",
+      "title": "¿Estás seguro?",
+      "description": "Esto no se puede deshacer",
+      "okButton": "Continuar"
+    }
+  }
+}
