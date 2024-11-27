@@ -5,11 +5,7 @@
   },
   {
     "category": "Family",
-    "amount": 232.0546810240662
-  },
-  {
-    "category": "Family",
-    "amount": 359.6847555873027
+    "amount": 359
   },
   {
     "category": "Food",
@@ -29,23 +25,11 @@
   },
   {
     "category": "Savings",
-    "amount": 2000.0000000000002
+    "amount": 1200
   },
   {
     "category": "Transport",
     "amount": 50
-  },
-  {
-    "category": "Utilities",
-    "amount": 100
-  },
-  {
-    "category": "Utilities",
-    "amount": 60.00000000000001
-  },
-  {
-    "category": "Utilities",
-    "amount": 71.9
   },
   {
     "category": "Utilities",
