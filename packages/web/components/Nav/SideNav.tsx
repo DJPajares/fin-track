@@ -41,19 +41,17 @@ const SideNav = () => {
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton
-              size="lg"
-              // className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
-            >
-              <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-                <GemIcon className="size-4" />
-              </div>
-              <div className="grid flex-1 text-left text-sm leading-tight">
-                <Link href="/" onClick={handleLinkClick} passHref>
+            <Link href="/" onClick={handleLinkClick} passHref>
+              <SidebarMenuButton size="lg">
+                <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
+                  <GemIcon className="size-4" />
+                </div>
+
+                <div className="grid flex-1 text-left text-sm leading-tight">
                   <p className="font-bold text-inherit">FIN-TRACK</p>
-                </Link>
-              </div>
-            </SidebarMenuButton>
+                </div>
+              </SidebarMenuButton>
+            </Link>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
@@ -73,7 +71,7 @@ const SideNav = () => {
                   {item.items?.length ? (
                     <CollapsibleTrigger asChild>
                       <SidebarMenuButton
-                        // className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+                        className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
                         size="lg"
                         tooltip={item.label}
                       >
@@ -106,21 +104,15 @@ const SideNav = () => {
                     <SidebarMenuSub>
                       {item.items?.map((subItem) => (
                         <SidebarMenuSubItem key={subItem.value}>
-                          <SidebarMenuSubButton asChild>
-                            {/* <a href={subItem.route}>
-                              <span>{subItem.label}</span>
-                            </a> */}
-                            <Link
-                              href={subItem.route}
-                              onClick={handleLinkClick}
-                              passHref
-                            >
-                              {/* <Label className="cursor-pointer">
-                                {t(subItem.value)}
-                              </Label> */}
-                              <p className="font-normal">{t(subItem.value)}</p>
-                            </Link>
-                          </SidebarMenuSubButton>
+                          <Link
+                            href={subItem.route}
+                            onClick={handleLinkClick}
+                            passHref
+                          >
+                            <SidebarMenuSubButton size="md" asChild>
+                              <p className="font-medium">{t(subItem.value)}</p>
+                            </SidebarMenuSubButton>
+                          </Link>
                         </SidebarMenuSubItem>
                       ))}
                     </SidebarMenuSub>
