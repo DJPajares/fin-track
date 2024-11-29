@@ -67,7 +67,7 @@ const fetchTransactionsDateByCategory = async ({
 
       const { status, data } = await axios.post(url, postData);
 
-      if (status === 200) return data.data;
+      if (status === 200) return data;
     }
   } catch (error) {
     console.error('Fetch failed', error);

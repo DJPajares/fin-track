@@ -37,6 +37,7 @@ const Charts = () => {
 
   const [date, setDate] = useState(new Date());
   const [chartData, setChartData] = useState<TransactionByCategory[]>([]);
+  const [chartConfigData, setChartConfigData] = useState<ChartConfig>({});
   const [selectedType, setSelectedType] = useState('');
 
   const totalAmount = useMemo(() => {
@@ -62,7 +63,8 @@ const Charts = () => {
       type
     });
 
-    setChartData(transactions);
+    setChartData(transactions.data);
+    setChartConfigData(transactions.chartConfig);
   };
 
   const handlePrevMonth = () => {
@@ -81,11 +83,18 @@ const Charts = () => {
     setSelectedType(e.target.value);
   };
 
-  const chartConfig = {
-    amount: {
-      label: 'Amount'
-    }
-  } satisfies ChartConfig;
+  // const chartConfig = {
+  //   // category: {
+  //   //   label: 'Test'
+  //   // },
+  //   // amount: {
+  //   //   label: 'Amount'
+  //   // }
+  // } satisfies ChartConfig;
+
+  const chartConfig = chartConfigData satisfies ChartConfig;
+
+  console.log(chartConfigData);
 
   return (
     <div className="space-y-8 sm:space-y-12">
@@ -130,15 +139,6 @@ const Charts = () => {
                   className="mx-auto aspect-square max-h-[250px]"
                 >
                   <PieChart>
-                    <ChartTooltip
-                      cursor={false}
-                      content={
-                        <ChartTooltipContent nameKey="category" hideLabel />
-                      }
-                    />
-                    {/* <ChartLegend
-                      content={<ChartLegendContent nameKey="category" />}
-                    /> */}
                     <Pie
                       data={chartData}
                       dataKey="amount"
@@ -188,6 +188,17 @@ const Charts = () => {
                         }}
                       />
                     </Pie>
+                    <ChartTooltip
+                      cursor={false}
+                      content={
+                        <ChartTooltipContent nameKey="category" hideLabel />
+                      }
+                    />
+                    <ChartLegend content={<ChartLegendContent />} />
+                    {/* <ChartLegend
+                      content={<ChartLegendContent nameKey="category" />}
+                      className="-translate-y-2 flex-wrap gap-2 [&>*]:basis-1/4 [&>*]:justify-center"
+                    /> */}
                   </PieChart>
                 </ChartContainer>
               </Card>

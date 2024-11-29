@@ -147,8 +147,8 @@ const Charts = () => {
                 right: 12
               }}
             >
-              {/* <CartesianGrid vertical={false} /> */}
-              <CartesianGrid strokeDasharray="3 3" />
+              <CartesianGrid vertical={false} />
+              {/* <CartesianGrid strokeDasharray="3 3" /> */}
               <XAxis
                 dataKey="month"
                 // tickLine={false}

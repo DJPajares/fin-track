@@ -385,33 +385,6 @@ const getByDate = async (data: FetchByDateProps) => {
   };
 };
 
-const getByCategoryDate = async (data: FetchByDateProps) => {
-  const result = await getByDate(data);
-
-  const { transactions } = result.data;
-
-  const aggregatedData = transactions.reduce((acc, transaction) => {
-    const { categoryName, convertedAmount } = transaction;
-
-    if (acc[categoryName]) {
-      acc[categoryName] += Math.floor(convertedAmount);
-    } else {
-      acc[categoryName] = Math.floor(convertedAmount);
-    }
-
-    return acc;
-  }, {} as Record<string, number>);
-
-  const output = Object.entries(aggregatedData).map(([category, amount]) => ({
-    category,
-    amount
-  }));
-
-  return {
-    data: output
-  };
-};
-
 const getByDateRange = async (data: FetchByDateRangeProps) => {
   const startDate = new Date(data.startDate);
   const endDate = new Date(data.endDate);
@@ -515,6 +488,93 @@ const getByDateRange = async (data: FetchByDateRangeProps) => {
 
   return {
     data: output
+  };
+};
+
+// const getByCategoryDate = async (data: FetchByDateProps) => {
+//   const result = await getByDate(data);
+
+//   const { transactions } = result.data;
+
+//   const aggregatedData = transactions.reduce((acc, transaction) => {
+//     const { categoryName, convertedAmount } = transaction;
+
+//     if (acc[categoryName]) {
+//       acc[categoryName] += Math.floor(convertedAmount);
+//     } else {
+//       acc[categoryName] = Math.floor(convertedAmount);
+//     }
+
+//     return acc;
+//   }, {} as Record<string, number>);
+
+//   console.log(aggregatedData);
+
+//   const output = Object.entries(aggregatedData).map(([category, amount]) => ({
+//     category,
+//     amount
+//   }));
+
+//   return {
+//     data: output
+//     // chartConfig:
+//   };
+// };
+
+const getByCategoryDate = async (data: FetchByDateProps) => {
+  const result = await getByDate(data);
+
+  const { transactions } = result.data;
+
+  const aggregatedData = transactions.reduce((acc, transaction) => {
+    const { categoryId, categoryName, categoryIcon, convertedAmount } =
+      transaction;
+
+    // Check if the categoryId already exists in the accumulator
+    if (acc[categoryId]) {
+      acc[categoryId].amount += Math.floor(convertedAmount);
+    } else {
+      acc[categoryId] = {
+        id: categoryId,
+        category: categoryName,
+        icon: categoryIcon,
+        amount: Math.floor(convertedAmount)
+      };
+    }
+
+    return acc;
+  }, {} as Record<string, { id: string; category: string; icon: string; amount: number }>);
+
+  type ChartConfigProps = {
+    [id: string]: {
+      label: string;
+      icon: string;
+    };
+  };
+
+  type OutputProps = {
+    id: string;
+    category: string;
+    icon: string;
+    amount: number;
+  };
+
+  const output: OutputProps[] = Object.values(aggregatedData);
+
+  const chartConfig = output.reduce<ChartConfigProps>(
+    (acc, item: OutputProps) => {
+      acc[item.id] = {
+        label: item.category,
+        icon: item.icon
+      };
+      return acc;
+    },
+    {}
+  );
+
+  return {
+    data: output,
+    chartConfig
   };
 };
 

@@ -1,38 +1,62 @@
 [
   {
+    "id": "671f0150855aa876c09f12ef",
+    "category": "Credit Card",
+    "icon": "credit-card",
+    "amount": 4132
+  },
+  {
+    "id": "671f016f855aa876c09f12f7",
     "category": "Debts",
-    "amount": 475.89000000000004
+    "icon": "banknote",
+    "amount": 475
   },
   {
+    "id": "671f0142855aa876c09f12eb",
     "category": "Family",
-    "amount": 359
+    "icon": "users",
+    "amount": 591
   },
   {
+    "id": "671f0130855aa876c09f12e5",
     "category": "Food",
-    "amount": 349.99999999999994
+    "icon": "utensils",
+    "amount": 349
   },
   {
+    "id": "671f016a855aa876c09f12f5",
     "category": "Healthcare",
+    "icon": "activity",
     "amount": 145
   },
   {
+    "id": "671f015a855aa876c09f12f1",
     "category": "Loans",
-    "amount": 1160.273405120331
+    "icon": "banknote",
+    "amount": 1160
   },
   {
+    "id": "671f012a855aa876c09f12e3",
     "category": "Rent",
+    "icon": "bed-double",
     "amount": 1600
   },
   {
+    "id": "671f0163855aa876c09f12f3",
     "category": "Savings",
-    "amount": 1200
+    "icon": "banknote",
+    "amount": 2000
   },
   {
+    "id": "671f0136855aa876c09f12e7",
     "category": "Transport",
+    "icon": "bus-front",
     "amount": 50
   },
   {
+    "id": "671f0149855aa876c09f12ed",
     "category": "Utilities",
-    "amount": 100
+    "icon": "lightbulb",
+    "amount": 331
   }
 ]
