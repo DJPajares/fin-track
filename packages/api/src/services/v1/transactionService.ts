@@ -281,6 +281,8 @@ const getAdvanced = async (
         categoryId: '$category._id',
         categoryName: '$category.name',
         categoryIcon: '$category.icon',
+        startDate: '$startDate',
+        endDAte: '$endDate',
         currencyId: '$currency._id',
         currencyName: '$currency.name',
         amount: { $toDouble: '$amount' },
