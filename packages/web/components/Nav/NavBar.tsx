@@ -54,7 +54,7 @@ const NavBar = ({ children }: NavBarProps) => {
           </Link>
 
           <NavDropdownMenu>
-            <Avatar className="cursor-pointer hover:border-primary">
+            <Avatar className="h-8 w-8 cursor-pointer hover:border-primary">
               <AvatarImage src="https://i.pravatar.cc/150?u=a04258114e29026708c" />
               <AvatarFallback>DJ</AvatarFallback>
             </Avatar>
