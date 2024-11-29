@@ -26,6 +26,7 @@ type FetchByDateProps = {
 type FetchByDateRangeProps = {
   startDate: Date;
   endDate: Date;
+  type?: string;
   currency: string;
 };
 
@@ -431,6 +432,7 @@ const getByDateRange = async (data: FetchByDateRangeProps) => {
   const output = await Promise.all(
     datesArray.map(async (date) => {
       const dataToFilter = {
+        ...data,
         date: new Date(date)
       };
 
@@ -465,6 +467,7 @@ const getByDateRange = async (data: FetchByDateRangeProps) => {
           }
         },
         { $unwind: '$type' },
+        { $match: filters.type },
         {
           $project: {
             _id: '$_id',
