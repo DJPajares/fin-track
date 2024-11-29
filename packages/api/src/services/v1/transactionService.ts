@@ -19,8 +19,8 @@ type FetchTransactionProps = {
 
 type FetchByDateProps = {
   date: Date;
-  currency: string;
   type?: string;
+  currency: string;
 };
 
 type FetchByDateRangeProps = {
@@ -76,12 +76,6 @@ const buildFilters = (data: FetchTransactionProps) => {
   const month = new Date(date).getMonth() + 1;
 
   const yearMonth = parseInt(`${year}${month.toString().padStart(2, '0')}`);
-
-  // const yearMonth = parseInt(
-  //   `${date.getFullYear()}${(date.getMonth() + 1).toString().padStart(2, '0')}`
-  // );
-
-  const type = data?.type ? new Types.ObjectId(data.type) : '';
 
   return {
     date: {
@@ -140,7 +134,7 @@ const buildFilters = (data: FetchTransactionProps) => {
         ]
       }
     },
-    type: { 'type._id': type }
+    type: data.type ? { 'type._id': new Types.ObjectId(data.type) } : {}
   };
 };
 
@@ -150,10 +144,6 @@ const getTotalCount = async (data: FetchTransactionProps) => {
   const month = date.getMonth() + 1;
   const paddedMonth = month.toString().padStart(2, '0');
   const yearMonth = parseInt(`${year}${paddedMonth}`);
-
-  // const yearMonth = parseInt(
-  //   `${date.getFullYear()}${(date.getMonth() + 1).toString().padStart(2, '0')}`
-  // );
 
   const type = new Types.ObjectId(data.type);
 
@@ -397,14 +387,22 @@ const getByCategoryDate = async (data: FetchByDateProps) => {
 
   const { transactions } = result.data;
 
-  const output = transactions.map((transaction) => {
+  const aggregatedData = transactions.reduce((acc, transaction) => {
     const { categoryName, convertedAmount } = transaction;
 
-    return {
-      category: categoryName,
-      amount: Math.floor(convertedAmount)
-    };
-  });
+    if (acc[categoryName]) {
+      acc[categoryName] += Math.floor(convertedAmount);
+    } else {
+      acc[categoryName] = Math.floor(convertedAmount);
+    }
+
+    return acc;
+  }, {} as Record<string, number>);
+
+  const output = Object.entries(aggregatedData).map(([category, amount]) => ({
+    category,
+    amount
+  }));
 
   return {
     data: output
@@ -519,30 +517,6 @@ const getByTypeDateRange = async (data: FetchByDateRangeProps) => {
   const result = await getByDateRange(data);
 
   const output = result.data.map((dataRow) => {
-    // const groupedTransactions: Record<string, any> = {};
-    // const { date, transactions } = dataRow;
-
-    // transactions.forEach((transaction) => {
-    //   const { typeId, typeName, convertedAmount, convertedCurrency } =
-    //     transaction;
-
-    //   if (!groupedTransactions[typeId]) {
-    //     groupedTransactions[typeId] = {
-    //       typeId,
-    //       typeName,
-    //       convertedAmount: 0,
-    //       convertedCurrency
-    //     };
-    //   }
-
-    //   groupedTransactions[typeId].convertedAmount += convertedAmount;
-    // });
-
-    // return {
-    //   date,
-    //   transactions: Object.values(groupedTransactions)
-    // };
-
     const types: Record<string, number> = {};
     const { date, transactions } = dataRow;
 
@@ -570,40 +544,6 @@ const getByCategoryDateRange = async (data: FetchByDateRangeProps) => {
   const result = await getByDateRange(data);
 
   const output = result.data.map((dataRow) => {
-    // const groupedTransactions: Record<string, any> = {};
-    // const { date, transactions } = dataRow;
-
-    // transactions.forEach((transaction) => {
-    //   const {
-    //     categoryId,
-    //     categoryName,
-    //     categoryIcon,
-    //     typeId,
-    //     typeName,
-    //     convertedAmount,
-    //     convertedCurrency
-    //   } = transaction;
-
-    //   if (!groupedTransactions[categoryId]) {
-    //     groupedTransactions[categoryId] = {
-    //       categoryId,
-    //       categoryName,
-    //       categoryIcon,
-    //       typeId,
-    //       typeName,
-    //       convertedAmount: 0,
-    //       convertedCurrency
-    //     };
-    //   }
-
-    //   groupedTransactions[categoryId].convertedAmount += convertedAmount;
-    // });
-
-    // return {
-    //   date,
-    //   transactions: Object.values(groupedTransactions)
-    // };
-
     const categories: Record<string, number> = {};
     const { date, transactions } = dataRow;
 
