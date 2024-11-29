@@ -392,7 +392,7 @@ const getByDate = async (data: FetchByDateProps) => {
   };
 };
 
-const getDateByCategory = async (data: FetchByDateProps) => {
+const getByCategoryDate = async (data: FetchByDateProps) => {
   const result = await getByDate(data);
 
   const { transactions } = result.data;
@@ -515,7 +515,7 @@ const getByDateRange = async (data: FetchByDateRangeProps) => {
   };
 };
 
-const getDateRangeByType = async (data: FetchByDateRangeProps) => {
+const getByTypeDateRange = async (data: FetchByDateRangeProps) => {
   const result = await getByDateRange(data);
 
   const output = result.data.map((dataRow) => {
@@ -566,7 +566,7 @@ const getDateRangeByType = async (data: FetchByDateRangeProps) => {
   return output;
 };
 
-const getDateRangeByCategory = async (data: FetchByDateRangeProps) => {
+const getByCategoryDateRange = async (data: FetchByDateRangeProps) => {
   const result = await getByDateRange(data);
 
   const output = result.data.map((dataRow) => {
@@ -645,9 +645,9 @@ export {
   create,
   getAll,
   getAdvanced,
-  getDateByCategory,
-  getDateRangeByType,
-  getDateRangeByCategory,
+  getByCategoryDate,
+  getByTypeDateRange,
+  getByCategoryDateRange,
   get,
   update,
   remove

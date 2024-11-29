@@ -42,13 +42,13 @@ const getAdvanced = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-const getDateByCategory = async (
+const getByCategoryDate = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   try {
-    const result = await transactionService.getDateByCategory(req.body);
+    const result = await transactionService.getByCategoryDate(req.body);
 
     res.status(200).json(result);
   } catch (error) {
@@ -56,13 +56,13 @@ const getDateByCategory = async (
   }
 };
 
-const getDateRangeByType = async (
+const getByTypeDateRange = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   try {
-    const result = await transactionService.getDateRangeByType(req.body);
+    const result = await transactionService.getByTypeDateRange(req.body);
 
     res.status(200).json(result);
   } catch (error) {
@@ -70,13 +70,13 @@ const getDateRangeByType = async (
   }
 };
 
-const getDateRangeByCategory = async (
+const getByCategoryDateRange = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   try {
-    const result = await transactionService.getDateRangeByCategory(req.body);
+    const result = await transactionService.getByCategoryDateRange(req.body);
 
     res.status(200).json(result);
   } catch (error) {
@@ -133,9 +133,9 @@ export {
   create,
   getAll,
   getAdvanced,
-  getDateByCategory,
-  getDateRangeByType,
-  getDateRangeByCategory,
+  getByCategoryDate,
+  getByTypeDateRange,
+  getByCategoryDateRange,
   get,
   update,
   remove
