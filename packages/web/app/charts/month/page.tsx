@@ -150,7 +150,7 @@ const Charts = () => {
                       innerRadius={isMobile ? 70 : 90}
                       strokeWidth={5}
                       activeIndex={0}
-                      paddingAngle={2}
+                      paddingAngle={chartData.length > 1 ? 2 : 0}
                     >
                       {chartData.map((entry, index) => (
                         <Cell
