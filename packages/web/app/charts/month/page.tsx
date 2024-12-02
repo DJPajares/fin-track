@@ -3,6 +3,7 @@
 import { ChangeEvent, useEffect, useMemo, useState } from 'react';
 import moment from 'moment';
 import { useAppSelector } from '../../../lib/hooks';
+import { useIsMobile } from '../../../hooks/use-mobile';
 
 import { DatePicker } from '../../../components/shared/DatePicker';
 import { Button } from '../../../components/ui/button';
@@ -23,8 +24,10 @@ import { Tab, Tabs } from '@nextui-org/react';
 import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
 import { Cell, Label, Pie, PieChart } from 'recharts';
 
-import { formatCurrency } from '@shared/utilities/formatCurrency';
+import { iconMap } from '../../../components/shared/CardIcon';
+
 import { CHART_COLORS } from '../../../constants/chartColorPalettes';
+import { formatCurrency } from '@shared/utilities/formatCurrency';
 
 type TransactionByCategory = {
   category: string;
@@ -32,6 +35,7 @@ type TransactionByCategory = {
 };
 
 const Charts = () => {
+  const isMobile = useIsMobile();
   const { currency } = useAppSelector((state) => state.dashboard);
   const { types } = useAppSelector((state) => state.main);
 
@@ -83,18 +87,18 @@ const Charts = () => {
     setSelectedType(e.target.value);
   };
 
-  // const chartConfig = {
-  //   // category: {
-  //   //   label: 'Test'
-  //   // },
-  //   // amount: {
-  //   //   label: 'Amount'
-  //   // }
-  // } satisfies ChartConfig;
+  // Replace label color as icon
+  // const chartConfig = Object.fromEntries(
+  //   Object.entries(chartConfigData).map(([key, value]) => [
+  //     key,
+  //     {
+  //       ...value,
+  //       icon: iconMap[value.icon]
+  //     }
+  //   ])
+  // );
 
-  const chartConfig = chartConfigData satisfies ChartConfig;
-
-  console.log(chartConfigData);
+  const chartConfig: ChartConfig = chartConfigData;
 
   return (
     <div className="space-y-8 sm:space-y-12">
@@ -136,14 +140,14 @@ const Charts = () => {
               <Card className="py-3 px-1 bg-accent/70">
                 <ChartContainer
                   config={chartConfig}
-                  className="mx-auto aspect-square max-h-[250px]"
+                  className="mx-auto aspect-square max-h-[600px]"
                 >
                   <PieChart>
                     <Pie
                       data={chartData}
                       dataKey="amount"
-                      nameKey="category"
-                      innerRadius={60}
+                      nameKey="serializedCategory"
+                      innerRadius={isMobile ? 70 : 90}
                       strokeWidth={5}
                       activeIndex={0}
                       paddingAngle={2}
@@ -191,12 +195,21 @@ const Charts = () => {
                     <ChartTooltip
                       cursor={false}
                       content={
-                        <ChartTooltipContent nameKey="category" hideLabel />
+                        <ChartTooltipContent
+                          nameKey="serializedCategory"
+                          hideLabel
+                        />
                       }
                     />
-                    <ChartLegend content={<ChartLegendContent />} />
+                    <ChartLegend
+                      content={<ChartLegendContent />}
+                      className="-translate-y-2 flex-wrap gap-2 basis-1/4 justify-center"
+                    />
+                    {/* <ChartLegend content={<ChartLegendContent />} /> */}
                     {/* <ChartLegend
-                      content={<ChartLegendContent nameKey="category" />}
+                      content={
+                        <ChartLegendContent nameKey="serializedCategory" />
+                      }
                       className="-translate-y-2 flex-wrap gap-2 [&>*]:basis-1/4 [&>*]:justify-center"
                     /> */}
                   </PieChart>

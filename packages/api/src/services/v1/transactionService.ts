@@ -12,6 +12,9 @@ import { ExchangeRateModel } from '../../models/v1/exchangeRateModel';
 import convertCurrency from '../../utilities/convertCurrency';
 import moment from 'moment';
 
+import { serializeText } from '../../utilities/serializeText';
+// import { serializeText } from '@shared/utilities/serializeText';
+
 type FetchTransactionProps = {
   date: Date;
   type?: string;
@@ -537,13 +540,14 @@ const getByCategoryDate = async (data: FetchByDateProps) => {
       acc[categoryId] = {
         id: categoryId,
         category: categoryName,
+        serializedCategory: serializeText(categoryName),
         icon: categoryIcon,
         amount: Math.floor(convertedAmount)
       };
     }
 
     return acc;
-  }, {} as Record<string, { id: string; category: string; icon: string; amount: number }>);
+  }, {} as Record<string, { id: string; category: string; serializedCategory: string; icon: string; amount: number }>);
 
   type ChartConfigProps = {
     [id: string]: {
@@ -563,10 +567,14 @@ const getByCategoryDate = async (data: FetchByDateProps) => {
 
   const chartConfig = output.reduce<ChartConfigProps>(
     (acc, item: OutputProps) => {
-      acc[item.id] = {
+      const id = serializeText(item.category);
+
+      acc[id] = {
         label: item.category,
-        icon: item.icon
+        icon: ''
+        // icon: item.icon
       };
+
       return acc;
     },
     {}
