@@ -1,62 +1,116 @@
-[
-  {
-    "id": "671f0150855aa876c09f12ef",
-    "category": "Credit Card",
-    "icon": "credit-card",
-    "amount": 4132
-  },
-  {
-    "id": "671f016f855aa876c09f12f7",
-    "category": "Debts",
-    "icon": "banknote",
-    "amount": 475
-  },
-  {
-    "id": "671f0142855aa876c09f12eb",
-    "category": "Family",
-    "icon": "users",
-    "amount": 591
-  },
-  {
-    "id": "671f0130855aa876c09f12e5",
-    "category": "Food",
-    "icon": "utensils",
-    "amount": 349
-  },
-  {
-    "id": "671f016a855aa876c09f12f5",
-    "category": "Healthcare",
-    "icon": "activity",
-    "amount": 145
-  },
-  {
-    "id": "671f015a855aa876c09f12f1",
-    "category": "Loans",
-    "icon": "banknote",
-    "amount": 1160
-  },
-  {
-    "id": "671f012a855aa876c09f12e3",
-    "category": "Rent",
-    "icon": "bed-double",
-    "amount": 1600
-  },
-  {
-    "id": "671f0163855aa876c09f12f3",
-    "category": "Savings",
-    "icon": "banknote",
-    "amount": 2000
-  },
-  {
-    "id": "671f0136855aa876c09f12e7",
-    "category": "Transport",
-    "icon": "bus-front",
-    "amount": 50
-  },
-  {
-    "id": "671f0149855aa876c09f12ed",
-    "category": "Utilities",
-    "icon": "lightbulb",
-    "amount": 331
+{
+  "data": [
+    {
+      "id": "671f0150855aa876c09f12ef",
+      "category": "Credit Card",
+      "serializedCategory": "credit-card",
+      "icon": "credit-card",
+      "amount": 4132
+    },
+    {
+      "id": "671f016f855aa876c09f12f7",
+      "category": "Debt",
+      "serializedCategory": "debt",
+      "icon": "banknote",
+      "amount": 475
+    },
+    {
+      "id": "671f0142855aa876c09f12eb",
+      "category": "Family",
+      "serializedCategory": "family",
+      "icon": "users",
+      "amount": 591
+    },
+    {
+      "id": "671f0130855aa876c09f12e5",
+      "category": "Food",
+      "serializedCategory": "food",
+      "icon": "utensils",
+      "amount": 349
+    },
+    {
+      "id": "671f016a855aa876c09f12f5",
+      "category": "Healthcare",
+      "serializedCategory": "healthcare",
+      "icon": "activity",
+      "amount": 145
+    },
+    {
+      "id": "671f015a855aa876c09f12f1",
+      "category": "Loan",
+      "serializedCategory": "loan",
+      "icon": "banknote",
+      "amount": 1160
+    },
+    {
+      "id": "671f012a855aa876c09f12e3",
+      "category": "Rent",
+      "serializedCategory": "rent",
+      "icon": "bed-double",
+      "amount": 1600
+    },
+    {
+      "id": "671f0163855aa876c09f12f3",
+      "category": "Savings",
+      "serializedCategory": "savings",
+      "icon": "banknote",
+      "amount": 2000
+    },
+    {
+      "id": "671f0136855aa876c09f12e7",
+      "category": "Transport",
+      "serializedCategory": "transport",
+      "icon": "bus-front",
+      "amount": 50
+    },
+    {
+      "id": "671f0149855aa876c09f12ed",
+      "category": "Utility",
+      "serializedCategory": "utility",
+      "icon": "lightbulb",
+      "amount": 331
+    }
+  ],
+  "chartConfig": {
+    "credit-card": {
+      "label": "Credit Card",
+      "icon": ""
+    },
+    "debt": {
+      "label": "Debt",
+      "icon": ""
+    },
+    "family": {
+      "label": "Family",
+      "icon": ""
+    },
+    "food": {
+      "label": "Food",
+      "icon": ""
+    },
+    "healthcare": {
+      "label": "Healthcare",
+      "icon": ""
+    },
+    "loan": {
+      "label": "Loan",
+      "icon": ""
+    },
+    "rent": {
+      "label": "Rent",
+      "icon": ""
+    },
+    "saving": {
+      "label": "Saving",
+      "icon": ""
+    },
+    "transport": {
+      "label": "Transport",
+      "icon": ""
+    },
+    "utility": {
+      "label": "Utility",
+      "icon": ""
+    }
   }
-]
+}
