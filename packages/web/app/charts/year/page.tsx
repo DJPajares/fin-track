@@ -1,7 +1,21 @@
 'use client';
 
+import { useEffect, useState } from 'react';
+import moment from 'moment';
+
+import { useAppSelector } from '../../../lib/hooks';
+import { useIsMobile } from '../../../hooks/use-mobile';
+
+import {
+  Bar,
+  BarChart,
+  CartesianGrid,
+  ReferenceLine,
+  XAxis,
+  YAxis
+} from 'recharts';
 import { Button } from '../../../components/ui/button';
-import { Card } from '../../../components/ui/card';
+import { Card, CardHeader, CardTitle } from '../../../components/ui/card';
 import {
   ChartConfig,
   ChartContainer,
@@ -19,18 +33,28 @@ import {
   SelectTrigger,
   SelectValue
 } from '../../../components/ui/select';
-import { useAppSelector } from '../../../lib/hooks';
-import { fetchTransactionsDateRangeByType } from '../../../providers/fetchTransactions';
+
 import {
   ChevronLeftIcon,
   ChevronRightIcon,
   TrendingDownIcon,
   TrendingUpIcon
 } from 'lucide-react';
-import moment from 'moment';
-import { useEffect, useState } from 'react';
-import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from 'recharts';
+
+import { fetchTransactionsDateRangeByType } from '../../../providers/fetchTransactions';
+
 import { formatCurrency } from '@shared/utilities/formatCurrency';
+
+type ChartDataProps = {
+  date: string;
+  expense: number;
+  income: number;
+};
+
+type ChartDataPropsA = {
+  date: string;
+  incomeVsExpenses: number;
+};
 
 const generateYearsArray = (range: number): number[] => {
   const currentYear = new Date().getFullYear();
@@ -44,11 +68,14 @@ const generateYearsArray = (range: number): number[] => {
 };
 
 const Charts = () => {
+  const isMobile = useIsMobile();
+
   const [date, setDate] = useState(new Date());
   const [selectedYear, setSelectedYear] = useState<string>(
     new Date().getFullYear().toString()
   );
-  const [chartData, setChartData] = useState([]);
+  const [chartData, setChartData] = useState<ChartDataProps[]>([]);
+  const [chartDataA, setChartDataA] = useState<ChartDataPropsA[]>([]);
 
   const { currency } = useAppSelector((state) => state.dashboard);
 
@@ -59,6 +86,15 @@ const Charts = () => {
   useEffect(() => {
     fetchData();
   }, [selectedYear]);
+
+  useEffect(() => {
+    const data = chartData.map((data) => ({
+      ...data,
+      incomeVsExpenses: (data.income || 0) - (data.expense || 0)
+    }));
+
+    setChartDataA(data);
+  }, [chartData]);
 
   const yearsArray = generateYearsArray(10);
 
@@ -85,14 +121,19 @@ const Charts = () => {
   };
 
   const chartConfig = {
-    expense: {
-      label: 'Expense',
-      color: 'hsl(var(--primary))',
-      icon: TrendingDownIcon
-    },
     income: {
       label: 'Income',
+      color: 'hsl(var(--primary))',
+      icon: TrendingUpIcon
+    },
+    expense: {
+      label: 'Expense',
       color: 'hsl(var(--secondary))',
+      icon: TrendingDownIcon
+    },
+    incomeVsExpenses: {
+      label: 'Income Vs Expenses',
+      color: 'hsl(var(--primary))',
       icon: TrendingUpIcon
     }
   } satisfies ChartConfig;
@@ -135,65 +176,87 @@ const Charts = () => {
         </Button>
       </div>
 
-      {/* CHART */}
-      <div>
-        <Card className="py-3 px-1 bg-accent/70">
-          <ChartContainer config={chartConfig}>
-            <AreaChart
-              accessibilityLayer
-              data={chartData}
-              margin={{
-                left: 12,
-                right: 12
-              }}
-            >
-              <CartesianGrid vertical={false} />
-              {/* <CartesianGrid strokeDasharray="3 3" /> */}
-              <XAxis
-                dataKey="month"
-                // tickLine={false}
-                axisLine={false}
-                tickMargin={8}
-                tickFormatter={(value) => value.slice(0, 3)}
-              />
+      {/* CHART A */}
+      <Card className="py-3 px-1 bg-accent/70">
+        <CardHeader className="flex flex-row items-center justify-center">
+          <CardTitle>Income Vs Expenses</CardTitle>
+        </CardHeader>
+        <ChartContainer config={chartConfig}>
+          <BarChart data={chartDataA}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis
+              dataKey="month"
+              // tickLine={false}
+              axisLine={false}
+              tickMargin={8}
+              tickFormatter={(value) => value.slice(0, 3)}
+            />
+            {!isMobile && (
               <YAxis
                 axisLine={false}
-                // tickMargin={8}
                 tickFormatter={(value) =>
                   formatCurrency({ value, currency: currency.name })
                 }
               />
-              <ChartTooltip
-                cursor={false}
-                content={<ChartTooltipContent indicator="line" />}
+            )}
+            <ChartTooltip
+              cursor={false}
+              content={
+                <ChartTooltipContent
+                  hideIndicator
+                  formatter={(value) => {
+                    return formatCurrency({
+                      value: parseFloat(value.toString()),
+                      currency: currency.name
+                    });
+                  }}
+                />
+              }
+            />
+            <Bar
+              dataKey="incomeVsExpenses"
+              fill="var(--color-incomeVsExpenses)"
+              radius={2}
+            />
+            {/* <ReferenceLine y={0} stroke="hsl(var(--primary))" /> */}
+            <ReferenceLine y={0} stroke="#808080" />
+          </BarChart>
+        </ChartContainer>
+      </Card>
+
+      {/* CHART B */}
+      <Card className="py-3 px-1 bg-accent/70">
+        <CardHeader className="flex flex-row items-center justify-center">
+          <CardTitle>Income and Expenses</CardTitle>
+        </CardHeader>
+        <ChartContainer config={chartConfig}>
+          <BarChart accessibilityLayer data={chartData}>
+            <CartesianGrid vertical={false} />
+            <XAxis
+              dataKey="month"
+              // tickLine={false}
+              // axisLine={false}
+              tickMargin={8}
+              tickFormatter={(value) => value.slice(0, 3)}
+            />
+            {!isMobile && (
+              <YAxis
+                axisLine={false}
+                tickFormatter={(value) =>
+                  formatCurrency({ value, currency: currency.name })
+                }
               />
-              <Area
-                dataKey="expense"
-                type="natural"
-                fill="var(--color-expense)"
-                // fillOpacity={0.4}
-                stroke="var(--color-expense)"
-                stackId="a"
-                // dot={{
-                //   fill: 'var(--color-expense)'
-                // }}
-              />
-              <Area
-                dataKey="income"
-                type="natural"
-                fill="var(--color-income)"
-                // fillOpacity={0.4}
-                stroke="var(--color-income)"
-                stackId="a"
-                // dot={{
-                //   fill: 'var(--color-income)'
-                // }}
-              />
-              <ChartLegend content={<ChartLegendContent />} />
-            </AreaChart>
-          </ChartContainer>
-        </Card>
-      </div>
+            )}
+            <ChartTooltip
+              cursor={false}
+              content={<ChartTooltipContent hideIndicator />}
+            />
+            <ChartLegend content={<ChartLegendContent />} />
+            <Bar dataKey="income" fill="var(--color-income)" radius={2} />
+            <Bar dataKey="expense" fill="var(--color-expense)" radius={2} />
+          </BarChart>
+        </ChartContainer>
+      </Card>
     </div>
   );
 };

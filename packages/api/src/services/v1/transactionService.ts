@@ -494,36 +494,6 @@ const getByDateRange = async (data: FetchByDateRangeProps) => {
   };
 };
 
-// const getByCategoryDate = async (data: FetchByDateProps) => {
-//   const result = await getByDate(data);
-
-//   const { transactions } = result.data;
-
-//   const aggregatedData = transactions.reduce((acc, transaction) => {
-//     const { categoryName, convertedAmount } = transaction;
-
-//     if (acc[categoryName]) {
-//       acc[categoryName] += Math.floor(convertedAmount);
-//     } else {
-//       acc[categoryName] = Math.floor(convertedAmount);
-//     }
-
-//     return acc;
-//   }, {} as Record<string, number>);
-
-//   console.log(aggregatedData);
-
-//   const output = Object.entries(aggregatedData).map(([category, amount]) => ({
-//     category,
-//     amount
-//   }));
-
-//   return {
-//     data: output
-//     // chartConfig:
-//   };
-// };
-
 const getByCategoryDate = async (data: FetchByDateProps) => {
   const result = await getByDate(data);
 
@@ -595,7 +565,7 @@ const getByTypeDateRange = async (data: FetchByDateRangeProps) => {
 
     transactions.forEach((transaction) => {
       const { typeName, convertedAmount } = transaction;
-      const key = typeName.toLowerCase();
+      const key = serializeText(typeName);
 
       if (!types[key]) {
         types[key] = 0;
