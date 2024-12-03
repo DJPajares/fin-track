@@ -12,7 +12,7 @@ const selectTriggerVariants = cva(
     variants: {
       variant: {
         default: 'border shadow-sm bg-transparent',
-        ghost: 'bg-transparent',
+        ghost: 'bg-transparent focus:ring-0',
         'ghost-clean': 'bg-transparent focus:ring-0 hover:border'
       }
     },
@@ -36,7 +36,7 @@ const SelectTrigger = React.forwardRef<
 >(({ className, children, variant, ...props }, ref) => (
   <SelectPrimitive.Trigger
     ref={ref}
-    className={cn(selectTriggerVariants({ variant, className }))}
+    className={cn(selectTriggerVariants({ variant, className }), 'gap-x-2')}
     {...props}
   >
     {children}
