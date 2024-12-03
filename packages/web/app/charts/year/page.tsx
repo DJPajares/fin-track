@@ -146,7 +146,7 @@ const Charts = () => {
   return (
     <div className="space-y-4 sm:space-y-8">
       <div className="flex flex-row justify-center items-center">
-        <Button variant="ghost" size="icon" onClick={handlePrevYear}>
+        <Button variant="ghost" size="sm_rounded_icon" onClick={handlePrevYear}>
           <ChevronLeftIcon className="h-4 w-4" />
         </Button>
 
@@ -156,8 +156,14 @@ const Charts = () => {
             setSelectedYear(value);
           }}
         >
-          <SelectTrigger className="w-24">
+          {/* <SelectTrigger className="w-24">
             <SelectValue placeholder="Select a year"></SelectValue>
+          </SelectTrigger> */}
+          <SelectTrigger
+            variant="ghost-clean"
+            className="w-fit text-2xl font-bold"
+          >
+            <SelectValue placeholder="Year..."></SelectValue>
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>
@@ -176,7 +182,11 @@ const Charts = () => {
           </SelectContent>
         </Select>
 
-        <Button variant="ghost" size="icon" onClick={handleNextMonth}>
+        <Button
+          variant="ghost"
+          size="sm_rounded_icon"
+          onClick={handleNextMonth}
+        >
           <ChevronRightIcon className="h-4 w-4" />
         </Button>
       </div>
