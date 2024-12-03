@@ -15,7 +15,12 @@ import {
   YAxis
 } from 'recharts';
 import { Button } from '../../../components/ui/button';
-import { Card, CardHeader, CardTitle } from '../../../components/ui/card';
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle
+} from '../../../components/ui/card';
 import {
   ChartConfig,
   ChartContainer,
@@ -181,47 +186,49 @@ const Charts = () => {
         <CardHeader className="flex flex-row items-center justify-center">
           <CardTitle>Income Vs Expenses</CardTitle>
         </CardHeader>
-        <ChartContainer config={chartConfig}>
-          <BarChart data={chartDataA}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis
-              dataKey="month"
-              // tickLine={false}
-              axisLine={false}
-              tickMargin={8}
-              tickFormatter={(value) => value.slice(0, 3)}
-            />
-            {!isMobile && (
-              <YAxis
+        <CardContent className="p-1">
+          <ChartContainer config={chartConfig}>
+            <BarChart data={chartDataA}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis
+                dataKey="month"
+                // tickLine={false}
                 axisLine={false}
-                tickFormatter={(value) =>
-                  formatCurrency({ value, currency: currency.name })
+                tickMargin={8}
+                tickFormatter={(value) => value.slice(0, 3)}
+              />
+              {!isMobile && (
+                <YAxis
+                  axisLine={false}
+                  tickFormatter={(value) =>
+                    formatCurrency({ value, currency: currency.name })
+                  }
+                />
+              )}
+              <ChartTooltip
+                cursor={false}
+                content={
+                  <ChartTooltipContent
+                    hideIndicator
+                    formatter={(value) => {
+                      return formatCurrency({
+                        value: parseFloat(value.toString()),
+                        currency: currency.name
+                      });
+                    }}
+                  />
                 }
               />
-            )}
-            <ChartTooltip
-              cursor={false}
-              content={
-                <ChartTooltipContent
-                  hideIndicator
-                  formatter={(value) => {
-                    return formatCurrency({
-                      value: parseFloat(value.toString()),
-                      currency: currency.name
-                    });
-                  }}
-                />
-              }
-            />
-            <Bar
-              dataKey="incomeVsExpenses"
-              fill="var(--color-incomeVsExpenses)"
-              radius={2}
-            />
-            {/* <ReferenceLine y={0} stroke="hsl(var(--primary))" /> */}
-            <ReferenceLine y={0} stroke="#808080" />
-          </BarChart>
-        </ChartContainer>
+              <Bar
+                dataKey="incomeVsExpenses"
+                fill="var(--color-incomeVsExpenses)"
+                radius={2}
+              />
+              {/* <ReferenceLine y={0} stroke="hsl(var(--primary))" /> */}
+              <ReferenceLine y={0} stroke="#808080" />
+            </BarChart>
+          </ChartContainer>
+        </CardContent>
       </Card>
 
       {/* CHART B */}
@@ -229,33 +236,35 @@ const Charts = () => {
         <CardHeader className="flex flex-row items-center justify-center">
           <CardTitle>Income and Expenses</CardTitle>
         </CardHeader>
-        <ChartContainer config={chartConfig}>
-          <BarChart accessibilityLayer data={chartData}>
-            <CartesianGrid vertical={false} />
-            <XAxis
-              dataKey="month"
-              // tickLine={false}
-              // axisLine={false}
-              tickMargin={8}
-              tickFormatter={(value) => value.slice(0, 3)}
-            />
-            {!isMobile && (
-              <YAxis
-                axisLine={false}
-                tickFormatter={(value) =>
-                  formatCurrency({ value, currency: currency.name })
-                }
+        <CardContent className="p-1">
+          <ChartContainer config={chartConfig}>
+            <BarChart accessibilityLayer data={chartData}>
+              <CartesianGrid vertical={false} />
+              <XAxis
+                dataKey="month"
+                // tickLine={false}
+                // axisLine={false}
+                tickMargin={8}
+                tickFormatter={(value) => value.slice(0, 3)}
               />
-            )}
-            <ChartTooltip
-              cursor={false}
-              content={<ChartTooltipContent hideIndicator />}
-            />
-            <ChartLegend content={<ChartLegendContent />} />
-            <Bar dataKey="income" fill="var(--color-income)" radius={2} />
-            <Bar dataKey="expense" fill="var(--color-expense)" radius={2} />
-          </BarChart>
-        </ChartContainer>
+              {!isMobile && (
+                <YAxis
+                  axisLine={false}
+                  tickFormatter={(value) =>
+                    formatCurrency({ value, currency: currency.name })
+                  }
+                />
+              )}
+              <ChartTooltip
+                cursor={false}
+                content={<ChartTooltipContent hideIndicator />}
+              />
+              <ChartLegend content={<ChartLegendContent />} />
+              <Bar dataKey="income" fill="var(--color-income)" radius={2} />
+              <Bar dataKey="expense" fill="var(--color-expense)" radius={2} />
+            </BarChart>
+          </ChartContainer>
+        </CardContent>
       </Card>
     </div>
   );

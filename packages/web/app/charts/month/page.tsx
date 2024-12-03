@@ -7,7 +7,12 @@ import { useIsMobile } from '../../../hooks/use-mobile';
 
 import { DatePicker } from '../../../components/shared/DatePicker';
 import { Button } from '../../../components/ui/button';
-import { Card } from '../../../components/ui/card';
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle
+} from '../../../components/ui/card';
 import {
   ChartConfig,
   ChartContainer,
@@ -135,9 +140,12 @@ const Charts = () => {
       >
         {types.map((type) => (
           <Tab key={type._id.toString()} title={type.name}>
-            <div className="space-y-2">
-              {/* CHART */}
-              <Card className="py-3 px-1 bg-accent/70">
+            {/* CHART */}
+            <Card className="py-3 px-1 bg-accent/70">
+              <CardHeader className="flex flex-row items-center justify-center">
+                <CardTitle>By Category</CardTitle>
+              </CardHeader>
+              <CardContent>
                 <ChartContainer
                   config={chartConfig}
                   className="mx-auto aspect-square max-h-[600px]"
@@ -203,19 +211,12 @@ const Charts = () => {
                     />
                     <ChartLegend
                       content={<ChartLegendContent />}
-                      className="-translate-y-2 flex-wrap gap-2 basis-1/4 justify-center"
+                      className="flex-wrap gap-1 basis-1/4 justify-center"
                     />
-                    {/* <ChartLegend content={<ChartLegendContent />} /> */}
-                    {/* <ChartLegend
-                      content={
-                        <ChartLegendContent nameKey="serializedCategory" />
-                      }
-                      className="-translate-y-2 flex-wrap gap-2 [&>*]:basis-1/4 [&>*]:justify-center"
-                    /> */}
                   </PieChart>
                 </ChartContainer>
-              </Card>
-            </div>
+              </CardContent>
+            </Card>
           </Tab>
         ))}
       </Tabs>
