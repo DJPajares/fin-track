@@ -100,7 +100,7 @@ const Transactions = () => {
         </Button>
 
         <DatePicker date={date} onChange={setDate}>
-          <Button variant="ghost" className="px-0">
+          <Button variant="ghost" className="px-1">
             <p className="text-3xl sm:text-5xl font-extrabold sm:font-black hover:underline hover:bg-background">
               {moment(date).format('MMM yyyy')}
             </p>
