@@ -14,7 +14,7 @@ import { CircularProgress } from '@nextui-org/react';
 import { Button } from '../../components/ui/button';
 import { Skeleton } from '../../components/ui/skeleton';
 import { Card } from '../../components/ui/card';
-import { ScrollShadow } from '@web/components/ui/scroll-shadow';
+import { ScrollShadow } from '../../components/ui/scroll-shadow';
 import { DatePicker } from '../../components/shared/DatePicker';
 
 import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';

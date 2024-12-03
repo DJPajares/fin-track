@@ -1,5 +1,6 @@
 import type { Config } from 'tailwindcss';
 import { nextui } from '@nextui-org/react';
+import path from 'path';
 
 const config = {
   content: [
@@ -7,7 +8,7 @@ const config = {
     './components/**/*.{ts,tsx}',
     './app/**/*.{ts,tsx}',
     './src/**/*.{ts,tsx}',
-    '../../node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}'
+    path.join(require.resolve('@nextui-org/theme'), '../**/*.{js,ts,jsx,tsx}')
   ],
   prefix: '',
   future: {
