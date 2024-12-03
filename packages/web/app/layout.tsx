@@ -5,6 +5,7 @@ import { Providers } from '../providers/providers';
 import NavBar from '../components/Nav/NavBar';
 import { getLocale, getMessages } from 'next-intl/server';
 import { NextIntlClientProvider } from 'next-intl';
+import { Toaster } from '@web/components/ui/toaster';
 
 export const metadata: Metadata = {
   title: 'Fin-Track',
@@ -39,6 +40,8 @@ export default async function RootLayout({
                 <div className="py-2 px-6 sm:px-8">{children}</div>
               </NavBar>
             </main>
+
+            <Toaster />
           </Providers>
         </NextIntlClientProvider>
       </body>

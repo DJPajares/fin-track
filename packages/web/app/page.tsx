@@ -5,9 +5,14 @@ import { Card } from '../components/ui/card';
 import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { useToast } from '@web/hooks/use-toast';
+
+const isMockedData = process.env.NEXT_PUBLIC_USE_MOCKED_DATA === 'true';
 
 const Home = () => {
   const router = useRouter();
+  const { toast } = useToast();
+
   const t = useTranslations('Page.home');
 
   const [currentQuoteIndex, setCurrentQuoteIndex] = useState(0);
@@ -29,6 +34,28 @@ const Home = () => {
 
     return () => clearInterval(interval); // Cleanup interval on unmount
   }, []);
+
+  useEffect(() => {
+    if (isMockedData) {
+      const timeout = setTimeout(() => {
+        toast({
+          variant: 'destructive',
+          title: 'USING MOCKED DATA',
+          description: `API calls won't work. Adding, modifying, or deleting data within the app will either crash or not work at all.`
+        });
+      }, 0);
+
+      return () => clearTimeout(timeout);
+
+      // setTimeout(() => {
+      //   toast({
+      //     variant: 'destructive',
+      //     title: 'USING MOCKED DATA',
+      //     description: `API calls won't work. Adding, modifying, or deleting data within the app will either crash or not work at all.`
+      //   });
+      // }, 100);
+    }
+  }, [toast]);
 
   return (
     <div className="flex flex-col items-center py-2 px-6 sm:px-8 space-y-8 sm:space-y-12">
