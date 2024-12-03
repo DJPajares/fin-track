@@ -91,7 +91,11 @@ const Transactions = () => {
   return (
     <div className="space-y-8 sm:space-y-12">
       <div className="flex flex-row justify-center items-center">
-        <Button variant="ghost" size="icon" onClick={handlePrevMonth}>
+        <Button
+          variant="ghost"
+          size="sm_rounded_icon"
+          onClick={handlePrevMonth}
+        >
           <ChevronLeftIcon className="h-4 w-4" />
         </Button>
 
@@ -103,7 +107,11 @@ const Transactions = () => {
           </Button>
         </DatePicker>
 
-        <Button variant="ghost" size="icon" onClick={handleNextMonth}>
+        <Button
+          variant="ghost"
+          size="sm_rounded_icon"
+          onClick={handleNextMonth}
+        >
           <ChevronRightIcon className="h-4 w-4" />
         </Button>
       </div>
