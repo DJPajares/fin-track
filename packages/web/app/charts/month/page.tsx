@@ -14,15 +14,6 @@ import {
   CardTitle
 } from '../../../components/ui/card';
 import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue
-} from '../../../components/ui/select';
-import {
   ChartConfig,
   ChartContainer,
   ChartLegend,
@@ -41,6 +32,8 @@ import { iconMap } from '../../../components/shared/CardIcon';
 
 import { CHART_COLORS } from '../../../constants/chartColorPalettes';
 import { formatCurrency } from '@shared/utilities/formatCurrency';
+import { SelectBox } from '@web/components/shared/SelectBox';
+import { useTranslations } from 'next-intl';
 
 type TransactionByCategory = {
   category: string;
@@ -48,7 +41,9 @@ type TransactionByCategory = {
 };
 
 const Charts = () => {
+  const t = useTranslations();
   const isMobile = useIsMobile();
+
   const { currency } = useAppSelector((state) => state.dashboard);
   const { types } = useAppSelector((state) => state.main);
 
@@ -145,34 +140,14 @@ const Charts = () => {
 
       <div className="space-y-2">
         <div className="flex flex-row justify-end">
-          <Select
-            value={selectedType}
-            onValueChange={(value) => {
-              setSelectedType(value);
-            }}
-          >
-            <SelectTrigger
-              variant="ghost"
-              className="w-fit p-0 text-base font-semibold"
-            >
-              <SelectValue placeholder="Select type"></SelectValue>
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                <SelectLabel>
-                  {types.map((type) => (
-                    <SelectItem
-                      key={type._id}
-                      value={type._id.toString()}
-                      defaultValue={selectedType}
-                    >
-                      {type.name}
-                    </SelectItem>
-                  ))}
-                </SelectLabel>
-              </SelectGroup>
-            </SelectContent>
-          </Select>
+          <SelectBox
+            variant="ghost"
+            items={types}
+            selectedItem={selectedType}
+            setSelectedItem={setSelectedType}
+            placeholder={t('Common.label.selectPlaceholder')}
+            className="w-fit p-0 text-base font-semibold"
+          />
         </div>
 
         {/* CHARTS */}

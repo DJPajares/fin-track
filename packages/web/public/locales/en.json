@@ -89,6 +89,9 @@
       "title": "Are you sure?",
       "description": "This cannot be undone",
       "okButton": "Continue"
+    },
+    "label": {
+      "selectPlaceholder": "Select an item"
     }
   }
 }
