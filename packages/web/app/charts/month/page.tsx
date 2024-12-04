@@ -2,9 +2,12 @@
 
 import { useEffect, useMemo, useState } from 'react';
 import moment from 'moment';
+import { useTranslations } from 'next-intl';
+import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
 import { useAppSelector } from '../../../lib/hooks';
 import { useIsMobile } from '../../../hooks/use-mobile';
 
+import { Cell, Label, Pie, PieChart } from 'recharts';
 import { DatePicker } from '../../../components/shared/DatePicker';
 import { Button } from '../../../components/ui/button';
 import {
@@ -21,23 +24,27 @@ import {
   ChartTooltip,
   ChartTooltipContent
 } from '../../../components/ui/chart';
+import { SelectBox } from '../../../components/shared/SelectBox';
+import { iconMap } from '../../../components/shared/CardIcon';
+
 import {
   fetchTransactionsDateByCategory,
   TransactionsDateByCategoryProps
 } from '../../../providers/fetchTransactions';
-import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
-import { Cell, Label, Pie, PieChart } from 'recharts';
-
-import { iconMap } from '../../../components/shared/CardIcon';
 
 import { CHART_COLORS } from '../../../constants/chartColorPalettes';
 import { formatCurrency } from '@shared/utilities/formatCurrency';
-import { SelectBox } from '@web/components/shared/SelectBox';
-import { useTranslations } from 'next-intl';
+
+import type { ListProps } from '../../../types/List';
 
 type TransactionByCategory = {
   category: string;
   amount: number;
+};
+
+const defaultType = {
+  _id: '',
+  name: ''
 };
 
 const Charts = () => {
@@ -47,26 +54,26 @@ const Charts = () => {
   const { currency } = useAppSelector((state) => state.dashboard);
   const { types } = useAppSelector((state) => state.main);
 
-  // const typeId = useMemo(() => (types.length > 0 ? types[0]._id : ''), [types]);
-
   const [date, setDate] = useState(new Date());
   const [chartData, setChartData] = useState<TransactionByCategory[]>([]);
   const [chartConfigData, setChartConfigData] = useState<ChartConfig>({});
-  const [selectedType, setSelectedType] = useState('');
+  const [selectedType, setSelectedType] = useState<ListProps>(defaultType);
+
+  useEffect(() => {
+    if (types && types.length > 0) {
+      setSelectedType(types[0]);
+    }
+  }, [types]);
 
   const totalAmount = useMemo(() => {
     return chartData.reduce((acc, curr) => acc + curr.amount, 0);
   }, [chartData]);
 
   useEffect(() => {
-    setSelectedType(types.length > 0 ? types[0]._id : '');
-  }, [types]);
-
-  useEffect(() => {
     fetchData({
       date,
       currency: currency.name,
-      type: selectedType
+      type: selectedType._id
     });
   }, [date, currency, selectedType]);
 

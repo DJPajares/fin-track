@@ -5,7 +5,7 @@ import { Providers } from '../providers/providers';
 import NavBar from '../components/Nav/NavBar';
 import { getLocale, getMessages } from 'next-intl/server';
 import { NextIntlClientProvider } from 'next-intl';
-import { Toaster } from '@web/components/ui/toaster';
+import { Toaster } from '../components/ui/toaster';
 
 export const metadata: Metadata = {
   title: 'Fin-Track',

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import moment from 'moment';
+import { useTranslations } from 'next-intl';
 import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
 
 import { useAppSelector } from '../../lib/hooks';
@@ -13,11 +14,11 @@ import { Button } from '../../components/ui/button';
 import { Card, CardContent, CardHeader } from '../../components/ui/card';
 import CardIcon, { type IconProps } from '../../components/shared/CardIcon';
 import { SelectBox } from '../../components/shared/SelectBox';
-
 import EditTransactionDrawer from './EditTransaction/EditTransactionDrawer';
 
 import { formatCurrency } from '@shared/utilities/formatCurrency';
-import { useTranslations } from 'next-intl';
+
+import type { ListProps } from '../../types/List';
 
 type TransactionProps = {
   _id: string;
@@ -40,6 +41,11 @@ type PaginationProps = {
   totalDocuments: number;
 };
 
+const defaultType = {
+  _id: '',
+  name: ''
+};
+
 const Transactions = () => {
   const t = useTranslations();
 
@@ -54,10 +60,12 @@ const Transactions = () => {
     totalDocuments: 0
   });
   const [currentPage, setCurrentPage] = useState(1);
-  const [selectedType, setSelectedType] = useState('');
+  const [selectedType, setSelectedType] = useState<ListProps>(defaultType);
 
   useEffect(() => {
-    setSelectedType(types.length > 0 ? types[0]._id : '');
+    if (types && types.length > 0) {
+      setSelectedType(types[0]);
+    }
   }, [types]);
 
   useEffect(() => {
@@ -71,9 +79,9 @@ const Transactions = () => {
   }, [currentPage]);
 
   const fetchTransactionsData = async () => {
-    if (selectedType) {
+    if (selectedType._id) {
       const result = await fetchTransactions({
-        type: selectedType,
+        type: selectedType._id,
         date,
         page: currentPage,
         limit: 3

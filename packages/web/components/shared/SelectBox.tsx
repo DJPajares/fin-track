@@ -16,8 +16,8 @@ import type { ListProps } from '../../types/List';
 export type SelectBoxProps = {
   variant?: SelectTriggerProps['variant'];
   items: ListProps[];
-  selectedItem: ListProps['_id'];
-  setSelectedItem: Dispatch<SetStateAction<ListProps['_id']>>;
+  selectedItem: ListProps;
+  setSelectedItem: Dispatch<SetStateAction<ListProps>>;
   placeholder?: string;
   className?: string;
 };
@@ -32,23 +32,20 @@ export const SelectBox = ({
 }: SelectBoxProps) => {
   return (
     <Select
-      value={selectedItem}
+      value={selectedItem._id.toString()}
       onValueChange={(value) => {
-        setSelectedItem(value);
+        const selected = items.find((item) => item._id.toString() === value);
+        if (selected) setSelectedItem(selected);
       }}
     >
       <SelectTrigger variant={variant} className={className}>
-        <SelectValue placeholder={placeholder}></SelectValue>
+        <SelectValue placeholder={placeholder}>{selectedItem.name}</SelectValue>
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
           <SelectLabel>
             {items.map((item) => (
-              <SelectItem
-                key={item._id}
-                value={item._id.toString()}
-                defaultValue={selectedItem}
-              >
+              <SelectItem key={item._id} value={item._id.toString()}>
                 {item.name}
               </SelectItem>
             ))}
