@@ -7,15 +7,17 @@ import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
 import { useAppSelector } from '../../lib/hooks';
 import { fetchTransactions } from '../../providers/fetchTransactions';
 
-import { Chip, Pagination, Tab, Tabs } from '@nextui-org/react';
+import { Chip, Pagination } from '@nextui-org/react';
 import { DatePicker } from '../../components/shared/DatePicker';
 import { Button } from '../../components/ui/button';
 import { Card, CardContent, CardHeader } from '../../components/ui/card';
 import CardIcon, { type IconProps } from '../../components/shared/CardIcon';
+import { SelectBox } from '../../components/shared/SelectBox';
 
 import EditTransactionDrawer from './EditTransaction/EditTransactionDrawer';
 
 import { formatCurrency } from '@shared/utilities/formatCurrency';
+import { useTranslations } from 'next-intl';
 
 type TransactionProps = {
   _id: string;
@@ -39,6 +41,8 @@ type PaginationProps = {
 };
 
 const Transactions = () => {
+  const t = useTranslations();
+
   const { types } = useAppSelector((state) => state.main);
 
   const [date, setDate] = useState<Date>(new Date());
@@ -49,23 +53,27 @@ const Transactions = () => {
     totalPages: 0,
     totalDocuments: 0
   });
-  const [tabType, setTabType] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
+  const [selectedType, setSelectedType] = useState('');
+
+  useEffect(() => {
+    setSelectedType(types.length > 0 ? types[0]._id : '');
+  }, [types]);
 
   useEffect(() => {
     setCurrentPage(1);
 
     fetchTransactionsData();
-  }, [date, tabType]);
+  }, [date, selectedType]);
 
   useEffect(() => {
     fetchTransactionsData();
   }, [currentPage]);
 
   const fetchTransactionsData = async () => {
-    if (tabType) {
+    if (selectedType) {
       const result = await fetchTransactions({
-        type: tabType,
+        type: selectedType,
         date,
         page: currentPage,
         limit: 3
@@ -89,7 +97,7 @@ const Transactions = () => {
   };
 
   return (
-    <div className="space-y-8 sm:space-y-12">
+    <div className="space-y-6 sm:space-y-10">
       <div className="flex flex-row justify-center items-center">
         <Button
           variant="ghost"
@@ -116,93 +124,88 @@ const Transactions = () => {
         </Button>
       </div>
 
-      <Tabs
-        variant="bordered"
-        radius="full"
-        size="lg"
-        color="primary"
-        className="flex flex-col items-center"
-        classNames={{
-          tabContent:
-            'group-data-[selected=true]:text-primary-foreground text-sm font-bold uppercase'
-        }}
-        selectedKey={tabType}
-        onSelectionChange={(key) => setTabType(key as string)}
-      >
-        {types.map((type) => (
-          <Tab key={type._id.toString()} title={type.name}>
-            <div className="space-y-2">
-              <div className="flex flex-col items-center">
-                <Pagination
-                  variant="light"
-                  color="primary"
-                  total={pagination.totalPages}
-                  page={currentPage}
-                  initialPage={1}
-                  onChange={setCurrentPage}
-                  showControls
-                />
-              </div>
+      <div className="space-y-2">
+        <div className="flex flex-row justify-end">
+          <SelectBox
+            variant="ghost"
+            items={types}
+            selectedItem={selectedType}
+            setSelectedItem={setSelectedType}
+            placeholder={t('Common.label.selectPlaceholder')}
+            className="w-fit p-0 text-base font-semibold"
+          />
+        </div>
 
-              {transactions.map((transaction) => (
-                <div key={transaction._id} className="space-y-2">
-                  <EditTransactionDrawer
-                    transaction={transaction}
-                    fetchTransactions={fetchTransactionsData}
-                  >
-                    <Card className="bg-accent/70 cursor-pointer">
-                      <CardHeader>
-                        <p className="text-lg font-semibold sm:text-xl sm:font-bold">
-                          {transaction.name}
-                        </p>
+        <div className="space-y-4">
+          {transactions.map((transaction) => (
+            <div key={transaction._id} className="space-y-2">
+              <EditTransactionDrawer
+                transaction={transaction}
+                fetchTransactions={fetchTransactionsData}
+              >
+                <Card className="bg-accent/70 cursor-pointer">
+                  <CardHeader>
+                    <p className="text-lg font-semibold sm:text-xl sm:font-bold">
+                      {transaction.name}
+                    </p>
 
+                    <div className="flex flex-row items-center space-x-2">
+                      <CardIcon
+                        icon={transaction.categoryIcon}
+                        className="text-muted-foreground w-3 h-3 sm:w-4 sm:h-4"
+                      />
+
+                      <p className="text-xs sm:text-base text-muted-foreground truncate hover:text-clip">
+                        {transaction.categoryName}
+                      </p>
+                    </div>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-2">
+                      <div className="flex flex-col items-end">
                         <div className="flex flex-row items-center space-x-2">
-                          <CardIcon
-                            icon={transaction.categoryIcon}
-                            className="text-muted-foreground w-3 h-3 sm:w-4 sm:h-4"
-                          />
+                          <Chip
+                            variant="flat"
+                            size="sm"
+                            radius="lg"
+                            classNames={{ content: 'font-semibold' }}
+                          >
+                            {transaction.currencyName}
+                          </Chip>
 
-                          <p className="text-xs sm:text-base text-muted-foreground truncate hover:text-clip">
-                            {transaction.categoryName}
+                          <p className="text-xl font-semibold sm:text-2xl sm:font-bold">
+                            {formatCurrency({
+                              value: transaction.amount,
+                              currency: transaction.currencyName,
+                              decimal: 2
+                            })}
                           </p>
                         </div>
-                      </CardHeader>
-                      <CardContent>
-                        <div className="space-y-2">
-                          <div className="flex flex-col items-end">
-                            <div className="flex flex-row items-center space-x-2">
-                              <Chip
-                                variant="flat"
-                                size="sm"
-                                radius="lg"
-                                classNames={{ content: 'font-semibold' }}
-                              >
-                                {transaction.currencyName}
-                              </Chip>
+                      </div>
 
-                              <p className="text-xl font-semibold sm:text-2xl sm:font-bold">
-                                {formatCurrency({
-                                  value: transaction.amount,
-                                  currency: transaction.currencyName,
-                                  decimal: 2
-                                })}
-                              </p>
-                            </div>
-                          </div>
-
-                          <p className="italic text-muted-foreground">
-                            {transaction.description}
-                          </p>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </EditTransactionDrawer>
-                </div>
-              ))}
+                      <p className="italic text-muted-foreground">
+                        {transaction.description}
+                      </p>
+                    </div>
+                  </CardContent>
+                </Card>
+              </EditTransactionDrawer>
             </div>
-          </Tab>
-        ))}
-      </Tabs>
+          ))}
+
+          <div className="flex flex-col items-center">
+            <Pagination
+              variant="light"
+              color="primary"
+              total={pagination.totalPages}
+              page={currentPage}
+              initialPage={1}
+              onChange={setCurrentPage}
+              showControls
+            />
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
