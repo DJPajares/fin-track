@@ -1,4 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+
+import { serializeText } from '@shared/utilities/serializeText';
+
 import type { CategoryItemProps } from '../../../types/Category';
 import type { ListProps } from '../../../types/List';
 
@@ -22,12 +25,22 @@ const mainSlice = createSlice({
       state.types = action.payload;
     },
     setCategories: (state, action: PayloadAction<CategoryItemProps[]>) => {
-      state.categories = action.payload;
+      const rawCategories = action.payload;
+
+      const categories = rawCategories.map((category) => ({
+        ...category,
+        serializedName: serializeText(category.name)
+      }));
+
+      state.categories = categories;
     },
     addCategory: (state, action: PayloadAction<CategoryItemProps>) => {
       const category = action.payload;
 
-      state.categories.push(category);
+      state.categories.push({
+        ...category,
+        serializedName: serializeText(category.name)
+      });
 
       // const categories = state.categories;
 
@@ -43,7 +56,10 @@ const mainSlice = createSlice({
 
       const updatedCategories = state.categories.map((stateCategory) =>
         stateCategory._id === category._id
-          ? (stateCategory = category)
+          ? (stateCategory = {
+              ...category,
+              serializedName: serializeText(category.name)
+            })
           : stateCategory
       );
 

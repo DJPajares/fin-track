@@ -2,6 +2,7 @@ import { ReactNode, useRef, useState } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
+import { useTranslations } from 'next-intl';
 
 import {
   Drawer,
@@ -48,7 +49,6 @@ import { Trash2Icon } from 'lucide-react';
 
 import type { ListProps } from '../../../types/List';
 import type { CategoryItemProps } from '../../../types/Category';
-import { useTranslations } from 'next-intl';
 
 type EditCategoryDrawerProps = {
   type?: ListProps;

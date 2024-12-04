@@ -1,5 +1,9 @@
 'use client';
 
+import { useEffect, useState } from 'react';
+import { useTranslations } from 'next-intl';
+import { PlusIcon } from 'lucide-react';
+
 import { useAppDispatch, useAppSelector } from '../../lib/hooks';
 import { updateCategory } from '../../lib/feature/main/mainSlice';
 
@@ -9,12 +13,7 @@ import CardIcon from '../../components/shared/CardIcon';
 import { SelectBox } from '../../components/shared/SelectBox';
 import EditCategoryDrawer from '../../app/categories/EditCategory/EditCategoryDrawer';
 
-import { PlusIcon } from 'lucide-react';
-
 import type { CategoryItemProps } from '../../types/Category';
-import { useTranslations } from 'next-intl';
-import { useEffect, useState } from 'react';
-
 import type { ListProps } from '../../types/List';
 
 const baseCategory: CategoryItemProps = {
@@ -58,22 +57,6 @@ const Categories = () => {
 
   return (
     <div className="space-y-6 sm:space-y-10">
-      {/* <Tabs
-        variant="bordered"
-        radius="full"
-        size="lg"
-        color="primary"
-        className="flex flex-col items-center"
-        classNames={{
-          tabContent:
-            'group-data-[selected=true]:text-primary-foreground text-sm font-bold uppercase'
-        }}
-      >
-        {types.map((type) => (
-          <Tab key={type._id.toString()} title={type.name}></Tab>
-        ))}
-      </Tabs> */}
-
       <div className="space-y-2">
         <div className="flex flex-row justify-end">
           <SelectBox
