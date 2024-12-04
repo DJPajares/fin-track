@@ -24,6 +24,10 @@ app.use(express.json());
 app.use(router);
 app.use(errorHandler);
 
+app.get('/', (req, res) => {
+  res.send('API is working!');
+});
+
 const start = async () => {
   try {
     await mongoose.connect(databaseUrl);
