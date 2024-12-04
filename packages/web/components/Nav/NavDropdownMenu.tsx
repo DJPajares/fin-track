@@ -124,7 +124,7 @@ const NavDropdownMenu = ({ children }: NavDropdownMenuProps) => {
                 {currencies.map((currency) => (
                   <DropdownMenuCheckboxItem
                     key={currency._id}
-                    checked={dashboardCurrency === currency}
+                    checked={dashboardCurrency.name === currency.name}
                     onClick={() => handleCurrencyChange(currency)}
                   >
                     {currency.name}
