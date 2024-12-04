@@ -162,7 +162,12 @@ const SelectSeparator = React.forwardRef<
 ));
 SelectSeparator.displayName = SelectPrimitive.Separator.displayName;
 
+interface SelectProps
+  extends React.ComponentPropsWithoutRef<typeof SelectPrimitive.Root> {}
+
 export {
+  type SelectProps,
+  type SelectTriggerProps,
   Select,
   SelectGroup,
   SelectValue,
