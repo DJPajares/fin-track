@@ -11,6 +11,7 @@ import { useAppDispatch } from '../lib/hooks';
 import fetchTypes from './fetchTypes';
 import fetchCategories from './fetchCategories';
 import fetchCurrencies from './fetchCurrencies';
+import { CurrencyProps } from '@web/types/Currency';
 
 type ClientDataProviderProps = {
   children: ReactNode;
@@ -28,7 +29,15 @@ export const ClientDataProvider = ({ children }: ClientDataProviderProps) => {
       dispatch(setTypes(types));
 
       const currencies = await fetchCurrencies();
-      dispatch(setCurrencies(currencies));
+      const sortedCurrencies = currencies.sort(
+        (a: CurrencyProps, b: CurrencyProps) => {
+          if (a.name === 'USD') return -1;
+          if (b.name === 'USD') return 1;
+
+          return a.name.localeCompare(b.name);
+        }
+      );
+      dispatch(setCurrencies(sortedCurrencies));
     };
 
     fetchData();
