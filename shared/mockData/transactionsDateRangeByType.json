@@ -1,18 +1,18 @@
 [
   {
     "month": "January",
-    "expense": 7155,
-    "income": 15900
+    "expense": 5123,
+    "income": 6500
   },
   {
     "month": "February",
-    "expense": 7155,
-    "income": 15900
+    "expense": 6782,
+    "income": 10000
   },
   {
     "month": "March",
     "expense": 7155,
-    "income": 15900
+    "income": 7000
   },
   {
     "month": "April",
@@ -22,41 +22,41 @@
   {
     "month": "May",
     "expense": 6226,
-    "income": 15900
+    "income": 3000
   },
   {
     "month": "June",
     "expense": 6226,
-    "income": 15900
+    "income": 10000
   },
   {
     "month": "July",
-    "expense": 6226,
-    "income": 15900
+    "expense": 2500,
+    "income": 5000
   },
   {
     "month": "August",
-    "expense": 6226,
-    "income": 15900
+    "expense": 8300,
+    "income": 6500
   },
   {
     "month": "September",
     "expense": 5066,
-    "income": 15900
+    "income": 6000
   },
   {
     "month": "October",
-    "expense": 3466,
-    "income": 15900
+    "expense": 15000,
+    "income": 3000
   },
   {
     "month": "November",
-    "expense": 3466,
-    "income": 15900
+    "expense": 12545,
+    "income": 5000
   },
   {
     "month": "December",
-    "expense": 3406,
-    "income": 15900
+    "expense": 20150,
+    "income": 15000
   }
 ]
