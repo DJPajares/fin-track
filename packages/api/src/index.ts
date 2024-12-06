@@ -9,7 +9,7 @@ dotenv.config();
 
 const app = express();
 
-const port = process.env.PORT || 3001;
+const port = process.env.PORT;
 const databaseUrl = process.env.DATABASE_URL || 'mongodb://127.0.0.1/database';
 
 // const corsOptions = {
