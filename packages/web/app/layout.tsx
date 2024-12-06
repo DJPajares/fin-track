@@ -32,12 +32,9 @@ export default async function RootLayout({
       <body className="antialiased">
         <NextIntlClientProvider messages={messages}>
           <Providers>
-            <main
-              className="min-w-full bg-white dark:bg-slate-950"
-              vaul-drawer-wrapper=""
-            >
+            <main className="bg-white dark:bg-slate-950" vaul-drawer-wrapper="">
               <NavBar>
-                <div className="py-2 px-6 sm:px-8">{children}</div>
+                <div className="w-full py-2 px-6 sm:px-8">{children}</div>
               </NavBar>
             </main>
 

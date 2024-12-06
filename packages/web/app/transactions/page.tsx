@@ -201,7 +201,7 @@ const Transactions = () => {
             </div>
           ))}
 
-          <div className="flex flex-col items-center">
+          <div className="flex flex-col items-center justify-center">
             <Pagination
               variant="light"
               color="primary"
@@ -210,6 +210,7 @@ const Transactions = () => {
               initialPage={1}
               onChange={setCurrentPage}
               showControls
+              isCompact
             />
           </div>
         </div>
