@@ -84,7 +84,7 @@ const Transactions = () => {
         type: selectedType._id,
         date,
         page: currentPage,
-        limit: 3
+        limit: 8
       });
 
       setTransactions(result.data);
@@ -151,51 +151,44 @@ const Transactions = () => {
                 transaction={transaction}
                 fetchTransactions={fetchTransactionsData}
               >
-                <Card className="bg-accent/70 cursor-pointer">
-                  <CardHeader>
-                    <p className="text-lg font-semibold sm:text-xl sm:font-bold">
-                      {transaction.name}
-                    </p>
+                <Card className="bg-accent/70 cursor-pointer p-2">
+                  <div className="flex flex-row items-center space-x-2">
+                    <CardIcon
+                      icon={transaction.categoryIcon}
+                      className="text-muted-foreground w-8 h-8"
+                    />
 
-                    <div className="flex flex-row items-center space-x-2">
-                      <CardIcon
-                        icon={transaction.categoryIcon}
-                        className="text-muted-foreground w-3 h-3 sm:w-4 sm:h-4"
-                      />
+                    <div className="flex flex-col align-middle">
+                      <div className="flex flex-row items-center justify-between">
+                        <p className="text-sm font-semibold">
+                          {transaction.name}
+                        </p>
 
-                      <p className="text-xs sm:text-base text-muted-foreground truncate hover:text-clip">
-                        {transaction.categoryName}
-                      </p>
-                    </div>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-2">
-                      <div className="flex flex-col items-end">
-                        <div className="flex flex-row items-center space-x-2">
-                          <Chip
-                            variant="flat"
-                            size="sm"
-                            radius="lg"
-                            classNames={{ content: 'font-semibold' }}
-                          >
-                            {transaction.currencyName}
-                          </Chip>
-
-                          <p className="text-xl font-semibold sm:text-2xl sm:font-bold">
-                            {formatCurrency({
-                              value: transaction.amount,
-                              currency: transaction.currencyName,
-                              decimal: 2
-                            })}
-                          </p>
-                        </div>
+                        <p className="text-sm font-semibold">
+                          {formatCurrency({
+                            value: transaction.amount,
+                            currency: transaction.currencyName,
+                            decimal: 2
+                          })}
+                        </p>
                       </div>
 
-                      <p className="italic text-muted-foreground">
-                        {transaction.description}
-                      </p>
+                      <div className="flex flex-row items-center justify-between">
+                        <p className="text-xs sm:text-base text-muted-foreground truncate hover:text-clip">
+                          {transaction.categoryName}
+                        </p>
+
+                        <Chip
+                          variant="flat"
+                          size="sm"
+                          radius="lg"
+                          classNames={{ content: 'font-semibold' }}
+                        >
+                          {transaction.currencyName}
+                        </Chip>
+                      </div>
                     </div>
-                  </CardContent>
+                  </div>
                 </Card>
               </EditTransactionDrawer>
             </div>
