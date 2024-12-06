@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "cd packages/web && npm run dev",
-    "api": "cd packages/api && npm start"
+    "api": "cd packages/api && npm run dev"
   },
   "keywords": [],
   "author": "",
