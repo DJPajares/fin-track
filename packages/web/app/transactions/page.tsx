@@ -152,13 +152,13 @@ const Transactions = () => {
                 fetchTransactions={fetchTransactionsData}
               >
                 <Card className="bg-accent/70 cursor-pointer p-2">
-                  <div className="flex flex-row items-center space-x-2">
+                  <div className="flex items-center gap-3">
                     <CardIcon
                       icon={transaction.categoryIcon}
                       className="text-muted-foreground w-8 h-8"
                     />
 
-                    <div className="flex flex-col align-middle">
+                    <div className="flex-1">
                       <div className="flex flex-row items-center justify-between">
                         <p className="text-sm font-semibold">
                           {transaction.name}
