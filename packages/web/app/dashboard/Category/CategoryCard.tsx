@@ -1,6 +1,7 @@
 import { Card, CardContent, CardHeader } from '../../../components/ui/card';
 import CardIcon from '../../../components/shared/CardIcon';
-import { Progress } from '../../../components/ui/progress';
+import { Progress } from '@nextui-org/react';
+// import { Progress } from '../../../components/ui/progress';
 
 import { formatCurrency } from '@shared/utilities/formatCurrency';
 
@@ -56,9 +57,17 @@ const CategoryCard = ({
             )}
             %
           </p>
-          <Progress
+          {/* <Progress
             value={(category.totalPaidAmount / category.totalAmount) * 100}
             className="h-1"
+          /> */}
+          <Progress
+            aria-label="Loading..."
+            value={(category.totalPaidAmount / category.totalAmount) * 100}
+            classNames={{
+              indicator: 'bg-primary'
+            }}
+            size="sm"
           />
         </div>
       </CardContent>
