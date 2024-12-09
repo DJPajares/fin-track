@@ -249,7 +249,7 @@ const Dashboard = () => {
 
       {/* CATEGORY CARD */}
       {/* <ScrollShadow className="max-h-[40vh]" hideScrollBar> */}
-      <ScrollShadow className="max-h-[40vh]" hideScrollBar>
+      <ScrollShadow className="max-h-[40vh] sm:max-h-[90vh]" hideScrollBar>
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-5 sm:gap-10 items-start justify-center">
           {dashboardData.categories.map(
             (category: DashboardDataCategoryResult) => (
