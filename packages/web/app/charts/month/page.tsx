@@ -47,6 +47,12 @@ const defaultType = {
   name: ''
 };
 
+type CustomTooltipProps = {
+  payload: any;
+  label: string;
+  active: string;
+};
+
 const Charts = () => {
   const t = useTranslations();
   const isMobile = useIsMobile();
@@ -116,6 +122,28 @@ const Charts = () => {
   // );
 
   const chartConfig: ChartConfig = chartConfigData;
+
+  const CustomTooltip = ({ payload, label, active }: CustomTooltipProps) => {
+    if (active) {
+      const title = payload[0].payload.category;
+      const value = payload[0].value;
+
+      return (
+        <div className="bg-background p-3 rounded-md">
+          <p className="text-xs font-semibold">{title}</p>
+          <p className="text-xs">
+            {formatCurrency({
+              value,
+              currency: currency.name
+            })}
+          </p>
+          {/* <p className="desc">Anything you want can be displayed here.</p> */}
+        </div>
+      );
+    }
+
+    return null;
+  };
 
   return (
     <div className="space-y-6 sm:space-y-10">
@@ -220,12 +248,13 @@ const Charts = () => {
                   </Pie>
                   <ChartTooltip
                     cursor={false}
-                    content={
-                      <ChartTooltipContent
-                        nameKey="serializedCategory"
-                        hideLabel
-                      />
-                    }
+                    // content={
+                    //   <ChartTooltipContent
+                    //     nameKey="serializedCategory"
+                    //     hideLabel
+                    //   />
+                    // }
+                    content={<CustomTooltip />}
                   />
                   <ChartLegend
                     content={<ChartLegendContent />}
