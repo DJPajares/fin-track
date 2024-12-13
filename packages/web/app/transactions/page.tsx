@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import moment from 'moment';
 import { useTranslations } from 'next-intl';
 import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
@@ -8,17 +8,14 @@ import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
 import { useAppSelector } from '../../lib/hooks';
 import { fetchTransactions } from '../../providers/fetchTransactions';
 
-import { Chip, Pagination } from '@nextui-org/react';
 import { DatePicker } from '../../components/shared/DatePicker';
 import { Button } from '../../components/ui/button';
-import { Card, CardContent, CardHeader } from '../../components/ui/card';
-import CardIcon, { type IconProps } from '../../components/shared/CardIcon';
+import { ScrollShadow } from '../../components/ui/scroll-shadow';
 import { SelectBox } from '../../components/shared/SelectBox';
-import EditTransactionDrawer from './EditTransaction/EditTransactionDrawer';
-
-import { formatCurrency } from '@shared/utilities/formatCurrency';
+import TransactionCard from './Transaction/TransactionCard';
 
 import type { ListProps } from '../../types/List';
+import type { IconProps } from '../../components/shared/CardIcon';
 
 type TransactionProps = {
   _id: string;
@@ -34,13 +31,6 @@ type TransactionProps = {
   description: string;
 };
 
-type PaginationProps = {
-  limit: number;
-  currentPage: number;
-  totalPages: number;
-  totalDocuments: number;
-};
-
 const defaultType = {
   _id: '',
   name: ''
@@ -53,14 +43,13 @@ const Transactions = () => {
 
   const [date, setDate] = useState<Date>(new Date());
   const [transactions, setTransactions] = useState<TransactionProps[]>([]);
-  const [pagination, setPagination] = useState<PaginationProps>({
-    limit: 0,
-    currentPage: 0,
-    totalPages: 0,
-    totalDocuments: 0
-  });
-  const [currentPage, setCurrentPage] = useState(1);
   const [selectedType, setSelectedType] = useState<ListProps>(defaultType);
+
+  const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const [hasMore, setHasMore] = useState(true);
+
+  const observerRef = useRef<IntersectionObserver | null>(null);
 
   useEffect(() => {
     if (types && types.length > 0) {
@@ -69,26 +58,51 @@ const Transactions = () => {
   }, [types]);
 
   useEffect(() => {
-    setCurrentPage(1);
-
+    setTransactions([]);
+    setPage(1);
     fetchTransactionsData();
+    setHasMore(true);
   }, [date, selectedType]);
 
   useEffect(() => {
     fetchTransactionsData();
-  }, [currentPage]);
+  }, [page]);
 
   const fetchTransactionsData = async () => {
     if (selectedType._id) {
       const result = await fetchTransactions({
         type: selectedType._id,
         date,
-        page: currentPage,
+        page: page,
         limit: 8
       });
 
-      setTransactions(result.data);
-      setPagination(result.pagination);
+      if (result.data.length === 0) {
+        setHasMore(false);
+      } else {
+        setTransactions((prevData) => [...prevData, ...result.data]);
+      }
+
+      setLoading(false);
+    }
+  };
+
+  const lastElementRef = (node: HTMLDivElement | null) => {
+    if (loading) return;
+
+    if (observerRef.current) {
+      observerRef.current.disconnect();
+    }
+
+    observerRef.current = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting && hasMore) {
+        setLoading(true);
+        setPage((prevPage) => prevPage + 1);
+      }
+    });
+
+    if (node) {
+      observerRef.current.observe(node);
     }
   };
 
@@ -144,69 +158,19 @@ const Transactions = () => {
           />
         </div>
 
-        <div className="space-y-4">
-          {transactions.map((transaction) => (
-            <div key={transaction._id} className="space-y-2">
-              <EditTransactionDrawer
+        <ScrollShadow className="h-[70vh]" hideScrollBar>
+          <div className="space-y-4">
+            {transactions.map((transaction, index) => (
+              <TransactionCard
+                key={index}
                 transaction={transaction}
-                fetchTransactions={fetchTransactionsData}
-              >
-                <Card className="bg-accent/70 cursor-pointer p-2">
-                  <div className="flex items-center gap-3">
-                    <CardIcon
-                      icon={transaction.categoryIcon}
-                      className="text-muted-foreground w-8 h-8"
-                    />
+                fetchTransactionsData={fetchTransactionsData}
+              />
+            ))}
 
-                    <div className="flex-1">
-                      <div className="flex flex-row items-center justify-between">
-                        <p className="text-sm font-semibold">
-                          {transaction.name}
-                        </p>
-
-                        <p className="text-sm font-semibold">
-                          {formatCurrency({
-                            value: transaction.amount,
-                            currency: transaction.currencyName,
-                            decimal: 2
-                          })}
-                        </p>
-                      </div>
-
-                      <div className="flex flex-row items-center justify-between">
-                        <p className="text-xs sm:text-base text-muted-foreground truncate hover:text-clip">
-                          {transaction.categoryName}
-                        </p>
-
-                        <Chip
-                          variant="flat"
-                          size="sm"
-                          radius="lg"
-                          classNames={{ content: 'font-semibold' }}
-                        >
-                          {transaction.currencyName}
-                        </Chip>
-                      </div>
-                    </div>
-                  </div>
-                </Card>
-              </EditTransactionDrawer>
-            </div>
-          ))}
-
-          <div className="flex flex-col items-center justify-center">
-            <Pagination
-              variant="light"
-              color="primary"
-              total={pagination.totalPages}
-              page={currentPage}
-              initialPage={1}
-              onChange={setCurrentPage}
-              showControls
-              isCompact
-            />
+            <div ref={lastElementRef} className="h-4" />
           </div>
-        </div>
+        </ScrollShadow>
       </div>
     </div>
   );
