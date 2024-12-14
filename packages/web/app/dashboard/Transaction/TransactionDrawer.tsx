@@ -93,7 +93,7 @@ const TransactionDrawer = ({
                   title={type.name}
                   className="px-4"
                 >
-                  <div className="flex flex-col justify-between p-4">
+                  <div className="p-4">
                     <TransactionDrawerForm
                       type={type}
                       categories={categories}
