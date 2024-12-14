@@ -43,6 +43,14 @@ import type { ListProps } from '../../../types/List';
 import type { CategoryItemProps } from '../../../types/Category';
 
 import { dateStringFormat } from '@shared/constants/dateStringFormat';
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
+} from '@web/components/ui/select';
 
 type TransactionDrawerFormProps = {
   type: ListProps;
@@ -249,62 +257,29 @@ const TransactionDrawerForm = ({
             <FormItem className="flex flex-col">
               <FormLabel>Category</FormLabel>
 
-              <Popover
-                open={isCategoryPopoverOpen}
-                onOpenChange={setIsCategoryPopoverOpen}
+              <Select
+                onValueChange={field.onChange}
+                defaultValue={field.value._id}
               >
-                <PopoverTrigger asChild>
-                  <FormControl>
-                    <Button
-                      variant="outline"
-                      role="combobox"
-                      className="justify-between min-w-36"
-                    >
-                      <p className="truncate hover:text-clip">
-                        {field.value.name ? field.value.name : 'Select...'}
-                      </p>
-                      <ChevronsUpDownIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                    </Button>
-                  </FormControl>
-                </PopoverTrigger>
-                <PopoverContent className="p-0">
-                  <Command>
-                    <CommandInput placeholder="Search category..." />
-                    <CommandEmpty>No categories found</CommandEmpty>
-                    <CommandGroup>
-                      <CommandList>
-                        {categories
-                          .filter(
-                            (category) =>
-                              category.type._id === type._id && category.active
-                          )
-                          .map((category) => (
-                            <CommandItem
-                              key={category._id}
-                              value={category.name}
-                              onSelect={() => {
-                                form.setValue('category', category);
-                                setIsCategoryPopoverOpen(false);
-                              }}
-                            >
-                              <CheckIcon
-                                className={cn(
-                                  'mr-2 h-4 w-4',
-                                  field.value.name === category.name
-                                    ? 'opacity-100'
-                                    : 'opacity-0'
-                                )}
-                              />
-                              {category.name}
-                            </CommandItem>
-                          ))}
-                      </CommandList>
-                    </CommandGroup>
-                  </Command>
-                </PopoverContent>
-              </Popover>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select a category" />
+                </SelectTrigger>
 
-              {/* <FormMessage /> */}
+                <SelectContent>
+                  <SelectGroup>
+                    {categories
+                      .filter(
+                        (category) =>
+                          category.type._id === type._id && category.active
+                      )
+                      .map((category) => (
+                        <SelectItem key={category._id} value={category._id}>
+                          {category.name}
+                        </SelectItem>
+                      ))}
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
             </FormItem>
           )}
         />
@@ -336,7 +311,26 @@ const TransactionDrawerForm = ({
                 <FormItem className="flex flex-col">
                   <FormLabel>Currency</FormLabel>
 
-                  <Popover
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value._id}
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select..." />
+                    </SelectTrigger>
+
+                    <SelectContent>
+                      <SelectGroup>
+                        {currencies.map((currency) => (
+                          <SelectItem key={currency._id} value={currency._id}>
+                            {currency.name}
+                          </SelectItem>
+                        ))}
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
+
+                  {/* <Popover
                     open={isCurrencyPopoverOpen}
                     onOpenChange={setIsCurrencyPopoverOpen}
                   >
@@ -387,7 +381,7 @@ const TransactionDrawerForm = ({
                         </CommandGroup>
                       </Command>
                     </PopoverContent>
-                  </Popover>
+                  </Popover> */}
 
                   <FormMessage />
                 </FormItem>
