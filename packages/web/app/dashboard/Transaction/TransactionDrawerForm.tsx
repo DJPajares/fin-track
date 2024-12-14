@@ -406,6 +406,7 @@ const TransactionDrawerForm = ({
                   <FormControl>
                     <Input
                       type="number"
+                      inputMode="decimal"
                       placeholder="0"
                       {...field}
                       value={field.value || ''}
