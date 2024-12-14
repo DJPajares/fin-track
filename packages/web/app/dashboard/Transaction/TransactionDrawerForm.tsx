@@ -127,6 +127,10 @@ const TransactionDrawerForm = ({
     setDate(moment(dashboard.date, dateStringFormat).toDate());
   }, [dashboard]);
 
+  useEffect(() => {
+    form.resetField('category');
+  }, [type]);
+
   const createTransaction = async (transactionData: TransactionProps) => {
     try {
       const { status, data } = await axios.post(

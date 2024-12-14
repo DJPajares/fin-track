@@ -1,8 +1,7 @@
-import { Dispatch, SetStateAction, useRef, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { useAppSelector } from '../../../lib/hooks';
 
-import { Tab, Tabs } from '@nextui-org/react';
 import {
   Drawer,
   DrawerClose,
@@ -30,6 +29,8 @@ import type {
   DashboardDataResult,
   DashboardSelectionItemsProps
 } from '../../../types/Dashboard';
+import { SelectBox } from '@web/components/shared/SelectBox';
+import { ListProps } from '@web/types/List';
 
 type TransactionDrawerProps = {
   currencies: DashboardSelectionItemsProps[];
@@ -46,9 +47,19 @@ const TransactionDrawer = ({
 }: TransactionDrawerProps) => {
   const t = useTranslations();
 
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
-
   const { types, categories } = useAppSelector((state) => state.main);
+
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [type, setType] = useState<ListProps>({
+    _id: '',
+    name: ''
+  });
+
+  useEffect(() => {
+    if (types && types.length > 0) {
+      setType(types[0]);
+    }
+  }, [types]);
 
   const formRef = useRef<HTMLFormElement>();
 
@@ -76,36 +87,29 @@ const TransactionDrawer = ({
               </DrawerDescription>
             </DrawerHeader>
 
-            <Tabs
-              variant="bordered"
-              radius="full"
-              size="lg"
-              color="primary"
-              className="flex flex-col items-center"
-              classNames={{
-                tabContent:
-                  'group-data-[selected=true]:text-primary-foreground text-sm font-bold uppercase'
-              }}
-            >
-              {types.map((type) => (
-                <Tab
-                  key={type._id.toString()}
-                  title={type.name}
-                  className="px-4"
-                >
-                  <div className="p-4">
-                    <TransactionDrawerForm
-                      type={type}
-                      categories={categories}
-                      currencies={currencies}
-                      setDashboardData={setDashboardData}
-                      setIsTransactionDrawerOpen={setIsTransactionDrawerOpen}
-                      formRef={formRef}
-                    />
-                  </div>
-                </Tab>
-              ))}
-            </Tabs>
+            <div className="p-4 space-y-2">
+              <div className="flex flex-row justify-end">
+                <SelectBox
+                  variant="ghost"
+                  items={types}
+                  selectedItem={type}
+                  setSelectedItem={setType}
+                  placeholder={t('Common.label.selectPlaceholder')}
+                  className="w-fit p-0 text-base font-semibold"
+                />
+              </div>
+
+              <div>
+                <TransactionDrawerForm
+                  type={type}
+                  categories={categories}
+                  currencies={currencies}
+                  setDashboardData={setDashboardData}
+                  setIsTransactionDrawerOpen={setIsTransactionDrawerOpen}
+                  formRef={formRef}
+                />
+              </div>
+            </div>
 
             <DrawerFooter className="my-2">
               <Button onClick={() => setIsDialogOpen(true)}>

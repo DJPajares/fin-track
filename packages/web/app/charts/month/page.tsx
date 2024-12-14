@@ -42,15 +42,10 @@ type TransactionByCategory = {
   amount: number;
 };
 
-const defaultType = {
-  _id: '',
-  name: ''
-};
-
 type CustomTooltipProps = {
-  payload: any;
-  label: string;
-  active: string;
+  payload?: any;
+  label?: string;
+  active?: string;
 };
 
 const Charts = () => {
@@ -63,7 +58,10 @@ const Charts = () => {
   const [date, setDate] = useState(new Date());
   const [chartData, setChartData] = useState<TransactionByCategory[]>([]);
   const [chartConfigData, setChartConfigData] = useState<ChartConfig>({});
-  const [selectedType, setSelectedType] = useState<ListProps>(defaultType);
+  const [selectedType, setSelectedType] = useState<ListProps>({
+    _id: '',
+    name: ''
+  });
 
   useEffect(() => {
     if (types && types.length > 0) {
