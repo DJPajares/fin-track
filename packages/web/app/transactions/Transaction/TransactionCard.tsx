@@ -23,7 +23,7 @@ type TransactionProps = {
 
 type TransactionCardProps = {
   transaction: TransactionProps;
-  fetchTransactionsData: () => void;
+  fetchTransactionsData?: () => void;
 };
 
 // const TransactionCard = ({

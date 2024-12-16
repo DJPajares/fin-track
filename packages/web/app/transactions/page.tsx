@@ -7,6 +7,7 @@ import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
 
 import { useAppSelector } from '../../lib/hooks';
 import { fetchTransactions } from '../../providers/fetchTransactions';
+import { useGetTransactionsQuery } from '../../lib/services/transactions';
 
 import { DatePicker } from '../../components/shared/DatePicker';
 import { Button } from '../../components/ui/button';
@@ -31,10 +32,7 @@ type TransactionProps = {
   description: string;
 };
 
-const defaultType = {
-  _id: '',
-  name: ''
-};
+const limit = 8;
 
 const Transactions = () => {
   const t = useTranslations();
@@ -42,14 +40,24 @@ const Transactions = () => {
   const { types } = useAppSelector((state) => state.main);
 
   const [date, setDate] = useState<Date>(new Date());
-  const [transactions, setTransactions] = useState<TransactionProps[]>([]);
-  const [selectedType, setSelectedType] = useState<ListProps>(defaultType);
-
+  const [selectedType, setSelectedType] = useState<ListProps>({
+    _id: '',
+    name: ''
+  });
   const [page, setPage] = useState(1);
-  const [loading, setLoading] = useState(false);
-  const [hasMore, setHasMore] = useState(true);
 
-  const observerRef = useRef<IntersectionObserver | null>(null);
+  const { data, isFetching } = useGetTransactionsQuery(
+    {
+      page,
+      limit,
+      body: { type: selectedType._id, date: date.toISOString() }
+    },
+    { skip: !selectedType._id || !date }
+  );
+
+  const transactions: TransactionProps[] = data ?? [];
+
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (types && types.length > 0) {
@@ -58,53 +66,50 @@ const Transactions = () => {
   }, [types]);
 
   useEffect(() => {
-    setTransactions([]);
+    // Reset the transactions and page when date or type changes
     setPage(1);
-    fetchTransactionsData();
-    setHasMore(true);
   }, [date, selectedType]);
 
+  // useEffect(() => {
+  //   const onScroll = () => {
+  //     const scrolledToBottom =
+  //       window.innerHeight + window.scrollY >= document.body.offsetHeight;
+
+  //     if (scrolledToBottom && !isFetching) {
+  //       console.log('Fetching more data...');
+  //       setPage(page + 1);
+  //     }
+  //   };
+
+  //   document.addEventListener('scroll', onScroll);
+
+  //   return function () {
+  //     document.removeEventListener('scroll', onScroll);
+  //   };
+  // }, [page, isFetching]);
+
   useEffect(() => {
-    fetchTransactionsData();
-  }, [page]);
+    const onScroll = () => {
+      const container = scrollContainerRef.current;
+      if (!container) return;
 
-  const fetchTransactionsData = async () => {
-    if (selectedType._id) {
-      const result = await fetchTransactions({
-        type: selectedType._id,
-        date,
-        page: page,
-        limit: 8
-      });
+      const scrolledToBottom =
+        container.scrollHeight - container.scrollTop <=
+        container.clientHeight + 10;
 
-      if (result.data.length === 0) {
-        setHasMore(false);
-      } else {
-        setTransactions((prevData) => [...prevData, ...result.data]);
+      if (scrolledToBottom && !isFetching) {
+        console.log('Fetching more data...');
+        setPage((prevPage) => prevPage + 1); // Update page for fetching new data
       }
+    };
 
-      setLoading(false);
-    }
-  };
+    const container = scrollContainerRef.current;
+    container?.addEventListener('scroll', onScroll);
 
-  const lastElementRef = (node: HTMLDivElement | null) => {
-    if (loading) return;
-
-    if (observerRef.current) {
-      observerRef.current.disconnect();
-    }
-
-    observerRef.current = new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting && hasMore) {
-        setLoading(true);
-        setPage((prevPage) => prevPage + 1);
-      }
-    });
-
-    if (node) {
-      observerRef.current.observe(node);
-    }
-  };
+    return () => {
+      container?.removeEventListener('scroll', onScroll);
+    };
+  }, [isFetching]);
 
   const handlePrevMonth = () => {
     const newDate = moment(date).add(-1, 'months');
@@ -158,17 +163,20 @@ const Transactions = () => {
           />
         </div>
 
-        <ScrollShadow className="h-[70vh]" hideScrollBar>
+        <ScrollShadow
+          ref={scrollContainerRef}
+          className="h-[70vh]"
+          hideScrollBar
+        >
           <div className="space-y-4">
-            {transactions.map((transaction, index) => (
-              <TransactionCard
-                key={index}
-                transaction={transaction}
-                fetchTransactionsData={fetchTransactionsData}
-              />
-            ))}
-
-            <div ref={lastElementRef} className="h-4" />
+            {transactions.length > 1 &&
+              transactions.map((transaction, index) => (
+                <TransactionCard
+                  key={index}
+                  transaction={transaction}
+                  // fetchTransactionsData={fetchTransactionsData}
+                />
+              ))}
           </div>
         </ScrollShadow>
       </div>
