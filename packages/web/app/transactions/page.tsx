@@ -32,8 +32,6 @@ type TransactionProps = {
   description: string;
 };
 
-const limit = 8;
-
 const Transactions = () => {
   const t = useTranslations();
 
@@ -45,17 +43,19 @@ const Transactions = () => {
     name: ''
   });
   const [page, setPage] = useState(1);
+  const [isResetting, setIsResetting] = useState(false);
 
   const { data, isFetching } = useGetTransactionsQuery(
     {
       page,
-      limit,
+      limit: 8,
       body: { type: selectedType._id, date: date.toISOString() }
     },
     { skip: !selectedType._id || !date }
   );
 
-  const transactions: TransactionProps[] = data ?? [];
+  const transactions: TransactionProps[] = data?.data ?? [];
+  const isFullyFetched = data?.isFullyFetched ?? false;
 
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
@@ -66,40 +66,33 @@ const Transactions = () => {
   }, [types]);
 
   useEffect(() => {
-    // Reset the transactions and page when date or type changes
     setPage(1);
+    setIsResetting(true);
   }, [date, selectedType]);
 
-  // useEffect(() => {
-  //   const onScroll = () => {
-  //     const scrolledToBottom =
-  //       window.innerHeight + window.scrollY >= document.body.offsetHeight;
+  useEffect(() => {
+    if (isResetting) {
+      const container = scrollContainerRef.current;
 
-  //     if (scrolledToBottom && !isFetching) {
-  //       console.log('Fetching more data...');
-  //       setPage(page + 1);
-  //     }
-  //   };
+      if (container) {
+        container.scrollTo({ top: 0, behavior: 'smooth' });
+      }
 
-  //   document.addEventListener('scroll', onScroll);
-
-  //   return function () {
-  //     document.removeEventListener('scroll', onScroll);
-  //   };
-  // }, [page, isFetching]);
+      setIsResetting(false);
+    }
+  }, [isResetting]);
 
   useEffect(() => {
     const onScroll = () => {
       const container = scrollContainerRef.current;
-      if (!container) return;
+      if (!container || isFullyFetched) return; // Stop if fully fetched
 
       const scrolledToBottom =
         container.scrollHeight - container.scrollTop <=
         container.clientHeight + 10;
 
       if (scrolledToBottom && !isFetching) {
-        console.log('Fetching more data...');
-        setPage((prevPage) => prevPage + 1); // Update page for fetching new data
+        setPage((prevPage) => prevPage + 1); // Load next page
       }
     };
 
@@ -109,7 +102,7 @@ const Transactions = () => {
     return () => {
       container?.removeEventListener('scroll', onScroll);
     };
-  }, [isFetching]);
+  }, [isFetching, isFullyFetched]);
 
   const handlePrevMonth = () => {
     const newDate = moment(date).add(-1, 'months');
@@ -169,7 +162,7 @@ const Transactions = () => {
           hideScrollBar
         >
           <div className="space-y-4">
-            {transactions.length > 1 &&
+            {transactions.length > 0 &&
               transactions.map((transaction, index) => (
                 <TransactionCard
                   key={index}
@@ -179,6 +172,8 @@ const Transactions = () => {
               ))}
           </div>
         </ScrollShadow>
+
+        {/* {isFullyFetched && <p>No more data to load</p>} */}
       </div>
     </div>
   );

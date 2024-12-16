@@ -12,41 +12,38 @@ export const transactionsApi = createApi({
         method: 'POST',
         body
       }),
-      transformResponse: (
-        response: { data: any; pagination: any },
-        meta,
-        arg
-      ) => {
-        return response.data?.data;
+      transformResponse: (response: { data: any; pagination: any }) => {
+        const { data, pagination } = response.data;
+
+        return {
+          data,
+          pagination,
+          isFullyFetched: pagination.currentPage >= pagination.totalPages
+        };
       },
-      // Only have one cache entry because the arg always maps to one string
       serializeQueryArgs: ({ endpointName }) => {
         return endpointName;
       },
-      // Always merge incoming data to the cache entry
-      // merge: (currentCache, newItems, { arg }) => {
-      //   if (arg.page === 1) {
-      //     // Replace the cache when it's a new query
-      //     return [...newItems];
-      //   }
-      //   // Otherwise, append to the existing cache
-      //   currentCache.push(...newItems);
-      // },
       merge: (currentCache, newItems, { arg }) => {
-        if (!Array.isArray(newItems)) {
+        if (!Array.isArray(newItems.data)) {
           console.error('Invalid newItems structure:', newItems);
           return currentCache;
         }
 
         if (arg.page === 1) {
-          // Replace cache if fetching the first page
-          return [...newItems];
+          return {
+            ...newItems,
+            data: [...newItems.data]
+          };
         }
 
-        // Append new items for subsequent pages
-        return [...currentCache, ...newItems];
+        return {
+          ...currentCache,
+          data: [...currentCache.data, ...newItems.data],
+          pagination: newItems.pagination,
+          isFullyFetched: newItems.isFullyFetched
+        };
       },
-      // Refetch when the page arg changes
       forceRefetch({ currentArg, previousArg }) {
         return currentArg !== previousArg;
       }
@@ -54,6 +51,4 @@ export const transactionsApi = createApi({
   })
 });
 
-// Export hooks for usage in functional components, which are
-// auto-generated based on the defined endpoints
 export const { useGetTransactionsQuery } = transactionsApi;
