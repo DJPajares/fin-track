@@ -123,7 +123,7 @@ const CategoryContent = ({
         {Math.floor(paidAmount / amount) === 1 ? (
           <Button
             variant="outline"
-            size="sm_rounded_icon"
+            size="xs_rounded_icon"
             className="bg-primary text-primary-foreground"
             onClick={() =>
               handleTransactionDataUpdate({
@@ -137,7 +137,7 @@ const CategoryContent = ({
         ) : (
           <Button
             variant="outline"
-            size="sm_rounded_icon"
+            size="xs_rounded_icon"
             onClick={() =>
               handleTransactionDataUpdate({
                 _id,
