@@ -14,14 +14,6 @@ import {
   PopoverTrigger
 } from '../../../components/ui/popover';
 import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList
-} from '../../../components/ui/command';
-import {
   Form,
   FormControl,
   FormField,
@@ -33,8 +25,9 @@ import { Input } from '../../../components/ui/input';
 import { Button } from '../../../components/ui/button';
 import { Calendar } from '../../../components/ui/calendar';
 import { Checkbox } from '@nextui-org/react';
-import { CalendarIcon, CheckIcon, ChevronsUpDownIcon } from 'lucide-react';
 import { MultiSelectBox } from '../../../components/shared/MultiSelectBox';
+
+import { CalendarIcon } from 'lucide-react';
 
 import fetchTransactionPayments from '../../../providers/fetchTransactionPayments';
 
@@ -124,8 +117,6 @@ const TransactionDrawerForm = ({
   const [date, setDate] = useState(new Date());
   const [isStartDatePopoverOpen, setIsStartDatePopoverOpen] = useState(false);
   const [isEndDatePopoverOpen, setIsEndDatePopoverOpen] = useState(false);
-  const [isCategoryPopoverOpen, setIsCategoryPopoverOpen] = useState(false);
-  const [isCurrencyPopoverOpen, setIsCurrencyPopoverOpen] = useState(false);
 
   const dashboard = useAppSelector((state) => state.dashboard);
 
@@ -330,59 +321,6 @@ const TransactionDrawerForm = ({
                     </SelectContent>
                   </Select>
 
-                  {/* <Popover
-                    open={isCurrencyPopoverOpen}
-                    onOpenChange={setIsCurrencyPopoverOpen}
-                  >
-                    <PopoverTrigger asChild>
-                      <FormControl>
-                        <Button
-                          variant="outline"
-                          role="combobox"
-                          className="justify-between"
-                        >
-                          <p className="truncate hover:text-clip">
-                            {field.value.name ? field.value.name : 'Currency'}
-                          </p>
-                          <ChevronsUpDownIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                        </Button>
-                      </FormControl>
-                    </PopoverTrigger>
-                    <PopoverContent className="w-[200px] p-0">
-                      <Command>
-                        <CommandInput placeholder="Search currency..." />
-                        <CommandEmpty>No currencies found</CommandEmpty>
-                        <CommandGroup>
-                          <CommandList>
-                            {currencies.map((currency) => (
-                              <CommandItem
-                                key={currency._id}
-                                value={currency.name}
-                                onSelect={() => {
-                                  // handleCurrencySelection({
-                                  //   selectedCurrency: currency
-                                  // })
-                                  form.setValue('currency', currency);
-                                  setIsCurrencyPopoverOpen(false);
-                                }}
-                              >
-                                <CheckIcon
-                                  className={cn(
-                                    'mr-2 h-4 w-4',
-                                    field.value.name === currency.name
-                                      ? 'opacity-100'
-                                      : 'opacity-0'
-                                  )}
-                                />
-                                {currency.name}
-                              </CommandItem>
-                            ))}
-                          </CommandList>
-                        </CommandGroup>
-                      </Command>
-                    </PopoverContent>
-                  </Popover> */}
-
                   <FormMessage />
                 </FormItem>
               )}
@@ -407,7 +345,7 @@ const TransactionDrawerForm = ({
                     />
                   </FormControl>
 
-                  {/* <FormMessage /> */}
+                  <FormMessage />
                 </FormItem>
               )}
             />
