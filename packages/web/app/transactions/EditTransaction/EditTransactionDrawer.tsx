@@ -39,13 +39,13 @@ type EditTransactionDrawerProps = {
     amount: number;
     description: string;
   };
-  fetchTransactions: () => void;
+  // fetchTransactions: () => void;
   children: ReactNode;
 };
 
 const EditTransactionDrawer = ({
   transaction,
-  fetchTransactions,
+  // fetchTransactions,
   children
 }: EditTransactionDrawerProps) => {
   const t = useTranslations();
@@ -74,7 +74,7 @@ const EditTransactionDrawer = ({
       data
     });
 
-    fetchTransactions();
+    // fetchTransactions();
   };
 
   const handleConfirmSubmit = () => {

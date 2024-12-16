@@ -23,7 +23,7 @@ type TransactionProps = {
 
 type TransactionCardProps = {
   transaction: TransactionProps;
-  fetchTransactionsData?: () => void;
+  // fetchTransactionsData?: () => void;
 };
 
 // const TransactionCard = ({
@@ -93,14 +93,14 @@ type TransactionCardProps = {
 // };
 
 const TransactionCard = ({
-  transaction,
-  fetchTransactionsData
-}: TransactionCardProps) => {
+  transaction
+}: // fetchTransactionsData
+TransactionCardProps) => {
   return (
     <div key={transaction._id} className="space-y-2">
       <EditTransactionDrawer
         transaction={transaction}
-        fetchTransactions={fetchTransactionsData}
+        // fetchTransactions={fetchTransactionsData}
       >
         <Card className="bg-accent/70 cursor-pointer p-2">
           <div className="flex items-center gap-3">
