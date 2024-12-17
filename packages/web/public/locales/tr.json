@@ -58,7 +58,26 @@
       },
       "transactionDrawer": {
         "title": "İşlem",
-        "description": "Yeni işlemler ekleyin"
+        "description": "Yeni işlemler ekleyin",
+        "form": {
+          "title": {
+            "category": "Kategori",
+            "title": "Başlık",
+            "currency": "Para Birimi",
+            "amount": "Tutar",
+            "date": "Tarih",
+            "startDate": "Başlangıç Tarihi",
+            "endDate": "Bitiş Tarihi",
+            "excludedDates": "Hariç Tutulan Tarihler",
+            "isRecurring": "Tekrar Eden?"
+          },
+          "placeholder": {
+            "category": "Bir kategori seçin",
+            "title": "Örneğin: Elektrik faturası",
+            "currency": "Bir para birimi seçin",
+            "excludedDates": "Tarihleri seçin..."
+          }
+        }
       }
     },
     "transactions": {
@@ -89,6 +108,9 @@
       "title": "Emin misiniz?",
       "description": "Bu işlem geri alınamaz",
       "okButton": "Devam Et"
+    },
+    "label": {
+      "selectPlaceholder": "Bir öğe seçin"
     }
   }
 }

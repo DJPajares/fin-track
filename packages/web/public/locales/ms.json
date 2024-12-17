@@ -58,7 +58,26 @@
       },
       "transactionDrawer": {
         "title": "Transaksi",
-        "description": "Tambah transaksi baharu"
+        "description": "Tambah transaksi baharu",
+        "form": {
+          "title": {
+            "category": "Kategori",
+            "title": "Tajuk",
+            "currency": "Mata Wang",
+            "amount": "Jumlah",
+            "date": "Tarikh",
+            "startDate": "Tarikh Mula",
+            "endDate": "Tarikh Tamat",
+            "excludedDates": "Tarikh Dikecualikan",
+            "isRecurring": "Berulang?"
+          },
+          "placeholder": {
+            "category": "Pilih kategori",
+            "title": "Contoh: Bil elektrik",
+            "currency": "Pilih mata wang",
+            "excludedDates": "Pilih tarikh..."
+          }
+        }
       }
     },
     "transactions": {
@@ -89,6 +108,9 @@
       "title": "Adakah Anda Pasti?",
       "description": "Ini tidak boleh dibatalkan",
       "okButton": "Teruskan"
+    },
+    "label": {
+      "selectPlaceholder": "Pilih item"
     }
   }
 }

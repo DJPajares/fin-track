@@ -58,7 +58,26 @@
       },
       "transactionDrawer": {
         "title": "Giao Dịch",
-        "description": "Thêm giao dịch mới"
+        "description": "Thêm giao dịch mới",
+        "form": {
+          "title": {
+            "category": "Danh Mục",
+            "title": "Tiêu Đề",
+            "currency": "Tiền Tệ",
+            "amount": "Số Tiền",
+            "date": "Ngày",
+            "startDate": "Ngày Bắt Đầu",
+            "endDate": "Ngày Kết Thúc",
+            "excludedDates": "Ngày Loại Trừ",
+            "isRecurring": "Định Kỳ?"
+          },
+          "placeholder": {
+            "category": "Chọn danh mục",
+            "title": "Ví dụ: Hóa đơn tiền điện",
+            "currency": "Chọn tiền tệ",
+            "excludedDates": "Chọn ngày..."
+          }
+        }
       }
     },
     "transactions": {
@@ -89,6 +108,9 @@
       "title": "Bạn Có Chắc Không?",
       "description": "Không thể hoàn tác",
       "okButton": "Tiếp Tục"
+    },
+    "label": {
+      "selectPlaceholder": "Chọn một mục"
     }
   }
 }

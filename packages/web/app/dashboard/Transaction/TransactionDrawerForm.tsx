@@ -13,6 +13,7 @@ import { useForm, useWatch } from 'react-hook-form';
 import moment from 'moment';
 import { useAppSelector } from '../../../lib/hooks';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useTranslations } from 'next-intl';
 
 import {
   Popover,
@@ -93,12 +94,6 @@ const formSchema = z.object({
   currency: z.string().min(1, {
     message: 'Please select a currency'
   }),
-  // currency: z.object({
-  //   _id: z.string(),
-  //   name: z.string({
-  //     required_error: 'Please select a currency'
-  //   })
-  // }),
   amount: z.coerce.number({
     required_error: 'Please enter an amount'
   }),
@@ -122,6 +117,7 @@ const TransactionDrawerForm = ({
   setIsTransactionDrawerOpen,
   formRef
 }: TransactionDrawerFormProps) => {
+  const t = useTranslations();
   const dashboard = useAppSelector((state) => state.dashboard);
 
   const currency = dashboard.currency;
@@ -248,11 +244,17 @@ const TransactionDrawerForm = ({
           name="category"
           render={({ field }) => (
             <FormItem className="flex flex-col">
-              <FormLabel>Category</FormLabel>
+              <FormLabel>
+                {t('Page.dashboard.transactionDrawer.form.title.category')}
+              </FormLabel>
 
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <SelectTrigger>
-                  <SelectValue placeholder="Select a category" />
+                  <SelectValue
+                    placeholder={t(
+                      'Page.dashboard.transactionDrawer.form.placeholder.category'
+                    )}
+                  />
                 </SelectTrigger>
 
                 <SelectContent>
@@ -282,10 +284,17 @@ const TransactionDrawerForm = ({
           name="title"
           render={({ field }) => (
             <FormItem className="flex flex-col">
-              <FormLabel>Title</FormLabel>
+              <FormLabel>
+                {t('Page.dashboard.transactionDrawer.form.title.title')}
+              </FormLabel>
 
               <FormControl>
-                <Input placeholder="e.g. Electricity bill" {...field} />
+                <Input
+                  placeholder={t(
+                    'Page.dashboard.transactionDrawer.form.placeholder.title'
+                  )}
+                  {...field}
+                />
               </FormControl>
 
               <FormMessage />
@@ -301,14 +310,20 @@ const TransactionDrawerForm = ({
               name="currency"
               render={({ field }) => (
                 <FormItem className="flex flex-col">
-                  <FormLabel>Currency</FormLabel>
+                  <FormLabel>
+                    {t('Page.dashboard.transactionDrawer.form.title.currency')}
+                  </FormLabel>
 
                   <Select
                     onValueChange={field.onChange}
                     defaultValue={field.value}
                   >
                     <SelectTrigger>
-                      <SelectValue placeholder="Select..." />
+                      <SelectValue
+                        placeholder={t(
+                          'Page.dashboard.transactionDrawer.form.placeholder.currency'
+                        )}
+                      />
                     </SelectTrigger>
 
                     <SelectContent>
@@ -334,7 +349,9 @@ const TransactionDrawerForm = ({
               name="amount"
               render={({ field }) => (
                 <FormItem className="flex flex-col">
-                  <FormLabel>Amount</FormLabel>
+                  <FormLabel>
+                    {t('Page.dashboard.transactionDrawer.form.title.amount')}
+                  </FormLabel>
 
                   <FormControl>
                     {/* <Input
@@ -370,7 +387,13 @@ const TransactionDrawerForm = ({
               name="startDate"
               render={({ field }) => (
                 <FormItem className="flex flex-col">
-                  <FormLabel>{isRecurring ? 'Start date' : 'Date'}</FormLabel>
+                  <FormLabel>
+                    {isRecurring
+                      ? t(
+                          'Page.dashboard.transactionDrawer.form.title.startDate'
+                        )
+                      : t('Page.dashboard.transactionDrawer.form.title.date')}
+                  </FormLabel>
 
                   <Popover
                     open={isStartDatePopoverOpen}
@@ -419,7 +442,9 @@ const TransactionDrawerForm = ({
                 name="endDate"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
-                    <FormLabel>End date</FormLabel>
+                    <FormLabel>
+                      {t('Page.dashboard.transactionDrawer.form.title.endDate')}
+                    </FormLabel>
 
                     <Popover
                       open={isEndDatePopoverOpen}
@@ -468,20 +493,26 @@ const TransactionDrawerForm = ({
 
         <div>
           {/* EXCLUDED DATES */}
-          {isRecurring && (
+          {isRecurring && excludedDatesArray.length > 1 && (
             <FormField
               control={form.control}
               name="excludedDates"
               render={({ field }) => (
                 <FormItem className="flex flex-col">
-                  <FormLabel>Excluded Dates</FormLabel>
+                  <FormLabel>
+                    {t(
+                      'Page.dashboard.transactionDrawer.form.title.excludedDates'
+                    )}
+                  </FormLabel>
 
                   <FormControl>
                     <MultiSelectBox
                       dataArray={excludedDatesArray}
                       value={field.value || []}
                       onChange={field.onChange}
-                      placeholder="Select dates..."
+                      placeholder={t(
+                        'Page.dashboard.transactionDrawer.form.placeholder.excludedDates'
+                      )}
                     />
                   </FormControl>
 
@@ -503,7 +534,9 @@ const TransactionDrawerForm = ({
                       isSelected={field.value}
                       onValueChange={field.onChange}
                     >
-                      Recurring?
+                      {t(
+                        'Page.dashboard.transactionDrawer.form.title.isRecurring'
+                      )}
                     </Checkbox>
                   </FormControl>
 

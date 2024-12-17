@@ -58,7 +58,26 @@
       },
       "transactionDrawer": {
         "title": "Transaksi",
-        "description": "Tambah transaksi baru"
+        "description": "Tambahkan transaksi baru",
+        "form": {
+          "title": {
+            "category": "Kategori",
+            "title": "Judul",
+            "currency": "Mata Uang",
+            "amount": "Jumlah",
+            "date": "Tanggal",
+            "startDate": "Tanggal Mulai",
+            "endDate": "Tanggal Berakhir",
+            "excludedDates": "Tanggal Dikecualikan",
+            "isRecurring": "Berulang?"
+          },
+          "placeholder": {
+            "category": "Pilih kategori",
+            "title": "Contoh: Tagihan listrik",
+            "currency": "Pilih mata uang",
+            "excludedDates": "Pilih tanggal..."
+          }
+        }
       }
     },
     "transactions": {
@@ -89,6 +108,9 @@
       "title": "Apakah Anda Yakin?",
       "description": "Ini tidak dapat dibatalkan",
       "okButton": "Lanjutkan"
+    },
+    "label": {
+      "selectPlaceholder": "Pilih item"
     }
   }
 }

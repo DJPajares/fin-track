@@ -58,7 +58,26 @@
       },
       "transactionDrawer": {
         "title": "Транзакция",
-        "description": "Добавить новые транзакции"
+        "description": "Добавить новые транзакции",
+        "form": {
+          "title": {
+            "category": "Категория",
+            "title": "Название",
+            "currency": "Валюта",
+            "amount": "Сумма",
+            "date": "Дата",
+            "startDate": "Дата начала",
+            "endDate": "Дата окончания",
+            "excludedDates": "Исключенные даты",
+            "isRecurring": "Повторяется?"
+          },
+          "placeholder": {
+            "category": "Выберите категорию",
+            "title": "например, счет за электричество",
+            "currency": "Выберите валюту",
+            "excludedDates": "Выберите даты..."
+          }
+        }
       }
     },
     "transactions": {
@@ -89,6 +108,9 @@
       "title": "Вы уверены?",
       "description": "Это действие нельзя отменить",
       "okButton": "Продолжить"
+    },
+    "label": {
+      "selectPlaceholder": "Выберите элемент"
     }
   }
 }

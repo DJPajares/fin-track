@@ -58,7 +58,26 @@
       },
       "transactionDrawer": {
         "title": "交易",
-        "description": "添加新交易"
+        "description": "添加新交易",
+        "form": {
+          "title": {
+            "category": "类别",
+            "title": "标题",
+            "currency": "货币",
+            "amount": "金额",
+            "date": "日期",
+            "startDate": "开始日期",
+            "endDate": "结束日期",
+            "excludedDates": "排除日期",
+            "isRecurring": "重复？"
+          },
+          "placeholder": {
+            "category": "选择类别",
+            "title": "例如：电费账单",
+            "currency": "选择货币",
+            "excludedDates": "选择日期..."
+          }
+        }
       }
     },
     "transactions": {
@@ -89,6 +108,9 @@
       "title": "确定吗？",
       "description": "此操作无法撤销",
       "okButton": "继续"
+    },
+    "label": {
+      "selectPlaceholder": "选择一个项目"
     }
   }
 }

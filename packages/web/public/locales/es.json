@@ -58,7 +58,26 @@
       },
       "transactionDrawer": {
         "title": "Transacción",
-        "description": "Agregar nuevas transacciones"
+        "description": "Agregar nuevas transacciones",
+        "form": {
+          "title": {
+            "category": "Categoría",
+            "title": "Título",
+            "currency": "Moneda",
+            "amount": "Cantidad",
+            "date": "Fecha",
+            "startDate": "Fecha de inicio",
+            "endDate": "Fecha de fin",
+            "excludedDates": "Fechas excluidas",
+            "isRecurring": "¿Recurrente?"
+          },
+          "placeholder": {
+            "category": "Seleccione una categoría",
+            "title": "Ej. Factura de electricidad",
+            "currency": "Seleccione una moneda",
+            "excludedDates": "Seleccione fechas..."
+          }
+        }
       }
     },
     "transactions": {
@@ -89,6 +108,9 @@
       "title": "¿Estás seguro?",
       "description": "Esto no se puede deshacer",
       "okButton": "Continuar"
+    },
+    "label": {
+      "selectPlaceholder": "Selecciona un elemento"
     }
   }
 }

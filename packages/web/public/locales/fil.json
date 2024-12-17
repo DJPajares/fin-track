@@ -57,8 +57,27 @@
         "totalLabel": "Kabuuan"
       },
       "transactionDrawer": {
-        "title": "Mga Transaksyon",
-        "description": "Magdagdag ng Bagong Transaksyon"
+        "title": "Transaksyon",
+        "description": "Magdagdag ng mga bagong transaksyon",
+        "form": {
+          "title": {
+            "category": "Kategorya",
+            "title": "Pamagat",
+            "currency": "Pera",
+            "amount": "Halaga",
+            "date": "Petsa",
+            "startDate": "Petsa ng Simula",
+            "endDate": "Petsa ng Pagtatapos",
+            "excludedDates": "Mga Hindi Kasamang Petsa",
+            "isRecurring": "Ulit-ulit?"
+          },
+          "placeholder": {
+            "category": "Pumili ng kategorya",
+            "title": "Hal. Bayarin sa kuryente",
+            "currency": "Pumili ng pera",
+            "excludedDates": "Pumili ng mga petsa..."
+          }
+        }
       }
     },
     "transactions": {
@@ -89,6 +108,9 @@
       "title": "Sigurado ka?",
       "description": "Hindi na ito maaaring bawiin.",
       "okButton": "Magpatuloy"
+    },
+    "label": {
+      "selectPlaceholder": "Pumili ng item"
     }
   }
 }

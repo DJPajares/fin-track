@@ -58,7 +58,26 @@
       },
       "transactionDrawer": {
         "title": "Transaction",
-        "description": "Ajouter de nouvelles transactions"
+        "description": "Ajouter de nouvelles transactions",
+        "form": {
+          "title": {
+            "category": "Catégorie",
+            "title": "Titre",
+            "currency": "Devise",
+            "amount": "Montant",
+            "date": "Date",
+            "startDate": "Date de début",
+            "endDate": "Date de fin",
+            "excludedDates": "Dates exclues",
+            "isRecurring": "Récurrent?"
+          },
+          "placeholder": {
+            "category": "Sélectionnez une catégorie",
+            "title": "Ex. Facture d'électricité",
+            "currency": "Sélectionnez une devise",
+            "excludedDates": "Sélectionnez des dates..."
+          }
+        }
       }
     },
     "transactions": {
@@ -89,6 +108,9 @@
       "title": "Êtes-vous sûr ?",
       "description": "Cela ne peut pas être annulé",
       "okButton": "Continuer"
+    },
+    "label": {
+      "selectPlaceholder": "Sélectionnez un élément"
     }
   }
 }

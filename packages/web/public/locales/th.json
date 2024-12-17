@@ -58,7 +58,26 @@
       },
       "transactionDrawer": {
         "title": "ธุรกรรม",
-        "description": "เพิ่มธุรกรรมใหม่"
+        "description": "เพิ่มธุรกรรมใหม่",
+        "form": {
+          "title": {
+            "category": "หมวดหมู่",
+            "title": "ชื่อเรื่อง",
+            "currency": "สกุลเงิน",
+            "amount": "จำนวนเงิน",
+            "date": "วันที่",
+            "startDate": "วันที่เริ่มต้น",
+            "endDate": "วันที่สิ้นสุด",
+            "excludedDates": "วันที่ยกเว้น",
+            "isRecurring": "ทำซ้ำ?"
+          },
+          "placeholder": {
+            "category": "เลือกหมวดหมู่",
+            "title": "เช่น ค่าไฟฟ้า",
+            "currency": "เลือกสกุลเงิน",
+            "excludedDates": "เลือกวันที่..."
+          }
+        }
       }
     },
     "transactions": {
@@ -89,6 +108,9 @@
       "title": "คุณแน่ใจหรือไม่?",
       "description": "ไม่สามารถย้อนกลับได้",
       "okButton": "ดำเนินการต่อ"
+    },
+    "label": {
+      "selectPlaceholder": "เลือกไอเทม"
     }
   }
 }

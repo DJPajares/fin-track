@@ -58,7 +58,26 @@
       },
       "transactionDrawer": {
         "title": "المعاملة",
-        "description": "إضافة معاملات جديدة"
+        "description": "إضافة معاملات جديدة",
+        "form": {
+          "title": {
+            "category": "الفئة",
+            "title": "العنوان",
+            "currency": "العملة",
+            "amount": "المبلغ",
+            "date": "التاريخ",
+            "startDate": "تاريخ البدء",
+            "endDate": "تاريخ الانتهاء",
+            "excludedDates": "التواريخ المستبعدة",
+            "isRecurring": "متكرر؟"
+          },
+          "placeholder": {
+            "category": "اختر فئة",
+            "title": "مثال: فاتورة الكهرباء",
+            "currency": "اختر العملة",
+            "excludedDates": "اختر التواريخ..."
+          }
+        }
       }
     },
     "transactions": {
@@ -89,6 +108,9 @@
       "title": "هل أنت متأكد؟",
       "description": "لا يمكن التراجع عن هذا",
       "okButton": "استمرار"
+    },
+    "label": {
+      "selectPlaceholder": "اختر عنصراً"
     }
   }
 }

@@ -58,7 +58,26 @@
       },
       "transactionDrawer": {
         "title": "Transaction",
-        "description": "Add new transactions"
+        "description": "Add new transactions",
+        "form": {
+          "title": {
+            "category": "Category",
+            "title": "Title",
+            "currency": "Currency",
+            "amount": "Amount",
+            "date": "Date",
+            "startDate": "Start Date",
+            "endDate": "End Date",
+            "excludedDates": "Excluded Dates",
+            "isRecurring": "Recurring?"
+          },
+          "placeholder": {
+            "category": "Select a category",
+            "title": "e.g. Electricity bill",
+            "currency": "Select a currency",
+            "excludedDates": "Select dates..."
+          }
+        }
       }
     },
     "transactions": {

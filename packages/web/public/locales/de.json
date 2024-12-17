@@ -57,8 +57,27 @@
         "totalLabel": "Gesamt"
       },
       "transactionDrawer": {
-        "title": "Transaktionen",
-        "description": "Neue Transaktion hinzufügen"
+        "title": "Transaktion",
+        "description": "Neue Transaktionen hinzufügen",
+        "form": {
+          "title": {
+            "category": "Kategorie",
+            "title": "Titel",
+            "currency": "Währung",
+            "amount": "Betrag",
+            "date": "Datum",
+            "startDate": "Startdatum",
+            "endDate": "Enddatum",
+            "excludedDates": "Ausgeschlossene Daten",
+            "isRecurring": "Wiederkehrend?"
+          },
+          "placeholder": {
+            "category": "Wählen Sie eine Kategorie",
+            "title": "z. B. Stromrechnung",
+            "currency": "Wählen Sie eine Währung",
+            "excludedDates": "Wählen Sie Daten aus..."
+          }
+        }
       }
     },
     "transactions": {
@@ -89,6 +108,9 @@
       "title": "Bist du sicher?",
       "description": "Diese Aktion kann nicht rückgängig gemacht werden.",
       "okButton": "Fortfahren"
+    },
+    "label": {
+      "selectPlaceholder": "Wählen Sie ein Element"
     }
   }
 }

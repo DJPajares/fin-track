@@ -58,7 +58,26 @@
       },
       "transactionDrawer": {
         "title": "लेन-देन",
-        "description": "नए लेन-देन जोड़ें"
+        "description": "नए लेन-देन जोड़ें",
+        "form": {
+          "title": {
+            "category": "श्रेणी",
+            "title": "शीर्षक",
+            "currency": "मुद्रा",
+            "amount": "राशि",
+            "date": "तारीख",
+            "startDate": "प्रारंभ तिथि",
+            "endDate": "समाप्ति तिथि",
+            "excludedDates": "अलग की गई तिथियाँ",
+            "isRecurring": "पुनरावर्ती?"
+          },
+          "placeholder": {
+            "category": "एक श्रेणी चुनें",
+            "title": "जैसे: बिजली का बिल",
+            "currency": "एक मुद्रा चुनें",
+            "excludedDates": "तिथियाँ चुनें..."
+          }
+        }
       }
     },
     "transactions": {
@@ -89,6 +108,9 @@
       "title": "क्या आप सुनिश्चित हैं?",
       "description": "यह पूर्ववत नहीं किया जा सकता।",
       "okButton": "जारी रखें"
+    },
+    "label": {
+      "selectPlaceholder": "किसी आइटम का चयन करें"
     }
   }
 }

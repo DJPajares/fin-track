@@ -58,7 +58,26 @@
       },
       "transactionDrawer": {
         "title": "Transazione",
-        "description": "Aggiungi nuove transazioni"
+        "description": "Aggiungi nuove transazioni",
+        "form": {
+          "title": {
+            "category": "Categoria",
+            "title": "Titolo",
+            "currency": "Valuta",
+            "amount": "Importo",
+            "date": "Data",
+            "startDate": "Data di inizio",
+            "endDate": "Data di fine",
+            "excludedDates": "Date escluse",
+            "isRecurring": "Ricorrente?"
+          },
+          "placeholder": {
+            "category": "Seleziona una categoria",
+            "title": "Es. Bolletta elettricità",
+            "currency": "Seleziona una valuta",
+            "excludedDates": "Seleziona le date..."
+          }
+        }
       }
     },
     "transactions": {
@@ -89,6 +108,9 @@
       "title": "Sei sicuro?",
       "description": "Questo non può essere annullato",
       "okButton": "Continua"
+    },
+    "label": {
+      "selectPlaceholder": "Seleziona un elemento"
     }
   }
 }

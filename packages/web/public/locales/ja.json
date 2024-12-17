@@ -58,7 +58,26 @@
       },
       "transactionDrawer": {
         "title": "取引",
-        "description": "新しい取引を追加"
+        "description": "新しい取引を追加",
+        "form": {
+          "title": {
+            "category": "カテゴリー",
+            "title": "タイトル",
+            "currency": "通貨",
+            "amount": "金額",
+            "date": "日付",
+            "startDate": "開始日",
+            "endDate": "終了日",
+            "excludedDates": "除外日",
+            "isRecurring": "繰り返し?"
+          },
+          "placeholder": {
+            "category": "カテゴリーを選択",
+            "title": "例: 電気代",
+            "currency": "通貨を選択",
+            "excludedDates": "日付を選択..."
+          }
+        }
       }
     },
     "transactions": {
@@ -89,6 +108,9 @@
       "title": "よろしいですか？",
       "description": "この操作は元に戻せません",
       "okButton": "続行"
+    },
+    "label": {
+      "selectPlaceholder": "アイテムを選択"
     }
   }
 }
