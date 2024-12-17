@@ -1,4 +1,11 @@
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import {
+  Dispatch,
+  RefObject,
+  SetStateAction,
+  useEffect,
+  useMemo,
+  useState
+} from 'react';
 import axios from 'axios';
 import { format } from 'date-fns';
 import { z } from 'zod';
@@ -6,7 +13,6 @@ import { useForm, useWatch } from 'react-hook-form';
 import moment from 'moment';
 import { useAppSelector } from '../../../lib/hooks';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { cn } from '../../../lib/utils';
 
 import {
   Popover,
@@ -21,6 +27,14 @@ import {
   FormLabel,
   FormMessage
 } from '../../../components/ui/form';
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
+} from '../../../components/ui/select';
 import { Input } from '../../../components/ui/input';
 import { Button } from '../../../components/ui/button';
 import { Calendar } from '../../../components/ui/calendar';
@@ -31,19 +45,12 @@ import { CalendarIcon } from 'lucide-react';
 
 import fetchTransactionPayments from '../../../providers/fetchTransactionPayments';
 
+import { dateStringFormat } from '@shared/constants/dateStringFormat';
+import { formatCurrency } from '@shared/utilities/formatCurrency';
+
 import type { DashboardDataResult } from '../../../types/Dashboard';
 import type { ListProps } from '../../../types/List';
 import type { CategoryItemProps } from '../../../types/Category';
-
-import { dateStringFormat } from '@shared/constants/dateStringFormat';
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue
-} from '@web/components/ui/select';
 
 type TransactionDrawerFormProps = {
   type: ListProps;
@@ -51,7 +58,7 @@ type TransactionDrawerFormProps = {
   currencies: ListProps[];
   setDashboardData: Dispatch<SetStateAction<DashboardDataResult>>;
   setIsTransactionDrawerOpen: Dispatch<SetStateAction<boolean>>;
-  formRef: any;
+  formRef: RefObject<HTMLFormElement>;
 };
 
 type FormDataProps = z.infer<typeof formSchema>;
@@ -60,7 +67,7 @@ type TransactionProps = {
   name: string;
   category: string;
   currency: string;
-  amount: number;
+  amount: string;
   description: string;
   isRecurring: boolean;
   startDate: Date;
@@ -73,11 +80,8 @@ const formSchema = z.object({
     required_error: 'Please select a start date.'
   }),
   endDate: z.date(),
-  category: z.object({
-    _id: z.string().min(1, {
-      message: 'Please select a category'
-    }),
-    name: z.string()
+  category: z.string().min(1, {
+    message: 'Please select a category'
   }),
   // title: z.string({
   //   required_error: 'Please enter a title'
@@ -85,12 +89,15 @@ const formSchema = z.object({
   title: z.string().min(1, {
     message: 'Please enter a title'
   }),
-  currency: z.object({
-    _id: z.string(),
-    name: z.string({
-      required_error: 'Please select a currency'
-    })
+  currency: z.string().min(1, {
+    message: 'Please select a currency'
   }),
+  // currency: z.object({
+  //   _id: z.string(),
+  //   name: z.string({
+  //     required_error: 'Please select a currency'
+  //   })
+  // }),
   amount: z.coerce.number({
     required_error: 'Please enter an amount'
   }),
@@ -114,21 +121,23 @@ const TransactionDrawerForm = ({
   setIsTransactionDrawerOpen,
   formRef
 }: TransactionDrawerFormProps) => {
-  const [date, setDate] = useState(new Date());
+  // const [date, setDate] = useState(new Date());
   const [isStartDatePopoverOpen, setIsStartDatePopoverOpen] = useState(false);
   const [isEndDatePopoverOpen, setIsEndDatePopoverOpen] = useState(false);
+  const [categoryValue, setCategoryValue] = useState<ListProps>({
+    _id: '',
+    name: ''
+  });
 
   const dashboard = useAppSelector((state) => state.dashboard);
 
   const currency = dashboard.currency;
 
-  useEffect(() => {
-    setDate(moment(dashboard.date, dateStringFormat).toDate());
-  }, [dashboard]);
+  const date = useMemo(() => {
+    const convertedDate = moment(dashboard.date, dateStringFormat).toDate();
 
-  useEffect(() => {
-    form.resetField('category');
-  }, [type]);
+    return convertedDate;
+  }, [dashboard.date]);
 
   const createTransaction = async (transactionData: TransactionProps) => {
     try {
@@ -144,7 +153,7 @@ const TransactionDrawerForm = ({
         });
 
         setDashboardData(result);
-        setIsTransactionDrawerOpen(false);
+        // setIsTransactionDrawerOpen(false);
       }
     } catch (error) {
       console.error(error);
@@ -156,12 +165,9 @@ const TransactionDrawerForm = ({
     defaultValues: {
       startDate: date,
       endDate: date,
-      category: {
-        _id: '',
-        name: ''
-      },
+      category: '',
       title: '',
-      currency,
+      currency: currency._id,
       // amount: 0,
       isRecurring: false
       // excludedDates: []
@@ -184,6 +190,10 @@ const TransactionDrawerForm = ({
 
     // handleSettingExcludedDates({ startDate, endDate });
   }, [startDate, endDate, form]);
+
+  // useEffect(() => {
+  //   form.resetField('category');
+  // }, [type]);
 
   // const handleSettingExcludedDates = ({ startDate, endDate }) => {
   //   let excludedDatesArray = [];
@@ -220,9 +230,9 @@ const TransactionDrawerForm = ({
 
     const transactionData: TransactionProps = {
       name: values.title,
-      category: values.category._id,
-      currency: values.currency._id,
-      amount: values.amount,
+      category: values.category,
+      currency: values.currency,
+      amount: values.amount.toString(),
       description,
       isRecurring,
       startDate: values.startDate,
@@ -248,10 +258,7 @@ const TransactionDrawerForm = ({
             <FormItem className="flex flex-col">
               <FormLabel>Category</FormLabel>
 
-              <Select
-                onValueChange={field.onChange}
-                defaultValue={field.value._id}
-              >
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <SelectTrigger>
                   <SelectValue placeholder="Select a category" />
                 </SelectTrigger>
@@ -271,6 +278,8 @@ const TransactionDrawerForm = ({
                   </SelectGroup>
                 </SelectContent>
               </Select>
+
+              <FormMessage />
             </FormItem>
           )}
         />
@@ -304,7 +313,7 @@ const TransactionDrawerForm = ({
 
                   <Select
                     onValueChange={field.onChange}
-                    defaultValue={field.value._id}
+                    defaultValue={field.value}
                   >
                     <SelectTrigger>
                       <SelectValue placeholder="Select..." />
@@ -336,12 +345,21 @@ const TransactionDrawerForm = ({
                   <FormLabel>Amount</FormLabel>
 
                   <FormControl>
+                    {/* <Input
+                      type="number"
+                      inputMode="decimal"
+                      placeholder="0"
+                      {...field}
+                      value={field.value || ''}
+                    /> */}
                     <Input
                       type="number"
                       inputMode="decimal"
                       placeholder="0"
                       {...field}
                       value={field.value || ''}
+                      onChange={field.onChange}
+                      autoComplete="false"
                     />
                   </FormControl>
 
@@ -456,7 +474,7 @@ const TransactionDrawerForm = ({
           )}
         </div>
 
-        <div className="pt-4">
+        <div>
           {/* EXCLUDED DATES */}
           {/* {isRecurring && excludedDates?.length > 0 && (
               <div className="flex flex-col space-y-2">

@@ -22,15 +22,14 @@ import {
   AlertDialogHeader,
   AlertDialogTitle
 } from '../../../components/ui/alert-dialog';
-
+import { SelectBox } from '../../../components/shared/SelectBox';
 import TransactionDrawerForm from './TransactionDrawerForm';
 
 import type {
   DashboardDataResult,
   DashboardSelectionItemsProps
 } from '../../../types/Dashboard';
-import { SelectBox } from '@web/components/shared/SelectBox';
-import { ListProps } from '@web/types/List';
+import type { ListProps } from '../../../types/List';
 
 type TransactionDrawerProps = {
   currencies: DashboardSelectionItemsProps[];
@@ -50,6 +49,7 @@ const TransactionDrawer = ({
   const { types, categories } = useAppSelector((state) => state.main);
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isNoticeOpen, setIsNoticeOpen] = useState(false);
   const [type, setType] = useState<ListProps>({
     _id: '',
     name: ''
@@ -61,11 +61,14 @@ const TransactionDrawer = ({
     }
   }, [types]);
 
-  const formRef = useRef<HTMLFormElement>();
+  const formRef = useRef<HTMLFormElement>(null);
 
   const handleAddingTransaction = async () => {
     // Request submit to the child component
-    if (formRef.current) formRef.current.requestSubmit();
+    if (formRef.current) {
+      formRef.current.requestSubmit();
+      setIsNoticeOpen(true);
+    }
   };
 
   return (
@@ -87,7 +90,7 @@ const TransactionDrawer = ({
               </DrawerDescription>
             </DrawerHeader>
 
-            <div className="p-4 space-y-2">
+            <div className="py-1 px-8 space-y-2">
               <div className="flex flex-row justify-end">
                 <SelectBox
                   variant="ghost"
@@ -123,6 +126,7 @@ const TransactionDrawer = ({
         </DrawerContent>
       </Drawer>
 
+      {/* CONFIRMATION */}
       <AlertDialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <AlertDialogContent>
           <AlertDialogHeader>
@@ -134,6 +138,23 @@ const TransactionDrawer = ({
           <AlertDialogFooter>
             <AlertDialogCancel>{t('Common.button.cancel')}</AlertDialogCancel>
             <AlertDialogAction onClick={handleAddingTransaction}>
+              {t('Common.alertDialog.okButton')}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+
+      {/* NOTICE */}
+      <AlertDialog open={isNoticeOpen} onOpenChange={setIsNoticeOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Success</AlertDialogTitle>
+            <AlertDialogDescription>
+              Transaction added successfully!
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogAction>
               {t('Common.alertDialog.okButton')}
             </AlertDialogAction>
           </AlertDialogFooter>
