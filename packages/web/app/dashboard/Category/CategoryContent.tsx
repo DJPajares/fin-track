@@ -77,7 +77,8 @@ const CategoryContent = ({
               <Progress
                 label={formatCurrency({
                   value: amount,
-                  currency: currency.name
+                  currency: currency.name,
+                  decimal: 2
                 })}
                 value={Math.floor((paidAmount / amount) * 100)}
                 size="sm"
@@ -113,7 +114,8 @@ const CategoryContent = ({
               </div>
               <p className="text-sm font-medium">{`/ ${formatCurrency({
                 value: amount,
-                currency: currency.name
+                currency: currency.name,
+                decimal: 2
               })}`}</p>
             </div>
           </PopoverContent>
