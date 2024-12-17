@@ -7,7 +7,7 @@ import {
   useState
 } from 'react';
 import axios from 'axios';
-import { format } from 'date-fns';
+import { addMonths, differenceInCalendarMonths, format } from 'date-fns';
 import { z } from 'zod';
 import { useForm, useWatch } from 'react-hook-form';
 import moment from 'moment';
@@ -46,7 +46,6 @@ import { CalendarIcon } from 'lucide-react';
 import fetchTransactionPayments from '../../../providers/fetchTransactionPayments';
 
 import { dateStringFormat } from '@shared/constants/dateStringFormat';
-import { formatCurrency } from '@shared/utilities/formatCurrency';
 
 import type { DashboardDataResult } from '../../../types/Dashboard';
 import type { ListProps } from '../../../types/List';
@@ -59,6 +58,11 @@ type TransactionDrawerFormProps = {
   setDashboardData: Dispatch<SetStateAction<DashboardDataResult>>;
   setIsTransactionDrawerOpen: Dispatch<SetStateAction<boolean>>;
   formRef: RefObject<HTMLFormElement>;
+};
+
+type ExcludedDatesProps = {
+  value: string;
+  label: string;
 };
 
 type FormDataProps = z.infer<typeof formSchema>;
@@ -83,9 +87,6 @@ const formSchema = z.object({
   category: z.string().min(1, {
     message: 'Please select a category'
   }),
-  // title: z.string({
-  //   required_error: 'Please enter a title'
-  // }),
   title: z.string().min(1, {
     message: 'Please enter a title'
   }),
@@ -101,14 +102,14 @@ const formSchema = z.object({
   amount: z.coerce.number({
     required_error: 'Please enter an amount'
   }),
-  isRecurring: z.boolean()
-  // excludedDates: z
-  //   .object({
-  //     value: z.string(),
-  //     label: z.string()
-  //   })
-  //   .array()
-  //   .optional()
+  isRecurring: z.boolean(),
+  excludedDates: z
+    .object({
+      value: z.string(),
+      label: z.string()
+    })
+    .array()
+    .optional()
 });
 
 const transactionsUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/transactions`;
@@ -121,14 +122,6 @@ const TransactionDrawerForm = ({
   setIsTransactionDrawerOpen,
   formRef
 }: TransactionDrawerFormProps) => {
-  // const [date, setDate] = useState(new Date());
-  const [isStartDatePopoverOpen, setIsStartDatePopoverOpen] = useState(false);
-  const [isEndDatePopoverOpen, setIsEndDatePopoverOpen] = useState(false);
-  const [categoryValue, setCategoryValue] = useState<ListProps>({
-    _id: '',
-    name: ''
-  });
-
   const dashboard = useAppSelector((state) => state.dashboard);
 
   const currency = dashboard.currency;
@@ -138,6 +131,12 @@ const TransactionDrawerForm = ({
 
     return convertedDate;
   }, [dashboard.date]);
+
+  const [isStartDatePopoverOpen, setIsStartDatePopoverOpen] = useState(false);
+  const [isEndDatePopoverOpen, setIsEndDatePopoverOpen] = useState(false);
+  const [excludedDatesArray, setExcludedDatesArray] = useState<
+    ExcludedDatesProps[]
+  >([]);
 
   const createTransaction = async (transactionData: TransactionProps) => {
     try {
@@ -169,74 +168,67 @@ const TransactionDrawerForm = ({
       title: '',
       currency: currency._id,
       // amount: 0,
-      isRecurring: false
-      // excludedDates: []
+      isRecurring: false,
+      excludedDates: []
     }
   });
 
-  // Watch form fields that are used for conditions
   const startDate = useWatch({ control: form.control, name: 'startDate' });
   const endDate = useWatch({ control: form.control, name: 'endDate' });
   const isRecurring = useWatch({ control: form.control, name: 'isRecurring' });
-  // const excludedDates = useWatch({
-  //   control: form.control,
-  //   name: 'excludedDates'
-  // });
 
   useEffect(() => {
     if (startDate && endDate && endDate < startDate) {
       form.setValue('endDate', startDate);
     }
 
-    // handleSettingExcludedDates({ startDate, endDate });
+    handleSettingExcludedDates({ startDate, endDate });
   }, [startDate, endDate, form]);
 
-  // useEffect(() => {
-  //   form.resetField('category');
-  // }, [type]);
+  const handleSettingExcludedDates = ({
+    startDate,
+    endDate
+  }: {
+    startDate: Date;
+    endDate: Date;
+  }) => {
+    let excludedDatesArray = [];
 
-  // const handleSettingExcludedDates = ({ startDate, endDate }) => {
-  //   let excludedDatesArray = [];
+    if (startDate && endDate) {
+      const totalMonths = differenceInCalendarMonths(endDate, startDate);
 
-  //   if (startDate && endDate) {
-  //     const startDateDay1 = setDate(startDate, 1);
-  //     const endDateDay1 = setDate(endDate, 1);
+      for (let months = 0; months <= totalMonths; months++) {
+        const date = addMonths(startDate, months);
 
-  //     const totalMonths = differenceInCalendarMonths(
-  //       endDateDay1,
-  //       startDateDay1
-  //     );
+        const data = {
+          value: date.toDateString(),
+          label: format(date, 'MMM yyyy')
+        };
 
-  //     for (let months = 0; months <= totalMonths; months++) {
-  //       const date = addMonths(startDateDay1, months);
+        excludedDatesArray.push(data);
+      }
 
-  //       const data = {
-  //         value: date,
-  //         label: format(date, 'MMM yyyy')
-  //       };
+      setExcludedDatesArray(excludedDatesArray);
+    }
+  };
 
-  //       excludedDatesArray.push(data);
-  //     }
-  //   }
-
-  //   // form.setValue('excludedDates', excludedDatesArray);
-  //   // setExcludedDates(excludedDatesArray);
-  // };
-
-  const onSubmit = async (values: FormDataProps) => {
+  const onSubmit = async (data: FormDataProps) => {
     // no states
     const description = '';
-    const excludedDates = [] as Date[];
+
+    const excludedDates = data.excludedDates
+      ? data.excludedDates.map((date) => new Date(date.value))
+      : [];
 
     const transactionData: TransactionProps = {
-      name: values.title,
-      category: values.category,
-      currency: values.currency,
-      amount: values.amount.toString(),
+      name: data.title,
+      category: data.category,
+      currency: data.currency,
+      amount: data.amount.toString(),
       description,
       isRecurring,
-      startDate: values.startDate,
-      endDate: isRecurring ? values.endDate : values.startDate,
+      startDate: data.startDate,
+      endDate: isRecurring ? data.endDate : data.startDate,
       excludedDates
     };
 
@@ -476,24 +468,28 @@ const TransactionDrawerForm = ({
 
         <div>
           {/* EXCLUDED DATES */}
-          {/* {isRecurring && excludedDates?.length > 0 && (
-              <div className="flex flex-col space-y-2">
-                <p className="font-medium">Excluded Dates:</p>
-                <FormField
-                  control={form.control}
-                  name="excludedDates"
-                  render={({ field }) => (
-                    <FormItem className="flex flex-col">
-                      <FormControl>
-                        <MultiSelectBox dataArray={field.value} />
-                      </FormControl>
+          {isRecurring && (
+            <FormField
+              control={form.control}
+              name="excludedDates"
+              render={({ field }) => (
+                <FormItem className="flex flex-col">
+                  <FormLabel>Excluded Dates</FormLabel>
 
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
-            )} */}
+                  <FormControl>
+                    <MultiSelectBox
+                      dataArray={excludedDatesArray}
+                      value={field.value || []}
+                      onChange={field.onChange}
+                      placeholder="Select dates..."
+                    />
+                  </FormControl>
+
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          )}
 
           {/* RECURRING */}
           <div className="flex flex-row items-center justify-start">
