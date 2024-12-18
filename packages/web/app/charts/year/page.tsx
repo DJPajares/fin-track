@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import moment from 'moment';
 
 import { useAppSelector } from '../../../lib/hooks';
@@ -49,6 +49,7 @@ import {
 import { fetchTransactionsDateRangeByType } from '../../../providers/fetchTransactions';
 
 import { formatCurrency } from '@shared/utilities/formatCurrency';
+import { dateStringFormat } from '@shared/constants/dateStringFormat';
 
 type ChartDataProps = {
   date: string;
@@ -75,9 +76,15 @@ const generateYearsArray = (range: number): number[] => {
 const Charts = () => {
   const isMobile = useIsMobile();
 
-  const [date, setDate] = useState(new Date());
+  const dashboardDateString = useAppSelector((state) => state.dashboard.date);
+
+  const dashboardDate = useMemo(
+    () => moment(dashboardDateString, dateStringFormat).toDate(),
+    [dashboardDateString]
+  );
+
   const [selectedYear, setSelectedYear] = useState<string>(
-    new Date().getFullYear().toString()
+    dashboardDate.getFullYear().toString()
   );
   const [chartData, setChartData] = useState<ChartDataProps[]>([]);
   const [chartDataA, setChartDataA] = useState<ChartDataPropsA[]>([]);
