@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import moment from 'moment';
 import { useTranslations } from 'next-intl';
 import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
@@ -17,6 +17,7 @@ import TransactionCard from './Transaction/TransactionCard';
 
 import type { ListProps } from '../../types/List';
 import type { IconProps } from '../../components/shared/CardIcon';
+import { dateStringFormat } from '@shared/constants/dateStringFormat';
 
 type TransactionProps = {
   _id: string;
@@ -36,8 +37,14 @@ const Transactions = () => {
   const t = useTranslations();
 
   const { types } = useAppSelector((state) => state.main);
+  const dashboardDateString = useAppSelector((state) => state.dashboard.date);
 
-  const [date, setDate] = useState<Date>(new Date());
+  const dashboardDate = useMemo(
+    () => moment(dashboardDateString, dateStringFormat).toDate(),
+    [dashboardDateString]
+  );
+
+  const [date, setDate] = useState<Date>(dashboardDate);
   const [selectedType, setSelectedType] = useState<ListProps>({
     _id: '',
     name: ''

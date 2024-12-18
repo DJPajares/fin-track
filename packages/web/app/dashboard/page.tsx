@@ -58,26 +58,26 @@ const initialTransactionPaymentCategory = {
 };
 
 const Dashboard = () => {
-  const [dashboardData, setDashboardData] =
-    useState<DashboardDataResult>(initialDashboardData);
-  const [dashboardCategoryData, setDashboardCategoryData] =
-    useState<DashboardDataCategoryResult>(initialTransactionPaymentCategory);
-  const [stateDate, setStateDate] = useState(new Date());
-  const [isCurrencyPopoverOpen, setIsCurrencyPopoverOpen] = useState(false);
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [isTransactionDrawerOpen, setIsTransactionDrawerOpen] = useState(false);
-
   const t = useTranslations('Page.dashboard');
   const dispatch = useAppDispatch();
 
   const { currencies } = useAppSelector((state) => state.main);
-  const dateString = useAppSelector((state) => state.dashboard.date);
-  const currency = useAppSelector((state) => state.dashboard.currency);
+  const { currency } = useAppSelector((state) => state.dashboard);
+  const dashboardDateString = useAppSelector((state) => state.dashboard.date);
 
-  const date = useMemo(
-    () => moment(dateString, dateStringFormat).toDate(),
-    [dateString]
+  const dashboardDate = useMemo(
+    () => moment(dashboardDateString, dateStringFormat).toDate(),
+    [dashboardDateString]
   );
+
+  const [dashboardData, setDashboardData] =
+    useState<DashboardDataResult>(initialDashboardData);
+  const [dashboardCategoryData, setDashboardCategoryData] =
+    useState<DashboardDataCategoryResult>(initialTransactionPaymentCategory);
+  const [date, setDate] = useState(dashboardDate);
+  const [isCurrencyPopoverOpen, setIsCurrencyPopoverOpen] = useState(false);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isTransactionDrawerOpen, setIsTransactionDrawerOpen] = useState(false);
 
   useEffect(() => {
     if (currencies.length > 0) {
@@ -96,14 +96,14 @@ const Dashboard = () => {
   useEffect(() => {
     const hasCurrency = Object.keys(currency).length > 0;
 
-    if (date && hasCurrency) {
-      fetchDashboardData({ date, currency: currency.name });
+    if (dashboardDate && hasCurrency) {
+      fetchDashboardData({ date: dashboardDate, currency: currency.name });
     }
-  }, [date, currency]);
+  }, [dashboardDate, currency]);
 
   useEffect(() => {
-    handleDateSelection(stateDate);
-  }, [stateDate]);
+    handleDateSelection(date);
+  }, [date]);
 
   const fetchDashboardData = async ({ date, currency }: DashboardDataProps) => {
     const data = await fetchTransactionPayments({
@@ -147,15 +147,15 @@ const Dashboard = () => {
   };
 
   const handlePrevMonth = () => {
-    const newDate = moment(date).add(-1, 'months');
+    const newDate = moment(dashboardDate).add(-1, 'months');
 
-    setStateDate(moment(newDate).toDate());
+    setDate(moment(newDate).toDate());
   };
 
   const handleNextMonth = () => {
-    const newDate = moment(date).add(1, 'months');
+    const newDate = moment(dashboardDate).add(1, 'months');
 
-    setStateDate(moment(newDate).toDate());
+    setDate(moment(newDate).toDate());
   };
 
   return (
@@ -170,10 +170,10 @@ const Dashboard = () => {
           <ChevronLeftIcon className="h-4 w-4" />
         </Button>
 
-        <DatePicker date={stateDate} onChange={setStateDate}>
+        <DatePicker date={date} onChange={setDate}>
           <Button variant="ghost" className="px-1">
             <p className="text-3xl sm:text-5xl font-extrabold sm:font-black hover:underline hover:bg-background">
-              {moment(stateDate).format('MMM yyyy')}
+              {moment(date).format('MMM yyyy')}
             </p>
           </Button>
         </DatePicker>

@@ -36,6 +36,7 @@ import { CHART_COLORS } from '../../../constants/chartColorPalettes';
 import { formatCurrency } from '@shared/utilities/formatCurrency';
 
 import type { ListProps } from '../../../types/List';
+import { dateStringFormat } from '@shared/constants/dateStringFormat';
 
 type TransactionByCategory = {
   category: string;
@@ -52,10 +53,16 @@ const Charts = () => {
   const t = useTranslations();
   const isMobile = useIsMobile();
 
-  const { currency } = useAppSelector((state) => state.dashboard);
   const { types } = useAppSelector((state) => state.main);
+  const { currency } = useAppSelector((state) => state.dashboard);
+  const dashboardDateString = useAppSelector((state) => state.dashboard.date);
 
-  const [date, setDate] = useState(new Date());
+  const dashboardDate = useMemo(
+    () => moment(dashboardDateString, dateStringFormat).toDate(),
+    [dashboardDateString]
+  );
+
+  const [date, setDate] = useState(dashboardDate);
   const [chartData, setChartData] = useState<TransactionByCategory[]>([]);
   const [chartConfigData, setChartConfigData] = useState<ChartConfig>({});
   const [selectedType, setSelectedType] = useState<ListProps>({
