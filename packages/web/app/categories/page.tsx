@@ -56,96 +56,94 @@ const Categories = () => {
   };
 
   return (
-    <div className="space-y-6 sm:space-y-10">
-      <div className="space-y-2">
-        <div className="flex flex-row justify-end">
-          <SelectBox
-            variant="ghost"
-            items={types}
-            selectedItem={selectedType}
-            setSelectedItem={setSelectedType}
-            placeholder={t('Common.label.selectPlaceholder')}
-            className="w-fit p-0 text-base font-semibold"
-          />
-        </div>
+    <div className="mx-auto max-w-lg space-y-2">
+      <div className="flex flex-row justify-end">
+        <SelectBox
+          variant="ghost"
+          items={types}
+          selectedItem={selectedType}
+          setSelectedItem={setSelectedType}
+          placeholder={t('Common.label.selectPlaceholder')}
+          className="w-fit p-0 text-base font-semibold"
+        />
+      </div>
 
-        <div className="space-y-4">
-          <div className="space-y-1">
-            <div className="flex flex-row items-center justify-between">
-              <h6 className="font-semibold text-lg">
-                {t('Page.categories.titleCategories').toLocaleUpperCase()}
-              </h6>
-
-              <EditCategoryDrawer
-                type={selectedType}
-                category={baseCategory}
-                title={t('Page.categories.categoryDrawer.titleAdd')}
-                okButton={t('Common.button.add')}
-                isNew
-              >
-                <Button variant="ghost" size="sm_rounded_icon">
-                  <PlusIcon className="h-4 w-4" />
-                </Button>
-              </EditCategoryDrawer>
-            </div>
-
-            <div className="bg-accent rounded-lg">
-              {categories
-                .filter(
-                  (category) =>
-                    category.type._id === selectedType._id && category.active
-                )
-                .map((category, i, { length }) => (
-                  <div key={category._id}>
-                    <EditCategoryDrawer
-                      type={selectedType}
-                      category={category}
-                      title={t('Page.categories.categoryDrawer.titleEdit')}
-                      okButton={t('Common.button.update')}
-                    >
-                      <div className="flex flex-row items-center space-x-4 p-2 hover:bg-border cursor-pointer">
-                        <CardIcon icon={category.icon} />
-                        <p>{category.name}</p>
-                      </div>
-                    </EditCategoryDrawer>
-
-                    {i + 1 !== length && <Separator />}
-                  </div>
-                ))}
-            </div>
-          </div>
-
-          <div className="space-y-1">
+      <div className="space-y-4">
+        <div className="space-y-1">
+          <div className="flex flex-row items-center justify-between">
             <h6 className="font-semibold text-lg">
-              {t('Page.categories.titleSuggestions').toLocaleUpperCase()}
+              {t('Page.categories.titleCategories').toLocaleUpperCase()}
             </h6>
 
-            <div className="bg-accent rounded-lg">
-              {categories
-                .filter(
-                  (category) =>
-                    category.type._id === selectedType._id && !category.active
-                )
-                .map((category, i, { length }) => (
-                  <div key={category._id}>
-                    <div
-                      className="flex flex-row items-center justify-between p-2 hover:bg-border cursor-pointer"
-                      onClick={() => handleAddSuggestedCategory(category)}
-                    >
-                      <div className="flex flex-row items-center space-x-4">
-                        <CardIcon icon={category.icon} />
-                        <p>{category.name}</p>
-                      </div>
+            <EditCategoryDrawer
+              type={selectedType}
+              category={baseCategory}
+              title={t('Page.categories.categoryDrawer.titleAdd')}
+              okButton={t('Common.button.add')}
+              isNew
+            >
+              <Button variant="ghost" size="sm_rounded_icon">
+                <PlusIcon className="h-4 w-4" />
+              </Button>
+            </EditCategoryDrawer>
+          </div>
 
-                      <Button variant="ghost" size="sm_rounded_icon">
-                        <PlusIcon className="h-4 w-4" />
-                      </Button>
+          <div className="bg-accent rounded-lg">
+            {categories
+              .filter(
+                (category) =>
+                  category.type._id === selectedType._id && category.active
+              )
+              .map((category, i, { length }) => (
+                <div key={category._id}>
+                  <EditCategoryDrawer
+                    type={selectedType}
+                    category={category}
+                    title={t('Page.categories.categoryDrawer.titleEdit')}
+                    okButton={t('Common.button.update')}
+                  >
+                    <div className="flex flex-row items-center space-x-4 p-2 hover:bg-border cursor-pointer">
+                      <CardIcon icon={category.icon} />
+                      <p>{category.name}</p>
+                    </div>
+                  </EditCategoryDrawer>
+
+                  {i + 1 !== length && <Separator />}
+                </div>
+              ))}
+          </div>
+        </div>
+
+        <div className="space-y-1">
+          <h6 className="font-semibold text-lg">
+            {t('Page.categories.titleSuggestions').toLocaleUpperCase()}
+          </h6>
+
+          <div className="bg-accent rounded-lg">
+            {categories
+              .filter(
+                (category) =>
+                  category.type._id === selectedType._id && !category.active
+              )
+              .map((category, i, { length }) => (
+                <div key={category._id}>
+                  <div
+                    className="flex flex-row items-center justify-between p-2 hover:bg-border cursor-pointer"
+                    onClick={() => handleAddSuggestedCategory(category)}
+                  >
+                    <div className="flex flex-row items-center space-x-4">
+                      <CardIcon icon={category.icon} />
+                      <p>{category.name}</p>
                     </div>
 
-                    {i + 1 !== length && <Separator />}
+                    <Button variant="ghost" size="sm_rounded_icon">
+                      <PlusIcon className="h-4 w-4" />
+                    </Button>
                   </div>
-                ))}
-            </div>
+
+                  {i + 1 !== length && <Separator />}
+                </div>
+              ))}
           </div>
         </div>
       </div>

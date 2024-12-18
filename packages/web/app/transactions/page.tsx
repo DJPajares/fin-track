@@ -117,7 +117,7 @@ const Transactions = () => {
   };
 
   return (
-    <div className="space-y-6 sm:space-y-10">
+    <div className="mx-auto max-w-lg space-y-6 sm:space-y-10">
       <div className="flex flex-row justify-center items-center">
         <Button
           variant="ghost"
