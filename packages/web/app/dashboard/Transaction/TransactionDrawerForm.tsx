@@ -58,7 +58,7 @@ type TransactionDrawerFormProps = {
   currencies: ListProps[];
   setDashboardData: Dispatch<SetStateAction<DashboardDataResult>>;
   setIsTransactionDrawerOpen: Dispatch<SetStateAction<boolean>>;
-  formRef: RefObject<HTMLFormElement | null>;
+  formRef: RefObject<HTMLFormElement>;
 };
 
 type ExcludedDatesProps = {
