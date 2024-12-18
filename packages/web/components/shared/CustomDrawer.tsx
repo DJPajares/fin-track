@@ -84,7 +84,7 @@ const CustomDrawer = ({
     <>
       <Drawer open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
         <DrawerContent>
-          <div className="mx-auto w-full max-w-lg overflow-y-scroll max-h-screen">
+          <div className="mx-auto w-full max-w-lg overflow-y-auto max-h-screen">
             <DrawerHeader>
               {title && <DrawerTitle>{title.toUpperCase()}</DrawerTitle>}
               {description && (
