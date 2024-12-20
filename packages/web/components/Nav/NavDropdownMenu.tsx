@@ -33,9 +33,9 @@ import { languages, LocaleProps } from '../../i18n/config';
 import { setUserLocale } from '../../services/locale';
 
 import { useLocale, useTranslations } from 'next-intl';
-import { useAppSelector } from '../../lib/hooks';
+import { useAppSelector } from '../../lib/hooks/use-redux';
 import { useDispatch } from 'react-redux';
-import { setDashboardCurrency } from '../../lib/feature/dashboard/dashboardSlice';
+import { setDashboardCurrency } from '../../lib/redux/feature/dashboard/dashboardSlice';
 
 import type { ListProps } from '../../types/List';
 

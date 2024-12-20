@@ -33,12 +33,12 @@ import {
 } from '../../../components/ui/popover';
 import { Button } from '../../../components/ui/button';
 
-import { useAppDispatch } from '../../../lib/hooks';
+import { useAppDispatch } from '../../../lib/hooks/use-redux';
 import {
   addCategory,
   deleteCategory,
   updateCategory
-} from '../../../lib/feature/main/mainSlice';
+} from '../../../lib/redux/feature/main/mainSlice';
 
 import CardIcon, {
   iconMap,

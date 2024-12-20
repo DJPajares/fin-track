@@ -3,11 +3,11 @@
 import { useEffect, useMemo, useState } from 'react';
 import moment from 'moment';
 import { useTranslations } from 'next-intl';
-import { useAppDispatch, useAppSelector } from '../../lib/hooks';
+import { useAppDispatch, useAppSelector } from '../../lib/hooks/use-redux';
 import {
   setDashboardCurrency,
   setDashboardDate
-} from '../../lib/feature/dashboard/dashboardSlice';
+} from '../../lib/redux/feature/dashboard/dashboardSlice';
 
 import { ScrollShadow, CircularProgress } from '@nextui-org/react';
 // import { CircularProgress } from '@nextui-org/react';

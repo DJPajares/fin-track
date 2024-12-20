@@ -5,8 +5,8 @@ import {
   setCategories,
   setCurrencies,
   setTypes
-} from '../lib/feature/main/mainSlice';
-import { useAppDispatch } from '../lib/hooks';
+} from '../lib/redux/feature/main/mainSlice';
+import { useAppDispatch } from '../lib/hooks/use-redux';
 
 import fetchTypes from './fetchTypes';
 import fetchCategories from './fetchCategories';

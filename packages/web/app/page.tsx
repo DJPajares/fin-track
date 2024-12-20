@@ -5,7 +5,7 @@ import { Card } from '../components/ui/card';
 import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { useToast } from '../hooks/use-toast';
+import { useToast } from '../lib/hooks/use-toast';
 
 const isMockedData = process.env.NEXT_PUBLIC_USE_MOCKED_DATA === 'true';
 

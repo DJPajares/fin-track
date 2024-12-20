@@ -2,8 +2,8 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { serializeText } from '@shared/utilities/serializeText';
 
-import type { CategoryItemProps } from '../../../types/Category';
-import type { ListProps } from '../../../types/List';
+import type { CategoryItemProps } from '../../../../types/Category';
+import type { ListProps } from '../../../../types/List';
 
 const initialState: MainSliceProps = {
   types: [],

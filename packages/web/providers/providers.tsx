@@ -3,7 +3,7 @@
 import { NextUIProvider } from '@nextui-org/react';
 import { ThemeProvider as NextThemesProvider } from 'next-themes';
 import { Provider as ReduxProvider } from 'react-redux';
-import { AppStore, store } from '../lib/store';
+import { AppStore, store } from '../lib/redux/store';
 import { useRef } from 'react';
 import { ClientDataProvider } from './clientDataProvider';
 

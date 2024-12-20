@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import axios from 'axios';
 import moment from 'moment';
-import { useAppSelector } from '../../../lib/hooks';
+import { useAppSelector } from '../../../lib/hooks/use-redux';
 
 import { Button } from '../../../components/ui/button';
 import {

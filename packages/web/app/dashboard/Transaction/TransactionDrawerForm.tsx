@@ -11,7 +11,7 @@ import { addMonths, differenceInCalendarMonths, format } from 'date-fns';
 import { z } from 'zod';
 import { useForm, useWatch } from 'react-hook-form';
 import moment from 'moment';
-import { useAppSelector } from '../../../lib/hooks';
+import { useAppSelector } from '../../../lib/hooks/use-redux';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslations } from 'next-intl';
 
@@ -88,7 +88,7 @@ const formSchema = z.object({
   category: z.string().min(1, {
     message: 'Please select a category'
   }),
-  title: z.string().min(1, {
+  name: z.string().min(1, {
     message: 'Please enter a title'
   }),
   currency: z.string().min(1, {
@@ -161,7 +161,7 @@ const TransactionDrawerForm = ({
       startDate: date,
       endDate: date,
       category: '',
-      title: '',
+      name: '',
       currency: currency._id,
       // amount: 0,
       isRecurring: false,
@@ -209,22 +209,22 @@ const TransactionDrawerForm = ({
   };
 
   const onSubmit = async (data: FormDataProps) => {
-    // no states
     const description = '';
-
     const excludedDates = data.excludedDates
       ? data.excludedDates.map((date) => new Date(date.value))
       : [];
 
+    const { name, category, currency, amount, startDate, endDate } = data;
+
     const transactionData: TransactionProps = {
-      name: data.title,
-      category: data.category,
-      currency: data.currency,
-      amount: data.amount.toString(),
+      name,
+      category,
+      currency,
+      amount: amount.toString(),
       description,
       isRecurring,
-      startDate: data.startDate,
-      endDate: isRecurring ? data.endDate : data.startDate,
+      startDate,
+      endDate: isRecurring ? endDate : startDate,
       excludedDates
     };
 
@@ -281,7 +281,7 @@ const TransactionDrawerForm = ({
         {/* TITLE */}
         <FormField
           control={form.control}
-          name="title"
+          name="name"
           render={({ field }) => (
             <FormItem className="flex flex-col">
               <FormLabel>

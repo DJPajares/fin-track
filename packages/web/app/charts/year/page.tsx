@@ -3,8 +3,8 @@
 import { useEffect, useMemo, useState } from 'react';
 import moment from 'moment';
 
-import { useAppSelector } from '../../../lib/hooks';
-import { useIsMobile } from '../../../hooks/use-mobile';
+import { useAppSelector } from '../../../lib/hooks/use-redux';
+import { useIsMobile } from '../../../lib/hooks/use-mobile';
 
 import {
   Bar,

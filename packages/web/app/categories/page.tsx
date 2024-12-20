@@ -4,8 +4,8 @@ import { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { PlusIcon } from 'lucide-react';
 
-import { useAppDispatch, useAppSelector } from '../../lib/hooks';
-import { updateCategory } from '../../lib/feature/main/mainSlice';
+import { useAppDispatch, useAppSelector } from '../../lib/hooks/use-redux';
+import { updateCategory } from '../../lib/redux/feature/main/mainSlice';
 
 import { Separator } from '../../components/ui/separator';
 import { Button } from '../../components/ui/button';

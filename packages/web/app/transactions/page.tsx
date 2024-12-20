@@ -5,8 +5,8 @@ import moment from 'moment';
 import { useTranslations } from 'next-intl';
 import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
 
-import { useAppSelector } from '../../lib/hooks';
-import { useGetTransactionsQuery } from '../../lib/services/transactions';
+import { useAppSelector } from '../../lib/hooks/use-redux';
+import { useGetTransactionsQuery } from '../../lib/redux/services/transactions';
 
 import { DatePicker } from '../../components/shared/DatePicker';
 import { Button } from '../../components/ui/button';

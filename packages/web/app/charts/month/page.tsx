@@ -4,8 +4,8 @@ import { useEffect, useMemo, useState } from 'react';
 import moment from 'moment';
 import { useTranslations } from 'next-intl';
 import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
-import { useAppSelector } from '../../../lib/hooks';
-import { useIsMobile } from '../../../hooks/use-mobile';
+import { useAppSelector } from '../../../lib/hooks/use-redux';
+import { useIsMobile } from '../../../lib/hooks/use-mobile';
 
 import { Cell, Label, Pie, PieChart } from 'recharts';
 import { DatePicker } from '../../../components/shared/DatePicker';
