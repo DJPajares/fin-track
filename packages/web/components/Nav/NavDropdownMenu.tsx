@@ -29,7 +29,7 @@ import {
 import { Switch } from '../ui/switch';
 
 import packageInfo from '../../package.json';
-import { languages, LocaleProps } from '../../i18n/config';
+import { languages, LocaleProps } from '../../lib/i18n/config';
 import { setUserLocale } from '../../services/locale';
 
 import { useLocale, useTranslations } from 'next-intl';
