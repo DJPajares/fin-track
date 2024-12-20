@@ -5,21 +5,7 @@ import EditTransactionDrawer from '../EditTransaction/EditTransactionDrawer';
 import CardIcon from '../../../components/shared/CardIcon';
 import { formatCurrency } from '@shared/utilities/formatCurrency';
 
-import type { IconProps } from '../../../components/shared/CardIcon';
-
-type TransactionProps = {
-  _id: string;
-  name: string;
-  typeId: string;
-  typeName: string;
-  categoryId: string;
-  categoryName: string;
-  categoryIcon: IconProps;
-  currencyId: string;
-  currencyName: string;
-  amount: number;
-  description: string;
-};
+import type { TransactionProps } from '../../../types/Transaction';
 
 type TransactionCardProps = {
   transaction: TransactionProps;

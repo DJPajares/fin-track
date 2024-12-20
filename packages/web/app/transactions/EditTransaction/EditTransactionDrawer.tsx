@@ -28,17 +28,12 @@ import {
 import { Input } from '../../../components/ui/input';
 import { Label } from '../../../components/ui/label';
 
-import updateTransaction from '../../../providers/updateTransaction';
+import updateTransaction from '../../../services/updateTransaction';
+
+import type { TransactionProps } from '../../../types/Transaction';
 
 type EditTransactionDrawerProps = {
-  transaction: {
-    _id: string;
-    name: string;
-    currencyId: string;
-    currencyName: string;
-    amount: number;
-    description: string;
-  };
+  transaction: TransactionProps;
   // fetchTransactions: () => void;
   children: ReactNode;
 };
@@ -54,17 +49,49 @@ const EditTransactionDrawer = ({
 
   const formRef = useRef<HTMLFormElement>(null);
 
+  // const { name, currency, amount } = transaction;
+
+  console.log(transaction);
+
   const formSchema = z.object({
-    name: z.string(),
-    amount: z.number()
+    startDate: z.date({
+      required_error: 'Please select a start date.'
+    }),
+    endDate: z.date(),
+    category: z.string().min(1, {
+      message: 'Please select a category'
+    }),
+    name: z.string().min(1, {
+      message: 'Please enter a title'
+    }),
+    currency: z.string().min(1, {
+      message: 'Please select a currency'
+    }),
+    amount: z.coerce.number({
+      required_error: 'Please enter an amount'
+    }),
+    isRecurring: z.boolean(),
+    excludedDates: z
+      .object({
+        value: z.string(),
+        label: z.string()
+      })
+      .array()
+      .optional()
   });
 
   type FormDataProps = z.infer<typeof formSchema>;
 
   const form = useForm<FormDataProps>({
     defaultValues: {
+      startDate: transaction.startDate,
+      endDate: transaction.endDate,
+      category: transaction.categoryId,
       name: transaction.name,
-      amount: transaction.amount
+      currency: transaction.currencyId,
+      amount: transaction.amount,
+      isRecurring: false,
+      excludedDates: []
     }
   });
 

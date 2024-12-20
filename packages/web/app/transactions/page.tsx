@@ -19,21 +19,7 @@ import { dateStringFormat } from '@shared/constants/dateStringFormat';
 import { fetchTransactions } from '../../services/fetchTransactions';
 
 import type { ListProps } from '../../types/List';
-import type { IconProps } from '../../components/shared/CardIcon';
-
-type TransactionProps = {
-  _id: string;
-  name: string;
-  typeId: string;
-  typeName: string;
-  categoryId: string;
-  categoryName: string;
-  categoryIcon: IconProps;
-  currencyId: string;
-  currencyName: string;
-  amount: number;
-  description: string;
-};
+import type { TransactionProps } from '../../types/Transaction';
 
 const Transactions = () => {
   const t = useTranslations();
