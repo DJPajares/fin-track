@@ -9,12 +9,12 @@ import {
   setDashboardDate
 } from '../../lib/feature/dashboard/dashboardSlice';
 
-// import { ScrollShadow, CircularProgress } from '@nextui-org/react';
-import { CircularProgress } from '@nextui-org/react';
+import { ScrollShadow, CircularProgress } from '@nextui-org/react';
+// import { CircularProgress } from '@nextui-org/react';
+// import { ScrollShadow } from '../../components/ui/scroll-shadow';
 import { Button } from '../../components/ui/button';
 import { Skeleton } from '../../components/ui/skeleton';
 import { Card } from '../../components/ui/card';
-import { ScrollShadow } from '../../components/ui/scroll-shadow';
 import { DatePicker } from '../../components/shared/DatePicker';
 
 import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
@@ -248,7 +248,6 @@ const Dashboard = () => {
       </Card>
 
       {/* CATEGORY CARD */}
-      {/* <ScrollShadow className="max-h-[40vh]" hideScrollBar> */}
       <ScrollShadow className="max-h-[40vh] sm:max-h-[90vh]" hideScrollBar>
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-5 sm:gap-10 items-start justify-center">
           {dashboardData.categories.map(

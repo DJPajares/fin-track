@@ -6,18 +6,20 @@ import { useTranslations } from 'next-intl';
 import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
 
 import { useAppSelector } from '../../lib/hooks';
-import { fetchTransactions } from '../../providers/fetchTransactions';
 import { useGetTransactionsQuery } from '../../lib/services/transactions';
 
 import { DatePicker } from '../../components/shared/DatePicker';
 import { Button } from '../../components/ui/button';
-import { ScrollShadow } from '../../components/ui/scroll-shadow';
+import { ScrollShadow } from '@nextui-org/react';
+// import { ScrollShadow } from '../../components/ui/scroll-shadow';
 import { SelectBox } from '../../components/shared/SelectBox';
 import TransactionCard from './Transaction/TransactionCard';
 
+import { dateStringFormat } from '@shared/constants/dateStringFormat';
+import { fetchTransactions } from '../../providers/fetchTransactions';
+
 import type { ListProps } from '../../types/List';
 import type { IconProps } from '../../components/shared/CardIcon';
-import { dateStringFormat } from '@shared/constants/dateStringFormat';
 
 type TransactionProps = {
   _id: string;
