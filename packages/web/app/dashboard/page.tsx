@@ -24,7 +24,7 @@ import CategoryCard from '../../app/dashboard/Category/CategoryCard';
 import CategoryDrawer from '../../app/dashboard/Category/CategoryDrawer';
 import TransactionDrawer from '../../app/dashboard/Transaction/TransactionDrawer';
 
-import fetchTransactionPayments from '../../providers/fetchTransactionPayments';
+import fetchTransactionPayments from '../../services/fetchTransactionPayments';
 import { formatCurrency } from '@shared/utilities/formatCurrency';
 import { dateStringFormat } from '@shared/constants/dateStringFormat';
 

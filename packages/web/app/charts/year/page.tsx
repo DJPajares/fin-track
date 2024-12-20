@@ -46,7 +46,7 @@ import {
   TrendingUpIcon
 } from 'lucide-react';
 
-import { fetchTransactionsDateRangeByType } from '../../../providers/fetchTransactions';
+import { fetchTransactionsDateRangeByType } from '../../../services/fetchTransactions';
 
 import { formatCurrency } from '@shared/utilities/formatCurrency';
 import { dateStringFormat } from '@shared/constants/dateStringFormat';

@@ -30,7 +30,7 @@ import { iconMap } from '../../../components/shared/CardIcon';
 import {
   fetchTransactionsDateByCategory,
   TransactionsDateByCategoryProps
-} from '../../../providers/fetchTransactions';
+} from '../../../services/fetchTransactions';
 
 import { CHART_COLORS } from '../../../constants/chartColorPalettes';
 import { formatCurrency } from '@shared/utilities/formatCurrency';

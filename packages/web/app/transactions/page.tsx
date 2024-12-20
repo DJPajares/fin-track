@@ -16,7 +16,7 @@ import { SelectBox } from '../../components/shared/SelectBox';
 import TransactionCard from './Transaction/TransactionCard';
 
 import { dateStringFormat } from '@shared/constants/dateStringFormat';
-import { fetchTransactions } from '../../providers/fetchTransactions';
+import { fetchTransactions } from '../../services/fetchTransactions';
 
 import type { ListProps } from '../../types/List';
 import type { IconProps } from '../../components/shared/CardIcon';

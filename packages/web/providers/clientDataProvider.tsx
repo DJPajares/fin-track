@@ -8,9 +8,9 @@ import {
 } from '../lib/redux/feature/main/mainSlice';
 import { useAppDispatch } from '../lib/hooks/use-redux';
 
-import fetchTypes from './fetchTypes';
-import fetchCategories from './fetchCategories';
-import fetchCurrencies from './fetchCurrencies';
+import fetchTypes from '../services/fetchTypes';
+import fetchCategories from '../services/fetchCategories';
+import fetchCurrencies from '../services/fetchCurrencies';
 import { CurrencyProps } from '@web/types/Currency';
 
 type ClientDataProviderProps = {

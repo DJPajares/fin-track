@@ -44,7 +44,7 @@ import { MultiSelectBox } from '../../../components/shared/MultiSelectBox';
 
 import { CalendarIcon } from 'lucide-react';
 
-import fetchTransactionPayments from '../../../providers/fetchTransactionPayments';
+import fetchTransactionPayments from '../../../services/fetchTransactionPayments';
 
 import { dateStringFormat } from '@shared/constants/dateStringFormat';
 
