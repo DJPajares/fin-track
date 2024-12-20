@@ -47,6 +47,10 @@ import { CalendarIcon } from 'lucide-react';
 import fetchTransactionPayments from '../../../services/fetchTransactionPayments';
 
 import { dateStringFormat } from '@shared/constants/dateStringFormat';
+import {
+  type TransactionFormProps,
+  transactionSchema
+} from '../../../lib/schemas/transaction';
 
 import type { DashboardDataResult } from '../../../types/Dashboard';
 import type { ListProps } from '../../../types/List';
@@ -65,9 +69,6 @@ type ExcludedDatesProps = {
   value: string;
   label: string;
 };
-
-type FormDataProps = z.infer<typeof formSchema>;
-
 type TransactionProps = {
   name: string;
   category: string;
@@ -79,33 +80,6 @@ type TransactionProps = {
   excludedDates: Date[];
   endDate?: Date;
 };
-
-const formSchema = z.object({
-  startDate: z.date({
-    required_error: 'Please select a start date.'
-  }),
-  endDate: z.date(),
-  category: z.string().min(1, {
-    message: 'Please select a category'
-  }),
-  name: z.string().min(1, {
-    message: 'Please enter a title'
-  }),
-  currency: z.string().min(1, {
-    message: 'Please select a currency'
-  }),
-  amount: z.coerce.number({
-    required_error: 'Please enter an amount'
-  }),
-  isRecurring: z.boolean(),
-  excludedDates: z
-    .object({
-      value: z.string(),
-      label: z.string()
-    })
-    .array()
-    .optional()
-});
 
 const transactionsUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/transactions`;
 
@@ -155,8 +129,8 @@ const TransactionDrawerForm = ({
     }
   };
 
-  const form = useForm<FormDataProps>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<TransactionFormProps>({
+    resolver: zodResolver(transactionSchema),
     defaultValues: {
       startDate: date,
       endDate: date,
@@ -208,7 +182,7 @@ const TransactionDrawerForm = ({
     }
   };
 
-  const onSubmit = async (data: FormDataProps) => {
+  const onSubmit = async (data: TransactionFormProps) => {
     const description = '';
     const excludedDates = data.excludedDates
       ? data.excludedDates.map((date) => new Date(date.value))

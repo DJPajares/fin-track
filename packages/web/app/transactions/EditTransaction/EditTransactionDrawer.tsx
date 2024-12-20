@@ -1,7 +1,6 @@
 import { ReactNode, useRef, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslations } from 'next-intl';
-import { z } from 'zod';
 
 import {
   AlertDialog,
@@ -27,10 +26,31 @@ import {
 } from '../../../components/ui/drawer';
 import { Input } from '../../../components/ui/input';
 import { Label } from '../../../components/ui/label';
+import {
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage
+} from '../../../components/ui/form';
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
+} from '../../../components/ui/select';
 
+import { useAppSelector } from '../../../lib/hooks/use-redux';
 import updateTransaction from '../../../services/updateTransaction';
 
 import type { TransactionProps } from '../../../types/Transaction';
+import {
+  transactionSchema,
+  type TransactionFormProps
+} from '../../../lib/schemas/transaction';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 type EditTransactionDrawerProps = {
   transaction: TransactionProps;
@@ -45,57 +65,28 @@ const EditTransactionDrawer = ({
 }: EditTransactionDrawerProps) => {
   const t = useTranslations();
 
+  const { currencies } = useAppSelector((state) => state.main);
+
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const formRef = useRef<HTMLFormElement>(null);
 
-  // const { name, currency, amount } = transaction;
+  const { name, amount, startDate, endDate, isRecurring } = transaction;
 
-  console.log(transaction);
-
-  const formSchema = z.object({
-    startDate: z.date({
-      required_error: 'Please select a start date.'
-    }),
-    endDate: z.date(),
-    category: z.string().min(1, {
-      message: 'Please select a category'
-    }),
-    name: z.string().min(1, {
-      message: 'Please enter a title'
-    }),
-    currency: z.string().min(1, {
-      message: 'Please select a currency'
-    }),
-    amount: z.coerce.number({
-      required_error: 'Please enter an amount'
-    }),
-    isRecurring: z.boolean(),
-    excludedDates: z
-      .object({
-        value: z.string(),
-        label: z.string()
-      })
-      .array()
-      .optional()
-  });
-
-  type FormDataProps = z.infer<typeof formSchema>;
-
-  const form = useForm<FormDataProps>({
+  const form = useForm<TransactionFormProps>({
+    resolver: zodResolver(transactionSchema),
     defaultValues: {
-      startDate: transaction.startDate,
-      endDate: transaction.endDate,
+      startDate,
+      endDate,
       category: transaction.categoryId,
-      name: transaction.name,
+      name,
       currency: transaction.currencyId,
-      amount: transaction.amount,
-      isRecurring: false,
-      excludedDates: []
+      amount,
+      isRecurring
     }
   });
 
-  const onSubmit = (data: FormDataProps) => {
+  const onSubmit = (data: TransactionFormProps) => {
     updateTransaction({
       id: transaction._id,
       data
@@ -138,7 +129,7 @@ const EditTransactionDrawer = ({
             )}
           />
 
-          <Controller
+          {/* <Controller
             name="amount"
             control={form.control}
             render={({ field }) => (
@@ -152,7 +143,78 @@ const EditTransactionDrawer = ({
                 </div>
               </div>
             )}
-          />
+          /> */}
+
+          <div className="flex flex-row items-center space-x-2">
+            <div>
+              <FormField
+                control={form.control}
+                name="currency"
+                render={({ field }) => (
+                  <FormItem className="flex flex-col">
+                    <FormLabel>
+                      {t(
+                        'Page.dashboard.transactionDrawer.form.title.currency'
+                      )}
+                    </FormLabel>
+
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <SelectTrigger>
+                        <SelectValue
+                          placeholder={t(
+                            'Page.dashboard.transactionDrawer.form.placeholder.currency'
+                          )}
+                        />
+                      </SelectTrigger>
+
+                      <SelectContent>
+                        <SelectGroup>
+                          {currencies.map((currency) => (
+                            <SelectItem key={currency._id} value={currency._id}>
+                              {currency.name}
+                            </SelectItem>
+                          ))}
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
+
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+
+            <div className="flex-1">
+              <FormField
+                control={form.control}
+                name="amount"
+                render={({ field }) => (
+                  <FormItem className="flex flex-col">
+                    <FormLabel>
+                      {t('Page.dashboard.transactionDrawer.form.title.amount')}
+                    </FormLabel>
+
+                    <FormControl>
+                      <Input
+                        type="number"
+                        inputMode="decimal"
+                        placeholder="0"
+                        {...field}
+                        value={field.value || ''}
+                        onChange={field.onChange}
+                        autoComplete="false"
+                      />
+                    </FormControl>
+
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+          </div>
         </form>
 
         <DrawerFooter>
