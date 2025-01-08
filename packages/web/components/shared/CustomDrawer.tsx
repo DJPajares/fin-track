@@ -16,7 +16,8 @@ import {
   DrawerDescription,
   DrawerFooter,
   DrawerHeader,
-  DrawerTitle
+  DrawerTitle,
+  DrawerTrigger
 } from '../ui/drawer';
 import { Button } from '../ui/button';
 import {
@@ -27,30 +28,39 @@ import {
   AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogHeader,
-  AlertDialogTitle
+  AlertDialogTitle,
+  AlertDialogTrigger
 } from '../ui/alert-dialog';
+import { useIsMobile } from '@web/lib/hooks/use-mobile';
+import { useTranslations } from 'next-intl';
+import { on } from 'events';
 
 type CustomDrawerProps = {
-  isDrawerOpen: boolean;
-  setIsDrawerOpen: Dispatch<SetStateAction<boolean>>;
+  open: boolean;
+  onOpenChange: Dispatch<SetStateAction<boolean>>;
   title?: string;
   description?: string;
   footerOk?: string;
   footerCancel?: string;
   children: ReactNode;
-  handleSubmit: any;
+  triggerChildren: ReactNode;
+  handleSubmit: () => void;
 };
 
 const CustomDrawer = ({
-  isDrawerOpen,
-  setIsDrawerOpen,
+  open,
+  onOpenChange,
   title,
   description,
   footerOk = 'Ok',
   footerCancel = 'Cancel',
   children,
+  triggerChildren,
   handleSubmit
 }: CustomDrawerProps) => {
+  const isMobile = useIsMobile();
+  const t = useTranslations();
+
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   // const formRef = useRef<HTMLFormElement>(null);
@@ -59,70 +69,81 @@ const CustomDrawer = ({
     // if (formRef.current) formRef.current.requestSubmit();
 
     handleSubmit();
-    setIsDrawerOpen(false);
+    onOpenChange(false);
   };
-
-  // const handleSubmit = async () => {
-  //   // Request submit to the child component
-  //   if (formRef.current) formRef.current.requestSubmit();
-
-  //   // // Call the handleSubmit function attached in the formRef
-  //   // if (formRef.current) formRef.current();
-  // };
-
-  // Function to clone the children and pass formRef as prop
-  // const renderChildrenWithProps = () => {
-  //   return Children.map(children, (child) => {
-  //     if (isValidElement(child)) {
-  //       return cloneElement(child, { formRef });
-  //     }
-  //     return child;
-  //   });
-  // };
 
   return (
     <>
-      <Drawer open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
-        <DrawerContent>
-          <div className="mx-auto w-full max-w-lg overflow-y-auto max-h-screen">
-            <DrawerHeader>
-              {title && <DrawerTitle>{title.toUpperCase()}</DrawerTitle>}
-              {description && (
+      {isMobile ? (
+        <Drawer open={open} onOpenChange={onOpenChange}>
+          <DrawerTrigger asChild>{triggerChildren}</DrawerTrigger>
+
+          <DrawerContent className="h-[97%]" aria-describedby={description}>
+            <div className="mx-auto w-full max-w-sm">
+              <div className="flex flex-row items-center justify-between py-2">
+                <Button variant="ghost" onClick={() => onOpenChange(!open)}>
+                  {footerCancel}
+                </Button>
+                <DrawerTitle>{title}</DrawerTitle>
+                <Button variant="ghost" onClick={handleSubmit}>
+                  {t('Common.alertDialog.triggerButton')}
+                </Button>
+              </div>
+
+              <div className="py-4 px-4 space-y-2 overflow-auto">
+                {children}
+              </div>
+            </div>
+          </DrawerContent>
+        </Drawer>
+      ) : (
+        <Drawer open={open} onOpenChange={onOpenChange}>
+          <DrawerTrigger asChild>{triggerChildren}</DrawerTrigger>
+
+          <DrawerContent aria-describedby={description}>
+            <div className="mx-auto w-full max-w-sm">
+              <DrawerHeader>
+                <DrawerTitle>{title}</DrawerTitle>
                 <DrawerDescription>{description}</DrawerDescription>
-              )}
-            </DrawerHeader>
+              </DrawerHeader>
 
-            {children}
-            {/* {cloneElement(children as ReactElement<any>, {
-              formRef
-            })} */}
+              <div className="py-4 px-4 space-y-2 overflow-auto">
+                {children}
+              </div>
+            </div>
 
-            <DrawerFooter className="my-2">
-              <Button onClick={() => setIsDialogOpen(true)}>{footerOk}</Button>
+            <DrawerFooter className="mx-auto w-full max-w-sm">
+              <AlertDialog>
+                <AlertDialogTrigger asChild>
+                  <Button>{t('Common.alertDialog.triggerButton')}</Button>
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>
+                      {t('Common.alertDialog.title')}
+                    </AlertDialogTitle>
+                    <AlertDialogDescription>
+                      {t('Common.alertDialog.description')}
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel>
+                      {t('Common.button.cancel')}
+                    </AlertDialogCancel>
+                    <AlertDialogAction onClick={handleSubmitButton}>
+                      {t('Common.alertDialog.okButton')}
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
+
               <DrawerClose asChild>
-                <Button variant="outline">{footerCancel}</Button>
+                <Button variant="outline">{t('Common.button.cancel')}</Button>
               </DrawerClose>
             </DrawerFooter>
-          </div>
-        </DrawerContent>
-      </Drawer>
-
-      <AlertDialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Are you sure?</AlertDialogTitle>
-            <AlertDialogDescription>
-              This cannot be undone
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction onClick={handleSubmitButton}>
-              Ok
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
+          </DrawerContent>
+        </Drawer>
+      )}
     </>
   );
 };

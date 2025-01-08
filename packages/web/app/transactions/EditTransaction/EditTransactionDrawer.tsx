@@ -1,6 +1,8 @@
 import { ReactNode, useRef, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslations } from 'next-intl';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useIsMobile } from '../../../lib/hooks/use-mobile';
 
 import {
   AlertDialog,
@@ -45,13 +47,13 @@ import {
 
 import { useAppSelector } from '../../../lib/hooks/use-redux';
 import updateTransaction from '../../../services/updateTransaction';
-
-import type { TransactionProps } from '../../../types/Transaction';
 import {
   transactionSchema,
   type TransactionFormProps
 } from '../../../lib/schemas/transaction';
-import { zodResolver } from '@hookform/resolvers/zod';
+
+import type { TransactionProps } from '../../../types/Transaction';
+import CustomDrawer from '@web/components/shared/CustomDrawer';
 
 type EditTransactionDrawerProps = {
   transaction: TransactionProps;
@@ -64,6 +66,7 @@ const EditTransactionDrawer = ({
   // fetchTransactions,
   children
 }: EditTransactionDrawerProps) => {
+  const isMobile = useIsMobile();
   const t = useTranslations();
 
   const { currencies } = useAppSelector((state) => state.main);
@@ -88,53 +91,62 @@ const EditTransactionDrawer = ({
   });
 
   const onSubmit = (data: TransactionFormProps) => {
-    updateTransaction({
-      id: transaction._id,
-      data
-    });
+    console.log(data);
+
+    // updateTransaction({
+    //   id: transaction._id,
+    //   data
+    // });
 
     // fetchTransactions();
   };
 
   const handleConfirmSubmit = () => {
-    if (formRef.current) formRef.current.requestSubmit();
+    // if (formRef.current) formRef.current.requestSubmit();
 
-    setIsDrawerOpen(!isDrawerOpen);
+    // setIsDrawerOpen(!isDrawerOpen);
+
+    form.handleSubmit(
+      (data) => {
+        console.log('Form data submitted:', data);
+        // Add your submission logic here
+      },
+      (errors) => {
+        console.error('Validation errors:', errors);
+      }
+    )();
   };
 
   return (
-    <Drawer open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
-      <DrawerTrigger asChild>{children}</DrawerTrigger>
+    <CustomDrawer
+      open={isDrawerOpen}
+      onOpenChange={setIsDrawerOpen}
+      handleSubmit={handleConfirmSubmit}
+      title={transaction.name}
+      description={transaction.description}
+      triggerChildren={children}
+    >
+      <Form {...form}>
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="space-y-4"
+          ref={formRef}
+        >
+          <Controller
+            name="name"
+            control={form.control}
+            render={({ field }) => (
+              <div className="space-y-1">
+                <Label className="font-semibold">
+                  {t('Page.transactions.form.name')}
+                </Label>
+                <Input defaultValue={field.value} onChange={field.onChange} />
+              </div>
+            )}
+          />
 
-      <DrawerContent className="mx-auto w-full max-w-lg">
-        <DrawerHeader>
-          <DrawerTitle>{transaction.name}</DrawerTitle>
-          <DrawerDescription>{transaction.description}</DrawerDescription>
-        </DrawerHeader>
-
-        <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(onSubmit)}
-            className="flex flex-col p-4 space-y-2 sm:space-y-4"
-            ref={formRef}
-          >
-            <Controller
-              name="name"
-              control={form.control}
-              render={({ field }) => (
-                <div className="space-y-1">
-                  <FormItem className="flex flex-col">
-                    <FormLabel>{t('Page.transactions.form.name')}</FormLabel>
-                  </FormItem>
-
-                  <Input defaultValue={field.value} onChange={field.onChange} />
-
-                  <FormMessage />
-                </div>
-              )}
-            />
-
-            <div className="flex flex-row items-center space-x-2">
+          <div className="flex flex-row items-center space-x-2">
+            <div>
               <FormField
                 control={form.control}
                 name="currency"
@@ -173,71 +185,39 @@ const EditTransactionDrawer = ({
                   </FormItem>
                 )}
               />
-
-              <div className="flex-1">
-                <FormField
-                  control={form.control}
-                  name="amount"
-                  render={({ field }) => (
-                    <FormItem className="flex flex-col">
-                      <FormLabel>
-                        {t(
-                          'Page.dashboard.transactionDrawer.form.title.amount'
-                        )}
-                      </FormLabel>
-
-                      <FormControl>
-                        <Input
-                          type="number"
-                          inputMode="decimal"
-                          placeholder="0"
-                          {...field}
-                          value={field.value || ''}
-                          onChange={field.onChange}
-                          autoComplete="false"
-                        />
-                      </FormControl>
-
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
             </div>
-          </form>
-        </Form>
 
-        <DrawerFooter>
-          <AlertDialog>
-            <AlertDialogTrigger asChild>
-              <Button>{t('Common.alertDialog.triggerButton')}</Button>
-            </AlertDialogTrigger>
-            <AlertDialogContent>
-              <AlertDialogHeader>
-                <AlertDialogTitle>
-                  {t('Common.alertDialog.title')}
-                </AlertDialogTitle>
-                <AlertDialogDescription>
-                  {t('Common.alertDialog.description')}
-                </AlertDialogDescription>
-              </AlertDialogHeader>
-              <AlertDialogFooter>
-                <AlertDialogCancel>
-                  {t('Common.button.cancel')}
-                </AlertDialogCancel>
-                <AlertDialogAction onClick={handleConfirmSubmit}>
-                  {t('Common.alertDialog.okButton')}
-                </AlertDialogAction>
-              </AlertDialogFooter>
-            </AlertDialogContent>
-          </AlertDialog>
+            <div className="flex-1">
+              <FormField
+                control={form.control}
+                name="amount"
+                render={({ field }) => (
+                  <FormItem className="flex flex-col">
+                    <FormLabel>
+                      {t('Page.dashboard.transactionDrawer.form.title.amount')}
+                    </FormLabel>
 
-          <DrawerClose asChild>
-            <Button variant="outline">{t('Common.button.cancel')}</Button>
-          </DrawerClose>
-        </DrawerFooter>
-      </DrawerContent>
-    </Drawer>
+                    <FormControl>
+                      <Input
+                        type="number"
+                        inputMode="decimal"
+                        placeholder="0"
+                        {...field}
+                        value={field.value || ''}
+                        onChange={field.onChange}
+                        autoComplete="false"
+                      />
+                    </FormControl>
+
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+          </div>
+        </form>
+      </Form>
+    </CustomDrawer>
   );
 };
 
