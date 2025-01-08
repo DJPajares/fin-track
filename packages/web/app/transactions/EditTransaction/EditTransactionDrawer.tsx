@@ -27,6 +27,7 @@ import {
 import { Input } from '../../../components/ui/input';
 import { Label } from '../../../components/ui/label';
 import {
+  Form,
   FormControl,
   FormField,
   FormItem,
@@ -111,42 +112,29 @@ const EditTransactionDrawer = ({
           <DrawerDescription>{transaction.description}</DrawerDescription>
         </DrawerHeader>
 
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="flex flex-col p-4 space-y-2 sm:space-y-4"
-          ref={formRef}
-        >
-          <Controller
-            name="name"
-            control={form.control}
-            render={({ field }) => (
-              <div className="space-y-1">
-                <Label className="font-semibold">
-                  {t('Page.transactions.form.name')}
-                </Label>
-                <Input defaultValue={field.value} onChange={field.onChange} />
-              </div>
-            )}
-          />
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="flex flex-col p-4 space-y-2 sm:space-y-4"
+            ref={formRef}
+          >
+            <Controller
+              name="name"
+              control={form.control}
+              render={({ field }) => (
+                <div className="space-y-1">
+                  <FormItem className="flex flex-col">
+                    <FormLabel>{t('Page.transactions.form.name')}</FormLabel>
+                  </FormItem>
 
-          {/* <Controller
-            name="amount"
-            control={form.control}
-            render={({ field }) => (
-              <div className="space-y-1">
-                <Label className="font-semibold">
-                  {t('Page.transactions.form.amount')}
-                </Label>
-
-                <div className="flex flex-row items-center">
                   <Input defaultValue={field.value} onChange={field.onChange} />
-                </div>
-              </div>
-            )}
-          /> */}
 
-          <div className="flex flex-row items-center space-x-2">
-            <div>
+                  <FormMessage />
+                </div>
+              )}
+            />
+
+            <div className="flex flex-row items-center space-x-2">
               <FormField
                 control={form.control}
                 name="currency"
@@ -185,37 +173,39 @@ const EditTransactionDrawer = ({
                   </FormItem>
                 )}
               />
+
+              <div className="flex-1">
+                <FormField
+                  control={form.control}
+                  name="amount"
+                  render={({ field }) => (
+                    <FormItem className="flex flex-col">
+                      <FormLabel>
+                        {t(
+                          'Page.dashboard.transactionDrawer.form.title.amount'
+                        )}
+                      </FormLabel>
+
+                      <FormControl>
+                        <Input
+                          type="number"
+                          inputMode="decimal"
+                          placeholder="0"
+                          {...field}
+                          value={field.value || ''}
+                          onChange={field.onChange}
+                          autoComplete="false"
+                        />
+                      </FormControl>
+
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
             </div>
-
-            <div className="flex-1">
-              <FormField
-                control={form.control}
-                name="amount"
-                render={({ field }) => (
-                  <FormItem className="flex flex-col">
-                    <FormLabel>
-                      {t('Page.dashboard.transactionDrawer.form.title.amount')}
-                    </FormLabel>
-
-                    <FormControl>
-                      <Input
-                        type="number"
-                        inputMode="decimal"
-                        placeholder="0"
-                        {...field}
-                        value={field.value || ''}
-                        onChange={field.onChange}
-                        autoComplete="false"
-                      />
-                    </FormControl>
-
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-          </div>
-        </form>
+          </form>
+        </Form>
 
         <DrawerFooter>
           <AlertDialog>
