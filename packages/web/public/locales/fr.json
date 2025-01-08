@@ -46,6 +46,8 @@
     "dashboard": {
       "balance": "Solde",
       "extra": "Supplémentaire",
+      "settled": "Réglé",
+      "unsettled": "Non réglé",
       "completed": "Terminé",
       "transactionButton": "Ajouter une transaction",
       "card": {

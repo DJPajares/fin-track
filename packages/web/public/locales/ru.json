@@ -46,6 +46,8 @@
     "dashboard": {
       "balance": "Баланс",
       "extra": "Дополнительно",
+      "settled": "Урегулировано",
+      "unsettled": "Не урегулировано",
       "completed": "Завершено",
       "transactionButton": "Добавить транзакцию",
       "card": {

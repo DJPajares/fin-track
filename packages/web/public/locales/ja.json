@@ -46,6 +46,8 @@
     "dashboard": {
       "balance": "残高",
       "extra": "追加",
+      "settled": "決済済み",
+      "unsettled": "未決済",
       "completed": "完了",
       "transactionButton": "取引を追加",
       "card": {

@@ -46,6 +46,8 @@
     "dashboard": {
       "balance": "Bakiye",
       "extra": "Ekstra",
+      "settled": "Düzenlendi",
+      "unsettled": "Düzenlenmedi",
       "completed": "Tamamlandı",
       "transactionButton": "İşlem Ekle",
       "card": {

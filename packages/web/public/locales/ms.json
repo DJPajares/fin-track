@@ -46,6 +46,8 @@
     "dashboard": {
       "balance": "Baki",
       "extra": "Tambahan",
+      "settled": "Diselesaikan",
+      "unsettled": "Belum Diselesaikan",
       "completed": "Selesai",
       "transactionButton": "Tambah Transaksi",
       "card": {

@@ -46,6 +46,8 @@
     "dashboard": {
       "balance": "Balanse",
       "extra": "Dagdag",
+      "settled": "Naayos",
+      "unsettled": "Hindi naayos",
       "completed": "Tapos",
       "transactionButton": "Magdagdag ng Transaksyon",
       "card": {

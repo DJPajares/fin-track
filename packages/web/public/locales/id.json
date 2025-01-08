@@ -46,6 +46,8 @@
     "dashboard": {
       "balance": "Saldo",
       "extra": "Ekstra",
+      "settled": "Diselesaikan",
+      "unsettled": "Belum Diselesaikan",
       "completed": "Selesai",
       "transactionButton": "Tambah Transaksi",
       "card": {

@@ -46,6 +46,8 @@
     "dashboard": {
       "balance": "Số Dư",
       "extra": "Phụ Trội",
+      "settled": "Đã Thanh Toán",
+      "unsettled": "Chưa Thanh Toán",
       "completed": "Hoàn Thành",
       "transactionButton": "Thêm Giao Dịch",
       "card": {

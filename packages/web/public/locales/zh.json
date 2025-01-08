@@ -46,6 +46,8 @@
     "dashboard": {
       "balance": "余额",
       "extra": "额外",
+      "settled": "已结算",
+      "unsettled": "未结算",
       "completed": "已完成",
       "transactionButton": "添加交易",
       "card": {

@@ -46,6 +46,8 @@
     "dashboard": {
       "balance": "Kontostand",
       "extra": "Extra",
+      "settled": "Erledigt",
+      "unsettled": "Nicht erledigt",
       "completed": "Abgeschlossen",
       "transactionButton": "Transaktion hinzufügen",
       "card": {

@@ -46,6 +46,8 @@
     "dashboard": {
       "balance": "ยอดคงเหลือ",
       "extra": "เพิ่มเติม",
+      "settled": "ชำระแล้ว",
+      "unsettled": "ยังไม่ชำระ",
       "completed": "เสร็จสิ้น",
       "transactionButton": "เพิ่มธุรกรรม",
       "card": {

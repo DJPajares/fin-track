@@ -46,6 +46,8 @@
     "dashboard": {
       "balance": "الرصيد",
       "extra": "الإضافي",
+      "settled": "تم التسوية",
+      "unsettled": "لم يتم التسوية",
       "completed": "مكتمل",
       "transactionButton": "إضافة معاملة",
       "card": {

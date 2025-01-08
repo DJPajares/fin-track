@@ -46,6 +46,8 @@
     "dashboard": {
       "balance": "शेष राशि",
       "extra": "अतिरिक्त",
+      "settled": "समाप्त",
+      "unsettled": "असमाप्त",
       "completed": "पूरा हुआ",
       "transactionButton": "लेन-देन जोड़ें",
       "card": {

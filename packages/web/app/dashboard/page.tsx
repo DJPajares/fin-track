@@ -16,6 +16,7 @@ import { Button } from '../../components/ui/button';
 import { Skeleton } from '../../components/ui/skeleton';
 import { Card } from '../../components/ui/card';
 import { DatePicker } from '../../components/shared/DatePicker';
+import { Separator } from '../../components/ui/separator';
 
 import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
 
@@ -78,6 +79,24 @@ const Dashboard = () => {
   const [isCurrencyPopoverOpen, setIsCurrencyPopoverOpen] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isTransactionDrawerOpen, setIsTransactionDrawerOpen] = useState(false);
+
+  const {
+    dashbardCategories,
+    hasDashboardMainData,
+    balance,
+    extra,
+    totalAmount,
+    totalPaidAmount
+  } = useMemo(() => {
+    return {
+      dashbardCategories: dashboardData.categories,
+      hasDashboardMainData: Object.keys(dashboardData.main).length > 0,
+      balance: dashboardData.main.balance,
+      extra: dashboardData.main.extra,
+      totalAmount: dashboardData.main.totalAmount,
+      totalPaidAmount: dashboardData.main.totalPaidAmount
+    };
+  }, [dashboardData]);
 
   useEffect(() => {
     if (currencies.length > 0) {
@@ -189,7 +208,7 @@ const Dashboard = () => {
 
       {/* PROGRESS BAR */}
       <div className="flex flex-col items-center">
-        {Object.keys(dashboardData.main).length > 0 ? (
+        {hasDashboardMainData ? (
           <CircularProgress
             classNames={{
               svg: 'w-36 sm:w-64 h-36 sm:h-64 drop-shadow-md',
@@ -197,11 +216,7 @@ const Dashboard = () => {
               indicator: 'stroke-primary'
             }}
             label={t('completed')}
-            value={
-              (dashboardData.main.totalPaidAmount /
-                dashboardData.main.totalAmount) *
-                100 || 0
-            }
+            value={(totalPaidAmount / totalAmount) * 100 || 0}
             strokeWidth={3}
             showValueLabel={true}
           />
@@ -217,10 +232,10 @@ const Dashboard = () => {
             {t('balance')}
           </p>
 
-          {dashboardData.main.balance ? (
+          {hasDashboardMainData ? (
             <p className="text-xl sm:text-3xl font-bold sm:font-black">
               {formatCurrency({
-                value: dashboardData.main.balance,
+                value: balance,
                 currency: currency.name
               })}
             </p>
@@ -234,10 +249,10 @@ const Dashboard = () => {
             {t('extra')}
           </p>
 
-          {dashboardData.main.extra ? (
+          {hasDashboardMainData ? (
             <p className="text-base sm:text-lg font-medium sm:font-semibold">
               {formatCurrency({
-                value: dashboardData.main.extra,
+                value: extra,
                 currency: currency.name
               })}
             </p>
@@ -245,22 +260,62 @@ const Dashboard = () => {
             <Skeleton className="h-4 w-20" />
           )}
         </div>
+
+        <Separator />
+
+        <div className="space-y-1">
+          <div className="flex flex-row items-center justify-end space-x-2">
+            {hasDashboardMainData ? (
+              <>
+                <p className="text-sm sm:text-base font-normal sm:font-medium">
+                  {t('settled')}:
+                </p>
+
+                <p className="text-sm sm:text-base font-semibold sm:font-bold">
+                  {formatCurrency({
+                    value: totalPaidAmount,
+                    currency: currency.name
+                  })}
+                </p>
+              </>
+            ) : (
+              <Skeleton className="h-4 w-32" />
+            )}
+          </div>
+
+          <div className="flex flex-row items-center justify-end space-x-2">
+            {hasDashboardMainData ? (
+              <>
+                <p className="text-sm sm:text-base font-normal sm:font-medium">
+                  {t('unsettled')}:
+                </p>
+
+                <p className="text-sm sm:text-base font-semibold sm:font-bold">
+                  {formatCurrency({
+                    value: totalAmount - totalPaidAmount,
+                    currency: currency.name
+                  })}
+                </p>
+              </>
+            ) : (
+              <Skeleton className="h-4 w-40" />
+            )}
+          </div>
+        </div>
       </Card>
 
       {/* CATEGORY CARD */}
       <ScrollShadow className="max-h-[40vh] sm:max-h-[90vh]" hideScrollBar>
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-5 sm:gap-10 items-start justify-center">
-          {dashboardData.categories.map(
-            (category: DashboardDataCategoryResult) => (
-              <div key={category._id}>
-                <CategoryCard
-                  category={category}
-                  currency={currency.name}
-                  handleCardClick={handleCardClick}
-                />
-              </div>
-            )
-          )}
+          {dashbardCategories.map((category: DashboardDataCategoryResult) => (
+            <div key={category._id}>
+              <CategoryCard
+                category={category}
+                currency={currency.name}
+                handleCardClick={handleCardClick}
+              />
+            </div>
+          ))}
         </div>
       </ScrollShadow>
 

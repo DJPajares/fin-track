@@ -46,6 +46,8 @@
     "dashboard": {
       "balance": "Balance",
       "extra": "Extra",
+      "settled": "Settled",
+      "unsettled": "Unsettled",
       "completed": "Completed",
       "transactionButton": "Add Transaction",
       "card": {
