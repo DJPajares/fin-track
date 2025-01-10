@@ -109,7 +109,8 @@
       "triggerButton": "Güncelle",
       "title": "Emin misiniz?",
       "description": "Bu işlem geri alınamaz",
-      "okButton": "Devam Et"
+      "okButton": "Devam Et",
+      "cancelButton": "İptal"
     },
     "label": {
       "selectPlaceholder": "Bir öğe seçin"

@@ -109,7 +109,8 @@
       "triggerButton": "Cập Nhật",
       "title": "Bạn Có Chắc Không?",
       "description": "Không thể hoàn tác",
-      "okButton": "Tiếp Tục"
+      "okButton": "Tiếp Tục",
+      "cancelButton": "Hủy"
     },
     "label": {
       "selectPlaceholder": "Chọn một mục"

@@ -109,7 +109,8 @@
       "triggerButton": "Обновить",
       "title": "Вы уверены?",
       "description": "Это действие нельзя отменить",
-      "okButton": "Продолжить"
+      "okButton": "Продолжить",
+      "cancelButton": "Отмена"
     },
     "label": {
       "selectPlaceholder": "Выберите элемент"

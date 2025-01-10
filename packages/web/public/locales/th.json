@@ -109,7 +109,8 @@
       "triggerButton": "อัปเดต",
       "title": "คุณแน่ใจหรือไม่?",
       "description": "ไม่สามารถย้อนกลับได้",
-      "okButton": "ดำเนินการต่อ"
+      "okButton": "ดำเนินการต่อ",
+      "cancelButton": "ยกเลิก"
     },
     "label": {
       "selectPlaceholder": "เลือกไอเทม"

@@ -109,7 +109,8 @@
       "triggerButton": "Mettre à jour",
       "title": "Êtes-vous sûr ?",
       "description": "Cela ne peut pas être annulé",
-      "okButton": "Continuer"
+      "okButton": "Continuer",
+      "cancelButton": "Annuler"
     },
     "label": {
       "selectPlaceholder": "Sélectionnez un élément"

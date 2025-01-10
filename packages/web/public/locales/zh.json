@@ -109,7 +109,8 @@
       "triggerButton": "更新",
       "title": "确定吗？",
       "description": "此操作无法撤销",
-      "okButton": "继续"
+      "okButton": "继续",
+      "cancelButton": "取消"
     },
     "label": {
       "selectPlaceholder": "选择一个项目"

@@ -109,7 +109,8 @@
       "triggerButton": "Perbarui",
       "title": "Apakah Anda Yakin?",
       "description": "Ini tidak dapat dibatalkan",
-      "okButton": "Lanjutkan"
+      "okButton": "Lanjutkan",
+      "cancelButton": "Batal"
     },
     "label": {
       "selectPlaceholder": "Pilih item"

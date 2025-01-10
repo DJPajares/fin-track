@@ -109,7 +109,8 @@
       "triggerButton": "Aktualisieren",
       "title": "Bist du sicher?",
       "description": "Diese Aktion kann nicht rückgängig gemacht werden.",
-      "okButton": "Fortfahren"
+      "okButton": "Fortfahren",
+      "cancelButton": "Abbrechen"
     },
     "label": {
       "selectPlaceholder": "Wählen Sie ein Element"

@@ -109,7 +109,8 @@
       "triggerButton": "Kemaskini",
       "title": "Adakah Anda Pasti?",
       "description": "Ini tidak boleh dibatalkan",
-      "okButton": "Teruskan"
+      "okButton": "Teruskan",
+      "cancelButton": "Batal"
     },
     "label": {
       "selectPlaceholder": "Pilih item"

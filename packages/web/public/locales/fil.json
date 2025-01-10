@@ -109,7 +109,8 @@
       "triggerButton": "Update",
       "title": "Sigurado ka?",
       "description": "Hindi na ito maaaring bawiin.",
-      "okButton": "Magpatuloy"
+      "okButton": "Magpatuloy",
+      "cancelButton": "Kanselahin"
     },
     "label": {
       "selectPlaceholder": "Pumili ng item"

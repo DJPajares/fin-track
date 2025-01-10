@@ -109,7 +109,8 @@
       "triggerButton": "Actualizar",
       "title": "¿Estás seguro?",
       "description": "Esto no se puede deshacer",
-      "okButton": "Continuar"
+      "okButton": "Continuar",
+      "cancelButton": "Cancelar"
     },
     "label": {
       "selectPlaceholder": "Selecciona un elemento"

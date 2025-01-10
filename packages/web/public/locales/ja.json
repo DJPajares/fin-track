@@ -109,7 +109,8 @@
       "triggerButton": "更新",
       "title": "よろしいですか？",
       "description": "この操作は元に戻せません",
-      "okButton": "続行"
+      "okButton": "続行",
+      "cancelButton": "キャンセル"
     },
     "label": {
       "selectPlaceholder": "アイテムを選択"

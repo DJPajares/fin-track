@@ -109,7 +109,8 @@
       "triggerButton": "تحديث",
       "title": "هل أنت متأكد؟",
       "description": "لا يمكن التراجع عن هذا",
-      "okButton": "استمرار"
+      "okButton": "استمرار",
+      "cancelButton": "إلغاء"
     },
     "label": {
       "selectPlaceholder": "اختر عنصراً"

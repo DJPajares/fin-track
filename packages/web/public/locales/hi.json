@@ -109,7 +109,8 @@
       "triggerButton": "अपडेट करें",
       "title": "क्या आप सुनिश्चित हैं?",
       "description": "यह पूर्ववत नहीं किया जा सकता।",
-      "okButton": "जारी रखें"
+      "okButton": "जारी रखें",
+      "cancelButton": "रद्द करें"
     },
     "label": {
       "selectPlaceholder": "किसी आइटम का चयन करें"
