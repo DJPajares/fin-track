@@ -78,8 +78,10 @@ const EditTransactionDrawer = ({
       open={isDrawerOpen}
       onOpenChange={setIsDrawerOpen}
       handleSubmit={handleSubmit}
-      title={transaction.name}
-      description={transaction.description}
+      title={t('Page.dashboard.transactionDrawer.title').toLocaleUpperCase()}
+      description={t(
+        'Page.dashboard.transactionDrawer.description'
+      ).toLocaleUpperCase()}
       triggerChildren={children}
     >
       <div className="space-y-2">

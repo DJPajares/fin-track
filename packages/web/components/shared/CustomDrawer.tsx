@@ -49,7 +49,7 @@ const CustomDrawer = ({
             <DrawerTrigger asChild>{triggerChildren}</DrawerTrigger>
           )}
 
-          <DrawerContent className="h-[97%]" aria-describedby={description}>
+          <DrawerContent className="h-[97%]" aria-describedby="">
             <div className="mx-auto w-full max-w-sm">
               <div className="flex flex-row items-center justify-between py-2">
                 <Button variant="ghost" onClick={() => onOpenChange(!open)}>
