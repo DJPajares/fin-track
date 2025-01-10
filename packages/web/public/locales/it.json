@@ -103,7 +103,8 @@
       "ok": "Ok",
       "cancel": "Annulla",
       "add": "Aggiungi",
-      "update": "Aggiorna"
+      "update": "Aggiorna",
+      "save": "Salva"
     },
     "alertDialog": {
       "triggerButton": "Aggiorna",

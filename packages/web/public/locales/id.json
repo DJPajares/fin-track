@@ -103,7 +103,8 @@
       "ok": "Ok",
       "cancel": "Batal",
       "add": "Tambah",
-      "update": "Perbarui"
+      "update": "Perbarui",
+      "save": "Simpan"
     },
     "alertDialog": {
       "triggerButton": "Perbarui",

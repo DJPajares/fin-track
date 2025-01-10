@@ -103,7 +103,8 @@
       "ok": "موافق",
       "cancel": "إلغاء",
       "add": "إضافة",
-      "update": "تحديث"
+      "update": "تحديث",
+      "save": "حفظ"
     },
     "alertDialog": {
       "triggerButton": "تحديث",

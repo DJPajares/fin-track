@@ -103,7 +103,8 @@
       "ok": "D'accord",
       "cancel": "Annuler",
       "add": "Ajouter",
-      "update": "Continuer"
+      "update": "Continuer",
+      "save": "Enregistrer"
     },
     "alertDialog": {
       "triggerButton": "Mettre à jour",

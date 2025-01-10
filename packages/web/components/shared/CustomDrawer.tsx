@@ -60,7 +60,7 @@ const CustomDrawer = ({
 
                 <ConfirmationDialog handleSubmit={handleSubmit}>
                   <Button variant="ghost">
-                    {okButtonLabel || t('Common.button.ok')}
+                    {okButtonLabel || t('Common.button.save')}
                   </Button>
                 </ConfirmationDialog>
               </div>

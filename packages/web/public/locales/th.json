@@ -103,7 +103,8 @@
       "ok": "ตกลง",
       "cancel": "ยกเลิก",
       "add": "เพิ่ม",
-      "update": "อัปเดต"
+      "update": "อัปเดต",
+      "save": "บันทึก"
     },
     "alertDialog": {
       "triggerButton": "อัปเดต",

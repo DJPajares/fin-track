@@ -103,7 +103,8 @@
       "ok": "Ок",
       "cancel": "Отмена",
       "add": "Добавить",
-      "update": "Обновить"
+      "update": "Обновить",
+      "save": "Сохранить"
     },
     "alertDialog": {
       "triggerButton": "Обновить",

@@ -103,7 +103,8 @@
       "ok": "了解",
       "cancel": "キャンセル",
       "add": "追加",
-      "update": "続行"
+      "update": "続行",
+      "save": "保存"
     },
     "alertDialog": {
       "triggerButton": "更新",

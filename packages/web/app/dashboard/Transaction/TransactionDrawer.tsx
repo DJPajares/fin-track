@@ -99,7 +99,6 @@ const TransactionDrawer = ({
   const formRef = useRef<HTMLFormElement>(null);
 
   const handleSubmit = async () => {
-    // Request submit to the child component
     if (formRef.current) {
       formRef.current.requestSubmit();
       setIsNoticeOpen(true);
@@ -133,7 +132,6 @@ const TransactionDrawer = ({
       handleSubmit={handleSubmit}
       title={t('Page.dashboard.transactionDrawer.title').toLocaleUpperCase()}
       description={t('Page.dashboard.transactionDrawer.description')}
-      // triggerChildren={children}
     >
       <div className="space-y-2">
         <div className="flex flex-row justify-end">

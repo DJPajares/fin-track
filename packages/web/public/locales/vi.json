@@ -103,7 +103,8 @@
       "ok": "Đồng Ý",
       "cancel": "Hủy",
       "add": "Thêm",
-      "update": "Cập Nhật"
+      "update": "Cập Nhật",
+      "save": "Lưu"
     },
     "alertDialog": {
       "triggerButton": "Cập Nhật",

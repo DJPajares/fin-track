@@ -103,7 +103,8 @@
       "ok": "ठीक है",
       "cancel": "रद्द करें",
       "add": "जोड़ें",
-      "update": "जारी रखें"
+      "update": "जारी रखें",
+      "save": "सहेजें"
     },
     "alertDialog": {
       "triggerButton": "अपडेट करें",

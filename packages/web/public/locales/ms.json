@@ -103,7 +103,8 @@
       "ok": "Ok",
       "cancel": "Batal",
       "add": "Tambah",
-      "update": "Kemaskini"
+      "update": "Kemaskini",
+      "save": "Simpan"
     },
     "alertDialog": {
       "triggerButton": "Kemaskini",

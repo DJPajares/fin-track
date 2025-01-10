@@ -103,7 +103,8 @@
       "ok": "Tamam",
       "cancel": "İptal",
       "add": "Ekle",
-      "update": "Güncelle"
+      "update": "Güncelle",
+      "save": "Kaydet"
     },
     "alertDialog": {
       "triggerButton": "Güncelle",

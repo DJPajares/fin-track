@@ -103,7 +103,8 @@
       "ok": "Sige",
       "cancel": "Kanselahin",
       "add": "Idagdag",
-      "update": "Magpatuloy"
+      "update": "Magpatuloy",
+      "save": "I-save"
     },
     "alertDialog": {
       "triggerButton": "Update",
