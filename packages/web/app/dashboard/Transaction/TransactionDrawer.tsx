@@ -47,8 +47,6 @@ import type {
 import type { ListProps } from '../../../types/List';
 import { TransactionFormProps } from '@web/lib/schemas/transaction';
 
-const transactionsUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/transactions`;
-
 type TransactionDrawerProps = {
   currencies: DashboardSelectionItemsProps[];
   setDashboardData: Dispatch<SetStateAction<DashboardDataResult>>;
@@ -107,9 +105,11 @@ const TransactionDrawer = ({
     }
   };
 
-  const submitTransaction = async (transactionData: SubmitTransactionProps) => {
+  const submitTransaction = async (postData: SubmitTransactionProps) => {
     try {
-      const { status } = await axios.post(transactionsUrl, transactionData);
+      const url = `${process.env.NEXT_PUBLIC_BASE_URL}/transactions`;
+
+      const { status } = await axios.post(url, postData);
 
       if (status === 200) {
         const result = await fetchTransactionPayments({

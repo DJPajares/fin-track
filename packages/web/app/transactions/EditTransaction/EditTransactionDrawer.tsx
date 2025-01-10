@@ -17,7 +17,6 @@ import {
 import type { TransactionProps } from '../../../types/Transaction';
 import type { ListProps } from '../../../types/List';
 import axios from 'axios';
-import { tr } from 'date-fns/locale';
 
 type EditTransactionDrawerProps = {
   transaction: TransactionProps;
@@ -62,21 +61,15 @@ const EditTransactionDrawer = ({
       })) || []
   };
 
-  const submitTransaction = async (transactionData: SubmitTransactionProps) => {
+  const submitTransaction = async (postData: SubmitTransactionProps) => {
     try {
-      console.log('transactionData', transactionData);
+      const url = `${process.env.NEXT_PUBLIC_BASE_URL}/transactions/${transaction._id}`;
 
-      // const { status } = await axios.post(transactionsUrl, transactionData);
+      const { status, data } = await axios.put(url, postData);
 
-      // if (status === 200) {
-      //   const result = await fetchTransactionPayments({
-      //     date,
-      //     currency: dashboard.currency.name
-      //   });
-
-      //   setDashboardData(result);
-      //   setIsTransactionDrawerOpen(false);
-      // }
+      if (status === 200) {
+        console.log('Transaction updated', data);
+      }
     } catch (error) {
       console.error(error);
     }
