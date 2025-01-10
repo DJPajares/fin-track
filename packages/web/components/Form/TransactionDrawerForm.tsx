@@ -6,20 +6,15 @@ import {
   useMemo,
   useState
 } from 'react';
-import axios from 'axios';
 import { addMonths, differenceInCalendarMonths, format } from 'date-fns';
-import { z } from 'zod';
 import { useForm, useWatch } from 'react-hook-form';
 import moment from 'moment';
-import { useAppSelector } from '../../../lib/hooks/use-redux';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslations } from 'next-intl';
+import { useAppSelector } from '../../lib/hooks/use-redux';
 
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger
-} from '../../../components/ui/popover';
+import { Checkbox } from '@nextui-org/react';
+import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
 import {
   Form,
   FormControl,
@@ -27,7 +22,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage
-} from '../../../components/ui/form';
+} from '../ui/form';
 import {
   Select,
   SelectContent,
@@ -35,41 +30,29 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue
-} from '../../../components/ui/select';
-import { Input } from '../../../components/ui/input';
-import { Button } from '../../../components/ui/button';
-import { Calendar } from '../../../components/ui/calendar';
-import { Checkbox } from '@nextui-org/react';
-import { MultiSelectBox } from '../../../components/shared/MultiSelectBox';
+} from '../ui/select';
+import { Input } from '../ui/input';
+import { Button } from '../ui/button';
+import { Calendar } from '../ui/calendar';
+import { MultiSelectBox } from '../shared/MultiSelectBox';
 
 import { CalendarIcon } from 'lucide-react';
-
-import fetchTransactionPayments from '../../../services/fetchTransactionPayments';
 
 import { dateStringFormat } from '@shared/constants/dateStringFormat';
 import {
   type TransactionFormProps,
   transactionSchema
-} from '../../../lib/schemas/transaction';
+} from '../../lib/schemas/transaction';
 
-import type { DashboardDataResult } from '../../../types/Dashboard';
-import type { ListProps } from '../../../types/List';
-import type { CategoryItemProps } from '../../../types/Category';
-
-type TransactionDrawerFormProps = {
-  type: ListProps;
-  categories: CategoryItemProps[];
-  currencies: ListProps[];
-  setDashboardData: Dispatch<SetStateAction<DashboardDataResult>>;
-  setIsTransactionDrawerOpen: Dispatch<SetStateAction<boolean>>;
-  formRef: RefObject<HTMLFormElement>;
-};
+import type { ListProps } from '../../types/List';
+import type { CategoryItemProps } from '../../types/Category';
 
 type ExcludedDatesProps = {
   value: string;
   label: string;
 };
-type TransactionProps = {
+
+export type SubmitTransactionProps = {
   name: string;
   category: string;
   currency: string;
@@ -81,26 +64,25 @@ type TransactionProps = {
   endDate?: Date;
 };
 
-const transactionsUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/transactions`;
+type TransactionDrawerFormProps = {
+  type: ListProps;
+  categories: CategoryItemProps[];
+  currencies: ListProps[];
+  defaultValues?: TransactionFormProps;
+  submitTransaction: (data: SubmitTransactionProps) => Promise<void>;
+  setIsTransactionDrawerOpen: Dispatch<SetStateAction<boolean>>;
+  formRef: RefObject<HTMLFormElement>;
+};
 
 const TransactionDrawerForm = ({
   type,
   categories,
   currencies,
-  setDashboardData,
-  setIsTransactionDrawerOpen,
+  defaultValues,
+  submitTransaction,
   formRef
 }: TransactionDrawerFormProps) => {
   const t = useTranslations();
-  const dashboard = useAppSelector((state) => state.dashboard);
-
-  const currency = dashboard.currency;
-
-  const date = useMemo(() => {
-    const convertedDate = moment(dashboard.date, dateStringFormat).toDate();
-
-    return convertedDate;
-  }, [dashboard.date]);
 
   const [isStartDatePopoverOpen, setIsStartDatePopoverOpen] = useState(false);
   const [isEndDatePopoverOpen, setIsEndDatePopoverOpen] = useState(false);
@@ -108,39 +90,9 @@ const TransactionDrawerForm = ({
     ExcludedDatesProps[]
   >([]);
 
-  const createTransaction = async (transactionData: TransactionProps) => {
-    try {
-      const { status, data } = await axios.post(
-        transactionsUrl,
-        transactionData
-      );
-
-      if (status === 200) {
-        const result = await fetchTransactionPayments({
-          date,
-          currency: currency.name
-        });
-
-        setDashboardData(result);
-        // setIsTransactionDrawerOpen(false);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   const form = useForm<TransactionFormProps>({
     resolver: zodResolver(transactionSchema),
-    defaultValues: {
-      startDate: date,
-      endDate: date,
-      category: '',
-      name: '',
-      currency: currency._id,
-      // amount: 0,
-      isRecurring: false,
-      excludedDates: []
-    }
+    defaultValues
   });
 
   const startDate = useWatch({ control: form.control, name: 'startDate' });
@@ -190,7 +142,7 @@ const TransactionDrawerForm = ({
 
     const { name, category, currency, amount, startDate, endDate } = data;
 
-    const transactionData: TransactionProps = {
+    const transactionData: SubmitTransactionProps = {
       name,
       category,
       currency,
@@ -202,7 +154,7 @@ const TransactionDrawerForm = ({
       excludedDates
     };
 
-    await createTransaction(transactionData);
+    await submitTransaction(transactionData);
   };
 
   return (

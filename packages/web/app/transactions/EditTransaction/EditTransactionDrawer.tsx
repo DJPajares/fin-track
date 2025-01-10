@@ -1,49 +1,11 @@
-import { ReactNode, useRef, useState } from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import { Dispatch, ReactNode, SetStateAction, useRef, useState } from 'react';
 import { useTranslations } from 'next-intl';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useIsMobile } from '../../../lib/hooks/use-mobile';
 
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger
-} from '../../../components/ui/alert-dialog';
-import { Button } from '../../../components/ui/button';
-import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger
-} from '../../../components/ui/drawer';
-import { Input } from '../../../components/ui/input';
-import { Label } from '../../../components/ui/label';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage
-} from '../../../components/ui/form';
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue
-} from '../../../components/ui/select';
+import CustomDrawer from '../../../components/shared/CustomDrawer';
+import { SelectBox } from '../../../components/shared/SelectBox';
+import TransactionDrawerForm, {
+  SubmitTransactionProps
+} from '../../../components/Form/TransactionDrawerForm';
 
 import { useAppSelector } from '../../../lib/hooks/use-redux';
 import updateTransaction from '../../../services/updateTransaction';
@@ -53,170 +15,108 @@ import {
 } from '../../../lib/schemas/transaction';
 
 import type { TransactionProps } from '../../../types/Transaction';
-import CustomDrawer from '@web/components/shared/CustomDrawer';
+import type { ListProps } from '../../../types/List';
+import axios from 'axios';
+import { tr } from 'date-fns/locale';
 
 type EditTransactionDrawerProps = {
   transaction: TransactionProps;
   // fetchTransactions: () => void;
+  isDrawerOpen: boolean;
+  setIsDrawerOpen: Dispatch<SetStateAction<boolean>>;
   children: ReactNode;
 };
 
 const EditTransactionDrawer = ({
   transaction,
   // fetchTransactions,
+  isDrawerOpen,
+  setIsDrawerOpen,
   children
 }: EditTransactionDrawerProps) => {
-  const isMobile = useIsMobile();
   const t = useTranslations();
 
-  const { currencies } = useAppSelector((state) => state.main);
+  const { currencies, types, categories } = useAppSelector(
+    (state) => state.main
+  );
 
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [type, setType] = useState<ListProps>({
+    _id: transaction.typeId,
+    name: transaction.typeName
+  });
 
   const formRef = useRef<HTMLFormElement>(null);
 
-  const { name, amount, startDate, endDate, isRecurring } = transaction;
-
-  const form = useForm<TransactionFormProps>({
-    resolver: zodResolver(transactionSchema),
-    defaultValues: {
-      startDate,
-      endDate,
-      category: transaction.categoryId,
-      name,
-      currency: transaction.currencyId,
-      amount,
-      isRecurring
-    }
-  });
-
-  const onSubmit = (data: TransactionFormProps) => {
-    console.log(data);
-
-    // updateTransaction({
-    //   id: transaction._id,
-    //   data
-    // });
-
-    // fetchTransactions();
+  const defaultValues: TransactionFormProps = {
+    category: transaction.categoryId,
+    name: transaction.name,
+    currency: transaction.currencyId,
+    amount: transaction.amount,
+    isRecurring: transaction.isRecurring || false,
+    startDate: transaction.startDate,
+    endDate: transaction.endDate,
+    excludedDates:
+      transaction.excludedDates?.map((date) => ({
+        value: date.toDateString(),
+        label: date.toDateString()
+      })) || []
   };
 
-  const handleConfirmSubmit = () => {
-    // if (formRef.current) formRef.current.requestSubmit();
+  const submitTransaction = async (transactionData: SubmitTransactionProps) => {
+    try {
+      console.log('transactionData', transactionData);
 
-    // setIsDrawerOpen(!isDrawerOpen);
+      // const { status } = await axios.post(transactionsUrl, transactionData);
 
-    form.handleSubmit(
-      (data) => {
-        console.log('Form data submitted:', data);
-        // Add your submission logic here
-      },
-      (errors) => {
-        console.error('Validation errors:', errors);
-      }
-    )();
+      // if (status === 200) {
+      //   const result = await fetchTransactionPayments({
+      //     date,
+      //     currency: dashboard.currency.name
+      //   });
+
+      //   setDashboardData(result);
+      //   setIsTransactionDrawerOpen(false);
+      // }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleSubmit = async () => {
+    if (formRef.current) formRef.current.requestSubmit();
   };
 
   return (
     <CustomDrawer
       open={isDrawerOpen}
       onOpenChange={setIsDrawerOpen}
-      handleSubmit={handleConfirmSubmit}
+      handleSubmit={handleSubmit}
       title={transaction.name}
       description={transaction.description}
       triggerChildren={children}
     >
-      <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="space-y-4"
-          ref={formRef}
-        >
-          <Controller
-            name="name"
-            control={form.control}
-            render={({ field }) => (
-              <div className="space-y-1">
-                <Label className="font-semibold">
-                  {t('Page.transactions.form.name')}
-                </Label>
-                <Input defaultValue={field.value} onChange={field.onChange} />
-              </div>
-            )}
+      <div className="p-1 space-y-2">
+        <div className="flex flex-row justify-end">
+          <SelectBox
+            variant="ghost"
+            items={types}
+            selectedItem={type}
+            setSelectedItem={setType}
+            placeholder={t('Common.label.selectPlaceholder')}
+            className="w-fit p-0 text-base font-semibold"
           />
+        </div>
 
-          <div className="flex flex-row items-center space-x-2">
-            <div>
-              <FormField
-                control={form.control}
-                name="currency"
-                render={({ field }) => (
-                  <FormItem className="flex flex-col">
-                    <FormLabel>
-                      {t(
-                        'Page.dashboard.transactionDrawer.form.title.currency'
-                      )}
-                    </FormLabel>
-
-                    <Select
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                    >
-                      <SelectTrigger>
-                        <SelectValue
-                          placeholder={t(
-                            'Page.dashboard.transactionDrawer.form.placeholder.currency'
-                          )}
-                        />
-                      </SelectTrigger>
-
-                      <SelectContent>
-                        <SelectGroup>
-                          {currencies.map((currency) => (
-                            <SelectItem key={currency._id} value={currency._id}>
-                              {currency.name}
-                            </SelectItem>
-                          ))}
-                        </SelectGroup>
-                      </SelectContent>
-                    </Select>
-
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-
-            <div className="flex-1">
-              <FormField
-                control={form.control}
-                name="amount"
-                render={({ field }) => (
-                  <FormItem className="flex flex-col">
-                    <FormLabel>
-                      {t('Page.dashboard.transactionDrawer.form.title.amount')}
-                    </FormLabel>
-
-                    <FormControl>
-                      <Input
-                        type="number"
-                        inputMode="decimal"
-                        placeholder="0"
-                        {...field}
-                        value={field.value || ''}
-                        onChange={field.onChange}
-                        autoComplete="false"
-                      />
-                    </FormControl>
-
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-          </div>
-        </form>
-      </Form>
+        <TransactionDrawerForm
+          type={type}
+          categories={categories}
+          currencies={currencies}
+          defaultValues={defaultValues}
+          submitTransaction={submitTransaction}
+          setIsTransactionDrawerOpen={setIsDrawerOpen}
+          formRef={formRef}
+        />
+      </div>
     </CustomDrawer>
   );
 };

@@ -1,6 +1,14 @@
-import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
+import {
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useMemo,
+  useRef,
+  useState
+} from 'react';
 import { useTranslations } from 'next-intl';
-import { useAppSelector } from '../../../lib/hooks/use-redux';
+import axios from 'axios';
+import moment from 'moment';
 
 import {
   Drawer,
@@ -23,13 +31,22 @@ import {
   AlertDialogTitle
 } from '../../../components/ui/alert-dialog';
 import { SelectBox } from '../../../components/shared/SelectBox';
-import TransactionDrawerForm from './TransactionDrawerForm';
+import TransactionDrawerForm, {
+  type SubmitTransactionProps
+} from '../../../components/Form/TransactionDrawerForm';
+
+import fetchTransactionPayments from '../../../services/fetchTransactionPayments';
+import { useAppSelector } from '../../../lib/hooks/use-redux';
+
+import { dateStringFormat } from '@shared/constants/dateStringFormat';
 
 import type {
   DashboardDataResult,
   DashboardSelectionItemsProps
 } from '../../../types/Dashboard';
 import type { ListProps } from '../../../types/List';
+
+const transactionsUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/transactions`;
 
 type TransactionDrawerProps = {
   currencies: DashboardSelectionItemsProps[];
@@ -47,6 +64,7 @@ const TransactionDrawer = ({
   const t = useTranslations();
 
   const { types, categories } = useAppSelector((state) => state.main);
+  const dashboard = useAppSelector((state) => state.dashboard);
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isNoticeOpen, setIsNoticeOpen] = useState(false);
@@ -54,6 +72,23 @@ const TransactionDrawer = ({
     _id: '',
     name: ''
   });
+
+  const date = useMemo(() => {
+    const convertedDate = moment(dashboard.date, dateStringFormat).toDate();
+
+    return convertedDate;
+  }, [dashboard.date]);
+
+  const defaultValues = {
+    startDate: date,
+    endDate: date,
+    category: '',
+    name: '',
+    currency: dashboard.currency._id,
+    amount: 0,
+    isRecurring: false,
+    excludedDates: []
+  };
 
   useEffect(() => {
     if (types && types.length > 0) {
@@ -68,6 +103,24 @@ const TransactionDrawer = ({
     if (formRef.current) {
       formRef.current.requestSubmit();
       setIsNoticeOpen(true);
+    }
+  };
+
+  const submitTransaction = async (transactionData: SubmitTransactionProps) => {
+    try {
+      const { status } = await axios.post(transactionsUrl, transactionData);
+
+      if (status === 200) {
+        const result = await fetchTransactionPayments({
+          date,
+          currency: dashboard.currency.name
+        });
+
+        setDashboardData(result);
+        setIsTransactionDrawerOpen(false);
+      }
+    } catch (error) {
+      console.error(error);
     }
   };
 
@@ -102,16 +155,15 @@ const TransactionDrawer = ({
                 />
               </div>
 
-              <div>
-                <TransactionDrawerForm
-                  type={type}
-                  categories={categories}
-                  currencies={currencies}
-                  setDashboardData={setDashboardData}
-                  setIsTransactionDrawerOpen={setIsTransactionDrawerOpen}
-                  formRef={formRef}
-                />
-              </div>
+              <TransactionDrawerForm
+                type={type}
+                categories={categories}
+                currencies={currencies}
+                defaultValues={defaultValues}
+                submitTransaction={submitTransaction}
+                setIsTransactionDrawerOpen={setIsTransactionDrawerOpen}
+                formRef={formRef}
+              />
             </div>
 
             <DrawerFooter className="my-2">

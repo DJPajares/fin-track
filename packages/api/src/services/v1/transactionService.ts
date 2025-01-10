@@ -13,7 +13,6 @@ import convertCurrency from '../../utilities/convertCurrency';
 import moment from 'moment';
 
 import { serializeText } from '../../utilities/serializeText';
-// import { serializeText } from '@shared/utilities/serializeText';
 
 type FetchTransactionProps = {
   date: Date;
@@ -284,8 +283,9 @@ const getAdvanced = async (
         categoryId: '$category._id',
         categoryName: '$category.name',
         categoryIcon: '$category.icon',
+        isRecurring: '$isRecurring',
         startDate: '$startDate',
-        endDAte: '$endDate',
+        endDate: '$endDate',
         currencyId: '$currency._id',
         currencyName: '$currency.name',
         amount: { $toDouble: '$amount' },
