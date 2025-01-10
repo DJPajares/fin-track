@@ -3,15 +3,12 @@ import {
   RefObject,
   SetStateAction,
   useEffect,
-  useMemo,
   useState
 } from 'react';
 import { addMonths, differenceInCalendarMonths, format } from 'date-fns';
 import { useForm, useWatch } from 'react-hook-form';
-import moment from 'moment';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslations } from 'next-intl';
-import { useAppSelector } from '../../lib/hooks/use-redux';
 
 import { Checkbox } from '@nextui-org/react';
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
@@ -38,7 +35,6 @@ import { MultiSelectBox } from '../shared/MultiSelectBox';
 
 import { CalendarIcon } from 'lucide-react';
 
-import { dateStringFormat } from '@shared/constants/dateStringFormat';
 import {
   type TransactionFormProps,
   transactionSchema

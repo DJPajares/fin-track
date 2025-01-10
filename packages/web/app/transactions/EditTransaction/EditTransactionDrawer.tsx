@@ -53,8 +53,8 @@ const EditTransactionDrawer = ({
     currency: transaction.currencyId,
     amount: transaction.amount,
     isRecurring: transaction.isRecurring || false,
-    startDate: transaction.startDate,
-    endDate: transaction.endDate,
+    startDate: new Date(transaction.startDate),
+    endDate: new Date(transaction.endDate),
     excludedDates:
       transaction.excludedDates?.map((date) => ({
         value: date.toDateString(),
@@ -95,7 +95,7 @@ const EditTransactionDrawer = ({
       description={transaction.description}
       triggerChildren={children}
     >
-      <div className="p-1 space-y-2">
+      <div className="space-y-2">
         <div className="flex flex-row justify-end">
           <SelectBox
             variant="ghost"

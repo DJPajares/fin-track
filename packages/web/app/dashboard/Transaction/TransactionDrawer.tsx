@@ -45,6 +45,7 @@ import type {
   DashboardSelectionItemsProps
 } from '../../../types/Dashboard';
 import type { ListProps } from '../../../types/List';
+import { TransactionFormProps } from '@web/lib/schemas/transaction';
 
 const transactionsUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/transactions`;
 
@@ -79,14 +80,14 @@ const TransactionDrawer = ({
     return convertedDate;
   }, [dashboard.date]);
 
-  const defaultValues = {
-    startDate: date,
-    endDate: date,
+  const defaultValues: TransactionFormProps = {
     category: '',
     name: '',
     currency: dashboard.currency._id,
     amount: 0,
     isRecurring: false,
+    startDate: date,
+    endDate: date,
     excludedDates: []
   };
 

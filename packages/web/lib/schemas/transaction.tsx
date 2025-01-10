@@ -1,10 +1,6 @@
 import { z } from 'zod';
 
 const transactionSchema = z.object({
-  startDate: z.date({
-    required_error: 'Please select a start date.'
-  }),
-  endDate: z.date(),
   category: z.string().min(1, {
     message: 'Please select a category'
   }),
@@ -18,6 +14,10 @@ const transactionSchema = z.object({
     required_error: 'Please enter an amount'
   }),
   isRecurring: z.boolean(),
+  startDate: z.date({
+    required_error: 'Please select a start date.'
+  }),
+  endDate: z.date(),
   excludedDates: z
     .object({
       value: z.string(),
