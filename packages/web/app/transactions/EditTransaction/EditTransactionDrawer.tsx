@@ -1,26 +1,21 @@
 import { Dispatch, ReactNode, SetStateAction, useRef, useState } from 'react';
+import axios from 'axios';
 import { useTranslations } from 'next-intl';
 
 import CustomDrawer from '../../../components/shared/CustomDrawer';
 import { SelectBox } from '../../../components/shared/SelectBox';
 import TransactionDrawerForm, {
-  SubmitTransactionProps
+  type SubmitTransactionProps
 } from '../../../components/Form/TransactionDrawerForm';
 
 import { useAppSelector } from '../../../lib/hooks/use-redux';
-import updateTransaction from '../../../services/updateTransaction';
-import {
-  transactionSchema,
-  type TransactionFormProps
-} from '../../../lib/schemas/transaction';
 
+import type { TransactionFormProps } from '../../../lib/schemas/transaction';
 import type { TransactionProps } from '../../../types/Transaction';
 import type { ListProps } from '../../../types/List';
-import axios from 'axios';
 
 type EditTransactionDrawerProps = {
   transaction: TransactionProps;
-  // fetchTransactions: () => void;
   isDrawerOpen: boolean;
   setIsDrawerOpen: Dispatch<SetStateAction<boolean>>;
   children: ReactNode;
@@ -28,7 +23,6 @@ type EditTransactionDrawerProps = {
 
 const EditTransactionDrawer = ({
   transaction,
-  // fetchTransactions,
   isDrawerOpen,
   setIsDrawerOpen,
   children

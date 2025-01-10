@@ -10,8 +10,6 @@ import {
 } from '../../lib/redux/feature/dashboard/dashboardSlice';
 
 import { ScrollShadow, CircularProgress } from '@nextui-org/react';
-// import { CircularProgress } from '@nextui-org/react';
-// import { ScrollShadow } from '../../components/ui/scroll-shadow';
 import { Button } from '../../components/ui/button';
 import { Skeleton } from '../../components/ui/skeleton';
 import { Card } from '../../components/ui/card';
@@ -30,7 +28,6 @@ import { formatCurrency } from '@shared/utilities/formatCurrency';
 import { dateStringFormat } from '@shared/constants/dateStringFormat';
 
 import type {
-  DashboardSelectionItemsProps,
   DashboardDataProps,
   DashboardDataCategoryResult,
   DashboardDataResult
@@ -76,9 +73,8 @@ const Dashboard = () => {
   const [dashboardCategoryData, setDashboardCategoryData] =
     useState<DashboardDataCategoryResult>(initialTransactionPaymentCategory);
   const [date, setDate] = useState(dashboardDate);
-  const [isCurrencyPopoverOpen, setIsCurrencyPopoverOpen] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [isTransactionDrawerOpen, setIsTransactionDrawerOpen] = useState(false);
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const {
     dashbardCategories,
@@ -141,28 +137,13 @@ const Dashboard = () => {
     );
   };
 
-  const handleCurrencySelection = ({
-    selectedCurrency
-  }: {
-    selectedCurrency: DashboardSelectionItemsProps;
-  }) => {
-    // store in redux state
-    dispatch(
-      setDashboardCurrency({
-        currency: selectedCurrency
-      })
-    );
-
-    setIsCurrencyPopoverOpen(false);
-  };
-
   const handleCardClick = (category: DashboardDataCategoryResult) => {
     setDashboardCategoryData(category);
     setIsDialogOpen(true);
   };
 
   const handleAddTransactionButton = () => {
-    setIsTransactionDrawerOpen(true);
+    setIsDrawerOpen(true);
   };
 
   const handlePrevMonth = () => {
@@ -342,8 +323,8 @@ const Dashboard = () => {
       <TransactionDrawer
         currencies={currencies}
         setDashboardData={setDashboardData}
-        isTransactionDrawerOpen={isTransactionDrawerOpen}
-        setIsTransactionDrawerOpen={setIsTransactionDrawerOpen}
+        isDrawerOpen={isDrawerOpen}
+        setIsDrawerOpen={setIsDrawerOpen}
       />
     </div>
   );

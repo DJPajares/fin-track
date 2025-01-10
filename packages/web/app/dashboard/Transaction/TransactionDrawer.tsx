@@ -46,19 +46,20 @@ import type {
 } from '../../../types/Dashboard';
 import type { ListProps } from '../../../types/List';
 import { TransactionFormProps } from '@web/lib/schemas/transaction';
+import CustomDrawer from '@web/components/shared/CustomDrawer';
 
 type TransactionDrawerProps = {
   currencies: DashboardSelectionItemsProps[];
   setDashboardData: Dispatch<SetStateAction<DashboardDataResult>>;
-  isTransactionDrawerOpen: boolean;
-  setIsTransactionDrawerOpen: Dispatch<SetStateAction<boolean>>;
+  isDrawerOpen: boolean;
+  setIsDrawerOpen: Dispatch<SetStateAction<boolean>>;
 };
 
 const TransactionDrawer = ({
   currencies,
   setDashboardData,
-  isTransactionDrawerOpen,
-  setIsTransactionDrawerOpen
+  isDrawerOpen,
+  setIsDrawerOpen
 }: TransactionDrawerProps) => {
   const t = useTranslations();
 
@@ -97,7 +98,7 @@ const TransactionDrawer = ({
 
   const formRef = useRef<HTMLFormElement>(null);
 
-  const handleAddingTransaction = async () => {
+  const handleSubmit = async () => {
     // Request submit to the child component
     if (formRef.current) {
       formRef.current.requestSubmit();
@@ -118,7 +119,7 @@ const TransactionDrawer = ({
         });
 
         setDashboardData(result);
-        setIsTransactionDrawerOpen(false);
+        setIsDrawerOpen(false);
       }
     } catch (error) {
       console.error(error);
@@ -126,94 +127,37 @@ const TransactionDrawer = ({
   };
 
   return (
-    <>
-      <Drawer
-        open={isTransactionDrawerOpen}
-        onOpenChange={setIsTransactionDrawerOpen}
-      >
-        <DrawerContent>
-          <div className="mx-auto w-full max-w-lg overflow-y-auto max-h-screen">
-            <DrawerHeader>
-              <DrawerTitle>
-                {t(
-                  'Page.dashboard.transactionDrawer.title'
-                ).toLocaleUpperCase()}
-              </DrawerTitle>
-              <DrawerDescription>
-                {t('Page.dashboard.transactionDrawer.description')}
-              </DrawerDescription>
-            </DrawerHeader>
+    <CustomDrawer
+      open={isDrawerOpen}
+      onOpenChange={setIsDrawerOpen}
+      handleSubmit={handleSubmit}
+      title={t('Page.dashboard.transactionDrawer.title').toLocaleUpperCase()}
+      description={t('Page.dashboard.transactionDrawer.description')}
+      // triggerChildren={children}
+    >
+      <div className="space-y-2">
+        <div className="flex flex-row justify-end">
+          <SelectBox
+            variant="ghost"
+            items={types}
+            selectedItem={type}
+            setSelectedItem={setType}
+            placeholder={t('Common.label.selectPlaceholder')}
+            className="w-fit p-0 text-base font-semibold"
+          />
+        </div>
 
-            <div className="py-1 px-8 space-y-2">
-              <div className="flex flex-row justify-end">
-                <SelectBox
-                  variant="ghost"
-                  items={types}
-                  selectedItem={type}
-                  setSelectedItem={setType}
-                  placeholder={t('Common.label.selectPlaceholder')}
-                  className="w-fit p-0 text-base font-semibold"
-                />
-              </div>
-
-              <TransactionDrawerForm
-                type={type}
-                categories={categories}
-                currencies={currencies}
-                defaultValues={defaultValues}
-                submitTransaction={submitTransaction}
-                setIsTransactionDrawerOpen={setIsTransactionDrawerOpen}
-                formRef={formRef}
-              />
-            </div>
-
-            <DrawerFooter className="my-2">
-              <Button onClick={() => setIsDialogOpen(true)}>
-                {t('Common.button.add')}
-              </Button>
-              <DrawerClose asChild>
-                <Button variant="outline">{t('Common.button.cancel')}</Button>
-              </DrawerClose>
-            </DrawerFooter>
-          </div>
-        </DrawerContent>
-      </Drawer>
-
-      {/* CONFIRMATION */}
-      <AlertDialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>{t('Common.alertDialog.title')}</AlertDialogTitle>
-            <AlertDialogDescription>
-              {t('Common.alertDialog.description')}
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel>{t('Common.button.cancel')}</AlertDialogCancel>
-            <AlertDialogAction onClick={handleAddingTransaction}>
-              {t('Common.alertDialog.okButton')}
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
-
-      {/* NOTICE */}
-      <AlertDialog open={isNoticeOpen} onOpenChange={setIsNoticeOpen}>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Success</AlertDialogTitle>
-            <AlertDialogDescription>
-              Transaction added successfully!
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogAction>
-              {t('Common.alertDialog.okButton')}
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
-    </>
+        <TransactionDrawerForm
+          type={type}
+          categories={categories}
+          currencies={currencies}
+          defaultValues={defaultValues}
+          submitTransaction={submitTransaction}
+          setIsTransactionDrawerOpen={setIsDrawerOpen}
+          formRef={formRef}
+        />
+      </div>
+    </CustomDrawer>
   );
 };
 
