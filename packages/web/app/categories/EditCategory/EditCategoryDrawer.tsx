@@ -49,12 +49,12 @@ import { Trash2Icon } from 'lucide-react';
 
 import type { ListProps } from '../../../types/List';
 import type { CategoryItemProps } from '../../../types/Category';
+import CustomDrawer from '@web/components/shared/CustomDrawer';
 
 type EditCategoryDrawerProps = {
   type?: ListProps;
   category: CategoryItemProps;
   title: string;
-  okButton: string;
   isNew?: boolean;
   children: ReactNode;
 };
@@ -65,7 +65,6 @@ const EditCategoryDrawer = ({
   type,
   category,
   title,
-  okButton,
   isNew = false,
   children
 }: EditCategoryDrawerProps) => {
@@ -90,7 +89,7 @@ const EditCategoryDrawer = ({
     setIsPopoverOpen(false);
   };
 
-  const handleConfirmSubmit = () => {
+  const handleSubmit = async () => {
     if (formRef.current) formRef.current.requestSubmit();
 
     setIsDrawerOpen(false);
@@ -118,124 +117,86 @@ const EditCategoryDrawer = ({
   };
 
   return (
-    <Drawer open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
-      <DrawerTrigger asChild>{children}</DrawerTrigger>
+    <CustomDrawer
+      open={isDrawerOpen}
+      onOpenChange={setIsDrawerOpen}
+      handleSubmit={handleSubmit}
+      title={title}
+      description={type?.name}
+      triggerChildren={children}
+    >
+      <form
+        className="flex flex-row items-center justify-center space-x-2 sm:space-x-4"
+        onSubmit={form.handleSubmit(onSubmit)}
+        ref={formRef}
+      >
+        <Controller
+          name="icon"
+          control={form.control}
+          render={({ field }) => (
+            <Popover open={isPopoverOpen} onOpenChange={setIsPopoverOpen}>
+              <PopoverTrigger asChild>
+                <Button variant="outline" size="icon">
+                  <CardIcon icon={field.value} />
+                </Button>
+              </PopoverTrigger>
 
-      <DrawerContent className="mx-auto w-full max-w-lg max-h-screen">
-        <DrawerHeader>
-          <DrawerTitle>{title}</DrawerTitle>
-          <DrawerDescription>{type?.name}</DrawerDescription>
-        </DrawerHeader>
+              <PopoverContent>
+                <div className="grid grid-cols-6 align-middle gap-2">
+                  {iconMapArray.map((icon) => (
+                    <Button
+                      key={icon}
+                      variant="outline"
+                      size="icon"
+                      className={`${
+                        field.value === icon &&
+                        'bg-primary text-primary-foreground'
+                      }`}
+                      onClick={() => handleChangeIcon(icon)}
+                    >
+                      <CardIcon icon={icon} />
+                    </Button>
+                  ))}
+                </div>
+              </PopoverContent>
+            </Popover>
+          )}
+        />
 
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="flex flex-row items-center p-4 space-x-2 sm:space-x-4"
-          ref={formRef}
-        >
-          <Controller
-            name="icon"
-            control={form.control}
-            render={({ field }) => (
-              <Popover open={isPopoverOpen} onOpenChange={setIsPopoverOpen}>
-                <PopoverTrigger asChild>
-                  <Button variant="outline" size="icon">
-                    <CardIcon icon={field.value} />
-                  </Button>
-                </PopoverTrigger>
+        <Controller
+          name="name"
+          control={form.control}
+          render={({ field }) => (
+            <Input placeholder="Category name" {...field} />
+          )}
+        />
 
-                <PopoverContent className="w-full">
-                  <div className="grid grid-cols-6 align-middle gap-2">
-                    {iconMapArray.map((icon) => (
-                      <Button
-                        key={icon}
-                        variant="outline"
-                        size="icon"
-                        className={`${
-                          field.value === icon &&
-                          'bg-primary text-primary-foreground'
-                        }`}
-                        onClick={() => handleChangeIcon(icon)}
-                      >
-                        <CardIcon icon={icon} />
-                      </Button>
-                    ))}
-                  </div>
-                </PopoverContent>
-              </Popover>
-            )}
-          />
+        <AlertDialog>
+          <AlertDialogTrigger asChild>
+            <Button variant="outline" size="icon">
+              <Trash2Icon className="w-4 h-4" />
+            </Button>
+          </AlertDialogTrigger>
 
-          <Controller
-            name="name"
-            control={form.control}
-            render={({ field }) => (
-              <Input
-                placeholder="Category name"
-                // value={field.value}
-                // onChange={field.onChange}
-                {...field}
-              />
-            )}
-          />
-
-          <AlertDialog>
-            <AlertDialogTrigger asChild>
-              <Button variant="outline" size="icon">
-                <Trash2Icon className="w-4 h-4" />
-              </Button>
-            </AlertDialogTrigger>
-
-            <AlertDialogContent>
-              <AlertDialogHeader>
-                <AlertDialogTitle>
-                  {t('Common.alertDialog.title')}
-                </AlertDialogTitle>
-                <AlertDialogDescription>
-                  {t('Common.alertDialog.description')}
-                </AlertDialogDescription>
-              </AlertDialogHeader>
-              <AlertDialogFooter>
-                <AlertDialogCancel>
-                  {t('Common.button.cancel')}
-                </AlertDialogCancel>
-                <AlertDialogAction onClick={handleCategoryRemoval}>
-                  {t('Common.alertDialog.okButton')}
-                </AlertDialogAction>
-              </AlertDialogFooter>
-            </AlertDialogContent>
-          </AlertDialog>
-        </form>
-
-        <DrawerFooter>
-          <AlertDialog>
-            <AlertDialogTrigger asChild>
-              <Button>{okButton}</Button>
-            </AlertDialogTrigger>
-            <AlertDialogContent>
-              <AlertDialogHeader>
-                <AlertDialogTitle>
-                  {t('Common.alertDialog.title')}
-                </AlertDialogTitle>
-                <AlertDialogDescription>
-                  {t('Common.alertDialog.description')}
-                </AlertDialogDescription>
-              </AlertDialogHeader>
-              <AlertDialogFooter>
-                <AlertDialogCancel>
-                  {t('Common.button.cancel')}
-                </AlertDialogCancel>
-                <AlertDialogAction onClick={handleConfirmSubmit}>
-                  {t('Common.alertDialog.okButton')}
-                </AlertDialogAction>
-              </AlertDialogFooter>
-            </AlertDialogContent>
-          </AlertDialog>
-          <DrawerClose asChild>
-            <Button variant="outline">{t('Common.button.cancel')}</Button>
-          </DrawerClose>
-        </DrawerFooter>
-      </DrawerContent>
-    </Drawer>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>
+                {t('Common.alertDialog.title')}
+              </AlertDialogTitle>
+              <AlertDialogDescription>
+                {t('Common.alertDialog.description')}
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>{t('Common.button.cancel')}</AlertDialogCancel>
+              <AlertDialogAction onClick={handleCategoryRemoval}>
+                {t('Common.alertDialog.okButton')}
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
+      </form>
+    </CustomDrawer>
   );
 };
 

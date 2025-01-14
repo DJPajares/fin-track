@@ -79,7 +79,6 @@ const Categories = () => {
               type={selectedType}
               category={baseCategory}
               title={t('Page.categories.categoryDrawer.titleAdd')}
-              okButton={t('Common.button.add')}
               isNew
             >
               <Button variant="ghost" size="sm_rounded_icon">
@@ -100,7 +99,6 @@ const Categories = () => {
                     type={selectedType}
                     category={category}
                     title={t('Page.categories.categoryDrawer.titleEdit')}
-                    okButton={t('Common.button.update')}
                   >
                     <div className="flex flex-row items-center space-x-4 p-2 hover:bg-border cursor-pointer">
                       <CardIcon icon={category.icon} />
