@@ -85,6 +85,8 @@ const CustomDrawer = ({
                 <DrawerDescription>{description}</DrawerDescription>
               </DrawerHeader>
 
+              <Separator />
+
               <div className="py-4 overflow-auto">{children}</div>
             </div>
 
