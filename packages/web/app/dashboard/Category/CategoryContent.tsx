@@ -59,20 +59,8 @@ const CategoryContent = ({
   };
 
   return (
-    <>
-      <span className="col-span-2">
-        <p
-          className={`${
-            isTotal
-              ? 'text-base sm:text-lg font-semibold sm:font-bold'
-              : 'text-sm sm:text-base sm:font-medium'
-          } truncate hover:text-clip`}
-        >
-          {name}
-        </p>
-      </span>
-
-      <div className="col-span-3">
+    <div className="flex flex-row justify-between items-center space-x-4">
+      <div className="flex-1 space-y-2">
         <Popover
           open={!isTotal && isPopoverOpen}
           onOpenChange={setIsPopoverOpen}
@@ -80,13 +68,15 @@ const CategoryContent = ({
           <PopoverTrigger asChild>
             <div className="cursor-pointer">
               <Progress
-                label={label}
+                label={name}
                 value={Math.floor((paidAmount / amount) * 100)}
                 size="sm"
                 radius="sm"
                 showValueLabel={true}
                 classNames={{
-                  label: `${isTotal && 'text-base font-bold'}`,
+                  label: `${
+                    isTotal && 'text-base font-bold truncate hover:text-clip'
+                  }`,
                   value: `${isTotal && 'text-base font-bold'}`,
                   indicator: 'bg-primary'
                 }}
@@ -121,9 +111,19 @@ const CategoryContent = ({
             </div>
           </PopoverContent>
         </Popover>
+
+        <p
+          className={`${
+            isTotal
+              ? 'text-lg sm:text-xl font-bold sm:font-extrabold'
+              : 'text-base sm:text-lg font-semibold sm:font-bold'
+          }`}
+        >
+          {label}
+        </p>
       </div>
 
-      <div className="flex flex-row justify-end">
+      <div>
         <Button
           variant="outline"
           size="xs_rounded_icon"
@@ -138,7 +138,7 @@ const CategoryContent = ({
           <CheckIcon className="h-4 w-4" />
         </Button>
       </div>
-    </>
+    </div>
   );
 };
 

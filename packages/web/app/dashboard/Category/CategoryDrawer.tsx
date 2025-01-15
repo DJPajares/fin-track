@@ -176,8 +176,8 @@ const CategoryDrawer = ({
         category: drawerCategory.name.toLowerCase()
       })}
     >
-      <div className="flex flex-col justify-between px-2 space-y-2">
-        <span className="flex flex-col justify-center items-end pb-4 sm:pb-6">
+      <div className="flex flex-col justify-between px-2 space-y-6">
+        <span className="flex flex-col justify-center items-end">
           <span className="flex flex-row items-center space-x-2">
             <Label>{t('Page.dashboard.cardDrawer.showLocalCurrency')}</Label>
 
@@ -188,50 +188,47 @@ const CategoryDrawer = ({
           </span>
         </span>
 
-        {Object.keys(drawerCategory).length > 0 &&
-          drawerCategory.transactions.map((transaction) => (
-            <div
-              key={transaction._id}
-              className="grid grid-cols-6 gap-2 items-center py-1"
-            >
-              <CategoryContent
-                _id={transaction._id}
-                name={transaction.name}
-                label={formatCurrency({
-                  value: isLocalCurrency
-                    ? transaction.localAmount.amount
-                    : transaction.amount,
-                  currency: isLocalCurrency
-                    ? transaction.localAmount.currency.name
-                    : currency.name,
-                  decimal: 2
-                })}
-                amount={transaction.amount}
-                paidAmount={transaction.paidAmount}
-                currency={currency}
-                handleTransactionDataUpdate={handleTransactionDataUpdate}
-              />
-            </div>
-          ))}
+        <div className="space-y-3">
+          {Object.keys(drawerCategory).length > 0 &&
+            drawerCategory.transactions.map((transaction) => (
+              <div key={transaction._id}>
+                <CategoryContent
+                  _id={transaction._id}
+                  name={transaction.name}
+                  label={formatCurrency({
+                    value: isLocalCurrency
+                      ? transaction.localAmount.amount
+                      : transaction.amount,
+                    currency: isLocalCurrency
+                      ? transaction.localAmount.currency.name
+                      : currency.name,
+                    decimal: 2
+                  })}
+                  amount={transaction.amount}
+                  paidAmount={transaction.paidAmount}
+                  currency={currency}
+                  handleTransactionDataUpdate={handleTransactionDataUpdate}
+                />
+              </div>
+            ))}
+        </div>
 
         <Separator />
 
-        <div className="grid grid-cols-6 gap-2 items-center">
-          <CategoryContent
-            _id={drawerCategory._id}
-            name={t('Page.dashboard.cardDrawer.totalLabel').toLocaleUpperCase()}
-            label={formatCurrency({
-              value: drawerCategory.totalAmount,
-              currency: currency.name,
-              decimal: 2
-            })}
-            amount={drawerCategory.totalAmount}
-            paidAmount={drawerCategory.totalPaidAmount}
-            currency={currency}
-            handleTransactionDataUpdate={handleCategoryDataUpdate}
-            isTotal
-          />
-        </div>
+        <CategoryContent
+          _id={drawerCategory._id}
+          name={t('Page.dashboard.cardDrawer.totalLabel').toLocaleUpperCase()}
+          label={formatCurrency({
+            value: drawerCategory.totalAmount,
+            currency: currency.name,
+            decimal: 2
+          })}
+          amount={drawerCategory.totalAmount}
+          paidAmount={drawerCategory.totalPaidAmount}
+          currency={currency}
+          handleTransactionDataUpdate={handleCategoryDataUpdate}
+          isTotal
+        />
       </div>
     </CustomDrawer>
   );
