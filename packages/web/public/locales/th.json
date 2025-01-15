@@ -56,7 +56,8 @@
       "cardDrawer": {
         "title": "",
         "description": "ชำระธุรกรรม {category}",
-        "totalLabel": "รวม"
+        "totalLabel": "รวม",
+        "showLocalCurrency": "แสดงในสกุลเงินท้องถิ่น"
       },
       "transactionDrawer": {
         "title": "ธุรกรรม",

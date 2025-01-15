@@ -56,7 +56,8 @@
       "cardDrawer": {
         "title": "",
         "description": "{category} işlemlerini düzenle",
-        "totalLabel": "Toplam"
+        "totalLabel": "Toplam",
+        "showLocalCurrency": "Yerel para biriminde göster"
       },
       "transactionDrawer": {
         "title": "İşlem",

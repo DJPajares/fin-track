@@ -56,7 +56,8 @@
       "cardDrawer": {
         "title": "",
         "description": "Atur transaksi {category}",
-        "totalLabel": "Total"
+        "totalLabel": "Total",
+        "showLocalCurrency": "Tampilkan dalam mata uang lokal"
       },
       "transactionDrawer": {
         "title": "Transaksi",

@@ -56,7 +56,8 @@
       "cardDrawer": {
         "title": "",
         "description": "تسوية معاملات {category}",
-        "totalLabel": "الإجمالي"
+        "totalLabel": "الإجمالي",
+        "showLocalCurrency": "عرض بالعملة المحلية"
       },
       "transactionDrawer": {
         "title": "المعاملة",

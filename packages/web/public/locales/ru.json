@@ -56,7 +56,8 @@
       "cardDrawer": {
         "title": "",
         "description": "Урегулировать транзакции {category}",
-        "totalLabel": "Итого"
+        "totalLabel": "Итого",
+        "showLocalCurrency": "Показать в местной валюте"
       },
       "transactionDrawer": {
         "title": "Транзакция",

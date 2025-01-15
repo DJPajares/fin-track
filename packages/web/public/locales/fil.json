@@ -56,7 +56,8 @@
       "cardDrawer": {
         "title": "",
         "description": "Ayusin ang mga transaksyon sa {category}",
-        "totalLabel": "Kabuuan"
+        "totalLabel": "Kabuuan",
+        "showLocalCurrency": "Ipakita sa lokal na pera"
       },
       "transactionDrawer": {
         "title": "Transaksyon",

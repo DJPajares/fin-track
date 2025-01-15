@@ -56,7 +56,8 @@
       "cardDrawer": {
         "title": "",
         "description": "Thanh toán giao dịch {category}",
-        "totalLabel": "Tổng"
+        "totalLabel": "Tổng",
+        "showLocalCurrency": "Hiển Thị Bằng Tiền Địa Phương"
       },
       "transactionDrawer": {
         "title": "Giao Dịch",

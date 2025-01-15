@@ -56,7 +56,8 @@
       "cardDrawer": {
         "title": "",
         "description": "{category} लेन-देन का निपटान करें",
-        "totalLabel": "कुल"
+        "totalLabel": "कुल",
+        "showLocalCurrency": "स्थानीय मुद्रा में दिखाएं"
       },
       "transactionDrawer": {
         "title": "लेन-देन",

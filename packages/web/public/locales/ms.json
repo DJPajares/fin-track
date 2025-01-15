@@ -56,7 +56,8 @@
       "cardDrawer": {
         "title": "",
         "description": "Tetapkan transaksi {category}",
-        "totalLabel": "Jumlah"
+        "totalLabel": "Jumlah",
+        "showLocalCurrency": "Paparkan dalam mata wang tempatan"
       },
       "transactionDrawer": {
         "title": "Transaksi",

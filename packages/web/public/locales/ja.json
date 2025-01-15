@@ -56,7 +56,8 @@
       "cardDrawer": {
         "title": "",
         "description": "{category} の取引を決済",
-        "totalLabel": "合計"
+        "totalLabel": "合計",
+        "showLocalCurrency": "現地通貨で表示"
       },
       "transactionDrawer": {
         "title": "取引",

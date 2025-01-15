@@ -2,30 +2,11 @@ import axios from 'axios';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import moment from 'moment';
 import { useAppSelector } from '../../../lib/hooks/use-redux';
+import { useTranslations } from 'next-intl';
 
-import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle
-} from '../../../components/ui/drawer';
-import { Button } from '../../../components/ui/button';
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger
-} from '../../../components/ui/alert-dialog';
 import { Separator } from '../../../components/ui/separator';
 import CategoryContent from './CategoryContent';
+import CustomDrawer from '../../../components/shared/CustomDrawer';
 
 import fetchTransactionPayments from '../../../services/fetchTransactionPayments';
 import { dateStringFormat } from '@shared/constants/dateStringFormat';
@@ -35,7 +16,8 @@ import type {
   TransactionPaymentCategoryProps
 } from '../../../types/TransactionPayment';
 import type { DashboardDataResult } from '../../../types/Dashboard';
-import { useTranslations } from 'next-intl';
+import { Switch } from '@web/components/ui/switch';
+import { Label } from '@web/components/ui/label';
 
 type CategoryDrawerProps = {
   category: TransactionPaymentCategoryProps;
@@ -69,6 +51,7 @@ const CategoryDrawer = ({
 
   const currency = dashboard.currency;
 
+  const [isLocalCurrency, setIsLocalCurrency] = useState(false);
   const [drawerCategory, setDrawerCategory] = useState(
     initialTransactionPaymentCategory
   );
@@ -182,92 +165,65 @@ const CategoryDrawer = ({
     }
   };
 
+  const handleShowingLocalCurrency = (checked: boolean) => {
+    setIsLocalCurrency(checked);
+  };
+
   return (
-    <Drawer open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-      <DrawerContent>
-        <div className="mx-auto w-full max-w-lg">
-          <DrawerHeader className="my-2">
-            <DrawerTitle>{drawerCategory.name}</DrawerTitle>
-            {/* <DrawerDescription>{`Settle ${drawerCategory.name.toLowerCase()} transactions`}</DrawerDescription> */}
-            <DrawerDescription>
-              {t('Page.dashboard.cardDrawer.description', {
-                category: drawerCategory.name.toLowerCase()
-              })}
-            </DrawerDescription>
-          </DrawerHeader>
+    <CustomDrawer
+      open={isDialogOpen}
+      onOpenChange={setIsDialogOpen}
+      handleSubmit={createUpdatePayment}
+      title={drawerCategory.name}
+      description={t('Page.dashboard.cardDrawer.description', {
+        category: drawerCategory.name.toLowerCase()
+      })}
+    >
+      <div className="flex flex-col justify-between px-2 space-y-2">
+        <span className="flex flex-col justify-center items-end pb-4 sm:pb-6">
+          <span className="flex flex-row items-center space-x-2">
+            <Label>{t('Page.dashboard.cardDrawer.showLocalCurrency')}</Label>
+            <Switch
+              checked={isLocalCurrency}
+              onCheckedChange={handleShowingLocalCurrency}
+            />
+          </span>
+        </span>
 
-          <Separator />
-
-          <div className="flex flex-col justify-between px-4 py-2">
-            {Object.keys(drawerCategory).length > 0 &&
-              drawerCategory.transactions.map((transaction) => (
-                <div
-                  key={transaction._id}
-                  className="grid grid-cols-6 gap-2 items-center py-1"
-                >
-                  <CategoryContent
-                    _id={transaction._id}
-                    name={transaction.name}
-                    amount={transaction.amount}
-                    paidAmount={transaction.paidAmount}
-                    currency={currency}
-                    handleTransactionDataUpdate={handleTransactionDataUpdate}
-                  />
-                </div>
-              ))}
-
-            <div className="pt-2">
-              <Separator />
-            </div>
-
-            <div className="grid grid-cols-6 gap-2 items-center py-2">
+        {Object.keys(drawerCategory).length > 0 &&
+          drawerCategory.transactions.map((transaction) => (
+            <div
+              key={transaction._id}
+              className="grid grid-cols-6 gap-2 items-center py-1"
+            >
               <CategoryContent
-                _id={drawerCategory._id}
-                name={t(
-                  'Page.dashboard.cardDrawer.totalLabel'
-                ).toLocaleUpperCase()}
-                amount={drawerCategory.totalAmount}
-                paidAmount={drawerCategory.totalPaidAmount}
+                _id={transaction._id}
+                name={transaction.name}
+                amount={transaction.amount}
+                paidAmount={transaction.paidAmount}
                 currency={currency}
-                handleTransactionDataUpdate={handleCategoryDataUpdate}
-                isTotal
+                handleTransactionDataUpdate={handleTransactionDataUpdate}
               />
             </div>
-          </div>
+          ))}
 
-          <Separator />
+        {/* <div className="pt-2"> */}
+        <Separator />
+        {/* </div> */}
 
-          <DrawerFooter className="my-2">
-            <AlertDialog>
-              <AlertDialogTrigger asChild>
-                <Button>{t('Common.alertDialog.triggerButton')}</Button>
-              </AlertDialogTrigger>
-              <AlertDialogContent>
-                <AlertDialogHeader>
-                  <AlertDialogTitle>
-                    {t('Common.alertDialog.title')}
-                  </AlertDialogTitle>
-                  <AlertDialogDescription>
-                    {t('Common.alertDialog.description')}
-                  </AlertDialogDescription>
-                </AlertDialogHeader>
-                <AlertDialogFooter>
-                  <AlertDialogCancel>
-                    {t('Common.button.cancel')}
-                  </AlertDialogCancel>
-                  <AlertDialogAction onClick={createUpdatePayment}>
-                    {t('Common.alertDialog.okButton')}
-                  </AlertDialogAction>
-                </AlertDialogFooter>
-              </AlertDialogContent>
-            </AlertDialog>
-            <DrawerClose asChild>
-              <Button variant="outline">{t('Common.button.cancel')}</Button>
-            </DrawerClose>
-          </DrawerFooter>
+        <div className="grid grid-cols-6 gap-2 items-center">
+          <CategoryContent
+            _id={drawerCategory._id}
+            name={t('Page.dashboard.cardDrawer.totalLabel').toLocaleUpperCase()}
+            amount={drawerCategory.totalAmount}
+            paidAmount={drawerCategory.totalPaidAmount}
+            currency={currency}
+            handleTransactionDataUpdate={handleCategoryDataUpdate}
+            isTotal
+          />
         </div>
-      </DrawerContent>
-    </Drawer>
+      </div>
+    </CustomDrawer>
   );
 };
 

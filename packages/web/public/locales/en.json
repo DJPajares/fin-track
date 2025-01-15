@@ -56,7 +56,8 @@
       "cardDrawer": {
         "title": "",
         "description": "Settle {category} transactions",
-        "totalLabel": "Total"
+        "totalLabel": "Total",
+        "showLocalCurrency": "Show in local currency"
       },
       "transactionDrawer": {
         "title": "Transaction",
