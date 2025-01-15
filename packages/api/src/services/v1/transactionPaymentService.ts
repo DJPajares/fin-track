@@ -575,6 +575,10 @@ const processTransactionPaymentData = ({
             name: expenseTransactionPayment.currency
           },
           amount: localAmount,
+          paidCurrency: {
+            _id: expenseTransactionPayment.paidCurrencyId,
+            name: expenseTransactionPayment.paidCurrency
+          },
           paidAmount: localPaidAmount
         };
 
