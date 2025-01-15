@@ -11,10 +11,23 @@ const convertCurrency = ({
   toCurrency,
   rates
 }: ConvertCurrencyProps): number => {
-  const valueInUsd = value / rates[fromCurrency];
+  if (fromCurrency === toCurrency) {
+    return value;
+  }
 
-  const convertedValue =
-    toCurrency === 'USD' ? valueInUsd : valueInUsd * rates[toCurrency];
+  // if (!rates[fromCurrency] || !rates[toCurrency]) {
+  //   throw new Error('Currency rate not available');
+  // }
+
+  let convertedValue: number;
+
+  if (fromCurrency === 'USD') {
+    convertedValue = value * rates[toCurrency];
+  } else if (toCurrency === 'USD') {
+    convertedValue = value / rates[fromCurrency];
+  } else {
+    convertedValue = (value / rates[fromCurrency]) * rates[toCurrency];
+  }
 
   return convertedValue;
 };
