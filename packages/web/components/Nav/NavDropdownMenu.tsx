@@ -101,15 +101,21 @@ const NavDropdownMenu = ({ children }: NavDropdownMenuProps) => {
             </DropdownMenuSubTrigger>
             <DropdownMenuPortal>
               <DropdownMenuSubContent>
-                {languages.map((language) => (
-                  <DropdownMenuCheckboxItem
-                    key={language.value}
-                    checked={locale === language.value}
-                    onClick={() => handleLanguageChange(language.value)}
-                  >
-                    {language.label}
-                  </DropdownMenuCheckboxItem>
-                ))}
+                {languages.map((language) => {
+                  const isSelected = locale === language.value;
+
+                  return (
+                    <DropdownMenuCheckboxItem
+                      key={language.value}
+                      checked={isSelected}
+                      onClick={() => handleLanguageChange(language.value)}
+                    >
+                      <p className={`${isSelected && 'font-bold'}`}>
+                        {language.label}
+                      </p>
+                    </DropdownMenuCheckboxItem>
+                  );
+                })}
               </DropdownMenuSubContent>
             </DropdownMenuPortal>
           </DropdownMenuSub>
@@ -121,15 +127,20 @@ const NavDropdownMenu = ({ children }: NavDropdownMenuProps) => {
             </DropdownMenuSubTrigger>
             <DropdownMenuPortal>
               <DropdownMenuSubContent>
-                {currencies.map((currency) => (
-                  <DropdownMenuCheckboxItem
-                    key={currency._id}
-                    checked={dashboardCurrency.name === currency.name}
-                    onClick={() => handleCurrencyChange(currency)}
-                  >
-                    {currency.name}
-                  </DropdownMenuCheckboxItem>
-                ))}
+                {currencies.map((currency) => {
+                  const isSelected = dashboardCurrency.name === currency.name;
+                  return (
+                    <DropdownMenuCheckboxItem
+                      key={currency._id}
+                      checked={isSelected}
+                      onClick={() => handleCurrencyChange(currency)}
+                    >
+                      <p className={`${isSelected && 'font-bold'}`}>
+                        {currency.name}
+                      </p>
+                    </DropdownMenuCheckboxItem>
+                  );
+                })}
               </DropdownMenuSubContent>
             </DropdownMenuPortal>
           </DropdownMenuSub>
