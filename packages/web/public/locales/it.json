@@ -57,7 +57,9 @@
         "title": "",
         "description": "Regola le transazioni di {category}",
         "totalLabel": "Totale",
-        "showLocalCurrency": "Mostra in valuta locale"
+        "showLocalCurrency": "Mostra in valuta locale",
+        "settleLabel": "Importo da liquidare",
+        "outOf": "di {amount}"
       },
       "transactionDrawer": {
         "title": "Transazione",

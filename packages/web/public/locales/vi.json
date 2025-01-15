@@ -57,7 +57,9 @@
         "title": "",
         "description": "Thanh toán giao dịch {category}",
         "totalLabel": "Tổng",
-        "showLocalCurrency": "Hiển Thị Bằng Tiền Địa Phương"
+        "showLocalCurrency": "Hiển Thị Bằng Tiền Địa Phương",
+        "settleLabel": "Số Tiền Thanh Toán",
+        "outOf": "trong số {amount}"
       },
       "transactionDrawer": {
         "title": "Giao Dịch",

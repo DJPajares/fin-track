@@ -57,7 +57,9 @@
         "title": "",
         "description": "Liquidar transacciones de {category}",
         "totalLabel": "Total",
-        "showLocalCurrency": "Mostrar en moneda local"
+        "showLocalCurrency": "Mostrar en moneda local",
+        "settleLabel": "Monto a liquidar",
+        "outOf": "de {amount}"
       },
       "transactionDrawer": {
         "title": "Transacción",

@@ -57,7 +57,9 @@
         "title": "",
         "description": "Урегулировать транзакции {category}",
         "totalLabel": "Итого",
-        "showLocalCurrency": "Показать в местной валюте"
+        "showLocalCurrency": "Показать в местной валюте",
+        "settleLabel": "Сумма для урегулирования",
+        "outOf": "из {amount}"
       },
       "transactionDrawer": {
         "title": "Транзакция",

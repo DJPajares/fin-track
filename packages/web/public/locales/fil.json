@@ -57,7 +57,9 @@
         "title": "",
         "description": "Ayusin ang mga transaksyon sa {category}",
         "totalLabel": "Kabuuan",
-        "showLocalCurrency": "Ipakita sa lokal na pera"
+        "showLocalCurrency": "Ipakita sa lokal na pera",
+        "settleLabel": "Halagang aayusin",
+        "outOf": "ng {amount}"
       },
       "transactionDrawer": {
         "title": "Transaksyon",

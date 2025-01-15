@@ -57,7 +57,9 @@
         "title": "",
         "description": "Régler les transactions de {category}",
         "totalLabel": "Total",
-        "showLocalCurrency": "Afficher en devise locale"
+        "showLocalCurrency": "Afficher en devise locale",
+        "settleLabel": "Montant à régler",
+        "outOf": "de {amount}"
       },
       "transactionDrawer": {
         "title": "Transaction",

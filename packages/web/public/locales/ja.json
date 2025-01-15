@@ -57,7 +57,9 @@
         "title": "",
         "description": "{category} の取引を決済",
         "totalLabel": "合計",
-        "showLocalCurrency": "現地通貨で表示"
+        "showLocalCurrency": "現地通貨で表示",
+        "settleLabel": "決済額",
+        "outOf": "{amount} のうち"
       },
       "transactionDrawer": {
         "title": "取引",

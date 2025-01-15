@@ -57,7 +57,9 @@
         "title": "",
         "description": "{category}-Transaktionen abschließen",
         "totalLabel": "Gesamt",
-        "showLocalCurrency": "In lokaler Währung anzeigen"
+        "showLocalCurrency": "In lokaler Währung anzeigen",
+        "settleLabel": "Zu erledigender Betrag",
+        "outOf": "von {amount}"
       },
       "transactionDrawer": {
         "title": "Transaktion",

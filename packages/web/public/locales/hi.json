@@ -57,7 +57,9 @@
         "title": "",
         "description": "{category} लेन-देन का निपटान करें",
         "totalLabel": "कुल",
-        "showLocalCurrency": "स्थानीय मुद्रा में दिखाएं"
+        "showLocalCurrency": "स्थानीय मुद्रा में दिखाएं",
+        "settleLabel": "निपटान के लिए राशि",
+        "outOf": "{amount} का"
       },
       "transactionDrawer": {
         "title": "लेन-देन",

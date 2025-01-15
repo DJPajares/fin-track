@@ -57,7 +57,9 @@
         "title": "",
         "description": "Atur transaksi {category}",
         "totalLabel": "Total",
-        "showLocalCurrency": "Tampilkan dalam mata uang lokal"
+        "showLocalCurrency": "Tampilkan dalam mata uang lokal",
+        "settleLabel": "Jumlah yang akan diselesaikan",
+        "outOf": "dari {amount}"
       },
       "transactionDrawer": {
         "title": "Transaksi",

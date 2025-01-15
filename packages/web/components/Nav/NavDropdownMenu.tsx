@@ -174,14 +174,6 @@ const NavDropdownMenu = ({ children }: NavDropdownMenuProps) => {
             </DropdownMenuShortcut>
           </DropdownMenuItem>
         </DropdownMenuGroup>
-
-        {/* <DropdownMenuLabel>
-                <div className="flex flex-row justify-end">
-                  <p className="text-xs leading-none text-muted-foreground">
-                    {`v${version}`}
-                  </p>
-                </div>
-              </DropdownMenuLabel> */}
       </DropdownMenuContent>
     </DropdownMenu>
   );

@@ -57,7 +57,9 @@
         "title": "",
         "description": "结算 {category} 交易",
         "totalLabel": "总计",
-        "showLocalCurrency": "显示本地货币"
+        "showLocalCurrency": "显示本地货币",
+        "settleLabel": "结算金额",
+        "outOf": "出自 {amount}"
       },
       "transactionDrawer": {
         "title": "交易",

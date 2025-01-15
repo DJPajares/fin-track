@@ -1,4 +1,6 @@
 import { KeyboardEvent, useState } from 'react';
+import { useTranslations } from 'next-intl';
+
 import { Button } from '../../../components/ui/button';
 import {
   Popover,
@@ -41,6 +43,8 @@ const CategoryContent = ({
   handleTransactionDataUpdate,
   isTotal
 }: CategoryContentProps) => {
+  const t = useTranslations('Page.dashboard.cardDrawer');
+
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
 
   const isCompleted = Math.floor(paidAmount / amount) === 1;
@@ -88,7 +92,7 @@ const CategoryContent = ({
 
             <div className="space-y-2">
               <span className="flex flex-row justify-end">
-                <p className="text-xs">{`(Amount to settle)`}</p>
+                <p className="text-xs">{`(${t('settleLabel')})`}</p>
               </span>
 
               <Input
@@ -107,11 +111,13 @@ const CategoryContent = ({
 
               <span className="flex flex-row justify-end">
                 <p className="text-sm font-medium">
-                  {`out of ${formatCurrency({
-                    value: amount,
-                    currency: currency.name,
-                    decimal: 2
-                  })}`}
+                  {t('outOf', {
+                    amount: formatCurrency({
+                      value: amount,
+                      currency: currency.name,
+                      decimal: 2
+                    })
+                  })}
                 </p>
               </span>
             </div>

@@ -57,7 +57,9 @@
         "title": "",
         "description": "ชำระธุรกรรม {category}",
         "totalLabel": "รวม",
-        "showLocalCurrency": "แสดงในสกุลเงินท้องถิ่น"
+        "showLocalCurrency": "แสดงในสกุลเงินท้องถิ่น",
+        "settleLabel": "จำนวนเงินที่ต้องการชำระ",
+        "outOf": "จาก {amount}"
       },
       "transactionDrawer": {
         "title": "ธุรกรรม",

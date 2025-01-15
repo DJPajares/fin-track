@@ -57,7 +57,9 @@
         "title": "",
         "description": "تسوية معاملات {category}",
         "totalLabel": "الإجمالي",
-        "showLocalCurrency": "عرض بالعملة المحلية"
+        "showLocalCurrency": "عرض بالعملة المحلية",
+        "settleLabel": "المبلغ المراد تسويته",
+        "outOf": "من إجمالي {amount}"
       },
       "transactionDrawer": {
         "title": "المعاملة",

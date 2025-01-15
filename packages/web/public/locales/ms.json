@@ -57,7 +57,9 @@
         "title": "",
         "description": "Tetapkan transaksi {category}",
         "totalLabel": "Jumlah",
-        "showLocalCurrency": "Paparkan dalam mata wang tempatan"
+        "showLocalCurrency": "Paparkan dalam mata wang tempatan",
+        "settleLabel": "Jumlah yang akan diselesaikan",
+        "outOf": "daripada {amount}"
       },
       "transactionDrawer": {
         "title": "Transaksi",

@@ -57,7 +57,9 @@
         "title": "",
         "description": "{category} işlemlerini düzenle",
         "totalLabel": "Toplam",
-        "showLocalCurrency": "Yerel para biriminde göster"
+        "showLocalCurrency": "Yerel para biriminde göster",
+        "settleLabel": "Düzenlemek için miktar",
+        "outOf": "{amount} 'den"
       },
       "transactionDrawer": {
         "title": "İşlem",
