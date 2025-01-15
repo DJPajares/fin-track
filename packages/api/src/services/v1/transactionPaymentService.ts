@@ -261,9 +261,61 @@ const fetchTransactionPayments = async (data: FetchTransactionPaymentProps) => {
           {
             $match: {
               $expr: {
+                // $and: [
+                //   { $gte: [{ $year: '$date' }, year] },
+                //   { $gte: [{ $month: '$date' }, month] }
+                // ]
                 $and: [
-                  { $gte: [{ $year: '$date' }, year] },
-                  { $gte: [{ $month: '$date' }, month] }
+                  {
+                    $lte: [
+                      {
+                        $add: [
+                          { $multiply: [{ $year: '$date' }, 100] },
+                          { $month: '$date' }
+                        ]
+                      },
+                      yearMonth
+                    ]
+                  },
+                  {
+                    $gte: [
+                      {
+                        $add: [
+                          { $multiply: [{ $year: '$date' }, 100] },
+                          { $month: '$date' }
+                        ]
+                      },
+                      yearMonth
+                    ]
+                  }
+                  // {
+                  //   $not: {
+                  //     $in: [
+                  //       month,
+                  //       {
+                  //         $map: {
+                  //           input: '$excludedDates',
+                  //           as: 'date',
+                  //           in: { $month: '$$date' }
+                  //         }
+                  //       }
+                  //     ]
+                  //   }
+                  // },
+                  // {
+                  //   $not: {
+                  //     $in: [
+                  //       year,
+                  //       {
+                  //         $map: {
+                  //           input: '$excludedDates',
+                  //           as: 'date',
+                  //           in: { $year: '$$date' }
+                  //         }
+                  //       }
+                  //     ]
+                  //   }
+                  // }
                 ]
               }
             }
@@ -383,6 +435,7 @@ const processTransactionPaymentData = ({
   rates,
   currency
 }: ProcessTransactionPaymentDataProps) => {
+  // MAIN
   const budget = incomeTransactions.reduce(
     (accumulator: number, incomeTransaction: IncomeTransactionsProps) => {
       const value = parseFloat(incomeTransaction.amount.toString());
@@ -445,6 +498,7 @@ const processTransactionPaymentData = ({
     paymentCompletionRate: totalPaidAmount / totalAmount
   };
 
+  // CATEGORIES
   const categories = Object.values(
     expenseTransactionPayments.reduce(
       (
@@ -453,6 +507,7 @@ const processTransactionPaymentData = ({
       ) => {
         const key = expenseTransactionPayment.categoryId.toString();
 
+        // CATEGORY ACCUMULATOR
         if (!accumulator[key]) {
           accumulator[key] = {
             _id: expenseTransactionPayment.categoryId,
@@ -465,7 +520,10 @@ const processTransactionPaymentData = ({
           };
         }
 
+        // TRANSACTION
+        // [Amount]
         let amount = 0;
+        let localAmount = 0;
 
         if (expenseTransactionPayment.amount) {
           const amountCurrency = expenseTransactionPayment.currency;
@@ -483,9 +541,14 @@ const processTransactionPaymentData = ({
                   toCurrency: currency,
                   rates
                 });
+
+          localAmount = transactionAmount;
         }
 
+        // [Paid Amount]
         let paidAmount = 0;
+        let localPaidAmount = 0;
+
         if (expenseTransactionPayment.paidAmount) {
           const transactionPaidAmount = parseFloat(
             expenseTransactionPayment.paidAmount.toString()
@@ -501,16 +564,30 @@ const processTransactionPaymentData = ({
                   toCurrency: currency,
                   rates
                 });
+
+          localPaidAmount = transactionPaidAmount;
         }
 
+        // [In Local Currency]
+        const localCurrency = expenseTransactionPayment.currency;
+
+        const localAmountValue = {
+          currency: localCurrency,
+          amount: localAmount,
+          paidAmount: localPaidAmount
+        };
+
+        // [Transactions Array]
         const transaction = {
           _id: expenseTransactionPayment._id,
           paymentId: expenseTransactionPayment.paymentId,
           name: expenseTransactionPayment.name,
           amount,
-          paidAmount
+          paidAmount,
+          localAmount: localAmountValue
         };
 
+        // CATEGORY TOTAL
         accumulator[key].transactions.push(transaction);
         accumulator[key].totalAmount += transaction.amount;
         accumulator[key].totalPaidAmount += transaction.paidAmount;
