@@ -313,13 +313,6 @@ const Dashboard = () => {
         setIsDialogOpen={setIsDialogOpen}
       />
 
-      {/* <CategoryDialog
-        category={dashboardCategoryData}
-        setDashboardData={setDashboardData}
-        isDialogOpen={isDialogOpen}
-        setIsDialogOpen={setIsDialogOpen}
-      /> */}
-
       <TransactionDrawer
         currencies={currencies}
         setDashboardData={setDashboardData}
