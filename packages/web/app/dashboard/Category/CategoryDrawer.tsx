@@ -4,6 +4,7 @@ import moment from 'moment';
 import { useAppSelector } from '../../../lib/hooks/use-redux';
 import { useTranslations } from 'next-intl';
 
+import { ScrollShadow } from '@nextui-org/react';
 import { Separator } from '../../../components/ui/separator';
 import { Switch } from '../../../components/ui/switch';
 import { Label } from '../../../components/ui/label';
@@ -188,7 +189,7 @@ const CategoryDrawer = ({
           </span>
         </span>
 
-        <div className="space-y-3">
+        <ScrollShadow className="max-h-[50vh] sm:max-h-[90vh] space-y-3">
           {Object.keys(drawerCategory).length > 0 &&
             drawerCategory.transactions.map((transaction) => (
               <div key={transaction._id}>
@@ -211,7 +212,7 @@ const CategoryDrawer = ({
                 />
               </div>
             ))}
-        </div>
+        </ScrollShadow>
 
         <Separator />
 
