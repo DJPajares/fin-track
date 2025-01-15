@@ -56,7 +56,9 @@ const CustomDrawer = ({
                   {cancelButtonLabel || t('Common.button.cancel')}
                 </Button>
 
-                <DrawerTitle>{title}</DrawerTitle>
+                <div className="absolute left-1/2 transform -translate-x-1/2">
+                  <DrawerTitle>{title}</DrawerTitle>
+                </div>
 
                 <ConfirmationDialog handleSubmit={handleSubmit}>
                   <Button variant="ghost">
