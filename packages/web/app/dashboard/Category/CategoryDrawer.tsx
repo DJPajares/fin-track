@@ -18,6 +18,7 @@ import type {
 import type { DashboardDataResult } from '../../../types/Dashboard';
 import { Switch } from '@web/components/ui/switch';
 import { Label } from '@web/components/ui/label';
+import { formatCurrency } from '@shared/utilities/formatCurrency';
 
 type CategoryDrawerProps = {
   category: TransactionPaymentCategoryProps;
@@ -196,19 +197,18 @@ const CategoryDrawer = ({
               <CategoryContent
                 _id={transaction._id}
                 name={transaction.name}
-                amount={
-                  isLocalCurrency
+                label={formatCurrency({
+                  value: isLocalCurrency
                     ? transaction.localAmount.amount
-                    : transaction.amount
-                }
-                paidAmount={
-                  isLocalCurrency
-                    ? transaction.localAmount.paidAmount
-                    : transaction.paidAmount
-                }
-                currency={
-                  isLocalCurrency ? transaction.localAmount.currency : currency
-                }
+                    : transaction.amount,
+                  currency: isLocalCurrency
+                    ? transaction.localAmount.currency.name
+                    : currency.name,
+                  decimal: 2
+                })}
+                amount={transaction.amount}
+                paidAmount={transaction.paidAmount}
+                currency={currency}
                 handleTransactionDataUpdate={handleTransactionDataUpdate}
               />
             </div>
@@ -220,6 +220,11 @@ const CategoryDrawer = ({
           <CategoryContent
             _id={drawerCategory._id}
             name={t('Page.dashboard.cardDrawer.totalLabel').toLocaleUpperCase()}
+            label={formatCurrency({
+              value: drawerCategory.totalAmount,
+              currency: currency.name,
+              decimal: 2
+            })}
             amount={drawerCategory.totalAmount}
             paidAmount={drawerCategory.totalPaidAmount}
             currency={currency}

@@ -23,6 +23,7 @@ type PartialTransactionProps = Pick<
 >;
 
 type CategoryContentProps = PartialTransactionProps & {
+  label: string;
   currency: DashboardSelectionItemsProps;
   handleTransactionDataUpdate: (
     transactionData: TransactionDataUpdateProps
@@ -33,6 +34,7 @@ type CategoryContentProps = PartialTransactionProps & {
 const CategoryContent = ({
   _id,
   name,
+  label,
   amount,
   paidAmount,
   currency,
@@ -67,6 +69,7 @@ const CategoryContent = ({
           </p>
         )}
       </div>
+
       <div className="col-span-3">
         <Popover
           open={!isTotal && isPopoverOpen}
@@ -75,11 +78,7 @@ const CategoryContent = ({
           <PopoverTrigger asChild>
             <div className="cursor-pointer">
               <Progress
-                label={formatCurrency({
-                  value: amount,
-                  currency: currency.name,
-                  decimal: 2
-                })}
+                label={label}
                 value={Math.floor((paidAmount / amount) * 100)}
                 size="sm"
                 radius="sm"
@@ -121,6 +120,7 @@ const CategoryContent = ({
           </PopoverContent>
         </Popover>
       </div>
+
       <div className="flex flex-row justify-end">
         {Math.floor(paidAmount / amount) === 1 ? (
           <Button
