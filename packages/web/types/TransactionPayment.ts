@@ -1,4 +1,5 @@
 import type { IconProps } from '../components/shared/CardIcon';
+import { ListProps } from './List';
 
 type TransactionPaymentMainProps = {
   currency: string;
@@ -18,6 +19,11 @@ type TransactionProps = {
   paidCurrency: string;
   paidAmount: number;
   isUpdated?: boolean;
+  localAmount: {
+    currency: ListProps;
+    amount: number;
+    paidAmount: number;
+  };
 };
 
 type TransactionPaymentCategoryProps = {

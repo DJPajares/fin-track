@@ -165,10 +165,6 @@ const CategoryDrawer = ({
     }
   };
 
-  const handleShowingLocalCurrency = (checked: boolean) => {
-    setIsLocalCurrency(checked);
-  };
-
   return (
     <CustomDrawer
       open={isDialogOpen}
@@ -183,9 +179,10 @@ const CategoryDrawer = ({
         <span className="flex flex-col justify-center items-end pb-4 sm:pb-6">
           <span className="flex flex-row items-center space-x-2">
             <Label>{t('Page.dashboard.cardDrawer.showLocalCurrency')}</Label>
+
             <Switch
               checked={isLocalCurrency}
-              onCheckedChange={handleShowingLocalCurrency}
+              onCheckedChange={() => setIsLocalCurrency(!isLocalCurrency)}
             />
           </span>
         </span>
@@ -199,17 +196,25 @@ const CategoryDrawer = ({
               <CategoryContent
                 _id={transaction._id}
                 name={transaction.name}
-                amount={transaction.amount}
-                paidAmount={transaction.paidAmount}
-                currency={currency}
+                amount={
+                  isLocalCurrency
+                    ? transaction.localAmount.amount
+                    : transaction.amount
+                }
+                paidAmount={
+                  isLocalCurrency
+                    ? transaction.localAmount.paidAmount
+                    : transaction.paidAmount
+                }
+                currency={
+                  isLocalCurrency ? transaction.localAmount.currency : currency
+                }
                 handleTransactionDataUpdate={handleTransactionDataUpdate}
               />
             </div>
           ))}
 
-        {/* <div className="pt-2"> */}
         <Separator />
-        {/* </div> */}
 
         <div className="grid grid-cols-6 gap-2 items-center">
           <CategoryContent
