@@ -84,7 +84,7 @@ const EditTransactionDrawer = ({
       ).toLocaleUpperCase()}
       triggerChildren={children}
     >
-      <div className="space-y-2">
+      <div className="px-4 space-y-2">
         <div className="flex flex-row justify-end">
           <SelectBox
             variant="ghost"

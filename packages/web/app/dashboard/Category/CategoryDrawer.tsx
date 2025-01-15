@@ -177,19 +177,18 @@ const CategoryDrawer = ({
         category: drawerCategory.name.toLowerCase()
       })}
     >
-      <div className="flex flex-col justify-between px-2 space-y-6">
-        <span className="flex flex-col justify-center items-end">
+      <div className="space-y-8 sm:space-y-3">
+        <span className="flex flex-col justify-center  px-4">
           <span className="flex flex-row items-center space-x-2">
-            <Label>{t('Page.dashboard.cardDrawer.showLocalCurrency')}</Label>
-
             <Switch
               checked={isLocalCurrency}
               onCheckedChange={() => setIsLocalCurrency(!isLocalCurrency)}
             />
+            <Label>{t('Page.dashboard.cardDrawer.showLocalCurrency')}</Label>
           </span>
         </span>
 
-        <ScrollShadow className="max-h-[50vh] sm:max-h-[90vh] space-y-3">
+        <ScrollShadow className="max-h-[50vh] sm:max-h-[90vh] space-y-3 px-4">
           {Object.keys(drawerCategory).length > 0 &&
             drawerCategory.transactions.map((transaction) => (
               <div key={transaction._id}>
@@ -216,20 +215,22 @@ const CategoryDrawer = ({
 
         <Separator />
 
-        <CategoryContent
-          _id={drawerCategory._id}
-          name={t('Page.dashboard.cardDrawer.totalLabel').toLocaleUpperCase()}
-          label={formatCurrency({
-            value: drawerCategory.totalAmount,
-            currency: currency.name,
-            decimal: 2
-          })}
-          amount={drawerCategory.totalAmount}
-          paidAmount={drawerCategory.totalPaidAmount}
-          currency={currency}
-          handleTransactionDataUpdate={handleCategoryDataUpdate}
-          isTotal
-        />
+        <div className="px-4">
+          <CategoryContent
+            _id={drawerCategory._id}
+            name={t('Page.dashboard.cardDrawer.totalLabel').toLocaleUpperCase()}
+            label={formatCurrency({
+              value: drawerCategory.totalAmount,
+              currency: currency.name,
+              decimal: 2
+            })}
+            amount={drawerCategory.totalAmount}
+            paidAmount={drawerCategory.totalPaidAmount}
+            currency={currency}
+            handleTransactionDataUpdate={handleCategoryDataUpdate}
+            isTotal
+          />
+        </div>
       </div>
     </CustomDrawer>
   );

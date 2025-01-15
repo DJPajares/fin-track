@@ -14,6 +14,7 @@ import {
 } from '../ui/drawer';
 import { Button } from '../ui/button';
 import ConfirmationDialog from './ConfirmationDialog';
+import { Separator } from '../ui/separator';
 
 type CustomDrawerProps = {
   open: boolean;
@@ -67,9 +68,9 @@ const CustomDrawer = ({
                 </ConfirmationDialog>
               </div>
 
-              <div className="py-4 px-4 space-y-2 overflow-auto">
-                {children}
-              </div>
+              <Separator />
+
+              <div className="py-6 overflow-auto">{children}</div>
             </div>
           </DrawerContent>
         </Drawer>
@@ -84,9 +85,7 @@ const CustomDrawer = ({
                 <DrawerDescription>{description}</DrawerDescription>
               </DrawerHeader>
 
-              <div className="py-4 px-4 space-y-2 overflow-auto">
-                {children}
-              </div>
+              <div className="py-4 overflow-auto">{children}</div>
             </div>
 
             <DrawerFooter className="mx-auto w-full max-w-sm">

@@ -125,77 +125,79 @@ const EditCategoryDrawer = ({
       description={type?.name}
       triggerChildren={children}
     >
-      <form
-        className="flex flex-row items-center justify-center space-x-2 sm:space-x-4"
-        onSubmit={form.handleSubmit(onSubmit)}
-        ref={formRef}
-      >
-        <Controller
-          name="icon"
-          control={form.control}
-          render={({ field }) => (
-            <Popover open={isPopoverOpen} onOpenChange={setIsPopoverOpen}>
-              <PopoverTrigger asChild>
-                <Button variant="outline" size="icon">
-                  <CardIcon icon={field.value} />
-                </Button>
-              </PopoverTrigger>
-
-              <PopoverContent>
-                <div className="grid grid-cols-6 align-middle gap-2">
-                  {iconMapArray.map((icon) => (
-                    <Button
-                      key={icon}
-                      variant="outline"
-                      size="icon"
-                      className={`${
-                        field.value === icon &&
-                        'bg-primary text-primary-foreground'
-                      }`}
-                      onClick={() => handleChangeIcon(icon)}
-                    >
-                      <CardIcon icon={icon} />
+      <div className="px-4">
+        <form onSubmit={form.handleSubmit(onSubmit)} ref={formRef}>
+          <div className="flex flex-row items-center justify-center space-x-2 sm:space-x-4">
+            <Controller
+              name="icon"
+              control={form.control}
+              render={({ field }) => (
+                <Popover open={isPopoverOpen} onOpenChange={setIsPopoverOpen}>
+                  <PopoverTrigger asChild>
+                    <Button variant="outline" size="icon">
+                      <CardIcon icon={field.value} />
                     </Button>
-                  ))}
-                </div>
-              </PopoverContent>
-            </Popover>
-          )}
-        />
+                  </PopoverTrigger>
 
-        <Controller
-          name="name"
-          control={form.control}
-          render={({ field }) => (
-            <Input placeholder="Category name" {...field} />
-          )}
-        />
+                  <PopoverContent>
+                    <div className="grid grid-cols-6 align-middle gap-2">
+                      {iconMapArray.map((icon) => (
+                        <Button
+                          key={icon}
+                          variant="outline"
+                          size="icon"
+                          className={`${
+                            field.value === icon &&
+                            'bg-primary text-primary-foreground'
+                          }`}
+                          onClick={() => handleChangeIcon(icon)}
+                        >
+                          <CardIcon icon={icon} />
+                        </Button>
+                      ))}
+                    </div>
+                  </PopoverContent>
+                </Popover>
+              )}
+            />
 
-        <AlertDialog>
-          <AlertDialogTrigger asChild>
-            <Button variant="outline" size="icon">
-              <Trash2Icon className="w-4 h-4" />
-            </Button>
-          </AlertDialogTrigger>
+            <Controller
+              name="name"
+              control={form.control}
+              render={({ field }) => (
+                <Input placeholder="Category name" {...field} />
+              )}
+            />
 
-          <AlertDialogContent>
-            <AlertDialogHeader>
-              <AlertDialogTitle>
-                {t('Common.alertDialog.title')}
-              </AlertDialogTitle>
-              <AlertDialogDescription>
-                {t('Common.alertDialog.description')}
-              </AlertDialogDescription>
-            </AlertDialogHeader>
-            <AlertDialogFooter>
-              <AlertDialogCancel>{t('Common.button.cancel')}</AlertDialogCancel>
-              <AlertDialogAction onClick={handleCategoryRemoval}>
-                {t('Common.alertDialog.okButton')}
-              </AlertDialogAction>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialog>
-      </form>
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <Button variant="outline" size="icon">
+                  <Trash2Icon className="w-4 h-4" />
+                </Button>
+              </AlertDialogTrigger>
+
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>
+                    {t('Common.alertDialog.title')}
+                  </AlertDialogTitle>
+                  <AlertDialogDescription>
+                    {t('Common.alertDialog.description')}
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel>
+                    {t('Common.button.cancel')}
+                  </AlertDialogCancel>
+                  <AlertDialogAction onClick={handleCategoryRemoval}>
+                    {t('Common.alertDialog.okButton')}
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
+          </div>
+        </form>
+      </div>
     </CustomDrawer>
   );
 };

@@ -133,7 +133,7 @@ const TransactionDrawer = ({
       title={t('Page.dashboard.transactionDrawer.title').toLocaleUpperCase()}
       description={t('Page.dashboard.transactionDrawer.description')}
     >
-      <div className="space-y-2">
+      <div className="px-4 space-y-2">
         <div className="flex flex-row justify-end">
           <SelectBox
             variant="ghost"
