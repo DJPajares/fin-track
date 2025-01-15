@@ -179,7 +179,7 @@ const CategoryDrawer = ({
     >
       <div className="space-y-8 sm:space-y-3">
         <span className="flex flex-col justify-center  px-4">
-          <span className="flex flex-row items-center space-x-2">
+          <span className="flex flex-row items-center space-x-3">
             <Switch
               checked={isLocalCurrency}
               onCheckedChange={() => setIsLocalCurrency(!isLocalCurrency)}
