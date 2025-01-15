@@ -43,6 +43,8 @@ const CategoryContent = ({
 }: CategoryContentProps) => {
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
 
+  const isCompleted = Math.floor(paidAmount / amount) === 1;
+
   const handleKeyboardEvent = (event: KeyboardEvent<HTMLInputElement>) => {
     const target = event.target as HTMLInputElement;
 
@@ -58,17 +60,17 @@ const CategoryContent = ({
 
   return (
     <>
-      <div className="col-span-2">
-        {isTotal ? (
-          <p className="text-base sm:text-lg font-semibold sm:font-bold truncate hover:text-clip">
-            {name}
-          </p>
-        ) : (
-          <p className="text-sm sm:text-base sm:font-medium truncate hover:text-clip">
-            {name}
-          </p>
-        )}
-      </div>
+      <span className="col-span-2">
+        <p
+          className={`${
+            isTotal
+              ? 'text-base sm:text-lg font-semibold sm:font-bold'
+              : 'text-sm sm:text-base sm:font-medium'
+          } truncate hover:text-clip`}
+        >
+          {name}
+        </p>
+      </span>
 
       <div className="col-span-3">
         <Popover
@@ -92,9 +94,9 @@ const CategoryContent = ({
             </div>
           </PopoverTrigger>
           <PopoverContent>
-            <div className="pb-2">
+            <span className="pb-2">
               <p className="sm:text-lg font-semibold sm:font-bold">{name}</p>
-            </div>
+            </span>
             <div className="flex flex-row items-end">
               <div className="pr-2">
                 <Input
@@ -122,34 +124,19 @@ const CategoryContent = ({
       </div>
 
       <div className="flex flex-row justify-end">
-        {Math.floor(paidAmount / amount) === 1 ? (
-          <Button
-            variant="outline"
-            size="xs_rounded_icon"
-            className="bg-primary text-primary-foreground"
-            onClick={() =>
-              handleTransactionDataUpdate({
-                _id,
-                paidAmount: 0
-              })
-            }
-          >
-            <CheckIcon className="h-4 w-4" />
-          </Button>
-        ) : (
-          <Button
-            variant="outline"
-            size="xs_rounded_icon"
-            onClick={() =>
-              handleTransactionDataUpdate({
-                _id,
-                paidAmount: amount
-              })
-            }
-          >
-            <CheckIcon className="h-4 w-4" />
-          </Button>
-        )}
+        <Button
+          variant="outline"
+          size="xs_rounded_icon"
+          className={`${isCompleted && 'bg-primary text-primary-foreground'}`}
+          onClick={() =>
+            handleTransactionDataUpdate({
+              _id,
+              paidAmount: isCompleted ? 0 : amount
+            })
+          }
+        >
+          <CheckIcon className="h-4 w-4" />
+        </Button>
       </div>
     </>
   );

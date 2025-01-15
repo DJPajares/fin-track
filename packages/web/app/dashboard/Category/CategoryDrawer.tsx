@@ -5,20 +5,20 @@ import { useAppSelector } from '../../../lib/hooks/use-redux';
 import { useTranslations } from 'next-intl';
 
 import { Separator } from '../../../components/ui/separator';
+import { Switch } from '../../../components/ui/switch';
+import { Label } from '../../../components/ui/label';
 import CategoryContent from './CategoryContent';
 import CustomDrawer from '../../../components/shared/CustomDrawer';
 
 import fetchTransactionPayments from '../../../services/fetchTransactionPayments';
 import { dateStringFormat } from '@shared/constants/dateStringFormat';
+import { formatCurrency } from '@shared/utilities/formatCurrency';
 
 import type {
   TransactionDataUpdateProps,
   TransactionPaymentCategoryProps
 } from '../../../types/TransactionPayment';
 import type { DashboardDataResult } from '../../../types/Dashboard';
-import { Switch } from '@web/components/ui/switch';
-import { Label } from '@web/components/ui/label';
-import { formatCurrency } from '@shared/utilities/formatCurrency';
 
 type CategoryDrawerProps = {
   category: TransactionPaymentCategoryProps;
