@@ -83,31 +83,37 @@ const CategoryContent = ({
               />
             </div>
           </PopoverTrigger>
-          <PopoverContent>
-            <span className="pb-2">
-              <p className="sm:text-lg font-semibold sm:font-bold">{name}</p>
-            </span>
-            <div className="flex flex-row items-end">
-              <div className="pr-2">
-                <Input
-                  className="w-30"
-                  type="number"
-                  defaultValue={paidAmount.toFixed(2)}
-                  max={amount}
-                  onBlur={(event) =>
-                    handleTransactionDataUpdate({
-                      _id,
-                      paidAmount: parseFloat(event.target.value)
-                    })
-                  }
-                  onKeyDown={(event) => handleKeyboardEvent(event)}
-                />
-              </div>
-              <p className="text-sm font-medium">{`/ ${formatCurrency({
-                value: amount,
-                currency: currency.name,
-                decimal: 2
-              })}`}</p>
+          <PopoverContent className="space-y-4">
+            <p className="sm:text-lg font-semibold sm:font-bold">{name}</p>
+
+            <div className="space-y-2">
+              <span className="flex flex-row justify-end">
+                <p className="text-xs">{`(Amount to settle)`}</p>
+              </span>
+
+              <Input
+                type="number"
+                inputMode="decimal"
+                defaultValue={paidAmount.toFixed(2)}
+                max={amount}
+                onBlur={(event) =>
+                  handleTransactionDataUpdate({
+                    _id,
+                    paidAmount: parseFloat(event.target.value)
+                  })
+                }
+                onKeyDown={(event) => handleKeyboardEvent(event)}
+              />
+
+              <span className="flex flex-row justify-end">
+                <p className="text-sm font-medium">
+                  {`out of ${formatCurrency({
+                    value: amount,
+                    currency: currency.name,
+                    decimal: 2
+                  })}`}
+                </p>
+              </span>
             </div>
           </PopoverContent>
         </Popover>
