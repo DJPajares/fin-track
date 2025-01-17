@@ -21,5 +21,7 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode" // Use Prettier for TypeScript React files
   },
   "prettier.tabWidth": 2,
-  "prettier.useTabs": false
+  "prettier.useTabs": false,
+  "i18n-ally.localesPaths": ["./packages/web/public/locales"], // E.g. "./messages"
+  "i18n-ally.keystyle": "nested"
 }
