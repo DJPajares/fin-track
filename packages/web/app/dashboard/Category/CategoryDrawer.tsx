@@ -192,7 +192,28 @@ const CategoryDrawer = ({
           </span>
         </span>
 
-        <Card className="p-4 space-y-2 bg-accent/50">
+        <Card className="p-4 bg-accent">
+          <CategoryContent
+            _id={drawerCategory._id}
+            name={t('Page.dashboard.cardDrawer.totalLabel').toLocaleUpperCase()}
+            label={formatCurrency({
+              value: drawerCategory.totalAmount,
+              currency: currency.name,
+              decimal: 2
+            })}
+            amount={drawerCategory.totalAmount}
+            paidAmount={drawerCategory.totalPaidAmount}
+            currency={currency}
+            handleTransactionDataUpdate={handleCategoryDataUpdate}
+            isTotal
+          />
+        </Card>
+
+        <div>
+          <Separator />
+        </div>
+
+        <Card className="p-4 space-y-4 bg-accent/50">
           {drawerCategoryLength > 0 &&
             drawerCategory.transactions.map((transaction, index) => (
               <div key={transaction._id} className="space-y-2">
@@ -213,27 +234,8 @@ const CategoryDrawer = ({
                   currency={currency}
                   handleTransactionDataUpdate={handleTransactionDataUpdate}
                 />
-
-                {index + 1 < drawerCategoryLength && <Separator />}
               </div>
             ))}
-        </Card>
-
-        <Card className="p-4 bg-accent">
-          <CategoryContent
-            _id={drawerCategory._id}
-            name={t('Page.dashboard.cardDrawer.totalLabel').toLocaleUpperCase()}
-            label={formatCurrency({
-              value: drawerCategory.totalAmount,
-              currency: currency.name,
-              decimal: 2
-            })}
-            amount={drawerCategory.totalAmount}
-            paidAmount={drawerCategory.totalPaidAmount}
-            currency={currency}
-            handleTransactionDataUpdate={handleCategoryDataUpdate}
-            isTotal
-          />
         </Card>
       </div>
     </CustomDrawer>

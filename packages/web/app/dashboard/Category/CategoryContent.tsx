@@ -18,6 +18,7 @@ import type {
   TransactionProps
 } from '../../../types/TransactionPayment';
 import type { DashboardSelectionItemsProps } from '../../../types/Dashboard';
+import { Separator } from '@web/components/ui/separator';
 
 type PartialTransactionProps = Pick<
   TransactionProps,
@@ -64,7 +65,17 @@ const CategoryContent = ({
 
   return (
     <div className="flex flex-row justify-between items-center space-x-4">
-      <div className="flex-1 space-y-2">
+      <div className="flex-1 space-y-1">
+        <p
+          className={`${
+            isTotal
+              ? 'text-lg sm:text-xl font-bold sm:font-extrabold'
+              : 'text-base sm:text-lg font-semibold sm:font-bold'
+          }`}
+        >
+          {name}
+        </p>
+
         <Popover
           open={!isTotal && isPopoverOpen}
           onOpenChange={setIsPopoverOpen}
@@ -72,7 +83,7 @@ const CategoryContent = ({
           <PopoverTrigger asChild>
             <div className="cursor-pointer">
               <Progress
-                label={name}
+                label={label}
                 value={Math.floor((paidAmount / amount) * 100)}
                 size="sm"
                 radius="sm"
@@ -123,16 +134,10 @@ const CategoryContent = ({
             </div>
           </PopoverContent>
         </Popover>
+      </div>
 
-        <p
-          className={`${
-            isTotal
-              ? 'text-lg sm:text-xl font-bold sm:font-extrabold'
-              : 'text-base sm:text-lg font-semibold sm:font-bold'
-          }`}
-        >
-          {label}
-        </p>
+      <div>
+        <Separator />
       </div>
 
       <div>
