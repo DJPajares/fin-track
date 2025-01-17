@@ -70,7 +70,7 @@ const CustomDrawer = ({
 
               <Separator />
 
-              <div className="py-6 overflow-auto">{children}</div>
+              <div className="py-6">{children}</div>
             </div>
           </DrawerContent>
         </Drawer>

@@ -1,10 +1,10 @@
 import axios from 'axios';
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useMemo, useState } from 'react';
 import moment from 'moment';
 import { useAppSelector } from '../../../lib/hooks/use-redux';
 import { useTranslations } from 'next-intl';
 
-import { ScrollShadow } from '@nextui-org/react';
+import { Card } from '@web/components/ui/card';
 import { Separator } from '../../../components/ui/separator';
 import { Switch } from '../../../components/ui/switch';
 import { Label } from '../../../components/ui/label';
@@ -57,6 +57,10 @@ const CategoryDrawer = ({
   const [drawerCategory, setDrawerCategory] = useState(
     initialTransactionPaymentCategory
   );
+
+  const drawerCategoryLength = useMemo(() => {
+    return Object.keys(drawerCategory.transactions).length;
+  }, [drawerCategory]);
 
   useEffect(() => {
     if (isDialogOpen) {
@@ -177,8 +181,8 @@ const CategoryDrawer = ({
         category: drawerCategory.name.toLowerCase()
       })}
     >
-      <div className="space-y-8 sm:space-y-3">
-        <span className="flex flex-col justify-center  px-4">
+      <div className="space-y-4 px-4 overflow-y-scroll">
+        <span className="flex flex-col justify-center">
           <span className="flex flex-row items-center space-x-3">
             <Switch
               checked={isLocalCurrency}
@@ -188,10 +192,10 @@ const CategoryDrawer = ({
           </span>
         </span>
 
-        <ScrollShadow className="max-h-[50vh] sm:max-h-[90vh] space-y-3 px-4">
-          {Object.keys(drawerCategory).length > 0 &&
-            drawerCategory.transactions.map((transaction) => (
-              <div key={transaction._id}>
+        <Card className="p-4 space-y-2 bg-accent/50">
+          {drawerCategoryLength > 0 &&
+            drawerCategory.transactions.map((transaction, index) => (
+              <div key={transaction._id} className="space-y-2">
                 <CategoryContent
                   _id={transaction._id}
                   name={transaction.name}
@@ -209,13 +213,13 @@ const CategoryDrawer = ({
                   currency={currency}
                   handleTransactionDataUpdate={handleTransactionDataUpdate}
                 />
+
+                {index + 1 < drawerCategoryLength && <Separator />}
               </div>
             ))}
-        </ScrollShadow>
+        </Card>
 
-        <Separator />
-
-        <div className="px-4">
+        <Card className="p-4 bg-accent">
           <CategoryContent
             _id={drawerCategory._id}
             name={t('Page.dashboard.cardDrawer.totalLabel').toLocaleUpperCase()}
@@ -230,7 +234,7 @@ const CategoryDrawer = ({
             handleTransactionDataUpdate={handleCategoryDataUpdate}
             isTotal
           />
-        </div>
+        </Card>
       </div>
     </CustomDrawer>
   );
