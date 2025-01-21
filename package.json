@@ -4,7 +4,7 @@
   "scripts": {
     "dev": "cd packages/web && npm run dev",
     "api": "cd packages/api && npm run dev",
-    "prepare": "husky install",
+    "prepare": "if [ \"$VERCEL\" != \"1\" ]; then husky install; fi",
     "lint": "eslint"
   },
   "lint-staged": {
