@@ -41,25 +41,17 @@ const Home = () => {
         toast({
           variant: 'destructive',
           title: 'USING MOCKED DATA',
-          description: `API calls won't work. Adding, modifying, or deleting data within the app will either crash or not work at all.`
+          description: 'API calls won\'t work. Adding, modifying, or deleting data within the app will either crash or not work at all.'
         });
       }, 0);
 
       return () => clearTimeout(timeout);
-
-      // setTimeout(() => {
-      //   toast({
-      //     variant: 'destructive',
-      //     title: 'USING MOCKED DATA',
-      //     description: `API calls won't work. Adding, modifying, or deleting data within the app will either crash or not work at all.`
-      //   });
-      // }, 100);
     }
   }, [toast]);
 
   return (
-    <div className="flex flex-col items-center py-2 px-6 sm:px-8 space-y-8 sm:space-y-12">
-      <Card className="w-full max-w-md mx-auto flex flex-col justify-between h-44 max-h-40 py-6 px-2 bg-accent/70">
+    <div className="flex flex-col items-center space-y-8 px-6 py-2 sm:space-y-12 sm:px-8">
+      <Card className="bg-accent/70 mx-auto flex h-44 max-h-40 w-full max-w-md flex-col justify-between px-2 py-6">
         <p className="text-center text-lg font-semibold sm:text-xl sm:font-bold">
           {t('motivation.title')}
         </p>
