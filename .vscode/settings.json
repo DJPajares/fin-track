@@ -1,27 +1,12 @@
 {
-  "editor.tabSize": 2, // Number of spaces per indentation level
-  "editor.detectIndentation": false, // Disable automatic detection of indentation
-  "editor.insertSpaces": true, // Use spaces instead of tabs for indentation
-  "editor.formatOnSave": true, // Format code automatically when saving
-  "editor.wordWrap": "on", // Wrap long lines of code
-  "editor.wordWrapColumn": 80, // Specify the column where wrapping occurs
-  "editor.defaultFormatter": "esbenp.prettier-vscode", // Use Prettier as the default formatter
-  "editor.formatOnPaste": true, // Format code automatically when pasting
-  "editor.formatOnType": true, // Format code automatically when typing
-  "[javascript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode" // Use Prettier for JavaScript files
+  "typescript.preferences.importModuleSpecifier": "non-relative",
+  "javascript.preferences.importModuleSpecifier": "non-relative",
+  "editor.tabSize": 2,
+  "files.trimTrailingWhitespace": true,
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
   },
-  "[javascriptreact]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode" // Use Prettier for JavaScript React files
-  },
-  "[typescript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode" // Use Prettier for TypeScript files
-  },
-  "[typescriptreact]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode" // Use Prettier for TypeScript React files
-  },
-  "prettier.tabWidth": 2,
-  "prettier.useTabs": false,
-  "i18n-ally.localesPaths": ["./packages/web/public/locales"], // E.g. "./messages"
+  "i18n-ally.localesPaths": ["packages/web/public/locales"],
   "i18n-ally.keystyle": "nested"
 }
