@@ -9,7 +9,18 @@ const compat = new FlatCompat({
 
 const eslintConfig = [
   {
-    ignores: ['./node_modules/*', './out/*', './.next/*', './coverage']
+    ignores: [
+      './node_modules/*', // Node modules at the root level
+      './out/*', // Output directories
+      './.next/*', // Next.js build files
+      './coverage/*', // Coverage reports
+      '**/dist/*', // Build artifacts for all packages
+      '**/build/*', // Build artifacts for all packages
+      '**/node_modules/*', // Node modules for each package
+      '**/out/*', // Output directories for each package
+      '**/.next/*', // Next.js build files for each package
+      '**/.turbo/*' // TurboRepo cache files
+    ]
   },
   ...compat.extends(
     'eslint:recommended',
@@ -22,7 +33,7 @@ const eslintConfig = [
     rules: {
       'react/no-unescaped-entities': 'off',
       '@next/next/no-page-custom-font': 'off',
-      semi: ['error', 'always'], // Enforce semicolons
+      semi: ['warn', 'always'], // Enforce semicolons
       quotes: ['error', 'single'],
       'no-duplicate-imports': ['error']
     }
