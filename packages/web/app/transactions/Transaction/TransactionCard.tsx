@@ -1,4 +1,4 @@
-import { Chip } from '@nextui-org/react';
+import { Chip } from "@heroui/react";
 import { Card } from '../../../components/ui/card';
 import EditTransactionDrawer from '../EditTransaction/EditTransactionDrawer';
 

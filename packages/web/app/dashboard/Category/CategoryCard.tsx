@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader } from '../../../components/ui/card';
 import CardIcon from '../../../components/shared/CardIcon';
-import { Progress } from '@nextui-org/react';
+import { Progress } from "@heroui/react";
 // import { Progress } from '../../../components/ui/progress';
 
 import { formatCurrency } from '@shared/utilities/formatCurrency';

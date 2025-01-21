@@ -1,6 +1,6 @@
 'use client';
 
-import { NextUIProvider } from '@nextui-org/react';
+import { HeroUIProvider } from "@heroui/react";
 import { ThemeProvider as NextThemesProvider } from 'next-themes';
 import { Provider as ReduxProvider } from 'react-redux';
 import { AppStore, store } from '../lib/redux/store';
@@ -19,11 +19,11 @@ export function Providers({ children }: ProviderProps) {
 
   return (
     <ReduxProvider store={storeRef.current}>
-      <NextUIProvider>
+      <HeroUIProvider>
         <NextThemesProvider attribute="class" defaultTheme="dark">
           <ClientDataProvider>{children}</ClientDataProvider>
         </NextThemesProvider>
-      </NextUIProvider>
+      </HeroUIProvider>
     </ReduxProvider>
   );
 }

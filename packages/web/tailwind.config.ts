@@ -1,5 +1,5 @@
 import type { Config } from 'tailwindcss';
-import { nextui } from '@nextui-org/react';
+import { heroui } from "@heroui/react";
 import path from 'path';
 
 const config = {
@@ -8,7 +8,7 @@ const config = {
     './components/**/*.{ts,tsx}',
     './app/**/*.{ts,tsx}',
     './src/**/*.{ts,tsx}',
-    path.join(require.resolve('@nextui-org/theme'), '../**/*.{js,ts,jsx,tsx}')
+    path.join(require.resolve('@heroui/theme'), '../**/*.{js,ts,jsx,tsx}')
   ],
   prefix: '',
   future: {
@@ -98,7 +98,7 @@ const config = {
     }
   },
   darkMode: 'class',
-  plugins: [require('tailwindcss-animate'), nextui()]
+  plugins: [require('tailwindcss-animate'), heroui()]
 } satisfies Config;
 
 export default config;

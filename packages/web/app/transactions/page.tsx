@@ -10,7 +10,7 @@ import { useGetTransactionsQuery } from '../../lib/redux/services/transactions';
 
 import { DatePicker } from '../../components/shared/DatePicker';
 import { Button } from '../../components/ui/button';
-import { ScrollShadow } from '@nextui-org/react';
+import { ScrollShadow } from "@heroui/react";
 // import { ScrollShadow } from '../../components/ui/scroll-shadow';
 import { SelectBox } from '../../components/shared/SelectBox';
 import TransactionCard from './Transaction/TransactionCard';

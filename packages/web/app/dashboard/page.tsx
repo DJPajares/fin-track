@@ -9,7 +9,7 @@ import {
   setDashboardDate
 } from '../../lib/redux/feature/dashboard/dashboardSlice';
 
-import { ScrollShadow, CircularProgress } from '@nextui-org/react';
+import { ScrollShadow, CircularProgress } from "@heroui/react";
 import { Button } from '../../components/ui/button';
 import { Skeleton } from '../../components/ui/skeleton';
 import { Card } from '../../components/ui/card';

@@ -10,7 +10,7 @@ import { useForm, useWatch } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslations } from 'next-intl';
 
-import { Checkbox } from '@nextui-org/react';
+import { Checkbox } from "@heroui/react";
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
 import {
   Form,
