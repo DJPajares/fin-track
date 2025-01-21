@@ -4,12 +4,12 @@
   "scripts": {
     "dev": "cd packages/web && npm run dev",
     "api": "cd packages/api && npm run dev",
-    "prepare": "husky",
+    "prepare": "husky install",
     "lint": "eslint"
   },
   "lint-staged": {
     "packages/**/*.{js, jsx,ts,tsx}": [
-      "eslint --quiet --fix"
+      "eslint"
     ],
     "packages/**/*.{json,js,ts,jsx,tsx,html}": [
       "prettier --write --ignore-unknown"
