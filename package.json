@@ -3,12 +3,28 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "cd packages/web && npm run dev",
-    "api": "cd packages/api && npm run dev"
+    "api": "cd packages/api && npm run dev",
+    "prepare": "husky install"
+  },
+  "lint-staged": {
+    "packages/**/*.{js, jsx,ts,tsx}": [
+      "eslint --quiet --fix"
+    ],
+    "packages/**/*.{json,js,ts,jsx,tsx,html}": [
+      "prettier --write --ignore-unknown"
+    ]
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "workspaces": [
     "./packages/*"
-  ]
+  ],
+  "devDependencies": {
+    "eslint-config-prettier": "^10.0.1",
+    "husky": "^8.0.0",
+    "lint-staged": "^15.4.1",
+    "prettier": "^3.4.2",
+    "prettier-plugin-tailwindcss": "^0.6.10"
+  }
 }
