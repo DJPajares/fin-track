@@ -57,6 +57,13 @@ const eslintConfig = [
       'no-duplicate-imports': ['error'],
     },
   },
+  {
+    settings: {
+      next: {
+        rootDir: 'packages/web/',
+      },
+    },
+  },
 ];
 
 export default eslintConfig;
