@@ -1,12 +1,16 @@
 {
-  "typescript.preferences.importModuleSpecifier": "non-relative",
-  "javascript.preferences.importModuleSpecifier": "non-relative",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.tabSize": 2,
-  "files.trimTrailingWhitespace": true,
+  "editor.insertSpaces": true,
+  "editor.trimAutoWhitespace": true,
+  "editor.renderWhitespace": "boundary",
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit"
   },
+  "typescript.preferences.importModuleSpecifier": "non-relative",
+  "javascript.preferences.importModuleSpecifier": "non-relative",
+  "files.trimTrailingWhitespace": true,
   "i18n-ally.localesPaths": ["./packages/web/public/locales"],
   "i18n-ally.keystyle": "nested"
 }
