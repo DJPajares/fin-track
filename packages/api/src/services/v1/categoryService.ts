@@ -1,10 +1,12 @@
 import { Types } from 'mongoose';
-import { CategoryModel } from '../../models/v1/categoryModel';
+import {
+  CategoryModel,
+  type CategoryProps,
+} from '../../models/v1/categoryModel';
 
 import createPagination from '../../utilities/createPagination';
 
-import type { CategoryProps } from '../../models/v1/categoryModel';
-import type { QueryParamsProps } from '../../types/commonTypes';
+import type { QueryParamsProps, SortObjProps } from '../../types/commonTypes';
 
 const create = async (data: CategoryProps) => {
   return await CategoryModel.create(data);
@@ -24,9 +26,9 @@ const getAll = async (query: QueryParamsProps) => {
   const filterObj = filter ? JSON.parse(filter) : {};
 
   // Sort
-  let sortObj: any = {};
+  const sortObj: SortObjProps = {};
   if (sort) {
-    sort.split(',').forEach((sortField: any) => {
+    sort.split(',').forEach((sortField: string) => {
       const order = sortField.startsWith('-') ? -1 : 1;
       const field = sortField.replace(/^[-+]/, '');
 
@@ -43,7 +45,7 @@ const getAll = async (query: QueryParamsProps) => {
 
   return {
     data,
-    pagination
+    pagination,
   };
 };
 
@@ -56,115 +58,14 @@ const getByType = async (query: QueryParamsProps) => {
   const paginationResult = createPagination(query, totalDocuments);
   const { skip, limit, pagination } = paginationResult;
 
-  // ORIGINAL:
-  // const result = await CategoryModel.aggregate([
-  //   {
-  //     $lookup: {
-  //       from: 'types', // Adjust 'types' if your collection name is different
-  //       localField: 'type',
-  //       foreignField: '_id',
-  //       as: 'type'
-  //     }
-  //   },
-  //   {
-  //     $unwind: '$type'
-  //   },
-  //   {
-  //     $group: {
-  //       _id: '$type._id',
-  //       categories: {
-  //         $push: {
-  //           _id: '$_id',
-  //           name: '$name',
-  //           icon: '$icon',
-  //           active: '$active'
-  //         }
-  //       }
-  //     }
-  //   },
-  //   {
-  //     $group: {
-  //       _id: null,
-  //       types: {
-  //         $push: {
-  //           k: '$_id',
-  //           v: '$categories'
-  //         }
-  //       }
-  //     }
-  //   },
-  //   // { $replaceRoot: { newRoot: '$types' } },
-  //   // {
-  //   //   $replaceRoot: {
-  //   //     newRoot: {
-  //   //       $arrayToObject: '$types'
-  //   //     }
-  //   //   }
-  //   // },
-  //   // {
-  //   //   $project: {
-  //   //     _id: 0
-  //   //   }
-  //   // },
-  //   {
-  //     $skip: skip
-  //   },
-  //   {
-  //     $limit: limit
-  //   }
-  // ]);
-
-  // // OPTION 1:
-  // const result = await CategoryModel.aggregate([
-  //   {
-  //     $lookup: {
-  //       from: 'types',
-  //       localField: 'type',
-  //       foreignField: '_id',
-  //       as: 'type'
-  //     }
-  //   },
-  //   { $unwind: '$type' },
-  //   {
-  //     $group: {
-  //       _id: '$type._id',
-  //       categories: {
-  //         $push: {
-  //           _id: '$_id',
-  //           name: '$name',
-  //           icon: '$icon',
-  //           active: '$active'
-  //         }
-  //       }
-  //     }
-  //   },
-  //   {
-  //     $group: {
-  //       _id: null,
-  //       types: {
-  //         $push: { k: '$_id', v: '$categories' }
-  //       }
-  //     }
-  //   },
-  //   {
-  //     $set: {
-  //       types: { $arrayToObject: '$types' }
-  //     }
-  //   },
-  //   { $project: { _id: 0 } },
-  //   { $skip: skip },
-  //   { $limit: limit }
-  // ]);
-
-  // OPTION 2:
   const result = await CategoryModel.aggregate([
     {
       $lookup: {
         from: 'types',
         localField: 'type',
         foreignField: '_id',
-        as: 'type'
-      }
+        as: 'type',
+      },
     },
     { $unwind: '$type' },
     {
@@ -176,10 +77,10 @@ const getByType = async (query: QueryParamsProps) => {
             _id: '$_id',
             name: '$name',
             icon: '$icon',
-            active: '$active'
-          }
-        }
-      }
+            active: '$active',
+          },
+        },
+      },
     },
     {
       $group: {
@@ -188,14 +89,14 @@ const getByType = async (query: QueryParamsProps) => {
           $push: {
             _id: '$_id',
             name: '$name',
-            categories: '$categories'
-          }
-        }
-      }
+            categories: '$categories',
+          },
+        },
+      },
     },
     { $project: { _id: 0, types: 1 } },
     { $skip: skip },
-    { $limit: limit }
+    { $limit: limit },
   ]);
 
   // The result is transformed from an array to an object:
@@ -203,7 +104,7 @@ const getByType = async (query: QueryParamsProps) => {
 
   return {
     data,
-    pagination
+    pagination,
   };
 };
 
@@ -212,15 +113,15 @@ const getSpecificType = async (id: Types.ObjectId, query: QueryParamsProps) => {
 
   // Pagination
   const totalDocuments = await CategoryModel.countDocuments({
-    type: id
+    type: id,
   });
   const paginationResult = createPagination(query, totalDocuments);
   const { skip, limit, pagination } = paginationResult;
 
   // Sort
-  let sortObj: any = {};
+  const sortObj: SortObjProps = {};
   if (sort) {
-    sort.split(',').forEach((sortField: any) => {
+    sort.split(',').forEach((sortField: string) => {
       const order = sortField.startsWith('-') ? -1 : 1;
       const field = sortField.replace(/^[-+]/, '');
 
@@ -237,13 +138,13 @@ const getSpecificType = async (id: Types.ObjectId, query: QueryParamsProps) => {
 
   return {
     data,
-    pagination
+    pagination,
   };
 };
 
 const update = async (_id: CategoryProps['_id'], data: CategoryProps) => {
   return await CategoryModel.findOneAndUpdate({ _id }, data, {
-    new: true
+    new: true,
   }).populate('type');
 };
 

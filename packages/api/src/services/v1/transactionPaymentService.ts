@@ -1,47 +1,19 @@
-import { Types } from 'mongoose';
-import { CategoryModel, CategoryProps } from '../../models/v1/categoryModel';
-import { CurrencyModel, CurrencyProps } from '../../models/v1/currencyModel';
+import { CategoryModel } from '../../models/v1/categoryModel';
+import { CurrencyModel } from '../../models/v1/currencyModel';
 import { ExchangeRateModel } from '../../models/v1/exchangeRateModel';
-import { PaymentModel, PaymentProps } from '../../models/v1/paymentModel';
-import {
-  TransactionModel,
-  TransactionProps
-} from '../../models/v1/transactionModel';
-import { TypeModel, TypeProps } from '../../models/v1/typeModel';
+import { PaymentModel } from '../../models/v1/paymentModel';
+import { TransactionModel } from '../../models/v1/transactionModel';
+import { TypeModel } from '../../models/v1/typeModel';
 import convertCurrency from '../../utilities/convertCurrency';
+import type {
+  AccumulatorProps,
+  ExpenseTransactionPaymentsProps,
+  IncomeTransactionsProps,
+  ProcessTransactionPaymentDataProps,
+} from '../../types/transactionPaymentTypes';
 
 type FetchTransactionPaymentProps = {
   date: Date;
-  currency: string;
-};
-
-type IncomeTransactionsProps = TransactionProps & {
-  categoryId: CategoryProps['_id'];
-  category: CategoryProps['name'];
-  typeId: TypeProps['_id'];
-  type: TypeProps['name'];
-  currencyId: CurrencyProps['_id'];
-  currency: CurrencyProps['name'];
-};
-
-type ExpenseTransactionPaymentsProps = TransactionProps & {
-  categoryId: CategoryProps['_id'];
-  category: CategoryProps['name'];
-  categoryIcon: CategoryProps['icon'];
-  typeId: TypeProps['_id'];
-  type: TypeProps['name'];
-  currencyId: CurrencyProps['_id'];
-  currency: CurrencyProps['name'];
-  paymentId: PaymentProps['_id'];
-  paidAmount: PaymentProps['amount'];
-  paidCurrencyId: CurrencyProps['_id'];
-  paidCurrency: CurrencyProps['name'];
-};
-
-type ProcessTransactionPaymentDataProps = {
-  incomeTransactions: IncomeTransactionsProps[];
-  expenseTransactionPayments: ExpenseTransactionPaymentsProps[];
-  rates: Record<string, number>;
   currency: string;
 };
 
@@ -69,22 +41,22 @@ const fetchTransactionPayments = async (data: FetchTransactionPaymentProps) => {
                 {
                   $add: [
                     { $multiply: [{ $year: '$startDate' }, 100] },
-                    { $month: '$startDate' }
-                  ]
+                    { $month: '$startDate' },
+                  ],
                 },
-                yearMonth
-              ]
+                yearMonth,
+              ],
             },
             {
               $gte: [
                 {
                   $add: [
                     { $multiply: [{ $year: '$endDate' }, 100] },
-                    { $month: '$endDate' }
-                  ]
+                    { $month: '$endDate' },
+                  ],
                 },
-                yearMonth
-              ]
+                yearMonth,
+              ],
             },
             {
               $not: {
@@ -94,11 +66,11 @@ const fetchTransactionPayments = async (data: FetchTransactionPaymentProps) => {
                     $map: {
                       input: '$excludedDates',
                       as: 'date',
-                      in: { $month: '$$date' }
-                    }
-                  }
-                ]
-              }
+                      in: { $month: '$$date' },
+                    },
+                  },
+                ],
+              },
             },
             {
               $not: {
@@ -108,15 +80,15 @@ const fetchTransactionPayments = async (data: FetchTransactionPaymentProps) => {
                     $map: {
                       input: '$excludedDates',
                       as: 'date',
-                      in: { $year: '$$date' }
-                    }
-                  }
-                ]
-              }
-            }
-          ]
-        }
-      }
+                      in: { $year: '$$date' },
+                    },
+                  },
+                ],
+              },
+            },
+          ],
+        },
+      },
     },
     {
       // Perform a left outer join with the CategoryModel collection
@@ -124,12 +96,12 @@ const fetchTransactionPayments = async (data: FetchTransactionPaymentProps) => {
         from: CategoryModel.collection.name,
         localField: 'category',
         foreignField: '_id',
-        as: 'category'
-      }
+        as: 'category',
+      },
     },
     {
       // Unwind the array created by populate to get the category object
-      $unwind: '$category'
+      $unwind: '$category',
     },
     {
       // Perform a left outer join with the TypeModel collection based on the 'type' field of the category
@@ -137,28 +109,28 @@ const fetchTransactionPayments = async (data: FetchTransactionPaymentProps) => {
         from: TypeModel.collection.name,
         localField: 'category.type',
         foreignField: '_id',
-        as: 'type'
-      }
+        as: 'type',
+      },
     },
     {
-      $unwind: '$type'
+      $unwind: '$type',
     },
     {
       $lookup: {
         from: CurrencyModel.collection.name,
         localField: 'currency',
         foreignField: '_id',
-        as: 'currency'
-      }
+        as: 'currency',
+      },
     },
     {
-      $unwind: '$currency'
+      $unwind: '$currency',
     },
     {
       // Filter transactions where the category type is 'Expense'
       $match: {
-        'type.name': 'Income'
-      }
+        'type.name': 'Income',
+      },
     },
     {
       $project: {
@@ -176,12 +148,12 @@ const fetchTransactionPayments = async (data: FetchTransactionPaymentProps) => {
         isRecurring: 1,
         startDate: 1,
         endDate: 1,
-        excludedDates: 1
-      }
+        excludedDates: 1,
+      },
     },
     {
-      $sort: { category: 1, name: 1 }
-    }
+      $sort: { category: 1, name: 1 },
+    },
   ]);
 
   const expenseTransactionPayments = await TransactionModel.aggregate([
@@ -201,22 +173,22 @@ const fetchTransactionPayments = async (data: FetchTransactionPaymentProps) => {
                 {
                   $add: [
                     { $multiply: [{ $year: '$startDate' }, 100] },
-                    { $month: '$startDate' }
-                  ]
+                    { $month: '$startDate' },
+                  ],
                 },
-                yearMonth
-              ]
+                yearMonth,
+              ],
             },
             {
               $gte: [
                 {
                   $add: [
                     { $multiply: [{ $year: '$endDate' }, 100] },
-                    { $month: '$endDate' }
-                  ]
+                    { $month: '$endDate' },
+                  ],
                 },
-                yearMonth
-              ]
+                yearMonth,
+              ],
             },
             {
               $not: {
@@ -226,11 +198,11 @@ const fetchTransactionPayments = async (data: FetchTransactionPaymentProps) => {
                     $map: {
                       input: '$excludedDates',
                       as: 'date',
-                      in: { $month: '$$date' }
-                    }
-                  }
-                ]
-              }
+                      in: { $month: '$$date' },
+                    },
+                  },
+                ],
+              },
             },
             {
               $not: {
@@ -240,15 +212,15 @@ const fetchTransactionPayments = async (data: FetchTransactionPaymentProps) => {
                     $map: {
                       input: '$excludedDates',
                       as: 'date',
-                      in: { $year: '$$date' }
-                    }
-                  }
-                ]
-              }
-            }
-          ]
-        }
-      }
+                      in: { $year: '$$date' },
+                    },
+                  },
+                ],
+              },
+            },
+          ],
+        },
+      },
     },
     {
       // Perform a left outer join with the PaymentModel collection
@@ -271,23 +243,23 @@ const fetchTransactionPayments = async (data: FetchTransactionPaymentProps) => {
                       {
                         $add: [
                           { $multiply: [{ $year: '$date' }, 100] },
-                          { $month: '$date' }
-                        ]
+                          { $month: '$date' },
+                        ],
                       },
-                      yearMonth
-                    ]
+                      yearMonth,
+                    ],
                   },
                   {
                     $gte: [
                       {
                         $add: [
                           { $multiply: [{ $year: '$date' }, 100] },
-                          { $month: '$date' }
-                        ]
+                          { $month: '$date' },
+                        ],
                       },
-                      yearMonth
-                    ]
-                  }
+                      yearMonth,
+                    ],
+                  },
                   // {
                   //   $not: {
                   //     $in: [
@@ -316,33 +288,33 @@ const fetchTransactionPayments = async (data: FetchTransactionPaymentProps) => {
                   //     ]
                   //   }
                   // }
-                ]
-              }
-            }
-          }
-        ]
-      }
+                ],
+              },
+            },
+          },
+        ],
+      },
     },
     {
       // Unwind the payment array to include each payment object separately
       $unwind: {
         path: '$payment',
-        preserveNullAndEmptyArrays: true
-      }
+        preserveNullAndEmptyArrays: true,
+      },
     },
     {
       $lookup: {
         from: CurrencyModel.collection.name,
         localField: 'payment.currency',
         foreignField: '_id',
-        as: 'paymentCurrency'
-      }
+        as: 'paymentCurrency',
+      },
     },
     {
       $unwind: {
         path: '$paymentCurrency',
-        preserveNullAndEmptyArrays: true
-      }
+        preserveNullAndEmptyArrays: true,
+      },
     },
     {
       // Perform a left outer join with the CategoryModel collection
@@ -350,23 +322,23 @@ const fetchTransactionPayments = async (data: FetchTransactionPaymentProps) => {
         from: CategoryModel.collection.name,
         localField: 'category',
         foreignField: '_id',
-        as: 'category'
-      }
+        as: 'category',
+      },
     },
     {
       // Unwind the array created by populate to get the category object
-      $unwind: '$category'
+      $unwind: '$category',
     },
     {
       $lookup: {
         from: CurrencyModel.collection.name,
         localField: 'currency',
         foreignField: '_id',
-        as: 'currency'
-      }
+        as: 'currency',
+      },
     },
     {
-      $unwind: '$currency'
+      $unwind: '$currency',
     },
     {
       // Perform a left outer join with the TypeModel collection based on the 'type' field of the category
@@ -374,17 +346,17 @@ const fetchTransactionPayments = async (data: FetchTransactionPaymentProps) => {
         from: TypeModel.collection.name,
         localField: 'category.type',
         foreignField: '_id',
-        as: 'type'
-      }
+        as: 'type',
+      },
     },
     {
-      $unwind: '$type'
+      $unwind: '$type',
     },
     {
       // Filter transactions where the category type is 'Expense'
       $match: {
-        'type.name': 'Expense'
-      }
+        'type.name': 'Expense',
+      },
     },
     {
       $project: {
@@ -406,16 +378,16 @@ const fetchTransactionPayments = async (data: FetchTransactionPaymentProps) => {
         isRecurring: 1,
         startDate: 1,
         endDate: 1,
-        excludedDates: 1
-      }
+        excludedDates: 1,
+      },
     },
     {
-      $sort: { category: 1, name: 1 }
-    }
+      $sort: { category: 1, name: 1 },
+    },
   ]);
 
   const latestExchangeRates = await ExchangeRateModel.findOne().sort({
-    date: -1
+    date: -1,
   });
   const rates = latestExchangeRates?.rates || {};
 
@@ -423,7 +395,7 @@ const fetchTransactionPayments = async (data: FetchTransactionPaymentProps) => {
     incomeTransactions,
     expenseTransactionPayments,
     rates,
-    currency: data.currency
+    currency: data.currency,
   });
 
   return output;
@@ -433,7 +405,7 @@ const processTransactionPaymentData = ({
   incomeTransactions,
   expenseTransactionPayments,
   rates,
-  currency
+  currency,
 }: ProcessTransactionPaymentDataProps) => {
   // MAIN
   const budget = incomeTransactions.reduce(
@@ -445,12 +417,12 @@ const processTransactionPaymentData = ({
         value,
         fromCurrency,
         toCurrency: currency,
-        rates
+        rates,
       });
 
       return accumulator + amount;
     },
-    0
+    0,
   );
 
   let totalAmount = 0;
@@ -460,7 +432,7 @@ const processTransactionPaymentData = ({
     (expenseTransactionPayment: ExpenseTransactionPaymentsProps) => {
       if (expenseTransactionPayment.amount) {
         const totalAmountValue = parseFloat(
-          expenseTransactionPayment.amount.toString()
+          expenseTransactionPayment.amount.toString(),
         );
         const totalAmountCurrency = expenseTransactionPayment.currency;
 
@@ -468,13 +440,13 @@ const processTransactionPaymentData = ({
           value: totalAmountValue,
           fromCurrency: totalAmountCurrency,
           toCurrency: currency,
-          rates
+          rates,
         });
       }
 
       if (expenseTransactionPayment.paidAmount) {
         const totalPaidAmountValue = parseFloat(
-          expenseTransactionPayment.paidAmount.toString()
+          expenseTransactionPayment.paidAmount.toString(),
         );
         const totalPaidAmountCurrency = expenseTransactionPayment.paidCurrency;
 
@@ -482,10 +454,10 @@ const processTransactionPaymentData = ({
           value: totalPaidAmountValue,
           fromCurrency: totalPaidAmountCurrency,
           toCurrency: currency,
-          rates
+          rates,
         });
       }
-    }
+    },
   );
 
   const main = {
@@ -495,15 +467,15 @@ const processTransactionPaymentData = ({
     totalPaidAmount,
     balance: budget - totalPaidAmount,
     extra: budget - totalAmount,
-    paymentCompletionRate: totalPaidAmount / totalAmount
+    paymentCompletionRate: totalPaidAmount / totalAmount,
   };
 
   // CATEGORIES
   const categories = Object.values(
     expenseTransactionPayments.reduce(
       (
-        accumulator: any,
-        expenseTransactionPayment: ExpenseTransactionPaymentsProps
+        accumulator: AccumulatorProps,
+        expenseTransactionPayment: ExpenseTransactionPaymentsProps,
       ) => {
         const key = expenseTransactionPayment.categoryId.toString();
 
@@ -516,7 +488,7 @@ const processTransactionPaymentData = ({
             totalAmount: 0,
             totalPaidAmount: 0,
             paymentCompletionRate: 0,
-            transactions: []
+            transactions: [],
           };
         }
 
@@ -529,7 +501,7 @@ const processTransactionPaymentData = ({
           const amountCurrency = expenseTransactionPayment.currency;
 
           const transactionAmount = parseFloat(
-            expenseTransactionPayment.amount.toString()
+            expenseTransactionPayment.amount.toString(),
           );
 
           amount =
@@ -539,7 +511,7 @@ const processTransactionPaymentData = ({
                   value: transactionAmount,
                   fromCurrency: amountCurrency,
                   toCurrency: currency,
-                  rates
+                  rates,
                 });
 
           localAmount = transactionAmount;
@@ -551,7 +523,7 @@ const processTransactionPaymentData = ({
 
         if (expenseTransactionPayment.paidAmount) {
           const transactionPaidAmount = parseFloat(
-            expenseTransactionPayment.paidAmount.toString()
+            expenseTransactionPayment.paidAmount.toString(),
           );
           const paidCurrency = expenseTransactionPayment.paidCurrency;
 
@@ -562,7 +534,7 @@ const processTransactionPaymentData = ({
                   value: transactionPaidAmount,
                   fromCurrency: paidCurrency,
                   toCurrency: currency,
-                  rates
+                  rates,
                 });
 
           localPaidAmount = transactionPaidAmount;
@@ -572,14 +544,14 @@ const processTransactionPaymentData = ({
         const localAmountValue = {
           currency: {
             _id: expenseTransactionPayment.currencyId,
-            name: expenseTransactionPayment.currency
+            name: expenseTransactionPayment.currency,
           },
           amount: localAmount,
           paidCurrency: {
             _id: expenseTransactionPayment.paidCurrencyId,
-            name: expenseTransactionPayment.paidCurrency
+            name: expenseTransactionPayment.paidCurrency,
           },
-          paidAmount: localPaidAmount
+          paidAmount: localPaidAmount,
         };
 
         // [Transactions Array]
@@ -589,7 +561,7 @@ const processTransactionPaymentData = ({
           name: expenseTransactionPayment.name,
           amount,
           paidAmount,
-          localAmount: localAmountValue
+          localAmount: localAmountValue,
         };
 
         // CATEGORY TOTAL
@@ -601,13 +573,13 @@ const processTransactionPaymentData = ({
 
         return accumulator;
       },
-      {}
-    )
+      {},
+    ),
   );
 
   const output = {
     main,
-    categories
+    categories,
   };
 
   return output;

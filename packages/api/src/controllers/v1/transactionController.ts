@@ -9,7 +9,7 @@ const create = async (req: Request, res: Response, next: NextFunction) => {
 
     res.status(200).json({
       success: true,
-      data
+      data,
     });
   } catch (error) {
     next(error);
@@ -35,7 +35,7 @@ const getAdvanced = async (req: Request, res: Response, next: NextFunction) => {
     const data = await transactionService.getAdvanced(query, req.body);
 
     res.status(200).json({
-      data
+      data,
     });
   } catch (error) {
     next(error);
@@ -45,7 +45,7 @@ const getAdvanced = async (req: Request, res: Response, next: NextFunction) => {
 const getByCategoryDate = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
   try {
     const result = await transactionService.getByCategoryDate(req.body);
@@ -59,7 +59,7 @@ const getByCategoryDate = async (
 const getByTypeDateRange = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
   try {
     const result = await transactionService.getByTypeDateRange(req.body);
@@ -73,7 +73,7 @@ const getByTypeDateRange = async (
 const getByCategoryDateRange = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
   try {
     const result = await transactionService.getByCategoryDateRange(req.body);
@@ -92,7 +92,7 @@ const get = async (req: Request, res: Response, next: NextFunction) => {
 
     res.status(200).json({
       success: true,
-      data
+      data,
     });
   } catch (error) {
     next(error);
@@ -107,7 +107,7 @@ const update = async (req: Request, res: Response, next: NextFunction) => {
 
     res.status(200).json({
       success: true,
-      data
+      data,
     });
   } catch (error) {
     next(error);
@@ -122,7 +122,7 @@ const remove = async (req: Request, res: Response, next: NextFunction) => {
 
     res.status(200).json({
       success: true,
-      data
+      data,
     });
   } catch (error) {
     next(error);
@@ -138,5 +138,5 @@ export {
   getByCategoryDateRange,
   get,
   update,
-  remove
+  remove,
 };

@@ -1,12 +1,12 @@
 import {
   TransactionModel,
-  TransactionProps
+  TransactionProps,
 } from '../../models/v1/transactionModel';
 import createPagination from '../../utilities/createPagination';
 
 import { Types } from 'mongoose';
 
-import type { QueryParamsProps } from '../../types/commonTypes';
+import type { QueryParamsProps, SortObjProps } from '../../types/commonTypes';
 import { CategoryModel } from '../../models/v1/categoryModel';
 import { ExchangeRateModel } from '../../models/v1/exchangeRateModel';
 import convertCurrency from '../../utilities/convertCurrency';
@@ -50,9 +50,9 @@ const getAll = async (query: QueryParamsProps) => {
   const filterObj = filter ? JSON.parse(filter) : {};
 
   // Sort
-  let sortObj: any = {};
+  const sortObj: SortObjProps = {};
   if (sort) {
-    sort.split(',').forEach((sortField: any) => {
+    sort.split(',').forEach((sortField: string) => {
       const order = sortField.startsWith('-') ? -1 : 1;
       const field = sortField.replace(/^[-+]/, '');
 
@@ -69,7 +69,7 @@ const getAll = async (query: QueryParamsProps) => {
 
   return {
     data,
-    pagination
+    pagination,
   };
 };
 
@@ -89,22 +89,22 @@ const buildFilters = (data: FetchTransactionProps) => {
               {
                 $add: [
                   { $multiply: [{ $year: '$startDate' }, 100] },
-                  { $month: '$startDate' }
-                ]
+                  { $month: '$startDate' },
+                ],
               },
-              yearMonth
-            ]
+              yearMonth,
+            ],
           },
           {
             $gte: [
               {
                 $add: [
                   { $multiply: [{ $year: '$endDate' }, 100] },
-                  { $month: '$endDate' }
-                ]
+                  { $month: '$endDate' },
+                ],
               },
-              yearMonth
-            ]
+              yearMonth,
+            ],
           },
           {
             $not: {
@@ -114,11 +114,11 @@ const buildFilters = (data: FetchTransactionProps) => {
                   $map: {
                     input: '$excludedDates',
                     as: 'date',
-                    in: { $month: '$$date' }
-                  }
-                }
-              ]
-            }
+                    in: { $month: '$$date' },
+                  },
+                },
+              ],
+            },
           },
           {
             $not: {
@@ -128,16 +128,16 @@ const buildFilters = (data: FetchTransactionProps) => {
                   $map: {
                     input: '$excludedDates',
                     as: 'date',
-                    in: { $year: '$$date' }
-                  }
-                }
-              ]
-            }
-          }
-        ]
-      }
+                    in: { $year: '$$date' },
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
     },
-    type: data.type ? { 'type._id': new Types.ObjectId(data.type) } : {}
+    type: data.type ? { 'type._id': new Types.ObjectId(data.type) } : {},
   };
 };
 
@@ -163,7 +163,7 @@ const getTotalCount = async (data: FetchTransactionProps) => {
   const filters = {
     $and: [
       {
-        category: { $in: categoryIdArray } // Match category IDs
+        category: { $in: categoryIdArray }, // Match category IDs
       },
       {
         $expr: {
@@ -173,22 +173,22 @@ const getTotalCount = async (data: FetchTransactionProps) => {
                 {
                   $add: [
                     { $multiply: [{ $year: '$startDate' }, 100] },
-                    { $month: '$startDate' }
-                  ]
+                    { $month: '$startDate' },
+                  ],
                 },
-                yearMonth
-              ]
+                yearMonth,
+              ],
             },
             {
               $gte: [
                 {
                   $add: [
                     { $multiply: [{ $year: '$endDate' }, 100] },
-                    { $month: '$endDate' }
-                  ]
+                    { $month: '$endDate' },
+                  ],
                 },
-                yearMonth
-              ]
+                yearMonth,
+              ],
             },
             {
               $not: {
@@ -198,11 +198,11 @@ const getTotalCount = async (data: FetchTransactionProps) => {
                     $map: {
                       input: '$excludedDates',
                       as: 'date',
-                      in: { $month: '$$date' }
-                    }
-                  }
-                ]
-              }
+                      in: { $month: '$$date' },
+                    },
+                  },
+                ],
+              },
             },
             {
               $not: {
@@ -212,16 +212,16 @@ const getTotalCount = async (data: FetchTransactionProps) => {
                     $map: {
                       input: '$excludedDates',
                       as: 'date',
-                      in: { $year: '$$date' }
-                    }
-                  }
-                ]
-              }
-            }
-          ]
-        }
-      }
-    ]
+                      in: { $year: '$$date' },
+                    },
+                  },
+                ],
+              },
+            },
+          ],
+        },
+      },
+    ],
   };
 
   // Step 3: Count the documents with the filtered criteria
@@ -232,7 +232,7 @@ const getTotalCount = async (data: FetchTransactionProps) => {
 
 const getAdvanced = async (
   query: QueryParamsProps,
-  data: FetchTransactionProps
+  data: FetchTransactionProps,
 ) => {
   // [SAMPLE ENDPOINT]: /transactions/getAdvanced?page=2&limit=4
 
@@ -251,8 +251,8 @@ const getAdvanced = async (
         from: 'categories',
         localField: 'category',
         foreignField: '_id',
-        as: 'category'
-      }
+        as: 'category',
+      },
     },
     { $unwind: '$category' },
     {
@@ -260,8 +260,8 @@ const getAdvanced = async (
         from: 'currencies',
         localField: 'currency',
         foreignField: '_id',
-        as: 'currency'
-      }
+        as: 'currency',
+      },
     },
     { $unwind: '$currency' },
     {
@@ -269,8 +269,8 @@ const getAdvanced = async (
         from: 'types',
         localField: 'category.type',
         foreignField: '_id',
-        as: 'type'
-      }
+        as: 'type',
+      },
     },
     { $unwind: '$type' },
     { $match: filters.type },
@@ -289,17 +289,17 @@ const getAdvanced = async (
         currencyId: '$currency._id',
         currencyName: '$currency.name',
         amount: { $toDouble: '$amount' },
-        description: '$description'
-      }
+        description: '$description',
+      },
     },
     { $sort: { categoryName: 1, name: 1 } },
     { $skip: skip },
-    { $limit: limit }
+    { $limit: limit },
   ]);
 
   return {
     data: output,
-    pagination
+    pagination,
   };
 };
 
@@ -308,7 +308,7 @@ const getByDate = async (data: FetchByDateProps) => {
   const currency = data.currency;
 
   const latestExchangeRates = await ExchangeRateModel.findOne().sort({
-    date: -1
+    date: -1,
   });
   const rates = latestExchangeRates?.rates || {};
 
@@ -321,8 +321,8 @@ const getByDate = async (data: FetchByDateProps) => {
         from: 'categories',
         localField: 'category',
         foreignField: '_id',
-        as: 'category'
-      }
+        as: 'category',
+      },
     },
     { $unwind: '$category' },
     {
@@ -330,8 +330,8 @@ const getByDate = async (data: FetchByDateProps) => {
         from: 'currencies',
         localField: 'currency',
         foreignField: '_id',
-        as: 'currency'
-      }
+        as: 'currency',
+      },
     },
     { $unwind: '$currency' },
     {
@@ -339,8 +339,8 @@ const getByDate = async (data: FetchByDateProps) => {
         from: 'types',
         localField: 'category.type',
         foreignField: '_id',
-        as: 'type'
-      }
+        as: 'type',
+      },
     },
     { $unwind: '$type' },
     { $match: filters.type },
@@ -356,10 +356,10 @@ const getByDate = async (data: FetchByDateProps) => {
         currencyId: '$currency._id',
         currencyName: '$currency.name',
         amount: { $toDouble: '$amount' },
-        description: '$description'
-      }
+        description: '$description',
+      },
     },
-    { $sort: { typeName: 1, categoryName: 1, name: 1 } }
+    { $sort: { typeName: 1, categoryName: 1, name: 1 } },
   ]);
 
   const convertedTransactions = transactions.map((transaction) => {
@@ -370,21 +370,21 @@ const getByDate = async (data: FetchByDateProps) => {
       value: amount,
       fromCurrency,
       toCurrency: currency,
-      rates
+      rates,
     });
 
     return {
       ...transaction,
       convertedAmount,
-      convertedCurrency: currency
+      convertedCurrency: currency,
     };
   });
 
   return {
     data: {
       date,
-      transactions: convertedTransactions
-    }
+      transactions: convertedTransactions,
+    },
   };
 };
 
@@ -393,11 +393,11 @@ const getByDateRange = async (data: FetchByDateRangeProps) => {
   const endDate = new Date(data.endDate);
   const currency = data.currency;
 
-  let datesArray = [];
+  const datesArray = [];
 
   // Fetch exchange rates
   const latestExchangeRates = await ExchangeRateModel.findOne().sort({
-    date: -1
+    date: -1,
   });
   const rates = latestExchangeRates?.rates || {};
 
@@ -411,7 +411,7 @@ const getByDateRange = async (data: FetchByDateRangeProps) => {
     datesArray.map(async (date) => {
       const dataToFilter = {
         ...data,
-        date: new Date(date)
+        date: new Date(date),
       };
 
       const filters = buildFilters(dataToFilter);
@@ -423,8 +423,8 @@ const getByDateRange = async (data: FetchByDateRangeProps) => {
             from: 'categories',
             localField: 'category',
             foreignField: '_id',
-            as: 'category'
-          }
+            as: 'category',
+          },
         },
         { $unwind: '$category' },
         {
@@ -432,8 +432,8 @@ const getByDateRange = async (data: FetchByDateRangeProps) => {
             from: 'currencies',
             localField: 'currency',
             foreignField: '_id',
-            as: 'currency'
-          }
+            as: 'currency',
+          },
         },
         { $unwind: '$currency' },
         {
@@ -441,8 +441,8 @@ const getByDateRange = async (data: FetchByDateRangeProps) => {
             from: 'types',
             localField: 'category.type',
             foreignField: '_id',
-            as: 'type'
-          }
+            as: 'type',
+          },
         },
         { $unwind: '$type' },
         { $match: filters.type },
@@ -458,10 +458,10 @@ const getByDateRange = async (data: FetchByDateRangeProps) => {
             currencyId: '$currency._id',
             currencyName: '$currency.name',
             amount: { $toDouble: '$amount' },
-            description: '$description'
-          }
+            description: '$description',
+          },
         },
-        { $sort: { typeName: 1, categoryName: 1, name: 1 } }
+        { $sort: { typeName: 1, categoryName: 1, name: 1 } },
       ]);
 
       const convertedTransactions = transactions.map((transaction) => {
@@ -472,25 +472,25 @@ const getByDateRange = async (data: FetchByDateRangeProps) => {
           value: amount,
           fromCurrency,
           toCurrency: currency,
-          rates
+          rates,
         });
 
         return {
           ...transaction,
           convertedAmount,
-          convertedCurrency: currency
+          convertedCurrency: currency,
         };
       });
 
       return {
         date,
-        transactions: convertedTransactions
+        transactions: convertedTransactions,
       };
-    })
+    }),
   );
 
   return {
-    data: output
+    data: output,
   };
 };
 
@@ -499,25 +499,37 @@ const getByCategoryDate = async (data: FetchByDateProps) => {
 
   const { transactions } = result.data;
 
-  const aggregatedData = transactions.reduce((acc, transaction) => {
-    const { categoryId, categoryName, categoryIcon, convertedAmount } =
-      transaction;
+  const aggregatedData = transactions.reduce(
+    (acc, transaction) => {
+      const { categoryId, categoryName, categoryIcon, convertedAmount } =
+        transaction;
 
-    // Check if the categoryId already exists in the accumulator
-    if (acc[categoryId]) {
-      acc[categoryId].amount += Math.floor(convertedAmount);
-    } else {
-      acc[categoryId] = {
-        id: categoryId,
-        category: categoryName,
-        serializedCategory: serializeText(categoryName),
-        icon: categoryIcon,
-        amount: Math.floor(convertedAmount)
-      };
-    }
+      // Check if the categoryId already exists in the accumulator
+      if (acc[categoryId]) {
+        acc[categoryId].amount += Math.floor(convertedAmount);
+      } else {
+        acc[categoryId] = {
+          id: categoryId,
+          category: categoryName,
+          serializedCategory: serializeText(categoryName),
+          icon: categoryIcon,
+          amount: Math.floor(convertedAmount),
+        };
+      }
 
-    return acc;
-  }, {} as Record<string, { id: string; category: string; serializedCategory: string; icon: string; amount: number }>);
+      return acc;
+    },
+    {} as Record<
+      string,
+      {
+        id: string;
+        category: string;
+        serializedCategory: string;
+        icon: string;
+        amount: number;
+      }
+    >,
+  );
 
   type ChartConfigProps = {
     [id: string]: {
@@ -541,18 +553,18 @@ const getByCategoryDate = async (data: FetchByDateProps) => {
 
       acc[id] = {
         label: item.category,
-        icon: ''
+        icon: '',
         // icon: item.icon
       };
 
       return acc;
     },
-    {}
+    {},
   );
 
   return {
     data: output,
-    chartConfig
+    chartConfig,
   };
 };
 
@@ -576,7 +588,7 @@ const getByTypeDateRange = async (data: FetchByDateRangeProps) => {
 
     return {
       month: moment(date).format('MMMM'),
-      ...types
+      ...types,
     };
   });
 
@@ -603,7 +615,7 @@ const getByCategoryDateRange = async (data: FetchByDateRangeProps) => {
 
     return {
       month: moment(date).format('MMMM'),
-      ...categories
+      ...categories,
     };
   });
 
@@ -616,7 +628,7 @@ const get = async (_id: TransactionProps['_id']) => {
 
 const update = async (_id: TransactionProps['_id'], data: TransactionProps) => {
   return await TransactionModel.findOneAndUpdate({ _id }, data, {
-    new: true
+    new: true,
   }).populate(['category', 'currency']);
 };
 
@@ -633,5 +645,5 @@ export {
   getByCategoryDateRange,
   get,
   update,
-  remove
+  remove,
 };

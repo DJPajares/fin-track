@@ -1,9 +1,5 @@
-import { TypeModel } from '../../models/v1/typeModel';
-import type { TypeProps } from '../../models/v1/typeModel';
-import type {
-  PaginationProps,
-  QueryParamsProps
-} from '../../types/commonTypes';
+import { TypeModel, type TypeProps } from '../../models/v1/typeModel';
+import type { QueryParamsProps, SortObjProps } from '../../types/commonTypes';
 import createPagination from '../../utilities/createPagination';
 
 const create = async (data: TypeProps) => {
@@ -24,9 +20,9 @@ const getAll = async (query: QueryParamsProps) => {
   const filterObj = filter ? JSON.parse(filter) : {};
 
   // Sort
-  let sortObj: any = {};
+  const sortObj: SortObjProps = {};
   if (sort) {
-    sort.split(',').forEach((sortField: any) => {
+    sort.split(',').forEach((sortField: string) => {
       const order = sortField.startsWith('-') ? -1 : 1;
       const field = sortField.replace(/^[-+]/, '');
 
@@ -42,7 +38,7 @@ const getAll = async (query: QueryParamsProps) => {
 
   return {
     data,
-    pagination
+    pagination,
   };
 };
 

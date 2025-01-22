@@ -1,7 +1,7 @@
 import { CurrencyModel, CurrencyProps } from '../../models/v1/currencyModel';
 import createPagination from '../../utilities/createPagination';
 
-import type { QueryParamsProps } from '../../types/commonTypes';
+import type { QueryParamsProps, SortObjProps } from '../../types/commonTypes';
 
 const create = async (data: CurrencyProps) => {
   return await CurrencyModel.create(data);
@@ -21,9 +21,9 @@ const getAll = async (query: QueryParamsProps) => {
   const filterObj = filter ? JSON.parse(filter) : {};
 
   // Sort
-  let sortObj: any = {};
+  const sortObj: SortObjProps = {};
   if (sort) {
-    sort.split(',').forEach((sortField: any) => {
+    sort.split(',').forEach((sortField: string) => {
       const order = sortField.startsWith('-') ? -1 : 1;
       const field = sortField.replace(/^[-+]/, '');
 
@@ -38,7 +38,7 @@ const getAll = async (query: QueryParamsProps) => {
 
   return {
     data,
-    pagination
+    pagination,
   };
 };
 

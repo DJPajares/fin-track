@@ -1,8 +1,8 @@
 import {
   ExchangeRateModel,
-  ExchangeRateProps
+  ExchangeRateProps,
 } from '../../models/v1/exchangeRateModel';
-import type { QueryParamsProps } from '../../types/commonTypes';
+import type { QueryParamsProps, SortObjProps } from '../../types/commonTypes';
 import createPagination from '../../utilities/createPagination';
 
 const create = async (data: ExchangeRateProps) => {
@@ -23,9 +23,9 @@ const getAll = async (query: QueryParamsProps) => {
   const filterObj = filter ? JSON.parse(filter) : {};
 
   // Sort
-  let sortObj: any = {};
+  const sortObj: SortObjProps = {};
   if (sort) {
-    sort.split(',').forEach((sortField: any) => {
+    sort.split(',').forEach((sortField: string) => {
       const order = sortField.startsWith('-') ? -1 : 1;
       const field = sortField.replace(/^[-+]/, '');
 
@@ -41,7 +41,7 @@ const getAll = async (query: QueryParamsProps) => {
 
   return {
     data,
-    pagination
+    pagination,
   };
 };
 
@@ -51,10 +51,10 @@ const get = async (_id: ExchangeRateProps['_id']) => {
 
 const update = async (
   _id: ExchangeRateProps['_id'],
-  data: ExchangeRateProps
+  data: ExchangeRateProps,
 ) => {
   return await ExchangeRateModel.findByIdAndUpdate({ _id }, data, {
-    new: true
+    new: true,
   });
 };
 

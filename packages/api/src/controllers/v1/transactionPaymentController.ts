@@ -4,16 +4,16 @@ import * as transactionPaymentService from '../../services/v1/transactionPayment
 const fetchTransactionPayments = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
   try {
     const data = await transactionPaymentService.fetchTransactionPayments(
-      req.body
+      req.body,
     );
 
     res.status(200).json({
       success: true,
-      data
+      data,
     });
   } catch (error) {
     next(error);

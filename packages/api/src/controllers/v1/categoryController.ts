@@ -10,7 +10,7 @@ const create = async (req: Request, res: Response, next: NextFunction) => {
 
     res.status(200).json({
       success: true,
-      data
+      data,
     });
   } catch (error) {
     next(error);
@@ -37,7 +37,7 @@ const get = async (req: Request, res: Response, next: NextFunction) => {
 
     res.status(200).json({
       success: true,
-      data
+      data,
     });
   } catch (error) {
     next(error);
@@ -59,7 +59,7 @@ const getByType = async (req: Request, res: Response, next: NextFunction) => {
 const getSpecificType = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
   try {
     const id = new Types.ObjectId(req.params.id);
@@ -81,7 +81,7 @@ const update = async (req: Request, res: Response, next: NextFunction) => {
 
     res.status(200).json({
       success: true,
-      data
+      data,
     });
   } catch (error) {
     next(error);
@@ -96,7 +96,7 @@ const remove = async (req: Request, res: Response, next: NextFunction) => {
 
     res.status(200).json({
       success: true,
-      data
+      data,
     });
   } catch (error) {
     next(error);

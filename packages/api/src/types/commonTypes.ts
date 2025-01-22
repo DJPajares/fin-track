@@ -1,4 +1,5 @@
 import { Request } from 'express';
+import { SortOrder } from 'mongoose';
 
 type QueryParamsProps = Request & {
   filter?: string;
@@ -36,9 +37,14 @@ type PaginationResult = {
   };
 };
 
+type SortObjProps = {
+  [key: string]: SortOrder;
+};
+
 export type {
   QueryParamsProps,
   QueryParamsResult,
   PaginationProps,
-  PaginationResult
+  PaginationResult,
+  SortObjProps,
 };

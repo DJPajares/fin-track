@@ -1,9 +1,6 @@
 import { Types } from 'mongoose';
 import { PaymentModel, PaymentProps } from '../../models/v1/paymentModel';
-import type {
-  PaginationProps,
-  QueryParamsProps
-} from '../../types/commonTypes';
+import type { QueryParamsProps, SortObjProps } from '../../types/commonTypes';
 import createPagination from '../../utilities/createPagination';
 
 const create = async (data: PaymentProps) => {
@@ -24,9 +21,9 @@ const getAll = async (query: QueryParamsProps) => {
   const filterObj = filter ? JSON.parse(filter) : {};
 
   // Sort
-  let sortObj: any = {};
+  const sortObj: SortObjProps = {};
   if (sort) {
-    sort.split(',').forEach((sortField: any) => {
+    sort.split(',').forEach((sortField: string) => {
       const order = sortField.startsWith('-') ? -1 : 1;
       const field = sortField.replace(/^[-+]/, '');
 
@@ -43,7 +40,7 @@ const getAll = async (query: QueryParamsProps) => {
 
   return {
     data,
-    pagination
+    pagination,
   };
 };
 
@@ -54,7 +51,7 @@ const get = async (_id: PaymentProps['_id']) => {
 const update = async (_id: PaymentProps['_id'], data: PaymentProps) => {
   return await PaymentModel.findOneAndUpdate({ _id }, data, {
     new: true,
-    upsert: true
+    upsert: true,
   }).populate('transaction');
 };
 
@@ -68,13 +65,13 @@ const upsertMany = async (data: PaymentProps[]) => {
         transaction: payment.transaction,
         currency: payment.currency,
         amount: payment.amount,
-        date: payment.date
+        date: payment.date,
       },
       {
         new: true,
         upsert: true,
-        setDefaultsOnInsert: true
-      }
+        setDefaultsOnInsert: true,
+      },
     ).exec();
   });
 

@@ -10,7 +10,7 @@ const create = async (req: Request, res: Response, next: NextFunction) => {
 
     res.status(200).json({
       success: true,
-      data
+      data,
     });
   } catch (error) {
     next(error);
@@ -37,7 +37,7 @@ const get = async (req: Request, res: Response, next: NextFunction) => {
 
     res.status(200).json({
       success: true,
-      data
+      data,
     });
   } catch (error) {
     next(error);
@@ -52,7 +52,7 @@ const update = async (req: Request, res: Response, next: NextFunction) => {
 
     res.status(200).json({
       success: true,
-      data
+      data,
     });
   } catch (error) {
     next(error);
@@ -67,7 +67,7 @@ const remove = async (req: Request, res: Response, next: NextFunction) => {
 
     res.status(200).json({
       success: true,
-      data
+      data,
     });
   } catch (error) {
     next(error);
