@@ -1,48 +1,62 @@
-import { Request, Response, NextFunction } from 'express';
+import { Request, Response } from 'express';
+import { Error } from 'mongoose';
 
-const validationErrorHandler = (error: any, res: Response) => {
-  const errors = Object.values(error.errors).map((err: any) => err.message);
+interface ValidationError extends Error.ValidationError {
+  errors: {
+    [key: string]: Error.ValidatorError;
+  };
+}
+
+interface MongoServerError extends Error {
+  code?: number;
+  keyValue?: Record<string, string>;
+}
+
+const validationErrorHandler = (error: ValidationError, res: Response) => {
+  const errors = Object.values(error.errors).map((err) => err.message);
   const errorMessages = errors.join('. ');
   const errorMessage = `Invalid data: ${errorMessages}`;
 
   return res.status(400).send({
     type: 'ValidationError',
-    message: errorMessage
+    message: errorMessage,
   });
 };
 
-const mongoServerErrorHandler = (error: any, res: Response) => {
-  const value = error.keyValue.name;
+const mongoServerErrorHandler = (error: MongoServerError, res: Response) => {
+  const value = error.keyValue?.name;
 
   return res.status(400).send({
     type: 'MongoServerError',
-    message: `${value} is already used`
+    message: `${value} is already used`,
   });
 };
 
 const errorHandler = (
-  error: any,
+  error: ValidationError | MongoServerError | Error,
   req: Request,
   res: Response,
-  next: NextFunction
 ) => {
   if (error.name === 'ValidationError') {
-    validationErrorHandler(error, res);
+    validationErrorHandler(error as ValidationError, res);
   }
 
   if (error.name === 'MongoServerError') {
-    if (error.code === 11000) {
+    if ((error as MongoServerError).code === 11000) {
       mongoServerErrorHandler(error, res);
     } else {
+      // return res.status(500).send({
+      //   message: error.errmsg,
+      // });
       return res.status(500).send({
-        message: error.errmsg
+        message: (error as MongoServerError).message,
       });
     }
   }
 
   return res.status(500).send({
     message: 'Something went wrong',
-    error
+    error,
   });
 };
 
