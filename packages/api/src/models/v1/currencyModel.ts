@@ -6,11 +6,11 @@ const currencySchema = new Schema(
     name: {
       type: String,
       required: [true, constants.validations.common.name.required],
-      unique: [true, constants.validations.common.name.unique]
+      unique: [true, constants.validations.common.name.unique],
     },
-    description: String
+    description: String,
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 const CurrencyModel = model('Currency', currencySchema);

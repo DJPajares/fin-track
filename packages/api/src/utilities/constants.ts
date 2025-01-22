@@ -3,10 +3,10 @@ const constants = {
     common: {
       name: {
         required: 'Name is required',
-        unique: 'Name must be unique'
-      }
-    }
-  }
+        unique: 'Name must be unique',
+      },
+    },
+  },
 };
 
 export default constants;

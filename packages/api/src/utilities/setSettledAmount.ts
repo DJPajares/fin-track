@@ -7,7 +7,7 @@ type SettledProps = {
 
 const setSettledAmount = ({
   settledAmount,
-  transactionAmount
+  transactionAmount,
 }: SettledProps) => {
   const parsedSettledAmount = parseFloat(transactionAmount.toString());
   const parsedTransactionAmount = parseFloat(settledAmount.toString());
@@ -16,7 +16,7 @@ const setSettledAmount = ({
 
   return {
     settled,
-    remainingAmount: new Types.Decimal128(remainingAmount.toString())
+    remainingAmount: new Types.Decimal128(remainingAmount.toString()),
   };
 };
 

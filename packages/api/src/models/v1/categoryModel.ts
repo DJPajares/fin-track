@@ -3,7 +3,7 @@ import {
   InferSchemaType,
   Schema,
   Types,
-  model
+  model,
 } from 'mongoose';
 import CONSTANTS from '../../utilities/constants';
 
@@ -12,13 +12,13 @@ const categorySchema = new Schema(
     name: {
       type: String,
       required: [true, CONSTANTS.validations.common.name.required],
-      unique: [true, CONSTANTS.validations.common.name.unique]
+      unique: [true, CONSTANTS.validations.common.name.unique],
     },
     type: { type: Types.ObjectId, ref: 'Type' },
     icon: String,
-    active: Boolean
+    active: Boolean,
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 const CategoryModel = model('Category', categorySchema);

@@ -6,7 +6,7 @@ import {
   getByType,
   getSpecificType,
   update,
-  remove
+  remove,
 } from '../../controllers/v1/categoryController';
 
 const router = express.Router();

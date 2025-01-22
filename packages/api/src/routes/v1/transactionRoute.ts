@@ -8,7 +8,7 @@ import {
   getByCategoryDateRange,
   get,
   update,
-  remove
+  remove,
 } from '../../controllers/v1/transactionController';
 
 const router = express.Router();

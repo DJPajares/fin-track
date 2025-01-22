@@ -9,7 +9,7 @@ const convertCurrency = ({
   value,
   fromCurrency,
   toCurrency,
-  rates
+  rates,
 }: ConvertCurrencyProps): number => {
   if (fromCurrency === toCurrency) {
     return value;

@@ -6,10 +6,10 @@ const typeSchema = new Schema(
     name: {
       type: String,
       required: [true, CONSTANTS.validations.common.name.required],
-      unique: [true, CONSTANTS.validations.common.name.unique]
-    }
+      unique: [true, CONSTANTS.validations.common.name.unique],
+    },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 const TypeModel = model('Type', typeSchema);

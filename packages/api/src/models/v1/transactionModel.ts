@@ -10,11 +10,11 @@ const transactionSchema = new Schema(
     isRecurring: Boolean,
     startDate: Date,
     endDate: Date,
-    excludedDates: [Date]
+    excludedDates: [Date],
   },
   {
-    timestamps: true
-  }
+    timestamps: true,
+  },
 );
 
 const TransactionModel = model('Transaction', transactionSchema);

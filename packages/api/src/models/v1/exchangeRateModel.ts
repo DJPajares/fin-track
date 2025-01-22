@@ -4,20 +4,20 @@ const exchangeRateSchema = new Schema(
   {
     baseCurrency: {
       type: String,
-      required: true
+      required: true,
     },
     date: {
       type: Date,
-      required: true
+      required: true,
     },
     rates: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
   {
-    timestamps: true
-  }
+    timestamps: true,
+  },
 );
 
 const ExchangeRateModel = model('Exchange Rate', exchangeRateSchema);

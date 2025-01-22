@@ -4,7 +4,7 @@ import {
   getAll,
   get,
   update,
-  remove
+  remove,
 } from '../../controllers/v1/currencyController';
 
 const router = express.Router();

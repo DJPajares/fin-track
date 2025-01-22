@@ -2,7 +2,7 @@ import type { PaginationProps, PaginationResult } from '../types/commonTypes';
 
 const createPagination = (
   query: PaginationProps,
-  totalDocuments: number
+  totalDocuments: number,
 ): PaginationResult => {
   const { page = '1', limit } = query;
 
@@ -20,8 +20,8 @@ const createPagination = (
       limit: parseInt(effectiveLimit),
       currentPage: parseInt(page),
       totalPages,
-      totalDocuments
-    }
+      totalDocuments,
+    },
   };
 };
 

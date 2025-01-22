@@ -5,7 +5,7 @@ import {
   get,
   update,
   upsertMany,
-  remove
+  remove,
 } from '../../controllers/v1/paymentController';
 
 const router = express.Router();

@@ -5,17 +5,17 @@ const paymentSchema = new Schema(
     transaction: {
       type: Schema.Types.ObjectId,
       ref: 'Transaction',
-      required: true
+      required: true,
     },
     currency: { type: Schema.Types.ObjectId, ref: 'Currency' },
     amount: { type: Schema.Types.Decimal128, default: 0 },
     date: Date,
     settled: Boolean,
-    remainingAmount: Schema.Types.Decimal128
+    remainingAmount: Schema.Types.Decimal128,
   },
   {
-    timestamps: true
-  }
+    timestamps: true,
+  },
 );
 
 const PaymentModel = model('Payment', paymentSchema);

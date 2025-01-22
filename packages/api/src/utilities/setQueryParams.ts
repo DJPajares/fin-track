@@ -1,8 +1,12 @@
-import type { QueryParamsProps, QueryParamsResult } from '../types/commonTypes';
+import type {
+  QueryParamsProps,
+  QueryParamsResult,
+  SortObjProps,
+} from '../types/commonTypes';
 
 const setQueryParams = (
   query: QueryParamsProps,
-  totalDocuments: number
+  totalDocuments: number,
 ): QueryParamsResult => {
   const { filter, sort, page = '1', limit = '10' } = query;
 
@@ -10,9 +14,9 @@ const setQueryParams = (
   const queryObj = filter ? JSON.parse(filter) : {};
 
   // Sorting
-  let sortObj: any = {};
+  const sortObj: SortObjProps = {};
   if (sort) {
-    sort.split(',').forEach((sortField: any) => {
+    sort.split(',').forEach((sortField: string) => {
       const order = sortField.startsWith('-') ? -1 : 1;
       const field = sortField.replace(/^[-+]/, '');
 
@@ -33,8 +37,8 @@ const setQueryParams = (
       limit: parseInt(limit),
       currentPage: parseInt(page),
       totalPages,
-      totalDocuments
-    }
+      totalDocuments,
+    },
   };
 };
 

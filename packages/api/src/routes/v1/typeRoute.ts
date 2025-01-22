@@ -4,7 +4,7 @@ import {
   getAll,
   get,
   update,
-  remove
+  remove,
 } from '../../controllers/v1/typeController';
 
 const router = express.Router();

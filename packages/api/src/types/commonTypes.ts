@@ -10,7 +10,7 @@ type QueryParamsProps = Request & {
 
 type QueryParamsResult = {
   queryObj: Record<string, string>;
-  sortObj: Record<string, number>;
+  sortObj: Record<string, SortOrder>;
   skip: number;
   limit: number;
   pagination: {
