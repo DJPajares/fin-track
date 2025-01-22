@@ -5,16 +5,6 @@ import { z } from 'zod';
 import { useTranslations } from 'next-intl';
 
 import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger
-} from '../../../components/ui/drawer';
-import {
   AlertDialog,
   AlertDialogAction,
   AlertDialogCancel,
@@ -23,13 +13,13 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  AlertDialogTrigger
+  AlertDialogTrigger,
 } from '../../../components/ui/alert-dialog';
 import { Input } from '../../../components/ui/input';
 import {
   Popover,
   PopoverContent,
-  PopoverTrigger
+  PopoverTrigger,
 } from '../../../components/ui/popover';
 import { Button } from '../../../components/ui/button';
 
@@ -37,12 +27,12 @@ import { useAppDispatch } from '../../../lib/hooks/use-redux';
 import {
   addCategory,
   deleteCategory,
-  updateCategory
+  updateCategory,
 } from '../../../lib/redux/feature/main/mainSlice';
 
 import CardIcon, {
   iconMap,
-  type IconProps
+  type IconProps,
 } from '../../../components/shared/CardIcon';
 
 import { Trash2Icon } from 'lucide-react';
@@ -66,7 +56,7 @@ const EditCategoryDrawer = ({
   category,
   title,
   isNew = false,
-  children
+  children,
 }: EditCategoryDrawerProps) => {
   const t = useTranslations();
 
@@ -81,7 +71,7 @@ const EditCategoryDrawer = ({
 
   const form = useForm<CategoryItemProps>({
     resolver: zodResolver(categorySchema),
-    defaultValues: category
+    defaultValues: category,
   });
 
   const handleChangeIcon = (icon: IconProps) => {
@@ -107,9 +97,9 @@ const EditCategoryDrawer = ({
           ...data,
           type: {
             _id: type ? type._id : '',
-            name: type ? type.name : ''
-          }
-        })
+            name: type ? type.name : '',
+          },
+        }),
       );
     } else {
       dispatch(updateCategory(data));
@@ -140,7 +130,7 @@ const EditCategoryDrawer = ({
                   </PopoverTrigger>
 
                   <PopoverContent>
-                    <div className="grid grid-cols-6 align-middle gap-2">
+                    <div className="grid grid-cols-6 gap-2 align-middle">
                       {iconMapArray.map((icon) => (
                         <Button
                           key={icon}
@@ -172,7 +162,7 @@ const EditCategoryDrawer = ({
             <AlertDialog>
               <AlertDialogTrigger asChild>
                 <Button variant="outline" size="icon">
-                  <Trash2Icon className="w-4 h-4" />
+                  <Trash2Icon className="h-4 w-4" />
                 </Button>
               </AlertDialogTrigger>
 

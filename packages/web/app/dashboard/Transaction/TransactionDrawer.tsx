@@ -4,35 +4,15 @@ import {
   useEffect,
   useMemo,
   useRef,
-  useState
+  useState,
 } from 'react';
 import { useTranslations } from 'next-intl';
 import axios from 'axios';
 import moment from 'moment';
 
-import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle
-} from '../../../components/ui/drawer';
-import { Button } from '../../../components/ui/button';
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle
-} from '../../../components/ui/alert-dialog';
 import { SelectBox } from '../../../components/shared/SelectBox';
 import TransactionDrawerForm, {
-  type SubmitTransactionProps
+  type SubmitTransactionProps,
 } from '../../../components/Form/TransactionDrawerForm';
 
 import fetchTransactionPayments from '../../../services/fetchTransactionPayments';
@@ -42,7 +22,7 @@ import { dateStringFormat } from '@shared/constants/dateStringFormat';
 
 import type {
   DashboardDataResult,
-  DashboardSelectionItemsProps
+  DashboardSelectionItemsProps,
 } from '../../../types/Dashboard';
 import type { ListProps } from '../../../types/List';
 import { TransactionFormProps } from '@web/lib/schemas/transaction';
@@ -59,18 +39,16 @@ const TransactionDrawer = ({
   currencies,
   setDashboardData,
   isDrawerOpen,
-  setIsDrawerOpen
+  setIsDrawerOpen,
 }: TransactionDrawerProps) => {
   const t = useTranslations();
 
   const { types, categories } = useAppSelector((state) => state.main);
   const dashboard = useAppSelector((state) => state.dashboard);
 
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [isNoticeOpen, setIsNoticeOpen] = useState(false);
   const [type, setType] = useState<ListProps>({
     _id: '',
-    name: ''
+    name: '',
   });
 
   const date = useMemo(() => {
@@ -87,7 +65,7 @@ const TransactionDrawer = ({
     isRecurring: false,
     startDate: date,
     endDate: date,
-    excludedDates: []
+    excludedDates: [],
   };
 
   useEffect(() => {
@@ -101,7 +79,6 @@ const TransactionDrawer = ({
   const handleSubmit = async () => {
     if (formRef.current) {
       formRef.current.requestSubmit();
-      setIsNoticeOpen(true);
     }
   };
 
@@ -114,7 +91,7 @@ const TransactionDrawer = ({
       if (status === 200) {
         const result = await fetchTransactionPayments({
           date,
-          currency: dashboard.currency.name
+          currency: dashboard.currency.name,
         });
 
         setDashboardData(result);
@@ -133,7 +110,7 @@ const TransactionDrawer = ({
       title={t('Page.dashboard.transactionDrawer.title').toLocaleUpperCase()}
       description={t('Page.dashboard.transactionDrawer.description')}
     >
-      <div className="px-4 space-y-2">
+      <div className="space-y-2 px-4">
         <div className="flex flex-row justify-end">
           <SelectBox
             variant="ghost"

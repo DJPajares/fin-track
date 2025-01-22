@@ -6,7 +6,6 @@ import {
   Sidebar,
   SidebarContent,
   SidebarGroup,
-  SidebarGroupContent,
   SidebarGroupLabel,
   SidebarHeader,
   SidebarMenu,
@@ -16,7 +15,7 @@ import {
   SidebarMenuSubButton,
   SidebarMenuSubItem,
   SidebarRail,
-  useSidebar
+  useSidebar,
 } from '../ui/sidebar';
 
 import { MENU_ITEMS } from '../../constants/menuItems';
@@ -24,7 +23,7 @@ import { useTranslations } from 'next-intl';
 import {
   Collapsible,
   CollapsibleContent,
-  CollapsibleTrigger
+  CollapsibleTrigger,
 } from '../ui/collapsible';
 import { ChevronRightIcon, GemIcon } from 'lucide-react';
 
@@ -43,7 +42,7 @@ const SideNav = () => {
           <SidebarMenuItem>
             <Link href="/" onClick={handleLinkClick} passHref>
               <SidebarMenuButton size="lg">
-                <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
+                <div className="bg-primary text-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
                   <GemIcon className="size-4" />
                 </div>
 

@@ -3,14 +3,14 @@ import {
   RefObject,
   SetStateAction,
   useEffect,
-  useState
+  useState,
 } from 'react';
 import { addMonths, differenceInCalendarMonths, format } from 'date-fns';
 import { useForm, useWatch } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslations } from 'next-intl';
 
-import { Checkbox } from "@heroui/react";
+import { Checkbox } from '@heroui/react';
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
 import {
   Form,
@@ -18,7 +18,7 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage
+  FormMessage,
 } from '../ui/form';
 import {
   Select,
@@ -26,7 +26,7 @@ import {
   SelectGroup,
   SelectItem,
   SelectTrigger,
-  SelectValue
+  SelectValue,
 } from '../ui/select';
 import { Input } from '../ui/input';
 import { Button } from '../ui/button';
@@ -37,7 +37,7 @@ import { CalendarIcon } from 'lucide-react';
 
 import {
   type TransactionFormProps,
-  transactionSchema
+  transactionSchema,
 } from '../../lib/schemas/transaction';
 
 import type { ListProps } from '../../types/List';
@@ -76,7 +76,7 @@ const TransactionDrawerForm = ({
   currencies,
   defaultValues,
   submitTransaction,
-  formRef
+  formRef,
 }: TransactionDrawerFormProps) => {
   const t = useTranslations();
 
@@ -88,7 +88,7 @@ const TransactionDrawerForm = ({
 
   const form = useForm<TransactionFormProps>({
     resolver: zodResolver(transactionSchema),
-    defaultValues
+    defaultValues,
   });
 
   const startDate = useWatch({ control: form.control, name: 'startDate' });
@@ -105,12 +105,12 @@ const TransactionDrawerForm = ({
 
   const handleSettingExcludedDates = ({
     startDate,
-    endDate
+    endDate,
   }: {
     startDate: Date;
     endDate: Date;
   }) => {
-    let excludedDatesArray = [];
+    const excludedDatesArray = [];
 
     if (startDate && endDate) {
       const totalMonths = differenceInCalendarMonths(endDate, startDate);
@@ -120,7 +120,7 @@ const TransactionDrawerForm = ({
 
         const data = {
           value: date.toDateString(),
-          label: format(date, 'MMM yyyy')
+          label: format(date, 'MMM yyyy'),
         };
 
         excludedDatesArray.push(data);
@@ -147,7 +147,7 @@ const TransactionDrawerForm = ({
       isRecurring,
       startDate,
       endDate: isRecurring ? endDate : startDate,
-      excludedDates
+      excludedDates,
     };
 
     await submitTransaction(transactionData);
@@ -174,7 +174,7 @@ const TransactionDrawerForm = ({
                 <SelectTrigger>
                   <SelectValue
                     placeholder={t(
-                      'Page.dashboard.transactionDrawer.form.placeholder.category'
+                      'Page.dashboard.transactionDrawer.form.placeholder.category',
                     )}
                   />
                 </SelectTrigger>
@@ -184,7 +184,7 @@ const TransactionDrawerForm = ({
                     {categories
                       .filter(
                         (category) =>
-                          category.type._id === type._id && category.active
+                          category.type._id === type._id && category.active,
                       )
                       .map((category) => (
                         <SelectItem key={category._id} value={category._id}>
@@ -213,7 +213,7 @@ const TransactionDrawerForm = ({
               <FormControl>
                 <Input
                   placeholder={t(
-                    'Page.dashboard.transactionDrawer.form.placeholder.title'
+                    'Page.dashboard.transactionDrawer.form.placeholder.title',
                   )}
                   {...field}
                 />
@@ -243,7 +243,7 @@ const TransactionDrawerForm = ({
                     <SelectTrigger>
                       <SelectValue
                         placeholder={t(
-                          'Page.dashboard.transactionDrawer.form.placeholder.currency'
+                          'Page.dashboard.transactionDrawer.form.placeholder.currency',
                         )}
                       />
                     </SelectTrigger>
@@ -312,7 +312,7 @@ const TransactionDrawerForm = ({
                   <FormLabel>
                     {isRecurring
                       ? t(
-                          'Page.dashboard.transactionDrawer.form.title.startDate'
+                          'Page.dashboard.transactionDrawer.form.title.startDate',
                         )
                       : t('Page.dashboard.transactionDrawer.form.title.date')}
                   </FormLabel>
@@ -423,7 +423,7 @@ const TransactionDrawerForm = ({
                 <FormItem className="flex flex-col">
                   <FormLabel>
                     {t(
-                      'Page.dashboard.transactionDrawer.form.title.excludedDates'
+                      'Page.dashboard.transactionDrawer.form.title.excludedDates',
                     )}
                   </FormLabel>
 
@@ -433,7 +433,7 @@ const TransactionDrawerForm = ({
                       value={field.value || []}
                       onChange={field.onChange}
                       placeholder={t(
-                        'Page.dashboard.transactionDrawer.form.placeholder.excludedDates'
+                        'Page.dashboard.transactionDrawer.form.placeholder.excludedDates',
                       )}
                     />
                   </FormControl>
@@ -457,7 +457,7 @@ const TransactionDrawerForm = ({
                       onValueChange={field.onChange}
                     >
                       {t(
-                        'Page.dashboard.transactionDrawer.form.title.isRecurring'
+                        'Page.dashboard.transactionDrawer.form.title.isRecurring',
                       )}
                     </Checkbox>
                   </FormControl>

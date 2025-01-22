@@ -17,7 +17,7 @@ import { formatCurrency } from '@shared/utilities/formatCurrency';
 
 import type {
   TransactionDataUpdateProps,
-  TransactionPaymentCategoryProps
+  TransactionPaymentCategoryProps,
 } from '../../../types/TransactionPayment';
 import type { DashboardDataResult } from '../../../types/Dashboard';
 
@@ -36,14 +36,14 @@ const initialTransactionPaymentCategory: TransactionPaymentCategoryProps = {
   totalAmount: 0,
   totalPaidAmount: 0,
   paymentCompletionRate: 0,
-  transactions: []
+  transactions: [],
 };
 
 const CategoryDrawer = ({
   category,
   setDashboardData,
   isDialogOpen,
-  setIsDialogOpen
+  setIsDialogOpen,
 }: CategoryDrawerProps) => {
   const t = useTranslations();
 
@@ -55,7 +55,7 @@ const CategoryDrawer = ({
 
   const [isLocalCurrency, setIsLocalCurrency] = useState(false);
   const [drawerCategory, setDrawerCategory] = useState(
-    initialTransactionPaymentCategory
+    initialTransactionPaymentCategory,
   );
 
   const drawerCategoryLength = useMemo(() => {
@@ -70,7 +70,7 @@ const CategoryDrawer = ({
 
   const handleTransactionDataUpdate = ({
     _id,
-    paidAmount
+    paidAmount,
   }: TransactionDataUpdateProps) => {
     const transactions = drawerCategory.transactions;
 
@@ -81,7 +81,7 @@ const CategoryDrawer = ({
           ...transaction,
           paidAmount:
             paidAmount <= transaction.amount ? paidAmount : transaction.amount,
-          isUpdated: true
+          isUpdated: true,
         };
       }
 
@@ -92,14 +92,14 @@ const CategoryDrawer = ({
     let totalPaidAmount = 0;
 
     updatedTransactions.forEach(
-      (transaction) => (totalPaidAmount += transaction.paidAmount)
+      (transaction) => (totalPaidAmount += transaction.paidAmount),
     );
 
     // set final result
     setDrawerCategory({
       ...drawerCategory,
       totalPaidAmount,
-      transactions: updatedTransactions
+      transactions: updatedTransactions,
     });
   };
 
@@ -107,7 +107,7 @@ const CategoryDrawer = ({
     const transactions = drawerCategory.transactions;
     const isTotalPaid =
       Math.floor(
-        drawerCategory.totalPaidAmount / drawerCategory.totalAmount
+        drawerCategory.totalPaidAmount / drawerCategory.totalAmount,
       ) === 1;
 
     // update transaction data
@@ -121,7 +121,7 @@ const CategoryDrawer = ({
       return {
         ...transaction,
         paidAmount,
-        isUpdated: true
+        isUpdated: true,
       };
     });
 
@@ -130,7 +130,7 @@ const CategoryDrawer = ({
 
     if (!isTotalPaid) {
       updatedTransactions.forEach(
-        (transaction) => (totalPaidAmount += transaction.paidAmount)
+        (transaction) => (totalPaidAmount += transaction.paidAmount),
       );
     }
 
@@ -138,7 +138,7 @@ const CategoryDrawer = ({
     setDrawerCategory({
       ...drawerCategory,
       totalPaidAmount,
-      transactions: updatedTransactions
+      transactions: updatedTransactions,
     });
   };
 
@@ -152,7 +152,7 @@ const CategoryDrawer = ({
         transaction: transaction._id,
         currency: currency._id,
         amount: transaction.paidAmount,
-        date
+        date,
       }));
 
     // Create or update (upsert) payments
@@ -162,7 +162,7 @@ const CategoryDrawer = ({
     if (status === 200) {
       const result = await fetchTransactionPayments({
         date: date.toDate(),
-        currency: currency.name
+        currency: currency.name,
       });
 
       setDashboardData(result);
@@ -178,10 +178,10 @@ const CategoryDrawer = ({
       handleSubmit={createUpdatePayment}
       title={drawerCategory.name}
       description={t('Page.dashboard.cardDrawer.description', {
-        category: drawerCategory.name.toLowerCase()
+        category: drawerCategory.name.toLowerCase(),
       })}
     >
-      <div className="space-y-4 px-4 overflow-y-scroll">
+      <div className="space-y-4 overflow-y-scroll px-4">
         <span className="flex flex-col justify-center">
           <span className="flex flex-row items-center space-x-3">
             <Switch
@@ -192,14 +192,14 @@ const CategoryDrawer = ({
           </span>
         </span>
 
-        <Card className="p-4 bg-accent">
+        <Card className="bg-accent p-4">
           <CategoryContent
             _id={drawerCategory._id}
             name={t('Page.dashboard.cardDrawer.totalLabel').toLocaleUpperCase()}
             label={formatCurrency({
               value: drawerCategory.totalAmount,
               currency: currency.name,
-              decimal: 2
+              decimal: 2,
             })}
             amount={drawerCategory.totalAmount}
             paidAmount={drawerCategory.totalPaidAmount}
@@ -213,9 +213,9 @@ const CategoryDrawer = ({
           <Separator />
         </div>
 
-        <Card className="p-4 space-y-4 bg-accent/50">
+        <Card className="bg-accent/50 space-y-4 p-4">
           {drawerCategoryLength > 0 &&
-            drawerCategory.transactions.map((transaction, index) => (
+            drawerCategory.transactions.map((transaction) => (
               <div key={transaction._id} className="space-y-2">
                 <CategoryContent
                   _id={transaction._id}
@@ -227,7 +227,7 @@ const CategoryDrawer = ({
                     currency: isLocalCurrency
                       ? transaction.localAmount.currency.name
                       : currency.name,
-                    decimal: 2
+                    decimal: 2,
                   })}
                   amount={transaction.amount}
                   paidAmount={transaction.paidAmount}

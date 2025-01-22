@@ -10,13 +10,12 @@ import { useGetTransactionsQuery } from '../../lib/redux/services/transactions';
 
 import { DatePicker } from '../../components/shared/DatePicker';
 import { Button } from '../../components/ui/button';
-import { ScrollShadow } from "@heroui/react";
+import { ScrollShadow } from '@heroui/react';
 // import { ScrollShadow } from '../../components/ui/scroll-shadow';
 import { SelectBox } from '../../components/shared/SelectBox';
 import TransactionCard from './Transaction/TransactionCard';
 
 import { dateStringFormat } from '@shared/constants/dateStringFormat';
-import { fetchTransactions } from '../../services/fetchTransactions';
 
 import type { ListProps } from '../../types/List';
 import type { TransactionProps } from '../../types/Transaction';
@@ -29,13 +28,13 @@ const Transactions = () => {
 
   const dashboardDate = useMemo(
     () => moment(dashboardDateString, dateStringFormat).toDate(),
-    [dashboardDateString]
+    [dashboardDateString],
   );
 
   const [date, setDate] = useState<Date>(dashboardDate);
   const [selectedType, setSelectedType] = useState<ListProps>({
     _id: '',
-    name: ''
+    name: '',
   });
   const [page, setPage] = useState(1);
   const [isResetting, setIsResetting] = useState(false);
@@ -44,9 +43,9 @@ const Transactions = () => {
     {
       page,
       limit: 8,
-      body: { type: selectedType._id, date: date.toISOString() }
+      body: { type: selectedType._id, date: date.toISOString() },
     },
-    { skip: !selectedType._id || !date }
+    { skip: !selectedType._id || !date },
   );
 
   const transactions: TransactionProps[] = data?.data ?? [];
@@ -113,7 +112,7 @@ const Transactions = () => {
 
   return (
     <div className="mx-auto max-w-lg space-y-6 sm:space-y-10">
-      <div className="flex flex-row justify-center items-center">
+      <div className="flex flex-row items-center justify-center">
         <Button
           variant="ghost"
           size="sm_rounded_icon"
@@ -124,7 +123,7 @@ const Transactions = () => {
 
         <DatePicker date={date} onChange={setDate}>
           <Button variant="ghost" className="px-1">
-            <p className="text-3xl sm:text-5xl font-extrabold sm:font-black hover:underline hover:bg-background">
+            <p className="hover:bg-background text-3xl font-extrabold hover:underline sm:text-5xl sm:font-black">
               {moment(date).format('MMM yyyy')}
             </p>
           </Button>
