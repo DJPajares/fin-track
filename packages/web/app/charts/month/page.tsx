@@ -14,7 +14,7 @@ import {
   Card,
   CardContent,
   CardHeader,
-  CardTitle
+  CardTitle,
 } from '../../../components/ui/card';
 import {
   ChartConfig,
@@ -22,14 +22,13 @@ import {
   ChartLegend,
   ChartLegendContent,
   ChartTooltip,
-  ChartTooltipContent
+  ChartTooltipContent,
 } from '../../../components/ui/chart';
 import { SelectBox } from '../../../components/shared/SelectBox';
-import { iconMap } from '../../../components/shared/CardIcon';
 
 import {
   fetchTransactionsDateByCategory,
-  TransactionsDateByCategoryProps
+  TransactionsDateByCategoryProps,
 } from '../../../services/fetchTransactions';
 
 import { CHART_COLORS } from '../../../constants/chartColorPalettes';
@@ -43,12 +42,6 @@ type TransactionByCategory = {
   amount: number;
 };
 
-type CustomTooltipProps = {
-  payload?: any;
-  label?: string;
-  active?: string;
-};
-
 const Charts = () => {
   const t = useTranslations();
   const isMobile = useIsMobile();
@@ -59,7 +52,7 @@ const Charts = () => {
 
   const dashboardDate = useMemo(
     () => moment(dashboardDateString, dateStringFormat).toDate(),
-    [dashboardDateString]
+    [dashboardDateString],
   );
 
   const [date, setDate] = useState(dashboardDate);
@@ -67,7 +60,7 @@ const Charts = () => {
   const [chartConfigData, setChartConfigData] = useState<ChartConfig>({});
   const [selectedType, setSelectedType] = useState<ListProps>({
     _id: '',
-    name: ''
+    name: '',
   });
 
   useEffect(() => {
@@ -84,19 +77,19 @@ const Charts = () => {
     fetchData({
       date,
       currency: currency.name,
-      type: selectedType._id
+      type: selectedType._id,
     });
   }, [date, currency, selectedType]);
 
   const fetchData = async ({
     date,
     currency,
-    type
+    type,
   }: TransactionsDateByCategoryProps) => {
     const transactions = await fetchTransactionsDateByCategory({
       date,
       currency,
-      type
+      type,
     });
 
     setChartData(transactions.data);
@@ -115,44 +108,11 @@ const Charts = () => {
     setDate(moment(newDate).toDate());
   };
 
-  // Replace label color as icon
-  // const chartConfig = Object.fromEntries(
-  //   Object.entries(chartConfigData).map(([key, value]) => [
-  //     key,
-  //     {
-  //       ...value,
-  //       icon: iconMap[value.icon]
-  //     }
-  //   ])
-  // );
-
   const chartConfig: ChartConfig = chartConfigData;
-
-  const CustomTooltip = ({ payload, label, active }: CustomTooltipProps) => {
-    if (active) {
-      const title = payload[0].payload.category;
-      const value = payload[0].value;
-
-      return (
-        <div className="bg-background p-3 rounded-md">
-          <p className="text-xs font-semibold">{title}</p>
-          <p className="text-xs">
-            {formatCurrency({
-              value,
-              currency: currency.name
-            })}
-          </p>
-          {/* <p className="desc">Anything you want can be displayed here.</p> */}
-        </div>
-      );
-    }
-
-    return null;
-  };
 
   return (
     <div className="space-y-6 sm:space-y-10">
-      <div className="flex flex-row justify-center items-center">
+      <div className="flex flex-row items-center justify-center">
         <Button
           variant="ghost"
           size="sm_rounded_icon"
@@ -163,7 +123,7 @@ const Charts = () => {
 
         <DatePicker date={date} onChange={setDate}>
           <Button variant="ghost" className="px-1">
-            <p className="text-3xl sm:text-5xl font-extrabold sm:font-black hover:underline hover:bg-background">
+            <p className="hover:bg-background text-3xl font-extrabold hover:underline sm:text-5xl sm:font-black">
               {moment(date).format('MMM yyyy')}
             </p>
           </Button>
@@ -192,7 +152,7 @@ const Charts = () => {
 
         {/* CHARTS */}
         <div>
-          <Card className="py-3 px-1 bg-accent/70">
+          <Card className="bg-accent/70 px-1 py-3">
             <CardHeader className="flex flex-row items-center justify-center">
               <CardTitle>By Category</CardTitle>
             </CardHeader>
@@ -235,7 +195,7 @@ const Charts = () => {
                               >
                                 {formatCurrency({
                                   value: totalAmount,
-                                  currency: currency.name
+                                  currency: currency.name,
                                 })}
                               </tspan>
                               <tspan
@@ -253,17 +213,30 @@ const Charts = () => {
                   </Pie>
                   <ChartTooltip
                     cursor={false}
-                    // content={
-                    //   <ChartTooltipContent
-                    //     nameKey="serializedCategory"
-                    //     hideLabel
-                    //   />
-                    // }
-                    content={<CustomTooltip />}
+                    content={
+                      <ChartTooltipContent
+                        formatter={(value, name) => {
+                          return (
+                            <div className="flex flex-col justify-between">
+                              <p className="font-medium">{name}</p>
+                              <p className="font-semibold">
+                                {formatCurrency({
+                                  value: parseFloat(value.toString()),
+                                  currency: currency.name,
+                                })}
+                              </p>
+                            </div>
+                          );
+                        }}
+                        labelFormatter={(value) => {
+                          return value;
+                        }}
+                      />
+                    }
                   />
                   <ChartLegend
                     content={<ChartLegendContent />}
-                    className="flex-wrap gap-1 basis-1/4 justify-end"
+                    className="basis-1/4 flex-wrap justify-end gap-1"
                   />
                 </PieChart>
               </ChartContainer>
