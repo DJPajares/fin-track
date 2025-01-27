@@ -85,6 +85,17 @@
         }
       }
     },
+    "charts": {
+      "monthly": {
+        "byCategoryTitle": "ตามหมวดหมู่",
+        "byCategoryDescription": "ค่าใช้จ่ายรายเดือนตามหมวดหมู่",
+        "amountLabel": "จำนวนเงิน"
+      },
+      "yearly": {
+        "incomeVsExpensesTitle": "รายได้เทียบกับค่าใช้จ่าย",
+        "incomeAndExpensesTitle": "รายได้และค่าใช้จ่าย"
+      }
+    },
     "transactions": {
       "form": {
         "name": "ชื่อ",

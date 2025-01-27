@@ -85,6 +85,17 @@
         }
       }
     },
+    "charts": {
+      "monthly": {
+        "byCategoryTitle": "Ayon sa Kategorya",
+        "byCategoryDescription": "Buwanang gastusin ayon sa kategorya",
+        "amountLabel": "Halaga"
+      },
+      "yearly": {
+        "incomeVsExpensesTitle": "Kita laban sa Gastos",
+        "incomeAndExpensesTitle": "Kita at Gastos"
+      }
+    },
     "transactions": {
       "form": {
         "name": "Pangalan",

@@ -85,6 +85,17 @@
         }
       }
     },
+    "charts": {
+      "monthly": {
+        "byCategoryTitle": "Theo danh mục",
+        "byCategoryDescription": "Chi tiêu hàng tháng theo danh mục",
+        "amountLabel": "Số tiền"
+      },
+      "yearly": {
+        "incomeVsExpensesTitle": "Thu nhập và Chi tiêu",
+        "incomeAndExpensesTitle": "Thu nhập và Chi phí"
+      }
+    },
     "transactions": {
       "form": {
         "name": "Tên",

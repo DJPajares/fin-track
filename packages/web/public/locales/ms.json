@@ -85,6 +85,17 @@
         }
       }
     },
+    "charts": {
+      "monthly": {
+        "byCategoryTitle": "Mengikut Kategori",
+        "byCategoryDescription": "Perbelanjaan bulanan mengikut kategori",
+        "amountLabel": "Jumlah"
+      },
+      "yearly": {
+        "incomeVsExpensesTitle": "Pendapatan vs Perbelanjaan",
+        "incomeAndExpensesTitle": "Pendapatan dan Perbelanjaan"
+      }
+    },
     "transactions": {
       "form": {
         "name": "Nama",

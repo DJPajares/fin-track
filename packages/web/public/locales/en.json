@@ -85,6 +85,17 @@
         }
       }
     },
+    "charts": {
+      "monthly": {
+        "byCategoryTitle": "By Category",
+        "byCategoryDescription": "Monthly expenses by category",
+        "amountLabel": "Amount"
+      },
+      "yearly": {
+        "incomeVsExpensesTitle": "Income vs Expenses",
+        "incomeAndExpensesTitle": "Income and Expenses"
+      }
+    },
     "transactions": {
       "form": {
         "name": "Name",

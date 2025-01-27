@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from 'react';
 import moment from 'moment';
+import { useTranslations } from 'next-intl';
 
 import { useAppSelector } from '../../../lib/hooks/use-redux';
 import { useIsMobile } from '../../../lib/hooks/use-mobile';
@@ -12,14 +13,14 @@ import {
   CartesianGrid,
   ReferenceLine,
   XAxis,
-  YAxis
+  YAxis,
 } from 'recharts';
 import { Button } from '../../../components/ui/button';
 import {
   Card,
   CardContent,
   CardHeader,
-  CardTitle
+  CardTitle,
 } from '../../../components/ui/card';
 import {
   ChartConfig,
@@ -27,7 +28,7 @@ import {
   ChartLegend,
   ChartLegendContent,
   ChartTooltip,
-  ChartTooltipContent
+  ChartTooltipContent,
 } from '../../../components/ui/chart';
 import {
   Select,
@@ -36,14 +37,14 @@ import {
   SelectItem,
   SelectLabel,
   SelectTrigger,
-  SelectValue
+  SelectValue,
 } from '../../../components/ui/select';
 
 import {
   ChevronLeftIcon,
   ChevronRightIcon,
   TrendingDownIcon,
-  TrendingUpIcon
+  TrendingUpIcon,
 } from 'lucide-react';
 
 import { fetchTransactionsDateRangeByType } from '../../../services/fetchTransactions';
@@ -69,22 +70,23 @@ const generateYearsArray = (range: number): number[] => {
 
   return Array.from(
     { length: endYear - startYear + 1 },
-    (_, index) => startYear + index
+    (_, index) => startYear + index,
   );
 };
 
 const Charts = () => {
+  const t = useTranslations();
   const isMobile = useIsMobile();
 
   const dashboardDateString = useAppSelector((state) => state.dashboard.date);
 
   const dashboardDate = useMemo(
     () => moment(dashboardDateString, dateStringFormat).toDate(),
-    [dashboardDateString]
+    [dashboardDateString],
   );
 
   const [selectedYear, setSelectedYear] = useState<string>(
-    dashboardDate.getFullYear().toString()
+    dashboardDate.getFullYear().toString(),
   );
   const [chartData, setChartData] = useState<ChartDataProps[]>([]);
   const [chartDataA, setChartDataA] = useState<ChartDataPropsA[]>([]);
@@ -102,7 +104,7 @@ const Charts = () => {
   useEffect(() => {
     const data = chartData.map((data) => ({
       ...data,
-      incomeVsExpenses: (data.income || 0) - (data.expense || 0)
+      incomeVsExpenses: (data.income || 0) - (data.expense || 0),
     }));
 
     setChartDataA(data);
@@ -114,7 +116,7 @@ const Charts = () => {
     const transactions = await fetchTransactionsDateRangeByType({
       startDate: new Date(parseInt(selectedYear), 0, 1),
       endDate: new Date(parseInt(selectedYear), 11, 31),
-      currency: currency.name
+      currency: currency.name,
     });
 
     setChartData(transactions);
@@ -136,23 +138,23 @@ const Charts = () => {
     income: {
       label: 'Income',
       color: 'hsl(var(--primary))',
-      icon: TrendingUpIcon
+      icon: TrendingUpIcon,
     },
     expense: {
       label: 'Expense',
       color: 'hsl(var(--secondary))',
-      icon: TrendingDownIcon
+      icon: TrendingDownIcon,
     },
     incomeVsExpenses: {
       label: 'Income Vs Expenses',
       color: 'hsl(var(--primary))',
-      icon: TrendingUpIcon
-    }
+      icon: TrendingUpIcon,
+    },
   } satisfies ChartConfig;
 
   return (
     <div className="space-y-4 sm:space-y-8">
-      <div className="flex flex-row justify-center items-center">
+      <div className="flex flex-row items-center justify-center">
         <Button variant="ghost" size="sm_rounded_icon" onClick={handlePrevYear}>
           <ChevronLeftIcon className="h-4 w-4" />
         </Button>
@@ -163,9 +165,6 @@ const Charts = () => {
             setSelectedYear(value);
           }}
         >
-          {/* <SelectTrigger className="w-24">
-            <SelectValue placeholder="Select a year"></SelectValue>
-          </SelectTrigger> */}
           <SelectTrigger
             variant="ghost-clean"
             className="w-fit text-2xl font-bold"
@@ -199,9 +198,9 @@ const Charts = () => {
       </div>
 
       {/* CHART A */}
-      <Card className="py-3 px-1 bg-accent/70">
+      <Card className="bg-accent/70 px-1 py-3">
         <CardHeader className="flex flex-row items-center justify-center">
-          <CardTitle>Income Vs Expenses</CardTitle>
+          <CardTitle>{t('Page.charts.yearly.incomeVsExpensesTitle')}</CardTitle>
         </CardHeader>
         <CardContent className="p-1">
           <ChartContainer config={chartConfig}>
@@ -230,7 +229,7 @@ const Charts = () => {
                     formatter={(value) => {
                       return formatCurrency({
                         value: parseFloat(value.toString()),
-                        currency: currency.name
+                        currency: currency.name,
                       });
                     }}
                   />
@@ -249,9 +248,11 @@ const Charts = () => {
       </Card>
 
       {/* CHART B */}
-      <Card className="py-3 px-1 bg-accent/70">
+      <Card className="bg-accent/70 px-1 py-3">
         <CardHeader className="flex flex-row items-center justify-center">
-          <CardTitle>Income and Expenses</CardTitle>
+          <CardTitle>
+            {t('Page.charts.yearly.incomeAndExpensesTitle')}
+          </CardTitle>
         </CardHeader>
         <CardContent className="p-1">
           <ChartContainer config={chartConfig}>

@@ -85,6 +85,17 @@
         }
       }
     },
+    "charts": {
+      "monthly": {
+        "byCategoryTitle": "Per Categoria",
+        "byCategoryDescription": "Spese mensili per categoria",
+        "amountLabel": "Importo"
+      },
+      "yearly": {
+        "incomeVsExpensesTitle": "Entrate vs Spese",
+        "incomeAndExpensesTitle": "Entrate e Spese"
+      }
+    },
     "transactions": {
       "form": {
         "name": "Nome",

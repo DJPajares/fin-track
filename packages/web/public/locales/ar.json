@@ -85,6 +85,17 @@
         }
       }
     },
+    "charts": {
+      "monthly": {
+        "byCategoryTitle": "حسب الفئة",
+        "byCategoryDescription": "المصروفات الشهرية حسب الفئة",
+        "amountLabel": "المبلغ"
+      },
+      "yearly": {
+        "incomeVsExpensesTitle": "الدخل مقابل المصروفات",
+        "incomeAndExpensesTitle": "الدخل والمصروفات"
+      }
+    },
     "transactions": {
       "form": {
         "name": "الاسم",

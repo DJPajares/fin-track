@@ -154,7 +154,7 @@ const Charts = () => {
         <div>
           <Card className="bg-accent/70 px-1 py-3">
             <CardHeader className="flex flex-row items-center justify-center">
-              <CardTitle>By Category</CardTitle>
+              <CardTitle>{t('Page.charts.monthly.byCategoryTitle')}</CardTitle>
             </CardHeader>
             <CardContent>
               <ChartContainer
@@ -203,7 +203,7 @@ const Charts = () => {
                                 y={(viewBox.cy || 0) + 24}
                                 className="fill-muted-foreground"
                               >
-                                Amount
+                                {t('Page.charts.monthly.amountLabel')}
                               </tspan>
                             </text>
                           );

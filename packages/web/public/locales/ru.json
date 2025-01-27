@@ -85,6 +85,17 @@
         }
       }
     },
+    "charts": {
+      "monthly": {
+        "byCategoryTitle": "По категории",
+        "byCategoryDescription": "Ежемесячные расходы по категориям",
+        "amountLabel": "Сумма"
+      },
+      "yearly": {
+        "incomeVsExpensesTitle": "Доходы против Расходов",
+        "incomeAndExpensesTitle": "Доходы и Расходы"
+      }
+    },
     "transactions": {
       "form": {
         "name": "Имя",

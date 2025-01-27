@@ -85,6 +85,17 @@
         }
       }
     },
+    "charts": {
+      "monthly": {
+        "byCategoryTitle": "Kategoriye Göre",
+        "byCategoryDescription": "Kategoriye göre aylık harcamalar",
+        "amountLabel": "Tutar"
+      },
+      "yearly": {
+        "incomeVsExpensesTitle": "Gelir ve Gider",
+        "incomeAndExpensesTitle": "Gelir ve Giderler"
+      }
+    },
     "transactions": {
       "form": {
         "name": "Ad",

@@ -85,6 +85,17 @@
         }
       }
     },
+    "charts": {
+      "monthly": {
+        "byCategoryTitle": "カテゴリ別",
+        "byCategoryDescription": "カテゴリ別の月次支出",
+        "amountLabel": "金額"
+      },
+      "yearly": {
+        "incomeVsExpensesTitle": "収入対支出",
+        "incomeAndExpensesTitle": "収入と支出"
+      }
+    },
     "transactions": {
       "form": {
         "name": "名前",
