@@ -20,30 +20,27 @@ import { useAppSelector } from '../../../lib/hooks/use-redux';
 
 import { dateStringFormat } from '@shared/constants/dateStringFormat';
 
-import type {
-  DashboardDataResult,
-  DashboardSelectionItemsProps,
-} from '../../../types/Dashboard';
+import type { DashboardDataResult } from '../../../types/Dashboard';
 import type { ListProps } from '../../../types/List';
 import { TransactionFormProps } from '@web/lib/schemas/transaction';
 import CustomDrawer from '@web/components/shared/CustomDrawer';
 
 type TransactionDrawerProps = {
-  currencies: DashboardSelectionItemsProps[];
   setDashboardData: Dispatch<SetStateAction<DashboardDataResult>>;
   isDrawerOpen: boolean;
   setIsDrawerOpen: Dispatch<SetStateAction<boolean>>;
 };
 
 const TransactionDrawer = ({
-  currencies,
   setDashboardData,
   isDrawerOpen,
   setIsDrawerOpen,
 }: TransactionDrawerProps) => {
   const t = useTranslations();
 
-  const { types, categories } = useAppSelector((state) => state.main);
+  const { types, categories, currencies } = useAppSelector(
+    (state) => state.main,
+  );
   const dashboard = useAppSelector((state) => state.dashboard);
 
   const [type, setType] = useState<ListProps>({

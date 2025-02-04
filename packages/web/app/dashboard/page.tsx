@@ -6,10 +6,10 @@ import { useTranslations } from 'next-intl';
 import { useAppDispatch, useAppSelector } from '../../lib/hooks/use-redux';
 import {
   setDashboardCurrency,
-  setDashboardDate
+  setDashboardDate,
 } from '../../lib/redux/feature/dashboard/dashboardSlice';
 
-import { ScrollShadow, CircularProgress } from "@heroui/react";
+import { ScrollShadow, CircularProgress } from '@heroui/react';
 import { Button } from '../../components/ui/button';
 import { Skeleton } from '../../components/ui/skeleton';
 import { Card } from '../../components/ui/card';
@@ -30,7 +30,7 @@ import { dateStringFormat } from '@shared/constants/dateStringFormat';
 import type {
   DashboardDataProps,
   DashboardDataCategoryResult,
-  DashboardDataResult
+  DashboardDataResult,
 } from '../../types/Dashboard';
 
 const initialDashboardData = {
@@ -41,9 +41,9 @@ const initialDashboardData = {
     totalPaidAmount: 0,
     balance: 0,
     extra: 0,
-    paymentCompletionRate: 0
+    paymentCompletionRate: 0,
   },
-  categories: []
+  categories: [],
 };
 
 const initialTransactionPaymentCategory = {
@@ -52,7 +52,7 @@ const initialTransactionPaymentCategory = {
   totalAmount: 0,
   totalPaidAmount: 0,
   paymentCompletionRate: 0,
-  transactions: []
+  transactions: [],
 };
 
 const Dashboard = () => {
@@ -65,7 +65,7 @@ const Dashboard = () => {
 
   const dashboardDate = useMemo(
     () => moment(dashboardDateString, dateStringFormat).toDate(),
-    [dashboardDateString]
+    [dashboardDateString],
   );
 
   const [dashboardData, setDashboardData] =
@@ -82,7 +82,7 @@ const Dashboard = () => {
     balance,
     extra,
     totalAmount,
-    totalPaidAmount
+    totalPaidAmount,
   } = useMemo(() => {
     return {
       dashbardCategories: dashboardData.categories,
@@ -90,20 +90,20 @@ const Dashboard = () => {
       balance: dashboardData.main.balance,
       extra: dashboardData.main.extra,
       totalAmount: dashboardData.main.totalAmount,
-      totalPaidAmount: dashboardData.main.totalPaidAmount
+      totalPaidAmount: dashboardData.main.totalPaidAmount,
     };
   }, [dashboardData]);
 
   useEffect(() => {
     if (currencies.length > 0) {
       const dashboardCurrency = currencies.filter(
-        (thisCurrency) => thisCurrency.name === currency.name
+        (thisCurrency) => thisCurrency.name === currency.name,
       );
 
       dispatch(
         setDashboardCurrency({
-          currency: dashboardCurrency[0]
-        })
+          currency: dashboardCurrency[0],
+        }),
       );
     }
   }, [currencies, currency]);
@@ -123,7 +123,7 @@ const Dashboard = () => {
   const fetchDashboardData = async ({ date, currency }: DashboardDataProps) => {
     const data = await fetchTransactionPayments({
       date,
-      currency
+      currency,
     });
 
     setDashboardData(data);
@@ -132,8 +132,8 @@ const Dashboard = () => {
   const handleDateSelection = (date: Date) => {
     dispatch(
       setDashboardDate({
-        date: moment(date).format(dateStringFormat)
-      })
+        date: moment(date).format(dateStringFormat),
+      }),
     );
   };
 
@@ -161,7 +161,7 @@ const Dashboard = () => {
   return (
     <div className="space-y-4 sm:space-y-8">
       {/* CALENDAR */}
-      <div className="flex flex-row justify-center items-center">
+      <div className="flex flex-row items-center justify-center">
         <Button
           variant="ghost"
           size="sm_rounded_icon"
@@ -172,7 +172,7 @@ const Dashboard = () => {
 
         <DatePicker date={date} onChange={setDate}>
           <Button variant="ghost" className="px-1">
-            <p className="text-3xl sm:text-5xl font-extrabold sm:font-black hover:underline hover:bg-background">
+            <p className="hover:bg-background text-3xl font-extrabold hover:underline sm:text-5xl sm:font-black">
               {moment(date).format('MMM yyyy')}
             </p>
           </Button>
@@ -194,7 +194,7 @@ const Dashboard = () => {
             classNames={{
               svg: 'w-36 sm:w-64 h-36 sm:h-64 drop-shadow-md',
               value: 'text-3xl sm:text-6xl font-semibold',
-              indicator: 'stroke-primary'
+              indicator: 'stroke-primary',
             }}
             label={t('completed')}
             value={(totalPaidAmount / totalAmount) * 100 || 0}
@@ -207,17 +207,17 @@ const Dashboard = () => {
       </div>
 
       {/* BALANCE CARD */}
-      <Card className="p-4 space-y-2">
+      <Card className="space-y-2 p-4">
         <div className="flex flex-row items-center justify-between">
-          <p className="text-xl sm:text-3xl font-bold sm:font-black">
+          <p className="text-xl font-bold sm:text-3xl sm:font-black">
             {t('balance')}
           </p>
 
           {hasDashboardMainData ? (
-            <p className="text-xl sm:text-3xl font-bold sm:font-black">
+            <p className="text-xl font-bold sm:text-3xl sm:font-black">
               {formatCurrency({
                 value: balance,
-                currency: currency.name
+                currency: currency.name,
               })}
             </p>
           ) : (
@@ -226,15 +226,15 @@ const Dashboard = () => {
         </div>
 
         <div className="flex flex-row items-center justify-between">
-          <p className="text-base sm:text-lg font-medium sm:font-semibold">
+          <p className="text-base font-medium sm:text-lg sm:font-semibold">
             {t('extra')}
           </p>
 
           {hasDashboardMainData ? (
-            <p className="text-base sm:text-lg font-medium sm:font-semibold">
+            <p className="text-base font-medium sm:text-lg sm:font-semibold">
               {formatCurrency({
                 value: extra,
-                currency: currency.name
+                currency: currency.name,
               })}
             </p>
           ) : (
@@ -248,14 +248,14 @@ const Dashboard = () => {
           <div className="flex flex-row items-center justify-end space-x-2">
             {hasDashboardMainData ? (
               <>
-                <p className="text-sm sm:text-base font-normal sm:font-medium">
+                <p className="text-sm font-normal sm:text-base sm:font-medium">
                   {t('settled')}:
                 </p>
 
-                <p className="text-sm sm:text-base font-semibold sm:font-bold">
+                <p className="text-sm font-semibold sm:text-base sm:font-bold">
                   {formatCurrency({
                     value: totalPaidAmount,
-                    currency: currency.name
+                    currency: currency.name,
                   })}
                 </p>
               </>
@@ -267,14 +267,14 @@ const Dashboard = () => {
           <div className="flex flex-row items-center justify-end space-x-2">
             {hasDashboardMainData ? (
               <>
-                <p className="text-sm sm:text-base font-normal sm:font-medium">
+                <p className="text-sm font-normal sm:text-base sm:font-medium">
                   {t('unsettled')}:
                 </p>
 
-                <p className="text-sm sm:text-base font-semibold sm:font-bold">
+                <p className="text-sm font-semibold sm:text-base sm:font-bold">
                   {formatCurrency({
                     value: totalAmount - totalPaidAmount,
-                    currency: currency.name
+                    currency: currency.name,
                   })}
                 </p>
               </>
@@ -287,7 +287,7 @@ const Dashboard = () => {
 
       {/* CATEGORY CARD */}
       <ScrollShadow className="max-h-[40vh] sm:max-h-[90vh]" hideScrollBar>
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-5 sm:gap-10 items-start justify-center">
+        <div className="grid grid-cols-2 items-start justify-center gap-5 sm:grid-cols-3 sm:gap-10">
           {dashbardCategories.map((category: DashboardDataCategoryResult) => (
             <div key={category._id}>
               <CategoryCard
@@ -301,7 +301,7 @@ const Dashboard = () => {
       </ScrollShadow>
 
       {/* TRANSACTION BUTTON */}
-      <Button className="w-full my-4" onClick={handleAddTransactionButton}>
+      <Button className="my-4 w-full" onClick={handleAddTransactionButton}>
         {t('transactionButton')}
       </Button>
 
@@ -314,7 +314,6 @@ const Dashboard = () => {
       />
 
       <TransactionDrawer
-        currencies={currencies}
         setDashboardData={setDashboardData}
         isDrawerOpen={isDrawerOpen}
         setIsDrawerOpen={setIsDrawerOpen}
