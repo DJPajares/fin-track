@@ -56,7 +56,7 @@ const Dashboard = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
-  const { data, isLoading } = useGetDashboardDataQuery({
+  const { data, isFetching, isLoading } = useGetDashboardDataQuery({
     date: dashboardDate,
     currency: currency.name,
   });
@@ -119,6 +119,8 @@ const Dashboard = () => {
     setDate(moment(newDate).toDate());
   };
 
+  if (isLoading) return <CircularProgress aria-label="Loading..." size="lg" />;
+
   return (
     <div className="space-y-4 sm:space-y-8">
       {/* CALENDAR */}
@@ -150,7 +152,7 @@ const Dashboard = () => {
 
       {/* PROGRESS BAR */}
       <div className="flex flex-col items-center">
-        {isLoading ? (
+        {isFetching ? (
           <Skeleton className="h-36 w-36 rounded-full" />
         ) : (
           <CircularProgress
@@ -174,7 +176,7 @@ const Dashboard = () => {
             {t('balance')}
           </p>
 
-          {isLoading ? (
+          {isFetching ? (
             <Skeleton className="h-6 w-20" />
           ) : (
             <p className="text-xl font-bold sm:text-3xl sm:font-black">
@@ -191,7 +193,7 @@ const Dashboard = () => {
             {t('extra')}
           </p>
 
-          {isLoading ? (
+          {isFetching ? (
             <Skeleton className="h-4 w-20" />
           ) : (
             <p className="text-base font-medium sm:text-lg sm:font-semibold">
@@ -207,7 +209,7 @@ const Dashboard = () => {
 
         <div className="space-y-1">
           <div className="flex flex-row items-center justify-end space-x-2">
-            {isLoading ? (
+            {isFetching ? (
               <Skeleton className="h-4 w-32" />
             ) : (
               <>
@@ -226,7 +228,7 @@ const Dashboard = () => {
           </div>
 
           <div className="flex flex-row items-center justify-end space-x-2">
-            {isLoading ? (
+            {isFetching ? (
               <Skeleton className="h-4 w-40" />
             ) : (
               <>

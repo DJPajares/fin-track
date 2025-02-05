@@ -10,7 +10,7 @@ import { useGetTransactionsQuery } from '../../lib/redux/services/transactions';
 
 import { DatePicker } from '../../components/shared/DatePicker';
 import { Button } from '../../components/ui/button';
-import { ScrollShadow } from '@heroui/react';
+import { CircularProgress, ScrollShadow } from '@heroui/react';
 // import { ScrollShadow } from '../../components/ui/scroll-shadow';
 import { SelectBox } from '../../components/shared/SelectBox';
 import TransactionCard from './Transaction/TransactionCard';
@@ -39,7 +39,7 @@ const Transactions = () => {
   const [page, setPage] = useState(1);
   const [isResetting, setIsResetting] = useState(false);
 
-  const { data, isFetching } = useGetTransactionsQuery(
+  const { data, isFetching, isLoading } = useGetTransactionsQuery(
     {
       page,
       limit: 8,
@@ -109,6 +109,8 @@ const Transactions = () => {
 
     setDate(moment(newDate).toDate());
   };
+
+  if (isLoading) return <CircularProgress aria-label="Loading..." size="lg" />;
 
   return (
     <div className="mx-auto max-w-lg space-y-6 sm:space-y-10">
