@@ -119,7 +119,12 @@ const Dashboard = () => {
     setDate(moment(newDate).toDate());
   };
 
-  if (isLoading) return <CircularProgress aria-label="Loading..." size="lg" />;
+  if (isLoading)
+    return (
+      <div className="absolute inset-0 z-50 flex items-center justify-center">
+        <CircularProgress aria-label="Loading..." size="lg" />
+      </div>
+    );
 
   return (
     <div className="space-y-4 sm:space-y-8">
@@ -151,10 +156,13 @@ const Dashboard = () => {
       </div>
 
       {/* PROGRESS BAR */}
-      <div className="flex flex-col items-center">
-        {isFetching ? (
+      {isFetching ? (
+        <div className="flex flex-col items-center space-y-2">
           <Skeleton className="h-36 w-36 rounded-full" />
-        ) : (
+          <Skeleton className="h-4 w-20" />
+        </div>
+      ) : (
+        <div className="flex flex-col items-center">
           <CircularProgress
             classNames={{
               svg: 'w-36 sm:w-64 h-36 sm:h-64 drop-shadow-md',
@@ -166,8 +174,8 @@ const Dashboard = () => {
             strokeWidth={3}
             showValueLabel={true}
           />
-        )}
-      </div>
+        </div>
+      )}
 
       {/* BALANCE CARD */}
       <Card className="space-y-2 p-4">
@@ -210,7 +218,7 @@ const Dashboard = () => {
         <div className="space-y-1">
           <div className="flex flex-row items-center justify-end space-x-2">
             {isFetching ? (
-              <Skeleton className="h-4 w-32" />
+              <Skeleton className="h-5 w-40" />
             ) : (
               <>
                 <p className="text-sm font-normal sm:text-base sm:font-medium">
@@ -229,7 +237,7 @@ const Dashboard = () => {
 
           <div className="flex flex-row items-center justify-end space-x-2">
             {isFetching ? (
-              <Skeleton className="h-4 w-40" />
+              <Skeleton className="h-5 w-40" />
             ) : (
               <>
                 <p className="text-sm font-normal sm:text-base sm:font-medium">

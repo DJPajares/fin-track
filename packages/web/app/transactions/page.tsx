@@ -110,7 +110,12 @@ const Transactions = () => {
     setDate(moment(newDate).toDate());
   };
 
-  if (isLoading) return <CircularProgress aria-label="Loading..." size="lg" />;
+  if (isLoading)
+    return (
+      <div className="absolute inset-0 z-50 flex items-center justify-center">
+        <CircularProgress aria-label="Loading..." size="lg" />
+      </div>
+    );
 
   return (
     <div className="mx-auto max-w-lg space-y-6 sm:space-y-10">
