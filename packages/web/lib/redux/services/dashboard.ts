@@ -30,8 +30,22 @@ export const dashboardApi = createApi({
             return { data: json.data };
           }
         } catch (error) {
-          console.error('Fetch failed', error);
-          return { error: error.message };
+          let errorMessage = 'Failed to fetch dashboard data';
+          const errorStatus = 500;
+
+          if (error instanceof Error) {
+            errorMessage = error.message;
+          }
+
+          console.error('Fetch failed:', errorMessage);
+
+          return {
+            error: {
+              status: errorStatus,
+              statusText: errorMessage,
+              data: errorMessage,
+            },
+          };
         }
       },
       providesTags: (result, error, { date, currency }) => [
