@@ -10,7 +10,7 @@ const transactionPaymentsUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/transactionP
 
 const fetchTransactionPayments = async ({
   date,
-  currency
+  currency,
 }: DashboardDataProps) => {
   try {
     if (useMockedData) {
@@ -18,7 +18,7 @@ const fetchTransactionPayments = async ({
     } else {
       const { status, data } = await axios.post(transactionPaymentsUrl, {
         date,
-        currency
+        currency,
       });
 
       if (status === 200) return data.data;

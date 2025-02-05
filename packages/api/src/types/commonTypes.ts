@@ -1,5 +1,6 @@
 import { Request } from 'express';
 import { SortOrder } from 'mongoose';
+import type { PaginationPageProps } from '../../../../shared/types/Pagination';
 
 type QueryParamsProps = Request & {
   filter?: string;
@@ -29,12 +30,7 @@ type PaginationProps = Request & {
 type PaginationResult = {
   skip: number;
   limit: number;
-  pagination: {
-    limit: number;
-    currentPage: number;
-    totalPages: number;
-    totalDocuments: number;
-  };
+  pagination: PaginationPageProps;
 };
 
 type SortObjProps = {

@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import dashboardSlice from './feature/dashboard/dashboardSlice';
 import mainSlice from './feature/main/mainSlice';
 import { transactionsApi } from './services/transactions';
+import { dashboardApi } from './services/dashboard';
 
 export const store = () => {
   return configureStore({
@@ -9,15 +10,14 @@ export const store = () => {
       dashboard: dashboardSlice,
       main: mainSlice,
       [transactionsApi.reducerPath]: transactionsApi.reducer,
+      [dashboardApi.reducerPath]: dashboardApi.reducer,
     },
-    // middleware: (getDefaultMiddleware) =>
-    //   getDefaultMiddleware().concat(transactionsApi.middleware)
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware({
         serializableCheck: {
-          ignoredPaths: ['transactionsApi.queries'], // Ignore serialization checks for queries
+          ignoredPaths: ['transactionsApi.queries', 'dashboardApi.queries'], // Ignore serialization checks for queries
         },
-      }).concat(transactionsApi.middleware),
+      }).concat(transactionsApi.middleware, dashboardApi.middleware), // Add both API middlewares
   });
 };
 

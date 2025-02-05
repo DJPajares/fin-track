@@ -14,10 +14,7 @@ import moment from 'moment';
 
 import { serializeText } from '../../utilities/serializeText';
 
-type FetchTransactionProps = {
-  date: Date;
-  type?: string;
-};
+import type { FetchTransactionProps } from '../../../../../shared/types/Transaction';
 
 type FetchByDateProps = {
   date: Date;

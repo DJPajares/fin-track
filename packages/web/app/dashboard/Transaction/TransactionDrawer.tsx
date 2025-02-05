@@ -7,32 +7,29 @@ import {
   useState,
 } from 'react';
 import { useTranslations } from 'next-intl';
-import axios from 'axios';
 import moment from 'moment';
+
+import { useAppSelector } from '../../../lib/hooks/use-redux';
+import { useCreateTransactionMutation } from '../../../lib/redux/services/transactions';
+import { useLazyGetDashboardDataQuery } from '../../../lib/redux/services/dashboard';
 
 import { SelectBox } from '../../../components/shared/SelectBox';
 import TransactionDrawerForm, {
   type SubmitTransactionProps,
 } from '../../../components/Form/TransactionDrawerForm';
-
-import fetchTransactionPayments from '../../../services/fetchTransactionPayments';
-import { useAppSelector } from '../../../lib/hooks/use-redux';
+import CustomDrawer from '../../../components/shared/CustomDrawer';
 
 import { dateStringFormat } from '@shared/constants/dateStringFormat';
 
-import type { DashboardDataResult } from '../../../types/Dashboard';
 import type { ListProps } from '../../../types/List';
-import { TransactionFormProps } from '@web/lib/schemas/transaction';
-import CustomDrawer from '@web/components/shared/CustomDrawer';
+import type { TransactionFormProps } from '../../../lib/schemas/transaction';
 
 type TransactionDrawerProps = {
-  setDashboardData: Dispatch<SetStateAction<DashboardDataResult>>;
   isDrawerOpen: boolean;
   setIsDrawerOpen: Dispatch<SetStateAction<boolean>>;
 };
 
 const TransactionDrawer = ({
-  setDashboardData,
   isDrawerOpen,
   setIsDrawerOpen,
 }: TransactionDrawerProps) => {
@@ -53,6 +50,10 @@ const TransactionDrawer = ({
 
     return convertedDate;
   }, [dashboard.date]);
+
+  const [createTransaction] = useCreateTransactionMutation();
+
+  const [fetchDashboardData] = useLazyGetDashboardDataQuery();
 
   const defaultValues: TransactionFormProps = {
     category: '',
@@ -81,17 +82,14 @@ const TransactionDrawer = ({
 
   const submitTransaction = async (postData: SubmitTransactionProps) => {
     try {
-      const url = `${process.env.NEXT_PUBLIC_BASE_URL}/transactions`;
+      const response = await createTransaction(postData).unwrap();
 
-      const { status } = await axios.post(url, postData);
-
-      if (status === 200) {
-        const result = await fetchTransactionPayments({
+      if (response) {
+        await fetchDashboardData({
           date,
           currency: dashboard.currency.name,
         });
 
-        setDashboardData(result);
         setIsDrawerOpen(false);
       }
     } catch (error) {

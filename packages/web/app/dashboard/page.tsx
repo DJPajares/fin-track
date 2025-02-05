@@ -8,6 +8,7 @@ import {
   setDashboardCurrency,
   setDashboardDate,
 } from '../../lib/redux/feature/dashboard/dashboardSlice';
+import { useGetDashboardDataQuery } from '../../lib/redux/services/dashboard';
 
 import { ScrollShadow, CircularProgress } from '@heroui/react';
 import { Button } from '../../components/ui/button';
@@ -18,33 +19,14 @@ import { Separator } from '../../components/ui/separator';
 
 import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
 
-// import CategoryDialog from '../../app/dashboard/Category/CategoryDialog';
 import CategoryCard from '../../app/dashboard/Category/CategoryCard';
 import CategoryDrawer from '../../app/dashboard/Category/CategoryDrawer';
 import TransactionDrawer from '../../app/dashboard/Transaction/TransactionDrawer';
 
-import fetchTransactionPayments from '../../services/fetchTransactionPayments';
 import { formatCurrency } from '@shared/utilities/formatCurrency';
 import { dateStringFormat } from '@shared/constants/dateStringFormat';
 
-import type {
-  DashboardDataProps,
-  DashboardDataCategoryResult,
-  DashboardDataResult,
-} from '../../types/Dashboard';
-
-const initialDashboardData = {
-  main: {
-    currency: '',
-    budget: 0,
-    totalAmount: 0,
-    totalPaidAmount: 0,
-    balance: 0,
-    extra: 0,
-    paymentCompletionRate: 0,
-  },
-  categories: [],
-};
+import type { DashboardDataCategoryResult } from '../../types/Dashboard';
 
 const initialTransactionPaymentCategory = {
   _id: '',
@@ -68,31 +50,27 @@ const Dashboard = () => {
     [dashboardDateString],
   );
 
-  const [dashboardData, setDashboardData] =
-    useState<DashboardDataResult>(initialDashboardData);
   const [dashboardCategoryData, setDashboardCategoryData] =
     useState<DashboardDataCategoryResult>(initialTransactionPaymentCategory);
   const [date, setDate] = useState(dashboardDate);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
-  const {
-    dashbardCategories,
-    hasDashboardMainData,
-    balance,
-    extra,
-    totalAmount,
-    totalPaidAmount,
-  } = useMemo(() => {
-    return {
-      dashbardCategories: dashboardData.categories,
-      hasDashboardMainData: Object.keys(dashboardData.main).length > 0,
-      balance: dashboardData.main.balance,
-      extra: dashboardData.main.extra,
-      totalAmount: dashboardData.main.totalAmount,
-      totalPaidAmount: dashboardData.main.totalPaidAmount,
-    };
-  }, [dashboardData]);
+  const { data, isLoading } = useGetDashboardDataQuery({
+    date: dashboardDate,
+    currency: currency.name,
+  });
+
+  const { dashboardCategories, balance, extra, totalAmount, totalPaidAmount } =
+    useMemo(() => {
+      return {
+        dashboardCategories: data?.categories || [],
+        balance: data?.main?.balance ?? 0,
+        extra: data?.main?.extra ?? 0,
+        totalAmount: data?.main?.totalAmount ?? 0,
+        totalPaidAmount: data?.main?.totalPaidAmount ?? 0,
+      };
+    }, [data]);
 
   useEffect(() => {
     if (currencies.length > 0) {
@@ -109,25 +87,8 @@ const Dashboard = () => {
   }, [currencies, currency]);
 
   useEffect(() => {
-    const hasCurrency = Object.keys(currency).length > 0;
-
-    if (dashboardDate && hasCurrency) {
-      fetchDashboardData({ date: dashboardDate, currency: currency.name });
-    }
-  }, [dashboardDate, currency]);
-
-  useEffect(() => {
     handleDateSelection(date);
   }, [date]);
-
-  const fetchDashboardData = async ({ date, currency }: DashboardDataProps) => {
-    const data = await fetchTransactionPayments({
-      date,
-      currency,
-    });
-
-    setDashboardData(data);
-  };
 
   const handleDateSelection = (date: Date) => {
     dispatch(
@@ -189,7 +150,9 @@ const Dashboard = () => {
 
       {/* PROGRESS BAR */}
       <div className="flex flex-col items-center">
-        {hasDashboardMainData ? (
+        {isLoading ? (
+          <Skeleton className="h-36 w-36 rounded-full" />
+        ) : (
           <CircularProgress
             classNames={{
               svg: 'w-36 sm:w-64 h-36 sm:h-64 drop-shadow-md',
@@ -201,8 +164,6 @@ const Dashboard = () => {
             strokeWidth={3}
             showValueLabel={true}
           />
-        ) : (
-          <Skeleton className="h-36 w-36 rounded-full" />
         )}
       </div>
 
@@ -213,15 +174,15 @@ const Dashboard = () => {
             {t('balance')}
           </p>
 
-          {hasDashboardMainData ? (
+          {isLoading ? (
+            <Skeleton className="h-6 w-20" />
+          ) : (
             <p className="text-xl font-bold sm:text-3xl sm:font-black">
               {formatCurrency({
                 value: balance,
                 currency: currency.name,
               })}
             </p>
-          ) : (
-            <Skeleton className="h-6 w-20" />
           )}
         </div>
 
@@ -230,15 +191,15 @@ const Dashboard = () => {
             {t('extra')}
           </p>
 
-          {hasDashboardMainData ? (
+          {isLoading ? (
+            <Skeleton className="h-4 w-20" />
+          ) : (
             <p className="text-base font-medium sm:text-lg sm:font-semibold">
               {formatCurrency({
                 value: extra,
                 currency: currency.name,
               })}
             </p>
-          ) : (
-            <Skeleton className="h-4 w-20" />
           )}
         </div>
 
@@ -246,7 +207,9 @@ const Dashboard = () => {
 
         <div className="space-y-1">
           <div className="flex flex-row items-center justify-end space-x-2">
-            {hasDashboardMainData ? (
+            {isLoading ? (
+              <Skeleton className="h-4 w-32" />
+            ) : (
               <>
                 <p className="text-sm font-normal sm:text-base sm:font-medium">
                   {t('settled')}:
@@ -259,13 +222,13 @@ const Dashboard = () => {
                   })}
                 </p>
               </>
-            ) : (
-              <Skeleton className="h-4 w-32" />
             )}
           </div>
 
           <div className="flex flex-row items-center justify-end space-x-2">
-            {hasDashboardMainData ? (
+            {isLoading ? (
+              <Skeleton className="h-4 w-40" />
+            ) : (
               <>
                 <p className="text-sm font-normal sm:text-base sm:font-medium">
                   {t('unsettled')}:
@@ -278,8 +241,6 @@ const Dashboard = () => {
                   })}
                 </p>
               </>
-            ) : (
-              <Skeleton className="h-4 w-40" />
             )}
           </div>
         </div>
@@ -288,7 +249,7 @@ const Dashboard = () => {
       {/* CATEGORY CARD */}
       <ScrollShadow className="max-h-[40vh] sm:max-h-[90vh]" hideScrollBar>
         <div className="grid grid-cols-2 items-start justify-center gap-5 sm:grid-cols-3 sm:gap-10">
-          {dashbardCategories.map((category: DashboardDataCategoryResult) => (
+          {dashboardCategories.map((category: DashboardDataCategoryResult) => (
             <div key={category._id}>
               <CategoryCard
                 category={category}
@@ -308,13 +269,11 @@ const Dashboard = () => {
       {/* HIDDEN DRAWERS */}
       <CategoryDrawer
         category={dashboardCategoryData}
-        setDashboardData={setDashboardData}
         isDialogOpen={isDialogOpen}
         setIsDialogOpen={setIsDialogOpen}
       />
 
       <TransactionDrawer
-        setDashboardData={setDashboardData}
         isDrawerOpen={isDrawerOpen}
         setIsDrawerOpen={setIsDrawerOpen}
       />

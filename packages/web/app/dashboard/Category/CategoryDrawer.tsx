@@ -1,17 +1,17 @@
-import axios from 'axios';
 import { Dispatch, SetStateAction, useEffect, useMemo, useState } from 'react';
 import moment from 'moment';
-import { useAppSelector } from '../../../lib/hooks/use-redux';
 import { useTranslations } from 'next-intl';
 
-import { Card } from '@web/components/ui/card';
+import { useAppSelector } from '../../../lib/hooks/use-redux';
+import { useUpdateDashboardPaymentsMutation } from '../../../lib/redux/services/dashboard';
+
+import { Card } from '../../../components/ui/card';
 import { Separator } from '../../../components/ui/separator';
 import { Switch } from '../../../components/ui/switch';
 import { Label } from '../../../components/ui/label';
 import CategoryContent from './CategoryContent';
 import CustomDrawer from '../../../components/shared/CustomDrawer';
 
-import fetchTransactionPayments from '../../../services/fetchTransactionPayments';
 import { dateStringFormat } from '@shared/constants/dateStringFormat';
 import { formatCurrency } from '@shared/utilities/formatCurrency';
 
@@ -19,16 +19,12 @@ import type {
   TransactionDataUpdateProps,
   TransactionPaymentCategoryProps,
 } from '../../../types/TransactionPayment';
-import type { DashboardDataResult } from '../../../types/Dashboard';
 
 type CategoryDrawerProps = {
   category: TransactionPaymentCategoryProps;
-  setDashboardData: Dispatch<SetStateAction<DashboardDataResult>>;
   isDialogOpen: boolean;
   setIsDialogOpen: Dispatch<SetStateAction<boolean>>;
 };
-
-const paymentUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/payments`;
 
 const initialTransactionPaymentCategory: TransactionPaymentCategoryProps = {
   _id: '',
@@ -41,7 +37,6 @@ const initialTransactionPaymentCategory: TransactionPaymentCategoryProps = {
 
 const CategoryDrawer = ({
   category,
-  setDashboardData,
   isDialogOpen,
   setIsDialogOpen,
 }: CategoryDrawerProps) => {
@@ -57,6 +52,8 @@ const CategoryDrawer = ({
   const [drawerCategory, setDrawerCategory] = useState(
     initialTransactionPaymentCategory,
   );
+
+  const [updateDashboardPayments] = useUpdateDashboardPaymentsMutation();
 
   const drawerCategoryLength = useMemo(() => {
     return Object.keys(drawerCategory.transactions).length;
@@ -155,19 +152,14 @@ const CategoryDrawer = ({
         date,
       }));
 
-    // Create or update (upsert) payments
-    const { status } = await axios.put(paymentUrl, postData);
+    try {
+      // ✅ Use RTK Query mutation instead of axios.put
+      await updateDashboardPayments(postData).unwrap();
 
-    // Fetch the updated transaction payments
-    if (status === 200) {
-      const result = await fetchTransactionPayments({
-        date: date.toDate(),
-        currency: currency.name,
-      });
-
-      setDashboardData(result);
-
+      // ✅ No need to manually call fetch, cache is automatically refreshed
       setIsDialogOpen(false);
+    } catch (error) {
+      console.error('Failed to update transaction payments:', error);
     }
   };
 
