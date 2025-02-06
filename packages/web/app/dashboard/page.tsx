@@ -158,7 +158,7 @@ const Dashboard = () => {
       {/* PROGRESS BAR */}
       {isFetching ? (
         <div className="flex flex-col items-center space-y-2">
-          <Skeleton className="h-36 w-36 rounded-full" />
+          <Skeleton className="aspect-square h-36 rounded-full sm:h-64" />
           <Skeleton className="h-4 w-20" />
         </div>
       ) : (
@@ -217,40 +217,36 @@ const Dashboard = () => {
 
         <div className="space-y-1">
           <div className="flex flex-row items-center justify-end space-x-2">
-            {isFetching ? (
-              <Skeleton className="h-5 w-40" />
-            ) : (
-              <>
-                <p className="text-sm font-normal sm:text-base sm:font-medium">
-                  {t('settled')}:
-                </p>
+            <p className="text-sm font-normal sm:text-base sm:font-medium">
+              {t('settled')}:
+            </p>
 
-                <p className="text-sm font-semibold sm:text-base sm:font-bold">
-                  {formatCurrency({
-                    value: totalPaidAmount,
-                    currency: currency.name,
-                  })}
-                </p>
-              </>
+            {isFetching ? (
+              <Skeleton className="h-5 w-16" />
+            ) : (
+              <p className="text-sm font-semibold sm:text-base sm:font-bold">
+                {formatCurrency({
+                  value: totalPaidAmount,
+                  currency: currency.name,
+                })}
+              </p>
             )}
           </div>
 
           <div className="flex flex-row items-center justify-end space-x-2">
-            {isFetching ? (
-              <Skeleton className="h-5 w-40" />
-            ) : (
-              <>
-                <p className="text-sm font-normal sm:text-base sm:font-medium">
-                  {t('unsettled')}:
-                </p>
+            <p className="text-sm font-normal sm:text-base sm:font-medium">
+              {t('unsettled')}:
+            </p>
 
-                <p className="text-sm font-semibold sm:text-base sm:font-bold">
-                  {formatCurrency({
-                    value: totalAmount - totalPaidAmount,
-                    currency: currency.name,
-                  })}
-                </p>
-              </>
+            {isFetching ? (
+              <Skeleton className="h-5 w-16" />
+            ) : (
+              <p className="text-sm font-semibold sm:text-base sm:font-bold">
+                {formatCurrency({
+                  value: totalAmount - totalPaidAmount,
+                  currency: currency.name,
+                })}
+              </p>
             )}
           </div>
         </div>
