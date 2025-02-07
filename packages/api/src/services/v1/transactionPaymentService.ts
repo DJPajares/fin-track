@@ -5,6 +5,8 @@ import { PaymentModel } from '../../models/v1/paymentModel';
 import { TransactionModel } from '../../models/v1/transactionModel';
 import { TypeModel } from '../../models/v1/typeModel';
 import convertCurrency from '../../utilities/convertCurrency';
+import formatYearMonth from '../../../../../shared/utilities/formatYearMonth';
+
 import type {
   AccumulatorProps,
   ExpenseTransactionPaymentsProps,
@@ -21,8 +23,8 @@ const fetchTransactionPayments = async (data: FetchTransactionPaymentProps) => {
   const date = new Date(data.date);
   const year = new Date(date).getFullYear();
   const month = new Date(date).getMonth() + 1;
-  const paddedMonth = month.toString().padStart(2, '0');
-  const yearMonth = parseInt(`${year}${paddedMonth}`);
+
+  const yearMonth = formatYearMonth(date);
 
   const incomeTransactions = await TransactionModel.aggregate([
     {

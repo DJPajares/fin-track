@@ -14,6 +14,8 @@ import moment from 'moment';
 
 import { serializeText } from '../../utilities/serializeText';
 
+import formatYearMonth from '../../../../../shared/utilities/formatYearMonth';
+
 import type { FetchTransactionProps } from '../../../../../shared/types/Transaction';
 
 type FetchByDateProps = {
@@ -75,7 +77,7 @@ const buildFilters = (data: FetchTransactionProps) => {
   const year = new Date(date).getFullYear();
   const month = new Date(date).getMonth() + 1;
 
-  const yearMonth = parseInt(`${year}${month.toString().padStart(2, '0')}`);
+  const yearMonth = formatYearMonth(date);
 
   return {
     date: {
