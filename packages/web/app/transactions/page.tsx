@@ -167,6 +167,7 @@ const Transactions = () => {
               transactions.map((transaction, index) => (
                 <TransactionCard
                   key={index}
+                  date={date}
                   transaction={transaction}
                   // fetchTransactionsData={fetchTransactionsData}
                 />

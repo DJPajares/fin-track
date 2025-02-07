@@ -56,8 +56,19 @@ export const transactionsApi = createApi({
         body: data,
       }),
     }),
+    updateTransaction: builder.mutation({
+      query: ({ transactionId, postData }) => ({
+        url: `/${transactionId}`,
+        method: 'PUT',
+        body: postData,
+      }),
+    }),
   }),
 });
 
-export const { useGetTransactionsQuery, useCreateTransactionMutation } =
-  transactionsApi;
+export const {
+  useGetTransactionsQuery,
+  useLazyGetTransactionsQuery,
+  useCreateTransactionMutation,
+  useUpdateTransactionMutation,
+} = transactionsApi;
