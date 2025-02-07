@@ -10,7 +10,7 @@ import {
   DrawerFooter,
   DrawerHeader,
   DrawerTitle,
-  DrawerTrigger
+  DrawerTrigger,
 } from '../ui/drawer';
 import { Button } from '../ui/button';
 import ConfirmationDialog from './ConfirmationDialog';
@@ -37,7 +37,7 @@ const CustomDrawer = ({
   cancelButtonLabel,
   children,
   triggerChildren,
-  handleSubmit
+  handleSubmit,
 }: CustomDrawerProps) => {
   const isMobile = useIsMobile();
   const t = useTranslations();
@@ -53,19 +53,19 @@ const CustomDrawer = ({
           <DrawerContent className="h-[97%]" aria-describedby="">
             <div className="mx-auto w-full max-w-sm">
               <div className="flex flex-row items-center justify-between py-2">
-                <Button variant="ghost" onClick={() => onOpenChange(!open)}>
-                  {cancelButtonLabel || t('Common.button.cancel')}
-                </Button>
-
-                <div className="absolute left-1/2 transform -translate-x-1/2">
-                  <DrawerTitle>{title}</DrawerTitle>
-                </div>
-
                 <ConfirmationDialog handleSubmit={handleSubmit}>
                   <Button variant="ghost">
                     {okButtonLabel || t('Common.button.save')}
                   </Button>
                 </ConfirmationDialog>
+
+                <div className="absolute left-1/2 -translate-x-1/2 transform">
+                  <DrawerTitle>{title}</DrawerTitle>
+                </div>
+
+                <Button variant="ghost" onClick={() => onOpenChange(!open)}>
+                  {cancelButtonLabel || t('Common.button.cancel')}
+                </Button>
               </div>
 
               <Separator />
@@ -87,7 +87,7 @@ const CustomDrawer = ({
 
               <Separator />
 
-              <div className="py-4 overflow-auto">{children}</div>
+              <div className="overflow-auto py-4">{children}</div>
             </div>
 
             <DrawerFooter className="mx-auto w-full max-w-sm">
