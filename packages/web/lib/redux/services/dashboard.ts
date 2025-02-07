@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import transactionPaymentsData from '@shared/mockData/transactionPayments.json';
+import formatDashboardQueryKey from '@shared/utilities/formatDashboardQueryKey';
 
 const useMockedData = process.env.NEXT_PUBLIC_USE_MOCKED_DATA === 'true';
 
@@ -48,9 +49,21 @@ export const dashboardApi = createApi({
           };
         }
       },
-      providesTags: (result, error, { date, currency }) => [
-        { type: 'Dashboard', id: `${date}-${currency}` },
-      ],
+      providesTags: (result, error, { date, currency }) => {
+        return [
+          {
+            type: 'Dashboard',
+            id: formatDashboardQueryKey({ date, currency }),
+          },
+        ];
+      },
+      serializeQueryArgs: ({ endpointName, queryArgs }) => {
+        const { date, currency } = queryArgs;
+
+        const provider = formatDashboardQueryKey({ date, currency });
+
+        return `${endpointName}_${provider}`;
+      },
     }),
     updateCategoryData: builder.mutation({
       query: (updatedData) => ({
@@ -59,7 +72,7 @@ export const dashboardApi = createApi({
         body: updatedData,
       }),
       invalidatesTags: (_result, _error, { date, currency }) => [
-        { type: 'Dashboard', id: `${date}-${currency}` },
+        { type: 'Dashboard', id: formatDashboardQueryKey({ date, currency }) },
       ],
     }),
     updateDashboardPayments: builder.mutation({
