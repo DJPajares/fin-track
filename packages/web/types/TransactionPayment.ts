@@ -42,7 +42,7 @@ type TransactionPaymentProps = {
 };
 
 type TransactionDataUpdateProps = {
-  _id: any;
+  _id: string;
   paidAmount: number;
   isUpdated?: boolean;
 };
@@ -52,5 +52,5 @@ export type {
   TransactionPaymentMainProps,
   TransactionPaymentCategoryProps,
   TransactionPaymentProps,
-  TransactionDataUpdateProps
+  TransactionDataUpdateProps,
 };
