@@ -54,12 +54,15 @@
         "settled": "ชำระแล้ว"
       },
       "cardDrawer": {
-        "title": "",
+        "title": "ชำระธุรกรรม",
         "description": "ชำระธุรกรรม {category}",
         "totalLabel": "รวม",
-        "showLocalCurrency": "แสดงในสกุลเงินท้องถิ่น",
-        "settleLabel": "จำนวนเงินที่ต้องการชำระ",
-        "outOf": "จาก {amount}"
+        "showLocalCurrency": "แสดงเป็นสกุลเงินท้องถิ่น",
+        "content": {
+          "title": "จำนวนที่ต้องชำระ",
+          "description": "ระบุจำนวนที่ต้องชำระ",
+          "outOf": "จาก {amount}"
+        }
       },
       "transactionDrawer": {
         "title": "ธุรกรรม",

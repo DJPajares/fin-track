@@ -54,12 +54,15 @@
         "settled": "決済済み"
       },
       "cardDrawer": {
-        "title": "",
-        "description": "{category} の取引を決済",
+        "title": "取引を清算",
+        "description": "{category} の取引を清算",
         "totalLabel": "合計",
         "showLocalCurrency": "現地通貨で表示",
-        "settleLabel": "決済額",
-        "outOf": "{amount} のうち"
+        "content": {
+          "title": "清算額",
+          "description": "清算する金額を指定",
+          "outOf": "{amount} のうち"
+        }
       },
       "transactionDrawer": {
         "title": "取引",

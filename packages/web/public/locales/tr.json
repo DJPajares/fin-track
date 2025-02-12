@@ -54,12 +54,15 @@
         "settled": "Ödendi"
       },
       "cardDrawer": {
-        "title": "",
-        "description": "{category} işlemlerini düzenle",
+        "title": "İşlemleri Hesapla",
+        "description": "{category} işlemlerini hesapla",
         "totalLabel": "Toplam",
         "showLocalCurrency": "Yerel para biriminde göster",
-        "settleLabel": "Düzenlemek için miktar",
-        "outOf": "{amount} 'den"
+        "content": {
+          "title": "Hesaplanacak Tutar",
+          "description": "Hesaplanacak tutarı belirtin",
+          "outOf": "{amount} içinden"
+        }
       },
       "transactionDrawer": {
         "title": "İşlem",

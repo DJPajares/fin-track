@@ -54,12 +54,15 @@
         "settled": "Lunas"
       },
       "cardDrawer": {
-        "title": "",
-        "description": "Atur transaksi {category}",
+        "title": "Lunasi Transaksi",
+        "description": "Lunasi transaksi {category}",
         "totalLabel": "Total",
         "showLocalCurrency": "Tampilkan dalam mata uang lokal",
-        "settleLabel": "Jumlah yang akan diselesaikan",
-        "outOf": "dari {amount}"
+        "content": {
+          "title": "Jumlah Pelunasan",
+          "description": "Tentukan jumlah yang akan dilunasi",
+          "outOf": "dari {amount}"
+        }
       },
       "transactionDrawer": {
         "title": "Transaksi",

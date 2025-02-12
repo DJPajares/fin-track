@@ -54,12 +54,15 @@
         "settled": "Liquidato"
       },
       "cardDrawer": {
-        "title": "",
+        "title": "Regola le Transazioni",
         "description": "Regola le transazioni di {category}",
         "totalLabel": "Totale",
         "showLocalCurrency": "Mostra in valuta locale",
-        "settleLabel": "Importo da liquidare",
-        "outOf": "di {amount}"
+        "content": {
+          "title": "Importo da Regolare",
+          "description": "Specifica l'importo da regolare",
+          "outOf": "su {amount}"
+        }
       },
       "transactionDrawer": {
         "title": "Transazione",

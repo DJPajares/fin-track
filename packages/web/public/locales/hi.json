@@ -54,12 +54,15 @@
         "settled": "संपन्न"
       },
       "cardDrawer": {
-        "title": "",
-        "description": "{category} लेन-देन का निपटान करें",
+        "title": "लेन-देन निपटाएं",
+        "description": "{category} लेन-देन निपटाएं",
         "totalLabel": "कुल",
         "showLocalCurrency": "स्थानीय मुद्रा में दिखाएं",
-        "settleLabel": "निपटान के लिए राशि",
-        "outOf": "{amount} का"
+        "content": {
+          "title": "निपटान राशि",
+          "description": "निपटाने के लिए राशि निर्दिष्ट करें",
+          "outOf": "{amount} में से"
+        }
       },
       "transactionDrawer": {
         "title": "लेन-देन",

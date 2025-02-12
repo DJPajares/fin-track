@@ -54,12 +54,15 @@
         "settled": "Đã Thanh Toán"
       },
       "cardDrawer": {
-        "title": "",
+        "title": "Thanh Toán Giao Dịch",
         "description": "Thanh toán giao dịch {category}",
-        "totalLabel": "Tổng",
-        "showLocalCurrency": "Hiển Thị Bằng Tiền Địa Phương",
-        "settleLabel": "Số Tiền Thanh Toán",
-        "outOf": "trong số {amount}"
+        "totalLabel": "Tổng cộng",
+        "showLocalCurrency": "Hiển thị bằng tiền tệ địa phương",
+        "content": {
+          "title": "Số Tiền Thanh Toán",
+          "description": "Chỉ định số tiền cần thanh toán",
+          "outOf": "trong tổng số {amount}"
+        }
       },
       "transactionDrawer": {
         "title": "Giao Dịch",

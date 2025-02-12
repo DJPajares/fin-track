@@ -54,12 +54,15 @@
         "settled": "Liquidado"
       },
       "cardDrawer": {
-        "title": "",
+        "title": "Liquidar Transacciones",
         "description": "Liquidar transacciones de {category}",
         "totalLabel": "Total",
         "showLocalCurrency": "Mostrar en moneda local",
-        "settleLabel": "Monto a liquidar",
-        "outOf": "de {amount}"
+        "content": {
+          "title": "Liquidar Monto",
+          "description": "Especificar monto a liquidar",
+          "outOf": "de {amount}"
+        }
       },
       "transactionDrawer": {
         "title": "Transacción",

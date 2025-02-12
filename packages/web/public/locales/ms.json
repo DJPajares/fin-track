@@ -54,12 +54,15 @@
         "settled": "Berlunas"
       },
       "cardDrawer": {
-        "title": "",
-        "description": "Tetapkan transaksi {category}",
+        "title": "Selesaikan Transaksi",
+        "description": "Selesaikan transaksi {category}",
         "totalLabel": "Jumlah",
-        "showLocalCurrency": "Paparkan dalam mata wang tempatan",
-        "settleLabel": "Jumlah yang akan diselesaikan",
-        "outOf": "daripada {amount}"
+        "showLocalCurrency": "Tunjukkan dalam mata wang tempatan",
+        "content": {
+          "title": "Jumlah Penyelesaian",
+          "description": "Tentukan jumlah untuk diselesaikan",
+          "outOf": "daripada {amount}"
+        }
       },
       "transactionDrawer": {
         "title": "Transaksi",

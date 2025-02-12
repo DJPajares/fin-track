@@ -54,12 +54,15 @@
         "settled": "Naayos na"
       },
       "cardDrawer": {
-        "title": "",
+        "title": "Ayusin ang mga Transaksyon",
         "description": "Ayusin ang mga transaksyon sa {category}",
         "totalLabel": "Kabuuan",
         "showLocalCurrency": "Ipakita sa lokal na pera",
-        "settleLabel": "Halagang aayusin",
-        "outOf": "ng {amount}"
+        "content": {
+          "title": "Ayusin ang Halaga",
+          "description": "Itakda ang halaga na aayusin",
+          "outOf": "mula sa {amount}"
+        }
       },
       "transactionDrawer": {
         "title": "Transaksyon",

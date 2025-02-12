@@ -54,12 +54,15 @@
         "settled": "Erledigt"
       },
       "cardDrawer": {
-        "title": "",
-        "description": "{category}-Transaktionen abschließen",
+        "title": "Transaktionen begleichen",
+        "description": "{category}-Transaktionen begleichen",
         "totalLabel": "Gesamt",
         "showLocalCurrency": "In lokaler Währung anzeigen",
-        "settleLabel": "Zu erledigender Betrag",
-        "outOf": "von {amount}"
+        "content": {
+          "title": "Betrag begleichen",
+          "description": "Zu begleichenden Betrag angeben",
+          "outOf": "von {amount}"
+        }
       },
       "transactionDrawer": {
         "title": "Transaktion",

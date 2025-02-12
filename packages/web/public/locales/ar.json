@@ -54,12 +54,15 @@
         "settled": "تم التسوية"
       },
       "cardDrawer": {
-        "title": "",
+        "title": "تسوية المعاملات",
         "description": "تسوية معاملات {category}",
         "totalLabel": "الإجمالي",
-        "showLocalCurrency": "عرض بالعملة المحلية",
-        "settleLabel": "المبلغ المراد تسويته",
-        "outOf": "من إجمالي {amount}"
+        "showLocalCurrency": "إظهار بالعملة المحلية",
+        "content": {
+          "title": "مبلغ التسوية",
+          "description": "حدد المبلغ المراد تسويته",
+          "outOf": "من {amount}"
+        }
       },
       "transactionDrawer": {
         "title": "المعاملة",

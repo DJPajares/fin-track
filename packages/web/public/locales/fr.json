@@ -54,12 +54,15 @@
         "settled": "Réglé"
       },
       "cardDrawer": {
-        "title": "",
+        "title": "Régler les transactions",
         "description": "Régler les transactions de {category}",
         "totalLabel": "Total",
         "showLocalCurrency": "Afficher en devise locale",
-        "settleLabel": "Montant à régler",
-        "outOf": "de {amount}"
+        "content": {
+          "title": "Régler le montant",
+          "description": "Spécifiez le montant à régler",
+          "outOf": "sur {amount}"
+        }
       },
       "transactionDrawer": {
         "title": "Transaction",

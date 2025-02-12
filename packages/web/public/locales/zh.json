@@ -54,12 +54,15 @@
         "settled": "已结算"
       },
       "cardDrawer": {
-        "title": "",
+        "title": "结算交易",
         "description": "结算 {category} 交易",
         "totalLabel": "总计",
-        "showLocalCurrency": "显示本地货币",
-        "settleLabel": "结算金额",
-        "outOf": "出自 {amount}"
+        "showLocalCurrency": "以本地货币显示",
+        "content": {
+          "title": "结算金额",
+          "description": "指定结算金额",
+          "outOf": "总额 {amount}"
+        }
       },
       "transactionDrawer": {
         "title": "交易",

@@ -1,7 +1,7 @@
 import { ChangeEvent, useEffect, useMemo, useState } from 'react';
 import { useTranslations } from 'next-intl';
 
-import { Checkbox, cn, Progress } from '@heroui/react';
+import { cn, Checkbox, Progress } from '@heroui/react';
 import {
   Dialog,
   DialogContent,
@@ -46,7 +46,7 @@ const CategoryContent = ({
   handleTransactionDataUpdate,
   isTotal,
 }: CategoryContentProps) => {
-  const t = useTranslations('Page.dashboard.cardDrawer');
+  const t = useTranslations();
 
   const [customPaidAmount, setCustomPaidAmount] = useState(paidAmount);
   const [openDialog, setOpenDialog] = useState(false);
@@ -118,7 +118,6 @@ const CategoryContent = ({
 
                 <Progress
                   label={label}
-                  // value={Math.floor((paidAmount / amount) * 100)}
                   value={paidAmountPercentage * 100}
                   size="sm"
                   radius="sm"
@@ -151,8 +150,12 @@ const CategoryContent = ({
       <Dialog open={openDialog} onOpenChange={setOpenDialog}>
         <DialogContent className="max-w-xs">
           <DialogHeader>
-            <DialogTitle>Settle specific amount</DialogTitle>
-            <DialogDescription>Modify amount to settle</DialogDescription>
+            <DialogTitle>
+              {t('Page.dashboard.cardDrawer.content.title')}
+            </DialogTitle>
+            <DialogDescription>
+              {t('Page.dashboard.cardDrawer.content.description')}
+            </DialogDescription>
           </DialogHeader>
 
           <div className="space-y-4">
@@ -164,13 +167,12 @@ const CategoryContent = ({
                 inputMode="decimal"
                 defaultValue={customPaidAmount.toFixed(2)}
                 max={amount}
-                placeholder={t('settleLabel')}
                 onChange={handleChangeCustomPaidAmountInput}
               />
 
               <span className="flex flex-row justify-end">
                 <p className="text-sm font-medium">
-                  {t('outOf', {
+                  {t('Page.dashboard.cardDrawer.content.outOf', {
                     amount: formatCurrency({
                       value: amount,
                       currency: currency.name,
@@ -184,7 +186,7 @@ const CategoryContent = ({
 
           <DialogFooter>
             <Button type="submit" onClick={handleUpdateCustomPaidAmount}>
-              Save changes
+              {t('Common.button.update')}
             </Button>
           </DialogFooter>
         </DialogContent>

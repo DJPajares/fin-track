@@ -54,12 +54,15 @@
         "settled": "Settled"
       },
       "cardDrawer": {
-        "title": "",
+        "title": "Settle Transactions",
         "description": "Settle {category} transactions",
         "totalLabel": "Total",
         "showLocalCurrency": "Show in local currency",
-        "settleLabel": "Amount to settle",
-        "outOf": "out of {amount}"
+        "content": {
+          "title": "Settle Amount",
+          "description": "Specify amount to settle",
+          "outOf": "out of {amount}"
+        }
       },
       "transactionDrawer": {
         "title": "Transaction",
