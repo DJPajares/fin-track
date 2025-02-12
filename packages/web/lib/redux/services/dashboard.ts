@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import transactionPaymentsData from '@shared/mockData/transactionPayments.json';
 import formatYearMonth from '@shared/utilities/formatYearMonth';
+
+import transactionPaymentsData from '@shared/mockData/transactionPayments.json';
 
 const useMockedData = process.env.NEXT_PUBLIC_USE_MOCKED_DATA === 'true';
 
@@ -33,7 +34,8 @@ export const dashboardApi = createApi({
               body: { date, currency },
             };
       },
-      transformResponse: (response: Record<string, unknown>) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      transformResponse: (response: any) => {
         return useMockedData ? transactionPaymentsData : response.data;
       },
       providesTags: (result, error, { date, currency }) => {
