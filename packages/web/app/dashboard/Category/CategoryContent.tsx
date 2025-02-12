@@ -1,24 +1,26 @@
-import { KeyboardEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useMemo, useState } from 'react';
 import { useTranslations } from 'next-intl';
 
-import { Button } from '../../../components/ui/button';
+import { Checkbox, cn, Progress } from '@heroui/react';
 import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger
-} from '../../../components/ui/popover';
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '../../../components/ui/dialog';
 import { Input } from '../../../components/ui/input';
-import { Progress } from "@heroui/react";
-import { CheckIcon } from 'lucide-react';
+import { Button } from '../../../components/ui/button';
+import { EditIcon } from 'lucide-react';
 
 import { formatCurrency } from '@shared/utilities/formatCurrency';
 
 import type {
   TransactionDataUpdateProps,
-  TransactionProps
+  TransactionProps,
 } from '../../../types/TransactionPayment';
 import type { DashboardSelectionItemsProps } from '../../../types/Dashboard';
-import { Separator } from '@web/components/ui/separator';
 
 type PartialTransactionProps = Pick<
   TransactionProps,
@@ -29,7 +31,7 @@ type CategoryContentProps = PartialTransactionProps & {
   label: string;
   currency: DashboardSelectionItemsProps;
   handleTransactionDataUpdate: (
-    transactionData: TransactionDataUpdateProps
+    transactionData: TransactionDataUpdateProps,
   ) => void;
   isTotal?: boolean;
 };
@@ -42,82 +44,128 @@ const CategoryContent = ({
   paidAmount,
   currency,
   handleTransactionDataUpdate,
-  isTotal
+  isTotal,
 }: CategoryContentProps) => {
   const t = useTranslations('Page.dashboard.cardDrawer');
 
-  const [isPopoverOpen, setIsPopoverOpen] = useState(false);
+  const [customPaidAmount, setCustomPaidAmount] = useState(paidAmount);
+  const [openDialog, setOpenDialog] = useState(false);
 
-  const isCompleted = Math.floor(paidAmount / amount) === 1;
+  const paidAmountPercentage = useMemo(() => {
+    return customPaidAmount / amount;
+  }, [customPaidAmount, amount]);
 
-  const handleKeyboardEvent = (event: KeyboardEvent<HTMLInputElement>) => {
-    const target = event.target as HTMLInputElement;
+  const isCompleted = useMemo(() => {
+    return Math.floor(paidAmountPercentage) === 1;
+  }, [paidAmountPercentage]);
 
-    if (event.key === 'Enter' || event.keyCode === 13) {
-      handleTransactionDataUpdate({
-        _id,
-        paidAmount: parseFloat(target.value)
-      });
+  useEffect(() => {
+    setCustomPaidAmount(paidAmount);
+  }, [paidAmount]);
 
-      setIsPopoverOpen(false);
-    }
+  const handleChangeCustomPaidAmountInput = (
+    event: ChangeEvent<HTMLInputElement>,
+  ) => {
+    setCustomPaidAmount(parseFloat(event.target.value));
+  };
+
+  const handleUpdateCustomPaidAmount = () => {
+    handleTransactionDataUpdate({
+      _id,
+      paidAmountPercentage,
+      isTotal,
+    });
+
+    setOpenDialog(false);
   };
 
   return (
-    <div className="flex flex-row justify-between items-center space-x-4">
-      <div className="flex-1 space-y-1">
-        <p
-          className={`${
-            isTotal
-              ? 'text-lg sm:text-xl font-bold sm:font-extrabold'
-              : 'text-base sm:text-lg font-semibold sm:font-bold'
-          }`}
-        >
-          {name}
-        </p>
+    <>
+      <div className="flex flex-row items-center justify-between gap-2">
+        <div className="flex-1">
+          <Checkbox
+            aria-label="category_content"
+            className={`${isTotal ? 'bg-accent' : 'bg-accent/70'} m-0 p-4`}
+            classNames={{
+              base: cn(
+                'inline-flex w-full max-w-md bg-content1',
+                'hover:bg-content2 items-center justify-start',
+                'cursor-pointer rounded-lg gap-2 border-2 border-transparent',
+                'data-[selected=true]:border-primary/20',
+              ),
+              label: 'w-full',
+            }}
+            isSelected={isCompleted}
+            onValueChange={() =>
+              handleTransactionDataUpdate({
+                _id,
+                paidAmountPercentage: isCompleted ? 0 : 1,
+                isTotal,
+              })
+            }
+          >
+            <div className="flex w-full justify-between">
+              <div className="flex-1 space-y-1">
+                <p
+                  className={`${
+                    isTotal
+                      ? 'text-lg font-extrabold sm:text-xl sm:font-extrabold'
+                      : 'text-base font-bold sm:text-lg sm:font-bold'
+                  }`}
+                >
+                  {name}
+                </p>
 
-        <Popover
-          open={!isTotal && isPopoverOpen}
-          onOpenChange={setIsPopoverOpen}
-        >
-          <PopoverTrigger asChild>
-            <div className="cursor-pointer">
-              <Progress
-                label={label}
-                value={Math.floor((paidAmount / amount) * 100)}
-                size="sm"
-                radius="sm"
-                showValueLabel={true}
-                classNames={{
-                  label: `${
-                    isTotal && 'text-base font-bold truncate hover:text-clip'
-                  }`,
-                  value: `${isTotal && 'text-base font-bold'}`,
-                  indicator: 'bg-primary'
-                }}
-              />
+                <Progress
+                  label={label}
+                  // value={Math.floor((paidAmount / amount) * 100)}
+                  value={paidAmountPercentage * 100}
+                  size="sm"
+                  radius="sm"
+                  showValueLabel={true}
+                  classNames={{
+                    label: `${
+                      isTotal &&
+                      'text-base font-semibold truncate hover:text-clip'
+                    }`,
+                    value: `${isTotal && 'text-base font-semibold'}`,
+                    indicator: 'bg-primary',
+                  }}
+                />
+              </div>
             </div>
-          </PopoverTrigger>
-          <PopoverContent className="space-y-4">
-            <p className="sm:text-lg font-semibold sm:font-bold">{name}</p>
+          </Checkbox>
+        </div>
+
+        <Button
+          variant="outline"
+          size="icon"
+          onClick={() => setOpenDialog(true)}
+          disabled={!!isTotal}
+        >
+          <EditIcon className="aspect-square h-4" />
+        </Button>
+      </div>
+
+      {/* DIALOG */}
+      <Dialog open={openDialog} onOpenChange={setOpenDialog}>
+        <DialogContent className="max-w-xs">
+          <DialogHeader>
+            <DialogTitle>Settle specific amount</DialogTitle>
+            <DialogDescription>Modify amount to settle</DialogDescription>
+          </DialogHeader>
+
+          <div className="space-y-4">
+            <p className="font-semibold sm:text-lg sm:font-bold">{name}</p>
 
             <div className="space-y-2">
-              <span className="flex flex-row justify-end">
-                <p className="text-xs">{`(${t('settleLabel')})`}</p>
-              </span>
-
               <Input
                 type="number"
                 inputMode="decimal"
-                defaultValue={paidAmount.toFixed(2)}
+                defaultValue={customPaidAmount.toFixed(2)}
                 max={amount}
-                onBlur={(event) =>
-                  handleTransactionDataUpdate({
-                    _id,
-                    paidAmount: parseFloat(event.target.value)
-                  })
-                }
-                onKeyDown={(event) => handleKeyboardEvent(event)}
+                placeholder={t('settleLabel')}
+                onChange={handleChangeCustomPaidAmountInput}
               />
 
               <span className="flex flex-row justify-end">
@@ -126,36 +174,22 @@ const CategoryContent = ({
                     amount: formatCurrency({
                       value: amount,
                       currency: currency.name,
-                      decimal: 2
-                    })
+                      decimal: 2,
+                    }),
                   })}
                 </p>
               </span>
             </div>
-          </PopoverContent>
-        </Popover>
-      </div>
+          </div>
 
-      <div>
-        <Separator />
-      </div>
-
-      <div>
-        <Button
-          variant="outline"
-          size="xs_rounded_icon"
-          className={`${isCompleted && 'bg-primary text-primary-foreground'}`}
-          onClick={() =>
-            handleTransactionDataUpdate({
-              _id,
-              paidAmount: isCompleted ? 0 : amount
-            })
-          }
-        >
-          <CheckIcon className="h-4 w-4" />
-        </Button>
-      </div>
-    </div>
+          <DialogFooter>
+            <Button type="submit" onClick={handleUpdateCustomPaidAmount}>
+              Save changes
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+    </>
   );
 };
 

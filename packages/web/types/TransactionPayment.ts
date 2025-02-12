@@ -15,6 +15,7 @@ type TransactionProps = {
   _id: string;
   paymentId: string;
   name: string;
+  currency: ListProps;
   amount: number;
   paidCurrency: string;
   paidAmount: number;
@@ -43,8 +44,8 @@ type TransactionPaymentProps = {
 
 type TransactionDataUpdateProps = {
   _id: string;
-  paidAmount: number;
-  isUpdated?: boolean;
+  paidAmountPercentage: number;
+  isTotal?: boolean;
 };
 
 export type {

@@ -5,9 +5,7 @@ import { useTranslations } from 'next-intl';
 import { useAppSelector } from '../../../lib/hooks/use-redux';
 import { useUpdateDashboardPaymentsMutation } from '../../../lib/redux/services/dashboard';
 
-import { Card } from '../../../components/ui/card';
-import { Separator } from '../../../components/ui/separator';
-import { Switch } from '../../../components/ui/switch';
+import { Divider, Switch } from '@heroui/react';
 import { Label } from '../../../components/ui/label';
 import CategoryContent from './CategoryContent';
 import CustomDrawer from '../../../components/shared/CustomDrawer';
@@ -53,6 +51,10 @@ const CategoryDrawer = ({
     initialTransactionPaymentCategory,
   );
 
+  useEffect(() => {
+    setIsLocalCurrency(false);
+  }, [isDialogOpen]);
+
   const [updateDashboardPayments] = useUpdateDashboardPaymentsMutation();
 
   const drawerCategoryLength = useMemo(() => {
@@ -67,76 +69,100 @@ const CategoryDrawer = ({
 
   const handleTransactionDataUpdate = ({
     _id,
-    paidAmount,
+    paidAmountPercentage,
+    isTotal = false,
   }: TransactionDataUpdateProps) => {
     const transactions = drawerCategory.transactions;
 
-    // update transaction data
-    const updatedTransactions = transactions.map((transaction) => {
-      if (transaction._id === _id) {
+    let updatedDrawerCategory;
+
+    if (isTotal) {
+      const isTotalPaid =
+        Math.floor(
+          drawerCategory.totalPaidAmount / drawerCategory.totalAmount,
+        ) === 1;
+
+      // update transaction data
+      const updatedTransactions = transactions.map((transaction) => {
+        // Get the paidAmount based on the paidAmountPercentage
+        const paidAmount = transaction.amount * paidAmountPercentage;
+        const localPaidAmount =
+          transaction.localAmount.amount * paidAmountPercentage;
+
         return {
           ...transaction,
           paidAmount:
             paidAmount <= transaction.amount ? paidAmount : transaction.amount,
+          localAmount: {
+            ...transaction.localAmount,
+            paidAmount:
+              localPaidAmount <= transaction.localAmount.amount
+                ? localPaidAmount
+                : transaction.localAmount.amount,
+          },
           isUpdated: true,
         };
-      }
+      });
 
-      return transaction;
-    });
-
-    // update category data
-    let totalPaidAmount = 0;
-
-    updatedTransactions.forEach(
-      (transaction) => (totalPaidAmount += transaction.paidAmount),
-    );
-
-    // set final result
-    setDrawerCategory({
-      ...drawerCategory,
-      totalPaidAmount,
-      transactions: updatedTransactions,
-    });
-  };
-
-  const handleCategoryDataUpdate = () => {
-    const transactions = drawerCategory.transactions;
-    const isTotalPaid =
-      Math.floor(
-        drawerCategory.totalPaidAmount / drawerCategory.totalAmount,
-      ) === 1;
-
-    // update transaction data
-    const updatedTransactions = transactions.map((transaction) => {
-      let paidAmount = 0;
+      // update category data
+      let totalPaidAmount = 0;
 
       if (!isTotalPaid) {
-        paidAmount = transaction.amount;
+        updatedTransactions.forEach(
+          (transaction) => (totalPaidAmount += transaction.paidAmount),
+        );
       }
 
-      return {
-        ...transaction,
-        paidAmount,
-        isUpdated: true,
+      updatedDrawerCategory = {
+        ...drawerCategory,
+        totalPaidAmount,
+        transactions: updatedTransactions,
       };
-    });
+    } else {
+      // update transaction data
+      const updatedTransactions = transactions.map((transaction) => {
+        if (transaction._id === _id) {
+          // Get the paidAmount based on the paidAmountPercentage
+          const paidAmount = transaction.amount * paidAmountPercentage;
+          const localPaidAmount =
+            transaction.localAmount.amount * paidAmountPercentage;
 
-    // update category data
-    let totalPaidAmount = 0;
+          return {
+            ...transaction,
+            paidAmount:
+              paidAmount <= transaction.amount
+                ? paidAmount
+                : transaction.amount,
+            localAmount: {
+              ...transaction.localAmount,
+              paidAmount:
+                localPaidAmount <= transaction.localAmount.amount
+                  ? localPaidAmount
+                  : transaction.localAmount.amount,
+            },
+            isUpdated: true,
+          };
+        }
 
-    if (!isTotalPaid) {
+        return transaction;
+      });
+
+      // update category data
+      let totalPaidAmount = 0;
+
       updatedTransactions.forEach(
         (transaction) => (totalPaidAmount += transaction.paidAmount),
       );
+
+      updatedDrawerCategory = {
+        ...drawerCategory,
+        totalPaidAmount,
+        transactions: updatedTransactions,
+      };
     }
 
     // set final result
-    setDrawerCategory({
-      ...drawerCategory,
-      totalPaidAmount,
-      transactions: updatedTransactions,
-    });
+    setDrawerCategory(updatedDrawerCategory);
   };
 
   const createUpdatePayment = async () => {
@@ -147,16 +173,16 @@ const CategoryDrawer = ({
       .map((transaction) => ({
         _id: transaction.paymentId,
         transaction: transaction._id,
-        currency: currency._id,
-        amount: transaction.paidAmount,
+        currency: transaction.localAmount.currency._id,
+        amount: transaction.localAmount.paidAmount,
         date,
       }));
 
     try {
-      // ✅ Use RTK Query mutation instead of axios.put
+      // Use RTK Query mutation instead of axios.put
       await updateDashboardPayments(postData).unwrap();
 
-      // ✅ No need to manually call fetch, cache is automatically refreshed
+      // No need to manually call fetch, cache is automatically refreshed
       setIsDialogOpen(false);
     } catch (error) {
       console.error('Failed to update transaction payments:', error);
@@ -178,13 +204,13 @@ const CategoryDrawer = ({
           <span className="flex flex-row items-center space-x-3">
             <Switch
               checked={isLocalCurrency}
-              onCheckedChange={() => setIsLocalCurrency(!isLocalCurrency)}
+              onChange={() => setIsLocalCurrency(!isLocalCurrency)}
             />
             <Label>{t('Page.dashboard.cardDrawer.showLocalCurrency')}</Label>
           </span>
         </span>
 
-        <Card className="bg-accent p-4">
+        <div className="py-4">
           <CategoryContent
             _id={drawerCategory._id}
             name={t('Page.dashboard.cardDrawer.totalLabel').toLocaleUpperCase()}
@@ -196,16 +222,14 @@ const CategoryDrawer = ({
             amount={drawerCategory.totalAmount}
             paidAmount={drawerCategory.totalPaidAmount}
             currency={currency}
-            handleTransactionDataUpdate={handleCategoryDataUpdate}
+            handleTransactionDataUpdate={handleTransactionDataUpdate}
             isTotal
           />
-        </Card>
-
-        <div>
-          <Separator />
         </div>
 
-        <Card className="bg-accent/50 space-y-4 p-4">
+        <Divider />
+
+        <div className="space-y-4 py-4">
           {drawerCategoryLength > 0 &&
             drawerCategory.transactions.map((transaction) => (
               <div key={transaction._id} className="space-y-2">
@@ -221,14 +245,26 @@ const CategoryDrawer = ({
                       : currency.name,
                     decimal: 2,
                   })}
-                  amount={transaction.amount}
-                  paidAmount={transaction.paidAmount}
-                  currency={currency}
+                  amount={
+                    isLocalCurrency
+                      ? transaction.localAmount.amount
+                      : transaction.amount
+                  }
+                  paidAmount={
+                    isLocalCurrency
+                      ? transaction.localAmount.paidAmount
+                      : transaction.paidAmount
+                  }
+                  currency={
+                    isLocalCurrency
+                      ? transaction.localAmount.currency
+                      : currency
+                  }
                   handleTransactionDataUpdate={handleTransactionDataUpdate}
                 />
               </div>
             ))}
-        </Card>
+        </div>
       </div>
     </CustomDrawer>
   );
