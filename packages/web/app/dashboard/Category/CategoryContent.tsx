@@ -1,7 +1,7 @@
 import { ChangeEvent, useEffect, useMemo, useState } from 'react';
 import { useTranslations } from 'next-intl';
 
-import { cn, Checkbox, Progress } from '@heroui/react';
+import { Checkbox, Progress, Card } from '@heroui/react';
 import {
   Dialog,
   DialogContent,
@@ -12,7 +12,6 @@ import {
 } from '../../../components/ui/dialog';
 import { Input } from '../../../components/ui/input';
 import { Button } from '../../../components/ui/button';
-import { EditIcon } from 'lucide-react';
 
 import { formatCurrency } from '@shared/utilities/formatCurrency';
 
@@ -82,29 +81,26 @@ const CategoryContent = ({
   return (
     <>
       <div className="flex flex-row items-center justify-between gap-2">
-        <div className="flex-1">
-          <Checkbox
-            aria-label="category_content"
-            className={`${isTotal ? 'bg-accent' : 'bg-accent/70'} m-0 p-4`}
-            classNames={{
-              base: cn(
-                'inline-flex w-full max-w-md bg-content1',
-                'hover:bg-content2 items-center justify-start',
-                'cursor-pointer rounded-lg gap-2 border-2 border-transparent',
-                'data-[selected=true]:border-primary/20',
-              ),
-              label: 'w-full',
-            }}
-            isSelected={isCompleted}
-            onValueChange={() =>
-              handleTransactionDataUpdate({
-                _id,
-                paidAmountPercentage: isCompleted ? 0 : 1,
-                isTotal,
-              })
-            }
-          >
-            <div className="flex w-full justify-between">
+        <Card
+          className={`${isTotal ? 'bg-accent' : 'bg-accent/70'} ${isCompleted && 'border-primary/20'} m-0 w-full p-4`}
+        >
+          <div className="flex flex-row items-center justify-center gap-2">
+            <Checkbox
+              aria-label="category_content"
+              isSelected={isCompleted}
+              onValueChange={() =>
+                handleTransactionDataUpdate({
+                  _id,
+                  paidAmountPercentage: isCompleted ? 0 : 1,
+                  isTotal,
+                })
+              }
+            />
+
+            <div
+              className={`${!isTotal && 'cursor-pointer'} flex w-full justify-between`}
+              onClick={() => setOpenDialog(!isTotal)}
+            >
               <div className="flex-1 space-y-1">
                 <p
                   className={`${
@@ -133,17 +129,8 @@ const CategoryContent = ({
                 />
               </div>
             </div>
-          </Checkbox>
-        </div>
-
-        <Button
-          variant="outline"
-          size="icon"
-          onClick={() => setOpenDialog(true)}
-          disabled={!!isTotal}
-        >
-          <EditIcon className="aspect-square h-4" />
-        </Button>
+          </div>
+        </Card>
       </div>
 
       {/* DIALOG */}
