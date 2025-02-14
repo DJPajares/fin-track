@@ -83,7 +83,7 @@ const Home = () => {
   return (
     <div className="space-y-6 py-4 sm:space-y-8">
       <div className="grid grid-cols-2 items-start justify-center gap-5 sm:grid-cols-3 sm:gap-10">
-        <CardDialog>
+        <CardDialog isExpandable>
           <CircularProgress
             classNames={{
               svg: 'w-24 h-24 drop-shadow-md',
