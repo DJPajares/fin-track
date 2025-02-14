@@ -41,6 +41,11 @@
           "Comienza a ahorrar para emergencias; tu yo futuro te lo agradecerá.",
           "Establece metas financieras y da un paso a la vez para lograrlas."
         ]
+      },
+      "cards": {
+        "progress": {
+          "title": "Progreso Actual"
+        }
       }
     },
     "dashboard": {

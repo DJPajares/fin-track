@@ -41,6 +41,11 @@
           "Start saving for emergencies—your future self will thank you.",
           "Set financial goals, and take one step at a time to achieve them."
         ]
+      },
+      "cards": {
+        "progress": {
+          "title": "Current progress"
+        }
       }
     },
     "dashboard": {

@@ -41,6 +41,11 @@
           "Hãy bắt đầu tiết kiệm cho các tình huống khẩn cấp—tương lai của bạn sẽ cảm ơn bạn.",
           "Đặt mục tiêu tài chính và tiến một bước mỗi lần để đạt được chúng."
         ]
+      },
+      "cards": {
+        "progress": {
+          "title": "Tiến Độ Hiện Tại"
+        }
       }
     },
     "dashboard": {

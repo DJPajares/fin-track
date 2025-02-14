@@ -20,10 +20,9 @@ const isMockedData = process.env.NEXT_PUBLIC_USE_MOCKED_DATA === 'true';
 const Home = () => {
   const router = useRouter();
   const { toast } = useToast();
+  const t = useTranslations();
 
-  const t = useTranslations('Page.home');
-
-  const quotes = t.raw('motivation.quotes') as string[]; // Access raw array
+  const quotes = t.raw('Page.home.motivation.quotes') as string[]; // Access raw array
 
   const { currency } = useAppSelector((state) => state.dashboard);
   const dashboardDateString = useAppSelector((state) => state.dashboard.date);
@@ -90,8 +89,9 @@ const Home = () => {
               svg: 'w-24 h-24 drop-shadow-md',
               value: 'text-2xl font-semibold',
               indicator: 'stroke-primary',
+              label: 'text-center',
             }}
-            label="Current progress"
+            label={t('Page.home.cards.progress.title')}
             value={(totalPaidAmount / totalAmount) * 100 || 0}
             strokeWidth={3}
             showValueLabel={true}
@@ -100,7 +100,7 @@ const Home = () => {
       </div>
 
       <div>
-        <CardDialog title={t('motivation.title')} isExpandable>
+        <CardDialog title={t('Page.home.motivation.title')} isExpandable>
           <p
             className={`italic transition-opacity duration-500 ${
               fade ? 'opacity-0' : 'opacity-100'
@@ -112,7 +112,7 @@ const Home = () => {
       </div>
 
       <Button className="my-4 w-full" onClick={() => router.push('/dashboard')}>
-        {t('dashboardButton')}
+        {t('Page.home.dashboardButton')}
       </Button>
     </div>
   );

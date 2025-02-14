@@ -41,6 +41,11 @@
           "Mulailah menabung untuk keadaan darurat—masa depanmu akan berterima kasih.",
           "Tetapkan tujuan keuangan dan capailah satu langkah demi satu langkah."
         ]
+      },
+      "cards": {
+        "progress": {
+          "title": "Kemajuan Saat Ini"
+        }
       }
     },
     "dashboard": {

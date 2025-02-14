@@ -41,6 +41,11 @@
           "Beginne jetzt mit dem Sparen für Notfälle.",
           "Setze dir finanzielle Ziele und erreiche sie Schritt für Schritt."
         ]
+      },
+      "cards": {
+        "progress": {
+          "title": "Aktueller Fortschritt"
+        }
       }
     },
     "dashboard": {

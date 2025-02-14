@@ -41,6 +41,11 @@
           "Mula menyimpan untuk kecemasan—masa depan anda akan berterima kasih.",
           "Tetapkan matlamat kewangan dan capai satu langkah pada satu masa."
         ]
+      },
+      "cards": {
+        "progress": {
+          "title": "Kemajuan Semasa"
+        }
       }
     },
     "dashboard": {

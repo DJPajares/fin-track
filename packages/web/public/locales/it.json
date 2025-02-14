@@ -41,6 +41,11 @@
           "Inizia a risparmiare per le emergenze: il tuo futuro ti ringrazierà.",
           "Stabilisci obiettivi finanziari e raggiungili un passo alla volta."
         ]
+      },
+      "cards": {
+        "progress": {
+          "title": "Progresso Attuale"
+        }
       }
     },
     "dashboard": {

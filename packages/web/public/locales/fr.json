@@ -41,6 +41,11 @@
           "Commencez à économiser pour les urgences – votre futur vous remerciera.",
           "Fixez-vous des objectifs financiers et avancez pas à pas pour les atteindre."
         ]
+      },
+      "cards": {
+        "progress": {
+          "title": "Progression Actuelle"
+        }
       }
     },
     "dashboard": {

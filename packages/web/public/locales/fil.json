@@ -41,6 +41,11 @@
           "Simulan ang ipon para sa emerhensya.",
           "Magtakda ng mga layuning pinansyal, isa-isang hakbangin ito."
         ]
+      },
+      "cards": {
+        "progress": {
+          "title": "Kasalukuyang Pag-unlad"
+        }
       }
     },
     "dashboard": {

@@ -41,6 +41,11 @@
           "Acil durumlar için tasarruf yapmaya başlayın; gelecekte kendinize teşekkür edeceksiniz.",
           "Finansal hedefler belirleyin ve bunlara ulaşmak için adım adım ilerleyin."
         ]
+      },
+      "cards": {
+        "progress": {
+          "title": "Mevcut İlerleme"
+        }
       }
     },
     "dashboard": {
