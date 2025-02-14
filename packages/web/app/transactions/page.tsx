@@ -48,8 +48,13 @@ const Transactions = () => {
     { skip: !selectedType._id || !date },
   );
 
-  const transactions: TransactionProps[] = data?.data ?? [];
-  const isFullyFetched = data?.isFullyFetched ?? false;
+  const transactions: TransactionProps[] = useMemo(() => {
+    return data?.data ?? [];
+  }, [data]);
+
+  const isFullyFetched = useMemo(() => {
+    return data?.isFullyFetched ?? false;
+  }, [data]);
 
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
