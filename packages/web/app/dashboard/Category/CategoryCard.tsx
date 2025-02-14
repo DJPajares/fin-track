@@ -1,7 +1,6 @@
-import { Card, CardContent, CardHeader } from '../../../components/ui/card';
+import { Card } from '../../../components/ui/card';
 import CardIcon from '../../../components/shared/CardIcon';
-import { Progress } from "@heroui/react";
-// import { Progress } from '../../../components/ui/progress';
+import { Progress } from '@heroui/react';
 
 import { formatCurrency } from '@shared/utilities/formatCurrency';
 
@@ -18,59 +17,59 @@ type CategoryCardProps = {
 const CategoryCard = ({
   category,
   currency,
-  handleCardClick
+  handleCardClick,
 }: CategoryCardProps) => {
   const t = useTranslations('Page.dashboard.card');
 
   return (
     <Card
       onClick={() => handleCardClick(category)}
-      className="bg-accent/70 cursor-pointer"
+      className="bg-accent/70 flex h-44 flex-col justify-between gap-2 p-5 sm:h-56 sm:p-8"
     >
-      <CardHeader>
-        <div className="flex flex-row items-center justify-between gap-4">
-          <p className="text-sm text-muted-foreground truncate hover:text-clip">
+      <div className="flex flex-col gap-3">
+        <div className="flex flex-row items-center justify-between">
+          <p className="text-muted-foreground truncate text-sm hover:text-clip">
             {category.name}
           </p>
 
           {
             <CardIcon
               icon={category.icon}
-              className="w-5 h-5 sm:w-6 sm:h-6 text-muted-foreground"
+              className="text-muted-foreground h-5 w-5 sm:h-6 sm:w-6"
             />
           }
         </div>
+
         <h1 className="text-lg font-bold sm:text-xl sm:font-bold">
           {formatCurrency({
             value: category.totalAmount,
-            currency
+            currency,
           })}
         </h1>
-      </CardHeader>
-      <CardContent>
-        <p className="text-xs text-muted-foreground">{t('settled')}</p>
+      </div>
 
-        <div className="flex flex-row items-center pt-2">
-          <p className="text-xs pr-2">
-            {Math.floor(
-              (category.totalPaidAmount / category.totalAmount) * 100
-            )}
-            %
-          </p>
-          {/* <Progress
-            value={(category.totalPaidAmount / category.totalAmount) * 100}
-            className="h-1"
-          /> */}
-          <Progress
-            aria-label="Loading..."
-            value={(category.totalPaidAmount / category.totalAmount) * 100}
-            classNames={{
-              indicator: 'bg-primary'
-            }}
-            size="sm"
-          />
-        </div>
-      </CardContent>
+      <div className="flex flex-col justify-between gap-4">
+        <span>
+          <p className="text-muted-foreground text-xs">{t('settled')}</p>
+
+          <div className="flex flex-row items-center pt-2">
+            <p className="pr-2 text-xs">
+              {Math.floor(
+                (category.totalPaidAmount / category.totalAmount) * 100,
+              )}
+              %
+            </p>
+            <Progress
+              aria-label="Loading..."
+              value={(category.totalPaidAmount / category.totalAmount) * 100}
+              classNames={{
+                indicator: 'bg-primary',
+              }}
+              size="sm"
+            />
+          </div>
+        </span>
+      </div>
     </Card>
   );
 };

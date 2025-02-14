@@ -14,6 +14,7 @@ import { useGetDashboardDataQuery } from '../lib/redux/services/dashboard';
 import { useAppSelector } from '../lib/hooks/use-redux';
 
 import { formatCurrency } from '@shared/utilities/formatCurrency';
+import { Separator } from '@web/components/ui/separator';
 
 const isMockedData = process.env.NEXT_PUBLIC_USE_MOCKED_DATA === 'true';
 
@@ -99,6 +100,8 @@ const Home = () => {
           </h4>
         </CardDialog>
       </div>
+
+      <Separator />
 
       <div>
         <CardDialog title={t('Page.home.motivation.title')} isExpandable>
