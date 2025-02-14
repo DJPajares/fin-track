@@ -20,7 +20,9 @@ const CardDialog = ({
   children,
 }: CardDialogProps) => {
   return (
-    <Card className="bg-accent/70 flex h-44 w-full flex-col justify-between">
+    <Card
+      className={`bg-accent/70 flex h-44 w-full flex-col justify-between ${isExpandable && 'cursor-pointer'}`}
+    >
       <div className="m-auto flex flex-col justify-between gap-4 p-4">
         {title && (
           <p className="font-semibold sm:text-lg sm:font-bold">{title}</p>
