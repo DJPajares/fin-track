@@ -1,11 +1,19 @@
 'use client';
 
-import { Button } from '../components/ui/button';
-import { Card } from '../components/ui/card';
+import { useEffect, useMemo, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import moment from 'moment';
+
+import { CircularProgress } from '@heroui/react';
+import { Button } from '../components/ui/button';
+import CardDialog from '../components/shared/CardDialog';
+
 import { useToast } from '../lib/hooks/use-toast';
+import { useGetDashboardDataQuery } from '../lib/redux/services/dashboard';
+import { useAppSelector } from '../lib/hooks/use-redux';
+
+import { dateStringFormat } from '@shared/constants/dateStringFormat';
 
 const isMockedData = process.env.NEXT_PUBLIC_USE_MOCKED_DATA === 'true';
 
@@ -15,10 +23,33 @@ const Home = () => {
 
   const t = useTranslations('Page.home');
 
+  const quotes = t.raw('motivation.quotes') as string[]; // Access raw array
+
+  const { currency } = useAppSelector((state) => state.dashboard);
+  const dashboardDateString = useAppSelector((state) => state.dashboard.date);
+
   const [currentQuoteIndex, setCurrentQuoteIndex] = useState(0);
   const [fade, setFade] = useState(false);
 
-  const quotes = t.raw('motivation.quotes') as string[]; // Access raw array
+  const date = useMemo(
+    () => moment(dashboardDateString, dateStringFormat).toDate(),
+    [dashboardDateString],
+  );
+
+  const { data } = useGetDashboardDataQuery({
+    date,
+    currency: currency.name,
+  });
+
+  const { totalAmount, totalPaidAmount } = useMemo(() => {
+    return {
+      dashboardCategories: data?.categories || [],
+      balance: data?.main?.balance ?? 0,
+      extra: data?.main?.extra ?? 0,
+      totalAmount: data?.main?.totalAmount ?? 0,
+      totalPaidAmount: data?.main?.totalPaidAmount ?? 0,
+    };
+  }, [data]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -41,7 +72,8 @@ const Home = () => {
         toast({
           variant: 'destructive',
           title: 'USING MOCKED DATA',
-          description: 'API calls won\'t work. Adding, modifying, or deleting data within the app will either crash or not work at all.'
+          description:
+            "API calls won't work. Adding, modifying, or deleting data within the app will either crash or not work at all.",
         });
       }, 0);
 
@@ -50,22 +82,36 @@ const Home = () => {
   }, [toast]);
 
   return (
-    <div className="flex flex-col items-center space-y-8 px-6 py-2 sm:space-y-12 sm:px-8">
-      <Card className="bg-accent/70 mx-auto flex h-44 max-h-40 w-full max-w-md flex-col justify-between px-2 py-6">
-        <p className="text-center text-lg font-semibold sm:text-xl sm:font-bold">
-          {t('motivation.title')}
-        </p>
+    <div className="space-y-6 py-4 sm:space-y-8">
+      <div className="grid grid-cols-2 items-start justify-center gap-5 sm:grid-cols-3 sm:gap-10">
+        <CardDialog>
+          <CircularProgress
+            classNames={{
+              svg: 'w-24 h-24 drop-shadow-md',
+              value: 'text-2xl font-semibold',
+              indicator: 'stroke-primary',
+            }}
+            label="Current progress"
+            value={(totalPaidAmount / totalAmount) * 100 || 0}
+            strokeWidth={3}
+            showValueLabel={true}
+          />
+        </CardDialog>
+      </div>
 
-        <p
-          className={`text-center italic transition-opacity duration-500 ${
-            fade ? 'opacity-0' : 'opacity-100'
-          }`}
-        >
-          {`"${quotes[currentQuoteIndex]}"`}
-        </p>
-      </Card>
+      <div>
+        <CardDialog title={t('motivation.title')} isExpandable>
+          <p
+            className={`italic transition-opacity duration-500 ${
+              fade ? 'opacity-0' : 'opacity-100'
+            }`}
+          >
+            {`"${quotes[currentQuoteIndex]}"`}
+          </p>
+        </CardDialog>
+      </div>
 
-      <Button onClick={() => router.push('/dashboard')}>
+      <Button className="my-4 w-full" onClick={() => router.push('/dashboard')}>
         {t('dashboardButton')}
       </Button>
     </div>
