@@ -35,17 +35,12 @@ const CardDialog = ({
             </DialogTrigger>
 
             <DialogContent className="max-w-xs justify-center">
-              {title ? (
-                <DialogHeader>
-                  <DialogTitle>{title}</DialogTitle>
-                  <DialogDescription></DialogDescription>
-                </DialogHeader>
-              ) : (
-                <DialogHeader>
-                  <DialogTitle></DialogTitle>
-                  <DialogDescription></DialogDescription>
-                </DialogHeader>
-              )}
+              <DialogHeader>
+                <DialogTitle className="font-extralight tracking-wider">
+                  {title}
+                </DialogTitle>
+                <DialogDescription></DialogDescription>
+              </DialogHeader>
 
               {children}
             </DialogContent>

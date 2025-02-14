@@ -28,7 +28,7 @@ const CategoryCard = ({
     >
       <div className="flex flex-col gap-3">
         <div className="flex flex-row items-center justify-between">
-          <p className="text-muted-foreground truncate text-sm hover:text-clip">
+          <p className="text-muted-foreground truncate text-sm tracking-wide hover:text-clip">
             {category.name}
           </p>
 
