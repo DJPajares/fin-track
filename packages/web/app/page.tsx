@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import moment from 'moment';
@@ -13,7 +13,7 @@ import { useToast } from '../lib/hooks/use-toast';
 import { useGetDashboardDataQuery } from '../lib/redux/services/dashboard';
 import { useAppSelector } from '../lib/hooks/use-redux';
 
-import { dateStringFormat } from '@shared/constants/dateStringFormat';
+import { formatCurrency } from '@shared/utilities/formatCurrency';
 
 const isMockedData = process.env.NEXT_PUBLIC_USE_MOCKED_DATA === 'true';
 
@@ -25,35 +25,25 @@ const Home = () => {
   const quotes = t.raw('Page.home.motivation.quotes') as string[]; // Access raw array
 
   const { currency } = useAppSelector((state) => state.dashboard);
-  const dashboardDateString = useAppSelector((state) => state.dashboard.date);
 
   const [currentQuoteIndex, setCurrentQuoteIndex] = useState(0);
   const [fade, setFade] = useState(false);
 
-  const date = useMemo(
-    () => moment(dashboardDateString, dateStringFormat).toDate(),
-    [dashboardDateString],
-  );
+  const date = new Date();
 
-  const { data } = useGetDashboardDataQuery({
+  const { data: dashboardData } = useGetDashboardDataQuery({
     date,
     currency: currency.name,
   });
 
-  const { totalAmount, totalPaidAmount } = useMemo(() => {
-    return {
-      dashboardCategories: data?.categories || [],
-      balance: data?.main?.balance ?? 0,
-      extra: data?.main?.extra ?? 0,
-      totalAmount: data?.main?.totalAmount ?? 0,
-      totalPaidAmount: data?.main?.totalPaidAmount ?? 0,
-    };
-  }, [data]);
+  const { data: upcomingDashboardData } = useGetDashboardDataQuery({
+    date: moment(date).add(1, 'months'),
+    currency: currency.name,
+  });
 
   useEffect(() => {
     const interval = setInterval(() => {
-      // Trigger fade-out
-      setFade(true);
+      setFade(true); // Trigger fade-out
 
       // Wait for fade-out before updating content
       setTimeout(() => {
@@ -89,25 +79,36 @@ const Home = () => {
               svg: 'w-24 h-24 drop-shadow-md',
               value: 'text-2xl font-semibold',
               indicator: 'stroke-primary',
-              label: 'text-center',
+              label: 'text-center font-extralight tracking-wider',
             }}
             label={t('Page.home.cards.progress.title')}
-            value={(totalPaidAmount / totalAmount) * 100 || 0}
+            value={dashboardData?.main?.paymentCompletionRate * 100 || 0}
             strokeWidth={3}
             showValueLabel={true}
           />
+        </CardDialog>
+
+        <CardDialog title="Upcoming extra" isExpandable>
+          <h4
+            className={`${upcomingDashboardData?.main?.extra < 0 && 'text-destructive'} text-end text-2xl font-bold`}
+          >
+            {formatCurrency({
+              value: upcomingDashboardData?.main?.extra || 0,
+              currency: currency.name,
+            })}
+          </h4>
         </CardDialog>
       </div>
 
       <div>
         <CardDialog title={t('Page.home.motivation.title')} isExpandable>
-          <p
-            className={`italic transition-opacity duration-500 ${
+          <h5
+            className={`text-lg font-semibold italic transition-opacity duration-500 sm:text-xl ${
               fade ? 'opacity-0' : 'opacity-100'
             }`}
           >
             {`"${quotes[currentQuoteIndex]}"`}
-          </p>
+          </h5>
         </CardDialog>
       </div>
 
