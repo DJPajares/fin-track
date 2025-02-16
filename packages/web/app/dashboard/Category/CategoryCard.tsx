@@ -24,7 +24,7 @@ const CategoryCard = ({
   return (
     <Card
       onClick={() => handleCardClick(category)}
-      className="bg-accent/70 flex h-44 flex-col justify-between gap-2 p-5 sm:h-56 sm:p-8"
+      className="bg-accent/70 flex h-44 cursor-pointer flex-col justify-between gap-2 p-5 sm:h-56 sm:p-8"
     >
       <div className="flex flex-col gap-3">
         <div className="flex flex-row items-center justify-between">
