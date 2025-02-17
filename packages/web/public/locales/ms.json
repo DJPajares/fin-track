@@ -45,6 +45,9 @@
       "cards": {
         "progress": {
           "title": "Kemajuan Semasa"
+        },
+        "upcomingExtra": {
+          "title": "Tambahan akan datang"
         }
       }
     },

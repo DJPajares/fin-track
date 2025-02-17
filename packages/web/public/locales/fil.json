@@ -45,6 +45,9 @@
       "cards": {
         "progress": {
           "title": "Kasalukuyang Pag-unlad"
+        },
+        "upcomingExtra": {
+          "title": "Paparating na dagdag"
         }
       }
     },

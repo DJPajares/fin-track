@@ -89,7 +89,10 @@ const Home = () => {
           />
         </CardDialog>
 
-        <CardDialog title="Upcoming extra" isExpandable>
+        <CardDialog
+          title={t('Page.home.cards.upcomingExtra.title')}
+          isExpandable
+        >
           <h4
             className={`${upcomingDashboardData?.main?.extra < 0 && 'text-destructive'} text-end text-2xl font-bold`}
           >

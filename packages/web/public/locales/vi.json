@@ -45,6 +45,9 @@
       "cards": {
         "progress": {
           "title": "Tiến Độ Hiện Tại"
+        },
+        "upcomingExtra": {
+          "title": "Sắp tới thêm"
         }
       }
     },

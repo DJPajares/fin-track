@@ -45,6 +45,9 @@
       "cards": {
         "progress": {
           "title": "वर्तमान प्रगति"
+        },
+        "upcomingExtra": {
+          "title": "आगामी अतिरिक्त"
         }
       }
     },

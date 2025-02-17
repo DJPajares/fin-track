@@ -45,6 +45,9 @@
       "cards": {
         "progress": {
           "title": "Mevcut İlerleme"
+        },
+        "upcomingExtra": {
+          "title": "Yaklaşan ekstra"
         }
       }
     },

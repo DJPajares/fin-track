@@ -45,6 +45,9 @@
       "cards": {
         "progress": {
           "title": "当前进度"
+        },
+        "upcomingExtra": {
+          "title": "即将到来的额外"
         }
       }
     },

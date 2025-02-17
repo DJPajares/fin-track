@@ -45,6 +45,9 @@
       "cards": {
         "progress": {
           "title": "التقدم الحالي"
+        },
+        "upcomingExtra": {
+          "title": "الإضافة القادمة"
         }
       }
     },
