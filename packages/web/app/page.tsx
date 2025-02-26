@@ -8,13 +8,14 @@ import moment from 'moment';
 import { CircularProgress } from '@heroui/react';
 import { Button } from '../components/ui/button';
 import CardDialog from '../components/shared/CardDialog';
+import { Separator } from '../components/ui/separator';
+import { Label } from '../components/ui/label';
 
 import { useToast } from '../lib/hooks/use-toast';
 import { useGetDashboardDataQuery } from '../lib/redux/services/dashboard';
 import { useAppSelector } from '../lib/hooks/use-redux';
 
 import { formatCurrency } from '@shared/utilities/formatCurrency';
-import { Separator } from '@web/components/ui/separator';
 
 const isMockedData = process.env.NEXT_PUBLIC_USE_MOCKED_DATA === 'true';
 
@@ -93,14 +94,30 @@ const Home = () => {
           title={t('Page.home.cards.upcomingExtra.title')}
           isExpandable
         >
-          <h4
+          <Label
             className={`${upcomingDashboardData?.main?.extra < 0 && 'text-destructive'} text-end text-2xl font-bold`}
           >
             {formatCurrency({
               value: upcomingDashboardData?.main?.extra || 0,
               currency: currency.name,
             })}
-          </h4>
+          </Label>
+        </CardDialog>
+      </div>
+
+      <div className="grid grid-cols-2 items-start justify-center gap-5 sm:grid-cols-3 sm:gap-10">
+        <CardDialog
+          title={t('Page.home.cards.upcomingExtra.title')}
+          isExpandable
+        >
+          <Label
+            className={`${upcomingDashboardData?.main?.extra < 0 && 'text-destructive'} text-end text-2xl font-bold`}
+          >
+            {formatCurrency({
+              value: upcomingDashboardData?.main?.extra || 0,
+              currency: currency.name,
+            })}
+          </Label>
         </CardDialog>
       </div>
 
@@ -108,13 +125,13 @@ const Home = () => {
 
       <div>
         <CardDialog title={t('Page.home.motivation.title')} isExpandable>
-          <h5
+          <Label
             className={`text-lg font-semibold italic transition-opacity duration-500 sm:text-xl ${
               fade ? 'opacity-0' : 'opacity-100'
             }`}
           >
             {`"${quotes[currentQuoteIndex]}"`}
-          </h5>
+          </Label>
         </CardDialog>
       </div>
 
