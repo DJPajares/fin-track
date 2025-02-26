@@ -587,6 +587,8 @@ const getByTypeDateRange = async (data: FetchByDateRangeProps) => {
 
     return {
       month: moment(date).format('MMMM'),
+      year: moment(date).format('YYYY'),
+      date,
       ...types,
     };
   });
@@ -614,6 +616,8 @@ const getByCategoryDateRange = async (data: FetchByDateRangeProps) => {
 
     return {
       month: moment(date).format('MMMM'),
+      year: moment(date).format('YYYY'),
+      date,
       ...categories,
     };
   });
