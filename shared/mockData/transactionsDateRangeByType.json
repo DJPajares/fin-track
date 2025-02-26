@@ -1,62 +1,86 @@
 [
   {
+    "month": "December",
+    "year": "2024",
+    "date": "2024-12-01T16:00:00.000Z",
+    "expense": 492922,
+    "income": 374911
+  },
+  {
     "month": "January",
-    "expense": 5123,
-    "income": 6500
+    "year": "2025",
+    "date": "2025-01-01T16:00:00.000Z",
+    "expense": 412710,
+    "income": 374911
   },
   {
     "month": "February",
-    "expense": 6782,
-    "income": 10000
+    "year": "2025",
+    "date": "2025-02-01T16:00:00.000Z",
+    "expense": 471348,
+    "income": 374911
   },
   {
     "month": "March",
-    "expense": 7155,
-    "income": 7000
+    "year": "2025",
+    "date": "2025-03-01T16:00:00.000Z",
+    "expense": 408144,
+    "income": 374911
   },
   {
     "month": "April",
-    "expense": 6701,
-    "income": 15900
+    "year": "2025",
+    "date": "2025-04-01T16:00:00.000Z",
+    "expense": 326509,
+    "income": 374911
   },
   {
     "month": "May",
-    "expense": 6226,
-    "income": 3000
+    "year": "2025",
+    "date": "2025-05-01T16:00:00.000Z",
+    "expense": 297384,
+    "income": 374911
   },
   {
     "month": "June",
-    "expense": 6226,
-    "income": 10000
+    "year": "2025",
+    "date": "2025-06-01T16:00:00.000Z",
+    "expense": 291793,
+    "income": 374911
   },
   {
     "month": "July",
-    "expense": 2500,
-    "income": 5000
+    "year": "2025",
+    "date": "2025-07-01T16:00:00.000Z",
+    "expense": 294085,
+    "income": 374911
   },
   {
     "month": "August",
-    "expense": 8300,
-    "income": 6500
+    "year": "2025",
+    "date": "2025-08-01T16:00:00.000Z",
+    "expense": 294085,
+    "income": 374911
   },
   {
     "month": "September",
-    "expense": 5066,
-    "income": 6000
+    "year": "2025",
+    "date": "2025-09-01T16:00:00.000Z",
+    "expense": 218635,
+    "income": 374911
   },
   {
     "month": "October",
-    "expense": 15000,
-    "income": 3000
+    "year": "2025",
+    "date": "2025-10-01T16:00:00.000Z",
+    "expense": 149686,
+    "income": 374911
   },
   {
     "month": "November",
-    "expense": 12545,
-    "income": 5000
-  },
-  {
-    "month": "December",
-    "expense": 20150,
-    "income": 15000
+    "year": "2025",
+    "date": "2025-11-01T16:00:00.000Z",
+    "expense": 149686,
+    "income": 374911
   }
 ]
