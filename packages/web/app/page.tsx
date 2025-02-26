@@ -10,14 +10,31 @@ import { Button } from '../components/ui/button';
 import CardDialog from '../components/shared/CardDialog';
 import { Separator } from '../components/ui/separator';
 import { Label } from '../components/ui/label';
+import { CartesianGrid, LabelList, Line, LineChart, XAxis } from 'recharts';
+import {
+  ChartConfig,
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from '../components/ui/chart';
+import { TrendingUpIcon } from 'lucide-react';
 
 import { useToast } from '../lib/hooks/use-toast';
-import { useGetDashboardDataQuery } from '../lib/redux/services/dashboard';
+import {
+  useGetDashboardDataQuery,
+  useGetTransactionsByTypeDateRangeQuery,
+} from '../lib/redux/services/dashboard';
 import { useAppSelector } from '../lib/hooks/use-redux';
 
 import { formatCurrency } from '@shared/utilities/formatCurrency';
 
 const isMockedData = process.env.NEXT_PUBLIC_USE_MOCKED_DATA === 'true';
+
+type UpcomingExtraProps = {
+  month: string;
+  yearMonth: string;
+  extra: number;
+};
 
 const Home = () => {
   const router = useRouter();
@@ -30,6 +47,9 @@ const Home = () => {
 
   const [currentQuoteIndex, setCurrentQuoteIndex] = useState(0);
   const [fade, setFade] = useState(false);
+  const [upcomingExtras, setUpcomingExtras] = useState<UpcomingExtraProps[]>(
+    [],
+  );
 
   const date = new Date();
 
@@ -42,6 +62,13 @@ const Home = () => {
     date: moment(date).add(1, 'months'),
     currency: currency.name,
   });
+
+  const { data: transactionsByTypeData } =
+    useGetTransactionsByTypeDateRangeQuery({
+      startDate: moment(date).add(1, 'months').toDate(),
+      endDate: moment(date).add(3, 'months').toDate(),
+      currency: currency.name,
+    });
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -71,6 +98,31 @@ const Home = () => {
       return () => clearTimeout(timeout);
     }
   }, [toast]);
+
+  useEffect(() => {
+    setUpcomingExtras(
+      transactionsByTypeData
+        ? transactionsByTypeData.map((transaction) => {
+            const yearMonth = moment(transaction.date).format('MMM YYYY');
+            const extra = transaction.income - transaction.expense;
+
+            return {
+              month: transaction.month,
+              yearMonth,
+              extra,
+            };
+          })
+        : [],
+    );
+  }, [transactionsByTypeData]);
+
+  const chartConfig = {
+    extra: {
+      label: 'Extra',
+      color: 'hsl(var(--chart-1))',
+      icon: TrendingUpIcon,
+    },
+  } satisfies ChartConfig;
 
   return (
     <div className="space-y-6 py-4 sm:space-y-8">
@@ -109,18 +161,50 @@ const Home = () => {
       </div>
 
       <div className="grid grid-cols-2 items-start justify-center gap-5 sm:grid-cols-3 sm:gap-10">
-        <CardDialog
-          title={t('Page.home.cards.upcomingExtra.title')}
-          isExpandable
-        >
-          <Label
-            className={`${upcomingDashboardData?.main?.extra < 0 && 'text-destructive'} text-end text-2xl font-bold`}
-          >
-            {formatCurrency({
-              value: upcomingDashboardData?.main?.extra || 0,
-              currency: currency.name,
-            })}
-          </Label>
+        <CardDialog title={t('Page.home.cards.upcomingExtra.title')}>
+          <ChartContainer config={chartConfig}>
+            <LineChart
+              accessibilityLayer
+              data={upcomingExtras}
+              margin={{
+                left: 20,
+                right: 20,
+                top: 8,
+                bottom: 5,
+              }}
+            >
+              <CartesianGrid vertical={true} />
+              <XAxis
+                dataKey="yearMonth"
+                tickLine={false}
+                axisLine={false}
+                hide
+              />
+              <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
+              <Line
+                dataKey="extra"
+                type="natural"
+                stroke="hsl(var(--primary))"
+                strokeWidth={3}
+                dot={{
+                  fill: 'hsl(var(--primary))',
+                }}
+                activeDot={{
+                  r: 6,
+                }}
+              >
+                <LabelList
+                  position="top"
+                  offset={12}
+                  formatter={(value: number) =>
+                    formatCurrency({ value, currency: currency.name })
+                  }
+                  fontSize={9}
+                />
+              </Line>
+            </LineChart>
+          </ChartContainer>
+          {/* </div> */}
         </CardDialog>
       </div>
 
