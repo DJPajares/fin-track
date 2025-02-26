@@ -94,14 +94,17 @@ const Home = () => {
           title={t('Page.home.cards.upcomingExtra.title')}
           isExpandable
         >
-          <Label
-            className={`${upcomingDashboardData?.main?.extra < 0 && 'text-destructive'} text-end text-2xl font-bold`}
-          >
-            {formatCurrency({
-              value: upcomingDashboardData?.main?.extra || 0,
-              currency: currency.name,
-            })}
-          </Label>
+          <div className="text-end">
+            <Label
+              variant="title_lg"
+              className={`${upcomingDashboardData?.main?.extra < 0 && 'text-destructive'}`}
+            >
+              {formatCurrency({
+                value: upcomingDashboardData?.main?.extra || 0,
+                currency: currency.name,
+              })}
+            </Label>
+          </div>
         </CardDialog>
       </div>
 

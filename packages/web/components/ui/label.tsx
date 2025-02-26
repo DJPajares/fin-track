@@ -13,6 +13,7 @@ const labelVariants = cva(
       variant: {
         default: 'text-base',
         title: 'font-semibold text-lg',
+        title_lg: 'font-bold text-2xl',
         title_md: 'font-medium text-lg',
         subtitle: 'text-base font-extralight',
         caption: 'text-xs font-light',
