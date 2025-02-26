@@ -9,20 +9,26 @@ import {
 } from '../../components/ui/dialog';
 import { Card } from '../../components/ui/card';
 import { Label } from '../../components/ui/label';
+import { cn } from '@web/lib/utils';
 
 type CardDialogProps = {
   title?: string;
   isExpandable?: boolean;
   children: ReactNode;
+  className?: string;
 };
 const CardDialog = ({
   title,
   isExpandable = false,
   children,
+  className,
 }: CardDialogProps) => {
   return (
     <Card
-      className={`bg-accent/70 flex h-44 w-full flex-col justify-between ${isExpandable && 'cursor-pointer'}`}
+      className={cn(
+        `bg-accent/70 flex h-44 w-full flex-col justify-between ${isExpandable && 'cursor-pointer'}`,
+        className,
+      )}
     >
       <div className="m-auto flex flex-col justify-between gap-4 p-4">
         {title && (
