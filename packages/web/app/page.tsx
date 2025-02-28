@@ -212,7 +212,8 @@ const Home = () => {
       <div>
         <CardDialog title={t('Page.home.motivation.title')} isExpandable>
           <Label
-            className={`text-lg font-semibold italic transition-opacity duration-500 sm:text-xl ${
+            variant="subtitle"
+            className={`italic transition-opacity duration-500 ${
               fade ? 'opacity-0' : 'opacity-100'
             }`}
           >

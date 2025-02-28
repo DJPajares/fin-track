@@ -11,12 +11,12 @@ const labelVariants = cva(
   {
     variants: {
       variant: {
-        default: 'text-base',
-        title: 'font-semibold text-lg',
-        title_lg: 'font-bold text-2xl',
-        title_md: 'font-medium text-lg',
-        subtitle: 'text-base font-extralight',
-        caption: 'text-xs font-light',
+        default: 'text-base sm:text-lg',
+        title: 'font-semibold text-lg sm:text-xl sm:font-bold',
+        title_lg: 'font-bold text-2xl sm:text-3xl sm:font-extrabold',
+        title_md: 'font-medium text-lg sm:text-xl sm:font-semibold',
+        subtitle: 'text-base font-extralight sm:text-lg sm:font-light',
+        caption: 'text-xs font-light sm:text-sm sm:font-normal',
       },
     },
     defaultVariants: {
