@@ -169,7 +169,7 @@ const Home = () => {
               margin={{
                 left: 20,
                 right: 20,
-                top: 8,
+                top: 10,
                 bottom: 5,
               }}
             >
@@ -204,7 +204,6 @@ const Home = () => {
               </Line>
             </LineChart>
           </ChartContainer>
-          {/* </div> */}
         </CardDialog>
       </div>
 

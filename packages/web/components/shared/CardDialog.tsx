@@ -1,4 +1,6 @@
 import { ReactNode } from 'react';
+import { cn } from '../../lib/utils';
+
 import {
   Dialog,
   DialogTrigger,
@@ -7,9 +9,12 @@ import {
   DialogTitle,
   DialogDescription,
 } from '../../components/ui/dialog';
-import { Card } from '../../components/ui/card';
-import { Label } from '../../components/ui/label';
-import { cn } from '@web/lib/utils';
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from '../../components/ui/card';
 
 type CardDialogProps = {
   title?: string;
@@ -17,6 +22,29 @@ type CardDialogProps = {
   children: ReactNode;
   className?: string;
 };
+
+const Content = ({ title, isExpandable, children }: CardDialogProps) =>
+  isExpandable ? (
+    <Dialog>
+      <DialogTrigger asChild>
+        <div className={`${title && 'my-2'}`}>{children}</div>
+      </DialogTrigger>
+
+      <DialogContent className="max-w-xs justify-center">
+        <DialogHeader>
+          <DialogTitle className="font-extralight tracking-wider">
+            {title}
+          </DialogTitle>
+          <DialogDescription></DialogDescription>
+        </DialogHeader>
+
+        {children}
+      </DialogContent>
+    </Dialog>
+  ) : (
+    <div className={`${title && 'my-2'}`}>{children}</div>
+  );
+
 const CardDialog = ({
   title,
   isExpandable = false,
@@ -26,38 +54,29 @@ const CardDialog = ({
   return (
     <Card
       className={cn(
-        `bg-accent/70 flex h-44 w-full flex-col justify-between ${isExpandable && 'cursor-pointer'}`,
+        `bg-accent/70 flex h-44 w-full flex-col ${isExpandable && 'cursor-pointer'}`,
         className,
       )}
     >
-      <div className="m-auto flex flex-col justify-between gap-4 p-4">
-        {title && (
-          <Label variant="subtitle" className="capitalize tracking-wider">
-            {title}
-          </Label>
-        )}
+      {title ? (
+        <>
+          <CardHeader>
+            <CardTitle>{title}</CardTitle>
+          </CardHeader>
 
-        {isExpandable ? (
-          <Dialog>
-            <DialogTrigger asChild>
-              <div className={`${title && 'my-2'}`}>{children}</div>
-            </DialogTrigger>
-
-            <DialogContent className="max-w-xs justify-center">
-              <DialogHeader>
-                <DialogTitle className="font-extralight tracking-wider">
-                  {title}
-                </DialogTitle>
-                <DialogDescription></DialogDescription>
-              </DialogHeader>
-
+          <CardContent>
+            <Content isExpandable={isExpandable} title={title}>
               {children}
-            </DialogContent>
-          </Dialog>
-        ) : (
-          <div className={`${title && 'my-2'}`}>{children}</div>
-        )}
-      </div>
+            </Content>
+          </CardContent>
+        </>
+      ) : (
+        <div className="m-auto flex flex-col justify-between gap-4 p-4">
+          <Content isExpandable={isExpandable} title={title}>
+            {children}
+          </Content>
+        </div>
+      )}
     </Card>
   );
 };
