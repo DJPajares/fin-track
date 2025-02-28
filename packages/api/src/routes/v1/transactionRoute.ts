@@ -19,11 +19,11 @@ router.get('/', getAll);
 
 router.post('/getAdvanced/', getAdvanced);
 
-router.post('/getCategories', getCategories);
+router.post('/categories', getCategories);
 
-router.post('/getMonthlyTypes', getMonthlyTypes);
+router.post('/monthly-types', getMonthlyTypes);
 
-router.post('/getMonthlyCategories', getMonthlyCategories);
+router.post('/monthly-categories', getMonthlyCategories);
 
 router.get('/:id', get);
 

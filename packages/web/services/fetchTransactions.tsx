@@ -53,7 +53,7 @@ const fetchTransactionsDateByCategory = async ({
   currency,
   type,
 }: TransactionsDateByCategoryProps) => {
-  const url = `${process.env.NEXT_PUBLIC_BASE_URL}/transactions/getCategories`;
+  const url = `${process.env.NEXT_PUBLIC_BASE_URL}/transactions/categories`;
 
   try {
     if (useMockedData) {
@@ -79,7 +79,7 @@ const fetchTransactionsDateRangeByType = async ({
   endDate,
   currency,
 }: TransactionsDateRangeByTypeProps) => {
-  const url = `${process.env.NEXT_PUBLIC_BASE_URL}/transactions/getMonthlyTypes`;
+  const url = `${process.env.NEXT_PUBLIC_BASE_URL}/transactions/monthly-types`;
 
   try {
     if (useMockedData) {
