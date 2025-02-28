@@ -53,7 +53,7 @@ const fetchTransactionsDateByCategory = async ({
   currency,
   type,
 }: TransactionsDateByCategoryProps) => {
-  const url = `${process.env.NEXT_PUBLIC_BASE_URL}/transactions/categories`;
+  const url = `${process.env.NEXT_PUBLIC_BASE_URL}/transactions/categories-chart`;
 
   try {
     if (useMockedData) {

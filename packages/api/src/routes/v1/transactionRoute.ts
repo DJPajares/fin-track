@@ -19,7 +19,7 @@ router.get('/', getAll);
 
 router.post('/getAdvanced/', getAdvanced);
 
-router.post('/categories', getCategories);
+router.post('/categories-chart', getCategories);
 
 router.post('/monthly-types', getMonthlyTypes);
 
