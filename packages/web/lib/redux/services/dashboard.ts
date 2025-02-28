@@ -57,7 +57,7 @@ export const dashboardApi = createApi({
         return useMockedData
           ? { url: '', method: 'GET' } // Empty request since data is mocked
           : {
-              url: '/transactionPayments',
+              url: '/transaction-payments',
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: { date, currency },
@@ -125,7 +125,7 @@ export const dashboardApi = createApi({
     }),
     updateCategoryData: builder.mutation({
       query: (updatedData) => ({
-        url: `transactionPayments/update`,
+        url: `transaction-payments/update`,
         method: 'POST',
         body: updatedData,
       }),
