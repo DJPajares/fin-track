@@ -29,7 +29,7 @@ const fetchTransactions = async ({
   type,
   date,
   page = 1,
-  limit = 5
+  limit = 5,
 }: TransactionProps) => {
   const url = `${process.env.NEXT_PUBLIC_BASE_URL}/transactions/getAdvanced?page=${page}&limit=${limit}`;
 
@@ -51,9 +51,9 @@ const fetchTransactions = async ({
 const fetchTransactionsDateByCategory = async ({
   date,
   currency,
-  type
+  type,
 }: TransactionsDateByCategoryProps) => {
-  const url = `${process.env.NEXT_PUBLIC_BASE_URL}/transactions/getByCategoryDate`;
+  const url = `${process.env.NEXT_PUBLIC_BASE_URL}/transactions/getCategories`;
 
   try {
     if (useMockedData) {
@@ -62,7 +62,7 @@ const fetchTransactionsDateByCategory = async ({
       const postData = {
         date,
         currency,
-        type
+        type,
       };
 
       const { status, data } = await axios.post(url, postData);
@@ -77,9 +77,9 @@ const fetchTransactionsDateByCategory = async ({
 const fetchTransactionsDateRangeByType = async ({
   startDate,
   endDate,
-  currency
+  currency,
 }: TransactionsDateRangeByTypeProps) => {
-  const url = `${process.env.NEXT_PUBLIC_BASE_URL}/transactions/getByTypeDateRange`;
+  const url = `${process.env.NEXT_PUBLIC_BASE_URL}/transactions/getMonthlyTypes`;
 
   try {
     if (useMockedData) {
@@ -88,7 +88,7 @@ const fetchTransactionsDateRangeByType = async ({
       const postData = {
         startDate,
         endDate,
-        currency
+        currency,
       };
 
       const { status, data } = await axios.post(url, postData);
@@ -103,5 +103,5 @@ const fetchTransactionsDateRangeByType = async ({
 export {
   fetchTransactions,
   fetchTransactionsDateByCategory,
-  fetchTransactionsDateRangeByType
+  fetchTransactionsDateRangeByType,
 };

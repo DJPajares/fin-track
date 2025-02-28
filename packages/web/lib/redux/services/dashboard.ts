@@ -88,7 +88,7 @@ export const dashboardApi = createApi({
         return useMockedData
           ? { url: '', method: 'GET' } // Empty request since data is mocked
           : {
-              url: '/transactions/getByTypeDateRange',
+              url: '/transactions/getMonthlyTypes',
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: { startDate, endDate, currency },
