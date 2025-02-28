@@ -14,19 +14,17 @@ import type {
   ProcessTransactionPaymentDataProps,
 } from '../../types/transactionPaymentTypes';
 
-type FetchTransactionPaymentProps = {
+type TransactionPaymentProps = {
   date: Date;
-  currency: string;
 };
 
-const fetchTransactionPayments = async (data: FetchTransactionPaymentProps) => {
-  const date = new Date(data.date);
+const getIncomeTransactions = async ({ date }: TransactionPaymentProps) => {
   const year = new Date(date).getFullYear();
   const month = new Date(date).getMonth() + 1;
 
   const yearMonth = formatYearMonth(date);
 
-  const incomeTransactions = await TransactionModel.aggregate([
+  return await TransactionModel.aggregate([
     {
       // Find transactions within the specified date range and exclude transactions with the specified date (year-month)
       $match: {
@@ -157,8 +155,17 @@ const fetchTransactionPayments = async (data: FetchTransactionPaymentProps) => {
       $sort: { category: 1, name: 1 },
     },
   ]);
+};
 
-  const expenseTransactionPayments = await TransactionModel.aggregate([
+const getExpenseTransactionPayments = async ({
+  date,
+}: TransactionPaymentProps) => {
+  const year = new Date(date).getFullYear();
+  const month = new Date(date).getMonth() + 1;
+
+  const yearMonth = formatYearMonth(date);
+
+  return await TransactionModel.aggregate([
     {
       // Find transactions within the specified date range and exclude transactions with the specified date (year-month)
       $match: {
@@ -387,6 +394,21 @@ const fetchTransactionPayments = async (data: FetchTransactionPaymentProps) => {
       $sort: { category: 1, name: 1 },
     },
   ]);
+};
+
+type FetchTransactionPaymentProps = {
+  date: Date;
+  currency: string;
+};
+
+const fetchTransactionPayments = async (data: FetchTransactionPaymentProps) => {
+  const { date, currency } = data;
+
+  const incomeTransactions = await getIncomeTransactions({ date });
+
+  const expenseTransactionPayments = await getExpenseTransactionPayments({
+    date,
+  });
 
   const latestExchangeRates = await ExchangeRateModel.findOne().sort({
     date: -1,
@@ -397,7 +419,7 @@ const fetchTransactionPayments = async (data: FetchTransactionPaymentProps) => {
     incomeTransactions,
     expenseTransactionPayments,
     rates,
-    currency: data.currency,
+    currency,
   });
 
   return output;
