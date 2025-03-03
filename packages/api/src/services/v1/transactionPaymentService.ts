@@ -1,3 +1,4 @@
+import { Types } from 'mongoose';
 import { CategoryModel } from '../../models/v1/categoryModel';
 import { CurrencyModel } from '../../models/v1/currencyModel';
 import { ExchangeRateModel } from '../../models/v1/exchangeRateModel';
@@ -16,6 +17,18 @@ import type {
 
 type TransactionPaymentProps = {
   date: Date;
+  categoryId?: Types.ObjectId;
+};
+
+type DateCurrencyProps = {
+  date: Date;
+  currency: string;
+};
+
+type DateRangeCurrencyProps = {
+  startDate: Date;
+  endDate: Date;
+  currency: string;
 };
 
 const getIncomeTransactions = async ({ date }: TransactionPaymentProps) => {
@@ -396,35 +409,6 @@ const getExpenseTransactionPayments = async ({
   ]);
 };
 
-type FetchTransactionPaymentProps = {
-  date: Date;
-  currency: string;
-};
-
-const fetchTransactionPayments = async (data: FetchTransactionPaymentProps) => {
-  const { date, currency } = data;
-
-  const incomeTransactions = await getIncomeTransactions({ date });
-
-  const expenseTransactionPayments = await getExpenseTransactionPayments({
-    date,
-  });
-
-  const latestExchangeRates = await ExchangeRateModel.findOne().sort({
-    date: -1,
-  });
-  const rates = latestExchangeRates?.rates || {};
-
-  const output = processTransactionPaymentData({
-    incomeTransactions,
-    expenseTransactionPayments,
-    rates,
-    currency,
-  });
-
-  return output;
-};
-
 const processTransactionPaymentData = ({
   incomeTransactions,
   expenseTransactionPayments,
@@ -609,4 +593,203 @@ const processTransactionPaymentData = ({
   return output;
 };
 
-export { fetchTransactionPayments };
+const fetchTransactionPayments = async (body: DateCurrencyProps) => {
+  const { date, currency } = body;
+
+  const incomeTransactions = await getIncomeTransactions({ date });
+
+  const expenseTransactionPayments = await getExpenseTransactionPayments({
+    date,
+  });
+
+  const latestExchangeRates = await ExchangeRateModel.findOne().sort({
+    date: -1,
+  });
+  const rates = latestExchangeRates?.rates || {};
+
+  const output = processTransactionPaymentData({
+    incomeTransactions,
+    expenseTransactionPayments,
+    rates,
+    currency,
+  });
+
+  return output;
+};
+
+const fetchMonthlyByCategory = async (
+  body: DateRangeCurrencyProps,
+  categoryName?: string,
+) => {
+  // categoryName sample (e.g., 'creditcard', 'savings')
+  const { startDate, endDate, currency } = body;
+
+  try {
+    const startYearMonth = formatYearMonth(startDate);
+    const endYearMonth = formatYearMonth(endDate);
+
+    // Fetch the latest exchange rates
+    const latestExchangeRates = await ExchangeRateModel.findOne().sort({
+      date: -1,
+    });
+    const rates = latestExchangeRates?.rates || {};
+
+    const result = await PaymentModel.aggregate([
+      // Lookup transaction details
+      {
+        $lookup: {
+          from: 'transactions',
+          localField: 'transaction',
+          foreignField: '_id',
+          as: 'transactionData',
+        },
+      },
+      { $unwind: '$transactionData' },
+
+      // Lookup category details
+      {
+        $lookup: {
+          from: 'categories',
+          localField: 'transactionData.category',
+          foreignField: '_id',
+          as: 'categoryData',
+        },
+      },
+      { $unwind: '$categoryData' },
+
+      // Lookup currency details from CurrencyModel
+      {
+        $lookup: {
+          from: 'currencies',
+          localField: 'currency', // Uses ObjectId reference
+          foreignField: '_id',
+          as: 'currencyData',
+        },
+      },
+      { $unwind: { path: '$currencyData', preserveNullAndEmptyArrays: true } },
+
+      // Match category name (if provided)
+      {
+        $match: categoryName
+          ? {
+              'categoryData.name': {
+                $regex: new RegExp(
+                  `\\b${categoryName.split('').join('.*')}\\b`,
+                  'i',
+                ), // Ensures strict word match
+              },
+            }
+          : {},
+      },
+
+      // Compute year-month values for filtering
+      {
+        $addFields: {
+          paymentYearMonth: {
+            $toInt: {
+              $concat: [
+                { $toString: { $year: '$date' } },
+                {
+                  $cond: {
+                    if: { $lt: [{ $month: '$date' }, 10] },
+                    then: {
+                      $concat: ['0', { $toString: { $month: '$date' } }],
+                    },
+                    else: { $toString: { $month: '$date' } },
+                  },
+                },
+              ],
+            },
+          },
+        },
+      },
+
+      // Filter payments within date range
+      {
+        $match: {
+          $expr: {
+            $and: [
+              { $gte: ['$paymentYearMonth', startYearMonth] },
+              { $lte: ['$paymentYearMonth', endYearMonth] },
+            ],
+          },
+        },
+      },
+
+      // Group by date, category, and currency
+      {
+        $group: {
+          _id: {
+            date: '$date',
+            year: { $year: '$date' },
+            month: { $month: '$date' },
+            yearMonth: {
+              $toInt: {
+                $concat: [
+                  { $toString: { $year: '$date' } },
+                  {
+                    $cond: {
+                      if: { $lt: [{ $month: '$date' }, 10] },
+                      then: {
+                        $concat: ['0', { $toString: { $month: '$date' } }],
+                      },
+                      else: { $toString: { $month: '$date' } },
+                    },
+                  },
+                ],
+              },
+            },
+            categoryId: '$categoryData._id',
+            categoryName: '$categoryData.name',
+            currencyId: '$currencyData._id',
+            currencyName: '$currencyData.name',
+          },
+          totalAmount: { $sum: { $toDouble: '$amount' } },
+        },
+      },
+
+      // Sort by date in ascending order
+      {
+        $sort: { '_id.date': 1 },
+      },
+
+      // Project final result
+      {
+        $project: {
+          date: '$_id.date',
+          year: '$_id.year',
+          month: '$_id.month',
+          yearMonth: '$_id.yearMonth',
+          categoryId: '$_id.categoryId',
+          categoryName: '$_id.categoryName',
+          currencyId: '$_id.currencyId',
+          currencyName: '$_id.currencyName',
+          paidAmount: '$totalAmount',
+          _id: 0,
+        },
+      },
+    ]);
+
+    // Convert the amount to the desired currency
+    const convertedResult = result.map((item) => {
+      const convertedAmount = convertCurrency({
+        value: item.paidAmount,
+        fromCurrency: item.currencyName, // Uses currencyName from lookup
+        toCurrency: currency,
+        rates,
+      });
+
+      return {
+        ...item,
+        paidAmount: convertedAmount,
+      };
+    });
+
+    return convertedResult.length > 0 ? convertedResult : [];
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
+export { fetchTransactionPayments, fetchMonthlyByCategory };

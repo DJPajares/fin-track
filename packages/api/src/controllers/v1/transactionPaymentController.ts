@@ -20,4 +20,21 @@ const fetchTransactionPayments = async (
   }
 };
 
-export { fetchTransactionPayments };
+const fetchMonthlyByCategory = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const result = await transactionPaymentService.fetchMonthlyByCategory(
+      req.body,
+      req.params.category,
+    );
+
+    res.status(200).json(result);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export { fetchTransactionPayments, fetchMonthlyByCategory };
