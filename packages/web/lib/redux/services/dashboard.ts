@@ -35,6 +35,18 @@ export type TransactionPaymentsByCategoryProps = {
   category: string;
 };
 
+export type TransactionPaymentsByCategoryResult = {
+  date: string;
+  year: number;
+  month: number;
+  yearMonth: string;
+  categoryId: string;
+  categoryName: string;
+  currencyId: string;
+  currencyName: string;
+  paidAmount: number;
+};
+
 const formatDashboardDataQueryKey = ({
   date,
   currency,
@@ -114,9 +126,12 @@ export const dashboardApi = createApi({
               body: { startDate, endDate, currency },
             };
       },
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      transformResponse: (response: any) => {
-        return useMockedData ? TRANSACTION_PAYMENTS_BY_CATEGORY : response;
+      transformResponse: (
+        response: unknown,
+      ): TransactionPaymentsByCategoryResult[] => {
+        return useMockedData
+          ? TRANSACTION_PAYMENTS_BY_CATEGORY
+          : (response as TransactionPaymentsByCategoryResult[]);
       },
       providesTags: (
         result,

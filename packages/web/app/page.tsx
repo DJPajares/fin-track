@@ -46,6 +46,12 @@ type UpcomingExtraProps = {
   extra: number;
 };
 
+type PreviousSavingsProps = {
+  month: string;
+  yearMonth: string;
+  amount: number;
+};
+
 const Home = () => {
   const router = useRouter();
   const { toast } = useToast();
@@ -60,7 +66,9 @@ const Home = () => {
   const [upcomingExtras, setUpcomingExtras] = useState<UpcomingExtraProps[]>(
     [],
   );
-  const [previousSavings, setPreviousSavings] = useState([]);
+  const [previousSavings, setPreviousSavings] = useState<
+    PreviousSavingsProps[]
+  >([]);
 
   const date = new Date();
 
