@@ -3,6 +3,7 @@ import formatYearMonth from '@shared/utilities/formatYearMonth';
 
 import DASHBOARD_DATA from '@shared/mockData/transactionPayments.json';
 import TRANSACTIONS_BY_TYPE_DATA from '@shared/mockData/transactionsDateRangeByType.json';
+import TRANSACTION_PAYMENTS_BY_CATEGORY from '@shared/mockData/transactionPaymentsByCategory.json';
 
 const useMockedData = process.env.NEXT_PUBLIC_USE_MOCKED_DATA === 'true';
 
@@ -27,6 +28,13 @@ export type TransactionsByTypeResult = {
   income: number;
 };
 
+export type TransactionPaymentsByCategoryProps = {
+  startDate: Date;
+  endDate: Date;
+  currency: string;
+  category: string;
+};
+
 const formatDashboardDataQueryKey = ({
   date,
   currency,
@@ -45,6 +53,18 @@ const formatTransactionsByTypeQueryKey = ({
   const endYearMonth = formatYearMonth(new Date(endDate));
 
   return `${startYearMonth}_${endYearMonth}_${currency}`;
+};
+
+const formatTransactionPaymentsByCategoryQueryKey = ({
+  startDate,
+  endDate,
+  currency,
+  category,
+}: TransactionPaymentsByCategoryProps) => {
+  const startYearMonth = formatYearMonth(new Date(startDate));
+  const endYearMonth = formatYearMonth(new Date(endDate));
+
+  return `${startYearMonth}_${endYearMonth}_${currency}_${category}`;
 };
 
 export const dashboardApi = createApi({
@@ -79,6 +99,51 @@ export const dashboardApi = createApi({
         const { date, currency } = queryArgs;
 
         const provider = formatDashboardDataQueryKey({ date, currency });
+
+        return `${endpointName}_${provider}`;
+      },
+    }),
+    getTransactionPaymentsByCategory: builder.query({
+      query: ({ startDate, endDate, currency, category }) => {
+        return useMockedData
+          ? { url: '', method: 'GET' } // Empty request since data is mocked
+          : {
+              url: `/transaction-payments/monthly-by-category/${category}`,
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: { startDate, endDate, currency },
+            };
+      },
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      transformResponse: (response: any) => {
+        return useMockedData ? TRANSACTION_PAYMENTS_BY_CATEGORY : response;
+      },
+      providesTags: (
+        result,
+        error,
+        { startDate, endDate, currency, category },
+      ) => {
+        return [
+          {
+            type: type,
+            id: formatTransactionPaymentsByCategoryQueryKey({
+              startDate,
+              endDate,
+              currency,
+              category,
+            }),
+          },
+        ];
+      },
+      serializeQueryArgs: ({ endpointName, queryArgs }) => {
+        const { startDate, endDate, currency, category } = queryArgs;
+
+        const provider = formatTransactionPaymentsByCategoryQueryKey({
+          startDate,
+          endDate,
+          currency,
+          category,
+        });
 
         return `${endpointName}_${provider}`;
       },
@@ -154,6 +219,7 @@ export const dashboardApi = createApi({
 export const {
   useGetDashboardDataQuery,
   useLazyGetDashboardDataQuery,
+  useGetTransactionPaymentsByCategoryQuery,
   useGetTransactionsByTypeDateRangeQuery,
   useLazyGetTransactionsByTypeDateRangeQuery,
   useUpdateCategoryDataMutation,

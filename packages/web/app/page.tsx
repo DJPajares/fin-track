@@ -10,19 +10,29 @@ import { Button } from '../components/ui/button';
 import CardDialog from '../components/shared/CardDialog';
 import { Separator } from '../components/ui/separator';
 import { Label } from '../components/ui/label';
-import { CartesianGrid, LabelList, Line, LineChart, XAxis } from 'recharts';
+import {
+  Bar,
+  BarChart,
+  CartesianGrid,
+  LabelList,
+  Line,
+  LineChart,
+  XAxis,
+  YAxis,
+} from 'recharts';
 import {
   ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
 } from '../components/ui/chart';
-import { TrendingUpIcon } from 'lucide-react';
+import { BanknoteIcon, TrendingUpIcon } from 'lucide-react';
 
 import { useToast } from '../lib/hooks/use-toast';
 import {
   useGetDashboardDataQuery,
   useGetTransactionsByTypeDateRangeQuery,
+  useGetTransactionPaymentsByCategoryQuery,
 } from '../lib/redux/services/dashboard';
 import { useAppSelector } from '../lib/hooks/use-redux';
 
@@ -50,6 +60,7 @@ const Home = () => {
   const [upcomingExtras, setUpcomingExtras] = useState<UpcomingExtraProps[]>(
     [],
   );
+  const [previousSavings, setPreviousSavings] = useState([]);
 
   const date = new Date();
 
@@ -68,6 +79,14 @@ const Home = () => {
       startDate: moment(date).add(1, 'months').toDate(),
       endDate: moment(date).add(3, 'months').toDate(),
       currency: currency.name,
+    });
+
+  const { data: transactionPaymentsByCategoryData } =
+    useGetTransactionPaymentsByCategoryQuery({
+      startDate: moment(date).subtract(2, 'months').toDate(),
+      endDate: date,
+      currency: currency.name,
+      category: 'savings',
     });
 
   useEffect(() => {
@@ -116,11 +135,36 @@ const Home = () => {
     );
   }, [transactionsByTypeData]);
 
-  const chartConfig = {
+  useEffect(() => {
+    setPreviousSavings(
+      transactionPaymentsByCategoryData
+        ? transactionPaymentsByCategoryData.map((transaction) => {
+            const yearMonth = moment(transaction.date).format('MMM YYYY');
+            const amount = transaction.paidAmount;
+
+            return {
+              month: moment(transaction.date).format('MMM'),
+              yearMonth,
+              amount,
+            };
+          })
+        : [],
+    );
+  }, [transactionPaymentsByCategoryData]);
+
+  const upcomingExtraChartConfig = {
     extra: {
       label: 'Extra',
       color: 'hsl(var(--chart-1))',
       icon: TrendingUpIcon,
+    },
+  } satisfies ChartConfig;
+
+  const previousSavingsChartConfig = {
+    amount: {
+      label: 'Amount',
+      color: 'hsl(var(--chart-1))',
+      icon: BanknoteIcon,
     },
   } satisfies ChartConfig;
 
@@ -162,15 +206,15 @@ const Home = () => {
 
       <div className="grid grid-cols-2 items-start justify-center gap-5 sm:grid-cols-3 sm:gap-10">
         <CardDialog title={t('Page.home.cards.upcomingExtra.title')}>
-          <ChartContainer config={chartConfig}>
+          <ChartContainer config={upcomingExtraChartConfig}>
             <LineChart
               accessibilityLayer
               data={upcomingExtras}
               margin={{
                 left: 20,
                 right: 20,
-                top: 10,
-                bottom: 5,
+                top: 20,
+                bottom: -20,
               }}
             >
               <CartesianGrid vertical={true} />
@@ -193,17 +237,65 @@ const Home = () => {
                   r: 6,
                 }}
               >
-                <LabelList
+                {/* <LabelList
                   position="top"
                   offset={12}
                   formatter={(value: number) =>
                     formatCurrency({ value, currency: currency.name })
                   }
                   fontSize={9}
-                />
+                /> */}
               </Line>
             </LineChart>
           </ChartContainer>
+        </CardDialog>
+
+        <CardDialog title="Previous Savings">
+          {transactionPaymentsByCategoryData?.length ? (
+            <ChartContainer config={previousSavingsChartConfig}>
+              <BarChart
+                accessibilityLayer
+                data={previousSavings}
+                layout="vertical"
+                margin={{
+                  top: 5,
+                  left: -30,
+                }}
+              >
+                <CartesianGrid horizontal={false} />
+                <YAxis dataKey="month" type="category" tickMargin={1} />
+                <XAxis dataKey="amount" type="number" hide />
+                <ChartTooltip
+                  cursor={false}
+                  content={<ChartTooltipContent indicator="line" />}
+                />
+                <Bar
+                  dataKey="amount"
+                  layout="vertical"
+                  fill="hsl(var(--primary))"
+                >
+                  <LabelList
+                    dataKey="amount"
+                    position="insideLeft"
+                    className="fill-primary-foreground tracking-tighter"
+                    formatter={(value: number) =>
+                      formatCurrency({ value, currency: currency.name })
+                    }
+                    fontSize={9}
+                  />
+                  {/* <LabelList
+                  dataKey="month"
+                  position="right"
+                  offset={8}
+                  className="fill-foreground"
+                  fontSize={10}
+                /> */}
+                </Bar>
+              </BarChart>
+            </ChartContainer>
+          ) : (
+            <Label variant="subtitle">No data available</Label>
+          )}
         </CardDialog>
       </div>
 

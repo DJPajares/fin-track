@@ -1,0 +1,24 @@
+[
+  {
+    "date": "2025-01-08T00:00:00.000Z",
+    "year": 2025,
+    "month": 1,
+    "yearMonth": 202501,
+    "categoryId": "671f0150855aa876c09f12ef",
+    "categoryName": "Credit Card",
+    "currencyId": "671f018c855aa876c09f12fb",
+    "currencyName": "SGD",
+    "paidAmount": 2867.4900000000002
+  },
+  {
+    "date": "2025-02-07T00:00:00.000Z",
+    "year": 2025,
+    "month": 2,
+    "yearMonth": 202502,
+    "categoryId": "671f0150855aa876c09f12ef",
+    "categoryName": "Credit Card",
+    "currencyId": "671f018c855aa876c09f12fb",
+    "currencyName": "SGD",
+    "paidAmount": 4228.18
+  }
+]
