@@ -54,7 +54,7 @@ const CardDialog = ({
   return (
     <Card
       className={cn(
-        `bg-accent/70 flex h-44 w-full flex-col ${isExpandable && 'cursor-pointer'}`,
+        `bg-accent/70 ${isExpandable && 'cursor-pointer'}`,
         className,
       )}
     >
@@ -71,11 +71,13 @@ const CardDialog = ({
           </CardContent>
         </>
       ) : (
-        <div className="m-auto flex flex-col justify-between gap-4 p-4">
+        // <div className="m-auto flex flex-col justify-between gap-4 p-4">
+        <CardContent>
           <Content isExpandable={isExpandable} title={title}>
             {children}
           </Content>
-        </div>
+        </CardContent>
+        // </div>
       )}
     </Card>
   );

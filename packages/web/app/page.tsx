@@ -178,8 +178,11 @@ const Home = () => {
 
   return (
     <div className="space-y-6 py-4 sm:space-y-8">
-      <div className="grid grid-cols-2 items-start justify-center gap-5 sm:grid-cols-3 sm:gap-10">
-        <CardDialog isExpandable>
+      <div className="grid auto-rows-fr grid-cols-2 gap-5 sm:grid-cols-3 sm:gap-10">
+        <CardDialog
+          className="flex flex-col items-center justify-center"
+          isExpandable
+        >
           <CircularProgress
             classNames={{
               svg: 'w-24 h-24 drop-shadow-md',
@@ -210,19 +213,53 @@ const Home = () => {
             </Label>
           </div>
         </CardDialog>
-      </div>
 
-      <div className="grid grid-cols-2 items-start justify-center gap-5 sm:grid-cols-3 sm:gap-10">
+        {/* <CardDialog title={t('Page.home.cards.upcomingExtra.title')}>
+          <ChartContainer config={upcomingExtraChartConfig}>
+            <LineChart
+              accessibilityLayer
+              data={upcomingExtras}
+              margin={{
+                left: 10,
+                right: 10,
+                // top: 20,
+                // bottom: -20,
+              }}
+            >
+              <CartesianGrid vertical={true} />
+              <XAxis
+                dataKey="yearMonth"
+                tickLine={false}
+                axisLine={false}
+                hide
+              />
+              <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
+              <Line
+                dataKey="extra"
+                type="natural"
+                stroke="hsl(var(--primary))"
+                strokeWidth={3}
+                dot={{
+                  fill: 'hsl(var(--primary))',
+                }}
+                activeDot={{
+                  r: 6,
+                }}
+              />
+            </LineChart>
+          </ChartContainer>
+        </CardDialog> */}
+
         <CardDialog title={t('Page.home.cards.upcomingExtra.title')}>
           <ChartContainer config={upcomingExtraChartConfig}>
             <LineChart
               accessibilityLayer
               data={upcomingExtras}
               margin={{
-                left: 20,
-                right: 20,
-                top: 20,
-                bottom: -20,
+                left: 12,
+                right: 12,
+                top: 10,
+                // bottom: -20,
               }}
             >
               <CartesianGrid vertical={true} />
@@ -245,14 +282,14 @@ const Home = () => {
                   r: 6,
                 }}
               >
-                {/* <LabelList
+                <LabelList
                   position="top"
                   offset={12}
                   formatter={(value: number) =>
                     formatCurrency({ value, currency: currency.name })
                   }
                   fontSize={9}
-                /> */}
+                />
               </Line>
             </LineChart>
           </ChartContainer>
