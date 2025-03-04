@@ -26,7 +26,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from '../components/ui/chart';
-import { BanknoteIcon, TrendingUpIcon } from 'lucide-react';
+import { TrendingUpIcon } from 'lucide-react';
 
 import { useToast } from '../lib/hooks/use-toast';
 import {
@@ -172,7 +172,6 @@ const Home = () => {
     amount: {
       label: 'Amount',
       color: 'hsl(var(--chart-1))',
-      icon: BanknoteIcon,
     },
   } satisfies ChartConfig;
 
@@ -214,42 +213,6 @@ const Home = () => {
           </div>
         </CardDialog>
 
-        {/* <CardDialog title={t('Page.home.cards.upcomingExtra.title')}>
-          <ChartContainer config={upcomingExtraChartConfig}>
-            <LineChart
-              accessibilityLayer
-              data={upcomingExtras}
-              margin={{
-                left: 10,
-                right: 10,
-                // top: 20,
-                // bottom: -20,
-              }}
-            >
-              <CartesianGrid vertical={true} />
-              <XAxis
-                dataKey="yearMonth"
-                tickLine={false}
-                axisLine={false}
-                hide
-              />
-              <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
-              <Line
-                dataKey="extra"
-                type="natural"
-                stroke="hsl(var(--primary))"
-                strokeWidth={3}
-                dot={{
-                  fill: 'hsl(var(--primary))',
-                }}
-                activeDot={{
-                  r: 6,
-                }}
-              />
-            </LineChart>
-          </ChartContainer>
-        </CardDialog> */}
-
         <CardDialog title={t('Page.home.cards.upcomingExtra.title')}>
           <ChartContainer config={upcomingExtraChartConfig}>
             <LineChart
@@ -269,7 +232,26 @@ const Home = () => {
                 axisLine={false}
                 hide
               />
-              <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
+              {/* <ChartTooltip cursor={false} content={<ChartTooltipContent />} /> */}
+              <ChartTooltip
+                cursor={false}
+                content={
+                  <ChartTooltipContent
+                    formatter={(value) => {
+                      return (
+                        <span className="flex flex-col justify-between">
+                          <p className="font-semibold">
+                            {formatCurrency({
+                              value: parseFloat(value.toString()),
+                              currency: currency.name,
+                            })}
+                          </p>
+                        </span>
+                      );
+                    }}
+                  />
+                }
+              />
               <Line
                 dataKey="extra"
                 type="natural"
@@ -303,16 +285,34 @@ const Home = () => {
                 data={previousSavings}
                 layout="vertical"
                 margin={{
-                  top: 5,
-                  left: -30,
+                  // top: 5,
+                  // left: -30,
+                  right: 40,
                 }}
               >
                 <CartesianGrid horizontal={false} />
-                <YAxis dataKey="month" type="category" tickMargin={1} />
+                <YAxis dataKey="month" type="category" hide />
                 <XAxis dataKey="amount" type="number" hide />
                 <ChartTooltip
                   cursor={false}
-                  content={<ChartTooltipContent indicator="line" />}
+                  content={
+                    <ChartTooltipContent
+                      formatter={(value) => {
+                        return (
+                          <span className="flex flex-col justify-between">
+                            <p
+                              className={`${parseFloat(value.toString()) < 0 && 'text-destructive'} 'font-semibold'`}
+                            >
+                              {formatCurrency({
+                                value: parseFloat(value.toString()),
+                                currency: currency.name,
+                              })}
+                            </p>
+                          </span>
+                        );
+                      }}
+                    />
+                  }
                 />
                 <Bar
                   dataKey="amount"
@@ -320,21 +320,21 @@ const Home = () => {
                   fill="hsl(var(--primary))"
                 >
                   <LabelList
-                    dataKey="amount"
+                    dataKey="month"
                     position="insideLeft"
                     className="fill-primary-foreground tracking-tighter"
+                    // fontSize={9}
+                  />
+                  <LabelList
+                    dataKey="amount"
+                    position="right"
+                    // offset={8}
+                    className="fill-foreground"
+                    fontSize={9}
                     formatter={(value: number) =>
                       formatCurrency({ value, currency: currency.name })
                     }
-                    fontSize={9}
                   />
-                  {/* <LabelList
-                  dataKey="month"
-                  position="right"
-                  offset={8}
-                  className="fill-foreground"
-                  fontSize={10}
-                /> */}
                 </Bar>
               </BarChart>
             </ChartContainer>
