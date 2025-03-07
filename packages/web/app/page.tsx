@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import moment from 'moment';
+import { TrendingUpIcon } from 'lucide-react';
 
 import { CircularProgress } from '@heroui/react';
 import { Button } from '../components/ui/button';
@@ -14,9 +15,9 @@ import {
   Bar,
   BarChart,
   CartesianGrid,
+  Cell,
   LabelList,
-  Line,
-  LineChart,
+  ReferenceLine,
   XAxis,
   YAxis,
 } from 'recharts';
@@ -26,7 +27,6 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from '../components/ui/chart';
-import { TrendingUpIcon } from 'lucide-react';
 
 import { useToast } from '../lib/hooks/use-toast';
 import {
@@ -35,6 +35,7 @@ import {
   useGetTransactionPaymentsByCategoryQuery,
 } from '../lib/redux/services/dashboard';
 import { useAppSelector } from '../lib/hooks/use-redux';
+import { useIsMobile } from '../lib/hooks/use-mobile';
 
 import { formatCurrency } from '@shared/utilities/formatCurrency';
 
@@ -54,6 +55,7 @@ type PreviousSavingsProps = {
 
 const Home = () => {
   const router = useRouter();
+  const isMobile = useIsMobile();
   const { toast } = useToast();
   const t = useTranslations();
 
@@ -131,10 +133,11 @@ const Home = () => {
       transactionsByTypeData
         ? transactionsByTypeData.map((transaction) => {
             const yearMonth = moment(transaction.date).format('MMM YYYY');
+            const month = moment(transaction.date).format('MMM');
             const extra = transaction.income - transaction.expense;
 
             return {
-              month: transaction.month,
+              month,
               yearMonth,
               extra,
             };
@@ -148,10 +151,11 @@ const Home = () => {
       transactionPaymentsByCategoryData
         ? transactionPaymentsByCategoryData.map((transaction) => {
             const yearMonth = moment(transaction.date).format('MMM YYYY');
+            const month = moment(transaction.date).format('MMM');
             const amount = transaction.paidAmount;
 
             return {
-              month: moment(transaction.date).format('MMM'),
+              month,
               yearMonth,
               amount,
             };
@@ -194,87 +198,6 @@ const Home = () => {
             strokeWidth={3}
             showValueLabel={true}
           />
-        </CardDialog>
-
-        <CardDialog
-          title={t('Page.home.cards.upcomingExtra.title')}
-          isExpandable
-        >
-          <div className="text-end">
-            <Label
-              variant="title_lg"
-              className={`${upcomingDashboardData?.main?.extra < 0 && 'text-destructive'}`}
-            >
-              {formatCurrency({
-                value: upcomingDashboardData?.main?.extra || 0,
-                currency: currency.name,
-              })}
-            </Label>
-          </div>
-        </CardDialog>
-
-        <CardDialog title={t('Page.home.cards.upcomingExtra.title')}>
-          <ChartContainer config={upcomingExtraChartConfig}>
-            <LineChart
-              accessibilityLayer
-              data={upcomingExtras}
-              margin={{
-                left: 12,
-                right: 12,
-                top: 10,
-                // bottom: -20,
-              }}
-            >
-              <CartesianGrid vertical={true} />
-              <XAxis
-                dataKey="yearMonth"
-                tickLine={false}
-                axisLine={false}
-                hide
-              />
-              {/* <ChartTooltip cursor={false} content={<ChartTooltipContent />} /> */}
-              <ChartTooltip
-                cursor={false}
-                content={
-                  <ChartTooltipContent
-                    formatter={(value) => {
-                      return (
-                        <span className="flex flex-col justify-between">
-                          <p className="font-semibold">
-                            {formatCurrency({
-                              value: parseFloat(value.toString()),
-                              currency: currency.name,
-                            })}
-                          </p>
-                        </span>
-                      );
-                    }}
-                  />
-                }
-              />
-              <Line
-                dataKey="extra"
-                type="natural"
-                stroke="hsl(var(--primary))"
-                strokeWidth={3}
-                dot={{
-                  fill: 'hsl(var(--primary))',
-                }}
-                activeDot={{
-                  r: 6,
-                }}
-              >
-                <LabelList
-                  position="top"
-                  offset={12}
-                  formatter={(value: number) =>
-                    formatCurrency({ value, currency: currency.name })
-                  }
-                  fontSize={9}
-                />
-              </Line>
-            </LineChart>
-          </ChartContainer>
         </CardDialog>
 
         <CardDialog title="Previous Savings">
@@ -323,12 +246,10 @@ const Home = () => {
                     dataKey="month"
                     position="insideLeft"
                     className="fill-primary-foreground tracking-tighter"
-                    // fontSize={9}
                   />
                   <LabelList
                     dataKey="amount"
                     position="right"
-                    // offset={8}
                     className="fill-foreground"
                     fontSize={9}
                     formatter={(value: number) =>
@@ -341,6 +262,73 @@ const Home = () => {
           ) : (
             <Label variant="subtitle">No data available</Label>
           )}
+        </CardDialog>
+
+        <CardDialog title={t('Page.home.cards.upcomingExtra.title')}>
+          <ChartContainer config={upcomingExtraChartConfig}>
+            <BarChart
+              data={upcomingExtras}
+              margin={{
+                top: 10,
+                bottom: 10,
+              }}
+            >
+              <CartesianGrid vertical={false} />
+              <XAxis
+                dataKey="yearMonth"
+                axisLine={false}
+                tickMargin={8}
+                tickFormatter={(value) => value.slice(0, 3)}
+                hide
+              />
+              {!isMobile && (
+                <YAxis
+                  axisLine={false}
+                  tickFormatter={(value) =>
+                    formatCurrency({ value, currency: currency.name })
+                  }
+                />
+              )}
+              <ChartTooltip
+                cursor={false}
+                content={
+                  <ChartTooltipContent
+                    hideIndicator
+                    formatter={(value) => {
+                      return formatCurrency({
+                        value: parseFloat(value.toString()),
+                        currency: currency.name,
+                      });
+                    }}
+                  />
+                }
+              />
+              <Bar dataKey="extra" fill="hsl(var(--primary))" radius={1}>
+                <LabelList position="top" dataKey="month" fillOpacity={1} />
+                {upcomingExtras.map((item) => (
+                  <Cell key={item.month} />
+                ))}
+              </Bar>
+              <ReferenceLine y={0} stroke="hsl(var(--muted-foreground))" />
+            </BarChart>
+          </ChartContainer>
+        </CardDialog>
+
+        <CardDialog
+          title={t('Page.home.cards.upcomingExtra.title')}
+          isExpandable
+        >
+          <div className="text-end">
+            <Label
+              variant="title_lg"
+              className={`${upcomingDashboardData?.main?.extra < 0 && 'text-destructive'}`}
+            >
+              {formatCurrency({
+                value: upcomingDashboardData?.main?.extra || 0,
+                currency: currency.name,
+              })}
+            </Label>
+          </div>
         </CardDialog>
       </div>
 
