@@ -35,6 +35,10 @@ const create = async (data: TransactionProps) => {
   return await TransactionModel.create(data);
 };
 
+const createMany = async (data: TransactionProps[]) => {
+  return await TransactionModel.insertMany(data);
+};
+
 const getAll = async (query: QueryParamsProps) => {
   // [SAMPLE ENDPOINT]: /transactions?page=2&limit=4&sort=-name
 
@@ -641,6 +645,7 @@ const remove = async (_id: TransactionProps['_id']) => {
 
 export {
   create,
+  createMany,
   getAll,
   getAdvanced,
   getCategories,
