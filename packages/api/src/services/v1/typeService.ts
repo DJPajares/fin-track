@@ -6,6 +6,10 @@ const create = async (data: TypeProps) => {
   return await TypeModel.create(data);
 };
 
+const createMany = async (data: TypeProps[]) => {
+  return await TypeModel.insertMany(data);
+};
+
 const getAll = async (query: QueryParamsProps) => {
   // [SAMPLE ENDPOINT]: /types?page=2&limit=4&sort=-name
 
@@ -54,4 +58,4 @@ const remove = async (_id: TypeProps['_id']) => {
   return await TypeModel.findByIdAndDelete({ _id });
 };
 
-export { create, getAll, get, update, remove };
+export { create, createMany, getAll, get, update, remove };

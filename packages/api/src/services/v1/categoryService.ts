@@ -12,6 +12,10 @@ const create = async (data: CategoryProps) => {
   return await CategoryModel.create(data);
 };
 
+const createMany = async (data: CategoryProps[]) => {
+  return await CategoryModel.insertMany(data);
+};
+
 const getAll = async (query: QueryParamsProps) => {
   // [SAMPLE ENDPOINT]: /categories?page=2&limit=4&sort=-name
 
@@ -152,4 +156,13 @@ const remove = async (_id: CategoryProps['_id']) => {
   return await CategoryModel.findByIdAndDelete({ _id });
 };
 
-export { create, getAll, get, getByType, getSpecificType, update, remove };
+export {
+  create,
+  createMany,
+  getAll,
+  get,
+  getByType,
+  getSpecificType,
+  update,
+  remove,
+};
