@@ -1,6 +1,7 @@
 import express from 'express';
 import {
   create,
+  createMany,
   getAll,
   get,
   update,
@@ -10,6 +11,8 @@ import {
 const router = express.Router();
 
 router.post('/', create);
+
+router.post('/batch-create', createMany);
 
 router.get('/', getAll);
 

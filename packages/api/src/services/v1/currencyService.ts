@@ -7,6 +7,10 @@ const create = async (data: CurrencyProps) => {
   return await CurrencyModel.create(data);
 };
 
+const createMany = async (data: CurrencyProps[]) => {
+  return await CurrencyModel.insertMany(data);
+};
+
 const getAll = async (query: QueryParamsProps) => {
   // [SAMPLE ENDPOINT]: /currencies?page=2&limit=4&sort=-name
 
@@ -54,4 +58,4 @@ const remove = async (_id: CurrencyProps['_id']) => {
   return await CurrencyModel.findByIdAndDelete({ _id });
 };
 
-export { create, getAll, get, update, remove };
+export { create, createMany, getAll, get, update, remove };
