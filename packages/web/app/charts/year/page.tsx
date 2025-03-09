@@ -47,10 +47,12 @@ import {
   TrendingUpIcon,
 } from 'lucide-react';
 
+import { useGetTransactionPaymentsByCategoryQuery } from '../../../lib/redux/services/dashboard';
 import { fetchTransactionsDateRangeByType } from '../../../services/fetchTransactions';
 
 import { formatCurrency } from '@shared/utilities/formatCurrency';
 import { dateStringFormat } from '@shared/constants/dateStringFormat';
+import { Label } from '@web/components/ui/label';
 
 type ChartDataProps = {
   date: string;
@@ -62,6 +64,8 @@ type ChartDataPropsA = {
   date: string;
   incomeVsExpenses: number;
 };
+
+type SavingsDataProps = { month: string; yearMonth: string; amount: number };
 
 const generateYearsArray = (range: number): number[] => {
   const currentYear = new Date().getFullYear();
@@ -90,8 +94,18 @@ const Charts = () => {
   );
   const [chartData, setChartData] = useState<ChartDataProps[]>([]);
   const [chartDataA, setChartDataA] = useState<ChartDataPropsA[]>([]);
+  const [savingsChartData, setSavingsChartData] = useState<SavingsDataProps[]>(
+    [],
+  );
 
   const { currency } = useAppSelector((state) => state.dashboard);
+
+  const { data: savingsData } = useGetTransactionPaymentsByCategoryQuery({
+    startDate: new Date(parseInt(selectedYear), 0, 1),
+    endDate: new Date(parseInt(selectedYear), 11, 31),
+    currency: currency.name,
+    category: 'savings',
+  });
 
   useEffect(() => {
     fetchData();
@@ -109,6 +123,37 @@ const Charts = () => {
 
     setChartDataA(data);
   }, [chartData]);
+
+  useEffect(() => {
+    // if (savingsData) {
+    //   const formattedData = savingsData.map((transaction) => {
+
+    //     return {
+    //       month: transaction.month,
+    //       yearMonth: `${ transaction.year }-${ transaction.month }`,
+    //       amount: Number(transaction.paidAmount)
+    //     };
+    //   });
+
+    //   setChartDataSavings(formattedData);
+    // }
+
+    setSavingsChartData(
+      savingsData
+        ? savingsData.map((transaction) => {
+            const yearMonth = moment(transaction.date).format('MMM YYYY');
+            const month = moment(transaction.date).format('MMM');
+            const amount = transaction.paidAmount;
+
+            return {
+              month,
+              yearMonth,
+              amount,
+            };
+          })
+        : [],
+    );
+  }, [savingsData]);
 
   const yearsArray = generateYearsArray(10);
 
@@ -149,6 +194,18 @@ const Charts = () => {
       label: 'Income Vs Expenses',
       color: 'hsl(var(--primary))',
       icon: TrendingUpIcon,
+    },
+    savings: {
+      label: 'Savings',
+      color: 'hsl(var(--accent))',
+      icon: TrendingUpIcon,
+    },
+  } satisfies ChartConfig;
+
+  const savingsChartConfig = {
+    amount: {
+      label: 'Amount',
+      color: 'hsl(var(--chart-1))',
     },
   } satisfies ChartConfig;
 
@@ -282,6 +339,94 @@ const Charts = () => {
               <Bar dataKey="expense" fill="var(--color-expense)" radius={2} />
             </BarChart>
           </ChartContainer>
+        </CardContent>
+      </Card>
+
+      {/* CHART C - Savings */}
+      <Card className="bg-accent/70 px-1 py-3">
+        <CardHeader className="flex flex-row items-center justify-center">
+          <CardTitle>Savings</CardTitle>
+        </CardHeader>
+        <CardContent className="p-1">
+          {savingsData?.length ? (
+            <ChartContainer config={savingsChartConfig}>
+              <BarChart accessibilityLayer data={savingsChartData}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="month" type="category" />
+                {!isMobile && <YAxis dataKey="amount" type="number" />}
+                <ChartTooltip
+                  cursor={false}
+                  content={
+                    <ChartTooltipContent
+                      hideIndicator
+                      formatter={(value) => {
+                        return formatCurrency({
+                          value: parseFloat(value.toString()),
+                          currency: currency.name,
+                        });
+                      }}
+                    />
+                  }
+                />
+                <Bar dataKey="amount" fill="hsl(var(--primary))" />
+              </BarChart>
+              {/* <BarChart
+                accessibilityLayer
+                data={ savingsChartData }
+                layout="vertical"
+                margin={ {
+                  right: 40,
+                } }
+              >
+                <CartesianGrid horizontal={ false } />
+                <YAxis dataKey="month" type="category" hide />
+                <XAxis dataKey="amount" type="number" hide />
+                <ChartTooltip
+                  cursor={ false }
+                  content={
+                    <ChartTooltipContent
+                      formatter={ (value) => {
+                        return (
+                          <span className="flex flex-col justify-between">
+                            <p
+                              className={ `${ parseFloat(value.toString()) < 0 && 'text-destructive' } 'font-semibold'` }
+                            >
+                              { formatCurrency({
+                                value: parseFloat(value.toString()),
+                                currency: currency.name,
+                              }) }
+                            </p>
+                          </span>
+                        );
+                      } }
+                    />
+                  }
+                />
+                <Bar
+                  dataKey="amount"
+                  layout="vertical"
+                  fill="hsl(var(--primary))"
+                >
+                  <LabelList
+                    dataKey="month"
+                    position="insideLeft"
+                    className="fill-primary-foreground tracking-tighter"
+                  />
+                  <LabelList
+                    dataKey="amount"
+                    position="right"
+                    className="fill-foreground"
+                    fontSize={ 9 }
+                    formatter={ (value: number) =>
+                      formatCurrency({ value, currency: currency.name })
+                    }
+                  />
+                </Bar>
+              </BarChart> */}
+            </ChartContainer>
+          ) : (
+            <Label variant="subtitle">No data available</Label>
+          )}
         </CardContent>
       </Card>
     </div>
