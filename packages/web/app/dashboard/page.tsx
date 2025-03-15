@@ -129,7 +129,7 @@ const Dashboard = () => {
   return (
     <div className="space-y-4 sm:space-y-8">
       {/* CALENDAR */}
-      <div className="flex flex-row items-center justify-center">
+      <div className="flex flex-row items-center justify-center gap-1 sm:gap-4">
         <Button
           variant="ghost"
           size="sm_rounded_icon"

@@ -1,11 +1,20 @@
-import {
-  Popover,
-  PopoverTrigger,
-  PopoverContent
-} from '../../components/ui/popover';
-import { Calendar } from '../../components/ui/calendar';
 import { ReactNode, useState } from 'react';
-import { Button } from '../ui/button';
+import moment from 'moment';
+
+import {
+  Button,
+  ButtonGroup,
+  Calendar,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@heroui/react';
+
+import {
+  CalendarDate,
+  getLocalTimeZone,
+  parseDate,
+} from '@internationalized/date';
 
 type DatePickerProps = {
   date: Date;
@@ -24,20 +33,44 @@ export const DatePicker = ({ date, onChange, children }: DatePickerProps) => {
   };
 
   return (
-    <Popover open={isCalendarOpen} onOpenChange={setIsCalendarOpen}>
-      <PopoverTrigger asChild>{children}</PopoverTrigger>
-      <PopoverContent className="w-auto p-0" align="start">
+    <Popover isOpen={isCalendarOpen} onOpenChange={setIsCalendarOpen}>
+      <PopoverTrigger>{children}</PopoverTrigger>
+      <PopoverContent className="space-y-4 p-0">
         <Calendar
-          mode="single"
-          defaultMonth={date}
-          selected={date}
-          onSelect={(date) => handleOnChange(date)}
+          aria-label="Date (Uncontrolled)"
+          value={parseDate(moment(date).format('yyyy-MM-DD'))}
+          onChange={(date: CalendarDate) =>
+            handleOnChange(date.toDate(getLocalTimeZone()))
+          }
+          topContent={
+            <ButtonGroup
+              fullWidth
+              className="bg-content1 [&>button]:text-default-500 [&>button]:border-default-200/60 px-3 pb-2 pt-3"
+              radius="full"
+              size="sm"
+              variant="bordered"
+            >
+              <Button
+                onPress={() =>
+                  handleOnChange(
+                    moment(new Date()).subtract(1, 'years').toDate(),
+                  )
+                }
+              >
+                Prev year
+              </Button>
+              <Button onPress={() => handleOnChange(new Date())}>Today</Button>
+              <Button
+                onPress={() =>
+                  handleOnChange(moment(new Date()).add(1, 'years').toDate())
+                }
+              >
+                Next year
+              </Button>
+            </ButtonGroup>
+          }
+          showMonthAndYearPickers
         />
-        <div className="flex flex-col mx-4 mb-4">
-          <Button variant="default" onClick={() => handleOnChange(new Date())}>
-            Today
-          </Button>
-        </div>
       </PopoverContent>
     </Popover>
   );
