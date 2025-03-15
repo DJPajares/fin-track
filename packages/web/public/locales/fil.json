@@ -140,6 +140,11 @@
     },
     "label": {
       "selectPlaceholder": "Pumili ng item"
+    },
+    "datePicker": {
+      "today": "Ngayon",
+      "prevYear": "Nakaraan na taon",
+      "nextYear": "Susunod na taon"
     }
   }
 }

@@ -140,6 +140,11 @@
     },
     "label": {
       "selectPlaceholder": "Выберите элемент"
+    },
+    "datePicker": {
+      "today": "Сегодня",
+      "prevYear": "Предыдущий год",
+      "nextYear": "Следующий год"
     }
   }
 }

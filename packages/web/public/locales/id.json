@@ -140,6 +140,11 @@
     },
     "label": {
       "selectPlaceholder": "Pilih item"
+    },
+    "datePicker": {
+      "today": "Hari ini",
+      "prevYear": "Tahun sebelumnya",
+      "nextYear": "Tahun berikutnya"
     }
   }
 }

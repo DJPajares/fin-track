@@ -1,4 +1,5 @@
 import { ReactNode, useState } from 'react';
+import { useTranslations } from 'next-intl';
 import moment from 'moment';
 
 import {
@@ -23,6 +24,7 @@ type DatePickerProps = {
 };
 
 export const DatePicker = ({ date, onChange, children }: DatePickerProps) => {
+  const t = useTranslations();
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
 
   const handleOnChange = (date: Date | undefined) => {
@@ -57,15 +59,17 @@ export const DatePicker = ({ date, onChange, children }: DatePickerProps) => {
                   )
                 }
               >
-                Prev year
+                <p className="truncate">{t('Common.datePicker.prevYear')}</p>
               </Button>
-              <Button onPress={() => handleOnChange(new Date())}>Today</Button>
+              <Button onPress={() => handleOnChange(new Date())}>
+                <p className="truncate">{t('Common.datePicker.today')}</p>
+              </Button>
               <Button
                 onPress={() =>
                   handleOnChange(moment(new Date()).add(1, 'years').toDate())
                 }
               >
-                Next year
+                <p className="truncate">{t('Common.datePicker.nextYear')}</p>
               </Button>
             </ButtonGroup>
           }

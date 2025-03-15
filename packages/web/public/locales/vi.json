@@ -140,6 +140,11 @@
     },
     "label": {
       "selectPlaceholder": "Chọn một mục"
+    },
+    "datePicker": {
+      "today": "Hôm nay",
+      "prevYear": "Năm trước",
+      "nextYear": "Năm tiếp theo"
     }
   }
 }

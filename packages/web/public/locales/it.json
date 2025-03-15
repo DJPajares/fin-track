@@ -140,6 +140,11 @@
     },
     "label": {
       "selectPlaceholder": "Seleziona un elemento"
+    },
+    "datePicker": {
+      "today": "Oggi",
+      "prevYear": "Anno precedente",
+      "nextYear": "Anno successivo"
     }
   }
 }

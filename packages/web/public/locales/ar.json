@@ -140,6 +140,11 @@
     },
     "label": {
       "selectPlaceholder": "اختر عنصراً"
+    },
+    "datePicker": {
+      "today": "اليوم",
+      "prevYear": "السنة السابقة",
+      "nextYear": "السنة التالية"
     }
   }
 }

@@ -140,6 +140,11 @@
     },
     "label": {
       "selectPlaceholder": "किसी आइटम का चयन करें"
+    },
+    "datePicker": {
+      "today": "आज",
+      "prevYear": "पिछला साल",
+      "nextYear": "अगाड़ा साल"
     }
   }
 }

@@ -140,6 +140,11 @@
     },
     "label": {
       "selectPlaceholder": "アイテムを選択"
+    },
+    "datePicker": {
+      "today": "今日",
+      "prevYear": "前年",
+      "nextYear": "来年"
     }
   }
 }

@@ -140,6 +140,11 @@
     },
     "label": {
       "selectPlaceholder": "Bir öğe seçin"
+    },
+    "datePicker": {
+      "today": "Bugün",
+      "prevYear": "Önceki Yıl",
+      "nextYear": "Sonraki Yıl"
     }
   }
 }

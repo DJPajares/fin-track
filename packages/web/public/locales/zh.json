@@ -140,6 +140,11 @@
     },
     "label": {
       "selectPlaceholder": "选择一个项目"
+    },
+    "datePicker": {
+      "today": "今天",
+      "prevYear": "前一年",
+      "nextYear": "下一年"
     }
   }
 }

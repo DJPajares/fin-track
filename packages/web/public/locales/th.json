@@ -140,6 +140,11 @@
     },
     "label": {
       "selectPlaceholder": "เลือกไอเทม"
+    },
+    "datePicker": {
+      "today": "วันนี้",
+      "prevYear": "ปีที่แล้ว",
+      "nextYear": "ปีถัดไป"
     }
   }
 }
