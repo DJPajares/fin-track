@@ -3,15 +3,18 @@ import {
   ActivityIcon,
   BanknoteIcon,
   BedDoubleIcon,
+  BriefcaseBusinessIcon,
   BusFrontIcon,
   ClapperboardIcon,
   CoinsIcon,
   CreditCardIcon,
   DollarSignIcon,
+  HandCoinsIcon,
   LightbulbIcon,
+  PiggyBankIcon,
   ShoppingCartIcon,
   UsersIcon,
-  UtensilsIcon
+  UtensilsIcon,
 } from 'lucide-react';
 
 export const iconMap = {
@@ -26,7 +29,10 @@ export const iconMap = {
   'shopping-cart': ShoppingCartIcon,
   utensils: UtensilsIcon,
   'bus-front': BusFrontIcon,
-  default: DollarSignIcon
+  'piggy-bank': PiggyBankIcon,
+  'hand-coins': HandCoinsIcon,
+  'briefcase-business': BriefcaseBusinessIcon,
+  default: DollarSignIcon,
 } as const;
 
 export type IconProps = keyof typeof iconMap;
