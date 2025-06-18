@@ -11,7 +11,6 @@ import { useGetTransactionsQuery } from '../../lib/redux/services/transactions';
 import { DatePicker } from '../../components/shared/DatePicker';
 import { Button } from '../../components/ui/button';
 import { CircularProgress, ScrollShadow } from '@heroui/react';
-// import { ScrollShadow } from '../../components/ui/scroll-shadow';
 import { SelectBox } from '../../components/shared/SelectBox';
 import TransactionCard from './Transaction/TransactionCard';
 
@@ -19,6 +18,7 @@ import { dateStringFormat } from '@shared/constants/dateStringFormat';
 
 import type { ListProps } from '../../types/List';
 import type { TransactionProps } from '../../types/Transaction';
+import { Label } from '@web/components/ui/label';
 
 const Transactions = () => {
   const t = useTranslations();
@@ -32,18 +32,20 @@ const Transactions = () => {
   );
 
   const [date, setDate] = useState<Date>(dashboardDate);
+  const [apiDate, setApiDate] = useState<string>(date.toISOString());
   const [selectedType, setSelectedType] = useState<ListProps>({
     _id: '',
     name: '',
   });
   const [page, setPage] = useState(1);
   const [isResetting, setIsResetting] = useState(false);
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
 
-  const { data, isFetching, isLoading } = useGetTransactionsQuery(
+  const { data, isFetching, isLoading, error } = useGetTransactionsQuery(
     {
       page,
       limit: 8,
-      body: { type: selectedType._id, date: date.toISOString() },
+      body: { type: selectedType._id, date: apiDate },
     },
     { skip: !selectedType._id || !date },
   );
@@ -65,8 +67,10 @@ const Transactions = () => {
   }, [types]);
 
   useEffect(() => {
-    setPage(1);
     setIsResetting(true);
+
+    setPage(1);
+    setApiDate(date.toISOString());
   }, [date, selectedType]);
 
   useEffect(() => {
@@ -84,14 +88,16 @@ const Transactions = () => {
   useEffect(() => {
     const onScroll = () => {
       const container = scrollContainerRef.current;
-      if (!container || isFullyFetched) return; // Stop if fully fetched
+      if (!container || isFullyFetched || isFetching || isLoadingMore) return;
 
+      // Calculate if we're near the bottom (within 100px)
       const scrolledToBottom =
         container.scrollHeight - container.scrollTop <=
-        container.clientHeight + 10;
+        container.clientHeight + 100;
 
-      if (scrolledToBottom && !isFetching) {
-        setPage((prevPage) => prevPage + 1); // Load next page
+      if (scrolledToBottom) {
+        setIsLoadingMore(true);
+        setPage((prevPage) => prevPage + 1);
       }
     };
 
@@ -101,7 +107,14 @@ const Transactions = () => {
     return () => {
       container?.removeEventListener('scroll', onScroll);
     };
-  }, [isFetching, isFullyFetched]);
+  }, [isFetching, isFullyFetched, isLoadingMore]);
+
+  // Reset loading state when new data arrives
+  useEffect(() => {
+    if (!isFetching) {
+      setIsLoadingMore(false);
+    }
+  }, [isFetching]);
 
   const handlePrevMonth = () => {
     const newDate = moment(date).add(-1, 'months');
@@ -164,23 +177,52 @@ const Transactions = () => {
 
         <ScrollShadow
           ref={scrollContainerRef}
-          className="h-[70vh]"
+          className="h-[70vh] overflow-y-auto"
           hideScrollBar
         >
           <div className="space-y-4">
             {transactions.length > 0 &&
               transactions.map((transaction, index) => (
                 <TransactionCard
+                  // key={transaction._id || index}
                   key={index}
                   date={date}
                   transaction={transaction}
-                  // fetchTransactionsData={fetchTransactionsData}
                 />
               ))}
+
+            {/* Loading indicator */}
+            {isLoadingMore && (
+              <div className="flex justify-center py-4">
+                <CircularProgress size="sm" aria-label="Loading more..." />
+              </div>
+            )}
+
+            {isFullyFetched && transactions.length > 0 && (
+              <div className="py-4 text-center">
+                <Label variant="subtitle" className="text-muted-foreground">
+                  {t('Common.label.noMoreData')}
+                </Label>
+              </div>
+            )}
+
+            {!isLoading && transactions.length === 0 && (
+              <div className="py-4 text-center">
+                <Label variant="subtitle" className="text-muted-foreground">
+                  {t('Common.label.noData')}
+                </Label>
+              </div>
+            )}
+
+            {error && (
+              <div className="py-4 text-center">
+                <Label variant="error">
+                  {t('Common.label.errorLoadingData')}
+                </Label>
+              </div>
+            )}
           </div>
         </ScrollShadow>
-
-        {/* {isFullyFetched && <p>No more data to load</p>} */}
       </div>
     </div>
   );
