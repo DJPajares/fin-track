@@ -54,9 +54,7 @@ export const DatePicker = ({ date, onChange, children }: DatePickerProps) => {
             >
               <Button
                 onPress={() =>
-                  handleOnChange(
-                    moment(new Date()).subtract(1, 'years').toDate(),
-                  )
+                  handleOnChange(moment(date).subtract(1, 'years').toDate())
                 }
               >
                 <p className="truncate">{t('Common.datePicker.prevYear')}</p>
@@ -66,7 +64,7 @@ export const DatePicker = ({ date, onChange, children }: DatePickerProps) => {
               </Button>
               <Button
                 onPress={() =>
-                  handleOnChange(moment(new Date()).add(1, 'years').toDate())
+                  handleOnChange(moment(date).add(1, 'years').toDate())
                 }
               >
                 <p className="truncate">{t('Common.datePicker.nextYear')}</p>
