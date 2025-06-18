@@ -65,7 +65,7 @@ const Transactions = () => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (types && types.length > 0 && !selectedType._id) {
+    if (types && types.length > 0) {
       setSelectedType(types[0]);
       setQueryParams((prev) => ({
         ...prev,
@@ -75,19 +75,21 @@ const Transactions = () => {
         },
       }));
     }
-  }, [types, selectedType._id]);
+  }, [types]);
 
   useEffect(() => {
     setIsResetting(true);
 
-    setQueryParams((prev) => ({
-      ...prev,
-      page: 1,
-      body: {
-        date: date.toISOString(),
-        type: selectedType._id,
-      },
-    }));
+    if (selectedType._id) {
+      setQueryParams((prev) => ({
+        ...prev,
+        page: 1,
+        body: {
+          date: date.toISOString(),
+          type: selectedType._id,
+        },
+      }));
+    }
   }, [date, selectedType]);
 
   useEffect(() => {
@@ -107,7 +109,6 @@ const Transactions = () => {
       const container = scrollContainerRef.current;
       if (!container || isFullyFetched || isFetching || isLoadingMore) return;
 
-      // Calculate if we're near the bottom (within 100px)
       const scrolledToBottom =
         container.scrollHeight - container.scrollTop <=
         container.clientHeight + 100;
@@ -130,7 +131,6 @@ const Transactions = () => {
     };
   }, [isFetching, isFullyFetched, isLoadingMore]);
 
-  // Reset loading state when new data arrives
   useEffect(() => {
     if (!isFetching) {
       setIsLoadingMore(false);
@@ -203,16 +203,14 @@ const Transactions = () => {
         >
           <div className="space-y-4">
             {transactions.length > 0 &&
-              transactions.map((transaction, index) => (
+              transactions.map((transaction) => (
                 <TransactionCard
-                  // key={transaction._id || index}
-                  key={index}
+                  key={transaction._id}
                   date={date}
                   transaction={transaction}
                 />
               ))}
 
-            {/* Loading indicator */}
             {isLoadingMore && (
               <div className="flex justify-center py-4">
                 <CircularProgress size="sm" aria-label="Loading more..." />
