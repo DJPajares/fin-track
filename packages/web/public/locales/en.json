@@ -146,7 +146,7 @@
     },
     "datePicker": {
       "today": "Today",
-      "prevYear": "Last year",
+      "prevYear": "Previous year",
       "nextYear": "Next year"
     }
   }
