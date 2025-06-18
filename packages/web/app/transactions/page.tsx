@@ -51,7 +51,7 @@ const Transactions = () => {
 
   const { data, isFetching, isLoading, error } = useGetTransactionsQuery(
     queryParams,
-    { skip: !selectedType._id || !date },
+    { skip: !selectedType._id || !date || types.length === 0 },
   );
 
   const transactions: TransactionProps[] = useMemo(() => {
@@ -65,10 +65,17 @@ const Transactions = () => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (types && types.length > 0) {
+    if (types && types.length > 0 && !selectedType._id) {
       setSelectedType(types[0]);
+      setQueryParams((prev) => ({
+        ...prev,
+        body: {
+          ...prev.body,
+          type: types[0]._id,
+        },
+      }));
     }
-  }, [types]);
+  }, [types, selectedType._id]);
 
   useEffect(() => {
     setIsResetting(true);
