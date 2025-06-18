@@ -10,6 +10,7 @@ import { useGetTransactionsQuery } from '../../lib/redux/services/transactions';
 
 import { DatePicker } from '../../components/shared/DatePicker';
 import { Button } from '../../components/ui/button';
+import { Label } from '@web/components/ui/label';
 import { CircularProgress, ScrollShadow } from '@heroui/react';
 import { SelectBox } from '../../components/shared/SelectBox';
 import TransactionCard from './Transaction/TransactionCard';
@@ -18,7 +19,6 @@ import { dateStringFormat } from '@shared/constants/dateStringFormat';
 
 import type { ListProps } from '../../types/List';
 import type { TransactionProps } from '../../types/Transaction';
-import { Label } from '@web/components/ui/label';
 
 const Transactions = () => {
   const t = useTranslations();
@@ -32,21 +32,25 @@ const Transactions = () => {
   );
 
   const [date, setDate] = useState<Date>(dashboardDate);
-  const [apiDate, setApiDate] = useState<string>(date.toISOString());
   const [selectedType, setSelectedType] = useState<ListProps>({
     _id: '',
     name: '',
   });
-  const [page, setPage] = useState(1);
+
+  const [queryParams, setQueryParams] = useState({
+    page: 1,
+    limit: 8,
+    body: {
+      date: date.toISOString(),
+      type: selectedType._id,
+    },
+  });
+
   const [isResetting, setIsResetting] = useState(false);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
 
   const { data, isFetching, isLoading, error } = useGetTransactionsQuery(
-    {
-      page,
-      limit: 8,
-      body: { type: selectedType._id, date: apiDate },
-    },
+    queryParams,
     { skip: !selectedType._id || !date },
   );
 
@@ -69,8 +73,14 @@ const Transactions = () => {
   useEffect(() => {
     setIsResetting(true);
 
-    setPage(1);
-    setApiDate(date.toISOString());
+    setQueryParams((prev) => ({
+      ...prev,
+      page: 1,
+      body: {
+        date: date.toISOString(),
+        type: selectedType._id,
+      },
+    }));
   }, [date, selectedType]);
 
   useEffect(() => {
@@ -97,7 +107,11 @@ const Transactions = () => {
 
       if (scrolledToBottom) {
         setIsLoadingMore(true);
-        setPage((prevPage) => prevPage + 1);
+
+        setQueryParams((prev) => ({
+          ...prev,
+          page: prev.page + 1,
+        }));
       }
     };
 
