@@ -341,6 +341,7 @@ const TransactionDrawerForm = ({
                     <PopoverContent className="w-auto p-0" align="start">
                       <Calendar
                         mode="single"
+                        captionLayout="dropdown"
                         defaultMonth={field.value}
                         selected={field.value}
                         onSelect={(date) => {
@@ -392,6 +393,7 @@ const TransactionDrawerForm = ({
                       <PopoverContent className="w-auto p-0" align="start">
                         <Calendar
                           mode="single"
+                          captionLayout="dropdown"
                           defaultMonth={field.value}
                           selected={field.value}
                           onSelect={(date) => {
