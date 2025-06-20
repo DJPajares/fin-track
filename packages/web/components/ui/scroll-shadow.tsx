@@ -35,11 +35,11 @@ const ScrollShadow = React.forwardRef<
           else if (ref) ref.current = node;
         }}
         className={cn(
-          'overflow-y-auto relative border border-transparent',
+          'relative overflow-y-auto border border-transparent',
           hideScrollBar &&
             // '[&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]',
             '[&::-webkit-scrollbar]:hidden',
-          className
+          className,
         )}
       >
         {children}
@@ -52,10 +52,10 @@ ScrollShadow.displayName = 'ScrollShadow';
 const ScrollShadowTop = ({ visible }: { visible: boolean }) => (
   <div
     className={cn(
-      'absolute z-10 top-0 left-0 right-0 h-20',
+      'absolute top-0 right-0 left-0 z-10 h-20',
       visible
-        ? 'block bg-gradient-to-t from-transparent to-background'
-        : 'hidden'
+        ? 'to-background block bg-linear-to-t from-transparent'
+        : 'hidden',
     )}
   />
 );
@@ -63,10 +63,10 @@ const ScrollShadowTop = ({ visible }: { visible: boolean }) => (
 const ScrollShadowBottom = ({ visible }: { visible: boolean }) => (
   <div
     className={cn(
-      'absolute z-10 bottom-0 left-0 right-0 h-20',
+      'absolute right-0 bottom-0 left-0 z-10 h-20',
       visible
-        ? 'block bg-gradient-to-b from-transparent to-background'
-        : 'hidden'
+        ? 'to-background block bg-linear-to-b from-transparent'
+        : 'hidden',
     )}
   />
 );

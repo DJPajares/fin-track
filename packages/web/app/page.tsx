@@ -167,7 +167,7 @@ const Home = () => {
   const upcomingExtraChartConfig = {
     extra: {
       label: 'Extra',
-      color: 'hsl(var(--chart-1))',
+      color: 'var(--chart-1)',
       icon: TrendingUpIcon,
     },
   } satisfies ChartConfig;
@@ -175,7 +175,7 @@ const Home = () => {
   const previousSavingsChartConfig = {
     amount: {
       label: 'Amount',
-      color: 'hsl(var(--chart-1))',
+      color: 'var(--chart-1)',
     },
   } satisfies ChartConfig;
 
@@ -237,11 +237,7 @@ const Home = () => {
                     />
                   }
                 />
-                <Bar
-                  dataKey="amount"
-                  layout="vertical"
-                  fill="hsl(var(--primary))"
-                >
+                <Bar dataKey="amount" layout="vertical" fill="var(--primary)">
                   <LabelList
                     dataKey="month"
                     position="insideLeft"
@@ -303,13 +299,13 @@ const Home = () => {
                   />
                 }
               />
-              <Bar dataKey="extra" fill="hsl(var(--primary))" radius={1}>
+              <Bar dataKey="extra" fill="var(--primary)" radius={1}>
                 <LabelList position="top" dataKey="month" fillOpacity={1} />
                 {upcomingExtras.map((item) => (
                   <Cell key={item.month} />
                 ))}
               </Bar>
-              <ReferenceLine y={0} stroke="hsl(var(--muted-foreground))" />
+              <ReferenceLine y={0} stroke="var(--muted-foreground)" />
             </BarChart>
           </ChartContainer>
         </CardDialog>

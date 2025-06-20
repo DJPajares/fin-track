@@ -182,22 +182,22 @@ const Charts = () => {
   const chartConfig = {
     income: {
       label: 'Income',
-      color: 'hsl(var(--primary))',
+      color: 'var(--primary)',
       icon: TrendingUpIcon,
     },
     expense: {
       label: 'Expense',
-      color: 'hsl(var(--secondary))',
+      color: 'var(--secondary)',
       icon: TrendingDownIcon,
     },
     incomeVsExpenses: {
       label: 'Income Vs Expenses',
-      color: 'hsl(var(--primary))',
+      color: 'var(--primary)',
       icon: TrendingUpIcon,
     },
     savings: {
       label: 'Savings',
-      color: 'hsl(var(--accent))',
+      color: 'var(--accent)',
       icon: TrendingUpIcon,
     },
   } satisfies ChartConfig;
@@ -205,7 +205,7 @@ const Charts = () => {
   const savingsChartConfig = {
     amount: {
       label: 'Amount',
-      color: 'hsl(var(--chart-1))',
+      color: 'var(--chart-1)',
     },
   } satisfies ChartConfig;
 
@@ -297,7 +297,7 @@ const Charts = () => {
                 fill="var(--color-incomeVsExpenses)"
                 radius={2}
               />
-              {/* <ReferenceLine y={0} stroke="hsl(var(--primary))" /> */}
+              {/* <ReferenceLine y={0} stroke="var(--primary)" /> */}
               <ReferenceLine y={0} stroke="#808080" />
             </BarChart>
           </ChartContainer>
@@ -368,7 +368,7 @@ const Charts = () => {
                     />
                   }
                 />
-                <Bar dataKey="amount" fill="hsl(var(--primary))" />
+                <Bar dataKey="amount" fill="var(--primary)" />
               </BarChart>
               {/* <BarChart
                 accessibilityLayer
@@ -405,7 +405,7 @@ const Charts = () => {
                 <Bar
                   dataKey="amount"
                   layout="vertical"
-                  fill="hsl(var(--primary))"
+                  fill="var(--primary)"
                 >
                   <LabelList
                     dataKey="month"

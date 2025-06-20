@@ -41,7 +41,7 @@ export default async function RootLayout({
       <body className={`antialiased ${raleway.className}`}>
         <NextIntlClientProvider messages={messages}>
           <Providers>
-            <main className="bg-white dark:bg-slate-950" vaul-drawer-wrapper="">
+            <main className="bg-background" vaul-drawer-wrapper="">
               <NavBar>
                 <div className="w-full px-6 py-2 sm:px-8">{children}</div>
               </NavBar>

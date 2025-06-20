@@ -43,7 +43,7 @@ const NavBar = ({ children }: NavBarProps) => {
 
       <SidebarInset>
         <nav
-          className={`nav sticky top-0 z-50 h-12 sm:h-14 bg-background/85 backdrop-blur-sm flex items-center justify-between p-3 transition-transform duration-300 ${
+          className={`nav bg-background/85 sticky top-0 z-50 flex h-12 items-center justify-between p-3 backdrop-blur-sm transition-transform duration-300 sm:h-14 ${
             isVisible ? 'translate-y-0' : '-translate-y-full'
           }`}
         >
@@ -54,7 +54,7 @@ const NavBar = ({ children }: NavBarProps) => {
           </Link>
 
           <NavDropdownMenu>
-            <Avatar className="h-8 w-8 cursor-pointer hover:border-primary">
+            <Avatar className="hover:border-primary h-8 w-8 cursor-pointer">
               <AvatarImage src="https://i.pravatar.cc/150?u=a04258114e29026708c" />
               <AvatarFallback>DJ</AvatarFallback>
             </Avatar>

@@ -1,6 +1,6 @@
 'use client';
 
-import { HeroUIProvider } from "@heroui/react";
+import { HeroUIProvider } from '@heroui/react';
 import { ThemeProvider as NextThemesProvider } from 'next-themes';
 import { Provider as ReduxProvider } from 'react-redux';
 import { AppStore, store } from '../lib/redux/store';
