@@ -130,12 +130,8 @@ const Dashboard = () => {
     <div className="space-y-4 sm:space-y-8">
       {/* CALENDAR */}
       <div className="flex flex-row items-center justify-center gap-1 sm:gap-4">
-        <Button
-          variant="ghost"
-          size="sm_rounded_icon"
-          onClick={handlePrevMonth}
-        >
-          <ChevronLeftIcon className="h-4 w-4" />
+        <Button variant="ghost" size="rounded-icon" onClick={handlePrevMonth}>
+          <ChevronLeftIcon className="size-4" />
         </Button>
 
         <DatePicker date={date} onChange={setDate}>
@@ -146,12 +142,8 @@ const Dashboard = () => {
           </Button>
         </DatePicker>
 
-        <Button
-          variant="ghost"
-          size="sm_rounded_icon"
-          onClick={handleNextMonth}
-        >
-          <ChevronRightIcon className="h-4 w-4" />
+        <Button variant="ghost" size="rounded-icon" onClick={handleNextMonth}>
+          <ChevronRightIcon className="size-4" />
         </Button>
       </div>
 

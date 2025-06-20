@@ -21,15 +21,15 @@ const baseCategory: CategoryItemProps = {
   name: '',
   type: {
     _id: '',
-    name: ''
+    name: '',
   },
   icon: 'default',
-  active: true
+  active: true,
 };
 
 const defaultType = {
   _id: '',
-  name: ''
+  name: '',
 };
 
 const Categories = () => {
@@ -50,8 +50,8 @@ const Categories = () => {
     dispatch(
       updateCategory({
         ...category,
-        active: true
-      })
+        active: true,
+      }),
     );
   };
 
@@ -71,7 +71,7 @@ const Categories = () => {
       <div className="space-y-4">
         <div className="space-y-1">
           <div className="flex flex-row items-center justify-between">
-            <h6 className="font-semibold text-lg">
+            <h6 className="text-lg font-semibold">
               {t('Page.categories.titleCategories').toLocaleUpperCase()}
             </h6>
 
@@ -81,8 +81,8 @@ const Categories = () => {
               title={t('Page.categories.categoryDrawer.titleAdd')}
               isNew
             >
-              <Button variant="ghost" size="sm_rounded_icon">
-                <PlusIcon className="h-4 w-4" />
+              <Button variant="ghost" size="rounded-icon">
+                <PlusIcon className="size-4" />
               </Button>
             </EditCategoryDrawer>
           </div>
@@ -91,7 +91,7 @@ const Categories = () => {
             {categories
               .filter(
                 (category) =>
-                  category.type._id === selectedType._id && category.active
+                  category.type._id === selectedType._id && category.active,
               )
               .map((category, i, { length }) => (
                 <div key={category._id}>
@@ -100,7 +100,7 @@ const Categories = () => {
                     category={category}
                     title={t('Page.categories.categoryDrawer.titleEdit')}
                   >
-                    <div className="flex flex-row items-center space-x-4 p-2 hover:bg-border cursor-pointer">
+                    <div className="hover:bg-border flex cursor-pointer flex-row items-center space-x-4 p-2">
                       <CardIcon icon={category.icon} />
                       <p>{category.name}</p>
                     </div>
@@ -113,7 +113,7 @@ const Categories = () => {
         </div>
 
         <div className="space-y-1">
-          <h6 className="font-semibold text-lg">
+          <h6 className="text-lg font-semibold">
             {t('Page.categories.titleSuggestions').toLocaleUpperCase()}
           </h6>
 
@@ -121,12 +121,12 @@ const Categories = () => {
             {categories
               .filter(
                 (category) =>
-                  category.type._id === selectedType._id && !category.active
+                  category.type._id === selectedType._id && !category.active,
               )
               .map((category, i, { length }) => (
                 <div key={category._id}>
                   <div
-                    className="flex flex-row items-center justify-between p-2 hover:bg-border cursor-pointer"
+                    className="hover:bg-border flex cursor-pointer flex-row items-center justify-between p-2"
                     onClick={() => handleAddSuggestedCategory(category)}
                   >
                     <div className="flex flex-row items-center space-x-4">
@@ -134,8 +134,8 @@ const Categories = () => {
                       <p>{category.name}</p>
                     </div>
 
-                    <Button variant="ghost" size="sm_rounded_icon">
-                      <PlusIcon className="h-4 w-4" />
+                    <Button variant="ghost" size="rounded-icon">
+                      <PlusIcon className="size-4" />
                     </Button>
                   </div>
 

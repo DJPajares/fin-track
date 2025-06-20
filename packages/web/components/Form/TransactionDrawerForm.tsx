@@ -334,7 +334,7 @@ const TransactionDrawerForm = ({
                               <span>{isRecurring ? 'Start date' : 'Date'}</span>
                             )}
                           </p>
-                          <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                          <CalendarIcon className="ml-auto size-4 opacity-50" />
                         </Button>
                       </FormControl>
                     </PopoverTrigger>
@@ -386,7 +386,7 @@ const TransactionDrawerForm = ({
                                 <span>End date</span>
                               )}
                             </p>
-                            <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                            <CalendarIcon className="ml-auto size-4 opacity-50" />
                           </Button>
                         </FormControl>
                       </PopoverTrigger>

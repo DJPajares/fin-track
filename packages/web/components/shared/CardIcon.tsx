@@ -44,7 +44,7 @@ type CardIconProps = {
 
 const CardIcon = ({ icon = 'default', className }: CardIconProps) => {
   const IconComponent = iconMap[icon];
-  const iconClassName = 'h-4 w-4';
+  const iconClassName = 'size-4';
 
   return <IconComponent className={cn(iconClassName, className)} />;
 };

@@ -314,7 +314,7 @@ const Home = () => {
         >
           <div className="text-end">
             <Label
-              variant="title_lg"
+              variant="title-lg"
               className={`${upcomingDashboardData?.main?.extra < 0 && 'text-destructive'}`}
             >
               {formatCurrency({

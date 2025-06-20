@@ -113,12 +113,8 @@ const Charts = () => {
   return (
     <div className="space-y-6 sm:space-y-10">
       <div className="flex flex-row items-center justify-center">
-        <Button
-          variant="ghost"
-          size="sm_rounded_icon"
-          onClick={handlePrevMonth}
-        >
-          <ChevronLeftIcon className="h-4 w-4" />
+        <Button variant="ghost" size="rounded-icon" onClick={handlePrevMonth}>
+          <ChevronLeftIcon className="size-4" />
         </Button>
 
         <DatePicker date={date} onChange={setDate}>
@@ -129,12 +125,8 @@ const Charts = () => {
           </Button>
         </DatePicker>
 
-        <Button
-          variant="ghost"
-          size="sm_rounded_icon"
-          onClick={handleNextMonth}
-        >
-          <ChevronRightIcon className="h-4 w-4" />
+        <Button variant="ghost" size="rounded-icon" onClick={handleNextMonth}>
+          <ChevronRightIcon className="size-4" />
         </Button>
       </div>
 

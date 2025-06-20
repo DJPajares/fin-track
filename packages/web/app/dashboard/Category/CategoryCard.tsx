@@ -35,7 +35,7 @@ const CategoryCard = ({
           {
             <CardIcon
               icon={category.icon}
-              className="text-muted-foreground h-5 w-5 sm:h-6 sm:w-6"
+              className="text-muted-foreground size-5 sm:h-6 sm:w-6"
             />
           }
         </div>
