@@ -12,13 +12,13 @@ type ProviderProps = {
 };
 
 export function Providers({ children }: ProviderProps) {
-  const storeRef = useRef<AppStore>();
+  const storeRef = useRef<AppStore | null>(null);
   if (!storeRef.current) {
     storeRef.current = store();
   }
 
   return (
-    <ReduxProvider store={storeRef.current}>
+    <ReduxProvider store={storeRef.current!}>
       <HeroUIProvider>
         <NextThemesProvider attribute="class" defaultTheme="dark">
           <ClientDataProvider>{children}</ClientDataProvider>
