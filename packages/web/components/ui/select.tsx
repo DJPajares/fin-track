@@ -23,6 +23,13 @@ const selectTriggerVariants = cva(
   },
 );
 
+type SelectTriggerProps = React.ComponentProps<
+  typeof SelectPrimitive.Trigger
+> & {
+  size?: 'sm' | 'default';
+  variant?: VariantProps<typeof selectTriggerVariants>['variant'];
+};
+
 function Select({
   ...props
 }: React.ComponentProps<typeof SelectPrimitive.Root>) {
@@ -47,10 +54,7 @@ function SelectTrigger({
   children,
   variant,
   ...props
-}: React.ComponentProps<typeof SelectPrimitive.Trigger> & {
-  size?: 'sm' | 'default';
-  variant?: VariantProps<typeof selectTriggerVariants>['variant'];
-}) {
+}: SelectTriggerProps) {
   return (
     <SelectPrimitive.Trigger
       data-slot="select-trigger"
@@ -193,6 +197,7 @@ function SelectScrollDownButton({
 }
 
 export {
+  type SelectTriggerProps,
   Select,
   SelectContent,
   SelectGroup,
