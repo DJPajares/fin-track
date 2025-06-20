@@ -1,11 +1,13 @@
 import type { Metadata } from 'next';
 import { Raleway } from 'next/font/google';
-import './globals.css';
-import { Providers } from '../providers/providers';
-import NavBar from '../components/Nav/NavBar';
 import { getLocale, getMessages } from 'next-intl/server';
 import { NextIntlClientProvider } from 'next-intl';
-import { Toaster } from '../components/ui/toaster';
+
+import './globals.css';
+import { Providers } from '../providers/providers';
+
+import NavBar from '../components/Nav/NavBar';
+import { Toaster } from '@web/components/ui/sonner';
 
 const raleway = Raleway({
   subsets: ['latin'],

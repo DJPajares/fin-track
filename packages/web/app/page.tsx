@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import moment from 'moment';
+import { toast } from 'sonner';
+
 import { TrendingUpIcon } from 'lucide-react';
 
 import { CircularProgress } from '@heroui/react';
@@ -28,7 +30,6 @@ import {
   ChartTooltipContent,
 } from '../components/ui/chart';
 
-import { useToast } from '../lib/hooks/use-toast';
 import {
   useGetDashboardDataQuery,
   useGetTransactionsByTypeDateRangeQuery,
@@ -56,7 +57,6 @@ type PreviousSavingsProps = {
 const Home = () => {
   const router = useRouter();
   const isMobile = useIsMobile();
-  const { toast } = useToast();
   const t = useTranslations();
 
   const quotes = t.raw('Page.home.motivation.quotes') as string[]; // Access raw array
@@ -116,9 +116,7 @@ const Home = () => {
   useEffect(() => {
     if (isMockedData) {
       const timeout = setTimeout(() => {
-        toast({
-          variant: 'destructive',
-          title: 'USING MOCKED DATA',
+        toast('USING MOCKED DATA', {
           description:
             "API calls won't work. Adding, modifying, or deleting data within the app will either crash or not work at all.",
         });
