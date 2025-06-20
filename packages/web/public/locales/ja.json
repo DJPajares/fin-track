@@ -139,7 +139,10 @@
       "cancelButton": "キャンセル"
     },
     "label": {
-      "selectPlaceholder": "アイテムを選択"
+      "selectPlaceholder": "アイテムを選択",
+      "noData": "データが見つかりません",
+      "noMoreData": "読み込むデータがありません",
+      "errorLoadingData": "データの読み込みエラー"
     },
     "datePicker": {
       "today": "今日",

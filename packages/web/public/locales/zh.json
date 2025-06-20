@@ -139,7 +139,10 @@
       "cancelButton": "取消"
     },
     "label": {
-      "selectPlaceholder": "选择一个项目"
+      "selectPlaceholder": "选择一个项目",
+      "noData": "未找到数据",
+      "noMoreData": "没有更多数据可加载",
+      "errorLoadingData": "加载数据时出错"
     },
     "datePicker": {
       "today": "今天",

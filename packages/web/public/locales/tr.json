@@ -139,7 +139,10 @@
       "cancelButton": "İptal"
     },
     "label": {
-      "selectPlaceholder": "Bir öğe seçin"
+      "selectPlaceholder": "Bir öğe seçin",
+      "noData": "Veri bulunamadı",
+      "noMoreData": "Yüklenecek başka veri yok",
+      "errorLoadingData": "Veri yükleme hatası"
     },
     "datePicker": {
       "today": "Bugün",

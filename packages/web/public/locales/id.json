@@ -139,7 +139,10 @@
       "cancelButton": "Batal"
     },
     "label": {
-      "selectPlaceholder": "Pilih item"
+      "selectPlaceholder": "Pilih item",
+      "noData": "Tidak ada data ditemukan",
+      "noMoreData": "Tidak ada lagi data untuk dimuat",
+      "errorLoadingData": "Error memuat data"
     },
     "datePicker": {
       "today": "Hari ini",

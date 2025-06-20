@@ -139,7 +139,10 @@
       "cancelButton": "Отмена"
     },
     "label": {
-      "selectPlaceholder": "Выберите элемент"
+      "selectPlaceholder": "Выберите элемент",
+      "noData": "Данные не найдены",
+      "noMoreData": "Больше данных для загрузки нет",
+      "errorLoadingData": "Ошибка загрузки данных"
     },
     "datePicker": {
       "today": "Сегодня",

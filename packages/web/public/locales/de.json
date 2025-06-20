@@ -139,7 +139,10 @@
       "cancelButton": "Abbrechen"
     },
     "label": {
-      "selectPlaceholder": "Wählen Sie ein Element"
+      "selectPlaceholder": "Wählen Sie ein Element",
+      "noData": "Keine Daten gefunden",
+      "noMoreData": "Keine weiteren Daten zum Laden",
+      "errorLoadingData": "Fehler beim Laden der Daten"
     },
     "datePicker": {
       "today": "Heute",

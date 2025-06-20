@@ -139,7 +139,10 @@
       "cancelButton": "Kanselahin"
     },
     "label": {
-      "selectPlaceholder": "Pumili ng item"
+      "selectPlaceholder": "Pumili ng item",
+      "noData": "Walang nahanap na data",
+      "noMoreData": "Walang mas maraming data na ma-load",
+      "errorLoadingData": "Error sa pag-load ng data"
     },
     "datePicker": {
       "today": "Ngayon",

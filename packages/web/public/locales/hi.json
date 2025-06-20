@@ -139,7 +139,10 @@
       "cancelButton": "रद्द करें"
     },
     "label": {
-      "selectPlaceholder": "किसी आइटम का चयन करें"
+      "selectPlaceholder": "किसी आइटम का चयन करें",
+      "noData": "कोई डेटा नहीं मिला",
+      "noMoreData": "लोड करने के लिए कोई और डेटा नहीं",
+      "errorLoadingData": "डेटा लोड करने में त्रुटि"
     },
     "datePicker": {
       "today": "आज",

@@ -139,7 +139,10 @@
       "cancelButton": "Hủy"
     },
     "label": {
-      "selectPlaceholder": "Chọn một mục"
+      "selectPlaceholder": "Chọn một mục",
+      "noData": "Không tìm thấy dữ liệu",
+      "noMoreData": "Không còn dữ liệu để tải",
+      "errorLoadingData": "Lỗi tải dữ liệu"
     },
     "datePicker": {
       "today": "Hôm nay",

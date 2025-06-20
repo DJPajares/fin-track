@@ -219,7 +219,7 @@ const Transactions = () => {
 
             {isFullyFetched && transactions.length > 0 && (
               <div className="py-4 text-center">
-                <Label variant="subtitle" className="text-muted-foreground">
+                <Label variant="title_sm" className="text-muted-foreground">
                   {t('Common.label.noMoreData')}
                 </Label>
               </div>
@@ -227,7 +227,7 @@ const Transactions = () => {
 
             {!isLoading && transactions.length === 0 && (
               <div className="py-4 text-center">
-                <Label variant="subtitle" className="text-muted-foreground">
+                <Label variant="title_sm" className="text-muted-foreground">
                   {t('Common.label.noData')}
                 </Label>
               </div>

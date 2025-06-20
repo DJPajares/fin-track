@@ -139,7 +139,10 @@
       "cancelButton": "ยกเลิก"
     },
     "label": {
-      "selectPlaceholder": "เลือกไอเทม"
+      "selectPlaceholder": "เลือกไอเทม",
+      "noData": "ไม่พบข้อมูล",
+      "noMoreData": "ไม่มีข้อมูลเพิ่มเติมให้โหลด",
+      "errorLoadingData": "เกิดข้อผิดพลาดในการโหลดข้อมูล"
     },
     "datePicker": {
       "today": "วันนี้",
