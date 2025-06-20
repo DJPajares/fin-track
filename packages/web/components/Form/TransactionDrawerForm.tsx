@@ -67,7 +67,7 @@ type TransactionDrawerFormProps = {
   defaultValues?: TransactionFormProps;
   submitTransaction: (data: SubmitTransactionProps) => Promise<void>;
   setIsTransactionDrawerOpen: Dispatch<SetStateAction<boolean>>;
-  formRef: RefObject<HTMLFormElement>;
+  formRef: RefObject<HTMLFormElement | null>;
 };
 
 const TransactionDrawerForm = ({
