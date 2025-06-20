@@ -178,7 +178,7 @@ const Dashboard = () => {
       )}
 
       {/* BALANCE CARD */}
-      <Card className="space-y-2 p-4">
+      <Card className="flex flex-col gap-2 p-4">
         <div className="flex flex-row items-center justify-between">
           <p className="text-xl font-bold sm:text-3xl sm:font-black">
             {t('balance')}

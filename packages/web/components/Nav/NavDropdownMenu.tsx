@@ -16,7 +16,7 @@ import {
   DropdownMenuSub,
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
-  DropdownMenuTrigger
+  DropdownMenuTrigger,
 } from '../ui/dropdown-menu';
 import {
   DollarSignIcon,
@@ -24,7 +24,7 @@ import {
   LogOutIcon,
   MoonIcon,
   SquarePenIcon,
-  SunIcon
+  SunIcon,
 } from 'lucide-react';
 import { Switch } from '../ui/switch';
 
@@ -63,8 +63,8 @@ const NavDropdownMenu = ({ children }: NavDropdownMenuProps) => {
     // store in redux state
     dispatch(
       setDashboardCurrency({
-        currency
-      })
+        currency,
+      }),
     );
   };
 
@@ -79,8 +79,8 @@ const NavDropdownMenu = ({ children }: NavDropdownMenuProps) => {
       <DropdownMenuContent className="w-56" align="end" forceMount>
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
-            <p className="text-sm font-medium leading-none">DJ Pajares</p>
-            <p className="text-xs leading-none text-muted-foreground">
+            <p className="text-sm leading-none font-medium">DJ Pajares</p>
+            <p className="text-muted-foreground text-xs leading-none">
               dj.pajares@gmail.com
             </p>
           </div>
@@ -90,14 +90,14 @@ const NavDropdownMenu = ({ children }: NavDropdownMenuProps) => {
 
         <DropdownMenuGroup>
           <DropdownMenuItem>
-            <SquarePenIcon className="mr-2 h-4 w-4" />
-            <span>{t('editProfile')}</span>
+            <SquarePenIcon className="text-muted-foreground size-4" />
+            {t('editProfile')}
           </DropdownMenuItem>
 
           <DropdownMenuSub>
             <DropdownMenuSubTrigger>
-              <GlobeIcon className="mr-2 h-4 w-4" />
-              <span>{t('language')}</span>
+              <GlobeIcon className="text-muted-foreground mr-2 size-4" />
+              {t('language')}
             </DropdownMenuSubTrigger>
             <DropdownMenuPortal>
               <DropdownMenuSubContent>
@@ -122,8 +122,8 @@ const NavDropdownMenu = ({ children }: NavDropdownMenuProps) => {
 
           <DropdownMenuSub>
             <DropdownMenuSubTrigger>
-              <DollarSignIcon className="mr-2 h-4 w-4" />
-              <span>{t('currency')}</span>
+              <DollarSignIcon className="text-muted-foreground mr-2 size-4" />
+              {t('currency')}
             </DropdownMenuSubTrigger>
             <DropdownMenuPortal>
               <DropdownMenuSubContent>
@@ -147,11 +147,11 @@ const NavDropdownMenu = ({ children }: NavDropdownMenuProps) => {
 
           <DropdownMenuItem>
             {isDarkMode ? (
-              <MoonIcon className="mr-2 h-4 w-4" />
+              <MoonIcon className="text-muted-foreground size-4" />
             ) : (
-              <SunIcon className="mr-2 h-4 w-4" />
+              <SunIcon className="text-muted-foreground size-4" />
             )}
-            <span>{t('darkMode')}</span>
+            {t('darkMode')}
             <DropdownMenuShortcut>
               <Switch
                 checked={isDarkMode}
@@ -165,10 +165,10 @@ const NavDropdownMenu = ({ children }: NavDropdownMenuProps) => {
 
         <DropdownMenuGroup>
           <DropdownMenuItem>
-            <LogOutIcon className="mr-2 h-4 w-4" />
-            <span>{t('logout')}</span>
+            <LogOutIcon className="text-muted-foreground size-4" />
+            {t('logout')}
             <DropdownMenuShortcut>
-              <p className="text-xs leading-none text-muted-foreground">
+              <p className="text-muted-foreground text-xs leading-none">
                 {`v${packageInfo.version}`}
               </p>
             </DropdownMenuShortcut>

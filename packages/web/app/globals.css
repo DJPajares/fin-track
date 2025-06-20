@@ -47,7 +47,7 @@
 
 .dark {
   --radius: 0.5rem;
-  --background: oklch(0.25 0.02 240);
+  --background: oklch(0.05 0.01 240);
   --foreground: oklch(0.97 0.01 240);
   --card: oklch(0.25 0.02 240);
   --card-foreground: oklch(0.97 0.01 240);
