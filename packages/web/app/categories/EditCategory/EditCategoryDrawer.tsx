@@ -1,7 +1,6 @@
 import { ReactNode, useRef, useState } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
 import { useTranslations } from 'next-intl';
 
 import {
@@ -29,17 +28,18 @@ import {
   deleteCategory,
   updateCategory,
 } from '../../../lib/redux/feature/main/mainSlice';
+import { categorySchema } from '../../../lib/schemas/category';
 
 import CardIcon, {
   iconMap,
   type IconProps,
 } from '../../../components/shared/CardIcon';
+import CustomDrawer from '@web/components/shared/CustomDrawer';
 
 import { Trash2Icon } from 'lucide-react';
 
 import type { ListProps } from '../../../types/List';
 import type { CategoryItemProps } from '../../../types/Category';
-import CustomDrawer from '@web/components/shared/CustomDrawer';
 
 type EditCategoryDrawerProps = {
   type?: ListProps;
@@ -66,8 +66,6 @@ const EditCategoryDrawer = ({
   const dispatch = useAppDispatch();
 
   const formRef = useRef<HTMLFormElement>(null);
-
-  const categorySchema = z.custom<CategoryItemProps>();
 
   const form = useForm<CategoryItemProps>({
     resolver: zodResolver(categorySchema),
