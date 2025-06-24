@@ -42,7 +42,7 @@ type FormatCurrencyProps = {
 export const formatCurrency = ({
   value,
   currency = 'PHP',
-  decimal = 0
+  decimal = 0,
 }: FormatCurrencyProps) => {
   const locale =
     currencyLocaleMapping[currency as keyof typeof currencyLocaleMapping];
@@ -50,9 +50,10 @@ export const formatCurrency = ({
   const options: ExtendedNumberFormatOptions = {
     style: 'currency',
     currency,
-    minimumFractionDigits: 0,
+    minimumFractionDigits: decimal,
     maximumFractionDigits: decimal,
-    roundingMode: 'ceil'
+    trailingZeroDisplay: 'stripIfInteger',
+    roundingMode: 'ceil',
   };
 
   return new Intl.NumberFormat(locale, options).format(value);
