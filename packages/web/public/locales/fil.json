@@ -47,7 +47,10 @@
           "title": "Kasalukuyang Pag-unlad"
         },
         "upcomingExtra": {
-          "title": "Paparating na dagdag"
+          "title": "Darating na dagdag"
+        },
+        "previousSavings": {
+          "title": "Mga naunang ipon"
         }
       }
     },
@@ -103,8 +106,9 @@
         "amountLabel": "Halaga"
       },
       "yearly": {
-        "incomeVsExpensesTitle": "Kita laban sa Gastos",
-        "incomeAndExpensesTitle": "Kita at Gastos"
+        "incomeVsExpensesTitle": "Kita vs Gastos",
+        "incomeAndExpensesTitle": "Kita at Gastos",
+        "savingsTitle": "Mga Ipon"
       }
     },
     "transactions": {

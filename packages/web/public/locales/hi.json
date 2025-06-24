@@ -48,6 +48,9 @@
         },
         "upcomingExtra": {
           "title": "आगामी अतिरिक्त"
+        },
+        "previousSavings": {
+          "title": "पिछली बचत"
         }
       }
     },
@@ -103,8 +106,9 @@
         "amountLabel": "राशि"
       },
       "yearly": {
-        "incomeVsExpensesTitle": "आय बनाम व्यय",
-        "incomeAndExpensesTitle": "आय और व्यय"
+        "incomeVsExpensesTitle": "आय बनाम खर्च",
+        "incomeAndExpensesTitle": "आय और खर्च",
+        "savingsTitle": "बचत"
       }
     },
     "transactions": {

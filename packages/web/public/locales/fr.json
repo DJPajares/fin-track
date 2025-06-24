@@ -48,6 +48,9 @@
         },
         "upcomingExtra": {
           "title": "Extra à venir"
+        },
+        "previousSavings": {
+          "title": "Épargnes précédentes"
         }
       }
     },
@@ -104,7 +107,8 @@
       },
       "yearly": {
         "incomeVsExpensesTitle": "Revenus vs Dépenses",
-        "incomeAndExpensesTitle": "Revenus et Dépenses"
+        "incomeAndExpensesTitle": "Revenus et Dépenses",
+        "savingsTitle": "Épargnes"
       }
     },
     "transactions": {

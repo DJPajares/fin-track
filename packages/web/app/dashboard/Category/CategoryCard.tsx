@@ -21,6 +21,8 @@ const CategoryCard = ({
 }: CategoryCardProps) => {
   const t = useTranslations('Page.dashboard.card');
 
+  const { name, icon } = category;
+
   return (
     <Card
       onClick={() => handleCardClick(category)}
@@ -32,12 +34,12 @@ const CategoryCard = ({
             variant="caption"
             className="text-muted-foreground truncate tracking-wide hover:text-clip"
           >
-            {category.name}
+            {name}
           </Label>
 
           {
             <CardIcon
-              icon={category.icon}
+              icon={icon}
               className="text-muted-foreground size-5 sm:h-6 sm:w-6"
             />
           }

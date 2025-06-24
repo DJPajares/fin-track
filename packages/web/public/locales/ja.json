@@ -48,6 +48,9 @@
         },
         "upcomingExtra": {
           "title": "今後の追加"
+        },
+        "previousSavings": {
+          "title": "前回の貯金"
         }
       }
     },
@@ -104,7 +107,8 @@
       },
       "yearly": {
         "incomeVsExpensesTitle": "収入対支出",
-        "incomeAndExpensesTitle": "収入と支出"
+        "incomeAndExpensesTitle": "収入と支出",
+        "savingsTitle": "貯金"
       }
     },
     "transactions": {

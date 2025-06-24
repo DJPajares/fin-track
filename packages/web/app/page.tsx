@@ -198,7 +198,7 @@ const Home = () => {
           />
         </CardDialog>
 
-        <CardDialog title="Previous Savings">
+        <CardDialog title={t('Page.home.cards.previousSavings.title')}>
           {transactionPaymentsByCategoryData?.length ? (
             <ChartContainer config={previousSavingsChartConfig}>
               <BarChart

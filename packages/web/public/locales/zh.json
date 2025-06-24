@@ -48,6 +48,9 @@
         },
         "upcomingExtra": {
           "title": "即将到来的额外"
+        },
+        "previousSavings": {
+          "title": "之前的储蓄"
         }
       }
     },
@@ -103,8 +106,9 @@
         "amountLabel": "金额"
       },
       "yearly": {
-        "incomeVsExpensesTitle": "收入与支出",
-        "incomeAndExpensesTitle": "收入和支出"
+        "incomeVsExpensesTitle": "收入 vs 支出",
+        "incomeAndExpensesTitle": "收入和支出",
+        "savingsTitle": "储蓄"
       }
     },
     "transactions": {

@@ -47,7 +47,10 @@
           "title": "Tiến Độ Hiện Tại"
         },
         "upcomingExtra": {
-          "title": "Sắp tới thêm"
+          "title": "Thêm sắp tới"
+        },
+        "previousSavings": {
+          "title": "Tiết kiệm trước đó"
         }
       }
     },
@@ -103,8 +106,9 @@
         "amountLabel": "Số tiền"
       },
       "yearly": {
-        "incomeVsExpensesTitle": "Thu nhập và Chi tiêu",
-        "incomeAndExpensesTitle": "Thu nhập và Chi phí"
+        "incomeVsExpensesTitle": "Thu nhập vs Chi tiêu",
+        "incomeAndExpensesTitle": "Thu nhập và Chi tiêu",
+        "savingsTitle": "Tiết kiệm"
       }
     },
     "transactions": {

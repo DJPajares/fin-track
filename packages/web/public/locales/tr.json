@@ -48,6 +48,9 @@
         },
         "upcomingExtra": {
           "title": "Yaklaşan ekstra"
+        },
+        "previousSavings": {
+          "title": "Önceki tasarruflar"
         }
       }
     },
@@ -104,7 +107,8 @@
       },
       "yearly": {
         "incomeVsExpensesTitle": "Gelir ve Gider",
-        "incomeAndExpensesTitle": "Gelir ve Giderler"
+        "incomeAndExpensesTitle": "Gelir ve Giderler",
+        "savingsTitle": "Tasarruflar"
       }
     },
     "transactions": {

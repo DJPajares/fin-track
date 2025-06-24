@@ -341,7 +341,7 @@ const Charts = () => {
       {/* CHART C - Savings */}
       <Card>
         <CardHeader className="flex flex-row items-center justify-center">
-          <CardTitle>Savings</CardTitle>
+          <CardTitle>{t('Page.charts.yearly.savingsTitle')}</CardTitle>
         </CardHeader>
         <CardContent className="p-1">
           {savingsData?.length ? (
@@ -368,7 +368,7 @@ const Charts = () => {
               </BarChart>
             </ChartContainer>
           ) : (
-            <Label variant="subtitle">No data available</Label>
+            <Label variant="subtitle">{t('Common.label.noData')}</Label>
           )}
         </CardContent>
       </Card>

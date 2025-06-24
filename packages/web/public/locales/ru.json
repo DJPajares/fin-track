@@ -48,6 +48,9 @@
         },
         "upcomingExtra": {
           "title": "Предстоящий дополнительный"
+        },
+        "previousSavings": {
+          "title": "Предыдущие сбережения"
         }
       }
     },
@@ -104,7 +107,8 @@
       },
       "yearly": {
         "incomeVsExpensesTitle": "Доходы против Расходов",
-        "incomeAndExpensesTitle": "Доходы и Расходы"
+        "incomeAndExpensesTitle": "Доходы и Расходы",
+        "savingsTitle": "Сбережения"
       }
     },
     "transactions": {

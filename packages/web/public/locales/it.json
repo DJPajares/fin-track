@@ -47,7 +47,10 @@
           "title": "Progresso Attuale"
         },
         "upcomingExtra": {
-          "title": "Extra in arrivo"
+          "title": "Extra imminente"
+        },
+        "previousSavings": {
+          "title": "Risparmi precedenti"
         }
       }
     },
@@ -104,7 +107,8 @@
       },
       "yearly": {
         "incomeVsExpensesTitle": "Entrate vs Spese",
-        "incomeAndExpensesTitle": "Entrate e Spese"
+        "incomeAndExpensesTitle": "Entrate e Spese",
+        "savingsTitle": "Risparmi"
       }
     },
     "transactions": {

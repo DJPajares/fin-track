@@ -47,7 +47,10 @@
           "title": "Kemajuan Saat Ini"
         },
         "upcomingExtra": {
-          "title": "Tambahan mendatang"
+          "title": "Ekstra mendatang"
+        },
+        "previousSavings": {
+          "title": "Tabungan sebelumnya"
         }
       }
     },
@@ -104,7 +107,8 @@
       },
       "yearly": {
         "incomeVsExpensesTitle": "Pendapatan vs Pengeluaran",
-        "incomeAndExpensesTitle": "Pendapatan dan Pengeluaran"
+        "incomeAndExpensesTitle": "Pendapatan dan Pengeluaran",
+        "savingsTitle": "Tabungan"
       }
     },
     "transactions": {

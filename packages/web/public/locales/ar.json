@@ -48,6 +48,9 @@
         },
         "upcomingExtra": {
           "title": "الإضافة القادمة"
+        },
+        "previousSavings": {
+          "title": "المدخرات السابقة"
         }
       }
     },
@@ -104,7 +107,8 @@
       },
       "yearly": {
         "incomeVsExpensesTitle": "الدخل مقابل المصروفات",
-        "incomeAndExpensesTitle": "الدخل والمصروفات"
+        "incomeAndExpensesTitle": "الدخل والمصروفات",
+        "savingsTitle": "المدخرات"
       }
     },
     "transactions": {
