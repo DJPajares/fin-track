@@ -82,7 +82,7 @@ const CategoryContent = ({
     <>
       <div className="flex flex-row items-center justify-between gap-2">
         <Card
-          className={`${isTotal ? 'bg-accent' : 'bg-accent/70'} ${isCompleted && 'border-primary/20'} m-0 w-full p-4`}
+          className={`${isTotal && 'bg-accent'} ${isCompleted && 'border-primary/20'} m-0 w-full p-4`}
         >
           <div className="flex flex-row items-center justify-center gap-2">
             <Checkbox

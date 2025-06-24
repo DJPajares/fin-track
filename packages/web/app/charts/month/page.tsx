@@ -144,7 +144,7 @@ const Charts = () => {
 
         {/* CHARTS */}
         <div>
-          <Card className="bg-accent/70 px-1 py-3">
+          <Card>
             <CardHeader className="flex flex-row items-center justify-center">
               <CardTitle>{t('Page.charts.monthly.byCategoryTitle')}</CardTitle>
             </CardHeader>

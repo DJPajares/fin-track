@@ -52,12 +52,7 @@ const CardDialog = ({
   className,
 }: CardDialogProps) => {
   return (
-    <Card
-      className={cn(
-        `bg-accent/70 ${isExpandable && 'cursor-pointer'}`,
-        className,
-      )}
-    >
+    <Card className={cn(`${isExpandable && 'cursor-pointer'}`, className)}>
       {title ? (
         <>
           <CardHeader>

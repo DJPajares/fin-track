@@ -1,12 +1,14 @@
+import { useState } from 'react';
+
 import { Chip } from '@heroui/react';
-import { Card } from '../../../components/ui/card';
+import { Card, CardContent } from '../../../components/ui/card';
+import { Label } from '@web/components/ui/label';
+import CardIcon from '../../../components/shared/CardIcon';
 import EditTransactionDrawer from '../EditTransaction/EditTransactionDrawer';
 
-import CardIcon from '../../../components/shared/CardIcon';
 import { formatCurrency } from '@shared/utilities/formatCurrency';
 
 import type { TransactionProps } from '../../../types/Transaction';
-import { useState } from 'react';
 
 type TransactionCardProps = {
   date: Date;
@@ -24,42 +26,44 @@ const TransactionCard = ({ transaction, date }: TransactionCardProps) => {
         isDrawerOpen={isDrawerOpen}
         setIsDrawerOpen={setIsDrawerOpen}
       >
-        <Card className="bg-accent/70 cursor-pointer p-2">
-          <div className="flex items-center gap-3">
+        <Card className="cursor-pointer">
+          <CardContent className="flex items-center gap-4">
             <CardIcon
               icon={transaction.categoryIcon}
-              className="text-muted-foreground h-8 w-8"
+              className="text-muted-foreground size-8 flex-shrink-0"
             />
 
-            <div className="flex-1">
-              <div className="flex flex-row items-center justify-between">
-                <p className="text-sm font-semibold">{transaction.name}</p>
+            <div className="min-w-0 flex-1">
+              <div className="flex flex-row items-center justify-between gap-2">
+                <Label className="min-w-0 flex-1 truncate text-sm font-semibold">
+                  {transaction.name}
+                </Label>
 
-                <p className="text-sm font-semibold">
+                <Label className="flex-shrink-0 text-sm font-semibold">
                   {formatCurrency({
                     value: transaction.amount,
                     currency: transaction.currencyName,
                     decimal: 2,
                   })}
-                </p>
+                </Label>
               </div>
 
               <div className="flex flex-row items-center justify-between">
-                <p className="text-muted-foreground truncate text-xs hover:text-clip sm:text-base">
+                <Label className="text-muted-foreground truncate text-xs hover:text-clip sm:text-base">
                   {transaction.categoryName}
-                </p>
+                </Label>
 
                 <Chip
                   variant="flat"
                   size="sm"
                   radius="lg"
-                  classNames={{ content: 'font-semibold' }}
+                  classNames={{ content: 'font-bold' }}
                 >
                   {transaction.currencyName}
                 </Chip>
               </div>
             </div>
-          </div>
+          </CardContent>
         </Card>
       </EditTransactionDrawer>
     </div>

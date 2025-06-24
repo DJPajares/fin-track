@@ -251,7 +251,7 @@ const Charts = () => {
       </div>
 
       {/* CHART A */}
-      <Card className="bg-accent/70 px-1 py-3">
+      <Card>
         <CardHeader className="flex flex-row items-center justify-center">
           <CardTitle>{t('Page.charts.yearly.incomeVsExpensesTitle')}</CardTitle>
         </CardHeader>
@@ -301,7 +301,7 @@ const Charts = () => {
       </Card>
 
       {/* CHART B */}
-      <Card className="bg-accent/70 px-1 py-3">
+      <Card>
         <CardHeader className="flex flex-row items-center justify-center">
           <CardTitle>
             {t('Page.charts.yearly.incomeAndExpensesTitle')}
@@ -339,7 +339,7 @@ const Charts = () => {
       </Card>
 
       {/* CHART C - Savings */}
-      <Card className="bg-accent/70 px-1 py-3">
+      <Card>
         <CardHeader className="flex flex-row items-center justify-center">
           <CardTitle>Savings</CardTitle>
         </CardHeader>
