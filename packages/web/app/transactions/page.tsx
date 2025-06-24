@@ -10,7 +10,7 @@ import { useGetTransactionsQuery } from '../../lib/redux/services/transactions';
 
 import { DatePicker } from '../../components/shared/DatePicker';
 import { Button } from '../../components/ui/button';
-import { Label } from '@web/components/ui/label';
+import { Label } from '../../components/ui/label';
 import { CircularProgress, ScrollShadow } from '@heroui/react';
 import { SelectBox } from '../../components/shared/SelectBox';
 import TransactionCard from './Transaction/TransactionCard';
@@ -165,9 +165,12 @@ const Transactions = () => {
 
         <DatePicker date={date} onChange={setDate}>
           <Button variant="ghost" className="px-1">
-            <p className="hover:bg-background text-3xl font-extrabold hover:underline sm:text-5xl sm:font-black">
+            <Label
+              variant="title-xl"
+              className="hover:bg-background hover:underline"
+            >
               {moment(date).format('MMM yyyy')}
-            </p>
+            </Label>
           </Button>
         </DatePicker>
 

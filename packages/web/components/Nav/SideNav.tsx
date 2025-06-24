@@ -1,6 +1,9 @@
 'use client';
 
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
+
+import { ChevronRightIcon, GemIcon } from 'lucide-react';
 
 import {
   Sidebar,
@@ -17,15 +20,14 @@ import {
   SidebarRail,
   useSidebar,
 } from '../ui/sidebar';
-
-import { MENU_ITEMS } from '../../constants/menuItems';
-import { useTranslations } from 'next-intl';
+import { Label } from '../ui/label';
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
 } from '../ui/collapsible';
-import { ChevronRightIcon, GemIcon } from 'lucide-react';
+
+import { MENU_ITEMS } from '../../constants/menuItems';
 
 const SideNav = () => {
   const { setOpenMobile } = useSidebar();
@@ -47,7 +49,7 @@ const SideNav = () => {
                 </div>
 
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  <p className="font-bold text-inherit">FIN-TRACK</p>
+                  <Label className="font-bold text-inherit">FIN-TRACK</Label>
                 </div>
               </SidebarMenuButton>
             </Link>
@@ -79,7 +81,7 @@ const SideNav = () => {
                         </div>
 
                         <div className="grid flex-1 text-left text-sm leading-tight">
-                          <p className="font-medium">{t(item.value)}</p>
+                          <Label className="font-medium">{t(item.value)}</Label>
                         </div>
 
                         <ChevronRightIcon className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
@@ -93,7 +95,7 @@ const SideNav = () => {
                         </div>
 
                         <div className="grid flex-1 text-left text-sm leading-tight">
-                          <p className="font-medium">{t(item.value)}</p>
+                          <Label className="font-medium">{t(item.value)}</Label>
                         </div>
                       </SidebarMenuButton>
                     </Link>
@@ -109,7 +111,9 @@ const SideNav = () => {
                             passHref
                           >
                             <SidebarMenuSubButton size="md" asChild>
-                              <p className="font-medium">{t(subItem.value)}</p>
+                              <Label className="font-medium">
+                                {t(subItem.value)}
+                              </Label>
                             </SidebarMenuSubButton>
                           </Link>
                         </SidebarMenuSubItem>

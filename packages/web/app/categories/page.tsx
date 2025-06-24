@@ -15,6 +15,7 @@ import EditCategoryDrawer from '../../app/categories/EditCategory/EditCategoryDr
 
 import type { CategoryItemProps } from '../../types/Category';
 import type { ListProps } from '../../types/List';
+import { Label } from '@web/components/ui/label';
 
 const baseCategory: CategoryItemProps = {
   _id: '',
@@ -71,9 +72,9 @@ const Categories = () => {
       <div className="space-y-4">
         <div className="space-y-1">
           <div className="flex flex-row items-center justify-between">
-            <h6 className="text-lg font-semibold">
+            <Label variant="title-md" className="font-bold">
               {t('Page.categories.titleCategories').toLocaleUpperCase()}
-            </h6>
+            </Label>
 
             <EditCategoryDrawer
               type={selectedType}
@@ -87,7 +88,7 @@ const Categories = () => {
             </EditCategoryDrawer>
           </div>
 
-          <div className="bg-accent rounded-lg">
+          <div className="bg-card rounded-lg">
             {categories
               .filter(
                 (category) =>
@@ -102,7 +103,7 @@ const Categories = () => {
                   >
                     <div className="hover:bg-border flex cursor-pointer flex-row items-center space-x-4 p-2">
                       <CardIcon icon={category.icon} />
-                      <p>{category.name}</p>
+                      <Label>{category.name}</Label>
                     </div>
                   </EditCategoryDrawer>
 
@@ -113,11 +114,11 @@ const Categories = () => {
         </div>
 
         <div className="space-y-1">
-          <h6 className="text-lg font-semibold">
+          <Label variant="title-md" className="font-bold">
             {t('Page.categories.titleSuggestions').toLocaleUpperCase()}
-          </h6>
+          </Label>
 
-          <div className="bg-accent rounded-lg">
+          <div className="bg-card rounded-lg">
             {categories
               .filter(
                 (category) =>
@@ -131,7 +132,7 @@ const Categories = () => {
                   >
                     <div className="flex flex-row items-center space-x-4">
                       <CardIcon icon={category.icon} />
-                      <p>{category.name}</p>
+                      <Label className="italic">{category.name}</Label>
                     </div>
 
                     <Button variant="ghost" size="rounded-icon">

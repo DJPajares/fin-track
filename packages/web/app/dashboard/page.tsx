@@ -27,6 +27,7 @@ import { formatCurrency } from '@shared/utilities/formatCurrency';
 import { dateStringFormat } from '@shared/constants/dateStringFormat';
 
 import type { DashboardDataCategoryResult } from '../../types/Dashboard';
+import { Label } from '@web/components/ui/label';
 
 const initialTransactionPaymentCategory = {
   _id: '',
@@ -136,9 +137,12 @@ const Dashboard = () => {
 
         <DatePicker date={date} onChange={setDate}>
           <Button variant="ghost" className="px-1">
-            <p className="hover:bg-background text-3xl font-extrabold hover:underline sm:text-5xl sm:font-black">
+            <Label
+              variant="title-xl"
+              className="hover:bg-background hover:underline"
+            >
               {moment(date).format('MMM yyyy')}
-            </p>
+            </Label>
           </Button>
         </DatePicker>
 
@@ -172,36 +176,29 @@ const Dashboard = () => {
       {/* BALANCE CARD */}
       <Card className="flex flex-col gap-2 p-4">
         <div className="flex flex-row items-center justify-between">
-          <p className="text-xl font-bold sm:text-3xl sm:font-black">
-            {t('balance')}
-          </p>
+          <Label variant="title-md">{t('balance')}</Label>
 
           {isFetching ? (
             <Skeleton className="h-6 w-20" />
           ) : (
-            <p className="text-xl font-bold sm:text-3xl sm:font-black">
+            <Label variant="title-md">
               {formatCurrency({
                 value: balance,
                 currency: currency.name,
               })}
-            </p>
+            </Label>
           )}
         </div>
 
         <div className="flex flex-row items-center justify-between">
-          <p className="text-base font-medium sm:text-lg sm:font-semibold">
-            {t('extra')}
-          </p>
+          <Label variant="subtitle-md">{t('extra')}</Label>
 
           {isFetching ? (
             <Skeleton className="h-4 w-20" />
           ) : (
-            <p className="text-base font-medium sm:text-lg sm:font-semibold">
-              {formatCurrency({
-                value: extra,
-                currency: currency.name,
-              })}
-            </p>
+            <Label variant="subtitle-md">
+              {formatCurrency({ value: extra, currency: currency.name })}
+            </Label>
           )}
         </div>
 
@@ -209,36 +206,36 @@ const Dashboard = () => {
 
         <div className="space-y-1">
           <div className="flex flex-row items-center justify-end space-x-2">
-            <p className="text-sm font-normal sm:text-base sm:font-medium">
+            <Label variant="subtitle-md" className="italic">
               {t('settled')}:
-            </p>
+            </Label>
 
             {isFetching ? (
               <Skeleton className="h-5 w-16" />
             ) : (
-              <p className="text-sm font-semibold sm:text-base sm:font-bold">
+              <Label variant="subtitle-md">
                 {formatCurrency({
                   value: totalPaidAmount,
                   currency: currency.name,
                 })}
-              </p>
+              </Label>
             )}
           </div>
 
           <div className="flex flex-row items-center justify-end space-x-2">
-            <p className="text-sm font-normal sm:text-base sm:font-medium">
+            <Label variant="subtitle-md" className="italic">
               {t('unsettled')}:
-            </p>
+            </Label>
 
             {isFetching ? (
               <Skeleton className="h-5 w-16" />
             ) : (
-              <p className="text-sm font-semibold sm:text-base sm:font-bold">
+              <Label variant="subtitle-md">
                 {formatCurrency({
                   value: totalAmount - totalPaidAmount,
                   currency: currency.name,
                 })}
-              </p>
+              </Label>
             )}
           </div>
         </div>

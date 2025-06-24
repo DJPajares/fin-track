@@ -31,6 +31,7 @@ import {
 import { Input } from '../ui/input';
 import { Button } from '../ui/button';
 import { Calendar } from '../ui/calendar';
+import { Label } from '../ui/label';
 import { MultiSelectBox } from '../shared/MultiSelectBox';
 
 import { CalendarIcon } from 'lucide-react';
@@ -327,13 +328,13 @@ const TransactionDrawerForm = ({
                           variant="outline"
                           className="text-left font-normal"
                         >
-                          <p className="pr-2">
+                          <Label>
                             {field.value ? (
                               format(field.value, 'MMM yyyy')
                             ) : (
                               <span>{isRecurring ? 'Start date' : 'Date'}</span>
                             )}
-                          </p>
+                          </Label>
                           <CalendarIcon className="ml-auto size-4 opacity-50" />
                         </Button>
                       </FormControl>
@@ -379,13 +380,13 @@ const TransactionDrawerForm = ({
                             variant="outline"
                             className="text-left font-normal"
                           >
-                            <p className="pr-2">
+                            <Label>
                               {field.value ? (
                                 format(field.value, 'MMM yyyy')
                               ) : (
                                 <span>End date</span>
                               )}
-                            </p>
+                            </Label>
                             <CalendarIcon className="ml-auto size-4 opacity-50" />
                           </Button>
                         </FormControl>

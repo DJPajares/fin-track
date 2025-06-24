@@ -366,59 +366,6 @@ const Charts = () => {
                 />
                 <Bar dataKey="amount" fill="var(--primary)" />
               </BarChart>
-              {/* <BarChart
-                accessibilityLayer
-                data={ savingsChartData }
-                layout="vertical"
-                margin={ {
-                  right: 40,
-                } }
-              >
-                <CartesianGrid horizontal={ false } />
-                <YAxis dataKey="month" type="category" hide />
-                <XAxis dataKey="amount" type="number" hide />
-                <ChartTooltip
-                  cursor={ false }
-                  content={
-                    <ChartTooltipContent
-                      formatter={ (value) => {
-                        return (
-                          <span className="flex flex-col justify-between">
-                            <p
-                              className={ `${ parseFloat(value.toString()) < 0 && 'text-destructive' } 'font-semibold'` }
-                            >
-                              { formatCurrency({
-                                value: parseFloat(value.toString()),
-                                currency: currency.name,
-                              }) }
-                            </p>
-                          </span>
-                        );
-                      } }
-                    />
-                  }
-                />
-                <Bar
-                  dataKey="amount"
-                  layout="vertical"
-                  fill="var(--primary)"
-                >
-                  <LabelList
-                    dataKey="month"
-                    position="insideLeft"
-                    className="fill-primary-foreground tracking-tighter"
-                  />
-                  <LabelList
-                    dataKey="amount"
-                    position="right"
-                    className="fill-foreground"
-                    fontSize={ 9 }
-                    formatter={ (value: number) =>
-                      formatCurrency({ value, currency: currency.name })
-                    }
-                  />
-                </Bar>
-              </BarChart> */}
             </ChartContainer>
           ) : (
             <Label variant="subtitle">No data available</Label>

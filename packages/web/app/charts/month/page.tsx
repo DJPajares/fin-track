@@ -7,9 +7,10 @@ import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
 import { useAppSelector } from '../../../lib/hooks/use-redux';
 import { useIsMobile } from '../../../lib/hooks/use-mobile';
 
-import { Cell, Label, Pie, PieChart } from 'recharts';
+import { Cell, Label as ChartLabel, Pie, PieChart } from 'recharts';
 import { DatePicker } from '../../../components/shared/DatePicker';
 import { Button } from '../../../components/ui/button';
+import { Label } from '../../../components/ui/label';
 import {
   Card,
   CardContent,
@@ -31,11 +32,11 @@ import {
   TransactionsDateByCategoryProps,
 } from '../../../services/fetchTransactions';
 
+import { dateStringFormat } from '@shared/constants/dateStringFormat';
 import { CHART_COLORS } from '../../../constants/chartColorPalettes';
 import { formatCurrency } from '@shared/utilities/formatCurrency';
 
 import type { ListProps } from '../../../types/List';
-import { dateStringFormat } from '@shared/constants/dateStringFormat';
 
 type TransactionByCategory = {
   category: string;
@@ -119,9 +120,12 @@ const Charts = () => {
 
         <DatePicker date={date} onChange={setDate}>
           <Button variant="ghost" className="px-1">
-            <p className="hover:bg-background text-3xl font-extrabold hover:underline sm:text-5xl sm:font-black">
+            <Label
+              variant="title-xl"
+              className="hover:bg-background hover:underline"
+            >
               {moment(date).format('MMM yyyy')}
-            </p>
+            </Label>
           </Button>
         </DatePicker>
 
@@ -170,7 +174,7 @@ const Charts = () => {
                       />
                     ))}
 
-                    <Label
+                    <ChartLabel
                       content={({ viewBox }) => {
                         if (viewBox && 'cx' in viewBox && 'cy' in viewBox) {
                           return (
@@ -210,13 +214,13 @@ const Charts = () => {
                         formatter={(value, name) => {
                           return (
                             <div className="flex flex-col justify-between">
-                              <p className="font-medium">{name}</p>
-                              <p className="font-semibold">
+                              <Label className="font-bold">{name}</Label>
+                              <Label className="italic">
                                 {formatCurrency({
                                   value: parseFloat(value.toString()),
                                   currency: currency.name,
                                 })}
-                              </p>
+                              </Label>
                             </div>
                           );
                         }}
@@ -228,7 +232,7 @@ const Charts = () => {
                   />
                   <ChartLegend
                     content={<ChartLegendContent />}
-                    className="basis-1/4 flex-wrap justify-end gap-1"
+                    className="basis-1/4 flex-wrap justify-start gap-1"
                   />
                 </PieChart>
               </ChartContainer>

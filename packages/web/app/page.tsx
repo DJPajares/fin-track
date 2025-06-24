@@ -221,14 +221,14 @@ const Home = () => {
                       formatter={(value) => {
                         return (
                           <span className="flex flex-col justify-between">
-                            <p
+                            <Label
                               className={`${parseFloat(value.toString()) < 0 && 'text-destructive'} 'font-semibold'`}
                             >
                               {formatCurrency({
                                 value: parseFloat(value.toString()),
                                 currency: currency.name,
                               })}
-                            </p>
+                            </Label>
                           </span>
                         );
                       }}

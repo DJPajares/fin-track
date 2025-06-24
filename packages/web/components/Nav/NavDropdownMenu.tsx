@@ -18,6 +18,7 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from '../ui/dropdown-menu';
+import { Label } from '../ui/label';
 import {
   DollarSignIcon,
   GlobeIcon,
@@ -79,10 +80,12 @@ const NavDropdownMenu = ({ children }: NavDropdownMenuProps) => {
       <DropdownMenuContent className="w-56" align="end" forceMount>
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
-            <p className="text-sm leading-none font-medium">DJ Pajares</p>
-            <p className="text-muted-foreground text-xs leading-none">
+            <Label variant="title-sm" className="font-bold">
+              DJ Pajares
+            </Label>
+            <Label variant="caption" className="text-muted-foreground">
               dj.pajares@gmail.com
-            </p>
+            </Label>
           </div>
         </DropdownMenuLabel>
 
@@ -110,9 +113,12 @@ const NavDropdownMenu = ({ children }: NavDropdownMenuProps) => {
                       checked={isSelected}
                       onClick={() => handleLanguageChange(language.value)}
                     >
-                      <p className={`${isSelected && 'font-bold'}`}>
+                      <Label
+                        variant="subtitle-md"
+                        className={`${isSelected && 'font-bold'}`}
+                      >
                         {language.label}
-                      </p>
+                      </Label>
                     </DropdownMenuCheckboxItem>
                   );
                 })}
@@ -135,9 +141,12 @@ const NavDropdownMenu = ({ children }: NavDropdownMenuProps) => {
                       checked={isSelected}
                       onClick={() => handleCurrencyChange(currency)}
                     >
-                      <p className={`${isSelected && 'font-bold'}`}>
+                      <Label
+                        variant="subtitle-md"
+                        className={`${isSelected && 'font-bold'}`}
+                      >
                         {currency.name}
-                      </p>
+                      </Label>
                     </DropdownMenuCheckboxItem>
                   );
                 })}
@@ -168,9 +177,9 @@ const NavDropdownMenu = ({ children }: NavDropdownMenuProps) => {
             <LogOutIcon className="text-muted-foreground size-4" />
             {t('logout')}
             <DropdownMenuShortcut>
-              <p className="text-muted-foreground text-xs leading-none">
+              <Label variant="caption" className="text-muted-foreground">
                 {`v${packageInfo.version}`}
-              </p>
+              </Label>
             </DropdownMenuShortcut>
           </DropdownMenuItem>
         </DropdownMenuGroup>

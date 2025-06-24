@@ -12,6 +12,7 @@ import {
 } from '../../../components/ui/dialog';
 import { Input } from '../../../components/ui/input';
 import { Button } from '../../../components/ui/button';
+import { Label } from '../../../components/ui/label';
 
 import { formatCurrency } from '@shared/utilities/formatCurrency';
 
@@ -102,15 +103,12 @@ const CategoryContent = ({
               onClick={() => setOpenDialog(!isTotal)}
             >
               <div className="flex-1 space-y-1">
-                <p
-                  className={`${
-                    isTotal
-                      ? 'text-lg font-extrabold sm:text-xl sm:font-extrabold'
-                      : 'text-base font-bold sm:text-lg sm:font-bold'
-                  }`}
+                <Label
+                  variant="title-md"
+                  className={`${isTotal && 'font-extrabold'}`}
                 >
                   {name}
-                </p>
+                </Label>
 
                 <Progress
                   label={label}
@@ -145,10 +143,10 @@ const CategoryContent = ({
             </DialogDescription>
           </DialogHeader>
 
-          <div className="space-y-4">
-            <p className="font-semibold sm:text-lg sm:font-bold">{name}</p>
+          <div className="flex flex-col gap-2">
+            <Label variant="title-sm">{name}</Label>
 
-            <div className="space-y-2">
+            <div className="flex flex-col gap-2">
               <Input
                 type="number"
                 inputMode="decimal"
@@ -158,7 +156,7 @@ const CategoryContent = ({
               />
 
               <span className="flex flex-row justify-end">
-                <p className="text-sm font-medium">
+                <Label variant="caption">
                   {t('Page.dashboard.cardDrawer.content.outOf', {
                     amount: formatCurrency({
                       value: amount,
@@ -166,7 +164,7 @@ const CategoryContent = ({
                       decimal: 2,
                     }),
                   })}
-                </p>
+                </Label>
               </span>
             </div>
           </div>
