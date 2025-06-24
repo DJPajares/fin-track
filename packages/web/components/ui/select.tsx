@@ -8,7 +8,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@web/lib/utils';
 
 const selectTriggerVariants = cva(
-  'group flex h-10 w-full items-center justify-between border-input whitespace-nowrap rounded-md px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1',
+  'group flex h-9 w-full items-center justify-between border-input whitespace-nowrap rounded-md px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1',
   {
     variants: {
       variant: {
