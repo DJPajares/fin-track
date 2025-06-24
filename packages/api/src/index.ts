@@ -13,12 +13,6 @@ const port = process.env.PORT;
 const databaseUrl =
   process.env.DATABASE_URL || 'mongodb://localhost:27017/fintrack';
 
-// const corsOptions = {
-//   origin: 'http://localhost:3000',
-//   credentials: true, //access-control-allow-credentials:true
-//   optionSuccessStatus: 200
-// };
-
 // Middleware
 app.use(cors());
 app.use(express.json());

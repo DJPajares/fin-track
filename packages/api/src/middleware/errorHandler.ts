@@ -39,22 +39,21 @@ const errorHandler = (
 ) => {
   if (error.name === 'ValidationError') {
     validationErrorHandler(error as ValidationError, res);
+    return;
   }
 
   if (error.name === 'MongoServerError') {
     if ((error as MongoServerError).code === 11000) {
       mongoServerErrorHandler(error, res);
     } else {
-      // return res.status(500).send({
-      //   message: error.errmsg,
-      // });
-      return res.status(500).send({
+      res.status(500).send({
         message: (error as MongoServerError).message,
       });
     }
+    return;
   }
 
-  return res.status(500).send({
+  res.status(500).send({
     message: 'Something went wrong',
     error,
   });
