@@ -5,6 +5,7 @@ import Link from 'next/link';
 
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 import { SidebarInset, SidebarProvider, SidebarTrigger } from '../ui/sidebar';
+import { Label } from '../ui/label';
 
 import SideNav from './SideNav';
 import NavDropdownMenu from './NavDropdownMenu';
@@ -50,7 +51,9 @@ const NavBar = ({ children }: NavBarProps) => {
           <SidebarTrigger className="-ml-1" />
 
           <Link href="/">
-            <p className="font-bold text-inherit">FIN-TRACK</p>
+            <Label variant="title-md" className="font-bold">
+              FIN-TRACK
+            </Label>
           </Link>
 
           <NavDropdownMenu>
