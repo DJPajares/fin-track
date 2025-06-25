@@ -25,7 +25,7 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from '../ui/collapsible';
-import { ChevronRightIcon, GemIcon } from 'lucide-react';
+import { ChevronRightIcon, TrendingUpIcon } from 'lucide-react';
 
 const SideNav = () => {
   const { setOpenMobile } = useSidebar();
@@ -43,7 +43,7 @@ const SideNav = () => {
             <Link href="/" onClick={handleLinkClick} passHref>
               <SidebarMenuButton size="lg">
                 <div className="bg-primary text-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
-                  <GemIcon className="size-4" />
+                  <TrendingUpIcon className="size-5" />
                 </div>
 
                 <div className="grid flex-1 text-left text-sm leading-tight">
