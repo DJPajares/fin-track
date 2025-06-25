@@ -215,6 +215,7 @@ const TransactionDrawerForm = ({
                   placeholder={t(
                     'Page.dashboard.transactionDrawer.form.placeholder.title',
                   )}
+                  autoComplete="off"
                   {...field}
                 />
               </FormControl>
