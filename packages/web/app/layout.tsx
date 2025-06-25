@@ -1,27 +1,13 @@
 import type { Metadata } from 'next';
-import { Raleway } from 'next/font/google';
 import { getLocale, getMessages } from 'next-intl/server';
 import { NextIntlClientProvider } from 'next-intl';
 
 import './globals.css';
 import { Providers } from '../providers/providers';
+import { raleway } from '../lib/fonts';
 
 import NavBar from '../components/Nav/NavBar';
 import { Toaster } from '@web/components/ui/sonner';
-
-const raleway = Raleway({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-raleway',
-  fallback: [
-    'system-ui',
-    'Segoe UI',
-    'Roboto',
-    'Helvetica Neue',
-    'Arial',
-    'sans-serif',
-  ],
-});
 
 export const metadata: Metadata = {
   title: 'Fin-Track',
