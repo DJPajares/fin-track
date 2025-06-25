@@ -20,7 +20,12 @@ export function Providers({ children }: ProviderProps) {
   return (
     <ReduxProvider store={storeRef.current!}>
       <HeroUIProvider>
-        <NextThemesProvider attribute="class" defaultTheme="dark">
+        <NextThemesProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
           <ClientDataProvider>{children}</ClientDataProvider>
         </NextThemesProvider>
       </HeroUIProvider>
