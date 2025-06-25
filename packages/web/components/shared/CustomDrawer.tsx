@@ -50,7 +50,10 @@ const CustomDrawer = ({
             <DrawerTrigger asChild>{triggerChildren}</DrawerTrigger>
           )}
 
-          <DrawerContent className="h-[97%]" aria-describedby="">
+          <DrawerContent
+            className="h-[97%] data-[vaul-drawer-direction=bottom]:max-h-[100vh]"
+            aria-describedby=""
+          >
             <div className="mx-auto w-full max-w-sm">
               <div className="flex flex-row items-center justify-between py-2">
                 <ConfirmationDialog handleSubmit={handleSubmit}>
