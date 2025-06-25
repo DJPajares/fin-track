@@ -9,6 +9,9 @@ export const getDatabaseConfig = (): DatabaseConfig => {
   const gitBranch = process.env.VERCEL_GIT_COMMIT_REF;
   const isVercel = process.env.VERCEL === '1';
 
+  console.log('gitBranch', gitBranch);
+  console.log('isVercel', isVercel);
+
   // Local development
   if (!isVercel) {
     return {
