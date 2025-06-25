@@ -80,9 +80,7 @@ const NavDropdownMenu = ({ children }: NavDropdownMenuProps) => {
       <DropdownMenuContent className="w-56" align="end" forceMount>
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
-            <Label variant="title-sm" className="font-bold">
-              DJ Pajares
-            </Label>
+            <Label variant="subtitle-md">DJ Pajares</Label>
             <Label variant="caption" className="text-muted-foreground">
               dj.pajares@gmail.com
             </Label>

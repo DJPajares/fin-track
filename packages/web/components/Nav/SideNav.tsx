@@ -45,11 +45,11 @@ const SideNav = () => {
             <Link href="/" onClick={handleLinkClick} passHref>
               <SidebarMenuButton size="lg">
                 <div className="bg-primary text-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
-                  <TrendingUpIcon className="size-5" />
+                  <TrendingUpIcon className="size-4" />
                 </div>
 
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  <Label className="font-bold text-inherit">FIN-TRACK</Label>
+                  <Label variant="title-sm">FIN-TRACK</Label>
                 </div>
               </SidebarMenuButton>
             </Link>

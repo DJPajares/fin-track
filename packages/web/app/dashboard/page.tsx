@@ -176,7 +176,7 @@ const Dashboard = () => {
       {/* BALANCE CARD */}
       <Card className="flex flex-col gap-2 p-4">
         <div className="flex flex-row items-center justify-between">
-          <Label variant="title-md">{t('balance')}</Label>
+          <Label variant="title-sm">{t('balance')}</Label>
 
           {isFetching ? (
             <Skeleton className="h-6 w-20" />

@@ -51,9 +51,7 @@ const NavBar = ({ children }: NavBarProps) => {
           <SidebarTrigger className="-ml-1" />
 
           <Link href="/">
-            <Label variant="title-md" className="font-bold">
-              FIN-TRACK
-            </Label>
+            <Label variant="title-md">FIN-TRACK</Label>
           </Link>
 
           <NavDropdownMenu>

@@ -104,7 +104,7 @@ const CategoryContent = ({
             >
               <div className="flex-1 space-y-1">
                 <Label
-                  variant="title-md"
+                  variant="title-sm"
                   className={`${isTotal && 'font-extrabold'}`}
                 >
                   {name}
