@@ -12,12 +12,6 @@ const app = express();
 
 const port = process.env.PORT || 3000;
 
-// const corsOptions = {
-//   origin: 'http://localhost:3000',
-//   credentials: true, //access-control-allow-credentials:true
-//   optionSuccessStatus: 200
-// };
-
 // Middleware
 app.use(cors());
 app.use(express.json());
