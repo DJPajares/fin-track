@@ -111,7 +111,7 @@ fin-track/
 1. **Clone the repository**
 
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/DJPajares/fin-track.git
    cd fin-track
    ```
 
