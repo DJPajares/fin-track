@@ -13,6 +13,14 @@ const raleway = Raleway({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-raleway',
+  fallback: [
+    'system-ui',
+    'Segoe UI',
+    'Roboto',
+    'Helvetica Neue',
+    'Arial',
+    'sans-serif',
+  ],
 });
 
 export const metadata: Metadata = {
