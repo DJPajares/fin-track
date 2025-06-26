@@ -38,11 +38,21 @@
   --sidebar-accent-foreground: oklch(0.3 0.02 240);
   --sidebar-border: oklch(0.9 0.01 240);
   --sidebar-ring: oklch(0.6 0.15 240);
-  --chart-1: oklch(0.65 0.15 15);
-  --chart-2: oklch(0.6 0.12 180);
-  --chart-3: oklch(0.4 0.08 200);
-  --chart-4: oklch(0.7 0.15 85);
-  --chart-5: oklch(0.7 0.15 30);
+  --chart-1: oklch(0.6547 0.2076 36.33);
+  --chart-2: oklch(0.7945 0.171 71.19);
+  --chart-3: oklch(0.6999 0.191 24.11);
+  --chart-4: oklch(0.5897 0.157 346.36);
+  --chart-5: oklch(0.4674 0.097 288.06);
+  --chart-6: oklch(0.65 0.15 120);
+  --chart-7: oklch(0.7 0.15 180);
+  --chart-8: oklch(0.65 0.15 240);
+  --chart-9: oklch(0.6 0.15 300);
+  --chart-10: oklch(0.55 0.15 360);
+  --chart-11: oklch(0.65 0.15 60);
+  --chart-12: oklch(0.7 0.15 150);
+  --chart-13: oklch(0.6 0.15 210);
+  --chart-14: oklch(0.55 0.15 270);
+  --chart-15: oklch(0.65 0.15 330);
 }
 
 .dark {
@@ -76,11 +86,21 @@
   --sidebar-accent-foreground: oklch(0.97 0.01 240);
   --sidebar-border: oklch(0.25 0.01 240);
   --sidebar-ring: oklch(0.6 0.15 240);
-  --chart-1: oklch(0.6 0.15 240);
-  --chart-2: oklch(0.55 0.12 160);
-  --chart-3: oklch(0.65 0.15 30);
-  --chart-4: oklch(0.7 0.15 280);
-  --chart-5: oklch(0.65 0.15 340);
+  --chart-1: oklch(0.55 0.12 165);
+  --chart-2: oklch(0.5 0.12 300);
+  --chart-3: oklch(0.7 0.15 85);
+  --chart-4: oklch(0.65 0.15 30);
+  --chart-5: oklch(0.6 0.15 240);
+  --chart-6: oklch(0.55 0.12 120);
+  --chart-7: oklch(0.7 0.15 280);
+  --chart-8: oklch(0.65 0.15 340);
+  --chart-9: oklch(0.5 0.12 200);
+  --chart-10: oklch(0.6 0.15 60);
+  --chart-11: oklch(0.7 0.15 160);
+  --chart-12: oklch(0.55 0.12 220);
+  --chart-13: oklch(0.65 0.15 100);
+  --chart-14: oklch(0.5 0.12 320);
+  --chart-15: oklch(0.6 0.15 180);
 }
 
 @theme inline {
@@ -108,6 +128,16 @@
   --color-chart-3: var(--chart-3);
   --color-chart-4: var(--chart-4);
   --color-chart-5: var(--chart-5);
+  --color-chart-6: var(--chart-6);
+  --color-chart-7: var(--chart-7);
+  --color-chart-8: var(--chart-8);
+  --color-chart-9: var(--chart-9);
+  --color-chart-10: var(--chart-10);
+  --color-chart-11: var(--chart-11);
+  --color-chart-12: var(--chart-12);
+  --color-chart-13: var(--chart-13);
+  --color-chart-14: var(--chart-14);
+  --color-chart-15: var(--chart-15);
   --color-sidebar: var(--sidebar);
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar-primary: var(--sidebar-primary);

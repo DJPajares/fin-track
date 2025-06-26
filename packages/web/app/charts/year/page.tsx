@@ -290,7 +290,7 @@ const Charts = () => {
               />
               <Bar
                 dataKey="incomeVsExpenses"
-                fill="var(--color-incomeVsExpenses)"
+                fill="var(--chart-1)"
                 radius={2}
               />
               {/* <ReferenceLine y={0} stroke="var(--primary)" /> */}
@@ -331,8 +331,8 @@ const Charts = () => {
                 content={<ChartTooltipContent hideIndicator />}
               />
               <ChartLegend content={<ChartLegendContent />} />
-              <Bar dataKey="income" fill="var(--color-income)" radius={2} />
-              <Bar dataKey="expense" fill="var(--color-expense)" radius={2} />
+              <Bar dataKey="income" fill="var(--chart-1)" radius={2} />
+              <Bar dataKey="expense" fill="var(--chart-2)" radius={2} />
             </BarChart>
           </ChartContainer>
         </CardContent>
@@ -364,7 +364,7 @@ const Charts = () => {
                     />
                   }
                 />
-                <Bar dataKey="amount" fill="var(--primary)" />
+                <Bar dataKey="amount" fill="var(--chart-1)" />
               </BarChart>
             </ChartContainer>
           ) : (

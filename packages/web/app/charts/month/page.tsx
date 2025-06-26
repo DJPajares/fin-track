@@ -33,7 +33,6 @@ import {
 } from '../../../services/fetchTransactions';
 
 import { dateStringFormat } from '@shared/constants/dateStringFormat';
-import { CHART_COLORS } from '../../../constants/chartColorPalettes';
 import { formatCurrency } from '@shared/utilities/formatCurrency';
 
 import type { ListProps } from '../../../types/List';
@@ -170,7 +169,7 @@ const Charts = () => {
                     {chartData.map((entry, index) => (
                       <Cell
                         key={`cell-${index}`}
-                        fill={CHART_COLORS[index % CHART_COLORS.length]}
+                        fill={`var(--chart-${(index % 15) + 1})`}
                       />
                     ))}
 

@@ -241,9 +241,9 @@ const Home = () => {
                   >
                     <Area
                       dataKey="amount"
-                      fill="var(--primary)"
+                      fill="var(--chart-1)"
                       fillOpacity={0.1}
-                      stroke="var(--primary)"
+                      stroke="var(--chart-1)"
                       strokeWidth={2}
                       type="monotone"
                       baseValue="dataMin"
@@ -283,9 +283,9 @@ const Home = () => {
                   >
                     <Area
                       dataKey="extra"
-                      fill="var(--primary)"
+                      fill="var(--chart-1)"
                       fillOpacity={0.1}
-                      stroke="var(--primary)"
+                      stroke="var(--chart-1)"
                       strokeWidth={2}
                       type="monotone"
                       baseValue="dataMin"
