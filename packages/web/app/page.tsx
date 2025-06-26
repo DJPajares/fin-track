@@ -12,23 +12,15 @@ import { CircularProgress } from '@heroui/react';
 import { Button } from '../components/ui/button';
 import CardDialog from '../components/shared/CardDialog';
 import { Separator } from '../components/ui/separator';
-import { Label } from '../components/ui/label';
+import { Area, AreaChart } from 'recharts';
+import { ChartConfig, ChartContainer } from '../components/ui/chart';
 import {
-  Bar,
-  BarChart,
-  CartesianGrid,
-  Cell,
-  LabelList,
-  ReferenceLine,
-  XAxis,
-  YAxis,
-} from 'recharts';
-import {
-  ChartConfig,
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-} from '../components/ui/chart';
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@web/components/ui/card';
 
 import {
   useGetDashboardDataQuery,
@@ -36,7 +28,6 @@ import {
   useGetTransactionPaymentsByCategoryQuery,
 } from '../lib/redux/services/dashboard';
 import { useAppSelector } from '../lib/hooks/use-redux';
-import { useIsMobile } from '../lib/hooks/use-mobile';
 
 import { formatCurrency } from '@shared/utilities/formatCurrency';
 
@@ -56,7 +47,6 @@ type PreviousSavingsProps = {
 
 const Home = () => {
   const router = useRouter();
-  const isMobile = useIsMobile();
   const t = useTranslations();
 
   const quotes = t.raw('Page.home.motivation.quotes') as string[]; // Access raw array
@@ -74,30 +64,30 @@ const Home = () => {
 
   const date = new Date();
 
-  const { data: dashboardData } = useGetDashboardDataQuery({
-    date,
-    currency: currency.name,
-  });
-
-  const { data: upcomingDashboardData } = useGetDashboardDataQuery({
-    date: moment(date).add(1, 'months'),
-    currency: currency.name,
-  });
-
-  const { data: transactionsByTypeData } =
-    useGetTransactionsByTypeDateRangeQuery({
-      startDate: moment(date).add(1, 'months').toDate(),
-      endDate: moment(date).add(3, 'months').toDate(),
+  const { data: dashboardData, isFetching: isDashboardDataFetching } =
+    useGetDashboardDataQuery({
+      date,
       currency: currency.name,
     });
 
-  const { data: transactionPaymentsByCategoryData } =
-    useGetTransactionPaymentsByCategoryQuery({
-      startDate: moment(date).subtract(2, 'months').toDate(),
-      endDate: date,
-      currency: currency.name,
-      category: 'savings',
-    });
+  const {
+    data: transactionsByTypeData,
+    isFetching: isTransactionsByTypeDataFetching,
+  } = useGetTransactionsByTypeDateRangeQuery({
+    startDate: moment(date).add(1, 'months').toDate(),
+    endDate: moment(date).add(3, 'months').toDate(),
+    currency: currency.name,
+  });
+
+  const {
+    data: transactionPaymentsByCategoryData,
+    isFetching: isTransactionPaymentsByCategoryDataFetching,
+  } = useGetTransactionPaymentsByCategoryQuery({
+    startDate: moment(date).subtract(2, 'months').toDate(),
+    endDate: date,
+    currency: currency.name,
+    category: 'savings',
+  });
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -132,7 +122,8 @@ const Home = () => {
         ? transactionsByTypeData.map((transaction) => {
             const yearMonth = moment(transaction.date).format('MMM YYYY');
             const month = moment(transaction.date).format('MMM');
-            const extra = transaction.income - transaction.expense;
+            const extra =
+              (transaction.income || 0) - (transaction.expense || 0);
 
             return {
               month,
@@ -177,169 +168,152 @@ const Home = () => {
     },
   } satisfies ChartConfig;
 
+  // Calculate average extra per month
+  const averageExtra =
+    upcomingExtras.length > 0
+      ? upcomingExtras.reduce((sum, item) => sum + item.extra, 0) /
+        upcomingExtras.length
+      : 0;
+
+  // Calculate average savings per month
+  const averageSavings =
+    previousSavings.length > 0
+      ? previousSavings.reduce((sum, item) => sum + item.amount, 0) /
+        previousSavings.length
+      : 0;
+
   return (
     <div className="space-y-6 py-4 sm:space-y-8">
-      <div className="grid auto-rows-fr grid-cols-2 gap-5 sm:grid-cols-3 sm:gap-10">
-        <CardDialog
-          className="flex flex-col items-center justify-center"
-          isExpandable
-        >
-          <CircularProgress
-            classNames={{
-              svg: 'w-24 h-24 drop-shadow-md',
-              value: 'text-2xl font-semibold',
-              indicator: 'stroke-primary',
-              label: 'text-center font-extralight tracking-wider',
-            }}
-            label={t('Page.home.cards.progress.title')}
-            value={dashboardData?.main?.paymentCompletionRate * 100 || 0}
-            strokeWidth={3}
-            showValueLabel={true}
-          />
-        </CardDialog>
-
-        <CardDialog title={t('Page.home.cards.previousSavings.title')}>
-          {transactionPaymentsByCategoryData?.length ? (
-            <ChartContainer config={previousSavingsChartConfig}>
-              <BarChart
-                accessibilityLayer
-                data={previousSavings}
-                layout="vertical"
-                margin={{
-                  // top: 5,
-                  // left: -30,
-                  right: 40,
+      {isDashboardDataFetching ||
+      isTransactionsByTypeDataFetching ||
+      isTransactionPaymentsByCategoryDataFetching ? (
+        <div className="flex flex-col items-center space-y-2">
+          <CircularProgress size="lg" aria-label="Loading more..." />
+        </div>
+      ) : (
+        <>
+          <div className="grid auto-rows-fr grid-cols-2 gap-5 sm:grid-cols-3 sm:gap-10">
+            <CardDialog
+              className="flex flex-col items-center justify-center"
+              isExpandable
+            >
+              <CircularProgress
+                classNames={{
+                  svg: 'w-24 h-24 drop-shadow-md',
+                  value: 'text-2xl font-semibold',
+                  indicator: 'stroke-primary',
+                  label: 'text-center font-extralight tracking-wider',
                 }}
-              >
-                <CartesianGrid horizontal={false} />
-                <YAxis dataKey="month" type="category" hide />
-                <XAxis dataKey="amount" type="number" hide />
-                <ChartTooltip
-                  cursor={false}
-                  content={
-                    <ChartTooltipContent
-                      formatter={(value) => {
-                        return (
-                          <span className="flex flex-col justify-between">
-                            <Label
-                              className={`${parseFloat(value.toString()) < 0 && 'text-destructive'} 'font-semibold'`}
-                            >
-                              {formatCurrency({
-                                value: parseFloat(value.toString()),
-                                currency: currency.name,
-                              })}
-                            </Label>
-                          </span>
-                        );
-                      }}
-                    />
-                  }
-                />
-                <Bar dataKey="amount" layout="vertical" fill="var(--primary)">
-                  <LabelList
-                    dataKey="month"
-                    position="insideLeft"
-                    className="fill-primary-foreground tracking-tighter"
-                  />
-                  <LabelList
-                    dataKey="amount"
-                    position="right"
-                    className="fill-foreground"
-                    fontSize={9}
-                    formatter={(value: number) =>
-                      formatCurrency({ value, currency: currency.name })
-                    }
-                  />
-                </Bar>
-              </BarChart>
-            </ChartContainer>
-          ) : (
-            <Label variant="subtitle">No data available</Label>
-          )}
-        </CardDialog>
-
-        <CardDialog title={t('Page.home.cards.upcomingExtra.title')}>
-          <ChartContainer config={upcomingExtraChartConfig}>
-            <BarChart
-              data={upcomingExtras}
-              margin={{
-                top: 10,
-                bottom: 10,
-              }}
-            >
-              <CartesianGrid vertical={false} />
-              <XAxis
-                dataKey="yearMonth"
-                axisLine={false}
-                tickMargin={8}
-                tickFormatter={(value) => value.slice(0, 3)}
-                hide
+                label={t('Page.home.cards.progress.title')}
+                value={dashboardData?.main?.paymentCompletionRate * 100 || 0}
+                strokeWidth={3}
+                showValueLabel={true}
               />
-              {!isMobile && (
-                <YAxis
-                  axisLine={false}
-                  tickFormatter={(value) =>
-                    formatCurrency({ value, currency: currency.name })
-                  }
-                />
-              )}
-              <ChartTooltip
-                cursor={false}
-                content={
-                  <ChartTooltipContent
-                    hideIndicator
-                    formatter={(value) => {
-                      return formatCurrency({
-                        value: parseFloat(value.toString()),
-                        currency: currency.name,
-                      });
+            </CardDialog>
+
+            <Card className="relative flex flex-col pb-0">
+              <CardHeader className="px-4">
+                <CardDescription>
+                  {t('Page.home.cards.previousSavings.title')}
+                </CardDescription>
+                <CardTitle className="text-2xl">
+                  {formatCurrency({
+                    value: averageSavings,
+                    currency: currency.name,
+                  })}
+                </CardTitle>
+                <CardDescription className="text-xs">
+                  {t('Page.home.cards.averageSavings.title')}
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="relative mt-auto flex-1 p-0">
+                <ChartContainer
+                  config={previousSavingsChartConfig}
+                  className="relative size-full"
+                >
+                  <AreaChart
+                    data={previousSavings}
+                    margin={{
+                      left: 0,
+                      right: 0,
                     }}
-                  />
-                }
-              />
-              <Bar dataKey="extra" fill="var(--primary)" radius={1}>
-                <LabelList position="top" dataKey="month" fillOpacity={1} />
-                {upcomingExtras.map((item) => (
-                  <Cell key={item.month} />
-                ))}
-              </Bar>
-              <ReferenceLine y={0} stroke="var(--muted-foreground)" />
-            </BarChart>
-          </ChartContainer>
-        </CardDialog>
+                    className="size-fit"
+                  >
+                    <Area
+                      dataKey="amount"
+                      fill="var(--primary)"
+                      fillOpacity={0.1}
+                      stroke="var(--primary)"
+                      strokeWidth={2}
+                      type="monotone"
+                      baseValue="dataMin"
+                    />
+                  </AreaChart>
+                </ChartContainer>
+              </CardContent>
+            </Card>
 
-        <CardDialog
-          title={t('Page.home.cards.upcomingExtra.title')}
-          isExpandable
-        >
-          <div className="text-end">
-            <Label
-              variant="title-lg"
-              className={`${upcomingDashboardData?.main?.extra < 0 && 'text-destructive'}`}
-            >
-              {formatCurrency({
-                value: upcomingDashboardData?.main?.extra || 0,
-                currency: currency.name,
-              })}
-            </Label>
+            <Card className="relative flex flex-col pb-0">
+              <CardHeader className="px-4">
+                <CardDescription>
+                  {t('Page.home.cards.upcomingExtra.title')}
+                </CardDescription>
+                <CardTitle className="text-2xl">
+                  {formatCurrency({
+                    value: averageExtra,
+                    currency: currency.name,
+                  })}
+                </CardTitle>
+                <CardDescription className="text-xs">
+                  {t('Page.home.cards.averageExtra.title')}
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="relative mt-auto flex-1 p-0">
+                <ChartContainer
+                  config={upcomingExtraChartConfig}
+                  className="relative size-full"
+                >
+                  <AreaChart
+                    data={upcomingExtras}
+                    margin={{
+                      left: 0,
+                      right: 0,
+                    }}
+                    className="size-fit"
+                  >
+                    <Area
+                      dataKey="extra"
+                      fill="var(--primary)"
+                      fillOpacity={0.1}
+                      stroke="var(--primary)"
+                      strokeWidth={2}
+                      type="monotone"
+                      baseValue="dataMin"
+                    />
+                  </AreaChart>
+                </ChartContainer>
+              </CardContent>
+            </Card>
           </div>
-        </CardDialog>
-      </div>
 
-      <Separator />
+          <Separator />
 
-      <div>
-        <CardDialog title={t('Page.home.motivation.title')} isExpandable>
-          <Label
-            variant="subtitle"
-            className={`italic transition-opacity duration-500 ${
-              fade ? 'opacity-0' : 'opacity-100'
-            }`}
-          >
-            {`"${quotes[currentQuoteIndex]}"`}
-          </Label>
-        </CardDialog>
-      </div>
+          <Card className="relative flex flex-col">
+            <CardHeader className="gap-4 px-4">
+              <CardDescription>
+                {t('Page.home.motivation.title')}
+              </CardDescription>
+              <CardTitle
+                className={`font-normal italic transition-opacity duration-500 ${
+                  fade ? 'opacity-0' : 'opacity-100'
+                }`}
+              >
+                {`"${quotes[currentQuoteIndex]}"`}
+              </CardTitle>
+            </CardHeader>
+          </Card>
+        </>
+      )}
 
       <Button className="my-4 w-full" onClick={() => router.push('/dashboard')}>
         {t('Page.home.dashboardButton')}

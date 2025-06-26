@@ -44,13 +44,19 @@
       },
       "cards": {
         "progress": {
-          "title": "Current progress"
+          "title": "Current Progress"
         },
         "upcomingExtra": {
-          "title": "Upcoming extra"
+          "title": "Upcoming Extras"
         },
         "previousSavings": {
           "title": "Previous Savings"
+        },
+        "averageExtra": {
+          "title": "Average extra per month"
+        },
+        "averageSavings": {
+          "title": "Average savings per month"
         }
       }
     },

@@ -9,12 +9,8 @@ import {
   DialogTitle,
   DialogDescription,
 } from '../../components/ui/dialog';
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from '../../components/ui/card';
+import { Card, CardContent, CardHeader } from '../../components/ui/card';
+import { Label } from '@web/components/ui/label';
 
 type CardDialogProps = {
   title?: string;
@@ -56,7 +52,7 @@ const CardDialog = ({
       {title ? (
         <>
           <CardHeader>
-            <CardTitle>{title}</CardTitle>
+            <Label variant="title-xs">{title}</Label>
           </CardHeader>
 
           <CardContent>
@@ -66,13 +62,11 @@ const CardDialog = ({
           </CardContent>
         </>
       ) : (
-        // <div className="m-auto flex flex-col justify-between gap-4 p-4">
         <CardContent>
           <Content isExpandable={isExpandable} title={title}>
             {children}
           </Content>
         </CardContent>
-        // </div>
       )}
     </Card>
   );
