@@ -51,6 +51,12 @@
         },
         "previousSavings": {
           "title": "Mga naunang ipon"
+        },
+        "averageExtra": {
+          "title": "Karaniwang dagdag bawat buwan"
+        },
+        "averageSavings": {
+          "title": "Karaniwang ipon bawat buwan"
         }
       }
     },

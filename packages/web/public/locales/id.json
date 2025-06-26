@@ -51,6 +51,12 @@
         },
         "previousSavings": {
           "title": "Tabungan sebelumnya"
+        },
+        "averageExtra": {
+          "title": "Rata-rata ekstra per bulan"
+        },
+        "averageSavings": {
+          "title": "Rata-rata tabungan per bulan"
         }
       }
     },

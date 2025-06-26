@@ -51,6 +51,12 @@
         },
         "previousSavings": {
           "title": "पिछली बचत"
+        },
+        "averageExtra": {
+          "title": "प्रति माह औसत अतिरिक्त"
+        },
+        "averageSavings": {
+          "title": "प्रति माह औसत बचत"
         }
       }
     },

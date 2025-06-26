@@ -51,6 +51,12 @@
         },
         "previousSavings": {
           "title": "เงินออมก่อนหน้า"
+        },
+        "averageExtra": {
+          "title": "ค่าเฉลี่ยส่วนเกินต่อเดือน"
+        },
+        "averageSavings": {
+          "title": "ค่าเฉลี่ยเงินออมต่อเดือน"
         }
       }
     },

@@ -51,6 +51,12 @@
         },
         "previousSavings": {
           "title": "Risparmi precedenti"
+        },
+        "averageExtra": {
+          "title": "Extra medio al mese"
+        },
+        "averageSavings": {
+          "title": "Risparmio medio al mese"
         }
       }
     },

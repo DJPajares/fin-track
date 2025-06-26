@@ -51,6 +51,12 @@
         },
         "previousSavings": {
           "title": "Vorherige Ersparnisse"
+        },
+        "averageExtra": {
+          "title": "Durchschnittlicher Überschuss pro Monat"
+        },
+        "averageSavings": {
+          "title": "Durchschnittliche Ersparnisse pro Monat"
         }
       }
     },

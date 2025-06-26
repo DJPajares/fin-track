@@ -51,6 +51,12 @@
         },
         "previousSavings": {
           "title": "Önceki tasarruflar"
+        },
+        "averageExtra": {
+          "title": "Aylık ortalama ek gelir"
+        },
+        "averageSavings": {
+          "title": "Aylık ortalama tasarruf"
         }
       }
     },

@@ -51,6 +51,12 @@
         },
         "previousSavings": {
           "title": "المدخرات السابقة"
+        },
+        "averageExtra": {
+          "title": "متوسط الإضافي لكل شهر"
+        },
+        "averageSavings": {
+          "title": "متوسط المدخرات لكل شهر"
         }
       }
     },

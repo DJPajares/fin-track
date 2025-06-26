@@ -51,6 +51,12 @@
         },
         "previousSavings": {
           "title": "Simpanan sebelumnya"
+        },
+        "averageExtra": {
+          "title": "Purata tambahan setiap bulan"
+        },
+        "averageSavings": {
+          "title": "Purata simpanan setiap bulan"
         }
       }
     },

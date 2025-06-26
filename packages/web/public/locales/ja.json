@@ -51,6 +51,12 @@
         },
         "previousSavings": {
           "title": "前回の貯金"
+        },
+        "averageExtra": {
+          "title": "月ごとの平均追加額"
+        },
+        "averageSavings": {
+          "title": "月ごとの平均貯蓄額"
         }
       }
     },

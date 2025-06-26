@@ -51,6 +51,12 @@
         },
         "previousSavings": {
           "title": "之前的储蓄"
+        },
+        "averageExtra": {
+          "title": "每月平均额外收入"
+        },
+        "averageSavings": {
+          "title": "每月平均储蓄"
         }
       }
     },

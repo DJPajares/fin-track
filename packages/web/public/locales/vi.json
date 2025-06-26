@@ -51,6 +51,12 @@
         },
         "previousSavings": {
           "title": "Tiết kiệm trước đó"
+        },
+        "averageExtra": {
+          "title": "Số dư trung bình mỗi tháng"
+        },
+        "averageSavings": {
+          "title": "Tiết kiệm trung bình mỗi tháng"
         }
       }
     },
