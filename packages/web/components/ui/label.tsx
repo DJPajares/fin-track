@@ -17,6 +17,8 @@ const labelVariants = cva(
         'title-lg': 'text-2xl font-bold sm:text-3xl sm:font-extrabold',
         'title-md': 'text-lg font-bold sm:text-xl sm:font-semibold',
         'title-sm': 'text-base font-bold sm:text-lg sm:font-semibold',
+        'title-xs': 'text-sm font-bold sm:text-base sm:font-semibold',
+        'title-xxs': 'text-xs font-bold sm:text-sm sm:font-semibold',
         subtitle: 'text-base font-extralight sm:text-lg sm:font-light',
         'subtitle-md': 'text-sm font-extralight sm:text-base sm:font-light',
         caption: 'text-xs font-light sm:text-sm sm:font-normal',

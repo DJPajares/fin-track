@@ -48,8 +48,10 @@ const SideNav = () => {
                   <TrendingUpIcon className="size-4" />
                 </div>
 
-                <div className="grid flex-1 text-left text-sm leading-tight">
-                  <Label variant="title-sm">FIN-TRACK</Label>
+                <div className="grid flex-1 text-left leading-tight">
+                  <Label variant="title-xs" className="!font-bold">
+                    FIN-TRACK
+                  </Label>
                 </div>
               </SidebarMenuButton>
             </Link>
@@ -80,8 +82,8 @@ const SideNav = () => {
                           {item.icon && <item.icon />}
                         </div>
 
-                        <div className="grid flex-1 text-left text-sm leading-tight">
-                          <Label className="font-medium">{t(item.value)}</Label>
+                        <div className="grid flex-1 text-left leading-tight">
+                          <Label variant="title-xxs">{t(item.value)}</Label>
                         </div>
 
                         <ChevronRightIcon className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
@@ -94,8 +96,8 @@ const SideNav = () => {
                           {item.icon && <item.icon />}
                         </div>
 
-                        <div className="grid flex-1 text-left text-sm leading-tight">
-                          <Label className="font-medium">{t(item.value)}</Label>
+                        <div className="grid flex-1 text-left leading-tight">
+                          <Label variant="title-xxs">{t(item.value)}</Label>
                         </div>
                       </SidebarMenuButton>
                     </Link>
@@ -111,7 +113,7 @@ const SideNav = () => {
                             passHref
                           >
                             <SidebarMenuSubButton size="md" asChild>
-                              <Label className="font-medium">
+                              <Label variant="title-xxs">
                                 {t(subItem.value)}
                               </Label>
                             </SidebarMenuSubButton>
