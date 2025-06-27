@@ -234,8 +234,7 @@ const Home = () => {
                   <AreaChart
                     data={previousSavings}
                     margin={{
-                      left: 0,
-                      right: 0,
+                      top: 5,
                     }}
                     className="size-fit"
                   >
@@ -276,8 +275,7 @@ const Home = () => {
                   <AreaChart
                     data={upcomingExtras}
                     margin={{
-                      left: 0,
-                      right: 0,
+                      top: 5,
                     }}
                     className="size-fit"
                   >
