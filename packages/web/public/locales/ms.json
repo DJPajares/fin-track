@@ -159,6 +159,10 @@
       "prevYear": "Tahun lepas",
       "nextYear": "Tahun depan"
     },
+    "type": {
+      "income": "Pendapatan",
+      "expense": "Perbelanjaan"
+    },
     "category": {
       "creditCard": "Kad Kredit",
       "debt": "Hutang",

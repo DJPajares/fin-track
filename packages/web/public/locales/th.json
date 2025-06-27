@@ -159,6 +159,10 @@
       "prevYear": "ปีที่แล้ว",
       "nextYear": "ปีหน้า"
     },
+    "type": {
+      "income": "รายได้",
+      "expense": "ค่าใช้จ่าย"
+    },
     "category": {
       "creditCard": "บัตรเครดิต",
       "debt": "หนี้",

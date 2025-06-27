@@ -159,6 +159,10 @@
       "prevYear": "Previous year",
       "nextYear": "Next year"
     },
+    "type": {
+      "income": "Income",
+      "expense": "Expense"
+    },
     "category": {
       "creditCard": "Credit Card",
       "debt": "Debt",

@@ -159,6 +159,10 @@
       "prevYear": "पिछला वर्ष",
       "nextYear": "अगला वर्ष"
     },
+    "type": {
+      "income": "आय",
+      "expense": "खर्च"
+    },
     "category": {
       "creditCard": "क्रेडिट कार्ड",
       "debt": "ऋण",

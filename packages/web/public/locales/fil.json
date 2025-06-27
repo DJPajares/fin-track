@@ -159,6 +159,10 @@
       "prevYear": "Nakaraang taon",
       "nextYear": "Susunod na taon"
     },
+    "type": {
+      "income": "Kita",
+      "expense": "Gastos"
+    },
     "category": {
       "creditCard": "Credit Card",
       "debt": "Utang",

@@ -159,6 +159,10 @@
       "prevYear": "السنة السابقة",
       "nextYear": "السنة التالية"
     },
+    "type": {
+      "income": "دخل",
+      "expense": "مصروف"
+    },
     "category": {
       "creditCard": "بطاقة ائتمان",
       "debt": "دين",

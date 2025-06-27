@@ -159,6 +159,10 @@
       "prevYear": "Предыдущий год",
       "nextYear": "Следующий год"
     },
+    "type": {
+      "income": "Доход",
+      "expense": "Расход"
+    },
     "category": {
       "creditCard": "Кредитная карта",
       "debt": "Долг",

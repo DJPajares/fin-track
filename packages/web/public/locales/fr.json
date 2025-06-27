@@ -159,6 +159,10 @@
       "prevYear": "Année précédente",
       "nextYear": "Année suivante"
     },
+    "type": {
+      "income": "Revenu",
+      "expense": "Dépense"
+    },
     "category": {
       "creditCard": "Carte de Crédit",
       "debt": "Dette",
