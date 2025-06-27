@@ -19,9 +19,11 @@ const CategoryCard = ({
   currency,
   handleCardClick,
 }: CategoryCardProps) => {
-  const t = useTranslations('Page.dashboard.card');
+  const t = useTranslations();
 
-  const { name, icon } = category;
+  const { id, icon } = category;
+
+  console.log(id);
 
   return (
     <Card
@@ -34,7 +36,7 @@ const CategoryCard = ({
             variant="caption"
             className="text-muted-foreground truncate tracking-wide hover:text-clip"
           >
-            {name}
+            {t(`Common.category.${id}`)}
           </Label>
 
           {
@@ -55,7 +57,7 @@ const CategoryCard = ({
 
       <div className="flex flex-col justify-between gap-2">
         <Label variant="caption" className="text-muted-foreground">
-          {t('settled')}
+          {t('Page.dashboard.card.settled')}
         </Label>
 
         <div className="flex flex-row items-center gap-2">
