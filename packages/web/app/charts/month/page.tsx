@@ -36,9 +36,14 @@ import { dateStringFormat } from '@shared/constants/dateStringFormat';
 import { formatCurrency } from '@shared/utilities/formatCurrency';
 
 import type { ListProps } from '../../../types/List';
+import type { IconProps } from '@web/components/shared/CardIcon';
 
 type TransactionByCategory = {
+  id: string;
+  idSerialized: string;
+  serializedCategory: string;
   category: string;
+  icon: IconProps;
   amount: number;
 };
 
@@ -57,7 +62,6 @@ const Charts = () => {
 
   const [date, setDate] = useState(dashboardDate);
   const [chartData, setChartData] = useState<TransactionByCategory[]>([]);
-  const [chartConfigData, setChartConfigData] = useState<ChartConfig>({});
   const [selectedType, setSelectedType] = useState<ListProps>({
     _id: '',
     name: '',
@@ -93,7 +97,6 @@ const Charts = () => {
     });
 
     setChartData(transactions.data);
-    setChartConfigData(transactions.chartConfig);
   };
 
   const handlePrevMonth = () => {
@@ -108,7 +111,16 @@ const Charts = () => {
     setDate(moment(newDate).toDate());
   };
 
-  const chartConfig: ChartConfig = chartConfigData;
+  const chartConfig: ChartConfig = chartData.reduce((acc, item) => {
+    const isTranslated = t.has(`Common.category.${item.idSerialized}`);
+
+    acc[item.idSerialized] = {
+      label: isTranslated
+        ? t(`Common.category.${item.idSerialized}`)
+        : item.category,
+    };
+    return acc;
+  }, {} as ChartConfig);
 
   return (
     <div className="space-y-6 sm:space-y-10">
@@ -160,7 +172,7 @@ const Charts = () => {
                   <Pie
                     data={chartData}
                     dataKey="amount"
-                    nameKey="serializedCategory"
+                    nameKey="idSerialized"
                     innerRadius={isMobile ? 70 : 90}
                     strokeWidth={5}
                     activeIndex={0}
@@ -210,15 +222,18 @@ const Charts = () => {
                     cursor={false}
                     content={
                       <ChartTooltipContent
-                        formatter={(value, name) => {
-                          const isTranslated = t.has(`Common.category.${name}`);
+                        formatter={(value, name, item) => {
+                          const { idSerialized, category } = item.payload;
+                          const isTranslated = t.has(
+                            `Common.category.${idSerialized}`,
+                          );
 
                           return (
                             <div className="flex flex-col justify-between">
                               <Label className="font-bold">
                                 {isTranslated
-                                  ? t(`Common.category.${name}`)
-                                  : name}
+                                  ? t(`Common.category.${idSerialized}`)
+                                  : category}
                               </Label>
                               <Label className="italic">
                                 {formatCurrency({

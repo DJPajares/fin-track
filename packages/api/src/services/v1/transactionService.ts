@@ -284,6 +284,7 @@ const getAdvanced = async (
         typeId: '$type._id',
         typeName: '$type.name',
         categoryId: '$category._id',
+        categoryIdSerialized: '$category.id',
         categoryName: '$category.name',
         categoryIcon: '$category.icon',
         isRecurring: '$isRecurring',
@@ -354,6 +355,7 @@ const getByDate = async (data: FetchByDateProps) => {
         typeId: '$type._id',
         typeName: '$type.name',
         categoryId: '$category._id',
+        categoryIdSerialized: '$category.id',
         categoryName: '$category.name',
         categoryIcon: '$category.icon',
         currencyId: '$currency._id',
@@ -456,6 +458,7 @@ const getByDateRange = async (data: FetchByDateRangeProps) => {
             typeId: '$type._id',
             typeName: '$type.name',
             categoryId: '$category._id',
+            categoryIdSerialized: '$category.id',
             categoryName: '$category.name',
             categoryIcon: '$category.icon',
             currencyId: '$currency._id',
@@ -504,8 +507,13 @@ const getCategories = async (data: FetchByDateProps) => {
 
   const aggregatedData = transactions.reduce(
     (acc, transaction) => {
-      const { categoryId, categoryName, categoryIcon, convertedAmount } =
-        transaction;
+      const {
+        categoryId,
+        categoryIdSerialized,
+        categoryName,
+        categoryIcon,
+        convertedAmount,
+      } = transaction;
 
       // Check if the categoryId already exists in the accumulator
       if (acc[categoryId]) {
@@ -513,6 +521,7 @@ const getCategories = async (data: FetchByDateProps) => {
       } else {
         acc[categoryId] = {
           id: categoryId,
+          idSerialized: categoryIdSerialized,
           category: categoryName,
           serializedCategory: serializeText(categoryName),
           icon: categoryIcon,
@@ -526,6 +535,7 @@ const getCategories = async (data: FetchByDateProps) => {
       string,
       {
         id: string;
+        idSerialized: string;
         category: string;
         serializedCategory: string;
         icon: string;
@@ -536,6 +546,7 @@ const getCategories = async (data: FetchByDateProps) => {
 
   type ChartConfigProps = {
     [id: string]: {
+      id: string;
       label: string;
       icon: string;
     };
@@ -543,6 +554,7 @@ const getCategories = async (data: FetchByDateProps) => {
 
   type OutputProps = {
     id: string;
+    idSerialized: string;
     category: string;
     icon: string;
     amount: number;
@@ -555,9 +567,9 @@ const getCategories = async (data: FetchByDateProps) => {
       const id = serializeText(item.category);
 
       acc[id] = {
+        id: item.idSerialized,
         label: item.category,
         icon: '',
-        // icon: item.icon
       };
 
       return acc;
