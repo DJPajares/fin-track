@@ -4,6 +4,7 @@
 @plugin 'tailwindcss-animate';
 
 @source '../../../node_modules/@heroui/theme/dist';
+@source '../node_modules/@heroui/theme/dist';
 
 @custom-variant dark (&:is(.dark *));
 
