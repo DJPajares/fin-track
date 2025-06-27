@@ -26,6 +26,7 @@ type CategoryDrawerProps = {
 
 const initialTransactionPaymentCategory: TransactionPaymentCategoryProps = {
   _id: '',
+  id: '',
   name: '',
   totalAmount: 0,
   totalPaidAmount: 0,

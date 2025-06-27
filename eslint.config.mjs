@@ -28,6 +28,7 @@ const eslintConfig = [
     'next',
     'plugin:@next/next/recommended',
     'plugin:@typescript-eslint/eslint-plugin/recommended',
+    'plugin:@typescript-eslint/eslint-plugin/strict',
   ),
   {
     rules: {
@@ -55,6 +56,12 @@ const eslintConfig = [
       'no-use-before-define': 'off',
       'react/jsx-filename-extension': [1, { extensions: ['.jsx', '.tsx'] }],
       'no-duplicate-imports': ['error'],
+      // TypeScript specific rules to catch type errors
+      '@typescript-eslint/no-unused-vars': 'error',
+      '@typescript-eslint/no-explicit-any': 'warn',
+      '@typescript-eslint/explicit-function-return-type': 'off',
+      '@typescript-eslint/explicit-module-boundary-types': 'off',
+      '@typescript-eslint/no-non-null-assertion': 'warn',
     },
   },
   {
