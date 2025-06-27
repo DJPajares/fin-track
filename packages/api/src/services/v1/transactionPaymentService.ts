@@ -142,7 +142,7 @@ const getIncomeTransactions = async ({ date }: TransactionPaymentProps) => {
     {
       // Filter transactions where the category type is 'Expense'
       $match: {
-        'type.name': 'Income',
+        'type.id': 'income',
       },
     },
     {
@@ -378,7 +378,7 @@ const getExpenseTransactionPayments = async ({
     {
       // Filter transactions where the category type is 'Expense'
       $match: {
-        'type.name': 'Expense',
+        'type.id': 'expense',
       },
     },
     {

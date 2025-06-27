@@ -11,8 +11,8 @@ const categorySchema = new Schema(
   {
     id: {
       type: String,
-      required: [true, CONSTANTS.validations.common.name.required],
-      unique: [true, CONSTANTS.validations.common.name.unique],
+      required: [true, CONSTANTS.validations.common.id.required],
+      unique: [true, CONSTANTS.validations.common.id.unique],
     },
     name: {
       type: String,
