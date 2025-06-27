@@ -158,6 +158,21 @@
       "today": "Hari ini",
       "prevYear": "Tahun sebelumnya",
       "nextYear": "Tahun berikutnya"
+    },
+    "category": {
+      "creditCard": "Kartu Kredit",
+      "debt": "Hutang",
+      "family": "Keluarga",
+      "food": "Makanan",
+      "healthcare": "Perawatan Kesehatan",
+      "investment": "Investasi",
+      "loan": "Pinjaman",
+      "paycheck": "Gaji",
+      "rent": "Sewa",
+      "savings": "Tabungan",
+      "subscription": "Berlangganan",
+      "transportation": "Transportasi",
+      "utility": "Utilitas"
     }
   }
 }

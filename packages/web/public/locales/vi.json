@@ -157,7 +157,22 @@
     "datePicker": {
       "today": "Hôm nay",
       "prevYear": "Năm trước",
-      "nextYear": "Năm tiếp theo"
+      "nextYear": "Năm sau"
+    },
+    "category": {
+      "creditCard": "Thẻ Tín Dụng",
+      "debt": "Nợ",
+      "family": "Gia Đình",
+      "food": "Thực Phẩm",
+      "healthcare": "Chăm Sóc Sức Khỏe",
+      "investment": "Đầu Tư",
+      "loan": "Khoản Vay",
+      "paycheck": "Lương",
+      "rent": "Tiền Thuê",
+      "savings": "Tiết Kiệm",
+      "subscription": "Đăng Ký",
+      "transportation": "Giao Thông",
+      "utility": "Tiện Ích"
     }
   }
 }

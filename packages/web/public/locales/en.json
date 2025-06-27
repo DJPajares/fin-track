@@ -158,6 +158,21 @@
       "today": "Today",
       "prevYear": "Previous year",
       "nextYear": "Next year"
+    },
+    "category": {
+      "creditCard": "Credit Card",
+      "debt": "Debt",
+      "family": "Family",
+      "food": "Food",
+      "healthcare": "Healthcare",
+      "investment": "Investment",
+      "loan": "Loan",
+      "paycheck": "Paycheck",
+      "rent": "Rent",
+      "savings": "Savings",
+      "subscription": "Subscription",
+      "transportation": "Transportation",
+      "utility": "Utility"
     }
   }
 }

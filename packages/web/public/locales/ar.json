@@ -158,6 +158,21 @@
       "today": "اليوم",
       "prevYear": "السنة السابقة",
       "nextYear": "السنة التالية"
+    },
+    "category": {
+      "creditCard": "بطاقة ائتمان",
+      "debt": "دين",
+      "family": "عائلة",
+      "food": "طعام",
+      "healthcare": "رعاية صحية",
+      "investment": "استثمار",
+      "loan": "قرض",
+      "paycheck": "راتب",
+      "rent": "إيجار",
+      "savings": "مدخرات",
+      "subscription": "اشتراك",
+      "transportation": "نقل",
+      "utility": "خدمات عامة"
     }
   }
 }

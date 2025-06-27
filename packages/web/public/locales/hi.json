@@ -156,8 +156,23 @@
     },
     "datePicker": {
       "today": "आज",
-      "prevYear": "पिछला साल",
-      "nextYear": "अगाड़ा साल"
+      "prevYear": "पिछला वर्ष",
+      "nextYear": "अगला वर्ष"
+    },
+    "category": {
+      "creditCard": "क्रेडिट कार्ड",
+      "debt": "ऋण",
+      "family": "परिवार",
+      "food": "भोजन",
+      "healthcare": "स्वास्थ्य देखभाल",
+      "investment": "निवेश",
+      "loan": "ऋण",
+      "paycheck": "वेतन",
+      "rent": "किराया",
+      "savings": "बचत",
+      "subscription": "सदस्यता",
+      "transportation": "परिवहन",
+      "utility": "उपयोगिता"
     }
   }
 }

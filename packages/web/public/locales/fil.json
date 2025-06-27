@@ -156,8 +156,23 @@
     },
     "datePicker": {
       "today": "Ngayon",
-      "prevYear": "Nakaraan na taon",
+      "prevYear": "Nakaraang taon",
       "nextYear": "Susunod na taon"
+    },
+    "category": {
+      "creditCard": "Credit Card",
+      "debt": "Utang",
+      "family": "Pamilya",
+      "food": "Pagkain",
+      "healthcare": "Pangangalagang Pangkalusugan",
+      "investment": "Pamumuhunan",
+      "loan": "Pautang",
+      "paycheck": "Sahod",
+      "rent": "Renta",
+      "savings": "Ipon",
+      "subscription": "Subscription",
+      "transportation": "Transportasyon",
+      "utility": "Serbisyo"
     }
   }
 }

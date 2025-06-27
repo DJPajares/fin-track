@@ -157,7 +157,22 @@
     "datePicker": {
       "today": "今日",
       "prevYear": "前年",
-      "nextYear": "来年"
+      "nextYear": "翌年"
+    },
+    "category": {
+      "creditCard": "クレジットカード",
+      "debt": "借金",
+      "family": "家族",
+      "food": "食費",
+      "healthcare": "医療費",
+      "investment": "投資",
+      "loan": "ローン",
+      "paycheck": "給料",
+      "rent": "家賃",
+      "savings": "貯金",
+      "subscription": "サブスクリプション",
+      "transportation": "交通費",
+      "utility": "光熱費"
     }
   }
 }

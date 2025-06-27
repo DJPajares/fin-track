@@ -156,8 +156,23 @@
     },
     "datePicker": {
       "today": "Heute",
-      "prevYear": "Vorjahr",
+      "prevYear": "Vorheriges Jahr",
       "nextYear": "Nächstes Jahr"
+    },
+    "category": {
+      "creditCard": "Kreditkarte",
+      "debt": "Schulden",
+      "family": "Familie",
+      "food": "Nahrung",
+      "healthcare": "Gesundheitswesen",
+      "investment": "Investition",
+      "loan": "Darlehen",
+      "paycheck": "Gehalt",
+      "rent": "Miete",
+      "savings": "Ersparnisse",
+      "subscription": "Abonnement",
+      "transportation": "Transport",
+      "utility": "Versorgungsunternehmen"
     }
   }
 }

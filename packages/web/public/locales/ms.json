@@ -156,8 +156,23 @@
     },
     "datePicker": {
       "today": "Hari ini",
-      "prevYear": "Tahun sebelumnya",
-      "nextYear": "Tahun berikutnya"
+      "prevYear": "Tahun lepas",
+      "nextYear": "Tahun depan"
+    },
+    "category": {
+      "creditCard": "Kad Kredit",
+      "debt": "Hutang",
+      "family": "Keluarga",
+      "food": "Makanan",
+      "healthcare": "Penjagaan Kesihatan",
+      "investment": "Pelaburan",
+      "loan": "Pinjaman",
+      "paycheck": "Gaji",
+      "rent": "Sewa",
+      "savings": "Simpanan",
+      "subscription": "Langganan",
+      "transportation": "Pengangkutan",
+      "utility": "Perkhidmatan"
     }
   }
 }

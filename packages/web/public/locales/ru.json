@@ -158,6 +158,21 @@
       "today": "Сегодня",
       "prevYear": "Предыдущий год",
       "nextYear": "Следующий год"
+    },
+    "category": {
+      "creditCard": "Кредитная карта",
+      "debt": "Долг",
+      "family": "Семья",
+      "food": "Еда",
+      "healthcare": "Здравоохранение",
+      "investment": "Инвестиции",
+      "loan": "Кредит",
+      "paycheck": "Зарплата",
+      "rent": "Аренда",
+      "savings": "Сбережения",
+      "subscription": "Подписка",
+      "transportation": "Транспорт",
+      "utility": "Коммунальные услуги"
     }
   }
 }

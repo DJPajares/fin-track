@@ -156,8 +156,23 @@
     },
     "datePicker": {
       "today": "Bugün",
-      "prevYear": "Önceki Yıl",
-      "nextYear": "Sonraki Yıl"
+      "prevYear": "Önceki yıl",
+      "nextYear": "Sonraki yıl"
+    },
+    "category": {
+      "creditCard": "Kredi Kartı",
+      "debt": "Borç",
+      "family": "Aile",
+      "food": "Yemek",
+      "healthcare": "Sağlık Hizmetleri",
+      "investment": "Yatırım",
+      "loan": "Kredi",
+      "paycheck": "Maaş",
+      "rent": "Kira",
+      "savings": "Tasarruf",
+      "subscription": "Abonelik",
+      "transportation": "Ulaşım",
+      "utility": "Kamu Hizmetleri"
     }
   }
 }

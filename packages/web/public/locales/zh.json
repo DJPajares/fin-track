@@ -156,8 +156,23 @@
     },
     "datePicker": {
       "today": "今天",
-      "prevYear": "前一年",
+      "prevYear": "上一年",
       "nextYear": "下一年"
+    },
+    "category": {
+      "creditCard": "信用卡",
+      "debt": "债务",
+      "family": "家庭",
+      "food": "食品",
+      "healthcare": "医疗保健",
+      "investment": "投资",
+      "loan": "贷款",
+      "paycheck": "工资",
+      "rent": "租金",
+      "savings": "储蓄",
+      "subscription": "订阅",
+      "transportation": "交通",
+      "utility": "公用事业"
     }
   }
 }

@@ -157,7 +157,22 @@
     "datePicker": {
       "today": "วันนี้",
       "prevYear": "ปีที่แล้ว",
-      "nextYear": "ปีถัดไป"
+      "nextYear": "ปีหน้า"
+    },
+    "category": {
+      "creditCard": "บัตรเครดิต",
+      "debt": "หนี้",
+      "family": "ครอบครัว",
+      "food": "อาหาร",
+      "healthcare": "การดูแลสุขภาพ",
+      "investment": "การลงทุน",
+      "loan": "เงินกู้",
+      "paycheck": "เงินเดือน",
+      "rent": "ค่าเช่า",
+      "savings": "เงินออม",
+      "subscription": "การสมัครสมาชิก",
+      "transportation": "การขนส่ง",
+      "utility": "สาธารณูปโภค"
     }
   }
 }

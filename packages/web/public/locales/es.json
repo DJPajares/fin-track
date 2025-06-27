@@ -158,6 +158,21 @@
       "today": "Hoy",
       "prevYear": "Año anterior",
       "nextYear": "Año siguiente"
+    },
+    "category": {
+      "creditCard": "Tarjeta de Crédito",
+      "debt": "Deuda",
+      "family": "Familia",
+      "food": "Comida",
+      "healthcare": "Atención Médica",
+      "investment": "Inversión",
+      "loan": "Préstamo",
+      "paycheck": "Salario",
+      "rent": "Alquiler",
+      "savings": "Ahorros",
+      "subscription": "Suscripción",
+      "transportation": "Transporte",
+      "utility": "Servicios Públicos"
     }
   }
 }
