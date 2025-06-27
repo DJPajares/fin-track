@@ -23,7 +23,7 @@ const CategoryCard = ({
 
   const { id, icon } = category;
 
-  console.log(id);
+  const isTranslated = t.has(`Common.category.${id}`);
 
   return (
     <Card
@@ -36,7 +36,7 @@ const CategoryCard = ({
             variant="caption"
             className="text-muted-foreground truncate tracking-wide hover:text-clip"
           >
-            {t(`Common.category.${id}`)}
+            {isTranslated ? t(`Common.category.${id}`) : category.name}
           </Label>
 
           {

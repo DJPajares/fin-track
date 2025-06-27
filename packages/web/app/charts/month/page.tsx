@@ -211,9 +211,15 @@ const Charts = () => {
                     content={
                       <ChartTooltipContent
                         formatter={(value, name) => {
+                          const isTranslated = t.has(`Common.category.${name}`);
+
                           return (
                             <div className="flex flex-col justify-between">
-                              <Label className="font-bold">{name}</Label>
+                              <Label className="font-bold">
+                                {isTranslated
+                                  ? t(`Common.category.${name}`)
+                                  : name}
+                              </Label>
                               <Label className="italic">
                                 {formatCurrency({
                                   value: parseFloat(value.toString()),

@@ -190,12 +190,18 @@ const CategoryDrawer = ({
     }
   };
 
+  const isTranslated = t.has(`Common.category.${drawerCategory.id}`);
+
   return (
     <CustomDrawer
       open={isDialogOpen}
       onOpenChange={setIsDialogOpen}
       handleSubmit={createUpdatePayment}
-      title={drawerCategory.name}
+      title={
+        isTranslated
+          ? t(`Common.category.${drawerCategory.id}`)
+          : drawerCategory.name
+      }
       description={t('Page.dashboard.cardDrawer.description', {
         category: drawerCategory.name.toLowerCase(),
       })}
