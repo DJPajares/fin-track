@@ -67,6 +67,15 @@ const Charts = () => {
     name: '',
   });
 
+  const newTypes = types.map((type) => {
+    const isTranslated = t.has(`Common.type.${type.id}`);
+
+    return {
+      _id: type._id,
+      name: isTranslated ? t(`Common.type.${type.id}`) : type.name,
+    };
+  });
+
   useEffect(() => {
     if (types && types.length > 0) {
       setSelectedType(types[0]);
@@ -84,6 +93,15 @@ const Charts = () => {
       type: selectedType._id,
     });
   }, [date, currency, selectedType]);
+
+  useEffect(() => {
+    if (selectedType._id && newTypes.length > 0) {
+      const updatedType = newTypes.find((t) => t._id === selectedType._id);
+      if (updatedType && updatedType.name !== selectedType.name) {
+        setSelectedType(updatedType);
+      }
+    }
+  }, [newTypes, selectedType._id, selectedType.name]);
 
   const fetchData = async ({
     date,
@@ -149,7 +167,7 @@ const Charts = () => {
         <div className="flex flex-row justify-end">
           <SelectBox
             variant="ghost"
-            items={types}
+            items={newTypes}
             selectedItem={selectedType}
             setSelectedItem={setSelectedType}
             placeholder={t('Common.label.selectPlaceholder')}

@@ -8,11 +8,15 @@ import type { ListProps } from '../../../../types/List';
 const initialState: MainSliceProps = {
   types: [],
   categories: [],
-  currencies: []
+  currencies: [],
+};
+
+type TypeProps = ListProps & {
+  id: string;
 };
 
 type MainSliceProps = {
-  types: ListProps[];
+  types: TypeProps[];
   categories: CategoryItemProps[];
   currencies: ListProps[];
 };
@@ -21,7 +25,7 @@ const mainSlice = createSlice({
   name: 'main',
   initialState,
   reducers: {
-    setTypes: (state, action: PayloadAction<ListProps[]>) => {
+    setTypes: (state, action: PayloadAction<TypeProps[]>) => {
       state.types = action.payload;
     },
     setCategories: (state, action: PayloadAction<CategoryItemProps[]>) => {
@@ -29,7 +33,7 @@ const mainSlice = createSlice({
 
       const categories = rawCategories.map((category) => ({
         ...category,
-        serializedName: serializeText(category.name)
+        serializedName: serializeText(category.name),
       }));
 
       state.categories = categories;
@@ -39,7 +43,7 @@ const mainSlice = createSlice({
 
       state.categories.push({
         ...category,
-        serializedName: serializeText(category.name)
+        serializedName: serializeText(category.name),
       });
 
       // const categories = state.categories;
@@ -58,9 +62,9 @@ const mainSlice = createSlice({
         stateCategory._id === category._id
           ? (stateCategory = {
               ...category,
-              serializedName: serializeText(category.name)
+              serializedName: serializeText(category.name),
             })
-          : stateCategory
+          : stateCategory,
       );
 
       state.categories = updatedCategories;
@@ -83,7 +87,7 @@ const mainSlice = createSlice({
       const category = action.payload;
 
       const updatedCategories = state.categories.filter(
-        (stateCategory) => stateCategory._id !== category._id
+        (stateCategory) => stateCategory._id !== category._id,
       );
 
       state.categories = updatedCategories;
@@ -101,8 +105,8 @@ const mainSlice = createSlice({
     },
     setCurrencies: (state, action: PayloadAction<ListProps[]>) => {
       state.currencies = action.payload;
-    }
-  }
+    },
+  },
 });
 
 export const {
@@ -111,7 +115,7 @@ export const {
   addCategory,
   updateCategory,
   deleteCategory,
-  setCurrencies
+  setCurrencies,
 } = mainSlice.actions;
 
 export default mainSlice.reducer;

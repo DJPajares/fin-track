@@ -8,7 +8,7 @@ import {
   SelectGroup,
   SelectLabel,
   SelectItem,
-  type SelectTriggerProps
+  type SelectTriggerProps,
 } from '../ui/select';
 
 import type { ListProps } from '../../types/List';
@@ -28,7 +28,7 @@ export const SelectBox = ({
   selectedItem,
   setSelectedItem,
   placeholder,
-  className
+  className,
 }: SelectBoxProps) => {
   return (
     <Select

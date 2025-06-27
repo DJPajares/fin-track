@@ -1,4 +1,11 @@
-import { Dispatch, ReactNode, SetStateAction, useRef, useState } from 'react';
+import {
+  Dispatch,
+  ReactNode,
+  SetStateAction,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { useTranslations } from 'next-intl';
 
 import CustomDrawer from '../../../components/shared/CustomDrawer';
@@ -43,6 +50,15 @@ const EditTransactionDrawer = ({
     name: transaction.typeName,
   });
 
+  const newTypes = types.map((type) => {
+    const isTranslated = t.has(`Common.type.${type.id}`);
+
+    return {
+      _id: type._id,
+      name: isTranslated ? t(`Common.type.${type.id}`) : type.name,
+    };
+  });
+
   const [updateTransaction] = useUpdateTransactionMutation();
   const [lazyGetTransactions] = useLazyGetTransactionsQuery();
 
@@ -62,6 +78,15 @@ const EditTransactionDrawer = ({
         label: date.toDateString(),
       })) || [],
   };
+
+  useEffect(() => {
+    if (type._id && newTypes.length > 0) {
+      const updatedType = newTypes.find((t) => t._id === type._id);
+      if (updatedType && updatedType.name !== type.name) {
+        setType(updatedType);
+      }
+    }
+  }, [newTypes, type._id, type.name]);
 
   const submitTransaction = async (postData: SubmitTransactionProps) => {
     try {
@@ -103,7 +128,7 @@ const EditTransactionDrawer = ({
         <div className="flex flex-row justify-end">
           <SelectBox
             variant="ghost"
-            items={types}
+            items={newTypes}
             selectedItem={type}
             setSelectedItem={setType}
             placeholder={t('Common.label.selectPlaceholder')}

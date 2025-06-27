@@ -4,7 +4,7 @@ import { ReactNode, useEffect } from 'react';
 import {
   setCategories,
   setCurrencies,
-  setTypes
+  setTypes,
 } from '../lib/redux/feature/main/mainSlice';
 import { useAppDispatch } from '../lib/hooks/use-redux';
 
@@ -35,7 +35,7 @@ export const ClientDataProvider = ({ children }: ClientDataProviderProps) => {
           if (b.name === 'USD') return 1;
 
           return a.name.localeCompare(b.name);
-        }
+        },
       );
       dispatch(setCurrencies(sortedCurrencies));
     };

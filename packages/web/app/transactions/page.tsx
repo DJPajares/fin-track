@@ -37,6 +37,15 @@ const Transactions = () => {
     name: '',
   });
 
+  const newTypes = types.map((type) => {
+    const isTranslated = t.has(`Common.type.${type.id}`);
+
+    return {
+      _id: type._id,
+      name: isTranslated ? t(`Common.type.${type.id}`) : type.name,
+    };
+  });
+
   const [queryParams, setQueryParams] = useState({
     page: 1,
     limit: 8,
@@ -76,6 +85,16 @@ const Transactions = () => {
       }));
     }
   }, [types]);
+
+  // Update selectedType name when translations change
+  useEffect(() => {
+    if (selectedType._id && newTypes.length > 0) {
+      const updatedType = newTypes.find((t) => t._id === selectedType._id);
+      if (updatedType && updatedType.name !== selectedType.name) {
+        setSelectedType(updatedType);
+      }
+    }
+  }, [newTypes, selectedType._id, selectedType.name]);
 
   useEffect(() => {
     setIsResetting(true);
@@ -183,7 +202,7 @@ const Transactions = () => {
         <div className="flex flex-row justify-end">
           <SelectBox
             variant="ghost"
-            items={types}
+            items={newTypes}
             selectedItem={selectedType}
             setSelectedItem={setSelectedType}
             placeholder={t('Common.label.selectPlaceholder')}

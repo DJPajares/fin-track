@@ -181,22 +181,22 @@ const Charts = () => {
 
   const chartConfig = {
     income: {
-      label: 'Income',
+      label: t('Common.type.income'),
       color: 'var(--primary)',
       icon: TrendingUpIcon,
     },
     expense: {
-      label: 'Expense',
+      label: t('Common.type.expense'),
       color: 'var(--secondary)',
       icon: TrendingDownIcon,
     },
     incomeVsExpenses: {
-      label: 'Income Vs Expenses',
+      label: t('Page.charts.yearly.incomeVsExpensesTitle'),
       color: 'var(--primary)',
       icon: TrendingUpIcon,
     },
     savings: {
-      label: 'Savings',
+      label: t('Common.category.savings'),
       color: 'var(--accent)',
       icon: TrendingUpIcon,
     },
