@@ -229,7 +229,7 @@ const Home = () => {
               <CardContent className="relative mt-auto flex-1 p-0">
                 <ChartContainer
                   config={previousSavingsChartConfig}
-                  className="relative size-full"
+                  className="relative size-full overflow-hidden rounded-xl"
                 >
                   <AreaChart
                     data={previousSavings}
@@ -270,7 +270,7 @@ const Home = () => {
               <CardContent className="relative mt-auto flex-1 p-0">
                 <ChartContainer
                   config={upcomingExtraChartConfig}
-                  className="relative size-full"
+                  className="relative size-full overflow-hidden rounded-xl"
                 >
                   <AreaChart
                     data={upcomingExtras}
