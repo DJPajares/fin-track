@@ -8,10 +8,28 @@ import { raleway } from '../lib/fonts';
 
 import NavBar from '../components/Nav/NavBar';
 import { Toaster } from '@web/components/ui/sonner';
+import PWAInstallPrompt from '../components/shared/PWAInstallPrompt';
+import OfflineIndicator from '../components/shared/OfflineIndicator';
 
 export const metadata: Metadata = {
   title: 'Fin-Track',
-  description: 'Financial tracker tool',
+  description: 'Financial tracker tool for managing your personal finances',
+  manifest: '/manifest.json',
+  themeColor: '#000000',
+  viewport:
+    'width=device-width, height=device-height, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no',
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'default',
+    title: 'Fin-Track',
+  },
+  formatDetection: {
+    telephone: false,
+  },
+  icons: {
+    icon: [{ url: '/favicon.ico', sizes: 'any', type: 'image/x-icon' }],
+    apple: [{ url: '/favicon.ico', sizes: 'any', type: 'image/x-icon' }],
+  },
 };
 
 export default async function RootLayout({
@@ -29,10 +47,35 @@ export default async function RootLayout({
       className={`${raleway.variable}`}
     >
       <head>
+        <meta name="application-name" content="Fin-Track" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="apple-mobile-web-app-title" content="Fin-Track" />
         <meta
-          name="viewport"
-          content="width=device-width, height=device-height, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no"
+          name="description"
+          content="Financial tracker tool for managing your personal finances"
         />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="msapplication-config" content="/icons/browserconfig.xml" />
+        <meta name="msapplication-TileColor" content="#000000" />
+        <meta name="msapplication-tap-highlight" content="no" />
+        <meta name="theme-color" content="#000000" />
+
+        <link rel="icon" href="/favicon.ico" sizes="any" type="image/x-icon" />
+        <link
+          rel="apple-touch-icon"
+          href="/favicon.ico"
+          sizes="any"
+          type="image/x-icon"
+        />
+        <link rel="manifest" href="/manifest.json" />
+        <link
+          rel="mask-icon"
+          href="/icons/safari-pinned-tab.svg"
+          color="#000000"
+        />
+        <link rel="shortcut icon" href="/favicon.ico" />
       </head>
       <body className={`antialiased ${raleway.className}`}>
         <NextIntlClientProvider messages={messages}>
@@ -44,6 +87,8 @@ export default async function RootLayout({
             </main>
 
             <Toaster />
+            <OfflineIndicator />
+            <PWAInstallPrompt />
           </Providers>
         </NextIntlClientProvider>
       </body>
