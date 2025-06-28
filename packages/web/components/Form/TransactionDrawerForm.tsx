@@ -187,11 +187,16 @@ const TransactionDrawerForm = ({
                         (category) =>
                           category.type._id === type._id && category.active,
                       )
-                      .map((category) => (
-                        <SelectItem key={category._id} value={category._id}>
-                          {category.name}
-                        </SelectItem>
-                      ))}
+                      .map((category) => {
+                        const { _id, id, name } = category;
+                        const isTranslated = t.has(`Common.category.${id}`);
+
+                        return (
+                          <SelectItem key={_id} value={_id}>
+                            {isTranslated ? t(`Common.category.${id}`) : name}
+                          </SelectItem>
+                        );
+                      })}
                   </SelectGroup>
                 </SelectContent>
               </Select>

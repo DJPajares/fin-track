@@ -19,6 +19,7 @@ import { Label } from '@web/components/ui/label';
 
 const baseCategory: CategoryItemProps = {
   _id: '',
+  id: '',
   name: '',
   type: {
     _id: '',

@@ -6,6 +6,7 @@ export type TransactionProps = {
   typeId: string;
   typeName: string;
   categoryId: string;
+  categoryIdSerialized: string;
   categoryName: string;
   categoryIcon: IconProps;
   currencyId: string;

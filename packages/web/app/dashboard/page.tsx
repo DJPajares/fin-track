@@ -31,6 +31,7 @@ import { Label } from '@web/components/ui/label';
 
 const initialTransactionPaymentCategory = {
   _id: '',
+  id: '',
   name: '',
   totalAmount: 0,
   totalPaidAmount: 0,

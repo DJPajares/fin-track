@@ -142,7 +142,7 @@ const getIncomeTransactions = async ({ date }: TransactionPaymentProps) => {
     {
       // Filter transactions where the category type is 'Expense'
       $match: {
-        'type.name': 'Income',
+        'type.id': 'income',
       },
     },
     {
@@ -150,6 +150,7 @@ const getIncomeTransactions = async ({ date }: TransactionPaymentProps) => {
         _id: 1,
         name: 1,
         categoryId: '$category._id',
+        categoryIdSerialized: '$category.id',
         category: '$category.name',
         categoryIcon: '$category.icon',
         typeId: '$type._id',
@@ -377,7 +378,7 @@ const getExpenseTransactionPayments = async ({
     {
       // Filter transactions where the category type is 'Expense'
       $match: {
-        'type.name': 'Expense',
+        'type.id': 'expense',
       },
     },
     {
@@ -385,6 +386,7 @@ const getExpenseTransactionPayments = async ({
         _id: 1,
         name: 1,
         categoryId: '$category._id',
+        categoryIdSerialized: '$category.id',
         category: '$category.name',
         categoryIcon: '$category.icon',
         typeId: '$type._id',
@@ -491,6 +493,7 @@ const processTransactionPaymentData = ({
         if (!accumulator[key]) {
           accumulator[key] = {
             _id: expenseTransactionPayment.categoryId,
+            id: expenseTransactionPayment.categoryIdSerialized,
             name: expenseTransactionPayment.category,
             icon: expenseTransactionPayment.categoryIcon,
             totalAmount: 0,

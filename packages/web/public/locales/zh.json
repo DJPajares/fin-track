@@ -159,6 +159,10 @@
       "prevYear": "上一年",
       "nextYear": "下一年"
     },
+    "type": {
+      "income": "收入",
+      "expense": "支出"
+    },
     "category": {
       "creditCard": "信用卡",
       "debt": "债务",

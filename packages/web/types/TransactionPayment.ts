@@ -29,6 +29,7 @@ type TransactionProps = {
 
 type TransactionPaymentCategoryProps = {
   _id: string;
+  id: string;
   name: string;
   icon?: IconProps;
   totalAmount: number;

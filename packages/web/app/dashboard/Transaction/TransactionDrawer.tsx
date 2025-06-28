@@ -51,6 +51,15 @@ const TransactionDrawer = ({
     return convertedDate;
   }, [dashboard.date]);
 
+  const newTypes = types.map((type) => {
+    const isTranslated = t.has(`Common.type.${type.id}`);
+
+    return {
+      _id: type._id,
+      name: isTranslated ? t(`Common.type.${type.id}`) : type.name,
+    };
+  });
+
   const [createTransaction] = useCreateTransactionMutation();
 
   const [fetchDashboardData] = useLazyGetDashboardDataQuery();
@@ -71,6 +80,16 @@ const TransactionDrawer = ({
       setType(types[0]);
     }
   }, [types]);
+
+  // Update type name when translations change
+  useEffect(() => {
+    if (type._id && newTypes.length > 0) {
+      const updatedType = newTypes.find((t) => t._id === type._id);
+      if (updatedType && updatedType.name !== type.name) {
+        setType(updatedType);
+      }
+    }
+  }, [newTypes, type._id, type.name]);
 
   const formRef = useRef<HTMLFormElement>(null);
 
@@ -109,7 +128,7 @@ const TransactionDrawer = ({
         <div className="flex flex-row justify-end">
           <SelectBox
             variant="ghost"
-            items={types}
+            items={newTypes}
             selectedItem={type}
             setSelectedItem={setType}
             placeholder={t('Common.label.selectPlaceholder')}

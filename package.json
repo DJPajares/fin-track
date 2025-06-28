@@ -6,7 +6,8 @@
     "api": "cd packages/api && npm run dev",
     "prepare": "if [ \"$VERCEL\" != \"1\" ]; then husky install; fi",
     "prettier": "prettier --write .",
-    "lint": "eslint"
+    "lint": "eslint && npm run type-check",
+    "type-check": "cd packages/web && npx tsc --noEmit"
   },
   "lint-staged": {
     "packages/**/*.{js,jsx,ts,tsx}": [

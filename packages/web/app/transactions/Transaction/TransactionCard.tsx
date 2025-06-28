@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslations } from 'next-intl';
 
 import { Chip } from '@heroui/react';
 import { Card, CardContent } from '../../../components/ui/card';
@@ -15,8 +16,14 @@ type TransactionCardProps = {
   transaction: TransactionProps;
 };
 
-const TransactionCard = ({ transaction, date }: TransactionCardProps) => {
+const TransactionCard = ({ date, transaction }: TransactionCardProps) => {
+  const t = useTranslations();
+
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
+  const isTranslated = t.has(
+    `Common.category.${transaction.categoryIdSerialized}`,
+  );
 
   return (
     <div key={transaction._id} className="space-y-2">
@@ -50,7 +57,9 @@ const TransactionCard = ({ transaction, date }: TransactionCardProps) => {
 
               <div className="flex flex-row items-center justify-between">
                 <Label className="text-muted-foreground truncate text-xs hover:text-clip sm:text-base">
-                  {transaction.categoryName}
+                  {isTranslated
+                    ? t(`Common.category.${transaction.categoryIdSerialized}`)
+                    : transaction.categoryName}
                 </Label>
 
                 <Chip

@@ -159,6 +159,10 @@
       "prevYear": "Năm trước",
       "nextYear": "Năm sau"
     },
+    "type": {
+      "income": "Thu nhập",
+      "expense": "Chi tiêu"
+    },
     "category": {
       "creditCard": "Thẻ Tín Dụng",
       "debt": "Nợ",

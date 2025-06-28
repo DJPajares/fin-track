@@ -7,6 +7,7 @@ import type { PaymentProps } from '../models/v1/paymentModel';
 
 type IncomeTransactionsProps = TransactionProps & {
   categoryId: CategoryProps['_id'];
+  categoryIdSerialized: CategoryProps['id'];
   category: CategoryProps['name'];
   typeId: TypeProps['_id'];
   type: TypeProps['name'];
@@ -16,6 +17,7 @@ type IncomeTransactionsProps = TransactionProps & {
 
 type ExpenseTransactionPaymentsProps = TransactionProps & {
   categoryId: CategoryProps['_id'];
+  categoryIdSerialized: CategoryProps['id'];
   category: CategoryProps['name'];
   categoryIcon: CategoryProps['icon'];
   typeId: TypeProps['_id'];
@@ -59,6 +61,7 @@ type Transaction = {
 
 type CategoryAccumulatorProps = {
   _id: Types.ObjectId;
+  id: string;
   name: string;
   icon: CategoryProps['icon'];
   totalAmount: number;

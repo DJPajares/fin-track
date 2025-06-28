@@ -159,6 +159,10 @@
       "prevYear": "Tahun sebelumnya",
       "nextYear": "Tahun berikutnya"
     },
+    "type": {
+      "income": "Pendapatan",
+      "expense": "Pengeluaran"
+    },
     "category": {
       "creditCard": "Kartu Kredit",
       "debt": "Hutang",

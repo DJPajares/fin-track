@@ -159,6 +159,10 @@
       "prevYear": "Önceki yıl",
       "nextYear": "Sonraki yıl"
     },
+    "type": {
+      "income": "Gelir",
+      "expense": "Gider"
+    },
     "category": {
       "creditCard": "Kredi Kartı",
       "debt": "Borç",

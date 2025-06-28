@@ -159,6 +159,10 @@
       "prevYear": "Año anterior",
       "nextYear": "Año siguiente"
     },
+    "type": {
+      "income": "Ingreso",
+      "expense": "Gasto"
+    },
     "category": {
       "creditCard": "Tarjeta de Crédito",
       "debt": "Deuda",
