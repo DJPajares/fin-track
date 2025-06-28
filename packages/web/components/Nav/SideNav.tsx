@@ -43,7 +43,7 @@ const SideNav = () => {
         <SidebarMenu>
           <SidebarMenuItem>
             <Link href="/" onClick={handleLinkClick} passHref>
-              <SidebarMenuButton size="lg">
+              <SidebarMenuButton size="lg" className="flex flex-row gap-3">
                 <div className="bg-primary text-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
                   <TrendingUpIcon className="size-4" />
                 </div>
@@ -78,12 +78,17 @@ const SideNav = () => {
                         size="lg"
                         tooltip={item.label}
                       >
-                        <div className="flex aspect-square size-8 items-center justify-center rounded-lg">
+                        <div className="text-muted-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
                           {item.icon && <item.icon />}
                         </div>
 
                         <div className="grid flex-1 text-left leading-tight">
-                          <Label variant="title-xxs">{t(item.value)}</Label>
+                          <Label
+                            variant="title-xxs"
+                            className="text-muted-foreground font-semibold"
+                          >
+                            {t(item.value)}
+                          </Label>
                         </div>
 
                         <ChevronRightIcon className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
@@ -92,12 +97,17 @@ const SideNav = () => {
                   ) : (
                     <Link href={item.route} onClick={handleLinkClick} passHref>
                       <SidebarMenuButton size="lg" tooltip={item.label}>
-                        <div className="flex aspect-square size-8 items-center justify-center rounded-lg">
+                        <div className="text-muted-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
                           {item.icon && <item.icon />}
                         </div>
 
                         <div className="grid flex-1 text-left leading-tight">
-                          <Label variant="title-xxs">{t(item.value)}</Label>
+                          <Label
+                            variant="title-xxs"
+                            className="text-muted-foreground font-semibold"
+                          >
+                            {t(item.value)}
+                          </Label>
                         </div>
                       </SidebarMenuButton>
                     </Link>
@@ -112,8 +122,11 @@ const SideNav = () => {
                             onClick={handleLinkClick}
                             passHref
                           >
-                            <SidebarMenuSubButton size="md" asChild>
-                              <Label variant="title-xxs">
+                            <SidebarMenuSubButton size="sm" asChild>
+                              <Label
+                                variant="title-xxs"
+                                className="text-muted-foreground font-light"
+                              >
                                 {t(subItem.value)}
                               </Label>
                             </SidebarMenuSubButton>

@@ -175,92 +175,93 @@ const Dashboard = () => {
       )}
 
       {/* BALANCE CARD */}
-      <Card className="flex flex-col gap-2 p-4">
-        <div className="flex flex-row items-center justify-between">
-          <Label variant="title-sm">{t('balance')}</Label>
+      {isFetching ? (
+        <Skeleton className="h-40 w-full" />
+      ) : (
+        <Card className="flex flex-col gap-2 p-4">
+          <div className="flex flex-row items-center justify-between">
+            <Label variant="title-sm">{t('balance')}</Label>
 
-          {isFetching ? (
-            <Skeleton className="h-6 w-20" />
-          ) : (
             <Label variant="title-md">
               {formatCurrency({
                 value: balance,
                 currency: currency.name,
               })}
             </Label>
-          )}
-        </div>
+          </div>
 
-        <div className="flex flex-row items-center justify-between">
-          <Label variant="subtitle-md">{t('extra')}</Label>
+          <div className="flex flex-row items-center justify-between">
+            <Label variant="subtitle-md">{t('extra')}</Label>
 
-          {isFetching ? (
-            <Skeleton className="h-4 w-20" />
-          ) : (
             <Label variant="subtitle-md">
               {formatCurrency({ value: extra, currency: currency.name })}
             </Label>
-          )}
-        </div>
+          </div>
 
-        <Separator />
+          <Separator />
 
-        <div className="space-y-1">
-          <div className="flex flex-row items-center justify-end space-x-2">
-            <Label variant="subtitle-md" className="italic">
-              {t('settled')}:
-            </Label>
+          <div className="space-y-1">
+            <div className="flex flex-row items-center justify-end space-x-2">
+              <Label variant="subtitle-md" className="italic">
+                {t('settled')}:
+              </Label>
 
-            {isFetching ? (
-              <Skeleton className="h-5 w-16" />
-            ) : (
               <Label variant="subtitle-md">
                 {formatCurrency({
                   value: totalPaidAmount,
                   currency: currency.name,
                 })}
               </Label>
-            )}
-          </div>
+            </div>
 
-          <div className="flex flex-row items-center justify-end space-x-2">
-            <Label variant="subtitle-md" className="italic">
-              {t('unsettled')}:
-            </Label>
+            <div className="flex flex-row items-center justify-end space-x-2">
+              <Label variant="subtitle-md" className="italic">
+                {t('unsettled')}:
+              </Label>
 
-            {isFetching ? (
-              <Skeleton className="h-5 w-16" />
-            ) : (
               <Label variant="subtitle-md">
                 {formatCurrency({
                   value: totalAmount - totalPaidAmount,
                   currency: currency.name,
                 })}
               </Label>
-            )}
+            </div>
           </div>
-        </div>
-      </Card>
+        </Card>
+      )}
 
       {/* CATEGORY CARD */}
       <ScrollShadow className="max-h-[40vh] sm:max-h-[90vh]" hideScrollBar>
-        <div className="grid grid-cols-2 items-start justify-center gap-5 sm:grid-cols-3 sm:gap-10">
-          {dashboardCategories.map((category: DashboardDataCategoryResult) => (
-            <div key={category._id}>
-              <CategoryCard
-                category={category}
-                currency={currency.name}
-                handleCardClick={handleCardClick}
-              />
-            </div>
-          ))}
-        </div>
+        {isFetching ? (
+          <div className="grid grid-cols-2 items-start justify-center gap-5 sm:grid-cols-3 sm:gap-10">
+            <Skeleton className="h-44 w-full sm:h-56" />
+            <Skeleton className="h-44 w-full sm:h-56" />
+          </div>
+        ) : (
+          <div className="grid grid-cols-2 items-start justify-center gap-5 sm:grid-cols-3 sm:gap-10">
+            {dashboardCategories.map(
+              (category: DashboardDataCategoryResult) => (
+                <div key={category._id}>
+                  <CategoryCard
+                    category={category}
+                    currency={currency.name}
+                    handleCardClick={handleCardClick}
+                  />
+                </div>
+              ),
+            )}
+          </div>
+        )}
       </ScrollShadow>
 
       {/* TRANSACTION BUTTON */}
-      <Button className="my-4 w-full" onClick={handleAddTransactionButton}>
-        {t('transactionButton')}
-      </Button>
+      {isFetching ? (
+        <Skeleton className="h-10 w-full" />
+      ) : (
+        <Button className="my-4 w-full" onClick={handleAddTransactionButton}>
+          {t('transactionButton')}
+        </Button>
+      )}
 
       {/* HIDDEN DRAWERS */}
       <CategoryDrawer

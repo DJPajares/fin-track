@@ -1,7 +1,6 @@
 'use client';
 
 import { ReactNode, useEffect, useState } from 'react';
-import Link from 'next/link';
 
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 import { SidebarInset, SidebarProvider, SidebarTrigger } from '../ui/sidebar';
@@ -50,11 +49,9 @@ const NavBar = ({ children }: NavBarProps) => {
         >
           <SidebarTrigger className="-ml-1" />
 
-          <Link href="/">
-            <Label variant="title-xs" className="!font-bold">
-              FIN-TRACK
-            </Label>
-          </Link>
+          <Label variant="title-xs" className="!font-bold">
+            FIN-TRACK
+          </Label>
 
           <NavDropdownMenu>
             <Avatar className="hover:border-primary h-8 w-8 cursor-pointer">
