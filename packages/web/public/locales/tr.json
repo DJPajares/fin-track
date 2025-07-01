@@ -21,6 +21,7 @@
   "Page": {
     "login": {
       "login": "Giriş Yap",
+      "loggingIn": "Giriş yapılıyor...",
       "signInToAccount": "Hesabınıza giriş yapın",
       "loginWith": "{provider} ile giriş yapın",
       "email": "E-posta",

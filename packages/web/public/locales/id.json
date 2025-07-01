@@ -21,6 +21,7 @@
   "Page": {
     "login": {
       "login": "Masuk",
+      "loggingIn": "Masuk...",
       "signInToAccount": "Masuk ke akun Anda",
       "loginWith": "Masuk dengan {provider}",
       "email": "Email",

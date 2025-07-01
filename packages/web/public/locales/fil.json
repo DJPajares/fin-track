@@ -21,6 +21,7 @@
   "Page": {
     "login": {
       "login": "Mag-login",
+      "loggingIn": "Nag-log in...",
       "signInToAccount": "Mag-sign in sa iyong account",
       "loginWith": "Mag-login gamit ang {provider}",
       "email": "Email",

@@ -21,6 +21,7 @@
   "Page": {
     "login": {
       "login": "Войти",
+      "loggingIn": "Вход в систему...",
       "signInToAccount": "Войдите в свой аккаунт",
       "loginWith": "Войти через {provider}",
       "email": "Электронная почта",

@@ -21,6 +21,7 @@
   "Page": {
     "login": {
       "login": "लॉगिन",
+      "loggingIn": "लॉगिन हो रहा है...",
       "signInToAccount": "अपने खाते में साइन इन करें",
       "loginWith": "{provider} के साथ लॉगिन करें",
       "email": "ईमेल",

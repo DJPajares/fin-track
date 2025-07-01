@@ -21,6 +21,7 @@
   "Page": {
     "login": {
       "login": "ログイン",
+      "loggingIn": "ログイン中...",
       "signInToAccount": "アカウントにサインイン",
       "loginWith": "{provider}でログイン",
       "email": "メールアドレス",

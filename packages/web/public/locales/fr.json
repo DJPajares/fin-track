@@ -21,6 +21,7 @@
   "Page": {
     "login": {
       "login": "Connexion",
+      "loggingIn": "Connexion en cours...",
       "signInToAccount": "Connectez-vous à votre compte",
       "loginWith": "Se connecter avec {provider}",
       "email": "E-mail",

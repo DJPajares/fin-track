@@ -21,6 +21,7 @@
   "Page": {
     "login": {
       "login": "登录",
+      "loggingIn": "登录中...",
       "signInToAccount": "登录您的账户",
       "loginWith": "使用 {provider} 登录",
       "email": "邮箱",

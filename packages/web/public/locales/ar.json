@@ -21,6 +21,7 @@
   "Page": {
     "login": {
       "login": "تسجيل الدخول",
+      "loggingIn": "تسجيل الدخول...",
       "signInToAccount": "سجل الدخول إلى حسابك",
       "loginWith": "تسجيل الدخول باستخدام {provider}",
       "email": "البريد الإلكتروني",

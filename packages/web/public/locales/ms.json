@@ -21,6 +21,7 @@
   "Page": {
     "login": {
       "login": "Log Masuk",
+      "loggingIn": "Log masuk...",
       "signInToAccount": "Log masuk ke akaun anda",
       "loginWith": "Log masuk dengan {provider}",
       "email": "E-mel",

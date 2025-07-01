@@ -21,6 +21,7 @@
   "Page": {
     "login": {
       "login": "เข้าสู่ระบบ",
+      "loggingIn": "กำลังเข้าสู่ระบบ...",
       "signInToAccount": "เข้าสู่ระบบในบัญชีของคุณ",
       "loginWith": "เข้าสู่ระบบด้วย {provider}",
       "email": "อีเมล",

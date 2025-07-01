@@ -21,6 +21,7 @@
   "Page": {
     "login": {
       "login": "Anmelden",
+      "loggingIn": "Anmeldung läuft...",
       "signInToAccount": "Melden Sie sich bei Ihrem Konto an",
       "loginWith": "Anmelden mit {provider}",
       "email": "E-Mail",

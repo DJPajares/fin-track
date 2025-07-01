@@ -21,6 +21,7 @@
   "Page": {
     "login": {
       "login": "Login",
+      "loggingIn": "Logging in...",
       "signInToAccount": "Sign in to your account",
       "loginWith": "Login with {provider}",
       "email": "Email",

@@ -21,6 +21,7 @@
   "Page": {
     "login": {
       "login": "Đăng nhập",
+      "loggingIn": "Đang đăng nhập...",
       "signInToAccount": "Đăng nhập vào tài khoản của bạn",
       "loginWith": "Đăng nhập bằng {provider}",
       "email": "Email",

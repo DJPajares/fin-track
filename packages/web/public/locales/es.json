@@ -21,6 +21,7 @@
   "Page": {
     "login": {
       "login": "Iniciar sesión",
+      "loggingIn": "Iniciando sesión...",
       "signInToAccount": "Inicia sesión en tu cuenta",
       "loginWith": "Iniciar sesión con {provider}",
       "email": "Correo electrónico",
