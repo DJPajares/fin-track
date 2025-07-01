@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
-import { useTranslations } from 'next-intl';
-import { CircularProgress } from '@heroui/react';
-import { signIn, useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import { signIn, useSession } from 'next-auth/react';
+import { useTranslations } from 'next-intl';
 
+import { CircularProgress } from '@heroui/react';
 import { Button } from '@web/components/ui/button';
 import { Card, CardContent } from '@web/components/ui/card';
 import { Input } from '@web/components/ui/input';
