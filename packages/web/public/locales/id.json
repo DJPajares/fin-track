@@ -19,6 +19,23 @@
     "logout": "Keluar"
   },
   "Page": {
+    "login": {
+      "login": "Masuk",
+      "signInToAccount": "Masuk ke akun Anda",
+      "loginWith": "Masuk dengan {provider}",
+      "email": "Email",
+      "password": "Kata sandi",
+      "forgotPassword": "Lupa kata sandi?",
+      "dontHaveAccount": "Tidak punya akun?",
+      "signUp": "Daftar",
+      "signIn": "Masuk",
+      "continueWith": "Atau lanjutkan dengan",
+      "loading": "Memuat...",
+      "byClickingContinue": "Dengan mengklik lanjutkan, Anda menyetujui",
+      "termsOfService": "Ketentuan Layanan",
+      "and": "dan",
+      "privacyPolicy": "Kebijakan Privasi"
+    },
     "home": {
       "greetings": "Selamat Datang",
       "dashboardButton": "Ke Dasbor",

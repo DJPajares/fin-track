@@ -19,6 +19,23 @@
     "logout": "登出"
   },
   "Page": {
+    "login": {
+      "login": "登录",
+      "signInToAccount": "登录您的账户",
+      "loginWith": "使用 {provider} 登录",
+      "email": "邮箱",
+      "password": "密码",
+      "forgotPassword": "忘记密码？",
+      "dontHaveAccount": "没有账户？",
+      "signUp": "注册",
+      "signIn": "登录",
+      "continueWith": "或继续使用",
+      "loading": "加载中...",
+      "byClickingContinue": "点击继续，即表示您同意我们的",
+      "termsOfService": "服务条款",
+      "and": "和",
+      "privacyPolicy": "隐私政策"
+    },
     "home": {
       "greetings": "欢迎",
       "dashboardButton": "前往仪表盘",

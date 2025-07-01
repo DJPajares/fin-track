@@ -19,6 +19,23 @@
     "logout": "Выйти"
   },
   "Page": {
+    "login": {
+      "login": "Войти",
+      "signInToAccount": "Войдите в свой аккаунт",
+      "loginWith": "Войти через {provider}",
+      "email": "Электронная почта",
+      "password": "Пароль",
+      "forgotPassword": "Забыли пароль?",
+      "dontHaveAccount": "Нет аккаунта?",
+      "signUp": "Зарегистрироваться",
+      "signIn": "Войти",
+      "continueWith": "Или продолжить с",
+      "loading": "Загрузка...",
+      "byClickingContinue": "Нажимая продолжить, вы соглашаетесь с нашими",
+      "termsOfService": "Условиями использования",
+      "and": "и",
+      "privacyPolicy": "Политикой конфиденциальности"
+    },
     "home": {
       "greetings": "Добро пожаловать",
       "dashboardButton": "Перейти к панели управления",

@@ -20,7 +20,21 @@
   },
   "Page": {
     "login": {
-      "loading": "Loading..."
+      "login": "Login",
+      "signInToAccount": "Sign in to your account",
+      "loginWith": "Login with {provider}",
+      "email": "Email",
+      "password": "Password",
+      "forgotPassword": "Forgot password?",
+      "dontHaveAccount": "Don't have an account?",
+      "signUp": "Sign up",
+      "signIn": "Sign in",
+      "continueWith": "Or continue with",
+      "loading": "Loading...",
+      "byClickingContinue": "By clicking continue, you agree to our",
+      "termsOfService": "Terms of Service",
+      "and": "and",
+      "privacyPolicy": "Privacy Policy"
     },
     "home": {
       "greetings": "Welcome",

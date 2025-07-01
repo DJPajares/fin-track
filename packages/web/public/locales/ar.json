@@ -19,6 +19,23 @@
     "logout": "تسجيل الخروج"
   },
   "Page": {
+    "login": {
+      "login": "تسجيل الدخول",
+      "signInToAccount": "سجل الدخول إلى حسابك",
+      "loginWith": "تسجيل الدخول باستخدام {provider}",
+      "email": "البريد الإلكتروني",
+      "password": "كلمة المرور",
+      "forgotPassword": "نسيت كلمة المرور؟",
+      "dontHaveAccount": "ليس لديك حساب؟",
+      "signUp": "إنشاء حساب",
+      "signIn": "تسجيل الدخول",
+      "continueWith": "أو المتابعة باستخدام",
+      "loading": "جاري التحميل...",
+      "byClickingContinue": "بالنقر على متابعة، أنت توافق على",
+      "termsOfService": "شروط الخدمة",
+      "and": "و",
+      "privacyPolicy": "سياسة الخصوصية"
+    },
     "home": {
       "greetings": "مرحبًا",
       "dashboardButton": "انتقل إلى لوحة التحكم",

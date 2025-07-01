@@ -19,6 +19,23 @@
     "logout": "ログアウト"
   },
   "Page": {
+    "login": {
+      "login": "ログイン",
+      "signInToAccount": "アカウントにサインイン",
+      "loginWith": "{provider}でログイン",
+      "email": "メールアドレス",
+      "password": "パスワード",
+      "forgotPassword": "パスワードを忘れた場合",
+      "dontHaveAccount": "アカウントをお持ちでない場合",
+      "signUp": "サインアップ",
+      "signIn": "サインイン",
+      "continueWith": "または次で続行",
+      "loading": "読み込み中...",
+      "byClickingContinue": "続行をクリックすることで、当社の",
+      "termsOfService": "利用規約",
+      "and": "および",
+      "privacyPolicy": "プライバシーポリシー"
+    },
     "home": {
       "greetings": "ようこそ",
       "dashboardButton": "ダッシュボードへ",

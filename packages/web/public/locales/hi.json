@@ -19,6 +19,23 @@
     "logout": "लॉगआउट"
   },
   "Page": {
+    "login": {
+      "login": "लॉगिन",
+      "signInToAccount": "अपने खाते में साइन इन करें",
+      "loginWith": "{provider} के साथ लॉगिन करें",
+      "email": "ईमेल",
+      "password": "पासवर्ड",
+      "forgotPassword": "पासवर्ड भूल गए?",
+      "dontHaveAccount": "खाता नहीं है?",
+      "signUp": "साइन अप",
+      "signIn": "साइन इन",
+      "continueWith": "या जारी रखें",
+      "loading": "लोड हो रहा है...",
+      "byClickingContinue": "जारी रखें पर क्लिक करके, आप हमारे",
+      "termsOfService": "सेवा की शर्तों",
+      "and": "और",
+      "privacyPolicy": "गोपनीयता नीति"
+    },
     "home": {
       "greetings": "स्वागत है",
       "dashboardButton": "डैशबोर्ड पर जाएँ",

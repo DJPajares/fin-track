@@ -19,6 +19,23 @@
     "logout": "Abmelden"
   },
   "Page": {
+    "login": {
+      "login": "Anmelden",
+      "signInToAccount": "Melden Sie sich bei Ihrem Konto an",
+      "loginWith": "Anmelden mit {provider}",
+      "email": "E-Mail",
+      "password": "Passwort",
+      "forgotPassword": "Passwort vergessen?",
+      "dontHaveAccount": "Haben Sie kein Konto?",
+      "signUp": "Registrieren",
+      "signIn": "Anmelden",
+      "continueWith": "Oder fortfahren mit",
+      "loading": "Laden...",
+      "byClickingContinue": "Durch Klicken auf Fortfahren stimmen Sie unseren",
+      "termsOfService": "Nutzungsbedingungen",
+      "and": "und",
+      "privacyPolicy": "Datenschutzrichtlinie"
+    },
     "home": {
       "greetings": "Willkommen",
       "dashboardButton": "Zum Dashboard",

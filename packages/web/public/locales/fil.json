@@ -19,6 +19,23 @@
     "logout": "Mag-logout"
   },
   "Page": {
+    "login": {
+      "login": "Mag-login",
+      "signInToAccount": "Mag-sign in sa iyong account",
+      "loginWith": "Mag-login gamit ang {provider}",
+      "email": "Email",
+      "password": "Password",
+      "forgotPassword": "Nakalimutan ang password?",
+      "dontHaveAccount": "Wala kang account?",
+      "signUp": "Mag-sign up",
+      "signIn": "Mag-sign in",
+      "continueWith": "O magpatuloy gamit ang",
+      "loading": "Naglo-load...",
+      "byClickingContinue": "Sa pag-click ng magpatuloy, sumasang-ayon ka sa aming",
+      "termsOfService": "Mga Tuntunin ng Serbisyo",
+      "and": "at",
+      "privacyPolicy": "Patakaran sa Privacy"
+    },
     "home": {
       "greetings": "Maligayang pagdating",
       "dashboardButton": "Pumunta sa Dashboard",

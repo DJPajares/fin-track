@@ -19,6 +19,23 @@
     "logout": "Esci"
   },
   "Page": {
+    "login": {
+      "login": "Accedi",
+      "signInToAccount": "Accedi al tuo account",
+      "loginWith": "Accedi con {provider}",
+      "email": "Email",
+      "password": "Password",
+      "forgotPassword": "Password dimenticata?",
+      "dontHaveAccount": "Non hai un account?",
+      "signUp": "Registrati",
+      "signIn": "Accedi",
+      "continueWith": "Oppure continua con",
+      "loading": "Caricamento...",
+      "byClickingContinue": "Cliccando su continua, accetti i nostri",
+      "termsOfService": "Termini di Servizio",
+      "and": "e",
+      "privacyPolicy": "Informativa sulla Privacy"
+    },
     "home": {
       "greetings": "Benvenuto",
       "dashboardButton": "Vai al Cruscotto",

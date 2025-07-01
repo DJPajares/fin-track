@@ -19,6 +19,23 @@
     "logout": "Çıkış Yap"
   },
   "Page": {
+    "login": {
+      "login": "Giriş Yap",
+      "signInToAccount": "Hesabınıza giriş yapın",
+      "loginWith": "{provider} ile giriş yapın",
+      "email": "E-posta",
+      "password": "Şifre",
+      "forgotPassword": "Şifrenizi mi unuttunuz?",
+      "dontHaveAccount": "Hesabınız yok mu?",
+      "signUp": "Kayıt Ol",
+      "signIn": "Giriş Yap",
+      "continueWith": "Veya şununla devam edin",
+      "loading": "Yükleniyor...",
+      "byClickingContinue": "Devam et'e tıklayarak",
+      "termsOfService": "Hizmet Şartları",
+      "and": "ve",
+      "privacyPolicy": "Gizlilik Politikası"
+    },
     "home": {
       "greetings": "Hoşgeldiniz",
       "dashboardButton": "Gösterge Paneline Git",

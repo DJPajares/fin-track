@@ -19,6 +19,23 @@
     "logout": "Đăng Xuất"
   },
   "Page": {
+    "login": {
+      "login": "Đăng nhập",
+      "signInToAccount": "Đăng nhập vào tài khoản của bạn",
+      "loginWith": "Đăng nhập bằng {provider}",
+      "email": "Email",
+      "password": "Mật khẩu",
+      "forgotPassword": "Quên mật khẩu?",
+      "dontHaveAccount": "Chưa có tài khoản?",
+      "signUp": "Đăng ký",
+      "signIn": "Đăng nhập",
+      "continueWith": "Hoặc tiếp tục với",
+      "loading": "Đang tải...",
+      "byClickingContinue": "Bằng cách nhấp vào tiếp tục, bạn đồng ý với",
+      "termsOfService": "Điều khoản Dịch vụ",
+      "and": "và",
+      "privacyPolicy": "Chính sách Bảo mật"
+    },
     "home": {
       "greetings": "Chào Mừng",
       "dashboardButton": "Đi đến Bảng Điều Khiển",

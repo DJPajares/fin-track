@@ -19,6 +19,23 @@
     "logout": "ออกจากระบบ"
   },
   "Page": {
+    "login": {
+      "login": "เข้าสู่ระบบ",
+      "signInToAccount": "เข้าสู่ระบบในบัญชีของคุณ",
+      "loginWith": "เข้าสู่ระบบด้วย {provider}",
+      "email": "อีเมล",
+      "password": "รหัสผ่าน",
+      "forgotPassword": "ลืมรหัสผ่าน?",
+      "dontHaveAccount": "ไม่มีบัญชี?",
+      "signUp": "สมัครสมาชิก",
+      "signIn": "เข้าสู่ระบบ",
+      "continueWith": "หรือดำเนินการต่อด้วย",
+      "loading": "กำลังโหลด...",
+      "byClickingContinue": "การคลิกดำเนินการต่อ คุณยอมรับ",
+      "termsOfService": "ข้อกำหนดการให้บริการ",
+      "and": "และ",
+      "privacyPolicy": "นโยบายความเป็นส่วนตัว"
+    },
     "home": {
       "greetings": "ยินดีต้อนรับ",
       "dashboardButton": "ไปที่แดชบอร์ด",

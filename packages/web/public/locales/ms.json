@@ -19,6 +19,23 @@
     "logout": "Log Keluar"
   },
   "Page": {
+    "login": {
+      "login": "Log Masuk",
+      "signInToAccount": "Log masuk ke akaun anda",
+      "loginWith": "Log masuk dengan {provider}",
+      "email": "E-mel",
+      "password": "Kata laluan",
+      "forgotPassword": "Lupa kata laluan?",
+      "dontHaveAccount": "Tidak mempunyai akaun?",
+      "signUp": "Daftar",
+      "signIn": "Log Masuk",
+      "continueWith": "Atau teruskan dengan",
+      "loading": "Memuatkan...",
+      "byClickingContinue": "Dengan mengklik teruskan, anda bersetuju dengan",
+      "termsOfService": "Terma Perkhidmatan",
+      "and": "dan",
+      "privacyPolicy": "Dasar Privasi"
+    },
     "home": {
       "greetings": "Selamat Datang",
       "dashboardButton": "Pergi ke Papan Pemuka",
