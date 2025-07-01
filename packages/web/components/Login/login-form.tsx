@@ -3,12 +3,49 @@ import { Button } from '@web/components/ui/button';
 import { Card, CardContent } from '@web/components/ui/card';
 import { Input } from '@web/components/ui/input';
 import { Label } from '@web/components/ui/label';
-import { signIn } from 'next-auth/react';
+import { signIn, useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
 export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<'div'>) {
+  const { data: session, status } = useSession();
+  const router = useRouter();
+
+  // Redirect to dashboard if already authenticated
+  useEffect(() => {
+    if (status === 'authenticated' && session) {
+      router.push('/');
+    }
+  }, [session, status, router]);
+
+  // Show loading state while checking authentication
+  if (status === 'loading') {
+    return (
+      <div className={cn('flex flex-col gap-6', className)} {...props}>
+        <Card className="overflow-hidden p-0">
+          <CardContent className="grid p-0 md:grid-cols-2">
+            <div className="p-6 md:p-8">
+              <div className="flex flex-col items-center text-center">
+                <Label variant="title-lg">Fin-Track</Label>
+                <Label variant="subtitle-md" className="text-muted-foreground">
+                  Loading...
+                </Label>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
+
+  // Don't render login form if already authenticated
+  if (status === 'authenticated') {
+    return null;
+  }
+
   return (
     <div className={cn('flex flex-col gap-6', className)} {...props}>
       <Card className="overflow-hidden p-0">
@@ -73,7 +110,7 @@ export function LoginForm({
                   variant="outline"
                   type="button"
                   className="w-full"
-                  onClick={() => signIn('github', { redirectTo: '/' })}
+                  onClick={() => signIn('github', { callbackUrl: '/' })}
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                     <path

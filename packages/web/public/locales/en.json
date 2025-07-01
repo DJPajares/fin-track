@@ -19,6 +19,9 @@
     "logout": "Logout"
   },
   "Page": {
+    "login": {
+      "loading": "Loading..."
+    },
     "home": {
       "greetings": "Welcome",
       "dashboardButton": "Go to Dashboard",
