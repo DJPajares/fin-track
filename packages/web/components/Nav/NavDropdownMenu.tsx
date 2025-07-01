@@ -1,6 +1,7 @@
 'use client';
 
 import { ReactNode, useState } from 'react';
+import { signOut, useSession } from 'next-auth/react';
 import { useTheme } from 'next-themes';
 
 import {
@@ -46,6 +47,7 @@ type NavDropdownMenuProps = {
 
 const NavDropdownMenu = ({ children }: NavDropdownMenuProps) => {
   const { theme, setTheme } = useTheme();
+  const { data: session } = useSession();
 
   const locale = useLocale();
   const dispatch = useDispatch();
@@ -80,9 +82,9 @@ const NavDropdownMenu = ({ children }: NavDropdownMenuProps) => {
       <DropdownMenuContent className="w-56" align="end" forceMount>
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
-            <Label variant="subtitle-md">DJ Pajares</Label>
+            <Label variant="subtitle-md">{session?.user?.name}</Label>
             <Label variant="caption" className="text-muted-foreground">
-              dj.pajares@gmail.com
+              {session?.user?.email}
             </Label>
           </div>
         </DropdownMenuLabel>
@@ -172,8 +174,13 @@ const NavDropdownMenu = ({ children }: NavDropdownMenuProps) => {
 
         <DropdownMenuGroup>
           <DropdownMenuItem>
-            <LogOutIcon className="text-muted-foreground size-4" />
-            {t('logout')}
+            <div
+              className="flex cursor-pointer items-center gap-2"
+              onClick={() => signOut({ redirectTo: '/login' })}
+            >
+              <LogOutIcon className="text-muted-foreground size-4" />
+              {t('logout')}
+            </div>
             <DropdownMenuShortcut>
               <Label variant="caption" className="text-muted-foreground">
                 {`v${packageInfo.version}`}

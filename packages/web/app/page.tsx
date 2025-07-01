@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 import moment from 'moment';
 import { toast } from 'sonner';
 
@@ -48,6 +49,9 @@ type PreviousSavingsProps = {
 const Home = () => {
   const router = useRouter();
   const t = useTranslations();
+  const { data: session } = useSession();
+
+  console.log('session', session);
 
   const quotes = t.raw('Page.home.motivation.quotes') as string[]; // Access raw array
 

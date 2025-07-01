@@ -1,13 +1,14 @@
 import type { Metadata } from 'next';
 import { getLocale, getMessages } from 'next-intl/server';
 import { NextIntlClientProvider } from 'next-intl';
+import { SessionProvider } from 'next-auth/react';
 
 import './globals.css';
 import { Providers } from '../providers/providers';
 import { raleway } from '../lib/fonts';
 
 import NavBar from '../components/Nav/NavBar';
-import { Toaster } from '@web/components/ui/sonner';
+import { Toaster } from '../components/ui/sonner';
 
 export const metadata: Metadata = {
   title: 'Fin-Track',
@@ -35,17 +36,19 @@ export default async function RootLayout({
         />
       </head>
       <body className={`antialiased ${raleway.className}`}>
-        <NextIntlClientProvider messages={messages}>
-          <Providers>
-            <main className="bg-background" vaul-drawer-wrapper="">
-              <NavBar>
-                <div className="w-full px-6 py-2 sm:px-8">{children}</div>
-              </NavBar>
-            </main>
+        <SessionProvider>
+          <NextIntlClientProvider messages={messages}>
+            <Providers>
+              <main className="bg-background" vaul-drawer-wrapper="">
+                <NavBar>
+                  <div className="w-full px-6 py-2 sm:px-8">{children}</div>
+                </NavBar>
+              </main>
 
-            <Toaster />
-          </Providers>
-        </NextIntlClientProvider>
+              <Toaster />
+            </Providers>
+          </NextIntlClientProvider>
+        </SessionProvider>
       </body>
     </html>
   );

@@ -8,12 +8,15 @@ import { Label } from '../ui/label';
 
 import SideNav from './SideNav';
 import NavDropdownMenu from './NavDropdownMenu';
+import { useSession } from 'next-auth/react';
+import { UserIcon } from 'lucide-react';
 
 type NavBarProps = {
   children: ReactNode;
 };
 
 const NavBar = ({ children }: NavBarProps) => {
+  const { data: session } = useSession();
   const [isVisible, setIsVisible] = useState(true);
 
   let lastScroll = 0;
@@ -54,9 +57,19 @@ const NavBar = ({ children }: NavBarProps) => {
           </Label>
 
           <NavDropdownMenu>
-            <Avatar className="hover:border-primary h-8 w-8 cursor-pointer">
-              <AvatarImage src="https://i.pravatar.cc/150?u=a04258114e29026708c" />
-              <AvatarFallback>DJ</AvatarFallback>
+            <Avatar className="hover:border-primary size-8 cursor-pointer">
+              {session?.user?.image ? (
+                <>
+                  <AvatarImage src={session?.user?.image} />
+                  <AvatarFallback>{session?.user?.name}</AvatarFallback>
+                </>
+              ) : (
+                <>
+                  <AvatarFallback>
+                    <UserIcon className="size-4" />
+                  </AvatarFallback>
+                </>
+              )}
             </Avatar>
           </NavDropdownMenu>
         </nav>
