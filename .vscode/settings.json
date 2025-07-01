@@ -11,5 +11,9 @@
   "typescript.preferences.importModuleSpecifier": "non-relative",
   "javascript.preferences.importModuleSpecifier": "non-relative",
   "files.trimTrailingWhitespace": true,
-  "i18n-ally.localesPaths": ["packages/web/i18n", "packages/web/public/locales"]
+  "i18n-ally.localesPaths": [
+    "packages/web/i18n",
+    "packages/web/public/locales"
+  ],
+  "i18n-ally.keystyle": "nested"
 }

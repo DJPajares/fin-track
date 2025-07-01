@@ -7,8 +7,8 @@ import './globals.css';
 import { Providers } from '../providers/providers';
 import { raleway } from '../lib/fonts';
 
-import NavBar from '../components/Nav/NavBar';
 import { Toaster } from '../components/ui/sonner';
+import { NavBarWrapper } from '../components/Nav/NavBarWrapper';
 
 export const metadata: Metadata = {
   title: 'Fin-Track',
@@ -40,9 +40,7 @@ export default async function RootLayout({
           <NextIntlClientProvider messages={messages}>
             <Providers>
               <main className="bg-background" vaul-drawer-wrapper="">
-                <NavBar>
-                  <div className="w-full px-6 py-2 sm:px-8">{children}</div>
-                </NavBar>
+                <NavBarWrapper>{children}</NavBarWrapper>
               </main>
 
               <Toaster />

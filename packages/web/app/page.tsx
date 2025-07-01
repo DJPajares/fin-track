@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
-import { useSession } from 'next-auth/react';
 import moment from 'moment';
 import { toast } from 'sonner';
 
@@ -20,8 +19,8 @@ import {
   CardContent,
   CardDescription,
   CardHeader,
-  CardTitle,
-} from '@web/components/ui/card';
+} from '../components/ui/card';
+import { Label } from '../components/ui/label';
 
 import {
   useGetDashboardDataQuery,
@@ -49,9 +48,6 @@ type PreviousSavingsProps = {
 const Home = () => {
   const router = useRouter();
   const t = useTranslations();
-  const { data: session } = useSession();
-
-  console.log('session', session);
 
   const quotes = t.raw('Page.home.motivation.quotes') as string[]; // Access raw array
 
@@ -216,17 +212,17 @@ const Home = () => {
             </CardDialog>
 
             <Card className="relative flex flex-col pb-0">
-              <CardHeader className="px-4">
+              <CardHeader className="px-2 sm:px-4">
                 <CardDescription>
                   {t('Page.home.cards.previousSavings.title')}
                 </CardDescription>
-                <CardTitle className="text-2xl">
+                <Label variant="title">
                   {formatCurrency({
                     value: averageSavings,
                     currency: currency.name,
                   })}
-                </CardTitle>
-                <CardDescription className="text-xs">
+                </Label>
+                <CardDescription className="!text-xs tracking-tighter italic">
                   {t('Page.home.cards.averageSavings.title')}
                 </CardDescription>
               </CardHeader>
@@ -257,17 +253,17 @@ const Home = () => {
             </Card>
 
             <Card className="relative flex flex-col pb-0">
-              <CardHeader className="px-4">
+              <CardHeader className="px-2 sm:px-4">
                 <CardDescription>
                   {t('Page.home.cards.upcomingExtra.title')}
                 </CardDescription>
-                <CardTitle className="text-2xl">
+                <Label variant="title">
                   {formatCurrency({
                     value: averageExtra,
                     currency: currency.name,
                   })}
-                </CardTitle>
-                <CardDescription className="text-xs">
+                </Label>
+                <CardDescription className="!text-xs tracking-tighter italic">
                   {t('Page.home.cards.averageExtra.title')}
                 </CardDescription>
               </CardHeader>
@@ -305,13 +301,14 @@ const Home = () => {
               <CardDescription>
                 {t('Page.home.motivation.title')}
               </CardDescription>
-              <CardTitle
+              <Label
+                variant="title-sm"
                 className={`font-normal italic transition-opacity duration-500 ${
                   fade ? 'opacity-0' : 'opacity-100'
                 }`}
               >
                 {`"${quotes[currentQuoteIndex]}"`}
-              </CardTitle>
+              </Label>
             </CardHeader>
           </Card>
         </>
