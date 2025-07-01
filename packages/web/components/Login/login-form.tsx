@@ -101,8 +101,10 @@ export function LoginForm({
         <CardContent className="grid p-0">
           <form className="p-6 md:p-8" onSubmit={handleSubmit}>
             <div className="flex flex-col gap-6">
-              <div className="flex flex-col items-center text-center">
-                <Label variant="title-lg">Fin-Track</Label>
+              <div className="flex flex-col items-center gap-2 text-center">
+                <Label variant="title" className="uppercase">
+                  Fin-Track
+                </Label>
                 <Label variant="subtitle-md" className="text-muted-foreground">
                   {t('Page.login.signInToAccount')}
                 </Label>
