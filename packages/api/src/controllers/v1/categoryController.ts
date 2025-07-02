@@ -33,6 +33,7 @@ const createMany = async (req: Request, res: Response, next: NextFunction) => {
 const getAll = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const query = req.query as unknown as QueryParamsProps;
+    // const userId =
 
     const result = await categoryService.getAll(query);
 
