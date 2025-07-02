@@ -1,6 +1,8 @@
 'use client';
 
 import { ReactNode, useEffect, useState } from 'react';
+import { useSession } from 'next-auth/react';
+import { UserIcon } from 'lucide-react';
 
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 import { SidebarInset, SidebarProvider, SidebarTrigger } from '../ui/sidebar';
@@ -8,8 +10,6 @@ import { Label } from '../ui/label';
 
 import SideNav from './SideNav';
 import NavDropdownMenu from './NavDropdownMenu';
-import { useSession } from 'next-auth/react';
-import { UserIcon } from 'lucide-react';
 
 type NavBarProps = {
   children: ReactNode;

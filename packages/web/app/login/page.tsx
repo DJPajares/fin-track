@@ -1,10 +1,11 @@
 'use client';
 
-import { LoginForm } from '@web/components/Login/login-form';
-import { useSession } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
+
+import { LoginForm } from '@web/components/Auth/login-form';
 
 export default function Login() {
   const t = useTranslations();
