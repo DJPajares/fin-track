@@ -36,9 +36,6 @@ const userSchema = new Schema(
 // Compound index to ensure unique provider + providerId combination
 userSchema.index({ provider: 1, providerId: 1 }, { unique: true });
 
-// Index for email lookups
-userSchema.index({ email: 1 });
-
 const UserModel = model('User', userSchema);
 
 type UserProps = HydratedDocument<InferSchemaType<typeof userSchema>>;
