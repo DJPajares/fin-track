@@ -34,9 +34,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
         const data = await response.json();
 
-        // Store the JWT token in the user object for later use
+        // Store the user ID and JWT token for NextAuth
+        user.id = data.data.user.id;
         (user as any).accessToken = data.data.token;
-        (user as any).id = data.data.user.id;
 
         return true;
       } catch (error) {
@@ -45,17 +45,17 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       }
     },
     async jwt({ token, user, account }) {
-      // Persist the access token to the token right after signin
+      // Persist the user ID and access token to the token right after signin
       if (account && user) {
-        token.accessToken = user.accessToken;
         token.userId = user.id;
+        token.accessToken = (user as any).accessToken;
       }
       return token;
     },
     async session({ session, token }) {
-      // Send properties to the client
-      session.accessToken = token.accessToken as string;
+      // Send user ID and access token to the client
       session.user.id = token.userId as string;
+      (session as any).accessToken = token.accessToken;
       return session;
     },
   },

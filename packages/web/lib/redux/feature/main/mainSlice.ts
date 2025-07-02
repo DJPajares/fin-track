@@ -9,16 +9,28 @@ const initialState: MainSliceProps = {
   types: [],
   categories: [],
   currencies: [],
+  user: null,
 };
 
 type TypeProps = ListProps & {
   id: string;
 };
 
+type UserProps = {
+  id: string;
+  email: string;
+  name: string;
+  image?: string;
+  provider: 'github' | 'google';
+  createdAt?: string;
+  updatedAt?: string;
+};
+
 type MainSliceProps = {
   types: TypeProps[];
   categories: CategoryItemProps[];
   currencies: ListProps[];
+  user: UserProps | null;
 };
 
 const mainSlice = createSlice({
@@ -106,6 +118,17 @@ const mainSlice = createSlice({
     setCurrencies: (state, action: PayloadAction<ListProps[]>) => {
       state.currencies = action.payload;
     },
+    setUser: (state, action: PayloadAction<UserProps>) => {
+      state.user = action.payload;
+    },
+    updateUser: (state, action: PayloadAction<Partial<UserProps>>) => {
+      if (state.user) {
+        state.user = { ...state.user, ...action.payload };
+      }
+    },
+    clearUser: (state) => {
+      state.user = null;
+    },
   },
 });
 
@@ -116,6 +139,9 @@ export const {
   updateCategory,
   deleteCategory,
   setCurrencies,
+  setUser,
+  updateUser,
+  clearUser,
 } = mainSlice.actions;
 
 export default mainSlice.reducer;
