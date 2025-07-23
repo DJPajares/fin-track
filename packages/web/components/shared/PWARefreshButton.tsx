@@ -4,22 +4,13 @@ import { useState, useEffect } from 'react';
 import { Button } from '../ui/button';
 import { RefreshCw } from 'lucide-react';
 import { cn } from '../../lib/utils';
+import { isPWA } from '../../lib/hooks/use-pwa';
 
 export default function PWARefreshButton() {
-  const [isStandalone, setIsStandalone] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [position, setPosition] = useState({ x: 0, y: 0 }); // Will be set to lower right
 
   useEffect(() => {
-    // Check if app is running in standalone mode (PWA)
-    const checkStandalone = () => {
-      const standalone = window.matchMedia(
-        '(display-mode: standalone)',
-      ).matches;
-
-      setIsStandalone(standalone);
-    };
-
     // Set initial position to lower right
     const setInitialPosition = () => {
       const buttonSize = 40; // 40px for button width/height
@@ -30,16 +21,12 @@ export default function PWARefreshButton() {
       });
     };
 
-    checkStandalone();
     setInitialPosition();
 
-    window.addEventListener('resize', () => {
-      checkStandalone();
-      setInitialPosition();
-    });
+    window.addEventListener('resize', setInitialPosition);
 
     return () => {
-      window.removeEventListener('resize', checkStandalone);
+      window.removeEventListener('resize', setInitialPosition);
     };
   }, []);
 
@@ -52,7 +39,7 @@ export default function PWARefreshButton() {
   };
 
   // Only show in standalone mode
-  if (!isStandalone) {
+  if (!isPWA()) {
     return null;
   }
 

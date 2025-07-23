@@ -17,6 +17,7 @@ interface PWAState {
   isOffline: boolean;
   isUpdateAvailable: boolean;
   deferredPrompt: BeforeInstallPromptEvent | null;
+  isIOS: boolean;
 }
 
 export function usePWA() {
@@ -26,6 +27,7 @@ export function usePWA() {
     isOffline: false,
     isUpdateAvailable: false,
     deferredPrompt: null,
+    isIOS: false,
   });
 
   const checkInstallable = useCallback(() => {
@@ -38,8 +40,11 @@ export function usePWA() {
     setPwaState((prev) => ({
       ...prev,
       isInstalled: isStandalone,
+      isIOS,
+      // For iOS, we show installable if not in standalone mode
+      // For other platforms, show if mobile or has deferred prompt
       isInstallable:
-        !isStandalone && (isIOS || isAndroid || 'serviceWorker' in navigator),
+        !isStandalone && (isIOS || isAndroid || prev.deferredPrompt !== null),
     }));
   }, []);
 
@@ -52,6 +57,7 @@ export function usePWA() {
 
   const handleBeforeInstallPrompt = useCallback((e: Event) => {
     e.preventDefault();
+    // When browser shows install prompt, mark as installable
     setPwaState((prev) => ({
       ...prev,
       deferredPrompt: e as BeforeInstallPromptEvent,
@@ -76,6 +82,18 @@ export function usePWA() {
   }, []);
 
   const installApp = useCallback(async () => {
+    // iOS doesn't support programmatic installation
+    if (pwaState.isIOS) {
+      // Show instructions for manual installation
+      alert(
+        'To install this app on your iPhone/iPad:\n\n' +
+          '1. Tap the Share button (square with arrow up)\n' +
+          '2. Scroll down and tap "Add to Home Screen"\n' +
+          '3. Tap "Add" to confirm',
+      );
+      return;
+    }
+
     if (!pwaState.deferredPrompt) {
       throw new Error('Install prompt not available');
     }
@@ -94,7 +112,7 @@ export function usePWA() {
       deferredPrompt: null,
       isInstallable: false,
     }));
-  }, [pwaState.deferredPrompt]);
+  }, [pwaState.deferredPrompt, pwaState.isIOS]);
 
   const updateApp = useCallback(() => {
     if ('serviceWorker' in navigator) {
@@ -114,7 +132,7 @@ export function usePWA() {
     checkInstallable();
     checkOnlineStatus();
 
-    // Listen for install prompt
+    // Listen for install prompt (not supported on iOS)
     window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
 
     // Listen for app installed
@@ -161,4 +179,10 @@ export function usePWA() {
     installApp,
     updateApp,
   };
+}
+
+// Convenience function to check if app is running as PWA
+export function isPWA(): boolean {
+  if (typeof window === 'undefined') return false;
+  return window.matchMedia('(display-mode: standalone)').matches;
 }

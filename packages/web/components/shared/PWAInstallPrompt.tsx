@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '../ui/button';
 import {
   Card,
@@ -12,16 +12,52 @@ import {
 import { X, Download, Wifi, WifiOff, RefreshCw } from 'lucide-react';
 import { usePWA } from '../../lib/hooks/use-pwa';
 
+const PWA_PROMPT_DISMISSED_KEY = 'pwa-prompt-dismissed';
+const PWA_PROMPT_DELAY = 3000; // 3 seconds delay before showing
+const PWA_PROMPT_AUTO_DISMISS = 10000; // 10 seconds auto-dismiss
+
 export default function PWAInstallPrompt() {
   const [isDismissed, setIsDismissed] = useState(false);
+  const [shouldShow, setShouldShow] = useState(false);
   const {
     isInstallable,
     isInstalled,
     isOffline,
     isUpdateAvailable,
+    isIOS,
     installApp,
     updateApp,
   } = usePWA();
+
+  // Check localStorage on mount
+  useEffect(() => {
+    const dismissed = localStorage.getItem(PWA_PROMPT_DISMISSED_KEY);
+    if (dismissed === 'true') {
+      setIsDismissed(true);
+    }
+  }, []);
+
+  // Show prompt after delay
+  useEffect(() => {
+    if (!isDismissed && (isInstallable || isOffline || isUpdateAvailable)) {
+      const timer = setTimeout(() => {
+        setShouldShow(true);
+      }, PWA_PROMPT_DELAY);
+
+      return () => clearTimeout(timer);
+    }
+  }, [isDismissed, isInstallable, isOffline, isUpdateAvailable]);
+
+  // Auto-dismiss after certain time
+  useEffect(() => {
+    if (shouldShow && !isUpdateAvailable) {
+      const timer = setTimeout(() => {
+        handleDismiss();
+      }, PWA_PROMPT_AUTO_DISMISS);
+
+      return () => clearTimeout(timer);
+    }
+  }, [shouldShow, isUpdateAvailable]);
 
   const handleInstallClick = async () => {
     try {
@@ -33,6 +69,9 @@ export default function PWAInstallPrompt() {
 
   const handleDismiss = () => {
     setIsDismissed(true);
+    setShouldShow(false);
+    // Store dismiss state in localStorage
+    localStorage.setItem(PWA_PROMPT_DISMISSED_KEY, 'true');
   };
 
   const handleUpdate = () => {
@@ -43,6 +82,7 @@ export default function PWAInstallPrompt() {
   if (
     isInstalled ||
     isDismissed ||
+    !shouldShow ||
     (!isInstallable && !isOffline && !isUpdateAvailable)
   ) {
     return null;
@@ -110,11 +150,13 @@ export default function PWAInstallPrompt() {
           ) : (
             <div className="space-y-3">
               <p className="text-muted-foreground text-sm">
-                Install Fin-Track for quick access and offline functionality.
+                {isIOS
+                  ? 'Install Fin-Track for quick access and offline functionality. Tap "Show Instructions" to learn how.'
+                  : 'Install Fin-Track for quick access and offline functionality.'}
               </p>
               <div className="flex gap-2">
                 <Button onClick={handleInstallClick} className="flex-1">
-                  Install App
+                  {isIOS ? 'Show Instructions' : 'Install App'}
                 </Button>
                 <Button variant="outline" onClick={handleDismiss}>
                   Maybe Later
