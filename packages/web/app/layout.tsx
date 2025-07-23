@@ -11,6 +11,7 @@ import { Toaster } from '@web/components/ui/sonner';
 import PWAInstallPrompt from '../components/shared/PWAInstallPrompt';
 import OfflineIndicator from '../components/shared/OfflineIndicator';
 import ServiceWorkerRegistration from '../components/shared/ServiceWorkerRegistration';
+import PWARefreshButton from '../components/shared/PWARefreshButton';
 
 export const metadata: Metadata = {
   title: 'Fin-Track',
@@ -125,6 +126,7 @@ export default async function RootLayout({
             <OfflineIndicator />
             <PWAInstallPrompt />
             <ServiceWorkerRegistration />
+            <PWARefreshButton />
           </Providers>
         </NextIntlClientProvider>
       </body>
