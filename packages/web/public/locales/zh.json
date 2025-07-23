@@ -178,5 +178,43 @@
       "transportation": "交通",
       "utility": "公用事业"
     }
+  },
+  "PWA": {
+    "installPrompt": {
+      "title": {
+        "install": "安装 Fin-Track",
+        "update": "更新可用",
+        "offline": "离线模式"
+      },
+      "description": {
+        "install": "将 Fin-Track 安装为 PWA 以获得更好的体验",
+        "update": "Fin-Track 的新版本可用",
+        "offline": "您当前处于离线状态。某些功能可能受限。"
+      },
+      "content": {
+        "install": {
+          "description": "安装 Fin-Track 以获得快速访问和离线功能。",
+          "descriptionIOS": "安装 Fin-Track 以获得快速访问和离线功能。点击\"显示说明\"了解如何操作。",
+          "button": "安装应用",
+          "buttonIOS": "显示说明",
+          "dismiss": "稍后再说"
+        },
+        "update": {
+          "description": "更新以获得最新功能和改进。",
+          "button": "立即更新",
+          "dismiss": "稍后"
+        },
+        "offline": {
+          "description": "您仍可以离线查看缓存数据。",
+          "checkConnection": "检查您的互联网连接"
+        }
+      },
+      "iosInstructions": {
+        "title": "要在您的 iPhone/iPad 上安装此应用：",
+        "step1": "1. 点击共享按钮（带向上箭头的方块）",
+        "step2": "2. 向下滚动并点击\"添加到主屏幕\"",
+        "step3": "3. 点击\"添加\"确认"
+      }
+    }
   }
 }

@@ -81,38 +81,43 @@ export function usePWA() {
     }));
   }, []);
 
-  const installApp = useCallback(async () => {
-    // iOS doesn't support programmatic installation
-    if (pwaState.isIOS) {
-      // Show instructions for manual installation
-      alert(
-        'To install this app on your iPhone/iPad:\n\n' +
-          '1. Tap the Share button (square with arrow up)\n' +
-          '2. Scroll down and tap "Add to Home Screen"\n' +
-          '3. Tap "Add" to confirm',
-      );
-      return;
-    }
+  const installApp = useCallback(
+    async (getIOSInstructions?: () => string) => {
+      // iOS doesn't support programmatic installation
+      if (pwaState.isIOS) {
+        // Show instructions for manual installation
+        const instructions = getIOSInstructions
+          ? getIOSInstructions()
+          : 'To install this app on your iPhone/iPad:\n\n' +
+            '1. Tap the Share button (square with arrow up)\n' +
+            '2. Scroll down and tap "Add to Home Screen"\n' +
+            '3. Tap "Add" to confirm';
 
-    if (!pwaState.deferredPrompt) {
-      throw new Error('Install prompt not available');
-    }
+        alert(instructions);
+        return;
+      }
 
-    pwaState.deferredPrompt.prompt();
-    const { outcome } = await pwaState.deferredPrompt.userChoice;
+      if (!pwaState.deferredPrompt) {
+        throw new Error('Install prompt not available');
+      }
 
-    if (outcome === 'accepted') {
-      console.log('User accepted the install prompt');
-    } else {
-      console.log('User dismissed the install prompt');
-    }
+      pwaState.deferredPrompt.prompt();
+      const { outcome } = await pwaState.deferredPrompt.userChoice;
 
-    setPwaState((prev) => ({
-      ...prev,
-      deferredPrompt: null,
-      isInstallable: false,
-    }));
-  }, [pwaState.deferredPrompt, pwaState.isIOS]);
+      if (outcome === 'accepted') {
+        console.log('User accepted the install prompt');
+      } else {
+        console.log('User dismissed the install prompt');
+      }
+
+      setPwaState((prev) => ({
+        ...prev,
+        deferredPrompt: null,
+        isInstallable: false,
+      }));
+    },
+    [pwaState.deferredPrompt, pwaState.isIOS],
+  );
 
   const updateApp = useCallback(() => {
     if ('serviceWorker' in navigator) {

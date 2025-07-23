@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { getLocale, getMessages } from 'next-intl/server';
 import { NextIntlClientProvider } from 'next-intl';
 
@@ -17,9 +17,6 @@ export const metadata: Metadata = {
   title: 'Fin-Track',
   description: 'Financial tracker tool for managing your personal finances',
   manifest: '/manifest.json',
-  themeColor: '#000000',
-  viewport:
-    'width=device-width, height=device-height, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no',
   appleWebApp: {
     capable: true,
     statusBarStyle: 'default',
@@ -61,6 +58,16 @@ export const metadata: Metadata = {
       },
     ],
   },
+};
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  height: 'device-height',
+  initialScale: 1,
+  minimumScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+  themeColor: '#000000',
 };
 
 export default async function RootLayout({

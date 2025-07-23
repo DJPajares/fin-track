@@ -178,5 +178,43 @@
       "transportation": "交通費",
       "utility": "光熱費"
     }
+  },
+  "PWA": {
+    "installPrompt": {
+      "title": {
+        "install": "Fin-Trackをインストール",
+        "update": "アップデート利用可能",
+        "offline": "オフラインモード"
+      },
+      "description": {
+        "install": "より良い体験のためにFin-TrackをPWAとしてインストール",
+        "update": "Fin-Trackの新しいバージョンが利用可能です",
+        "offline": "現在オフラインです。一部の機能が制限される場合があります。"
+      },
+      "content": {
+        "install": {
+          "description": "Fin-Trackをインストールして、クイックアクセスとオフライン機能を利用できます。",
+          "descriptionIOS": "Fin-Trackをインストールして、クイックアクセスとオフライン機能を利用できます。「手順を表示」をタップして方法を学びます。",
+          "button": "アプリをインストール",
+          "buttonIOS": "手順を表示",
+          "dismiss": "また後で"
+        },
+        "update": {
+          "description": "最新の機能と改善を入手するためにアップデートしてください。",
+          "button": "今すぐアップデート",
+          "dismiss": "後で"
+        },
+        "offline": {
+          "description": "オフラインでもキャッシュされたデータを表示できます。",
+          "checkConnection": "インターネット接続を確認してください"
+        }
+      },
+      "iosInstructions": {
+        "title": "iPhone/iPadにこのアプリをインストールするには：",
+        "step1": "1. 共有ボタン（上向き矢印の四角）をタップ",
+        "step2": "2. 下にスクロールして「ホーム画面に追加」をタップ",
+        "step3": "3. 「追加」をタップして確認"
+      }
+    }
   }
 }

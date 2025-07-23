@@ -178,5 +178,43 @@
       "transportation": "Transportasyon",
       "utility": "Serbisyo"
     }
+  },
+  "PWA": {
+    "installPrompt": {
+      "title": {
+        "install": "I-install ang Fin-Track",
+        "update": "Update Available",
+        "offline": "Offline Mode"
+      },
+      "description": {
+        "install": "I-install ang Fin-Track bilang PWA para sa mas magandang karanasan",
+        "update": "May bagong bersyon ng Fin-Track na available",
+        "offline": "Offline ka ngayon. Maaaring limitado ang ilang features."
+      },
+      "content": {
+        "install": {
+          "description": "I-install ang Fin-Track para sa mabilis na access at offline functionality.",
+          "descriptionIOS": "I-install ang Fin-Track para sa mabilis na access at offline functionality. Tap \"Show Instructions\" para matuto kung paano.",
+          "button": "I-install ang App",
+          "buttonIOS": "Show Instructions",
+          "dismiss": "Baka mamaya"
+        },
+        "update": {
+          "description": "I-update para makuha ang pinakabagong features at improvements.",
+          "button": "I-update Ngayon",
+          "dismiss": "Mamaya"
+        },
+        "offline": {
+          "description": "Pwede mo pa ring makita ang cached data habang offline.",
+          "checkConnection": "I-check ang internet connection mo"
+        }
+      },
+      "iosInstructions": {
+        "title": "Para ma-install ang app na ito sa iPhone/iPad mo:",
+        "step1": "1. Tap ang Share button (square na may arrow pataas)",
+        "step2": "2. I-scroll pababa at tap \"Add to Home Screen\"",
+        "step3": "3. Tap \"Add\" para i-confirm"
+      }
+    }
   }
 }

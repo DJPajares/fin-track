@@ -178,5 +178,43 @@
       "transportation": "Transportation",
       "utility": "Utility"
     }
+  },
+  "PWA": {
+    "installPrompt": {
+      "title": {
+        "install": "Install Fin-Track",
+        "update": "Update Available",
+        "offline": "Offline Mode"
+      },
+      "description": {
+        "install": "Install Fin-Track as a PWA for a better experience",
+        "update": "A new version of Fin-Track is available",
+        "offline": "You are currently offline. Some features may be limited."
+      },
+      "content": {
+        "install": {
+          "description": "Install Fin-Track for quick access and offline functionality.",
+          "descriptionIOS": "Install Fin-Track for quick access and offline functionality. Tap \"Show Instructions\" to learn how.",
+          "button": "Install App",
+          "buttonIOS": "Show Instructions",
+          "dismiss": "Maybe Later"
+        },
+        "update": {
+          "description": "Update to get the latest features and improvements.",
+          "button": "Update Now",
+          "dismiss": "Later"
+        },
+        "offline": {
+          "description": "You can still view cached data while offline.",
+          "checkConnection": "Check your internet connection"
+        }
+      },
+      "iosInstructions": {
+        "title": "To install this app on your iPhone/iPad:",
+        "step1": "1. Tap the Share button (square with arrow up)",
+        "step2": "2. Scroll down and tap \"Add to Home Screen\"",
+        "step3": "3. Tap \"Add\" to confirm"
+      }
+    }
   }
 }

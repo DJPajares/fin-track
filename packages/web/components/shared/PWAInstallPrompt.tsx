@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useTranslations } from 'next-intl';
 import { Button } from '../ui/button';
 import {
   Card,
@@ -19,6 +20,7 @@ const PWA_PROMPT_AUTO_DISMISS = 10000; // 10 seconds auto-dismiss
 export default function PWAInstallPrompt() {
   const [isDismissed, setIsDismissed] = useState(false);
   const [shouldShow, setShouldShow] = useState(false);
+  const t = useTranslations('PWA.installPrompt');
   const {
     isInstallable,
     isInstalled,
@@ -61,7 +63,16 @@ export default function PWAInstallPrompt() {
 
   const handleInstallClick = async () => {
     try {
-      await installApp();
+      const getIOSInstructions = () => {
+        return (
+          `${t('iosInstructions.title')}\n\n` +
+          `${t('iosInstructions.step1')}\n` +
+          `${t('iosInstructions.step2')}\n` +
+          `${t('iosInstructions.step3')}`
+        );
+      };
+
+      await installApp(getIOSInstructions);
     } catch (error) {
       console.error('Failed to install app:', error);
     }
@@ -100,10 +111,10 @@ export default function PWAInstallPrompt() {
                 <Download className="h-5 w-5" />
               )}
               {isUpdateAvailable
-                ? 'Update Available'
+                ? t('title.update')
                 : isOffline
-                  ? 'Offline Mode'
-                  : 'Install Fin-Track'}
+                  ? t('title.offline')
+                  : t('title.install')}
             </CardTitle>
             <Button
               variant="ghost"
@@ -116,50 +127,52 @@ export default function PWAInstallPrompt() {
           </div>
           <CardDescription>
             {isUpdateAvailable
-              ? 'A new version of Fin-Track is available'
+              ? t('description.update')
               : isOffline
-                ? 'You are currently offline. Some features may be limited.'
-                : 'Install Fin-Track as a PWA for a better experience'}
+                ? t('description.offline')
+                : t('description.install')}
           </CardDescription>
         </CardHeader>
         <CardContent className="pt-0">
           {isUpdateAvailable ? (
             <div className="space-y-3">
               <p className="text-muted-foreground text-sm">
-                Update to get the latest features and improvements.
+                {t('content.update.description')}
               </p>
               <div className="flex gap-2">
                 <Button onClick={handleUpdate} className="flex-1">
-                  Update Now
+                  {t('content.update.button')}
                 </Button>
                 <Button variant="outline" onClick={handleDismiss}>
-                  Later
+                  {t('content.update.dismiss')}
                 </Button>
               </div>
             </div>
           ) : isOffline ? (
             <div className="space-y-3">
               <p className="text-muted-foreground text-sm">
-                You can still view cached data while offline.
+                {t('content.offline.description')}
               </p>
               <div className="flex items-center gap-2 text-sm">
                 <Wifi className="h-4 w-4" />
-                <span>Check your internet connection</span>
+                <span>{t('content.offline.checkConnection')}</span>
               </div>
             </div>
           ) : (
             <div className="space-y-3">
               <p className="text-muted-foreground text-sm">
                 {isIOS
-                  ? 'Install Fin-Track for quick access and offline functionality. Tap "Show Instructions" to learn how.'
-                  : 'Install Fin-Track for quick access and offline functionality.'}
+                  ? t('content.install.descriptionIOS')
+                  : t('content.install.description')}
               </p>
               <div className="flex gap-2">
                 <Button onClick={handleInstallClick} className="flex-1">
-                  {isIOS ? 'Show Instructions' : 'Install App'}
+                  {isIOS
+                    ? t('content.install.buttonIOS')
+                    : t('content.install.button')}
                 </Button>
                 <Button variant="outline" onClick={handleDismiss}>
-                  Maybe Later
+                  {t('content.install.dismiss')}
                 </Button>
               </div>
             </div>

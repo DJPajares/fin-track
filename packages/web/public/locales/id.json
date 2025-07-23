@@ -178,5 +178,43 @@
       "transportation": "Transportasi",
       "utility": "Utilitas"
     }
+  },
+  "PWA": {
+    "installPrompt": {
+      "title": {
+        "install": "Instal Fin-Track",
+        "update": "Pembaruan Tersedia",
+        "offline": "Mode Offline"
+      },
+      "description": {
+        "install": "Instal Fin-Track sebagai PWA untuk pengalaman yang lebih baik",
+        "update": "Versi baru Fin-Track tersedia",
+        "offline": "Anda saat ini offline. Beberapa fitur mungkin terbatas."
+      },
+      "content": {
+        "install": {
+          "description": "Instal Fin-Track untuk akses cepat dan fungsionalitas offline.",
+          "descriptionIOS": "Instal Fin-Track untuk akses cepat dan fungsionalitas offline. Ketuk \"Tampilkan Instruksi\" untuk mempelajari caranya.",
+          "button": "Instal Aplikasi",
+          "buttonIOS": "Tampilkan Instruksi",
+          "dismiss": "Mungkin nanti"
+        },
+        "update": {
+          "description": "Perbarui untuk mendapatkan fitur dan peningkatan terbaru.",
+          "button": "Perbarui Sekarang",
+          "dismiss": "Nanti"
+        },
+        "offline": {
+          "description": "Anda masih dapat melihat data yang di-cache saat offline.",
+          "checkConnection": "Periksa koneksi internet Anda"
+        }
+      },
+      "iosInstructions": {
+        "title": "Untuk menginstal aplikasi ini di iPhone/iPad Anda:",
+        "step1": "1. Ketuk tombol Bagikan (kotak dengan panah ke atas)",
+        "step2": "2. Gulir ke bawah dan ketuk \"Tambahkan ke Layar Utama\"",
+        "step3": "3. Ketuk \"Tambahkan\" untuk mengonfirmasi"
+      }
+    }
   }
 }
