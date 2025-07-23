@@ -8,6 +8,7 @@ import { cn } from '../../lib/utils';
 export default function PWARefreshButton() {
   const [isStandalone, setIsStandalone] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const [position, setPosition] = useState({ x: 0, y: 0 }); // Will be set to lower right
 
   useEffect(() => {
     // Check if app is running in standalone mode (PWA)
@@ -15,11 +16,27 @@ export default function PWARefreshButton() {
       const standalone = window.matchMedia(
         '(display-mode: standalone)',
       ).matches;
+
       setIsStandalone(standalone);
     };
 
+    // Set initial position to lower right
+    const setInitialPosition = () => {
+      const buttonSize = 40; // 40px for button width/height
+      const margin = 16; // 16px margin from edges
+      setPosition({
+        x: window.innerWidth - buttonSize - margin,
+        y: window.innerHeight - buttonSize - margin,
+      });
+    };
+
     checkStandalone();
-    window.addEventListener('resize', checkStandalone);
+    setInitialPosition();
+
+    window.addEventListener('resize', () => {
+      checkStandalone();
+      setInitialPosition();
+    });
 
     return () => {
       window.removeEventListener('resize', checkStandalone);
@@ -45,8 +62,14 @@ export default function PWARefreshButton() {
       size="sm"
       onClick={handleRefresh}
       disabled={isRefreshing}
+      style={{
+        position: 'fixed',
+        left: `${position.x}px`,
+        top: `${position.y}px`,
+        zIndex: 50,
+      }}
       className={cn(
-        'fixed top-4 right-4 z-50 h-10 w-10 rounded-full p-0 shadow-lg',
+        'size-10 rounded-full p-0 shadow-lg',
         'bg-background/80 border backdrop-blur-sm',
         'hover:bg-background/90 transition-all duration-200',
       )}
@@ -54,7 +77,7 @@ export default function PWARefreshButton() {
     >
       <RefreshCw
         className={cn(
-          'h-5 w-5 transition-transform duration-300',
+          'size-5 transition-transform duration-300',
           isRefreshing && 'animate-spin',
         )}
       />
