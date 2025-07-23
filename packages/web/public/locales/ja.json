@@ -187,7 +187,7 @@
         "offline": "オフラインモード"
       },
       "description": {
-        "install": "より良い体験のためにFin-TrackをPWAとしてインストール",
+        "install": "より良い体験のためにFin-Trackをアプリとしてインストール",
         "update": "Fin-Trackの新しいバージョンが利用可能です",
         "offline": "現在オフラインです。一部の機能が制限される場合があります。"
       },

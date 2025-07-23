@@ -165,14 +165,22 @@ export default function PWAInstallPrompt() {
                   ? t('content.install.descriptionIOS')
                   : t('content.install.description')}
               </p>
-              <div className="flex gap-2">
-                <Button onClick={handleInstallClick} className="flex-1">
-                  {isIOS
-                    ? t('content.install.buttonIOS')
-                    : t('content.install.button')}
+              <div className="flex flex-row gap-2">
+                <Button onClick={handleInstallClick} className="min-w-0 flex-1">
+                  <span className="truncate">
+                    {isIOS
+                      ? t('content.install.buttonIOS')
+                      : t('content.install.button')}
+                  </span>
                 </Button>
-                <Button variant="outline" onClick={handleDismiss}>
-                  {t('content.install.dismiss')}
+                <Button
+                  variant="outline"
+                  onClick={handleDismiss}
+                  className="min-w-0 flex-1"
+                >
+                  <span className="truncate">
+                    {t('content.install.dismiss')}
+                  </span>
                 </Button>
               </div>
             </div>

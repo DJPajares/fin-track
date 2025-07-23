@@ -187,7 +187,7 @@
         "offline": "离线模式"
       },
       "description": {
-        "install": "将 Fin-Track 安装为 PWA 以获得更好的体验",
+        "install": "将 Fin-Track 安装为应用程序以获得更好的体验",
         "update": "Fin-Track 的新版本可用",
         "offline": "您当前处于离线状态。某些功能可能受限。"
       },

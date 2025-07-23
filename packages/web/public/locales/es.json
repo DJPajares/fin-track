@@ -187,7 +187,7 @@
         "offline": "Modo Sin Conexión"
       },
       "description": {
-        "install": "Instala Fin-Track como PWA para una mejor experiencia",
+        "install": "Instala Fin-Track como aplicación para una mejor experiencia",
         "update": "Hay una nueva versión de Fin-Track disponible",
         "offline": "Actualmente estás sin conexión. Algunas funciones pueden estar limitadas."
       },

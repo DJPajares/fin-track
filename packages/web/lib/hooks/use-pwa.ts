@@ -56,11 +56,12 @@ export function usePWA() {
   }, []);
 
   const handleBeforeInstallPrompt = useCallback((e: Event) => {
-    e.preventDefault();
-    // When browser shows install prompt, mark as installable
+    // Store the event for later use without preventing default
+    // This allows the browser to show its native prompt if it wants to
+    const promptEvent = e as BeforeInstallPromptEvent;
     setPwaState((prev) => ({
       ...prev,
-      deferredPrompt: e as BeforeInstallPromptEvent,
+      deferredPrompt: promptEvent,
       isInstallable: true,
     }));
   }, []);
@@ -101,6 +102,7 @@ export function usePWA() {
         throw new Error('Install prompt not available');
       }
 
+      // Call prompt() to show the native install dialog
       pwaState.deferredPrompt.prompt();
       const { outcome } = await pwaState.deferredPrompt.userChoice;
 
