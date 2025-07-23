@@ -10,7 +10,7 @@ export function ThemeColorProvider() {
     // Function to update theme color meta tags
     const updateThemeColor = () => {
       const currentTheme = resolvedTheme || theme;
-      const themeColor = currentTheme === 'dark' ? '#2E2D30' : '#ffffff';
+      const themeColor = currentTheme === 'dark' ? '#111116' : '#ffffff';
 
       // Update the theme-color meta tag
       let metaThemeColor = document.querySelector('meta[name="theme-color"]');
