@@ -6,6 +6,7 @@ import { Provider as ReduxProvider } from 'react-redux';
 import { AppStore, store } from '../lib/redux/store';
 import { useRef } from 'react';
 import { ClientDataProvider } from './clientDataProvider';
+import { ThemeColorProvider } from './themeColorProvider';
 
 type ProviderProps = {
   children: React.ReactNode;
@@ -21,6 +22,7 @@ export function Providers({ children }: ProviderProps) {
     <ReduxProvider store={storeRef.current!}>
       <HeroUIProvider>
         <NextThemesProvider attribute="class" defaultTheme="dark">
+          <ThemeColorProvider />
           <ClientDataProvider>{children}</ClientDataProvider>
         </NextThemesProvider>
       </HeroUIProvider>
