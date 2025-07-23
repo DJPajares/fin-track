@@ -10,6 +10,7 @@ import NavBar from '../components/Nav/NavBar';
 import { Toaster } from '@web/components/ui/sonner';
 import PWAInstallPrompt from '../components/shared/PWAInstallPrompt';
 import OfflineIndicator from '../components/shared/OfflineIndicator';
+import ServiceWorkerRegistration from '../components/shared/ServiceWorkerRegistration';
 
 export const metadata: Metadata = {
   title: 'Fin-Track',
@@ -27,8 +28,37 @@ export const metadata: Metadata = {
     telephone: false,
   },
   icons: {
-    icon: [{ url: '/favicon.ico', sizes: 'any', type: 'image/x-icon' }],
-    apple: [{ url: '/favicon.ico', sizes: 'any', type: 'image/x-icon' }],
+    icon: [
+      { url: '/icons/favicon.ico', sizes: 'any', type: 'image/x-icon' },
+      { url: '/icons/favicon-96x96.png', sizes: '96x96', type: 'image/png' },
+      {
+        url: '/icons/web-app-manifest-192x192.png',
+        sizes: '192x192',
+        type: 'image/png',
+      },
+      {
+        url: '/icons/web-app-manifest-512x512.png',
+        sizes: '512x512',
+        type: 'image/png',
+      },
+    ],
+    apple: [
+      {
+        url: '/icons/apple-touch-icon.png',
+        sizes: '180x180',
+        type: 'image/png',
+      },
+      {
+        url: '/icons/web-app-manifest-192x192.png',
+        sizes: '192x192',
+        type: 'image/png',
+      },
+      {
+        url: '/icons/web-app-manifest-512x512.png',
+        sizes: '512x512',
+        type: 'image/png',
+      },
+    ],
   },
 };
 
@@ -62,12 +92,17 @@ export default async function RootLayout({
         <meta name="msapplication-tap-highlight" content="no" />
         <meta name="theme-color" content="#000000" />
 
-        <link rel="icon" href="/favicon.ico" sizes="any" type="image/x-icon" />
         <link
-          rel="apple-touch-icon"
-          href="/favicon.ico"
+          rel="icon"
+          href="/icons/favicon.ico"
           sizes="any"
           type="image/x-icon"
+        />
+        <link
+          rel="apple-touch-icon"
+          href="/icons/apple-touch-icon.png"
+          sizes="180x180"
+          type="image/png"
         />
         <link rel="manifest" href="/manifest.json" />
         <link
@@ -75,7 +110,7 @@ export default async function RootLayout({
           href="/icons/safari-pinned-tab.svg"
           color="#000000"
         />
-        <link rel="shortcut icon" href="/favicon.ico" />
+        <link rel="shortcut icon" href="/icons/favicon.ico" />
       </head>
       <body className={`antialiased ${raleway.className}`}>
         <NextIntlClientProvider messages={messages}>
@@ -89,6 +124,7 @@ export default async function RootLayout({
             <Toaster />
             <OfflineIndicator />
             <PWAInstallPrompt />
+            <ServiceWorkerRegistration />
           </Providers>
         </NextIntlClientProvider>
       </body>

@@ -2,7 +2,7 @@
   "name": "Fin-Track",
   "short_name": "Fin-Track",
   "description": "Financial tracker tool for managing your personal finances",
-  "start_url": "/",
+  "start_url": "/?source=pwa",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#000000",
@@ -12,14 +12,22 @@
   "categories": ["finance", "productivity", "utilities"],
   "icons": [
     {
+      "src": "/icons/favicon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
       "src": "/icons/web-app-manifest-192x192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     },
     {
       "src": "/icons/web-app-manifest-512x512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ],
   "shortcuts": [
@@ -30,7 +38,7 @@
       "url": "/dashboard?action=add",
       "icons": [
         {
-          "src": "/favicon.ico",
+          "src": "/icons/favicon.ico",
           "sizes": "48x48 64x64 96x96 128x128 256x256"
         }
       ]
@@ -42,7 +50,7 @@
       "url": "/dashboard",
       "icons": [
         {
-          "src": "/favicon.ico",
+          "src": "/icons/favicon.ico",
           "sizes": "48x48 64x64 96x96 128x128 256x256"
         }
       ]

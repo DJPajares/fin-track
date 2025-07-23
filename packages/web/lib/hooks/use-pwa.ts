@@ -33,11 +33,13 @@ export function usePWA() {
       '(display-mode: standalone)',
     ).matches;
     const isIOS = /iphone|ipad|ipod/.test(navigator.userAgent.toLowerCase());
+    const isAndroid = /android/.test(navigator.userAgent.toLowerCase());
 
     setPwaState((prev) => ({
       ...prev,
       isInstalled: isStandalone,
-      isInstallable: !isStandalone && (isIOS || 'serviceWorker' in navigator),
+      isInstallable:
+        !isStandalone && (isIOS || isAndroid || 'serviceWorker' in navigator),
     }));
   }, []);
 

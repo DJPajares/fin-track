@@ -5,7 +5,11 @@ const urlsToCache = [
   '/transactions',
   '/categories',
   '/charts',
-  '/manifest.json'
+  '/manifest.json',
+  '/icons/favicon.ico',
+  '/icons/apple-touch-icon.png',
+  '/icons/web-app-manifest-192x192.png',
+  '/icons/web-app-manifest-512x512.png'
 ];
 
 // Install event - cache resources
