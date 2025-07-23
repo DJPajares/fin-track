@@ -29,7 +29,7 @@ export default function PWARefreshButton() {
       onClick={handleRefresh}
       disabled={isRefreshing}
       className={cn(
-        'fixed right-4 bottom-16 z-50',
+        'fixed right-2 bottom-16 z-50',
         'size-10 rounded-full p-0 shadow-lg',
         'bg-background/80 border backdrop-blur-sm',
         'hover:bg-background/90 transition-all duration-200',
