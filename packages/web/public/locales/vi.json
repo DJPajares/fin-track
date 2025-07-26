@@ -196,5 +196,43 @@
       "transportation": "Giao Thông",
       "utility": "Tiện Ích"
     }
+  },
+  "PWA": {
+    "installPrompt": {
+      "title": {
+        "install": "Cài đặt Fin-Track",
+        "update": "Cập nhật có sẵn",
+        "offline": "Chế độ ngoại tuyến"
+      },
+      "description": {
+        "install": "Cài đặt Fin-Track như ứng dụng để có trải nghiệm tốt hơn",
+        "update": "Phiên bản mới của Fin-Track có sẵn",
+        "offline": "Bạn hiện đang ngoại tuyến. Một số tính năng có thể bị hạn chế."
+      },
+      "content": {
+        "install": {
+          "description": "Cài đặt Fin-Track để truy cập nhanh và chức năng ngoại tuyến.",
+          "descriptionIOS": "Cài đặt Fin-Track để truy cập nhanh và chức năng ngoại tuyến. Nhấn \"Hiển thị hướng dẫn\" để học cách làm.",
+          "button": "Cài đặt ứng dụng",
+          "buttonIOS": "Hiển thị hướng dẫn",
+          "dismiss": "Có thể sau"
+        },
+        "update": {
+          "description": "Cập nhật để có các tính năng và cải tiến mới nhất.",
+          "button": "Cập nhật ngay",
+          "dismiss": "Sau"
+        },
+        "offline": {
+          "description": "Bạn vẫn có thể xem dữ liệu đã lưu trong bộ nhớ cache khi ngoại tuyến.",
+          "checkConnection": "Kiểm tra kết nối internet"
+        }
+      },
+      "iosInstructions": {
+        "title": "Để cài đặt ứng dụng này trên iPhone/iPad của bạn:",
+        "step1": "1. Nhấn nút Chia sẻ (hình vuông với mũi tên lên)",
+        "step2": "2. Cuộn xuống và nhấn \"Thêm vào Màn hình chính\"",
+        "step3": "3. Nhấn \"Thêm\" để xác nhận"
+      }
+    }
   }
 }

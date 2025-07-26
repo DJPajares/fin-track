@@ -196,5 +196,43 @@
       "transportation": "Transport",
       "utility": "Versorgungsunternehmen"
     }
+  },
+  "PWA": {
+    "installPrompt": {
+      "title": {
+        "install": "Fin-Track installieren",
+        "update": "Update verfügbar",
+        "offline": "Offline-Modus"
+      },
+      "description": {
+        "install": "Installieren Sie Fin-Track als App für ein besseres Erlebnis",
+        "update": "Eine neue Version von Fin-Track ist verfügbar",
+        "offline": "Sie sind derzeit offline. Einige Funktionen können eingeschränkt sein."
+      },
+      "content": {
+        "install": {
+          "description": "Installieren Sie Fin-Track für schnellen Zugriff und Offline-Funktionalität.",
+          "descriptionIOS": "Installieren Sie Fin-Track für schnellen Zugriff und Offline-Funktionalität. Tippen Sie auf \"Anweisungen anzeigen\" um zu erfahren wie.",
+          "button": "App installieren",
+          "buttonIOS": "Anweisungen anzeigen",
+          "dismiss": "Vielleicht später"
+        },
+        "update": {
+          "description": "Aktualisieren Sie, um die neuesten Funktionen und Verbesserungen zu erhalten.",
+          "button": "Jetzt aktualisieren",
+          "dismiss": "Später"
+        },
+        "offline": {
+          "description": "Sie können weiterhin zwischengespeicherte Daten offline anzeigen.",
+          "checkConnection": "Überprüfen Sie Ihre Internetverbindung"
+        }
+      },
+      "iosInstructions": {
+        "title": "So installieren Sie diese App auf Ihrem iPhone/iPad:",
+        "step1": "1. Tippen Sie auf die Teilen-Schaltfläche (Quadrat mit Pfeil nach oben)",
+        "step2": "2. Scrollen Sie nach unten und tippen Sie auf \"Zum Home-Bildschirm\"",
+        "step3": "3. Tippen Sie auf \"Hinzufügen\" um zu bestätigen"
+      }
+    }
   }
 }

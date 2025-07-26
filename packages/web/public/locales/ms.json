@@ -196,5 +196,43 @@
       "transportation": "Pengangkutan",
       "utility": "Perkhidmatan"
     }
+  },
+  "PWA": {
+    "installPrompt": {
+      "title": {
+        "install": "Pasang Fin-Track",
+        "update": "Kemas Kini Tersedia",
+        "offline": "Mod Luar Talian"
+      },
+      "description": {
+        "install": "Pasang Fin-Track sebagai aplikasi untuk pengalaman yang lebih baik",
+        "update": "Versi baru Fin-Track tersedia",
+        "offline": "Anda sedang luar talian. Sesetengah ciri mungkin terhad."
+      },
+      "content": {
+        "install": {
+          "description": "Pasang Fin-Track untuk akses pantas dan fungsi luar talian.",
+          "descriptionIOS": "Pasang Fin-Track untuk akses pantas dan fungsi luar talian. Ketuk \"Tunjukkan Arahan\" untuk belajar cara.",
+          "button": "Pasang Aplikasi",
+          "buttonIOS": "Tunjukkan Arahan",
+          "dismiss": "Mungkin kemudian"
+        },
+        "update": {
+          "description": "Kemas kini untuk mendapatkan ciri dan penambahbaikan terkini.",
+          "button": "Kemas Kini Sekarang",
+          "dismiss": "Kemudian"
+        },
+        "offline": {
+          "description": "Anda masih boleh melihat data yang di-cache semasa luar talian.",
+          "checkConnection": "Periksa sambungan internet anda"
+        }
+      },
+      "iosInstructions": {
+        "title": "Untuk memasang aplikasi ini pada iPhone/iPad anda:",
+        "step1": "1. Ketuk butang Kongsi (kotak dengan anak panah ke atas)",
+        "step2": "2. Tatal ke bawah dan ketuk \"Tambah ke Skrin Utama\"",
+        "step3": "3. Ketuk \"Tambah\" untuk mengesahkan"
+      }
+    }
   }
 }

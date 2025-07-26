@@ -196,5 +196,43 @@
       "transportation": "Ulaşım",
       "utility": "Kamu Hizmetleri"
     }
+  },
+  "PWA": {
+    "installPrompt": {
+      "title": {
+        "install": "Fin-Track'i Yükle",
+        "update": "Güncelleme Mevcut",
+        "offline": "Çevrimdışı Mod"
+      },
+      "description": {
+        "install": "Daha iyi bir deneyim için Fin-Track'i uygulama olarak yükleyin",
+        "update": "Fin-Track'in yeni bir sürümü mevcut",
+        "offline": "Şu anda çevrimdışısınız. Bazı özellikler sınırlı olabilir."
+      },
+      "content": {
+        "install": {
+          "description": "Hızlı erişim ve çevrimdışı işlevsellik için Fin-Track'i yükleyin.",
+          "descriptionIOS": "Hızlı erişim ve çevrimdışı işlevsellik için Fin-Track'i yükleyin. Nasıl yapılacağını öğrenmek için \"Talimatları Göster\"e dokunun.",
+          "button": "Uygulamayı Yükle",
+          "buttonIOS": "Talimatları Göster",
+          "dismiss": "Belki daha sonra"
+        },
+        "update": {
+          "description": "En son özellikler ve iyileştirmeler için güncelleyin.",
+          "button": "Şimdi Güncelle",
+          "dismiss": "Daha sonra"
+        },
+        "offline": {
+          "description": "Çevrimdışıyken önbelleğe alınmış verileri görüntüleyebilirsiniz.",
+          "checkConnection": "İnternet bağlantınızı kontrol edin"
+        }
+      },
+      "iosInstructions": {
+        "title": "Bu uygulamayı iPhone/iPad'inize yüklemek için:",
+        "step1": "1. Paylaş düğmesine dokunun (yukarı ok ile kare)",
+        "step2": "2. Aşağı kaydırın ve \"Ana Ekrana Ekle\"ye dokunun",
+        "step3": "3. Onaylamak için \"Ekle\"ye dokunun"
+      }
+    }
   }
 }

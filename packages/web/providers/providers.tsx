@@ -7,6 +7,7 @@ import { AppStore, store } from '../lib/redux/store';
 import { useRef } from 'react';
 import { ClientDataProvider } from './clientDataProvider';
 import { UserSync } from '../components/shared/UserSync';
+import { ThemeColorProvider } from './themeColorProvider';
 
 type ProviderProps = {
   children: React.ReactNode;
@@ -22,6 +23,7 @@ export function Providers({ children }: ProviderProps) {
     <ReduxProvider store={storeRef.current!}>
       <HeroUIProvider>
         <NextThemesProvider attribute="class" defaultTheme="dark">
+          <ThemeColorProvider />
           <ClientDataProvider>
             <UserSync />
             {children}

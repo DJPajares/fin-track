@@ -2,29 +2,29 @@ import { z } from 'zod';
 
 const transactionSchema = z.object({
   category: z.string().min(1, {
-    message: 'Please select a category'
+    message: 'Please select a category',
   }),
   name: z.string().min(1, {
-    message: 'Please enter a title'
+    message: 'Please enter a title',
   }),
   currency: z.string().min(1, {
-    message: 'Please select a currency'
+    message: 'Please select a currency',
   }),
-  amount: z.coerce.number({
-    required_error: 'Please enter an amount'
+  amount: z.number({
+    message: 'Please enter an amount',
   }),
   isRecurring: z.boolean(),
   startDate: z.date({
-    required_error: 'Please select a start date.'
+    message: 'Please select a start date.',
   }),
   endDate: z.date(),
   excludedDates: z
     .object({
       value: z.string(),
-      label: z.string()
+      label: z.string(),
     })
     .array()
-    .optional()
+    .optional(),
 });
 
 type TransactionFormProps = z.infer<typeof transactionSchema>;

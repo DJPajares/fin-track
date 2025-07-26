@@ -73,7 +73,7 @@ const CustomDrawer = ({
 
               <Separator />
 
-              <div className="py-6">{children}</div>
+              <div className="px-2 py-6">{children}</div>
             </div>
           </DrawerContent>
         </Drawer>
