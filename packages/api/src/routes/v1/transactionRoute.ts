@@ -11,8 +11,12 @@ import {
   update,
   remove,
 } from '../../controllers/v1/transactionController';
+import { authenticateToken } from '../../middleware/authMiddleware';
 
 const router = express.Router();
+
+// Apply authentication middleware to all transaction routes
+router.use(authenticateToken);
 
 router.post('/', create);
 

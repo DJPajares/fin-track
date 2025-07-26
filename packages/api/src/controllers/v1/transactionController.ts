@@ -2,10 +2,22 @@ import { NextFunction, Request, Response } from 'express';
 import * as transactionService from '../../services/v1/transactionService';
 import type { QueryParamsProps } from '../../types/commonTypes';
 import { Types } from 'mongoose';
+import { AuthenticatedRequest } from '../../types/authTypes';
 
-const create = async (req: Request, res: Response, next: NextFunction) => {
+const create = async (
+  req: AuthenticatedRequest,
+  res: Response,
+  next: NextFunction,
+) => {
   try {
-    const data = await transactionService.create(req.body);
+    if (!req.user) {
+      return res.status(401).json({
+        success: false,
+        message: 'User not authenticated',
+      });
+    }
+
+    const data = await transactionService.create(req.body, req.user.id);
 
     res.status(200).json({
       success: true,
@@ -16,9 +28,20 @@ const create = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-const createMany = async (req: Request, res: Response, next: NextFunction) => {
+const createMany = async (
+  req: AuthenticatedRequest,
+  res: Response,
+  next: NextFunction,
+) => {
   try {
-    const data = await transactionService.createMany(req.body);
+    if (!req.user) {
+      return res.status(401).json({
+        success: false,
+        message: 'User not authenticated',
+      });
+    }
+
+    const data = await transactionService.createMany(req.body, req.user.id);
 
     res.status(200).json({
       success: true,
@@ -29,11 +52,22 @@ const createMany = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-const getAll = async (req: Request, res: Response, next: NextFunction) => {
+const getAll = async (
+  req: AuthenticatedRequest,
+  res: Response,
+  next: NextFunction,
+) => {
   try {
+    if (!req.user) {
+      return res.status(401).json({
+        success: false,
+        message: 'User not authenticated',
+      });
+    }
+
     const query = req.query as unknown as QueryParamsProps;
 
-    const result = await transactionService.getAll(query);
+    const result = await transactionService.getAll(query, req.user.id);
 
     res.status(200).json(result);
   } catch (error) {

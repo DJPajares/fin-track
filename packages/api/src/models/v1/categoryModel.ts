@@ -9,15 +9,14 @@ import CONSTANTS from '../../utilities/constants';
 
 const categorySchema = new Schema(
   {
+    user: { type: Schema.Types.ObjectId, ref: 'User', required: true },
     id: {
       type: String,
       required: [true, CONSTANTS.validations.common.id.required],
-      unique: [true, CONSTANTS.validations.common.id.unique],
     },
     name: {
       type: String,
       required: [true, CONSTANTS.validations.common.name.required],
-      unique: [true, CONSTANTS.validations.common.name.unique],
     },
     type: { type: Types.ObjectId, ref: 'Type' },
     icon: String,

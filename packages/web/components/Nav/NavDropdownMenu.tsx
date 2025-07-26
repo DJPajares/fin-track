@@ -35,8 +35,10 @@ import { setUserLocale } from '../../services/locale';
 
 import { useLocale, useTranslations } from 'next-intl';
 import { useAppSelector } from '../../lib/hooks/use-redux';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setDashboardCurrency } from '../../lib/redux/feature/dashboard/dashboardSlice';
+import { logout } from '../../lib/redux/feature/auth/authSlice';
+import { RootState } from '../../lib/redux/store';
 
 import type { ListProps } from '../../types/List';
 
@@ -50,6 +52,7 @@ const NavDropdownMenu = ({ children }: NavDropdownMenuProps) => {
   const locale = useLocale();
   const dispatch = useDispatch();
   const t = useTranslations('MenuDropdown');
+  const { user } = useSelector((state: RootState) => state.auth);
 
   const [isDarkMode, setIsDarkMode] = useState(theme === 'dark');
 
@@ -74,15 +77,21 @@ const NavDropdownMenu = ({ children }: NavDropdownMenuProps) => {
     setIsDarkMode(!isDarkMode);
   };
 
+  const handleLogout = () => {
+    dispatch(logout());
+  };
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>{children}</DropdownMenuTrigger>
       <DropdownMenuContent className="w-56" align="end" forceMount>
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
-            <Label variant="subtitle-md">DJ Pajares</Label>
+            <Label variant="subtitle-md">
+              {user ? `${user.firstName} ${user.lastName}` : 'User'}
+            </Label>
             <Label variant="caption" className="text-muted-foreground">
-              dj.pajares@gmail.com
+              {user ? user.email : 'user@example.com'}
             </Label>
           </div>
         </DropdownMenuLabel>
@@ -171,7 +180,7 @@ const NavDropdownMenu = ({ children }: NavDropdownMenuProps) => {
         <DropdownMenuSeparator />
 
         <DropdownMenuGroup>
-          <DropdownMenuItem>
+          <DropdownMenuItem onClick={handleLogout}>
             <LogOutIcon className="text-muted-foreground size-4" />
             {t('logout')}
             <DropdownMenuShortcut>

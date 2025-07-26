@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import dashboardSlice from './feature/dashboard/dashboardSlice';
 import mainSlice from './feature/main/mainSlice';
+import authSlice from './feature/auth/authSlice';
 import { transactionsApi } from './services/transactions';
 import { dashboardApi } from './services/dashboard';
 
@@ -9,6 +10,7 @@ export const store = () => {
     reducer: {
       dashboard: dashboardSlice,
       main: mainSlice,
+      auth: authSlice,
       [transactionsApi.reducerPath]: transactionsApi.reducer,
       [dashboardApi.reducerPath]: dashboardApi.reducer,
     },

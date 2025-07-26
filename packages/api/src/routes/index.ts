@@ -6,9 +6,11 @@ import paymentRoute from './v1/paymentRoute';
 import transactionRoute from './v1/transactionRoute';
 import transactionPaymentRoute from './v1/transactionPaymentRoute';
 import exchangeRateRoute from './v1/exchangeRateRoute';
+import authRoute from './v1/authRoute';
 
 const router = express.Router();
 
+router.use('/api/v1/auth', authRoute);
 router.use('/api/v1/types', typesRoute);
 router.use('/api/v1/categories', categoryRoute);
 router.use('/api/v1/currencies', currencyRoute);

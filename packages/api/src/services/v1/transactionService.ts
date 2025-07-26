@@ -31,26 +31,33 @@ type FetchByDateRangeProps = {
   currency: string;
 };
 
-const create = async (data: TransactionProps) => {
-  return await TransactionModel.create(data);
+const create = async (data: TransactionProps, userId: string) => {
+  return await TransactionModel.create({ ...data, user: userId });
 };
 
-const createMany = async (data: TransactionProps[]) => {
-  return await TransactionModel.insertMany(data);
+const createMany = async (data: TransactionProps[], userId: string) => {
+  const transactionsWithUser = data.map((transaction) => ({
+    ...transaction,
+    user: userId,
+  }));
+  return await TransactionModel.insertMany(transactionsWithUser);
 };
 
-const getAll = async (query: QueryParamsProps) => {
+const getAll = async (query: QueryParamsProps, userId: string) => {
   // [SAMPLE ENDPOINT]: /transactions?page=2&limit=4&sort=-name
 
   const { filter, sort } = query;
 
   // Pagination
-  const totalDocuments = await TransactionModel.countDocuments();
+  const totalDocuments = await TransactionModel.countDocuments({
+    user: userId,
+  });
   const paginationResult = createPagination(query, totalDocuments);
   const { skip, limit, pagination } = paginationResult;
 
   // Filter
   const filterObj = filter ? JSON.parse(filter) : {};
+  filterObj.user = userId; // Add user filter
 
   // Sort
   const sortObj: SortObjProps = {};
