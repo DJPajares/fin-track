@@ -31,6 +31,9 @@ import { useAppSelector } from '../lib/hooks/use-redux';
 
 import { formatCurrency } from '@shared/utilities/formatCurrency';
 
+// Force dynamic rendering to avoid prerendering issues
+export const dynamic = 'force-dynamic';
+
 const isMockedData = process.env.NEXT_PUBLIC_USE_MOCKED_DATA === 'true';
 
 type UpcomingExtraProps = {
