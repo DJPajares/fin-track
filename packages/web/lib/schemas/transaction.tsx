@@ -10,9 +10,13 @@ const transactionSchema = z.object({
   currency: z.string().min(1, {
     message: 'Please select a currency',
   }),
-  amount: z.number({
-    message: 'Please enter an amount',
-  }),
+  amount: z
+    .number({
+      message: 'Please enter an amount',
+    })
+    .min(0, {
+      message: 'Amount must be a positive number',
+    }),
   isRecurring: z.boolean(),
   startDate: z.date({
     message: 'Please select a start date.',
