@@ -82,7 +82,7 @@ const CustomDrawer = ({
           <DrawerTrigger asChild>{triggerChildren}</DrawerTrigger>
 
           <DrawerContent aria-describedby={description}>
-            <div className="mx-auto w-full max-w-sm">
+            <div className="mx-auto flex w-full max-w-sm flex-1 flex-col overflow-hidden">
               <DrawerHeader>
                 <DrawerTitle>{title}</DrawerTitle>
                 <DrawerDescription>{description}</DrawerDescription>
@@ -90,7 +90,7 @@ const CustomDrawer = ({
 
               <Separator />
 
-              <div className="overflow-auto py-4">{children}</div>
+              <div className="flex-1 overflow-y-auto py-4">{children}</div>
             </div>
 
             <DrawerFooter className="mx-auto w-full max-w-sm">
