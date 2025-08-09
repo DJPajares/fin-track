@@ -14,7 +14,7 @@
     "@hookform/resolvers": "^5.1.1",
     "@reduxjs/toolkit": "^2.8.2",
     "@tailwindcss/postcss": "^4.1.11",
-    "axios": "^1.10.0",
+    "axios": "^1.11.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "^1.1.1",
@@ -22,7 +22,8 @@
     "framer-motion": "^12.23.6",
     "lucide-react": "^0.525.0",
     "moment": "^2.30.1",
-    "next": "^15.4.3",
+    "next": "^15.4.4",
+    "next-auth": "^5.0.0-beta.29",
     "next-intl": "^4.3.4",
     "next-pwa": "^5.6.0",
     "next-themes": "^0.4.6",
@@ -40,7 +41,6 @@
     "zod": "^4.0.5"
   },
   "devDependencies": {
-    "@types/next-pwa": "^5.6.9",
     "@types/node": "^24.0.14",
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",

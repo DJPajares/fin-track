@@ -283,20 +283,15 @@ const TransactionDrawerForm = ({
                   </FormLabel>
 
                   <FormControl>
-                    {/* <Input
-                      type="number"
-                      inputMode="decimal"
-                      placeholder="0"
-                      {...field}
-                      value={field.value || ''}
-                    /> */}
                     <Input
+                      {...field}
                       type="number"
                       inputMode="decimal"
                       placeholder="0"
-                      {...field}
                       value={field.value || ''}
-                      onChange={field.onChange}
+                      onChange={(e) => {
+                        field.onChange(e.target.valueAsNumber);
+                      }}
                       autoComplete="false"
                     />
                   </FormControl>
