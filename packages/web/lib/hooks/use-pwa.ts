@@ -34,17 +34,33 @@ export function usePWA() {
     const isStandalone = window.matchMedia(
       '(display-mode: standalone)',
     ).matches;
-    const isIOS = /iphone|ipad|ipod/.test(navigator.userAgent.toLowerCase());
+    const isIOSDevice = /iphone|ipad|ipod/.test(
+      navigator.userAgent.toLowerCase(),
+    );
     const isAndroid = /android/.test(navigator.userAgent.toLowerCase());
+    const isInStandaloneMode =
+      ('standalone' in window.navigator &&
+        (window.navigator as Window['navigator'] & { standalone?: boolean })
+          .standalone) ||
+      isStandalone;
+
+    console.log('[PWA] Detection:', {
+      isStandalone,
+      isIOSDevice,
+      isAndroid,
+      isInStandaloneMode,
+      userAgent: navigator.userAgent,
+    });
 
     setPwaState((prev) => ({
       ...prev,
-      isInstalled: isStandalone,
-      isIOS,
+      isInstalled: isInStandaloneMode,
+      isIOS: isIOSDevice,
       // For iOS, we show installable if not in standalone mode
-      // For other platforms, show if mobile or has deferred prompt
+      // For Android, show if has deferred prompt or is Android device not in standalone
       isInstallable:
-        !isStandalone && (isIOS || isAndroid || prev.deferredPrompt !== null),
+        !isInStandaloneMode &&
+        (isIOSDevice || isAndroid || prev.deferredPrompt !== null),
     }));
   }, []);
 
@@ -56,9 +72,16 @@ export function usePWA() {
   }, []);
 
   const handleBeforeInstallPrompt = useCallback((e: Event) => {
-    // Store the event for later use without preventing default
-    // This allows the browser to show its native prompt if it wants to
+    // Prevent the default browser install prompt on Android
+    e.preventDefault();
+
+    // Store the event for later use
     const promptEvent = e as BeforeInstallPromptEvent;
+
+    console.log('[PWA] Install prompt event captured:', {
+      platforms: promptEvent.platforms,
+    });
+
     setPwaState((prev) => ({
       ...prev,
       deferredPrompt: promptEvent,
@@ -84,6 +107,11 @@ export function usePWA() {
 
   const installApp = useCallback(
     async (getIOSInstructions?: () => string) => {
+      console.log('[PWA] Install attempt:', {
+        isIOS: pwaState.isIOS,
+        hasDeferredPrompt: !!pwaState.deferredPrompt,
+      });
+
       // iOS doesn't support programmatic installation
       if (pwaState.isIOS) {
         // Show instructions for manual installation
@@ -99,24 +127,32 @@ export function usePWA() {
       }
 
       if (!pwaState.deferredPrompt) {
+        console.warn('[PWA] Install prompt not available');
         throw new Error('Install prompt not available');
       }
 
-      // Call prompt() to show the native install dialog
-      pwaState.deferredPrompt.prompt();
-      const { outcome } = await pwaState.deferredPrompt.userChoice;
+      try {
+        // Call prompt() to show the native install dialog
+        await pwaState.deferredPrompt.prompt();
+        const { outcome } = await pwaState.deferredPrompt.userChoice;
 
-      if (outcome === 'accepted') {
-        console.log('User accepted the install prompt');
-      } else {
-        console.log('User dismissed the install prompt');
+        console.log('[PWA] User choice:', outcome);
+
+        if (outcome === 'accepted') {
+          console.log('[PWA] User accepted the install prompt');
+        } else {
+          console.log('[PWA] User dismissed the install prompt');
+        }
+
+        setPwaState((prev) => ({
+          ...prev,
+          deferredPrompt: null,
+          isInstallable: false,
+        }));
+      } catch (error) {
+        console.error('[PWA] Install error:', error);
+        throw error;
       }
-
-      setPwaState((prev) => ({
-        ...prev,
-        deferredPrompt: null,
-        isInstallable: false,
-      }));
     },
     [pwaState.deferredPrompt, pwaState.isIOS],
   );

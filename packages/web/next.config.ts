@@ -25,6 +25,12 @@ const pwaConfig = withPWA({
   register: true,
   skipWaiting: true,
   disable: process.env.NODE_ENV === 'development',
+  scope: '/',
+  reloadOnOnline: true,
+  swMinify: true,
+  fallbacks: {
+    document: '/offline',
+  },
   runtimeCaching: [
     {
       urlPattern: /^https?.*/,
@@ -33,10 +39,15 @@ const pwaConfig = withPWA({
         cacheName: 'offlineCache',
         expiration: {
           maxEntries: 200,
+          maxAgeSeconds: 86400, // 24 hours
+        },
+        cacheableResponse: {
+          statuses: [0, 200],
         },
       },
     },
   ],
+  buildExcludes: [/middleware-manifest\.json$/, /middleware-runtime\.js$/],
 });
 
-export default pwaConfig(withNextIntl(nextConfig) as any);
+export default pwaConfig(withNextIntl(nextConfig));

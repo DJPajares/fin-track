@@ -29,7 +29,7 @@ declare module 'next-pwa' {
     reloadOnOnline?: boolean;
     swMinify?: boolean;
     workboxOptions?: {
-      [key: string]: any;
+      [key: string]: unknown;
     };
   }
 
