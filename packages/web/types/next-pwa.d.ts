@@ -27,7 +27,6 @@ declare module 'next-pwa' {
       [key: string]: string;
     };
     reloadOnOnline?: boolean;
-    swMinify?: boolean;
     workboxOptions?: {
       [key: string]: unknown;
     };

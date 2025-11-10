@@ -27,7 +27,6 @@ const pwaConfig = withPWA({
   disable: process.env.NODE_ENV === 'development',
   scope: '/',
   reloadOnOnline: true,
-  swMinify: true,
   fallbacks: {
     document: '/offline',
   },
