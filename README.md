@@ -51,7 +51,7 @@ A comprehensive personal finance management application built with modern web te
 ### Backend
 
 - **Runtime**: Node.js with Express.js 5
-- **Database**: MongoDB with Prisma ORM
+- **Database**: MongoDB
 - **Language**: TypeScript
 - **API**: RESTful API with proper error handling
 
@@ -69,7 +69,6 @@ A comprehensive personal finance management application built with modern web te
 fin-track/
 ├── packages/
 │   ├── api/                    # Backend API server
-│   │   ├── prisma/            # Database schema and migrations
 │   │   ├── src/
 │   │   │   ├── controllers/   # API route handlers
 │   │   │   ├── middleware/    # Express middleware
@@ -143,27 +142,33 @@ fin-track/
 
 4. **Start MongoDB**
 
-   In a new terminal window, start the MongoDB server:
+   In a new terminal window, start the MongoDB server in the background:
 
    ```bash
-   # Find MongoDB installation
-   which mongod
-
-   # Start MongoDB with a data directory
-   mongod --dbpath ~/mongodb/data
+   mongod --dbpath ~/mongodb/data > ~/mongodb/mongod.log 2>&1 &
    ```
 
-   Keep this terminal open while developing. MongoDB will be running on `localhost:27017`.
+   This command:
+   - `mongod --dbpath ~/mongodb/data`: Starts MongoDB with your local data directory
+   - `> ~/mongodb/mongod.log`: Redirects output to a log file
+   - `2>&1`: Captures errors as well
+   - `&`: Runs the process in the background
 
-5. **Database Setup**
+   To verify MongoDB is running:
 
    ```bash
-   cd packages/api
-   npx prisma generate
-   npx prisma db push
+   ps aux | grep mongod
    ```
 
-6. **Start Development Servers**
+   You should see the mongod process listed. MongoDB will be running on `localhost:27017`.
+
+   To stop MongoDB later:
+
+   ```bash
+   pkill mongod
+   ```
+
+5. **Start Development Servers**
 
    **Terminal 2 - Backend API**
 
@@ -177,7 +182,7 @@ fin-track/
    npm run dev
    ```
 
-7. **Open the Application**
+6. **Open the Application**
    - Frontend: http://localhost:3000
    - Backend API: http://localhost:3001
 
