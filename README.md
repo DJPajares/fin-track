@@ -104,7 +104,7 @@ fin-track/
 
 - Node.js 18+
 - npm or yarn
-- MongoDB database
+- MongoDB installed locally
 
 ### Installation
 
@@ -128,8 +128,10 @@ fin-track/
    **packages/api/.env**
 
    ```env
-   DATABASE_URL="mongodb://localhost:27017/fin-track"
+   DATABASE_URL="mongodb://localhost:27017/fintrack"
    PORT=3001
+   JWT_SECRET=your_jwt_secret_here
+   JWT_EXPIRES_IN=7d
    ```
 
    **packages/web/.env.local**
@@ -139,7 +141,21 @@ fin-track/
    NEXT_PUBLIC_USE_MOCKED_DATA=false
    ```
 
-4. **Database Setup**
+4. **Start MongoDB**
+
+   In a new terminal window, start the MongoDB server:
+
+   ```bash
+   # Find MongoDB installation
+   which mongod
+
+   # Start MongoDB with a data directory
+   mongod --dbpath ~/mongodb/data
+   ```
+
+   Keep this terminal open while developing. MongoDB will be running on `localhost:27017`.
+
+5. **Database Setup**
 
    ```bash
    cd packages/api
@@ -147,21 +163,21 @@ fin-track/
    npx prisma db push
    ```
 
-5. **Start Development Servers**
+6. **Start Development Servers**
 
-   **Terminal 1 - Backend API**
+   **Terminal 2 - Backend API**
 
    ```bash
    npm run api
    ```
 
-   **Terminal 2 - Frontend**
+   **Terminal 3 - Frontend**
 
    ```bash
    npm run dev
    ```
 
-6. **Open the Application**
+7. **Open the Application**
    - Frontend: http://localhost:3000
    - Backend API: http://localhost:3001
 
