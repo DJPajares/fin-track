@@ -51,11 +51,11 @@ const CustomDrawer = ({
           )}
 
           <DrawerContent
-            className="h-[97%] data-[vaul-drawer-direction=bottom]:max-h-[100vh]"
+            className="flex h-screen max-h-[100dvh] flex-col"
             aria-describedby=""
           >
-            <div className="mx-auto w-full max-w-sm">
-              <div className="flex flex-row items-center justify-between py-2">
+            <div className="mx-auto flex min-h-0 w-full max-w-sm flex-1 flex-col">
+              <div className="flex flex-shrink-0 flex-row items-center justify-between py-2">
                 <ConfirmationDialog handleSubmit={handleSubmit}>
                   <Button variant="ghost">
                     {okButtonLabel || t('Common.button.save')}
@@ -71,9 +71,11 @@ const CustomDrawer = ({
                 </Button>
               </div>
 
-              <Separator />
+              <Separator className="flex-shrink-0" />
 
-              <div className="px-2 py-6">{children}</div>
+              <div className="min-h-0 w-full flex-1 overflow-y-auto px-2 py-6">
+                {children}
+              </div>
             </div>
           </DrawerContent>
         </Drawer>
