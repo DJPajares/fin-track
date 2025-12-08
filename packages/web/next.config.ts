@@ -6,18 +6,6 @@ const withNextIntl = createNextIntlPlugin();
 
 const nextConfig: NextConfig = {
   devIndicators: false,
-  // reactStrictMode: true,
-  // images: {
-  //   unoptimized: true
-  // },
-  // output: 'export'
-  // Ensure proper handling of client-side components during build
-  typescript: {
-    ignoreBuildErrors: false,
-  },
-  eslint: {
-    ignoreDuringBuilds: false,
-  },
 };
 
 const pwaConfig = withPWA({
