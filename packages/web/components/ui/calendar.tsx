@@ -24,6 +24,9 @@ function Calendar({
   buttonVariant?: React.ComponentProps<typeof Button>['variant'];
 }) {
   const defaultClassNames = getDefaultClassNames();
+  const currentYear = new Date().getFullYear();
+  const fromYear = currentYear - 5;
+  const toYear = currentYear + 5;
 
   return (
     <DayPicker
@@ -35,6 +38,8 @@ function Calendar({
         className,
       )}
       captionLayout={captionLayout}
+      startMonth={new Date(fromYear, 0)}
+      endMonth={new Date(toYear, 11)}
       formatters={{
         formatMonthDropdown: (date) =>
           date.toLocaleString('default', { month: 'short' }),
