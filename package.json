@@ -1,13 +1,17 @@
 {
   "name": "fin-track",
   "version": "1.0.0",
+  "private": true,
+  "packageManager": "pnpm@10.24.0",
   "scripts": {
-    "dev": "cd packages/web && npm run dev",
-    "api": "cd packages/api && npm run dev",
+    "dev": "turbo run dev --parallel",
+    "api": "turbo run dev --filter=@fin-track/api",
+    "web": "turbo run dev --filter=@fin-track/web",
+    "build": "turbo run build",
     "prepare": "if [ \"$VERCEL\" != \"1\" ]; then husky install; fi",
     "prettier": "prettier --write .",
-    "lint": "eslint && npm run type-check",
-    "type-check": "cd packages/web && npx tsc --noEmit"
+    "lint": "turbo run lint",
+    "type-check": "turbo run type-check"
   },
   "lint-staged": {
     "packages/**/*.{js,jsx,ts,tsx}": [
@@ -33,6 +37,7 @@
     "husky": "^8.0.0",
     "lint-staged": "^15.4.1",
     "prettier": "^3.5.3",
-    "prettier-plugin-tailwindcss": "^0.6.13"
+    "prettier-plugin-tailwindcss": "^0.6.13",
+    "turbo": "^2.6.3"
   }
 }
