@@ -9,6 +9,7 @@ export function registerServiceWorker() {
       const registration = await navigator.serviceWorker.register('/sw.js', {
         scope: '/',
       });
+      registration.update();
       console.log('SW registered successfully:', registration);
       return registration;
     } catch (error) {
