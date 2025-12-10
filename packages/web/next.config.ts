@@ -1,7 +1,5 @@
-// next.config.js (Corrected for @serwist/next)
-
 import createNextIntlPlugin from 'next-intl/plugin';
-import withSerwistInit from '@serwist/next'; // Using the correct import
+import withPWA from 'next-pwa';
 import type { NextConfig } from 'next';
 
 const withNextIntl = createNextIntlPlugin();
@@ -10,10 +8,23 @@ const nextConfig: NextConfig = {
   devIndicators: false,
 };
 
-// Use withSerwist and update the options object
-const withSerwist = withSerwistInit({
-  swSrc: 'app/sw.ts',
-  swDest: 'public/sw.js',
+const pwaConfig = withPWA({
+  dest: 'public',
+  register: true,
+  skipWaiting: true,
+  disable: process.env.NODE_ENV === 'development',
+  runtimeCaching: [
+    {
+      urlPattern: /^https?.*/,
+      handler: 'NetworkFirst',
+      options: {
+        cacheName: 'offlineCache',
+        expiration: {
+          maxEntries: 200,
+        },
+      },
+    },
+  ],
 });
 
-export default withSerwist(withNextIntl(nextConfig));
+export default pwaConfig(withNextIntl(nextConfig) as any);
