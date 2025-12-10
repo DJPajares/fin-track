@@ -8,9 +8,8 @@ import { raleway } from '../lib/fonts';
 
 import NavBar from '../components/Nav/NavBar';
 import { Toaster } from '@web/components/ui/sonner';
-import PWAInstallPrompt from '../components/shared/PWAInstallPrompt';
-import OfflineIndicator from '../components/shared/OfflineIndicator';
 import PWARefreshButton from '../components/shared/PWARefreshButton';
+import ServiceWorkerRegistration from '../components/shared/ServiceWorkerRegistration';
 
 export const metadata: Metadata = {
   title: 'Fin-Track',
@@ -127,8 +126,7 @@ export default async function RootLayout({
             </main>
 
             <Toaster />
-            <OfflineIndicator />
-            <PWAInstallPrompt />
+            <ServiceWorkerRegistration />
             <PWARefreshButton />
           </Providers>
         </NextIntlClientProvider>

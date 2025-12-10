@@ -1,15 +1,26 @@
 export function registerServiceWorker() {
-  if (typeof window !== 'undefined' && 'serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker
-        .register('/sw.js')
-        .then((registration) => {
-          console.log('SW registered: ', registration);
-        })
-        .catch((registrationError) => {
-          console.log('SW registration failed: ', registrationError);
-        });
-    });
+  if (typeof window === 'undefined' || !('serviceWorker' in navigator)) {
+    console.log('SW not supported');
+    return;
+  }
+
+  const register = async () => {
+    try {
+      const registration = await navigator.serviceWorker.register('/sw.js', {
+        scope: '/',
+      });
+      console.log('SW registered successfully:', registration);
+      return registration;
+    } catch (error) {
+      console.error('SW registration failed:', error);
+    }
+  };
+
+  // Register immediately if document is ready, otherwise wait for load
+  if (document.readyState === 'loading') {
+    window.addEventListener('load', register);
+  } else {
+    register();
   }
 }
 

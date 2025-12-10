@@ -4,7 +4,11 @@ import { useState } from 'react';
 import { Button } from '../ui/button';
 import { RefreshCw } from 'lucide-react';
 import { cn } from '../../lib/utils';
-import { isPWA } from '../../lib/hooks/use-pwa';
+
+const isPWA = () => {
+  if (typeof window === 'undefined') return false;
+  return window.matchMedia('(display-mode: standalone)').matches;
+};
 
 export default function PWARefreshButton() {
   const [isRefreshing, setIsRefreshing] = useState(false);
