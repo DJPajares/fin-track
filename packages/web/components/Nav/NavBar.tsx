@@ -16,9 +16,9 @@ type NavBarProps = {
 const NavBar = ({ children }: NavBarProps) => {
   const [isVisible, setIsVisible] = useState(true);
 
-  let lastScroll = 0;
-
   useEffect(() => {
+    let lastScroll = 0;
+
     const handleScroll = () => {
       const currentScroll = window.pageYOffset;
 
