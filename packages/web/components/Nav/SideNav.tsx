@@ -49,7 +49,7 @@ const SideNav = () => {
                 </div>
 
                 <div className="grid flex-1 text-left leading-tight">
-                  <Label variant="title-xs" className="!font-bold">
+                  <Label variant="title-xs" className="font-bold!">
                     FIN-TRACK
                   </Label>
                 </div>
@@ -84,7 +84,7 @@ const SideNav = () => {
 
                         <div className="grid flex-1 text-left leading-tight">
                           <Label
-                            variant="title-xxs"
+                            variant="title-xs"
                             className="text-muted-foreground font-semibold"
                           >
                             {t(item.value)}
@@ -103,7 +103,7 @@ const SideNav = () => {
 
                         <div className="grid flex-1 text-left leading-tight">
                           <Label
-                            variant="title-xxs"
+                            variant="title-xs"
                             className="text-muted-foreground font-semibold"
                           >
                             {t(item.value)}
@@ -124,7 +124,7 @@ const SideNav = () => {
                           >
                             <SidebarMenuSubButton size="sm" asChild>
                               <Label
-                                variant="title-xxs"
+                                variant="title-xs"
                                 className="text-muted-foreground font-light"
                               >
                                 {t(subItem.value)}

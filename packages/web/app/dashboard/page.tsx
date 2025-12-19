@@ -185,7 +185,7 @@ const Dashboard = () => {
               <Label variant="caption" className="text-muted-foreground">
                 {t('totalDue')}
               </Label>
-              <Label variant="title-md" className="text-2xl">
+              <Label variant="title-lg">
                 {formatCurrency({
                   value: totalAmount,
                   currency: currency.name,
@@ -197,7 +197,7 @@ const Dashboard = () => {
               <Label variant="caption" className="text-muted-foreground">
                 {t('monthlyExtra')}
               </Label>
-              <Label variant="title-md" className="text-2xl">
+              <Label variant="title-lg">
                 {formatCurrency({ value: extra, currency: currency.name })}
               </Label>
             </div>
@@ -211,7 +211,7 @@ const Dashboard = () => {
               <Label variant="caption" className="text-muted-foreground">
                 {t('runningBalance')}
               </Label>
-              <Label variant="title-md" className="text-2xl">
+              <Label variant="title-lg">
                 {formatCurrency({
                   value: balance,
                   currency: currency.name,

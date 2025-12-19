@@ -28,9 +28,7 @@ declare module 'next-pwa' {
     };
     reloadOnOnline?: boolean;
     swMinify?: boolean;
-    workboxOptions?: {
-      [key: string]: any;
-    };
+    workboxOptions?: Record<string, unknown>;
   }
 
   function withPWA(config?: PWAConfig): (nextConfig: NextConfig) => NextConfig;

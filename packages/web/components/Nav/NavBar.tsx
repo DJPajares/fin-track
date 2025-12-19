@@ -49,7 +49,7 @@ const NavBar = ({ children }: NavBarProps) => {
         >
           <SidebarTrigger className="-ml-1" />
 
-          <Label variant="title-xs" className="!font-bold">
+          <Label variant="title-xs" className="font-bold">
             FIN-TRACK
           </Label>
 

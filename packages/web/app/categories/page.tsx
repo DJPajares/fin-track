@@ -92,7 +92,7 @@ const Categories = () => {
       <div className="space-y-4">
         <div className="space-y-1">
           <div className="flex flex-row items-center justify-between">
-            <Label variant="title-md">
+            <Label variant="title">
               {t('Page.categories.titleCategories').toLocaleUpperCase()}
             </Label>
 
@@ -134,7 +134,7 @@ const Categories = () => {
         </div>
 
         <div className="space-y-1">
-          <Label variant="title-md" className="font-bold">
+          <Label variant="title">
             {t('Page.categories.titleSuggestions').toLocaleUpperCase()}
           </Label>
 

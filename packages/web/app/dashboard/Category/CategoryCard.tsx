@@ -47,7 +47,7 @@ const CategoryCard = ({
           }
         </div>
 
-        <Label variant="title-md">
+        <Label variant="title">
           {formatCurrency({
             value: category.totalAmount,
             currency,

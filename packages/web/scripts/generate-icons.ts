@@ -20,7 +20,6 @@ requiredIcons.forEach((icon) => {
   const filePath = path.join(iconsDir, icon.filename);
   if (!fs.existsSync(filePath)) {
     fs.writeFileSync(filePath, createPlaceholderIcon(icon.size));
-    // eslint-disable-next-line no-console
     console.log(`Created placeholder for ${icon.filename}`);
   }
 });

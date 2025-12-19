@@ -19,6 +19,7 @@ export function Providers({ children }: ProviderProps) {
   }
 
   return (
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     <ReduxProvider store={storeRef.current!}>
       <HeroUIProvider>
         <NextThemesProvider attribute="class" defaultTheme="dark">
