@@ -66,7 +66,7 @@
       "totalDue": "Kabuuang Dapat Bayaran",
       "settled": "Nabayaran",
       "unsettled": "Hindi Nabayaran",
-      "completed": "Nakompleto ang Pagbabayad",
+      "completed": "Tapos",
       "transactionButton": "Magdagdag ng Transaksyon",
       "card": {
         "settled": "Naayos na"

@@ -66,7 +66,7 @@
       "totalDue": "देय राशि",
       "settled": "भुगतान किया गया",
       "unsettled": "भुगतान नहीं किया गया",
-      "completed": "भुगतान पूर्ण",
+      "completed": "पूरा हुआ",
       "transactionButton": "लेन-देन जोड़ें",
       "card": {
         "settled": "संपन्न"

@@ -66,7 +66,7 @@
       "totalDue": "Amount due",
       "settled": "Paid",
       "unsettled": "Unpaid",
-      "completed": "Payment completion",
+      "completed": "Completed",
       "transactionButton": "Add Transaction",
       "card": {
         "settled": "Settled"

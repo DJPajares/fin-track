@@ -66,7 +66,7 @@
       "totalDue": "المبلغ المستحق",
       "settled": "مدفوع",
       "unsettled": "غير مدفوع",
-      "completed": "اكتمال الدفع",
+      "completed": "مكتمل",
       "transactionButton": "إضافة معاملة",
       "card": {
         "settled": "تم التسوية"

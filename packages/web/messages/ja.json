@@ -66,7 +66,7 @@
       "totalDue": "支払い予定額",
       "settled": "支払い済み",
       "unsettled": "未支払い",
-      "completed": "支払い完了",
+      "completed": "完了",
       "transactionButton": "取引を追加",
       "card": {
         "settled": "決済済み"

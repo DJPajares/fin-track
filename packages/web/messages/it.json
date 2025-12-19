@@ -66,7 +66,7 @@
       "totalDue": "Importo dovuto",
       "settled": "Pagato",
       "unsettled": "Non pagato",
-      "completed": "Completamento del pagamento",
+      "completed": "Completato",
       "transactionButton": "Aggiungi Transazione",
       "card": {
         "settled": "Liquidato"
