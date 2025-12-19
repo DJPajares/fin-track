@@ -101,6 +101,7 @@ const Home = () => {
     }, 8000);
 
     return () => clearInterval(interval); // Cleanup interval on unmount
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {

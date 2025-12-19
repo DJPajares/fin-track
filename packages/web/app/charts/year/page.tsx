@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import moment from 'moment';
 import { useTranslations } from 'next-intl';
 
@@ -107,13 +107,19 @@ const Charts = () => {
     category: 'savings',
   });
 
-  useEffect(() => {
-    fetchData();
-  }, [currency]);
+  const fetchData = useCallback(async () => {
+    const transactions = await fetchTransactionsDateRangeByType({
+      startDate: new Date(parseInt(selectedYear), 0, 1),
+      endDate: new Date(parseInt(selectedYear), 11, 31),
+      currency: currency.name,
+    });
+
+    setChartData(transactions);
+  }, [selectedYear, currency]);
 
   useEffect(() => {
     fetchData();
-  }, [selectedYear]);
+  }, [fetchData]);
 
   useEffect(() => {
     const data = chartData.map((data) => ({
@@ -156,16 +162,6 @@ const Charts = () => {
   }, [savingsData]);
 
   const yearsArray = generateYearsArray(10);
-
-  const fetchData = async () => {
-    const transactions = await fetchTransactionsDateRangeByType({
-      startDate: new Date(parseInt(selectedYear), 0, 1),
-      endDate: new Date(parseInt(selectedYear), 11, 31),
-      currency: currency.name,
-    });
-
-    setChartData(transactions);
-  };
 
   const handlePrevYear = () => {
     const newDate = moment(selectedYear).add(-1, 'years');

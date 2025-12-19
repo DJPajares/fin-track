@@ -86,19 +86,15 @@ const Dashboard = () => {
         }),
       );
     }
-  }, [currencies, currency]);
+  }, [currencies, currency, dispatch]);
 
   useEffect(() => {
-    handleDateSelection(date);
-  }, [date]);
-
-  const handleDateSelection = (date: Date) => {
     dispatch(
       setDashboardDate({
         date: moment(date).format(dateStringFormat),
       }),
     );
-  };
+  }, [date, dispatch]);
 
   const handleCardClick = (category: DashboardDataCategoryResult) => {
     setDashboardCategoryData(category);
