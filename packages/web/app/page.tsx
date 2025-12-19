@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import moment from 'moment';
-import { toast } from 'sonner';
 
 import { TrendingUpIcon } from 'lucide-react';
 
@@ -33,8 +32,6 @@ import { formatCurrency } from '@shared/utilities/formatCurrency';
 
 // Force dynamic rendering to avoid prerendering issues
 export const dynamic = 'force-dynamic';
-
-const isMockedData = process.env.NEXT_PUBLIC_USE_MOCKED_DATA === 'true';
 
 type UpcomingExtraProps = {
   month: string;
@@ -105,19 +102,6 @@ const Home = () => {
 
     return () => clearInterval(interval); // Cleanup interval on unmount
   }, []);
-
-  useEffect(() => {
-    if (isMockedData) {
-      const timeout = setTimeout(() => {
-        toast('USING MOCKED DATA', {
-          description:
-            "API calls won't work. Adding, modifying, or deleting data within the app will either crash or not work at all.",
-        });
-      }, 0);
-
-      return () => clearTimeout(timeout);
-    }
-  }, [toast]);
 
   useEffect(() => {
     setUpcomingExtras(
