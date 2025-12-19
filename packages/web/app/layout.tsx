@@ -4,7 +4,7 @@ import { NextIntlClientProvider } from 'next-intl';
 
 import './globals.css';
 import { Providers } from '../providers/providers';
-import { raleway } from '../lib/fonts';
+import { montserrat } from '../lib/fonts';
 
 import NavBar from '../components/Nav/NavBar';
 import { Toaster } from '@web/components/ui/sonner';
@@ -78,11 +78,7 @@ export default async function RootLayout({
   const messages = await getMessages();
 
   return (
-    <html
-      lang={locale}
-      suppressHydrationWarning
-      className={`${raleway.variable}`}
-    >
+    <html lang={locale} suppressHydrationWarning>
       <head>
         <meta name="application-name" content="Fin-Track" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -118,7 +114,7 @@ export default async function RootLayout({
         />
         <link rel="shortcut icon" href="/icons/favicon.ico" />
       </head>
-      <body className={`antialiased ${raleway.className}`}>
+      <body className={`${montserrat.variable} antialiased`}>
         <NextIntlClientProvider messages={messages}>
           <Providers>
             <main className="bg-background" vaul-drawer-wrapper="">
