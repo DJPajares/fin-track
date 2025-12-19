@@ -1,5 +1,6 @@
 import js from '@eslint/js';
 import { FlatCompat } from '@eslint/eslintrc';
+import reactHooks from 'eslint-plugin-react-hooks';
 
 const compat = new FlatCompat({
   // import.meta.dirname is available after Node.js v20.11.0
@@ -19,21 +20,18 @@ const eslintConfig = [
       '**/public/*',
     ],
   },
+  // Use FlatCompat to bring in legacy shareable configs cleanly
   ...compat.extends(
     'eslint:recommended',
-    'eslint-config-next',
-    'eslint-config-prettier',
-    'next/core-web-vitals',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:@typescript-eslint/strict',
     'prettier',
-    'next',
-    'plugin:@next/next/recommended',
-    'plugin:@typescript-eslint/eslint-plugin/recommended',
-    'plugin:@typescript-eslint/eslint-plugin/strict',
   ),
   {
+    plugins: {
+      'react-hooks': reactHooks,
+    },
     rules: {
-      'react/react-in-jsx-scope': 'off',
-      'react/no-unescaped-entities': 'off',
       'no-underscore-dangle': [
         'error',
         {
@@ -42,20 +40,11 @@ const eslintConfig = [
           ],
         },
       ],
-      'import/extensions': [
-        'error',
-        'ignorePackages',
-        {
-          js: 'never',
-          jsx: 'never',
-          ts: 'never',
-          tsx: 'never',
-        },
-      ],
-      'import/no-unresolved': [2, { caseSensitive: false }],
       'no-use-before-define': 'off',
-      'react/jsx-filename-extension': [1, { extensions: ['.jsx', '.tsx'] }],
       'no-duplicate-imports': ['error'],
+      // React Hooks best practices
+      'react-hooks/rules-of-hooks': 'error',
+      'react-hooks/exhaustive-deps': 'warn',
       // TypeScript specific rules to catch type errors
       '@typescript-eslint/no-unused-vars': 'error',
       '@typescript-eslint/no-explicit-any': 'warn',
