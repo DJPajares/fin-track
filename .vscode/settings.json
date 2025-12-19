@@ -11,6 +11,6 @@
   "typescript.preferences.importModuleSpecifier": "non-relative",
   "javascript.preferences.importModuleSpecifier": "non-relative",
   "files.trimTrailingWhitespace": true,
-  "i18n-ally.localesPaths": ["packages/web/public/locales"],
+  "i18n-ally.localesPaths": ["packages/web/messages"],
   "i18n-ally.enabledFrameworks": ["next-intl"]
 }
