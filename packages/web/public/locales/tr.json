@@ -61,11 +61,12 @@
       }
     },
     "dashboard": {
-      "balance": "Bakiye",
-      "extra": "Ekstra",
-      "settled": "Düzenlendi",
-      "unsettled": "Düzenlenmedi",
-      "completed": "Tamamlandı",
+      "runningBalance": "Kalan Bakiye",
+      "monthlyExtra": "Ek Fonlar",
+      "totalDue": "Ödenmesi Gereken Tutar",
+      "settled": "Ödendi",
+      "unsettled": "Ödenmedi",
+      "completed": "Ödeme Tamamlandı",
       "transactionButton": "İşlem Ekle",
       "card": {
         "settled": "Ödendi"

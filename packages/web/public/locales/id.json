@@ -61,11 +61,12 @@
       }
     },
     "dashboard": {
-      "balance": "Saldo",
-      "extra": "Ekstra",
-      "settled": "Diselesaikan",
-      "unsettled": "Belum Diselesaikan",
-      "completed": "Selesai",
+      "runningBalance": "Saldo Tersisa",
+      "monthlyExtra": "Dana Tambahan",
+      "totalDue": "Jumlah Jatuh Tempo",
+      "settled": "Dibayar",
+      "unsettled": "Belum Dibayar",
+      "completed": "Penyelesaian Pembayaran",
       "transactionButton": "Tambah Transaksi",
       "card": {
         "settled": "Lunas"

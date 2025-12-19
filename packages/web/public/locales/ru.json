@@ -61,11 +61,12 @@
       }
     },
     "dashboard": {
-      "balance": "Баланс",
-      "extra": "Дополнительно",
-      "settled": "Урегулировано",
-      "unsettled": "Не урегулировано",
-      "completed": "Завершено",
+      "runningBalance": "Оставшийся баланс",
+      "monthlyExtra": "Дополнительные средства",
+      "totalDue": "Сумма к оплате",
+      "settled": "Оплачено",
+      "unsettled": "Не оплачено",
+      "completed": "Завершение платежа",
       "transactionButton": "Добавить транзакцию",
       "card": {
         "settled": "Урегулировано"

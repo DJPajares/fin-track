@@ -61,11 +61,12 @@
       }
     },
     "dashboard": {
-      "balance": "Balance",
-      "extra": "Extra",
-      "settled": "Settled",
-      "unsettled": "Unsettled",
-      "completed": "Completed",
+      "runningBalance": "Balance remaining",
+      "monthlyExtra": "Extra funds",
+      "totalDue": "Amount due",
+      "settled": "Paid",
+      "unsettled": "Unpaid",
+      "completed": "Payment completion",
       "transactionButton": "Add Transaction",
       "card": {
         "settled": "Settled"

@@ -61,11 +61,12 @@
       }
     },
     "dashboard": {
-      "balance": "Baki",
-      "extra": "Tambahan",
-      "settled": "Diselesaikan",
-      "unsettled": "Belum Diselesaikan",
-      "completed": "Selesai",
+      "runningBalance": "Baki Selebihnya",
+      "monthlyExtra": "Dana Tambahan",
+      "totalDue": "Jumlah Perlu Dibayar",
+      "settled": "Dibayar",
+      "unsettled": "Belum Dibayar",
+      "completed": "Penyelesaian Pembayaran",
       "transactionButton": "Tambah Transaksi",
       "card": {
         "settled": "Berlunas"

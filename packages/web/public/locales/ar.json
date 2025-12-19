@@ -61,11 +61,12 @@
       }
     },
     "dashboard": {
-      "balance": "الرصيد",
-      "extra": "الإضافي",
-      "settled": "تم التسوية",
-      "unsettled": "لم يتم التسوية",
-      "completed": "مكتمل",
+      "runningBalance": "الرصيد المتبقي",
+      "monthlyExtra": "أموال إضافية",
+      "totalDue": "المبلغ المستحق",
+      "settled": "مدفوع",
+      "unsettled": "غير مدفوع",
+      "completed": "اكتمال الدفع",
       "transactionButton": "إضافة معاملة",
       "card": {
         "settled": "تم التسوية"

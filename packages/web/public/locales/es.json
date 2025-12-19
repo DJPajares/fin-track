@@ -61,11 +61,12 @@
       }
     },
     "dashboard": {
-      "balance": "Saldo",
-      "extra": "Extra",
-      "settled": "Liquidado",
-      "unsettled": "No liquidado",
-      "completed": "Completado",
+      "runningBalance": "Saldo restante",
+      "monthlyExtra": "Fondos adicionales",
+      "totalDue": "Cantidad adeudada",
+      "settled": "Pagado",
+      "unsettled": "No pagado",
+      "completed": "Finalización del pago",
       "transactionButton": "Agregar transacción",
       "card": {
         "settled": "Liquidado"

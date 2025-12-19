@@ -61,11 +61,12 @@
       }
     },
     "dashboard": {
-      "balance": "Số Dư",
-      "extra": "Phụ Trội",
+      "runningBalance": "Số Dư Còn Lại",
+      "monthlyExtra": "Quỹ Bổ Sung",
+      "totalDue": "Số Tiền Còn Nợ",
       "settled": "Đã Thanh Toán",
       "unsettled": "Chưa Thanh Toán",
-      "completed": "Hoàn Thành",
+      "completed": "Hoàn Thành Thanh Toán",
       "transactionButton": "Thêm Giao Dịch",
       "card": {
         "settled": "Đã Thanh Toán"

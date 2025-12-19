@@ -61,11 +61,12 @@
       }
     },
     "dashboard": {
-      "balance": "Balanse",
-      "extra": "Dagdag",
-      "settled": "Naayos",
-      "unsettled": "Hindi naayos",
-      "completed": "Tapos",
+      "runningBalance": "Natitirang Balanse",
+      "monthlyExtra": "Dagdag na Pondo",
+      "totalDue": "Kabuuang Dapat Bayaran",
+      "settled": "Nabayaran",
+      "unsettled": "Hindi Nabayaran",
+      "completed": "Nakompleto ang Pagbabayad",
       "transactionButton": "Magdagdag ng Transaksyon",
       "card": {
         "settled": "Naayos na"

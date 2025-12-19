@@ -61,11 +61,12 @@
       }
     },
     "dashboard": {
-      "balance": "शेष राशि",
-      "extra": "अतिरिक्त",
-      "settled": "समाप्त",
-      "unsettled": "असमाप्त",
-      "completed": "पूरा हुआ",
+      "runningBalance": "शेष राशि",
+      "monthlyExtra": "अतिरिक्त निधि",
+      "totalDue": "देय राशि",
+      "settled": "भुगतान किया गया",
+      "unsettled": "भुगतान नहीं किया गया",
+      "completed": "भुगतान पूर्ण",
       "transactionButton": "लेन-देन जोड़ें",
       "card": {
         "settled": "संपन्न"

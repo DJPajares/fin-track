@@ -61,11 +61,12 @@
       }
     },
     "dashboard": {
-      "balance": "Kontostand",
-      "extra": "Extra",
-      "settled": "Erledigt",
-      "unsettled": "Nicht erledigt",
-      "completed": "Abgeschlossen",
+      "runningBalance": "Verbleibender Kontostand",
+      "monthlyExtra": "Zusätzliche Mittel",
+      "totalDue": "Fälliger Betrag",
+      "settled": "Bezahlt",
+      "unsettled": "Nicht bezahlt",
+      "completed": "Zahlungsvollendung",
       "transactionButton": "Transaktion hinzufügen",
       "card": {
         "settled": "Erledigt"

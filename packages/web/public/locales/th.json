@@ -61,11 +61,12 @@
       }
     },
     "dashboard": {
-      "balance": "ยอดคงเหลือ",
-      "extra": "เพิ่มเติม",
+      "runningBalance": "ยอดคงเหลือ",
+      "monthlyExtra": "เงินเพิ่มเติมรายเดือน",
+      "totalDue": "จำนวนเงินต้องชำระ",
       "settled": "ชำระแล้ว",
       "unsettled": "ยังไม่ชำระ",
-      "completed": "เสร็จสิ้น",
+      "completed": "ชำระเสร็จสิ้น",
       "transactionButton": "เพิ่มธุรกรรม",
       "card": {
         "settled": "ชำระแล้ว"

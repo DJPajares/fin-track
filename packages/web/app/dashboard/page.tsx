@@ -152,7 +152,7 @@ const Dashboard = () => {
         </Button>
       </div>
 
-      {/* PROGRESS BAR */}
+      {/* CIRCULAR PROGRESS BAR */}
       {isFetching ? (
         <div className="flex flex-col items-center space-y-2">
           <Skeleton className="aspect-square h-36 rounded-full sm:h-64" />
@@ -178,53 +178,71 @@ const Dashboard = () => {
       {isFetching ? (
         <Skeleton className="h-40 w-full" />
       ) : (
-        <Card className="flex flex-col gap-2 p-4">
-          <div className="flex flex-row items-center justify-between">
-            <Label variant="title-sm">{t('balance')}</Label>
-
-            <Label variant="title-md">
-              {formatCurrency({
-                value: balance,
-                currency: currency.name,
-              })}
-            </Label>
-          </div>
-
-          <div className="flex flex-row items-center justify-between">
-            <Label variant="subtitle-md">{t('extra')}</Label>
-
-            <Label variant="subtitle-md">
-              {formatCurrency({ value: extra, currency: currency.name })}
-            </Label>
-          </div>
-
-          <Separator />
-
-          <div className="space-y-1">
-            <div className="flex flex-row items-center justify-end space-x-2">
-              <Label variant="subtitle-md" className="italic">
-                {t('settled')}:
+        <Card className="flex flex-col gap-3 p-4">
+          {/* Primary Metrics - Balance & Extra */}
+          <div className="flex flex-row justify-between gap-4">
+            <div className="flex flex-col gap-1">
+              <Label variant="caption" className="text-muted-foreground">
+                {t('totalDue')}
               </Label>
-
-              <Label variant="subtitle-md">
+              <Label variant="title-md" className="text-2xl">
                 {formatCurrency({
-                  value: totalPaidAmount,
+                  value: totalAmount,
                   currency: currency.name,
                 })}
               </Label>
             </div>
 
-            <div className="flex flex-row items-center justify-end space-x-2">
-              <Label variant="subtitle-md" className="italic">
-                {t('unsettled')}:
+            <div className="flex flex-col items-end gap-1">
+              <Label variant="caption" className="text-muted-foreground">
+                {t('monthlyExtra')}
               </Label>
+              <Label variant="title-md" className="text-2xl">
+                {formatCurrency({ value: extra, currency: currency.name })}
+              </Label>
+            </div>
+          </div>
 
-              <Label variant="subtitle-md">
+          <Separator />
+
+          {/* Secondary Metrics - Total Due, Settled & Unsettled */}
+          <div className="flex flex-row justify-between gap-4">
+            <div className="flex flex-col gap-1">
+              <Label variant="caption" className="text-muted-foreground">
+                {t('runningBalance')}
+              </Label>
+              <Label variant="title-md" className="text-2xl">
                 {formatCurrency({
-                  value: totalAmount - totalPaidAmount,
+                  value: balance,
                   currency: currency.name,
                 })}
               </Label>
+            </div>
+
+            <div className="flex flex-col items-end">
+              <div className="space-x-2">
+                <Label variant="caption" className="text-muted-foreground">
+                  {t('settled')}:
+                </Label>
+                <Label variant="title-sm">
+                  {formatCurrency({
+                    value: totalPaidAmount,
+                    currency: currency.name,
+                  })}
+                </Label>
+              </div>
+
+              <div className="space-x-2">
+                <Label variant="caption" className="text-muted-foreground">
+                  {t('unsettled')}:
+                </Label>
+                <Label variant="title-sm">
+                  {formatCurrency({
+                    value: totalAmount - totalPaidAmount,
+                    currency: currency.name,
+                  })}
+                </Label>
+              </div>
             </div>
           </div>
         </Card>
