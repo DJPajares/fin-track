@@ -9,6 +9,7 @@ import {
   setDashboardDate,
 } from '../../lib/redux/feature/dashboard/dashboardSlice';
 import { useGetDashboardDataQuery } from '../../lib/redux/services/dashboard';
+import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
 
 import { ScrollShadow, CircularProgress } from '@heroui/react';
 import { Button } from '../../components/ui/button';
@@ -16,8 +17,8 @@ import { Skeleton } from '../../components/ui/skeleton';
 import { Card } from '../../components/ui/card';
 import { DatePicker } from '../../components/shared/DatePicker';
 import { Separator } from '../../components/ui/separator';
-
-import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
+import { Label } from '../../components/ui/label';
+import Loader from '../../components/shared/Loader';
 
 import CategoryCard from '../../app/dashboard/Category/CategoryCard';
 import CategoryDrawer from '../../app/dashboard/Category/CategoryDrawer';
@@ -27,7 +28,6 @@ import { formatCurrency } from '@shared/utilities/formatCurrency';
 import { dateStringFormat } from '@shared/constants/dateStringFormat';
 
 import type { DashboardDataCategoryResult } from '../../types/Dashboard';
-import { Label } from '@web/components/ui/label';
 
 const initialTransactionPaymentCategory = {
   _id: '',
@@ -117,165 +117,184 @@ const Dashboard = () => {
     setDate(moment(newDate).toDate());
   };
 
-  if (isLoading)
-    return (
-      <div className="absolute inset-0 z-50 flex items-center justify-center">
-        <CircularProgress aria-label="Loading..." size="lg" />
-      </div>
-    );
+  if (isLoading) return <Loader />;
 
   return (
-    <div className="space-y-4 sm:space-y-8">
-      {/* CALENDAR */}
-      <div className="flex flex-row items-center justify-center gap-1 sm:gap-4">
-        <Button variant="ghost" size="rounded-icon" onClick={handlePrevMonth}>
-          <ChevronLeftIcon className="size-4" />
-        </Button>
-
-        <DatePicker date={date} onChange={setDate}>
-          <Button variant="ghost" className="px-1">
-            <Label
-              variant="title-xl"
-              className="hover:bg-background hover:underline"
+    <>
+      <div className="min-h-[calc(100vh-theme(height.18))] flex flex-col gap-4 sm:gap-8">
+        <ScrollShadow
+          className="flex max-h-[calc(100vh-theme(height.36))] flex-col gap-4 sm:max-h-none sm:gap-8"
+          hideScrollBar
+        >
+          {/* CALENDAR */}
+          <div className="flex flex-row items-center justify-center gap-1 sm:gap-4">
+            <Button
+              variant="ghost"
+              size="rounded-icon"
+              onClick={handlePrevMonth}
             >
-              {moment(date).format('MMM yyyy')}
-            </Label>
-          </Button>
-        </DatePicker>
+              <ChevronLeftIcon className="size-4" />
+            </Button>
 
-        <Button variant="ghost" size="rounded-icon" onClick={handleNextMonth}>
-          <ChevronRightIcon className="size-4" />
-        </Button>
-      </div>
+            <DatePicker date={date} onChange={setDate}>
+              <Button variant="ghost" className="px-1">
+                <Label
+                  variant="title-xl"
+                  className="hover:bg-background hover:underline"
+                >
+                  {moment(date).format('MMM yyyy')}
+                </Label>
+              </Button>
+            </DatePicker>
 
-      {/* CIRCULAR PROGRESS BAR */}
-      {isFetching ? (
-        <div className="flex flex-col items-center space-y-2">
-          <Skeleton className="aspect-square h-36 rounded-full sm:h-64" />
-          <Skeleton className="h-4 w-20" />
-        </div>
-      ) : (
-        <div className="flex flex-col items-center">
-          <CircularProgress
-            classNames={{
-              svg: 'w-36 sm:w-64 h-36 sm:h-64 drop-shadow-md',
-              value: 'text-3xl sm:text-6xl font-semibold',
-              indicator: 'stroke-primary',
-            }}
-            label={t('completed')}
-            value={(totalPaidAmount / totalAmount) * 100 || 0}
-            strokeWidth={3}
-            showValueLabel={true}
-          />
-        </div>
-      )}
-
-      {/* BALANCE CARD */}
-      {isFetching ? (
-        <Skeleton className="h-40 w-full" />
-      ) : (
-        <Card className="flex flex-col gap-3 p-4">
-          {/* Primary Metrics - Balance & Extra */}
-          <div className="flex flex-row justify-between gap-4">
-            <div className="flex flex-col gap-1">
-              <Label variant="caption" className="text-muted-foreground">
-                {t('totalDue')}
-              </Label>
-              <Label variant="title-lg">
-                {formatCurrency({
-                  value: totalAmount,
-                  currency: currency.name,
-                })}
-              </Label>
-            </div>
-
-            <div className="flex flex-col items-end gap-1">
-              <Label variant="caption" className="text-muted-foreground">
-                {t('monthlyExtra')}
-              </Label>
-              <Label variant="title-lg">
-                {formatCurrency({ value: extra, currency: currency.name })}
-              </Label>
-            </div>
+            <Button
+              variant="ghost"
+              size="rounded-icon"
+              onClick={handleNextMonth}
+            >
+              <ChevronRightIcon className="size-4" />
+            </Button>
           </div>
 
-          <Separator />
-
-          {/* Secondary Metrics - Total Due, Settled & Unsettled */}
-          <div className="flex flex-row justify-between gap-4">
-            <div className="flex flex-col gap-1">
-              <Label variant="caption" className="text-muted-foreground">
-                {t('runningBalance')}
-              </Label>
-              <Label variant="title-lg">
-                {formatCurrency({
-                  value: balance,
-                  currency: currency.name,
-                })}
-              </Label>
+          {/* CIRCULAR PROGRESS BAR */}
+          {isFetching ? (
+            <div className="flex flex-col items-center space-y-2">
+              <Skeleton className="aspect-square h-36 rounded-full sm:h-64" />
+              <Skeleton className="h-4 w-20" />
             </div>
-
-            <div className="flex flex-col items-end">
-              <div className="space-x-2">
-                <Label variant="caption" className="text-muted-foreground">
-                  {t('settled')}:
-                </Label>
-                <Label variant="title-sm">
-                  {formatCurrency({
-                    value: totalPaidAmount,
-                    currency: currency.name,
-                  })}
-                </Label>
-              </div>
-
-              <div className="space-x-2">
-                <Label variant="caption" className="text-muted-foreground">
-                  {t('unsettled')}:
-                </Label>
-                <Label variant="title-sm">
-                  {formatCurrency({
-                    value: totalAmount - totalPaidAmount,
-                    currency: currency.name,
-                  })}
-                </Label>
-              </div>
+          ) : (
+            <div className="flex flex-col items-center">
+              <CircularProgress
+                classNames={{
+                  svg: 'w-36 sm:w-64 h-36 sm:h-64 drop-shadow-md',
+                  value: 'text-3xl sm:text-6xl font-semibold',
+                  indicator: 'stroke-primary',
+                }}
+                label={t('completed')}
+                value={(totalPaidAmount / totalAmount) * 100 || 0}
+                strokeWidth={3}
+                showValueLabel={true}
+              />
             </div>
-          </div>
-        </Card>
-      )}
+          )}
 
-      {/* CATEGORY CARD */}
-      <ScrollShadow className="max-h-[40vh] sm:max-h-[90vh]" hideScrollBar>
-        {isFetching ? (
-          <div className="grid grid-cols-2 items-start justify-center gap-5 sm:grid-cols-3 sm:gap-10">
-            <Skeleton className="h-44 w-full sm:h-56" />
-            <Skeleton className="h-44 w-full sm:h-56" />
-          </div>
-        ) : (
-          <div className="grid grid-cols-2 items-start justify-center gap-5 sm:grid-cols-3 sm:gap-10">
-            {dashboardCategories.map(
-              (category: DashboardDataCategoryResult) => (
-                <div key={category._id}>
-                  <CategoryCard
-                    category={category}
-                    currency={currency.name}
-                    handleCardClick={handleCardClick}
-                  />
+          {/* BALANCE CARD */}
+          {isFetching ? (
+            <Skeleton className="h-40 w-full" />
+          ) : (
+            <Card className="flex flex-col gap-3 p-4">
+              {/* Primary Metrics - Balance & Extra */}
+              <div className="flex flex-row justify-between gap-4">
+                <div className="flex flex-col gap-1">
+                  <Label variant="caption" className="text-muted-foreground">
+                    {t('totalDue')}
+                  </Label>
+                  <Label variant="title-lg">
+                    {formatCurrency({
+                      value: totalAmount,
+                      currency: currency.name,
+                    })}
+                  </Label>
                 </div>
-              ),
-            )}
-          </div>
-        )}
-      </ScrollShadow>
 
-      {/* TRANSACTION BUTTON */}
-      {isFetching ? (
-        <Skeleton className="h-10 w-full" />
-      ) : (
-        <Button className="my-4 w-full" onClick={handleAddTransactionButton}>
-          {t('transactionButton')}
-        </Button>
-      )}
+                <div className="flex flex-col items-end gap-1">
+                  <Label variant="caption" className="text-muted-foreground">
+                    {t('monthlyExtra')}
+                  </Label>
+                  <Label variant="title-lg">
+                    {formatCurrency({
+                      value: extra,
+                      currency: currency.name,
+                    })}
+                  </Label>
+                </div>
+              </div>
+
+              <Separator />
+
+              {/* Secondary Metrics - Total Due, Settled & Unsettled */}
+              <div className="flex flex-row justify-between gap-4">
+                <div className="flex flex-col gap-1">
+                  <Label variant="caption" className="text-muted-foreground">
+                    {t('runningBalance')}
+                  </Label>
+                  <Label variant="title-lg">
+                    {formatCurrency({
+                      value: balance,
+                      currency: currency.name,
+                    })}
+                  </Label>
+                </div>
+
+                <div className="flex flex-col items-end">
+                  <div className="space-x-2">
+                    <Label variant="caption" className="text-muted-foreground">
+                      {t('settled')}:
+                    </Label>
+                    <Label variant="title-sm">
+                      {formatCurrency({
+                        value: totalPaidAmount,
+                        currency: currency.name,
+                      })}
+                    </Label>
+                  </div>
+
+                  <div className="space-x-2">
+                    <Label variant="caption" className="text-muted-foreground">
+                      {t('unsettled')}:
+                    </Label>
+                    <Label variant="title-sm">
+                      {formatCurrency({
+                        value: totalAmount - totalPaidAmount,
+                        currency: currency.name,
+                      })}
+                    </Label>
+                  </div>
+                </div>
+              </div>
+            </Card>
+          )}
+
+          {/* CATEGORY CARD */}
+          <ScrollShadow className="max-h-[40vh] sm:max-h-[90vh]" hideScrollBar>
+            {isFetching ? (
+              <div className="grid grid-cols-2 items-start justify-center gap-4 sm:grid-cols-3 sm:gap-8">
+                <Skeleton className="h-44 w-full sm:h-56" />
+                <Skeleton className="h-44 w-full sm:h-56" />
+              </div>
+            ) : (
+              <div className="grid grid-cols-2 items-start justify-center gap-4 sm:grid-cols-3 sm:gap-8">
+                {dashboardCategories.map(
+                  (category: DashboardDataCategoryResult) => (
+                    <div key={category._id}>
+                      <CategoryCard
+                        category={category}
+                        currency={currency.name}
+                        handleCardClick={handleCardClick}
+                      />
+                    </div>
+                  ),
+                )}
+              </div>
+            )}
+          </ScrollShadow>
+        </ScrollShadow>
+
+        {/* TRANSACTION BUTTON */}
+        <div className="sticky right-0 bottom-0 left-0 mt-auto sm:relative">
+          {isFetching ? (
+            <Skeleton className="h-10 w-full" />
+          ) : (
+            <Button
+              size="lg"
+              className="w-full"
+              onClick={handleAddTransactionButton}
+            >
+              {t('transactionButton')}
+            </Button>
+          )}
+        </div>
+      </div>
 
       {/* HIDDEN DRAWERS */}
       <CategoryDrawer
@@ -288,7 +307,7 @@ const Dashboard = () => {
         isDrawerOpen={isDrawerOpen}
         setIsDrawerOpen={setIsDrawerOpen}
       />
-    </div>
+    </>
   );
 };
 

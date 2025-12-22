@@ -119,7 +119,7 @@ export default async function RootLayout({
           <Providers>
             <main className="bg-background" vaul-drawer-wrapper="">
               <NavBar>
-                <div className="w-full px-6 py-2 sm:px-8">{children}</div>
+                <div className="w-full px-6 sm:px-8">{children}</div>
               </NavBar>
             </main>
 
