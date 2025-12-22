@@ -4,7 +4,7 @@ import { Card } from '../../../components/ui/card';
 import CardIcon from '../../../components/shared/CardIcon';
 import { Label } from '../../../components/ui/label';
 
-import { formatCurrency } from '@shared/utilities/formatCurrency';
+import { formatCurrencyToParts } from '@shared/utilities/formatCurrency';
 
 import type { TransactionPaymentCategoryProps } from '../../../types/TransactionPayment';
 
@@ -48,10 +48,17 @@ const CategoryCard = ({
         </div>
 
         <Label variant="title">
-          {formatCurrency({
+          {formatCurrencyToParts({
             value: category.totalAmount,
             currency,
-          })}
+          }).map((part, idx) => (
+            <span
+              key={idx}
+              className={part.type === 'currency' ? 'text-primary' : undefined}
+            >
+              {part.value}
+            </span>
+          ))}
         </Label>
       </div>
 

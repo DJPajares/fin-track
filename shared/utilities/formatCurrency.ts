@@ -58,3 +58,23 @@ export const formatCurrency = ({
 
   return new Intl.NumberFormat(locale, options).format(value);
 };
+
+export const formatCurrencyToParts = ({
+  value,
+  currency = 'PHP',
+  decimal = 0,
+}: FormatCurrencyProps) => {
+  const locale =
+    currencyLocaleMapping[currency as keyof typeof currencyLocaleMapping];
+
+  const options: ExtendedNumberFormatOptions = {
+    style: 'currency',
+    currency,
+    minimumFractionDigits: decimal,
+    maximumFractionDigits: decimal,
+    trailingZeroDisplay: 'stripIfInteger',
+    roundingMode: 'ceil',
+  };
+
+  return new Intl.NumberFormat(locale, options).formatToParts(value);
+};
