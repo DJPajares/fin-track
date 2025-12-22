@@ -29,6 +29,7 @@ import {
 import { useAppSelector } from '../lib/hooks/use-redux';
 
 import { formatCurrency } from '@shared/utilities/formatCurrency';
+import { Label } from '@web/components/ui/label';
 
 // Force dynamic rendering to avoid prerendering issues
 export const dynamic = 'force-dynamic';
@@ -156,25 +157,26 @@ const Home = () => {
     },
   } satisfies ChartConfig;
 
-  // Calculate average extra per month
-  const averageExtra =
+  // Calculate accumulative extra per month
+  const accumulativeExtra =
     upcomingExtras.length > 0
-      ? upcomingExtras.reduce((sum, item) => sum + item.extra, 0) /
-        upcomingExtras.length
+      ? upcomingExtras.reduce((sum, item) => sum + item.extra, 0)
       : 0;
 
-  // Calculate average savings per month
-  const averageSavings =
+  // Calculate accumulative savings per month
+  const accumulativeSavings =
     previousSavings.length > 0
-      ? previousSavings.reduce((sum, item) => sum + item.amount, 0) /
-        previousSavings.length
+      ? previousSavings.reduce((sum, item) => sum + item.amount, 0)
       : 0;
+
+  const isLoading =
+    isDashboardDataFetching ||
+    isTransactionsByTypeDataFetching ||
+    isTransactionPaymentsByCategoryDataFetching;
 
   return (
     <div className="space-y-6 py-4 sm:space-y-8">
-      {isDashboardDataFetching ||
-      isTransactionsByTypeDataFetching ||
-      isTransactionPaymentsByCategoryDataFetching ? (
+      {isLoading ? (
         <div className="flex flex-col items-center space-y-2">
           <CircularProgress size="lg" aria-label="Loading more..." />
         </div>
@@ -202,16 +204,20 @@ const Home = () => {
             <Card className="relative flex flex-col pb-0">
               <CardHeader className="px-4">
                 <CardDescription>
-                  {t('Page.home.cards.previousSavings.title')}
+                  {t('Page.home.cards.savings.title')}
                 </CardDescription>
-                <CardTitle className="text-2xl">
-                  {formatCurrency({
-                    value: averageSavings,
-                    currency: currency.name,
-                  })}
+                <CardTitle>
+                  <Label variant="title-xl">
+                    {formatCurrency({
+                      value: accumulativeSavings,
+                      currency: currency.name,
+                    })}
+                  </Label>
                 </CardTitle>
-                <CardDescription className="text-xs">
-                  {t('Page.home.cards.averageSavings.title')}
+                <CardDescription>
+                  <Label variant="caption">
+                    {t('Page.home.cards.savings.description')}
+                  </Label>
                 </CardDescription>
               </CardHeader>
               <CardContent className="relative mt-auto flex-1 p-0">
@@ -243,16 +249,18 @@ const Home = () => {
             <Card className="relative flex flex-col pb-0">
               <CardHeader className="px-4">
                 <CardDescription>
-                  {t('Page.home.cards.upcomingExtra.title')}
+                  {t('Page.home.cards.extras.title')}
                 </CardDescription>
                 <CardTitle className="text-2xl">
                   {formatCurrency({
-                    value: averageExtra,
+                    value: accumulativeExtra,
                     currency: currency.name,
                   })}
                 </CardTitle>
-                <CardDescription className="text-xs">
-                  {t('Page.home.cards.averageExtra.title')}
+                <CardDescription>
+                  <Label variant="caption">
+                    {t('Page.home.cards.extras.description')}
+                  </Label>
                 </CardDescription>
               </CardHeader>
               <CardContent className="relative mt-auto flex-1 p-0">

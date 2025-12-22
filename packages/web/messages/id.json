@@ -44,19 +44,15 @@
       },
       "cards": {
         "progress": {
-          "title": "Kemajuan Saat Ini"
+          "title": "Kemajuan Pembayaran"
         },
-        "upcomingExtra": {
-          "title": "Ekstra mendatang"
+        "savings": {
+          "title": "Kemajuan Tabungan",
+          "description": "Total terakumulasi selama 3 bulan"
         },
-        "previousSavings": {
-          "title": "Tabungan sebelumnya"
-        },
-        "averageExtra": {
-          "title": "Rata-rata ekstra per bulan"
-        },
-        "averageSavings": {
-          "title": "Rata-rata tabungan per bulan"
+        "extras": {
+          "title": "Dana Tambahan",
+          "description": "Diproyeksikan untuk 3 bulan ke depan"
         }
       }
     },

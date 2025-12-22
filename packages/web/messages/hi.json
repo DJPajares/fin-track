@@ -44,19 +44,15 @@
       },
       "cards": {
         "progress": {
-          "title": "वर्तमान प्रगति"
+          "title": "भुगतान प्रगति"
         },
-        "upcomingExtra": {
-          "title": "आगामी अतिरिक्त"
+        "savings": {
+          "title": "बचत प्रगति",
+          "description": "पिछले 3 महीने में कुल संचित"
         },
-        "previousSavings": {
-          "title": "पिछली बचत"
-        },
-        "averageExtra": {
-          "title": "प्रति माह औसत अतिरिक्त"
-        },
-        "averageSavings": {
-          "title": "प्रति माह औसत बचत"
+        "extras": {
+          "title": "अतिरिक्त धन",
+          "description": "अगले 3 महीने के लिए अनुमानित"
         }
       }
     },

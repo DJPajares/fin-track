@@ -12,5 +12,6 @@
   "javascript.preferences.importModuleSpecifier": "non-relative",
   "files.trimTrailingWhitespace": true,
   "i18n-ally.localesPaths": ["packages/web/messages"],
-  "i18n-ally.enabledFrameworks": ["next-intl"]
+  "i18n-ally.enabledFrameworks": ["next-intl"],
+  "i18n-ally.keystyle": "nested"
 }

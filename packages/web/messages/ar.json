@@ -44,19 +44,15 @@
       },
       "cards": {
         "progress": {
-          "title": "التقدم الحالي"
+          "title": "تقدم الدفع"
         },
-        "upcomingExtra": {
-          "title": "الإضافة القادمة"
+        "savings": {
+          "title": "تقدم المدخرات",
+          "description": "إجمالي المتراكم على مدى 3 أشهر"
         },
-        "previousSavings": {
-          "title": "المدخرات السابقة"
-        },
-        "averageExtra": {
-          "title": "متوسط الإضافي لكل شهر"
-        },
-        "averageSavings": {
-          "title": "متوسط المدخرات لكل شهر"
+        "extras": {
+          "title": "أموال إضافية",
+          "description": "متوقع خلال الأشهر الثلاثة القادمة"
         }
       }
     },

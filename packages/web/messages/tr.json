@@ -44,19 +44,15 @@
       },
       "cards": {
         "progress": {
-          "title": "Mevcut İlerleme"
+          "title": "Ödeme İlerlemesi"
         },
-        "upcomingExtra": {
-          "title": "Yaklaşan ekstra"
+        "savings": {
+          "title": "Tasarruf İlerlemesi",
+          "description": "Son 3 ayda toplam biriktirilen"
         },
-        "previousSavings": {
-          "title": "Önceki tasarruflar"
-        },
-        "averageExtra": {
-          "title": "Aylık ortalama ek gelir"
-        },
-        "averageSavings": {
-          "title": "Aylık ortalama tasarruf"
+        "extras": {
+          "title": "Ek Fonlar",
+          "description": "Sonraki 3 ay için öngörülen"
         }
       }
     },

@@ -44,19 +44,15 @@
       },
       "cards": {
         "progress": {
-          "title": "Tiến Độ Hiện Tại"
+          "title": "Tiến Độ Thanh Toán"
         },
-        "upcomingExtra": {
-          "title": "Thêm sắp tới"
+        "savings": {
+          "title": "Tiến Độ Tiết Kiệm",
+          "description": "Tổng cộng lũy tích trong 3 tháng qua"
         },
-        "previousSavings": {
-          "title": "Tiết kiệm trước đó"
-        },
-        "averageExtra": {
-          "title": "Số dư trung bình mỗi tháng"
-        },
-        "averageSavings": {
-          "title": "Tiết kiệm trung bình mỗi tháng"
+        "extras": {
+          "title": "Quỹ Bổ Sung",
+          "description": "Dự kiến trong 3 tháng tới"
         }
       }
     },

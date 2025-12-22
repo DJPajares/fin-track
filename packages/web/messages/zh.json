@@ -44,19 +44,15 @@
       },
       "cards": {
         "progress": {
-          "title": "当前进度"
+          "title": "付款进度"
         },
-        "upcomingExtra": {
-          "title": "即将到来的额外"
+        "savings": {
+          "title": "储蓄进度",
+          "description": "过去3个月的累积总额"
         },
-        "previousSavings": {
-          "title": "之前的储蓄"
-        },
-        "averageExtra": {
-          "title": "每月平均额外收入"
-        },
-        "averageSavings": {
-          "title": "每月平均储蓄"
+        "extras": {
+          "title": "额外资金",
+          "description": "未来3个月的预计"
         }
       }
     },

@@ -44,19 +44,15 @@
       },
       "cards": {
         "progress": {
-          "title": "Kasalukuyang Pag-unlad"
+          "title": "Pag-unlad ng Pagbabayad"
         },
-        "upcomingExtra": {
-          "title": "Darating na dagdag"
+        "savings": {
+          "title": "Pag-unlad ng Ipon",
+          "description": "Kabuuang naipon sa nakaraang 3 buwan"
         },
-        "previousSavings": {
-          "title": "Mga naunang ipon"
-        },
-        "averageExtra": {
-          "title": "Karaniwang dagdag bawat buwan"
-        },
-        "averageSavings": {
-          "title": "Karaniwang ipon bawat buwan"
+        "extras": {
+          "title": "Dagdag na Pondo",
+          "description": "Inaasahang sa susunod na 3 buwan"
         }
       }
     },

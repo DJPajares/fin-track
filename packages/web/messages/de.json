@@ -44,19 +44,15 @@
       },
       "cards": {
         "progress": {
-          "title": "Aktueller Fortschritt"
+          "title": "Zahlungsfortschritt"
         },
-        "upcomingExtra": {
-          "title": "Bevorstehende Extra"
+        "savings": {
+          "title": "Sparfortschritt",
+          "description": "Gesamtbetrag über 3 Monate"
         },
-        "previousSavings": {
-          "title": "Vorherige Ersparnisse"
-        },
-        "averageExtra": {
-          "title": "Durchschnittlicher Überschuss pro Monat"
-        },
-        "averageSavings": {
-          "title": "Durchschnittliche Ersparnisse pro Monat"
+        "extras": {
+          "title": "Zusätzliche Mittel",
+          "description": "Prognostiziert für die nächsten 3 Monate"
         }
       }
     },

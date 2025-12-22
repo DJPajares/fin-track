@@ -44,19 +44,15 @@
       },
       "cards": {
         "progress": {
-          "title": "Progresso Attuale"
+          "title": "Progresso dei Pagamenti"
         },
-        "upcomingExtra": {
-          "title": "Extra imminente"
+        "savings": {
+          "title": "Progresso del Risparmio",
+          "description": "Totale accumulato negli ultimi 3 mesi"
         },
-        "previousSavings": {
-          "title": "Risparmi precedenti"
-        },
-        "averageExtra": {
-          "title": "Extra medio al mese"
-        },
-        "averageSavings": {
-          "title": "Risparmio medio al mese"
+        "extras": {
+          "title": "Fondi Extra",
+          "description": "Previsti per i prossimi 3 mesi"
         }
       }
     },

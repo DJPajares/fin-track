@@ -44,19 +44,15 @@
       },
       "cards": {
         "progress": {
-          "title": "現在の進捗"
+          "title": "支払い進捗"
         },
-        "upcomingExtra": {
-          "title": "今後の追加"
+        "savings": {
+          "title": "貯蓄進捗",
+          "description": "過去3ヶ月間の累積合計"
         },
-        "previousSavings": {
-          "title": "前回の貯金"
-        },
-        "averageExtra": {
-          "title": "月ごとの平均追加額"
-        },
-        "averageSavings": {
-          "title": "月ごとの平均貯蓄額"
+        "extras": {
+          "title": "追加資金",
+          "description": "今後3ヶ月間の予想"
         }
       }
     },
