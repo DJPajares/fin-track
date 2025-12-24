@@ -42,13 +42,8 @@ const NavBar = ({ children }: NavBarProps) => {
       <SideNav />
 
       <SidebarInset className="relative">
-        {/* <header
-          className={`bg-background/85 top-0 right-0 left-0 z-50 flex h-12 shrink-0 items-center justify-between p-3 backdrop-blur-sm transition-transform duration-300 sm:h-14 ${
-            isVisible ? 'translate-y-0' : '-translate-y-full'
-          }`}
-        > */}
         <header
-          className={`absolute inset-x-0 top-0 z-40 flex h-12 shrink-0 items-center p-3 transition-transform duration-300 ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-14 sm:h-14 ${
+          className={`bg-background/90 sticky inset-x-0 top-0 z-40 flex h-12 shrink-0 items-center p-3 transition-transform duration-300 ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-14 sm:h-14 ${
             isVisible ? 'translate-y-0' : '-translate-y-full'
           }`}
         >
