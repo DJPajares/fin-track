@@ -206,7 +206,7 @@ const Charts = () => {
   } satisfies ChartConfig;
 
   return (
-    <div className="space-y-4 sm:space-y-8">
+    <>
       <div className="flex flex-row items-center justify-center">
         <Button variant="ghost" size="rounded-icon" onClick={handlePrevYear}>
           <ChevronLeftIcon className="size-4" />
@@ -368,7 +368,7 @@ const Charts = () => {
           )}
         </CardContent>
       </Card>
-    </div>
+    </>
   );
 };
 

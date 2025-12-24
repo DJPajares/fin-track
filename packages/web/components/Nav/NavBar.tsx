@@ -41,25 +41,32 @@ const NavBar = ({ children }: NavBarProps) => {
     <SidebarProvider>
       <SideNav />
 
-      <SidebarInset>
-        <nav
-          className={`nav bg-background/85 sticky top-0 z-50 flex h-12 items-center justify-between p-3 backdrop-blur-sm transition-transform duration-300 sm:h-14 ${
+      <SidebarInset className="relative">
+        {/* <header
+          className={`bg-background/85 top-0 right-0 left-0 z-50 flex h-12 shrink-0 items-center justify-between p-3 backdrop-blur-sm transition-transform duration-300 sm:h-14 ${
+            isVisible ? 'translate-y-0' : '-translate-y-full'
+          }`}
+        > */}
+        <header
+          className={`absolute inset-x-0 top-0 z-40 flex h-12 shrink-0 items-center p-3 transition-transform duration-300 ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-14 sm:h-14 ${
             isVisible ? 'translate-y-0' : '-translate-y-full'
           }`}
         >
-          <SidebarTrigger className="-ml-1" />
+          <nav className="flex w-full items-center justify-between">
+            <SidebarTrigger />
 
-          <Label variant="title-xs" className="font-bold">
-            FIN-TRACK
-          </Label>
+            <Label variant="title-xs" className="font-bold">
+              FIN-TRACK
+            </Label>
 
-          <NavDropdownMenu>
-            <Avatar className="hover:border-primary h-8 w-8 cursor-pointer">
-              <AvatarImage src="https://i.pravatar.cc/150?u=a04258114e29026708c" />
-              <AvatarFallback>DJ</AvatarFallback>
-            </Avatar>
-          </NavDropdownMenu>
-        </nav>
+            <NavDropdownMenu>
+              <Avatar className="hover:border-primary h-8 w-8 cursor-pointer">
+                <AvatarImage src="https://i.pravatar.cc/150?u=a04258114e29026708c" />
+                <AvatarFallback>DJ</AvatarFallback>
+              </Avatar>
+            </NavDropdownMenu>
+          </nav>
+        </header>
 
         <div>{children}</div>
       </SidebarInset>

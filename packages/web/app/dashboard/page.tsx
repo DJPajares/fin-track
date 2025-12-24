@@ -121,9 +121,9 @@ const Dashboard = () => {
 
   return (
     <>
-      <div className="min-h-[calc(100vh-theme(height.18))] flex flex-col gap-4 sm:gap-8">
+      <>
         <ScrollShadow
-          className="flex max-h-[calc(100vh-theme(height.36))] flex-col gap-4 sm:max-h-none sm:gap-8"
+          className="flex max-h-[calc(100vh-theme(height.40))] flex-col gap-4 sm:max-h-none sm:gap-8"
           hideScrollBar
         >
           {/* CALENDAR */}
@@ -294,7 +294,7 @@ const Dashboard = () => {
             </Button>
           )}
         </div>
-      </div>
+      </>
 
       {/* HIDDEN DRAWERS */}
       <CategoryDrawer

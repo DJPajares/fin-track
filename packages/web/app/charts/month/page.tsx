@@ -141,7 +141,7 @@ const Charts = () => {
   }, {} as ChartConfig);
 
   return (
-    <div className="min-h-[calc(100vh-theme(height.18))] flex flex-col gap-4 sm:gap-8">
+    <>
       <div className="flex flex-row items-center justify-center gap-1 sm:gap-4">
         <Button variant="ghost" size="rounded-icon" onClick={handlePrevMonth}>
           <ChevronLeftIcon className="size-4" />
@@ -278,7 +278,7 @@ const Charts = () => {
           </Card>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

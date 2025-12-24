@@ -77,7 +77,7 @@ const Categories = () => {
   };
 
   return (
-    <div className="mx-auto max-w-lg space-y-2">
+    <>
       <div className="flex flex-row justify-end">
         <SelectBox
           variant="ghost"
@@ -166,7 +166,7 @@ const Categories = () => {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

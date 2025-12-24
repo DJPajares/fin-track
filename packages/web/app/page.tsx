@@ -180,9 +180,9 @@ const Home = () => {
   }
 
   return (
-    <div className="min-h-[calc(100vh-theme(height.18))] flex flex-col gap-4 sm:gap-8">
+    <div className="flex min-h-screen flex-col gap-4 p-4 pt-16 sm:gap-8 sm:p-8 sm:pt-18">
       <ScrollShadow
-        className="flex max-h-[calc(100vh-theme(height.36))] flex-col gap-4 sm:max-h-none sm:gap-8"
+        className="flex max-h-[calc(100vh-theme(height.40))] flex-col gap-4 sm:max-h-none sm:gap-8"
         hideScrollBar
       >
         <div className="grid auto-rows-fr grid-cols-2 gap-5 sm:grid-cols-3 sm:gap-10">
@@ -309,7 +309,7 @@ const Home = () => {
         </Card>
       </ScrollShadow>
 
-      <div className="sticky right-0 bottom-0 left-0 mt-auto py-4 sm:relative sm:py-0">
+      <div className="sticky right-0 bottom-0 left-0 mt-auto sm:relative">
         <Button
           size="lg"
           className="w-full"
