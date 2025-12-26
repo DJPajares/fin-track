@@ -36,15 +36,17 @@ export function usePWA() {
     ).matches;
     const isIOS = /iphone|ipad|ipod/.test(navigator.userAgent.toLowerCase());
     const isAndroid = /android/.test(navigator.userAgent.toLowerCase());
+    const isMobile = isIOS || isAndroid;
 
     setPwaState((prev) => ({
       ...prev,
       isInstalled: isStandalone,
       isIOS,
-      // For iOS, we show installable if not in standalone mode
-      // For other platforms, show if mobile or has deferred prompt
-      isInstallable:
-        !isStandalone && (isIOS || isAndroid || prev.deferredPrompt !== null),
+      // Show installable if:
+      // 1. Not already installed (not in standalone mode)
+      // 2. On mobile (iOS or Android) - PWA criteria are typically met
+      // Note: beforeinstallprompt is unreliable, so we rely on platform detection
+      isInstallable: !isStandalone && isMobile,
     }));
   }, []);
 
@@ -98,25 +100,33 @@ export function usePWA() {
         return;
       }
 
-      if (!pwaState.deferredPrompt) {
-        throw new Error('Install prompt not available');
-      }
+      // If deferred prompt is available, use it
+      if (pwaState.deferredPrompt) {
+        // Call prompt() to show the native install dialog
+        pwaState.deferredPrompt.prompt();
+        const { outcome } = await pwaState.deferredPrompt.userChoice;
 
-      // Call prompt() to show the native install dialog
-      pwaState.deferredPrompt.prompt();
-      const { outcome } = await pwaState.deferredPrompt.userChoice;
+        if (outcome === 'accepted') {
+          console.log('User accepted the install prompt');
+        } else {
+          console.log('User dismissed the install prompt');
+        }
 
-      if (outcome === 'accepted') {
-        console.log('User accepted the install prompt');
+        setPwaState((prev) => ({
+          ...prev,
+          deferredPrompt: null,
+          isInstallable: false,
+        }));
       } else {
-        console.log('User dismissed the install prompt');
+        // Deferred prompt not available - browser should show its own prompt
+        // This is normal behavior. Just inform the user.
+        console.log(
+          'Install prompt not available, browser should show its own prompt',
+        );
+        alert(
+          'The app installation prompt will appear shortly, or you can try again in a moment.',
+        );
       }
-
-      setPwaState((prev) => ({
-        ...prev,
-        deferredPrompt: null,
-        isInstallable: false,
-      }));
     },
     [pwaState.deferredPrompt, pwaState.isIOS],
   );

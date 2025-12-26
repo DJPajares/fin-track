@@ -14,7 +14,7 @@ import PWARefreshButton from '../components/shared/PWARefreshButton';
 export const metadata: Metadata = {
   title: 'Fin-Track',
   description: 'Financial tracker tool for managing your personal finances',
-  manifest: '/manifest.json',
+  manifest: '/manifest.ts',
   appleWebApp: {
     capable: true,
     statusBarStyle: 'default',
@@ -62,7 +62,6 @@ export default async function RootLayout({
           href="/icons/apple-touch-icon.png"
           sizes="180x180"
         />
-        <link rel="manifest" href="/manifest.json" />
       </head>
       <body className={`${montserrat.variable} antialiased`}>
         <NextIntlClientProvider messages={messages}>
