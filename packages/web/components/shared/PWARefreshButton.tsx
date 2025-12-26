@@ -4,10 +4,12 @@ import { useState } from 'react';
 import { Button } from '../ui/button';
 import { RefreshCw } from 'lucide-react';
 import { cn } from '../../lib/utils';
-import { isPWA } from '../../lib/hooks/use-pwa';
+import { isPWA, usePWA } from '../../lib/hooks/use-pwa';
 
 export default function PWARefreshButton() {
   const [isRefreshing, setIsRefreshing] = useState(false);
+
+  const { isIOS } = usePWA();
 
   const handleRefresh = () => {
     setIsRefreshing(true);
@@ -17,8 +19,8 @@ export default function PWARefreshButton() {
     }, 300);
   };
 
-  // Only show in standalone mode
-  if (!isPWA()) {
+  // Only show in standalone mode on iOS
+  if (!isPWA() || !isIOS) {
     return null;
   }
 
