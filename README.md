@@ -212,6 +212,7 @@ The application supports 16 languages:
 - Arabic (ar)
 - Chinese (zh)
 - Japanese (ja)
+- Korean (ko)
 - Hindi (hi)
 - Indonesian (id)
 - Italian (it)

@@ -1,0 +1,217 @@
+{
+  "MetaData": {
+    "description": "재정 추적 도구"
+  },
+  "Menu": {
+    "home": "홈",
+    "dashboard": "대시보드",
+    "charts": "차트",
+    "chartsMonth": "차트 (월간)",
+    "chartsYear": "차트 (연간)",
+    "transactions": "거래",
+    "categories": "카테고리"
+  },
+  "MenuDropdown": {
+    "editProfile": "프로필 수정",
+    "language": "언어",
+    "currency": "통화",
+    "darkMode": "다크 모드",
+    "logout": "로그아웃"
+  },
+  "Page": {
+    "home": {
+      "greetings": "환영합니다",
+      "dashboardButton": "대시보드로 이동",
+      "motivation": {
+        "title": "오늘의 동기",
+        "quotes": [
+          "돈을 절약하면 돈이 당신을 구할 것입니다!",
+          "예산은 돈이 어디로 갔는지 궁금해하는 대신 어디로 갈지 말하는 것입니다.",
+          "자신에게 투자하세요. 가장 좋은 수익을 냅니다.",
+          "지출을 추적하고 재정적으로 현명하게 지내세요!",
+          "모든 동전이 중요합니다. 지금 저축하고 나중에 즐기세요!",
+          "오늘의 작은 발걸음이 내일의 큰 절약으로 이어집니다.",
+          "불필요한 부채를 피하고 재정적 자유를 받아들이세요.",
+          "부자가 되어야 자산을 구축할 수 있는 것은 아닙니다. 일관성만 있으면 됩니다.",
+          "오늘의 재정 규율은 미래에 보상을 줄 것입니다.",
+          "작은 지출을 줄이면 큰 절약으로 이어질 수 있습니다.",
+          "돈은 도구입니다. 현명하게 사용하여 꿈을 이루세요.",
+          "벌어들인 것보다 적게 쓰고 나머지를 투자하세요.",
+          "할 수 있는 최고의 투자는 자신의 지식에 투자하는 것입니다.",
+          "긴급상황을 위해 저축을 시작하세요. 미래의 자신이 감사할 것입니다.",
+          "재정 목표를 설정하고 한 번에 한 걸음씩 달성하세요."
+        ]
+      },
+      "cards": {
+        "progress": {
+          "title": "결제 진행률"
+        },
+        "savings": {
+          "title": "저축 진행률",
+          "description": "지난 3개월 동안 누적된 총액"
+        },
+        "extras": {
+          "title": "추가 자금",
+          "description": "다음 3개월 동안 예상"
+        }
+      }
+    },
+    "dashboard": {
+      "runningBalance": "남은 잔액",
+      "monthlyExtra": "추가 자금",
+      "totalDue": "지불할 금액",
+      "settled": "지불됨",
+      "unsettled": "미지불",
+      "completed": "완료됨",
+      "transactionButton": "거래 추가",
+      "card": {
+        "settled": "결제됨"
+      },
+      "cardDrawer": {
+        "title": "거래 결제",
+        "description": "{category} 거래 결제",
+        "totalLabel": "합계",
+        "showLocalCurrency": "현지 통화로 표시",
+        "content": {
+          "title": "결제 금액",
+          "description": "결제할 금액을 지정하세요",
+          "outOf": "{amount} 중"
+        }
+      },
+      "transactionDrawer": {
+        "title": "거래",
+        "description": "새 거래 추가",
+        "form": {
+          "title": {
+            "category": "카테고리",
+            "title": "제목",
+            "currency": "통화",
+            "amount": "금액",
+            "date": "날짜",
+            "startDate": "시작 날짜",
+            "endDate": "종료 날짜",
+            "excludedDates": "제외된 날짜",
+            "isRecurring": "반복되나요?"
+          },
+          "placeholder": {
+            "category": "카테고리를 선택하세요",
+            "title": "예: 전기료",
+            "currency": "통화를 선택하세요",
+            "excludedDates": "날짜를 선택하세요..."
+          }
+        }
+      }
+    },
+    "charts": {
+      "monthly": {
+        "byCategoryTitle": "카테고리별",
+        "byCategoryDescription": "카테고리별 월간 지출",
+        "amountLabel": "금액"
+      },
+      "yearly": {
+        "incomeVsExpensesTitle": "수입 대 지출",
+        "incomeAndExpensesTitle": "수입 및 지출",
+        "savingsTitle": "저축"
+      }
+    },
+    "transactions": {
+      "form": {
+        "name": "이름",
+        "amount": "금액",
+        "currency": "통화"
+      }
+    },
+    "categories": {
+      "titleCategories": "카테고리",
+      "titleSuggestions": "제안",
+      "categoryDrawer": {
+        "titleAdd": "새 카테고리 추가",
+        "titleEdit": "카테고리 수정"
+      }
+    }
+  },
+  "Common": {
+    "button": {
+      "ok": "확인",
+      "cancel": "취소",
+      "add": "추가",
+      "update": "업데이트",
+      "save": "저장"
+    },
+    "alertDialog": {
+      "triggerButton": "업데이트",
+      "title": "확실하신가요?",
+      "description": "이 작업은 실행 취소할 수 없습니다",
+      "okButton": "계속",
+      "cancelButton": "취소"
+    },
+    "label": {
+      "selectPlaceholder": "항목을 선택하세요",
+      "noData": "데이터를 찾을 수 없습니다",
+      "noMoreData": "불러올 데이터가 없습니다",
+      "errorLoadingData": "데이터 로드 오류"
+    },
+    "datePicker": {
+      "today": "오늘",
+      "prevYear": "이전 해",
+      "nextYear": "다음 해"
+    },
+    "type": {
+      "income": "수입",
+      "expense": "지출"
+    },
+    "category": {
+      "creditCard": "신용카드",
+      "debt": "부채",
+      "family": "가족",
+      "food": "음식",
+      "healthcare": "의료",
+      "investment": "투자",
+      "loan": "대출",
+      "paycheck": "급여",
+      "rent": "임대",
+      "savings": "저축",
+      "subscription": "구독",
+      "transportation": "운송",
+      "utility": "공과금"
+    }
+  },
+  "PWA": {
+    "installPrompt": {
+      "title": {
+        "install": "Fin-Track 설치",
+        "update": "업데이트 사용 가능",
+        "offline": "오프라인 모드"
+      },
+      "description": {
+        "install": "더 나은 경험을 위해 Fin-Track을 앱으로 설치하세요",
+        "update": "Fin-Track의 새 버전이 사용 가능합니다",
+        "offline": "현재 오프라인 상태입니다. 일부 기능이 제한될 수 있습니다."
+      },
+      "content": {
+        "install": {
+          "description": "빠른 액세스 및 오프라인 기능을 위해 Fin-Track을 설치하세요.",
+          "descriptionIOS": "빠른 액세스 및 오프라인 기능을 위해 Fin-Track을 설치하세요. \"지침 표시\"를 눌러 방법을 알아보세요.",
+          "button": "앱 설치",
+          "buttonIOS": "지침 표시",
+          "dismiss": "나중에"
+        },
+        "update": {
+          "description": "최신 기능 및 개선 사항을 받으려면 업데이트하세요.",
+          "button": "지금 업데이트",
+          "dismiss": "나중에"
+        },
+        "offline": {
+          "description": "오프라인 상태에서도 캐시된 데이터를 볼 수 있습니다.",
+          "checkConnection": "인터넷 연결을 확인하세요"
+        }
+      },
+      "iosInstructions": {
+        "title": "iPhone/iPad에 이 앱을 설치하려면:",
+        "step1": "1. 공유 버튼(위쪽 화살표가 있는 사각형)을 누르세요",
+        "step2": "2. 아래로 스크롤하여 \"홈 화면에 추가\"를 누르세요",
+        "step3": "3. \"추가\"를 누르세요"
+      }
+    }
+  }
+}

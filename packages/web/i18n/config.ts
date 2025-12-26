@@ -1,68 +1,72 @@
 const rawLanguages = [
   {
     value: 'en',
-    label: 'English'
+    label: 'English',
   },
   {
     value: 'de',
-    label: 'German'
+    label: 'German',
   },
   {
     value: 'fil',
-    label: 'Filipino'
+    label: 'Filipino',
   },
   {
     value: 'fr',
-    label: 'French'
+    label: 'French',
   },
   {
     value: 'hi',
-    label: 'Hindi'
+    label: 'Hindi',
   },
   {
     value: 'ja',
-    label: 'Japanese'
+    label: 'Japanese',
+  },
+  {
+    value: 'ko',
+    label: 'Korean',
   },
   {
     value: 'zh',
-    label: 'Mandarin'
+    label: 'Mandarin',
   },
   {
     value: 'es',
-    label: 'Spanish'
+    label: 'Spanish',
   },
   {
     value: 'ar',
-    label: 'Arabic'
+    label: 'Arabic',
   },
   {
     value: 'ru',
-    label: 'Russian'
+    label: 'Russian',
   },
   {
     value: 'it',
-    label: 'Italian'
+    label: 'Italian',
   },
   {
     value: 'tr',
-    label: 'Turkish'
+    label: 'Turkish',
   },
   {
     value: 'vi',
-    label: 'Vietnamese'
+    label: 'Vietnamese',
   },
   {
     value: 'th',
-    label: 'Thai'
+    label: 'Thai',
   },
   {
     value: 'id',
-    label: 'Indonesian'
+    label: 'Indonesian',
   },
   {
     value: 'ms',
-    label: 'Malay'
-  }
+    label: 'Malay',
+  },
 ] as const;
 
 export const languages = [...rawLanguages].sort((a, b) => {
