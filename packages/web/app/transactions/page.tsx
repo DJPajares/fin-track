@@ -8,11 +8,12 @@ import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
 import { useAppSelector } from '../../lib/hooks/use-redux';
 import { useGetTransactionsQuery } from '../../lib/redux/services/transactions';
 
-import { DatePicker } from '../../components/shared/DatePicker';
+import { CircularProgress, ScrollShadow } from '@heroui/react';
 import { Button } from '../../components/ui/button';
 import { Label } from '../../components/ui/label';
-import { CircularProgress, ScrollShadow } from '@heroui/react';
+import { DatePicker } from '../../components/shared/DatePicker';
 import { SelectBox } from '../../components/shared/SelectBox';
+import Loader from '../../components/shared/Loader';
 import TransactionCard from './Transaction/TransactionCard';
 
 import { dateStringFormat } from '@shared/constants/dateStringFormat';
@@ -168,12 +169,7 @@ const Transactions = () => {
     setDate(moment(newDate).toDate());
   };
 
-  if (isLoading)
-    return (
-      <div className="absolute inset-0 z-50 flex items-center justify-center">
-        <CircularProgress aria-label="Loading..." size="lg" />
-      </div>
-    );
+  if (isLoading) return <Loader />;
 
   return (
     <>

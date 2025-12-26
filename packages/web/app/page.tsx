@@ -175,9 +175,7 @@ const Home = () => {
     isTransactionsByTypeDataFetching ||
     isTransactionPaymentsByCategoryDataFetching;
 
-  if (isLoading) {
-    return <Loader />;
-  }
+  if (isLoading) return <Loader />;
 
   return (
     <>

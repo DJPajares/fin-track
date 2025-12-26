@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import moment from 'moment';
 import { useTranslations } from 'next-intl';
 import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
@@ -26,17 +26,15 @@ import {
   ChartTooltipContent,
 } from '../../../components/ui/chart';
 import { SelectBox } from '../../../components/shared/SelectBox';
+import Loader from '../../../components/shared/Loader';
 
-import {
-  fetchTransactionsDateByCategory,
-  TransactionsDateByCategoryProps,
-} from '../../../services/fetchTransactions';
+import { fetchTransactionsDateByCategory } from '../../../services/fetchTransactions';
 
 import { dateStringFormat } from '@shared/constants/dateStringFormat';
 import { formatCurrency } from '@shared/utilities/formatCurrency';
 
 import type { ListProps } from '../../../types/List';
-import type { IconProps } from '@web/components/shared/CardIcon';
+import type { IconProps } from '../../../components/shared/CardIcon';
 
 type TransactionByCategory = {
   id: string;
@@ -66,6 +64,7 @@ const Charts = () => {
     _id: '',
     name: '',
   });
+  const [isLoading, setIsLoading] = useState(false);
 
   const newTypes = types.map((type) => {
     const isTranslated = t.has(`Common.type.${type.id}`);
@@ -86,12 +85,17 @@ const Charts = () => {
     return chartData.reduce((acc, curr) => acc + curr.amount, 0);
   }, [chartData]);
 
-  useEffect(() => {
-    fetchData({
+  const fetchData = useCallback(async () => {
+    setIsLoading(true);
+
+    const transactions = await fetchTransactionsDateByCategory({
       date,
       currency: currency.name,
       type: selectedType._id,
     });
+
+    setChartData(transactions.data);
+    setIsLoading(false);
   }, [date, currency, selectedType]);
 
   useEffect(() => {
@@ -103,19 +107,11 @@ const Charts = () => {
     }
   }, [newTypes, selectedType._id, selectedType.name]);
 
-  const fetchData = async ({
-    date,
-    currency,
-    type,
-  }: TransactionsDateByCategoryProps) => {
-    const transactions = await fetchTransactionsDateByCategory({
-      date,
-      currency,
-      type,
-    });
-
-    setChartData(transactions.data);
-  };
+  useEffect(() => {
+    if (selectedType._id) {
+      fetchData();
+    }
+  }, [fetchData, selectedType._id]);
 
   const handlePrevMonth = () => {
     const newDate = moment(date).add(-1, 'months');
@@ -139,6 +135,8 @@ const Charts = () => {
     };
     return acc;
   }, {} as ChartConfig);
+
+  if (isLoading) return <Loader />;
 
   return (
     <>
@@ -184,7 +182,7 @@ const Charts = () => {
             <CardContent>
               <ChartContainer
                 config={chartConfig}
-                className="mx-auto aspect-square max-h-[600px]"
+                className="mx-auto aspect-square max-h-150"
               >
                 <PieChart>
                   <Pie

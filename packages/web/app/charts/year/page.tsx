@@ -53,6 +53,7 @@ import { fetchTransactionsDateRangeByType } from '../../../services/fetchTransac
 import { formatCurrency } from '@shared/utilities/formatCurrency';
 import { dateStringFormat } from '@shared/constants/dateStringFormat';
 import { Label } from '@web/components/ui/label';
+import Loader from '@web/components/shared/Loader';
 
 type ChartDataProps = {
   date: string;
@@ -97,6 +98,7 @@ const Charts = () => {
   const [savingsChartData, setSavingsChartData] = useState<SavingsDataProps[]>(
     [],
   );
+  const [isLoading, setIsLoading] = useState(false);
 
   const { currency } = useAppSelector((state) => state.dashboard);
 
@@ -108,6 +110,8 @@ const Charts = () => {
   });
 
   const fetchData = useCallback(async () => {
+    setIsLoading(true);
+
     const transactions = await fetchTransactionsDateRangeByType({
       startDate: new Date(parseInt(selectedYear), 0, 1),
       endDate: new Date(parseInt(selectedYear), 11, 31),
@@ -115,6 +119,7 @@ const Charts = () => {
     });
 
     setChartData(transactions);
+    setIsLoading(false);
   }, [selectedYear, currency]);
 
   useEffect(() => {
@@ -131,19 +136,6 @@ const Charts = () => {
   }, [chartData]);
 
   useEffect(() => {
-    // if (savingsData) {
-    //   const formattedData = savingsData.map((transaction) => {
-
-    //     return {
-    //       month: transaction.month,
-    //       yearMonth: `${ transaction.year }-${ transaction.month }`,
-    //       amount: Number(transaction.paidAmount)
-    //     };
-    //   });
-
-    //   setChartDataSavings(formattedData);
-    // }
-
     setSavingsChartData(
       savingsData
         ? savingsData.map((transaction) => {
@@ -204,6 +196,8 @@ const Charts = () => {
       color: 'var(--chart-1)',
     },
   } satisfies ChartConfig;
+
+  if (isLoading) return <Loader />;
 
   return (
     <>
