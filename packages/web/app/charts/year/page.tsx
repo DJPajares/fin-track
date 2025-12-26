@@ -103,7 +103,7 @@ const Charts = () => {
   const { currency } = useAppSelector((state) => state.dashboard);
 
   const { data: savingsData } = useGetTransactionPaymentsByCategoryQuery({
-    startDate: new Date(parseInt(selectedYear), 0, 1),
+    startDate: new Date(parseInt(selectedYear), 1, 1),
     endDate: new Date(parseInt(selectedYear), 11, 31),
     currency: currency.name,
     category: 'savings',
@@ -139,8 +139,8 @@ const Charts = () => {
     setSavingsChartData(
       savingsData
         ? savingsData.map((transaction) => {
-            const yearMonth = moment(transaction.date).format('MMM YYYY');
-            const month = moment(transaction.date).format('MMM');
+            const yearMonth = moment().year(transaction.year).format('YYYY');
+            const month = moment(transaction.month, 'M').format('MMM');
             const amount = transaction.paidAmount;
 
             return {
@@ -334,7 +334,7 @@ const Charts = () => {
           <CardTitle>{t('Page.charts.yearly.savingsTitle')}</CardTitle>
         </CardHeader>
         <CardContent className="p-1">
-          {savingsData?.length ? (
+          {savingsChartData?.length ? (
             <ChartContainer config={savingsChartConfig}>
               <BarChart accessibilityLayer data={savingsChartData}>
                 <CartesianGrid strokeDasharray="3 3" />
