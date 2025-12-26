@@ -1,64 +1,16 @@
-const CACHE_NAME = 'fin-track-v1';
-const urlsToCache = [
-  '/',
-  '/dashboard',
-  '/transactions',
-  '/categories',
-  '/charts',
-  '/manifest.json',
-  '/icons/favicon.ico',
-  '/icons/apple-touch-icon.png',
-  '/icons/web-app-manifest-192x192.png',
-  '/icons/web-app-manifest-512x512.png'
-];
-
-// Install event - cache resources
-self.addEventListener('install', (event) => {
-  event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then((cache) => {
-        console.log('Opened cache');
-        return cache.addAll(urlsToCache);
-      })
-  );
-});
-
-// Fetch event - serve from cache if available
-self.addEventListener('fetch', (event) => {
-  event.respondWith(
-    caches.match(event.request)
-      .then((response) => {
-        // Return cached version or fetch from network
-        return response || fetch(event.request);
-      })
-  );
-});
-
-// Activate event - clean up old caches
-self.addEventListener('activate', (event) => {
-  event.waitUntil(
-    caches.keys().then((cacheNames) => {
-      return Promise.all(
-        cacheNames.map((cacheName) => {
-          if (cacheName !== CACHE_NAME) {
-            console.log('Deleting old cache:', cacheName);
-            return caches.delete(cacheName);
-          }
-        })
-      );
-    })
-  );
-});
-
-// Background sync for offline transactions
-self.addEventListener('sync', (event) => {
-  if (event.tag === 'background-sync') {
-    event.waitUntil(doBackgroundSync());
+self.addEventListener('push', function (event) {
+  if (event.data) {
+    const data = event.data.json()
+    const options = {
+      body: data.body,
+      icon: data.icon || '/icons/icon.png',
+      badge: '/icons/icon.png',
+      vibrate: [100, 50, 100],
+      data: {
+        dateOfArrival: Date.now(),
+        primaryKey: '2',
+      },
+    }
+    event.waitUntil(self.registration.showNotification(data.title, options))
   }
-});
-
-function doBackgroundSync() {
-  // Handle background sync for offline data
-  console.log('Background sync triggered');
-  // You can implement offline data sync here
-}
+})

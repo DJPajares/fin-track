@@ -14,14 +14,14 @@ interface IconConfig {
 const iconConfigs: IconConfig[] = [
   { name: 'favicon-96x96.png', size: 96, outputName: 'favicon-96x96.png' },
   {
-    name: 'web-app-manifest-192x192.png',
+    name: 'icon-192x192.png',
     size: 192,
-    outputName: 'web-app-manifest-192x192.png',
+    outputName: 'icon-192x192.png',
   },
   {
-    name: 'web-app-manifest-512x512.png',
+    name: 'icon-512x512.png',
     size: 512,
-    outputName: 'web-app-manifest-512x512.png',
+    outputName: 'icon-512x512.png',
   },
   {
     name: 'apple-touch-icon.png',

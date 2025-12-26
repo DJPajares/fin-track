@@ -7,10 +7,8 @@ import { Providers } from '../providers/providers';
 import { montserrat } from '../lib/fonts';
 
 import NavBar from '../components/Nav/NavBar';
-import { Toaster } from '@web/components/ui/sonner';
+import { Toaster } from '../components/ui/sonner';
 import PWAInstallPrompt from '../components/shared/PWAInstallPrompt';
-import OfflineIndicator from '../components/shared/OfflineIndicator';
-import ServiceWorkerRegistration from '../components/shared/ServiceWorkerRegistration';
 import PWARefreshButton from '../components/shared/PWARefreshButton';
 
 export const metadata: Metadata = {
@@ -24,39 +22,6 @@ export const metadata: Metadata = {
   },
   formatDetection: {
     telephone: false,
-  },
-  icons: {
-    icon: [
-      { url: '/icons/favicon.ico', sizes: 'any', type: 'image/x-icon' },
-      { url: '/icons/favicon-96x96.png', sizes: '96x96', type: 'image/png' },
-      {
-        url: '/icons/web-app-manifest-192x192.png',
-        sizes: '192x192',
-        type: 'image/png',
-      },
-      {
-        url: '/icons/web-app-manifest-512x512.png',
-        sizes: '512x512',
-        type: 'image/png',
-      },
-    ],
-    apple: [
-      {
-        url: '/icons/apple-touch-icon.png',
-        sizes: '180x180',
-        type: 'image/png',
-      },
-      {
-        url: '/icons/web-app-manifest-192x192.png',
-        sizes: '192x192',
-        type: 'image/png',
-      },
-      {
-        url: '/icons/web-app-manifest-512x512.png',
-        sizes: '512x512',
-        type: 'image/png',
-      },
-    ],
   },
 };
 
@@ -89,30 +54,15 @@ export default async function RootLayout({
         />
         <meta name="format-detection" content="telephone=no" />
         <meta name="mobile-web-app-capable" content="yes" />
-        <meta name="msapplication-config" content="/icons/browserconfig.xml" />
-        <meta name="msapplication-TileColor" content="#ffffff" />
-        <meta name="msapplication-tap-highlight" content="no" />
         <meta name="theme-color" content="#ffffff" />
 
-        <link
-          rel="icon"
-          href="/icons/favicon.ico"
-          sizes="any"
-          type="image/x-icon"
-        />
+        <link rel="icon" href="/icons/favicon.ico" sizes="any" />
         <link
           rel="apple-touch-icon"
           href="/icons/apple-touch-icon.png"
           sizes="180x180"
-          type="image/png"
         />
         <link rel="manifest" href="/manifest.json" />
-        <link
-          rel="mask-icon"
-          href="/icons/safari-pinned-tab.svg"
-          color="#000000"
-        />
-        <link rel="shortcut icon" href="/icons/favicon.ico" />
       </head>
       <body className={`${montserrat.variable} antialiased`}>
         <NextIntlClientProvider messages={messages}>
@@ -128,9 +78,7 @@ export default async function RootLayout({
             </main>
 
             <Toaster />
-            <OfflineIndicator />
             <PWAInstallPrompt />
-            <ServiceWorkerRegistration />
             <PWARefreshButton />
           </Providers>
         </NextIntlClientProvider>
