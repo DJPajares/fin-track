@@ -27,16 +27,14 @@ const Transactions = () => {
   const { types } = useAppSelector((state) => state.main);
   const dashboardDateString = useAppSelector((state) => state.dashboard.date);
 
-  const newTypes = useMemo(() => {
-    return types.map((type) => {
-      const isTranslated = t.has(`Common.type.${type.id}`);
+  const newTypes = types.map((type) => {
+    const isTranslated = t.has(`Common.type.${type.id}`);
 
-      return {
-        _id: type._id,
-        name: isTranslated ? t(`Common.type.${type.id}`) : type.name,
-      };
-    });
-  }, [types, t]);
+    return {
+      _id: type._id,
+      name: isTranslated ? t(`Common.type.${type.id}`) : type.name,
+    };
+  });
 
   const dashboardDate = useMemo(
     () => moment(dashboardDateString, dateStringFormat).toDate(),
