@@ -37,7 +37,7 @@ const TransactionCard = ({ date, transaction }: TransactionCardProps) => {
           <CardContent className="flex items-center gap-4">
             <CardIcon
               icon={transaction.categoryIcon}
-              className="text-muted-foreground size-8 flex-shrink-0"
+              className="text-muted-foreground size-8 shrink-0"
             />
 
             <div className="min-w-0 flex-1">
@@ -46,7 +46,7 @@ const TransactionCard = ({ date, transaction }: TransactionCardProps) => {
                   {transaction.name}
                 </Label>
 
-                <Label className="flex-shrink-0 text-sm font-semibold">
+                <Label className="shrink-0 text-sm font-semibold">
                   {formatCurrency({
                     value: transaction.amount,
                     currency: transaction.currencyName,

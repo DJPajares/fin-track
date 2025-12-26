@@ -123,7 +123,7 @@ const Dashboard = () => {
     <>
       <>
         <ScrollShadow
-          className="flex max-h-[calc(100vh-theme(height.40))] flex-col gap-4 sm:max-h-none sm:gap-8"
+          className="flex max-h-[calc(100dvh-theme(height.40))] flex-col gap-4 sm:max-h-none sm:gap-8"
           hideScrollBar
         >
           {/* CALENDAR */}
