@@ -5,7 +5,7 @@ const rawLanguages = [
   },
   {
     value: 'de',
-    label: 'German',
+    label: 'Deutsch',
   },
   {
     value: 'fil',
@@ -13,59 +13,59 @@ const rawLanguages = [
   },
   {
     value: 'fr',
-    label: 'French',
+    label: 'Français',
   },
   {
     value: 'hi',
-    label: 'Hindi',
+    label: 'हिन्दी',
   },
   {
     value: 'ja',
-    label: 'Japanese',
+    label: '日本語',
   },
   {
     value: 'ko',
-    label: 'Korean',
+    label: '한국어',
   },
   {
     value: 'zh',
-    label: 'Mandarin',
+    label: '中文',
   },
   {
     value: 'es',
-    label: 'Spanish',
+    label: 'Español',
   },
   {
     value: 'ar',
-    label: 'Arabic',
+    label: 'العربية',
   },
   {
     value: 'ru',
-    label: 'Russian',
+    label: 'Русский',
   },
   {
     value: 'it',
-    label: 'Italian',
+    label: 'Italiano',
   },
   {
     value: 'tr',
-    label: 'Turkish',
+    label: 'Türkçe',
   },
   {
     value: 'vi',
-    label: 'Vietnamese',
+    label: 'Tiếng Việt',
   },
   {
     value: 'th',
-    label: 'Thai',
+    label: 'ไทย',
   },
   {
     value: 'id',
-    label: 'Indonesian',
+    label: 'Bahasa Indonesia',
   },
   {
     value: 'ms',
-    label: 'Malay',
+    label: 'Bahasa Melayu',
   },
 ] as const;
 
