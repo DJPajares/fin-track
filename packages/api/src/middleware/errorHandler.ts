@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import { Error } from 'mongoose';
 
 interface ValidationError extends Error.ValidationError {
@@ -36,7 +36,9 @@ const errorHandler = (
   error: ValidationError | MongoServerError | Error,
   req: Request,
   res: Response,
+  next: NextFunction,
 ) => {
+  void next;
   if (error.name === 'ValidationError') {
     validationErrorHandler(error as ValidationError, res);
     return;
