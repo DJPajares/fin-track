@@ -55,7 +55,9 @@ const Home = () => {
 
   const { currency } = useAppSelector((state) => state.dashboard);
 
-  const [currentQuoteIndex, setCurrentQuoteIndex] = useState(0);
+  const [currentQuoteIndex, setCurrentQuoteIndex] = useState(() =>
+    Math.floor(Math.random() * quotes.length),
+  );
   const [fade, setFade] = useState(false);
   const [upcomingExtras, setUpcomingExtras] = useState<UpcomingExtraProps[]>(
     [],
@@ -97,7 +99,13 @@ const Home = () => {
 
       // Wait for fade-out before updating content
       setTimeout(() => {
-        setCurrentQuoteIndex((prevIndex) => (prevIndex + 1) % quotes.length);
+        setCurrentQuoteIndex((prevIndex) => {
+          let newIndex;
+          do {
+            newIndex = Math.floor(Math.random() * quotes.length);
+          } while (newIndex === prevIndex && quotes.length > 1);
+          return newIndex;
+        });
         setFade(false); // Trigger fade-in
       }, 500); // Match the animation duration
     }, 8000);
