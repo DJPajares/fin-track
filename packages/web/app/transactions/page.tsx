@@ -27,6 +27,17 @@ const Transactions = () => {
   const { types } = useAppSelector((state) => state.main);
   const dashboardDateString = useAppSelector((state) => state.dashboard.date);
 
+  const newTypes = useMemo(() => {
+    return types.map((type) => {
+      const isTranslated = t.has(`Common.type.${type.id}`);
+
+      return {
+        _id: type._id,
+        name: isTranslated ? t(`Common.type.${type.id}`) : type.name,
+      };
+    });
+  }, [types, t]);
+
   const dashboardDate = useMemo(
     () => moment(dashboardDateString, dateStringFormat).toDate(),
     [dashboardDateString],
@@ -36,15 +47,6 @@ const Transactions = () => {
   const [selectedType, setSelectedType] = useState<ListProps>({
     _id: '',
     name: '',
-  });
-
-  const newTypes = types.map((type) => {
-    const isTranslated = t.has(`Common.type.${type.id}`);
-
-    return {
-      _id: type._id,
-      name: isTranslated ? t(`Common.type.${type.id}`) : type.name,
-    };
   });
 
   const [queryParams, setQueryParams] = useState({
@@ -59,10 +61,14 @@ const Transactions = () => {
   const [isResetting, setIsResetting] = useState(false);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
 
-  const { data, isFetching, isLoading, error } = useGetTransactionsQuery(
-    queryParams,
-    { skip: !selectedType._id || !date || types.length === 0 },
-  );
+  const {
+    data,
+    isFetching,
+    isLoading: isApiLoading,
+    error,
+  } = useGetTransactionsQuery(queryParams, {
+    skip: !selectedType._id || !date || types.length === 0,
+  });
 
   const transactions: TransactionProps[] = useMemo(() => {
     return data?.data ?? [];
@@ -169,6 +175,8 @@ const Transactions = () => {
     setDate(moment(newDate).toDate());
   };
 
+  const isLoading = isFetching && !isLoadingMore;
+
   if (isLoading) return <Loader />;
 
   return (
@@ -235,7 +243,7 @@ const Transactions = () => {
               </div>
             )}
 
-            {!isLoading && transactions.length === 0 && (
+            {!isApiLoading && transactions.length === 0 && (
               <div className="text-center">
                 <Label variant="subtitle" className="text-muted-foreground">
                   {t('Common.label.noData')}
