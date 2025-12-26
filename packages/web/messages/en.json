@@ -48,7 +48,7 @@
         },
         "savings": {
           "title": "Savings Progress",
-          "description": "Total accumulated over 3 months"
+          "description": "Total accumulated over the last 3 months"
         },
         "extras": {
           "title": "Extra Funds",

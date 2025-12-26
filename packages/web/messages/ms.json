@@ -48,7 +48,7 @@
         },
         "savings": {
           "title": "Kemajuan Simpanan",
-          "description": "Jumlah terkumpul dalam 3 bulan"
+          "description": "Jumlah terkumpul dalam 3 bulan yang lalu"
         },
         "extras": {
           "title": "Dana Tambahan",

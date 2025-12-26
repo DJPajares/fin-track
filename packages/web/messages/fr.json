@@ -48,7 +48,7 @@
         },
         "savings": {
           "title": "Progression des Économies",
-          "description": "Total accumulé sur 3 mois"
+          "description": "Total accumulé sur les 3 derniers mois"
         },
         "extras": {
           "title": "Fonds Supplémentaires",

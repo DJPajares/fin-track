@@ -48,7 +48,7 @@
         },
         "savings": {
           "title": "Kemajuan Tabungan",
-          "description": "Total terakumulasi selama 3 bulan"
+          "description": "Total terakumulasi selama 3 bulan terakhir"
         },
         "extras": {
           "title": "Dana Tambahan",

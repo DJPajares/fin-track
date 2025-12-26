@@ -48,7 +48,7 @@
         },
         "savings": {
           "title": "Progreso de Ahorros",
-          "description": "Total acumulado durante 3 meses"
+          "description": "Total acumulado durante los últimos 3 meses"
         },
         "extras": {
           "title": "Fondos Adicionales",

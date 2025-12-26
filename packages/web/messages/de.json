@@ -48,7 +48,7 @@
         },
         "savings": {
           "title": "Sparfortschritt",
-          "description": "Gesamtbetrag über 3 Monate"
+          "description": "Gesamtbetrag über die letzten 3 Monate"
         },
         "extras": {
           "title": "Zusätzliche Mittel",
