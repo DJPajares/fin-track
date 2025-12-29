@@ -116,14 +116,14 @@ export const dashboardApi = createApi({
       },
     }),
     getTransactionPaymentsByCategory: builder.query({
-      query: ({ startDate, endDate, currency, category }) => {
+      query: ({ startDate, endDate, currency, userId, category }) => {
         return useMockedData
           ? { url: '', method: 'GET' } // Empty request since data is mocked
           : {
               url: `/transaction-payments/monthly-by-category/${category}`,
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
-              body: { startDate, endDate, currency },
+              body: { startDate, endDate, currency, userId },
             };
       },
       transformResponse: (

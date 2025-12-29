@@ -93,6 +93,7 @@ const Home = () => {
     startDate: moment(date).subtract(2, 'months').toDate(),
     endDate: date,
     currency: currency.name,
+    userId,
     category: 'savings',
   });
 

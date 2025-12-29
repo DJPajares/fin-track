@@ -83,6 +83,7 @@ const Charts = () => {
   const t = useTranslations();
   const isMobile = useIsMobile();
 
+  const { userId } = useAppSelector((state) => state.user);
   const dashboardDateString = useAppSelector((state) => state.dashboard.date);
 
   const dashboardDate = useMemo(
@@ -106,6 +107,7 @@ const Charts = () => {
     startDate: new Date(parseInt(selectedYear), 1, 1),
     endDate: new Date(parseInt(selectedYear), 11, 31),
     currency: currency.name,
+    userId,
     category: 'savings',
   });
 
