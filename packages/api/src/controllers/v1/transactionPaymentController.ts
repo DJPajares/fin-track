@@ -1,8 +1,10 @@
 import { NextFunction, Request, Response } from 'express';
 import * as transactionPaymentService from '../../services/v1/transactionPaymentService';
 
+import type { DateCurrencyProps } from '../../types/v1/transactionPaymentRequestTypes';
+
 const fetchTransactionPayments = async (
-  req: Request,
+  req: Request<unknown, unknown, DateCurrencyProps>,
   res: Response,
   next: NextFunction,
 ) => {

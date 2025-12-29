@@ -26,14 +26,3 @@ export type FetchByDateRangeProps = {
   currency: string;
   userId: string;
 };
-
-// Response types
-export type TransactionResponse = {
-  success: boolean;
-  data: TransactionProps;
-};
-
-export type TransactionListResponse = {
-  success: boolean;
-  data: TransactionProps[];
-};

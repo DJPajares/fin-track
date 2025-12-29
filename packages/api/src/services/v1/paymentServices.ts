@@ -1,9 +1,14 @@
 import { Types } from 'mongoose';
 import { PaymentModel, PaymentProps } from '../../models/v1/paymentModel';
-import type { QueryParamsProps, SortObjProps } from '../../types/commonTypes';
 import createPagination from '../../utilities/createPagination';
 
-const create = async (data: PaymentProps) => {
+import type { QueryParamsProps, SortObjProps } from '../../types/commonTypes';
+import type {
+  CreatePaymentBody,
+  UpdatePaymentBody,
+} from '../../types/v1/paymentRequestTypes';
+
+const create = async (data: CreatePaymentBody) => {
   return await PaymentModel.create(data);
 };
 
@@ -48,7 +53,7 @@ const get = async (_id: PaymentProps['_id']) => {
   return await PaymentModel.find({ _id }).populate(['transaction', 'currency']);
 };
 
-const update = async (_id: PaymentProps['_id'], data: PaymentProps) => {
+const update = async (_id: PaymentProps['_id'], data: UpdatePaymentBody) => {
   return await PaymentModel.findOneAndUpdate({ _id }, data, {
     new: true,
     upsert: true,
