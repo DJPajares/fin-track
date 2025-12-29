@@ -326,6 +326,7 @@ const getByDate = async (data: FetchByDateProps) => {
   const latestExchangeRates = await ExchangeRateModel.findOne().sort({
     date: -1,
   });
+
   const rates = latestExchangeRates?.rates || {};
 
   const filters = buildFilters(data);
