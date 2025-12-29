@@ -6,6 +6,7 @@ import type { QueryParamsProps, SortObjProps } from '../../types/commonTypes';
 import type {
   CreatePaymentBody,
   UpdatePaymentBody,
+  UpsertManyPaymentsBody,
 } from '../../types/v1/paymentRequestTypes';
 
 const create = async (data: CreatePaymentBody) => {
@@ -54,19 +55,29 @@ const get = async (_id: PaymentProps['_id']) => {
 };
 
 const update = async (_id: PaymentProps['_id'], data: UpdatePaymentBody) => {
+  console.log('Updating payment with ID:', _id, 'with data:', data);
   return await PaymentModel.findOneAndUpdate({ _id }, data, {
     new: true,
     upsert: true,
   }).populate('transaction');
 };
 
-const upsertMany = async (data: PaymentProps[]) => {
-  const upsertPromises = data.map((payment) => {
+const upsertMany = async (body: UpsertManyPaymentsBody) => {
+  const { payments, userId } = body;
+
+  if (!userId) {
+    const error = new Error('userId is required to upsert payments');
+    (error as Error & { statusCode?: number }).statusCode = 400;
+    throw error;
+  }
+
+  const upsertPromises = payments.map((payment) => {
     const _id = payment._id || new Types.ObjectId();
 
     return PaymentModel.findOneAndUpdate(
-      { _id },
+      { _id, userId },
       {
+        userId,
         transaction: payment.transaction,
         currency: payment.currency,
         amount: payment.amount,

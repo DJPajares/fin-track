@@ -5,6 +5,7 @@ import type { QueryParamsProps } from '../../types/commonTypes';
 import type {
   CreatePaymentBody,
   UpdatePaymentBody,
+  UpsertManyPaymentsBody,
 } from '../../types/v1/paymentRequestTypes';
 import { Types } from 'mongoose';
 
@@ -71,7 +72,11 @@ const update = async (
   }
 };
 
-const upsertMany = async (req: Request, res: Response, next: NextFunction) => {
+const upsertMany = async (
+  req: Request<unknown, unknown, UpsertManyPaymentsBody>,
+  res: Response,
+  next: NextFunction,
+) => {
   try {
     const data = await paymentService.upsertMany(req.body);
 

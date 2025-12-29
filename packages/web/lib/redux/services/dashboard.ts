@@ -4,6 +4,8 @@ import formatYearMonth from '@shared/utilities/formatYearMonth';
 import DASHBOARD_DATA from '@shared/mockData/transactionPayments.json';
 import TRANSACTIONS_BY_TYPE_DATA from '@shared/mockData/transactionsDateRangeByType.json';
 import TRANSACTION_PAYMENTS_BY_CATEGORY from '@shared/mockData/transactionPaymentsByCategory.json';
+import { TransactionProps } from '@web/types/TransactionPayment';
+import { Moment } from 'moment';
 
 const useMockedData = process.env.NEXT_PUBLIC_USE_MOCKED_DATA === 'true';
 
@@ -45,6 +47,19 @@ export type TransactionPaymentsByCategoryResult = {
   currencyId: string;
   currencyName: string;
   paidAmount: number;
+};
+
+export type UpdateDashboardPaymentsDataProps = {
+  _id: TransactionProps['paymentId'];
+  transaction: TransactionProps['_id'];
+  currency: TransactionProps['localAmount']['currency']['_id'];
+  amount: TransactionProps['localAmount']['paidAmount'];
+  date: Moment;
+};
+
+export type UpdateDashboardPaymentsProps = {
+  payments: UpdateDashboardPaymentsDataProps[];
+  userId: string;
 };
 
 const formatDashboardDataQueryKey = ({
@@ -214,10 +229,10 @@ export const dashboardApi = createApi({
       ],
     }),
     updateDashboardPayments: builder.mutation({
-      query: (postData) => ({
+      query: (body: UpdateDashboardPaymentsProps) => ({
         url: '/payments',
         method: 'PUT',
-        body: postData,
+        body,
       }),
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
         try {
