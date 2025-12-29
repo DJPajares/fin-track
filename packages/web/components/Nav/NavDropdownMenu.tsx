@@ -39,6 +39,7 @@ import { useDispatch } from 'react-redux';
 import { setDashboardCurrency } from '../../lib/redux/feature/dashboard/dashboardSlice';
 
 import type { ListProps } from '../../types/List';
+import { useRouter } from 'next/navigation';
 
 type NavDropdownMenuProps = {
   children: ReactNode;
@@ -48,6 +49,7 @@ const NavDropdownMenu = ({ children }: NavDropdownMenuProps) => {
   const { theme, setTheme } = useTheme();
 
   const locale = useLocale();
+  const router = useRouter();
   const dispatch = useDispatch();
   const t = useTranslations('MenuDropdown');
 
@@ -72,6 +74,11 @@ const NavDropdownMenu = ({ children }: NavDropdownMenuProps) => {
   const handleDarkModeToggle = () => {
     setTheme(isDarkMode ? 'light' : 'dark');
     setIsDarkMode(!isDarkMode);
+  };
+
+  const handleLogout = () => {
+    // dispatch(logoutAction());
+    router.push('/auth');
   };
 
   return (
@@ -171,7 +178,7 @@ const NavDropdownMenu = ({ children }: NavDropdownMenuProps) => {
         <DropdownMenuSeparator />
 
         <DropdownMenuGroup>
-          <DropdownMenuItem>
+          <DropdownMenuItem onClick={handleLogout}>
             <LogOutIcon className="text-muted-foreground size-4" />
             {t('logout')}
             <DropdownMenuShortcut>

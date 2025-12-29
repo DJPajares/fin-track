@@ -1,6 +1,7 @@
 'use client';
 
 import { ReactNode, useEffect, useState } from 'react';
+import { usePathname } from 'next/navigation';
 
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 import { SidebarInset, SidebarProvider, SidebarTrigger } from '../ui/sidebar';
@@ -14,9 +15,13 @@ type NavBarProps = {
 };
 
 const NavBar = ({ children }: NavBarProps) => {
+  const pathname = usePathname();
   const [isVisible, setIsVisible] = useState(true);
+  const isAuthRoute = pathname?.startsWith('/auth');
 
   useEffect(() => {
+    if (isAuthRoute) return;
+
     let lastScroll = 0;
 
     const handleScroll = () => {
@@ -35,7 +40,11 @@ const NavBar = ({ children }: NavBarProps) => {
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [isAuthRoute]);
+
+  if (isAuthRoute) {
+    return <>{children}</>;
+  }
 
   return (
     <SidebarProvider>
