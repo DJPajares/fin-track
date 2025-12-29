@@ -6,6 +6,7 @@ import type {
   CreateTransactionBody,
   CreateManyTransactionsBody,
   UpdateTransactionBody,
+  FetchByDateRangeProps,
 } from '../../types/v1/transactionRequestTypes';
 import { Types } from 'mongoose';
 
@@ -84,7 +85,7 @@ const getCategories = async (
 };
 
 const getMonthlyTypes = async (
-  req: Request,
+  req: Request<unknown, unknown, FetchByDateRangeProps>,
   res: Response,
   next: NextFunction,
 ) => {

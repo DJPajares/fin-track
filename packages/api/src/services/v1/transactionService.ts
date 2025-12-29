@@ -27,7 +27,10 @@ import type {
 
 const ensureUserId = (data: { userId?: string }) => {
   if (!data.userId) {
-    throw new Error('userId is required to fetch transactions');
+    const error = new Error('userId is required to fetch transactions');
+    // Mark as bad request so the error handler can return 400
+    (error as Error & { statusCode?: number }).statusCode = 400;
+    throw error;
   }
 
   return data.userId;
