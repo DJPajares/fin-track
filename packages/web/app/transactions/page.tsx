@@ -25,6 +25,7 @@ const Transactions = () => {
   const t = useTranslations();
 
   const { types } = useAppSelector((state) => state.main);
+  const { userId } = useAppSelector((state) => state.user);
   const dashboardDateString = useAppSelector((state) => state.dashboard.date);
 
   const newTypes = types.map((type) => {
@@ -53,6 +54,7 @@ const Transactions = () => {
     body: {
       date: date.toISOString(),
       type: selectedType._id,
+      userId,
     },
   });
 
@@ -111,10 +113,11 @@ const Transactions = () => {
         body: {
           date: date.toISOString(),
           type: selectedType._id,
+          userId,
         },
       }));
     }
-  }, [date, selectedType]);
+  }, [date, selectedType, userId]);
 
   useEffect(() => {
     if (isResetting) {
