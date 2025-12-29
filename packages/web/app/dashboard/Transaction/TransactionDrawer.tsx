@@ -35,6 +35,7 @@ const TransactionDrawer = ({
 }: TransactionDrawerProps) => {
   const t = useTranslations();
 
+  const { userId } = useAppSelector((state) => state.user);
   const { types, categories, currencies } = useAppSelector(
     (state) => state.main,
   );
@@ -107,6 +108,7 @@ const TransactionDrawer = ({
         await fetchDashboardData({
           date,
           currency: dashboard.currency.name,
+          userId,
         });
 
         setIsDrawerOpen(false);

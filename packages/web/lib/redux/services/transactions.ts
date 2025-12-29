@@ -50,10 +50,10 @@ export const transactionsApi = createApi({
       },
     }),
     createTransaction: builder.mutation({
-      query: (data) => ({
+      query: (body) => ({
         url: `/`,
         method: 'POST',
-        body: data,
+        body,
       }),
     }),
     updateTransaction: builder.mutation({
