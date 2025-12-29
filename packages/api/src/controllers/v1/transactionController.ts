@@ -1,9 +1,18 @@
 import { NextFunction, Request, Response } from 'express';
 import * as transactionService from '../../services/v1/transactionService';
 import type { QueryParamsProps } from '../../types/commonTypes';
+import type {
+  CreateTransactionBody,
+  CreateManyTransactionsBody,
+  UpdateTransactionBody,
+} from '../../types/v1/transactionRequestTypes';
 import { Types } from 'mongoose';
 
-const create = async (req: Request, res: Response, next: NextFunction) => {
+const create = async (
+  req: Request<unknown, unknown, CreateTransactionBody>,
+  res: Response,
+  next: NextFunction,
+) => {
   try {
     const data = await transactionService.create(req.body);
 
@@ -16,7 +25,11 @@ const create = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-const createMany = async (req: Request, res: Response, next: NextFunction) => {
+const createMany = async (
+  req: Request<unknown, unknown, CreateManyTransactionsBody>,
+  res: Response,
+  next: NextFunction,
+) => {
   try {
     const data = await transactionService.createMany(req.body);
 
@@ -112,7 +125,11 @@ const get = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-const update = async (req: Request, res: Response, next: NextFunction) => {
+const update = async (
+  req: Request<{ id: string }, unknown, UpdateTransactionBody>,
+  res: Response,
+  next: NextFunction,
+) => {
   try {
     const id = new Types.ObjectId(req.params.id);
 
