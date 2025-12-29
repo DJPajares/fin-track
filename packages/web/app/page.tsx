@@ -53,6 +53,7 @@ const Home = () => {
 
   const quotes = t.raw('Page.home.motivation.quotes') as string[]; // Access raw array
 
+  const { userId } = useAppSelector((state) => state.user);
   const { currency } = useAppSelector((state) => state.dashboard);
 
   const [currentQuoteIndex, setCurrentQuoteIndex] = useState(() =>
@@ -81,6 +82,7 @@ const Home = () => {
     startDate: moment(date).add(1, 'months').toDate(),
     endDate: moment(date).add(3, 'months').toDate(),
     currency: currency.name,
+    userId,
   });
 
   const {

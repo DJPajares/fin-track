@@ -164,14 +164,14 @@ export const dashboardApi = createApi({
       },
     }),
     getTransactionsByTypeDateRange: builder.query({
-      query: ({ startDate, endDate, currency }) => {
+      query: (body) => {
         return useMockedData
           ? { url: '', method: 'GET' } // Empty request since data is mocked
           : {
               url: '/transactions/monthly-types',
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
-              body: { startDate, endDate, currency },
+              body,
             };
       },
       transformResponse: (response: unknown): TransactionsByTypeResult[] => {
