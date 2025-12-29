@@ -118,6 +118,7 @@ const Charts = () => {
       startDate: new Date(parseInt(selectedYear), 0, 1),
       endDate: new Date(parseInt(selectedYear), 11, 31),
       currency: currency.name,
+      userId,
     });
 
     setChartData(transactions);

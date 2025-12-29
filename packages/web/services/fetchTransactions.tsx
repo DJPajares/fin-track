@@ -23,6 +23,7 @@ export type TransactionsDateRangeByTypeProps = {
   startDate: Date;
   endDate: Date;
   currency: string;
+  userId: string;
 };
 
 const fetchTransactions = async ({
@@ -78,6 +79,7 @@ const fetchTransactionsDateRangeByType = async ({
   startDate,
   endDate,
   currency,
+  userId,
 }: TransactionsDateRangeByTypeProps) => {
   const url = `${process.env.NEXT_PUBLIC_BASE_URL}/transactions/monthly-types`;
 
@@ -89,6 +91,7 @@ const fetchTransactionsDateRangeByType = async ({
         startDate,
         endDate,
         currency,
+        userId,
       };
 
       const { status, data } = await axios.post(url, postData);
