@@ -1,13 +1,14 @@
 import type {
   TransactionPaymentCategoryProps,
   TransactionPaymentMainProps,
-  TransactionPaymentProps
+  TransactionPaymentProps,
 } from './TransactionPayment';
 import type { ListProps } from './List';
 
 type DashboardDataProps = {
   date: Date;
   currency: string;
+  userId: string;
 };
 
 type DashboardDataResult = TransactionPaymentProps;
@@ -23,5 +24,5 @@ export type {
   DashboardDataResult,
   DashboardDataMainResult,
   DashboardDataCategoryResult,
-  DashboardSelectionItemsProps
+  DashboardSelectionItemsProps,
 };

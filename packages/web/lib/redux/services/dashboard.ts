@@ -85,14 +85,14 @@ export const dashboardApi = createApi({
   tagTypes: [type],
   endpoints: (builder) => ({
     getDashboardData: builder.query({
-      query: ({ date, currency }) => {
+      query: (body) => {
         return useMockedData
           ? { url: '', method: 'GET' } // Empty request since data is mocked
           : {
               url: '/transaction-payments',
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
-              body: { date, currency },
+              body,
             };
       },
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
