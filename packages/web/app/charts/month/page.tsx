@@ -49,6 +49,7 @@ const Charts = () => {
   const t = useTranslations();
   const isMobile = useIsMobile();
 
+  const { userId } = useAppSelector((state) => state.user);
   const { types } = useAppSelector((state) => state.main);
   const { currency } = useAppSelector((state) => state.dashboard);
   const dashboardDateString = useAppSelector((state) => state.dashboard.date);
@@ -92,11 +93,12 @@ const Charts = () => {
       date,
       currency: currency.name,
       type: selectedType._id,
+      userId,
     });
 
     setChartData(transactions.data);
     setIsLoading(false);
-  }, [date, currency, selectedType]);
+  }, [date, currency, selectedType, userId]);
 
   useEffect(() => {
     if (selectedType._id && newTypes.length > 0) {
