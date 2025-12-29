@@ -73,6 +73,7 @@ const Home = () => {
     useGetDashboardDataQuery({
       date,
       currency: currency.name,
+      userId,
     });
 
   const {
