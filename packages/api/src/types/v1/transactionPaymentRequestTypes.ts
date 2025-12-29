@@ -16,4 +16,5 @@ export type DateRangeCurrencyProps = {
   startDate: Date;
   endDate: Date;
   currency: string;
+  userId: string;
 };

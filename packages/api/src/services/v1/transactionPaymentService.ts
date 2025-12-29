@@ -620,7 +620,7 @@ const fetchMonthlyByCategory = async (
   body: DateRangeCurrencyProps,
   categoryName?: string,
 ) => {
-  const { startDate, endDate, currency } = body;
+  const { startDate, endDate, currency, userId } = body;
 
   try {
     const startYearMonth = formatYearMonth(startDate);
@@ -653,6 +653,11 @@ const fetchMonthlyByCategory = async (
     const rates = latestExchangeRates?.rates || {};
 
     const result = await PaymentModel.aggregate([
+      {
+        $match: {
+          userId,
+        },
+      },
       {
         $facet: {
           dateRange: [
