@@ -41,6 +41,7 @@ const EditTransactionDrawer = ({
 }: EditTransactionDrawerProps) => {
   const t = useTranslations();
 
+  const { userId } = useAppSelector((state) => state.user);
   const { currencies, types, categories } = useAppSelector(
     (state) => state.main,
   );
@@ -99,7 +100,7 @@ const EditTransactionDrawer = ({
         await lazyGetTransactions({
           page: 1,
           limit: 8,
-          body: { type: type._id, date: date.toISOString() },
+          body: { type: type._id, date: date.toISOString(), userId },
         });
 
         setIsDrawerOpen(false);
