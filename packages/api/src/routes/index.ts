@@ -6,6 +6,7 @@ import paymentRoute from './v1/paymentRoute';
 import transactionRoute from './v1/transactionRoute';
 import transactionPaymentRoute from './v1/transactionPaymentRoute';
 import exchangeRateRoute from './v1/exchangeRateRoute';
+import userRoute from './v1/userRoute';
 
 const router = express.Router();
 
@@ -16,5 +17,6 @@ router.use('/api/v1/payments', paymentRoute);
 router.use('/api/v1/transactions', transactionRoute);
 router.use('/api/v1/transaction-payments', transactionPaymentRoute);
 router.use('/api/v1/exchangeRates', exchangeRateRoute);
+router.use('/api/v1/users', userRoute);
 
 export default router;
