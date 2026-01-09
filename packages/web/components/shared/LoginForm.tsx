@@ -56,8 +56,6 @@ export function LoginForm({
       // Redirect to dashboard
       router.push('/dashboard');
     } catch (err) {
-      console.error('Login error:', err);
-
       // Handle specific error messages
       if (err && typeof err === 'object' && 'response' in err) {
         const axiosError = err as {

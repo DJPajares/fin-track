@@ -71,7 +71,6 @@ export function SignupForm({
       // Redirect to dashboard
       router.push('/dashboard');
     } catch (err) {
-      console.error('Signup error:', err);
       if (err && typeof err === 'object' && 'response' in err) {
         const axiosError = err as {
           response?: { data?: { message?: string } };
