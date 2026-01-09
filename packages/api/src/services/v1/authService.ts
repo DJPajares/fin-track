@@ -1,3 +1,4 @@
+import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
 import { UserModel } from '../../models/v1/userModel';
 import {
@@ -6,9 +7,15 @@ import {
   SignupCredentials,
 } from '../../types/userTypes';
 
-const JWT_SECRET =
-  process.env.JWT_SECRET || 'your-secret-key-change-in-production';
-const JWT_EXPIRES_IN = '7d';
+dotenv.config();
+
+const JWT_SECRET: jwt.Secret = process.env.JWT_SECRET ?? '';
+const JWT_EXPIRES_IN: jwt.SignOptions['expiresIn'] =
+  (process.env.JWT_EXPIRES_IN as jwt.SignOptions['expiresIn']) || '7d';
+
+if (!JWT_SECRET) {
+  throw new Error('JWT_SECRET environment variable is required');
+}
 
 /**
  * Generate JWT token for user
