@@ -83,7 +83,8 @@ const TransactionDrawerForm = ({
 }: TransactionDrawerFormProps) => {
   const t = useTranslations();
 
-  const { userId } = useAppSelector((state) => state.user);
+  const { user } = useAppSelector((state) => state.auth);
+  const userId = user?.id || '';
 
   const [isStartDatePopoverOpen, setIsStartDatePopoverOpen] = useState(false);
   const [isEndDatePopoverOpen, setIsEndDatePopoverOpen] = useState(false);

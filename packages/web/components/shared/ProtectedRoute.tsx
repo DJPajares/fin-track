@@ -7,7 +7,7 @@ import { RootState } from '@web/lib/redux/store';
 import {
   getSessionSuccess,
   getSessionFailure,
-} from '@web/lib/redux/slices/authSlice';
+} from '@web/lib/redux/feature/auth/authSlice';
 import { getCurrentUser, getStoredToken } from '@web/services/auth';
 
 interface ProtectedRouteProps {

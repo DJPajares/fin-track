@@ -45,7 +45,8 @@ const Dashboard = () => {
 
   const { currencies } = useAppSelector((state) => state.main);
   const { currency } = useAppSelector((state) => state.dashboard);
-  const { userId } = useAppSelector((state) => state.user);
+  const { user } = useAppSelector((state) => state.auth);
+  const userId = user?.id || '';
   const dashboardDateString = useAppSelector((state) => state.dashboard.date);
 
   const dashboardDate = useMemo(

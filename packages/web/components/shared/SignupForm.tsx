@@ -20,7 +20,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useDispatch } from 'react-redux';
-import { loginSuccess } from '@web/lib/redux/slices/authSlice';
+import { loginSuccess } from '@web/lib/redux/feature/auth/authSlice';
 import { signup } from '@web/services/auth';
 
 export function SignupForm({

@@ -80,7 +80,8 @@ const NavDropdownMenu = ({ children }: NavDropdownMenuProps) => {
 
   const handleLogout = async () => {
     const { logout } = await import('../../services/auth');
-    const { logoutSuccess } = await import('../../lib/redux/slices/authSlice');
+    const { logoutSuccess } =
+      await import('../../lib/redux/feature/auth/authSlice');
 
     try {
       await logout();

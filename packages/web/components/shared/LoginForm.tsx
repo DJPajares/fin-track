@@ -19,7 +19,7 @@ import { Input } from '@web/components/ui/input';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useDispatch } from 'react-redux';
-import { loginSuccess } from '@web/lib/redux/slices/authSlice';
+import { loginSuccess } from '@web/lib/redux/feature/auth/authSlice';
 import { login as loginAPI } from '@web/services/auth';
 import Link from 'next/link';
 

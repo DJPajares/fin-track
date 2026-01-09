@@ -41,7 +41,8 @@ const EditTransactionDrawer = ({
 }: EditTransactionDrawerProps) => {
   const t = useTranslations();
 
-  const { userId } = useAppSelector((state) => state.user);
+  const { user } = useAppSelector((state) => state.auth);
+  const userId = user?.id || '';
   const { currencies, types, categories } = useAppSelector(
     (state) => state.main,
   );

@@ -53,7 +53,8 @@ const Home = () => {
 
   const quotes = t.raw('Page.home.motivation.quotes') as string[]; // Access raw array
 
-  const { userId } = useAppSelector((state) => state.user);
+  const { user } = useAppSelector((state) => state.auth);
+  const userId = user?.id || '';
   const { currency } = useAppSelector((state) => state.dashboard);
 
   const [currentQuoteIndex, setCurrentQuoteIndex] = useState(() =>

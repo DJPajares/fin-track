@@ -45,7 +45,8 @@ const CategoryDrawer = ({
 }: CategoryDrawerProps) => {
   const t = useTranslations();
 
-  const { userId } = useAppSelector((state) => state.user);
+  const { user } = useAppSelector((state) => state.auth);
+  const userId = user?.id || '';
   const dashboard = useAppSelector((state) => state.dashboard);
 
   const date = moment.utc(dashboard.date, dateStringFormat);

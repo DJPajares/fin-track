@@ -49,7 +49,8 @@ const Charts = () => {
   const t = useTranslations();
   const isMobile = useIsMobile();
 
-  const { userId } = useAppSelector((state) => state.user);
+  const { user } = useAppSelector((state) => state.auth);
+  const userId = user?.id || '';
   const { types } = useAppSelector((state) => state.main);
   const { currency } = useAppSelector((state) => state.dashboard);
   const dashboardDateString = useAppSelector((state) => state.dashboard.date);

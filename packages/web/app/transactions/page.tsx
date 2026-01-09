@@ -25,7 +25,8 @@ const Transactions = () => {
   const t = useTranslations();
 
   const { types } = useAppSelector((state) => state.main);
-  const { userId } = useAppSelector((state) => state.user);
+  const { user } = useAppSelector((state) => state.auth);
+  const userId = user?.id || '';
   const dashboardDateString = useAppSelector((state) => state.dashboard.date);
 
   const newTypes = types.map((type) => {
