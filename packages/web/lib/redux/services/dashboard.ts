@@ -14,12 +14,14 @@ const type = 'Dashboard';
 export type DashboardDataProps = {
   date: Date;
   currency: string;
+  userId: string;
 };
 
 export type TransactionsByTypeProps = {
   startDate: Date;
   endDate: Date;
   currency: string;
+  userId: string;
 };
 
 export type TransactionsByTypeResult = {
@@ -35,6 +37,7 @@ export type TransactionPaymentsByCategoryProps = {
   endDate: Date;
   currency: string;
   category: string;
+  userId: string;
 };
 
 export type TransactionPaymentsByCategoryResult = {
@@ -65,21 +68,23 @@ export type UpdateDashboardPaymentsProps = {
 const formatDashboardDataQueryKey = ({
   date,
   currency,
-}: DashboardDataProps) => {
+  userId,
+}: DashboardDataProps & { userId: string }) => {
   const yearMonth = formatYearMonth(new Date(date));
 
-  return `${yearMonth}_${currency}`;
+  return `${yearMonth}_${currency}_${userId}`;
 };
 
 const formatTransactionsByTypeQueryKey = ({
   startDate,
   endDate,
   currency,
-}: TransactionsByTypeProps) => {
+  userId,
+}: TransactionsByTypeProps & { userId: string }) => {
   const startYearMonth = formatYearMonth(new Date(startDate));
   const endYearMonth = formatYearMonth(new Date(endDate));
 
-  return `${startYearMonth}_${endYearMonth}_${currency}`;
+  return `${startYearMonth}_${endYearMonth}_${currency}_${userId}`;
 };
 
 const formatTransactionPaymentsByCategoryQueryKey = ({
@@ -87,11 +92,12 @@ const formatTransactionPaymentsByCategoryQueryKey = ({
   endDate,
   currency,
   category,
-}: TransactionPaymentsByCategoryProps) => {
+  userId,
+}: TransactionPaymentsByCategoryProps & { userId: string }) => {
   const startYearMonth = formatYearMonth(new Date(startDate));
   const endYearMonth = formatYearMonth(new Date(endDate));
 
-  return `${startYearMonth}_${endYearMonth}_${currency}_${category}`;
+  return `${startYearMonth}_${endYearMonth}_${currency}_${category}_${userId}`;
 };
 
 export const dashboardApi = createApi({
@@ -114,18 +120,22 @@ export const dashboardApi = createApi({
       transformResponse: (response: any) => {
         return useMockedData ? DASHBOARD_DATA : response.data;
       },
-      providesTags: (result, error, { date, currency }) => {
+      providesTags: (result, error, { date, currency, userId }) => {
         return [
           {
             type: type,
-            id: formatDashboardDataQueryKey({ date, currency }),
+            id: formatDashboardDataQueryKey({ date, currency, userId }),
           },
         ];
       },
       serializeQueryArgs: ({ endpointName, queryArgs }) => {
-        const { date, currency } = queryArgs;
+        const { date, currency, userId } = queryArgs;
 
-        const provider = formatDashboardDataQueryKey({ date, currency });
+        const provider = formatDashboardDataQueryKey({
+          date,
+          currency,
+          userId,
+        });
 
         return `${endpointName}_${provider}`;
       },
@@ -151,7 +161,7 @@ export const dashboardApi = createApi({
       providesTags: (
         result,
         error,
-        { startDate, endDate, currency, category },
+        { startDate, endDate, currency, category, userId },
       ) => {
         return [
           {
@@ -161,18 +171,20 @@ export const dashboardApi = createApi({
               endDate,
               currency,
               category,
+              userId,
             }),
           },
         ];
       },
       serializeQueryArgs: ({ endpointName, queryArgs }) => {
-        const { startDate, endDate, currency, category } = queryArgs;
+        const { startDate, endDate, currency, category, userId } = queryArgs;
 
         const provider = formatTransactionPaymentsByCategoryQueryKey({
           startDate,
           endDate,
           currency,
           category,
+          userId,
         });
 
         return `${endpointName}_${provider}`;
@@ -194,7 +206,11 @@ export const dashboardApi = createApi({
           ? TRANSACTIONS_BY_TYPE_DATA
           : (response as TransactionsByTypeResult[]);
       },
-      providesTags: (result, error, { startDate, endDate, currency }) => {
+      providesTags: (
+        result,
+        error,
+        { startDate, endDate, currency, userId },
+      ) => {
         return [
           {
             type: type,
@@ -202,17 +218,19 @@ export const dashboardApi = createApi({
               startDate,
               endDate,
               currency,
+              userId,
             }),
           },
         ];
       },
       serializeQueryArgs: ({ endpointName, queryArgs }) => {
-        const { startDate, endDate, currency } = queryArgs;
+        const { startDate, endDate, currency, userId } = queryArgs;
 
         const provider = formatTransactionsByTypeQueryKey({
           startDate,
           endDate,
           currency,
+          userId,
         });
 
         return `${endpointName}_${provider}`;
@@ -224,8 +242,11 @@ export const dashboardApi = createApi({
         method: 'POST',
         body: updatedData,
       }),
-      invalidatesTags: (_result, _error, { date, currency }) => [
-        { type: type, id: formatDashboardDataQueryKey({ date, currency }) },
+      invalidatesTags: (_result, _error, { date, currency, userId }) => [
+        {
+          type: type,
+          id: formatDashboardDataQueryKey({ date, currency, userId }),
+        },
       ],
     }),
     updateDashboardPayments: builder.mutation({
