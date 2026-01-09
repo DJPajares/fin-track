@@ -70,32 +70,47 @@ const Home = () => {
   const date = new Date();
 
   const { data: dashboardData, isFetching: isDashboardDataFetching } =
-    useGetDashboardDataQuery({
-      date,
-      currency: currency.name,
-      userId,
-    });
+    useGetDashboardDataQuery(
+      {
+        date,
+        currency: currency.name,
+        userId,
+      },
+      {
+        skip: !userId || !currency.name,
+      },
+    );
 
   const {
     data: transactionsByTypeData,
     isFetching: isTransactionsByTypeDataFetching,
-  } = useGetTransactionsByTypeDateRangeQuery({
-    startDate: moment(date).add(1, 'months').toDate(),
-    endDate: moment(date).add(3, 'months').toDate(),
-    currency: currency.name,
-    userId,
-  });
+  } = useGetTransactionsByTypeDateRangeQuery(
+    {
+      startDate: moment(date).add(1, 'months').toDate(),
+      endDate: moment(date).add(3, 'months').toDate(),
+      currency: currency.name,
+      userId,
+    },
+    {
+      skip: !userId || !currency.name,
+    },
+  );
 
   const {
     data: transactionPaymentsByCategoryData,
     isFetching: isTransactionPaymentsByCategoryDataFetching,
-  } = useGetTransactionPaymentsByCategoryQuery({
-    startDate: moment(date).subtract(2, 'months').toDate(),
-    endDate: date,
-    currency: currency.name,
-    userId,
-    category: 'savings',
-  });
+  } = useGetTransactionPaymentsByCategoryQuery(
+    {
+      startDate: moment(date).subtract(2, 'months').toDate(),
+      endDate: date,
+      currency: currency.name,
+      userId,
+      category: 'savings',
+    },
+    {
+      skip: !userId || !currency.name,
+    },
+  );
 
   useEffect(() => {
     const interval = setInterval(() => {
