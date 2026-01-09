@@ -25,7 +25,7 @@ type CustomDrawerProps = {
   cancelButtonLabel?: string;
   children: ReactNode;
   triggerChildren?: ReactNode;
-  handleSubmit: () => void;
+  handleSubmit: () => void | Promise<void>;
 };
 
 const CustomDrawer = ({
