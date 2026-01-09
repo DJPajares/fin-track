@@ -1,7 +1,5 @@
 import { LoginForm } from '@web/components/shared/LoginForm';
 
-const Auth = () => {
+export default function LoginPage() {
   return <LoginForm />;
-};
-
-export default Auth;
+}
