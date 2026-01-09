@@ -76,9 +76,22 @@ const NavDropdownMenu = ({ children }: NavDropdownMenuProps) => {
     setIsDarkMode(!isDarkMode);
   };
 
-  const handleLogout = () => {
-    // dispatch(logoutAction());
-    router.push('/auth');
+  const { user } = useAppSelector((state) => state.auth);
+
+  const handleLogout = async () => {
+    const { logout } = await import('../../services/auth');
+    const { logoutSuccess } = await import('../../lib/redux/slices/authSlice');
+
+    try {
+      await logout();
+      dispatch(logoutSuccess());
+      router.push('/auth');
+    } catch (error) {
+      console.error('Logout error:', error);
+      // Force logout even if API call fails
+      dispatch(logoutSuccess());
+      router.push('/auth');
+    }
   };
 
   return (
@@ -87,9 +100,9 @@ const NavDropdownMenu = ({ children }: NavDropdownMenuProps) => {
       <DropdownMenuContent className="w-56" align="end" forceMount>
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
-            <Label variant="subtitle-md">DJ Pajares</Label>
+            <Label variant="subtitle-md">{user?.name || 'User'}</Label>
             <Label variant="caption" className="text-muted-foreground">
-              dj.pajares@gmail.com
+              {user?.email || ''}
             </Label>
           </div>
         </DropdownMenuLabel>
