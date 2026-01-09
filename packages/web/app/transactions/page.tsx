@@ -67,7 +67,7 @@ const Transactions = () => {
     isLoading: isApiLoading,
     error,
   } = useGetTransactionsQuery(queryParams, {
-    skip: !selectedType._id || !date || types.length === 0,
+    skip: !selectedType._id || !date || !userId || types.length === 0,
   });
 
   const transactions: TransactionProps[] = useMemo(() => {
