@@ -14,11 +14,12 @@ import TransactionDrawerForm, {
   type SubmitTransactionProps,
 } from '../../../components/Form/TransactionDrawerForm';
 
-import { useAppSelector } from '../../../lib/hooks/use-redux';
+import { useAppDispatch, useAppSelector } from '../../../lib/hooks/use-redux';
 import {
   useLazyGetTransactionsQuery,
   useUpdateTransactionMutation,
 } from '@web/lib/redux/services/transactions';
+import { dashboardApi } from '@web/lib/redux/services/dashboard';
 
 import type { TransactionFormProps } from '../../../lib/schemas/transaction';
 import type { TransactionProps } from '../../../types/Transaction';
@@ -40,6 +41,7 @@ const EditTransactionDrawer = ({
   children,
 }: EditTransactionDrawerProps) => {
   const t = useTranslations();
+  const dispatch = useAppDispatch();
 
   const { user } = useAppSelector((state) => state.auth);
   const userId = user?.id || '';
@@ -103,6 +105,9 @@ const EditTransactionDrawer = ({
           limit: 8,
           body: { type: type._id, date: date.toISOString(), userId },
         });
+
+        // Invalidate dashboard cache to refresh data
+        dispatch(dashboardApi.util.invalidateTags(['Dashboard']));
 
         setIsDrawerOpen(false);
       }
