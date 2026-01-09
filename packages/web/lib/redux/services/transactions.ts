@@ -22,8 +22,9 @@ export const transactionsApi = createApi({
           isFullyFetched: pagination.currentPage >= pagination.totalPages,
         };
       },
-      serializeQueryArgs: ({ endpointName }) => {
-        return endpointName;
+      serializeQueryArgs: ({ endpointName, queryArgs }) => {
+        const { body } = queryArgs;
+        return `${endpointName}_${body?.userId || 'default'}`;
       },
       merge: (currentCache, newItems, { arg }) => {
         if (!Array.isArray(newItems.data)) {
@@ -50,10 +51,10 @@ export const transactionsApi = createApi({
       },
     }),
     createTransaction: builder.mutation({
-      query: (data) => ({
+      query: (body) => ({
         url: `/`,
         method: 'POST',
-        body: data,
+        body,
       }),
     }),
     updateTransaction: builder.mutation({

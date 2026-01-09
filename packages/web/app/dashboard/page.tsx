@@ -45,6 +45,8 @@ const Dashboard = () => {
 
   const { currencies } = useAppSelector((state) => state.main);
   const { currency } = useAppSelector((state) => state.dashboard);
+  const { user } = useAppSelector((state) => state.auth);
+  const userId = user?.id || '';
   const dashboardDateString = useAppSelector((state) => state.dashboard.date);
 
   const dashboardDate = useMemo(
@@ -61,6 +63,7 @@ const Dashboard = () => {
   const { data, isFetching, isLoading } = useGetDashboardDataQuery({
     date: dashboardDate,
     currency: currency.name,
+    userId,
   });
 
   const { dashboardCategories, balance, extra, totalAmount, totalPaidAmount } =

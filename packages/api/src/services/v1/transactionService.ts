@@ -17,25 +17,30 @@ import { serializeText } from '../../utilities/serializeText';
 import formatYearMonth from '../../../../../shared/utilities/formatYearMonth';
 
 import type { FetchTransactionProps } from '../../../../../shared/types/Transaction';
+import type {
+  FetchByDateProps,
+  FetchByDateRangeProps,
+  CreateTransactionBody,
+  CreateManyTransactionsBody,
+  UpdateTransactionBody,
+} from '../../types/v1/transactionRequestTypes';
 
-type FetchByDateProps = {
-  date: Date;
-  type?: string;
-  currency: string;
+const ensureUserId = (data: { userId?: string }) => {
+  if (!data.userId) {
+    const error = new Error('userId is required to fetch transactions');
+    // Mark as bad request so the error handler can return 400
+    (error as Error & { statusCode?: number }).statusCode = 400;
+    throw error;
+  }
+
+  return data.userId;
 };
 
-type FetchByDateRangeProps = {
-  startDate: Date;
-  endDate: Date;
-  type?: string;
-  currency: string;
-};
-
-const create = async (data: TransactionProps) => {
+const create = async (data: CreateTransactionBody) => {
   return await TransactionModel.create(data);
 };
 
-const createMany = async (data: TransactionProps[]) => {
+const createMany = async (data: CreateManyTransactionsBody) => {
   return await TransactionModel.insertMany(data);
 };
 
@@ -77,6 +82,7 @@ const getAll = async (query: QueryParamsProps) => {
 };
 
 const buildFilters = (data: FetchTransactionProps) => {
+  const userId = ensureUserId(data);
   const date = new Date(data.date);
   const year = new Date(date).getFullYear();
   const month = new Date(date).getMonth() + 1;
@@ -84,6 +90,7 @@ const buildFilters = (data: FetchTransactionProps) => {
   const yearMonth = formatYearMonth(date);
 
   return {
+    user: { userId },
     date: {
       $expr: {
         $and: [
@@ -145,6 +152,7 @@ const buildFilters = (data: FetchTransactionProps) => {
 };
 
 const getTotalCount = async (data: FetchTransactionProps) => {
+  const userId = ensureUserId(data);
   const date = new Date(data.date);
   const year = date.getFullYear();
   const month = date.getMonth() + 1;
@@ -165,6 +173,9 @@ const getTotalCount = async (data: FetchTransactionProps) => {
   // Step 2: Filter transactions using the category IDs and date logic
   const filters = {
     $and: [
+      {
+        userId,
+      },
       {
         category: { $in: categoryIdArray }, // Match category IDs
       },
@@ -248,6 +259,7 @@ const getAdvanced = async (
   const filters = buildFilters(data);
 
   const output = await TransactionModel.aggregate([
+    { $match: filters.user },
     { $match: filters.date },
     {
       $lookup: {
@@ -314,11 +326,13 @@ const getByDate = async (data: FetchByDateProps) => {
   const latestExchangeRates = await ExchangeRateModel.findOne().sort({
     date: -1,
   });
+
   const rates = latestExchangeRates?.rates || {};
 
   const filters = buildFilters(data);
 
   const transactions = await TransactionModel.aggregate([
+    { $match: filters.user },
     { $match: filters.date },
     {
       $lookup: {
@@ -422,6 +436,7 @@ const getByDateRange = async (data: FetchByDateRangeProps) => {
       const filters = buildFilters(dataToFilter);
 
       const transactions = await TransactionModel.aggregate([
+        { $match: filters.user },
         { $match: filters.date },
         {
           $lookup: {
@@ -645,7 +660,10 @@ const get = async (_id: TransactionProps['_id']) => {
   return await TransactionModel.find({ _id });
 };
 
-const update = async (_id: TransactionProps['_id'], data: TransactionProps) => {
+const update = async (
+  _id: TransactionProps['_id'],
+  data: UpdateTransactionBody,
+) => {
   return await TransactionModel.findOneAndUpdate({ _id }, data, {
     new: true,
   }).populate(['category', 'currency']);

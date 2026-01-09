@@ -39,6 +39,7 @@ import { useDispatch } from 'react-redux';
 import { setDashboardCurrency } from '../../lib/redux/feature/dashboard/dashboardSlice';
 
 import type { ListProps } from '../../types/List';
+import { useRouter } from 'next/navigation';
 
 type NavDropdownMenuProps = {
   children: ReactNode;
@@ -48,6 +49,7 @@ const NavDropdownMenu = ({ children }: NavDropdownMenuProps) => {
   const { theme, setTheme } = useTheme();
 
   const locale = useLocale();
+  const router = useRouter();
   const dispatch = useDispatch();
   const t = useTranslations('MenuDropdown');
 
@@ -74,15 +76,34 @@ const NavDropdownMenu = ({ children }: NavDropdownMenuProps) => {
     setIsDarkMode(!isDarkMode);
   };
 
+  const { user } = useAppSelector((state) => state.auth);
+
+  const handleLogout = async () => {
+    const { logout } = await import('../../services/auth');
+    const { logoutSuccess } =
+      await import('../../lib/redux/feature/auth/authSlice');
+
+    try {
+      await logout();
+      dispatch(logoutSuccess());
+      router.push('/auth');
+    } catch (error) {
+      console.error('Logout error:', error);
+      // Force logout even if API call fails
+      dispatch(logoutSuccess());
+      router.push('/auth');
+    }
+  };
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>{children}</DropdownMenuTrigger>
       <DropdownMenuContent className="w-56" align="end" forceMount>
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
-            <Label variant="subtitle-md">DJ Pajares</Label>
+            <Label variant="subtitle-md">{user?.name || 'User'}</Label>
             <Label variant="caption" className="text-muted-foreground">
-              dj.pajares@gmail.com
+              {user?.email || ''}
             </Label>
           </div>
         </DropdownMenuLabel>
@@ -171,7 +192,7 @@ const NavDropdownMenu = ({ children }: NavDropdownMenuProps) => {
         <DropdownMenuSeparator />
 
         <DropdownMenuGroup>
-          <DropdownMenuItem>
+          <DropdownMenuItem onClick={handleLogout}>
             <LogOutIcon className="text-muted-foreground size-4" />
             {t('logout')}
             <DropdownMenuShortcut>

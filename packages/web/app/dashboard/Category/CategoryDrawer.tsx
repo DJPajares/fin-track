@@ -3,7 +3,11 @@ import moment from 'moment';
 import { useTranslations } from 'next-intl';
 
 import { useAppSelector } from '../../../lib/hooks/use-redux';
-import { useUpdateDashboardPaymentsMutation } from '../../../lib/redux/services/dashboard';
+import {
+  UpdateDashboardPaymentsDataProps,
+  UpdateDashboardPaymentsProps,
+  useUpdateDashboardPaymentsMutation,
+} from '../../../lib/redux/services/dashboard';
 
 import { Divider, Switch } from '@heroui/react';
 import { Label } from '../../../components/ui/label';
@@ -41,6 +45,8 @@ const CategoryDrawer = ({
 }: CategoryDrawerProps) => {
   const t = useTranslations();
 
+  const { user } = useAppSelector((state) => state.auth);
+  const userId = user?.id || '';
   const dashboard = useAppSelector((state) => state.dashboard);
 
   const date = moment.utc(dashboard.date, dateStringFormat);
@@ -169,7 +175,7 @@ const CategoryDrawer = ({
   const createUpdatePayment = async () => {
     const transactionArray = drawerCategory.transactions;
 
-    const postData = transactionArray
+    const payments: UpdateDashboardPaymentsDataProps[] = transactionArray
       .filter((transaction) => transaction.isUpdated)
       .map((transaction) => ({
         _id: transaction.paymentId,
@@ -179,9 +185,14 @@ const CategoryDrawer = ({
         date,
       }));
 
+    const body: UpdateDashboardPaymentsProps = {
+      payments,
+      userId,
+    };
+
     try {
       // Use RTK Query mutation instead of axios.put
-      await updateDashboardPayments(postData).unwrap();
+      await updateDashboardPayments(body).unwrap();
 
       // No need to manually call fetch, cache is automatically refreshed
       setIsDialogOpen(false);

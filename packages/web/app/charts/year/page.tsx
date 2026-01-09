@@ -83,6 +83,8 @@ const Charts = () => {
   const t = useTranslations();
   const isMobile = useIsMobile();
 
+  const { user } = useAppSelector((state) => state.auth);
+  const userId = user?.id || '';
   const dashboardDateString = useAppSelector((state) => state.dashboard.date);
 
   const dashboardDate = useMemo(
@@ -102,25 +104,44 @@ const Charts = () => {
 
   const { currency } = useAppSelector((state) => state.dashboard);
 
-  const { data: savingsData } = useGetTransactionPaymentsByCategoryQuery({
-    startDate: new Date(parseInt(selectedYear), 1, 1),
-    endDate: new Date(parseInt(selectedYear), 11, 31),
-    currency: currency.name,
-    category: 'savings',
-  });
-
-  const fetchData = useCallback(async () => {
-    setIsLoading(true);
-
-    const transactions = await fetchTransactionsDateRangeByType({
-      startDate: new Date(parseInt(selectedYear), 0, 1),
+  const { data: savingsData } = useGetTransactionPaymentsByCategoryQuery(
+    {
+      startDate: new Date(parseInt(selectedYear), 1, 1),
       endDate: new Date(parseInt(selectedYear), 11, 31),
       currency: currency.name,
-    });
+      userId,
+      category: 'savings',
+    },
+    {
+      skip: !userId || !currency.name,
+    },
+  );
 
-    setChartData(transactions);
-    setIsLoading(false);
-  }, [selectedYear, currency]);
+  const fetchData = useCallback(async () => {
+    if (!userId || !currency.name) {
+      return;
+    }
+
+    setIsLoading(true);
+
+    try {
+      const transactions = await fetchTransactionsDateRangeByType({
+        startDate: new Date(parseInt(selectedYear), 0, 1),
+        endDate: new Date(parseInt(selectedYear), 11, 31),
+        currency: currency.name,
+        userId,
+      });
+
+      if (transactions) {
+        setChartData(transactions);
+      }
+    } catch (error) {
+      console.error('Failed to fetch transactions:', error);
+      setChartData([]);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [selectedYear, currency, userId]);
 
   useEffect(() => {
     fetchData();

@@ -1,9 +1,19 @@
 import { NextFunction, Request, Response } from 'express';
 import * as paymentService from '../../services/v1/paymentServices';
+
 import type { QueryParamsProps } from '../../types/commonTypes';
+import type {
+  CreatePaymentBody,
+  UpdatePaymentBody,
+  UpsertManyPaymentsBody,
+} from '../../types/v1/paymentRequestTypes';
 import { Types } from 'mongoose';
 
-const create = async (req: Request, res: Response, next: NextFunction) => {
+const create = async (
+  req: Request<unknown, unknown, CreatePaymentBody>,
+  res: Response,
+  next: NextFunction,
+) => {
   try {
     const data = await paymentService.create(req.body);
 
@@ -43,7 +53,11 @@ const get = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-const update = async (req: Request, res: Response, next: NextFunction) => {
+const update = async (
+  req: Request<{ id: string }, unknown, UpdatePaymentBody>,
+  res: Response,
+  next: NextFunction,
+) => {
   try {
     const id = new Types.ObjectId(req.params.id);
 
@@ -58,7 +72,11 @@ const update = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-const upsertMany = async (req: Request, res: Response, next: NextFunction) => {
+const upsertMany = async (
+  req: Request<unknown, unknown, UpsertManyPaymentsBody>,
+  res: Response,
+  next: NextFunction,
+) => {
   try {
     const data = await paymentService.upsertMany(req.body);
 

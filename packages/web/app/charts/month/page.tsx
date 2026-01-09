@@ -49,6 +49,8 @@ const Charts = () => {
   const t = useTranslations();
   const isMobile = useIsMobile();
 
+  const { user } = useAppSelector((state) => state.auth);
+  const userId = user?.id || '';
   const { types } = useAppSelector((state) => state.main);
   const { currency } = useAppSelector((state) => state.dashboard);
   const dashboardDateString = useAppSelector((state) => state.dashboard.date);
@@ -86,17 +88,30 @@ const Charts = () => {
   }, [chartData]);
 
   const fetchData = useCallback(async () => {
+    if (!userId || !currency.name || !selectedType._id) {
+      return;
+    }
+
     setIsLoading(true);
 
-    const transactions = await fetchTransactionsDateByCategory({
-      date,
-      currency: currency.name,
-      type: selectedType._id,
-    });
+    try {
+      const transactions = await fetchTransactionsDateByCategory({
+        date,
+        currency: currency.name,
+        type: selectedType._id,
+        userId,
+      });
 
-    setChartData(transactions.data);
-    setIsLoading(false);
-  }, [date, currency, selectedType]);
+      if (transactions?.data) {
+        setChartData(transactions.data);
+      }
+    } catch (error) {
+      console.error('Failed to fetch transactions:', error);
+      setChartData([]);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [date, currency, selectedType, userId]);
 
   useEffect(() => {
     if (selectedType._id && newTypes.length > 0) {

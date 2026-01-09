@@ -9,6 +9,7 @@ import CONSTANTS from '../../utilities/constants';
 
 const categorySchema = new Schema(
   {
+    userId: { type: String, required: true, index: true },
     id: {
       type: String,
       required: [true, CONSTANTS.validations.common.id.required],

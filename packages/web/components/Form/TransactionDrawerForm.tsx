@@ -9,6 +9,7 @@ import { addMonths, differenceInCalendarMonths, format } from 'date-fns';
 import { useForm, useWatch } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslations } from 'next-intl';
+import { useAppSelector } from '../../lib/hooks/use-redux';
 
 import { Checkbox } from '@heroui/react';
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
@@ -59,6 +60,7 @@ export type SubmitTransactionProps = {
   startDate: Date;
   excludedDates: Date[];
   endDate?: Date;
+  userId: string;
 };
 
 type TransactionDrawerFormProps = {
@@ -80,6 +82,9 @@ const TransactionDrawerForm = ({
   formRef,
 }: TransactionDrawerFormProps) => {
   const t = useTranslations();
+
+  const { user } = useAppSelector((state) => state.auth);
+  const userId = user?.id || '';
 
   const [isStartDatePopoverOpen, setIsStartDatePopoverOpen] = useState(false);
   const [isEndDatePopoverOpen, setIsEndDatePopoverOpen] = useState(false);
@@ -149,6 +154,7 @@ const TransactionDrawerForm = ({
       startDate,
       endDate: isRecurring ? endDate : startDate,
       excludedDates,
+      userId,
     };
 
     await submitTransaction(transactionData);

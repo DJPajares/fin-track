@@ -7,6 +7,7 @@ import { AppStore, store } from '../lib/redux/store';
 import { useRef } from 'react';
 import { ClientDataProvider } from './clientDataProvider';
 import { ThemeColorProvider } from './themeColorProvider';
+import { ProtectedRoute } from '../components/shared/ProtectedRoute';
 
 type ProviderProps = {
   children: React.ReactNode;
@@ -24,7 +25,9 @@ export function Providers({ children }: ProviderProps) {
       <HeroUIProvider>
         <NextThemesProvider attribute="class" defaultTheme="dark">
           <ThemeColorProvider />
-          <ClientDataProvider>{children}</ClientDataProvider>
+          <ProtectedRoute>
+            <ClientDataProvider>{children}</ClientDataProvider>
+          </ProtectedRoute>
         </NextThemesProvider>
       </HeroUIProvider>
     </ReduxProvider>

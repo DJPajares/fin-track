@@ -39,6 +39,15 @@ const errorHandler = (
   next: NextFunction,
 ) => {
   void next;
+
+  const statusCode = (error as Error & { statusCode?: number }).statusCode;
+  if (statusCode) {
+    res.status(statusCode).send({
+      message: error.message,
+    });
+    return;
+  }
+
   if (error.name === 'ValidationError') {
     validationErrorHandler(error as ValidationError, res);
     return;

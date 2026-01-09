@@ -1,6 +1,7 @@
 'use client';
 
 import { ReactNode, useEffect, useState } from 'react';
+import { usePathname } from 'next/navigation';
 
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 import { SidebarInset, SidebarProvider, SidebarTrigger } from '../ui/sidebar';
@@ -8,15 +9,36 @@ import { Label } from '../ui/label';
 
 import SideNav from './SideNav';
 import NavDropdownMenu from './NavDropdownMenu';
+import { useAppSelector } from '../../lib/hooks/use-redux';
 
 type NavBarProps = {
   children: ReactNode;
 };
 
 const NavBar = ({ children }: NavBarProps) => {
+  const pathname = usePathname();
   const [isVisible, setIsVisible] = useState(true);
+  const isAuthRoute = pathname?.startsWith('/auth');
+  const { user } = useAppSelector((state) => state.auth);
+
+  // Get user initials
+  const getInitials = (name?: string | null, email?: string | null) => {
+    if (name) {
+      const nameParts = name.split(' ');
+      if (nameParts.length >= 2) {
+        return `${nameParts[0][0]}${nameParts[1][0]}`.toUpperCase();
+      }
+      return name.substring(0, 2).toUpperCase();
+    }
+    if (email) {
+      return email.substring(0, 2).toUpperCase();
+    }
+    return 'U';
+  };
 
   useEffect(() => {
+    if (isAuthRoute) return;
+
     let lastScroll = 0;
 
     const handleScroll = () => {
@@ -35,7 +57,11 @@ const NavBar = ({ children }: NavBarProps) => {
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [isAuthRoute]);
+
+  if (isAuthRoute) {
+    return <>{children}</>;
+  }
 
   return (
     <SidebarProvider>
@@ -56,8 +82,10 @@ const NavBar = ({ children }: NavBarProps) => {
 
             <NavDropdownMenu>
               <Avatar className="hover:border-primary h-8 w-8 cursor-pointer">
-                <AvatarImage src="https://i.pravatar.cc/150?u=a04258114e29026708c" />
-                <AvatarFallback>DJ</AvatarFallback>
+                <AvatarImage src={user?.image || undefined} />
+                <AvatarFallback>
+                  {getInitials(user?.name, user?.email)}
+                </AvatarFallback>
               </Avatar>
             </NavDropdownMenu>
           </nav>

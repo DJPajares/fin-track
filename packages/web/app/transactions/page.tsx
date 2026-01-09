@@ -25,6 +25,8 @@ const Transactions = () => {
   const t = useTranslations();
 
   const { types } = useAppSelector((state) => state.main);
+  const { user } = useAppSelector((state) => state.auth);
+  const userId = user?.id || '';
   const dashboardDateString = useAppSelector((state) => state.dashboard.date);
 
   const newTypes = types.map((type) => {
@@ -53,6 +55,7 @@ const Transactions = () => {
     body: {
       date: date.toISOString(),
       type: selectedType._id,
+      userId,
     },
   });
 
@@ -65,7 +68,7 @@ const Transactions = () => {
     isLoading: isApiLoading,
     error,
   } = useGetTransactionsQuery(queryParams, {
-    skip: !selectedType._id || !date || types.length === 0,
+    skip: !selectedType._id || !date || !userId || types.length === 0,
   });
 
   const transactions: TransactionProps[] = useMemo(() => {
@@ -111,10 +114,11 @@ const Transactions = () => {
         body: {
           date: date.toISOString(),
           type: selectedType._id,
+          userId,
         },
       }));
     }
-  }, [date, selectedType]);
+  }, [date, selectedType, userId]);
 
   useEffect(() => {
     if (isResetting) {

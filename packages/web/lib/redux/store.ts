@@ -1,12 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit';
 import dashboardSlice from './feature/dashboard/dashboardSlice';
 import mainSlice from './feature/main/mainSlice';
+import authSlice from './feature/auth/authSlice';
 import { transactionsApi } from './services/transactions';
 import { dashboardApi } from './services/dashboard';
 
 export const store = () => {
   return configureStore({
     reducer: {
+      auth: authSlice,
       dashboard: dashboardSlice,
       main: mainSlice,
       [transactionsApi.reducerPath]: transactionsApi.reducer,

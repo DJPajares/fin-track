@@ -1,8 +1,13 @@
 import { NextFunction, Request, Response } from 'express';
 import * as transactionPaymentService from '../../services/v1/transactionPaymentService';
 
+import type {
+  DateCurrencyProps,
+  DateRangeCurrencyProps,
+} from '../../types/v1/transactionPaymentRequestTypes';
+
 const fetchTransactionPayments = async (
-  req: Request,
+  req: Request<unknown, unknown, DateCurrencyProps>,
   res: Response,
   next: NextFunction,
 ) => {
@@ -21,7 +26,7 @@ const fetchTransactionPayments = async (
 };
 
 const fetchMonthlyByCategory = async (
-  req: Request,
+  req: Request<{ category: string }, unknown, DateRangeCurrencyProps>,
   res: Response,
   next: NextFunction,
 ) => {

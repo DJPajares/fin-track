@@ -1,4 +1,3 @@
-import { Types } from 'mongoose';
 import { CategoryModel } from '../../models/v1/categoryModel';
 import { CurrencyModel } from '../../models/v1/currencyModel';
 import { ExchangeRateModel } from '../../models/v1/exchangeRateModel';
@@ -14,24 +13,16 @@ import type {
   IncomeTransactionsProps,
   ProcessTransactionPaymentDataProps,
 } from '../../types/transactionPaymentTypes';
+import type {
+  DateCurrencyProps,
+  DateRangeCurrencyProps,
+  TransactionPaymentProps,
+} from '../../types/v1/transactionPaymentRequestTypes';
 
-type TransactionPaymentProps = {
-  date: Date;
-  categoryId?: Types.ObjectId;
-};
-
-type DateCurrencyProps = {
-  date: Date;
-  currency: string;
-};
-
-type DateRangeCurrencyProps = {
-  startDate: Date;
-  endDate: Date;
-  currency: string;
-};
-
-const getIncomeTransactions = async ({ date }: TransactionPaymentProps) => {
+const getIncomeTransactions = async ({
+  date,
+  userId,
+}: TransactionPaymentProps) => {
   const year = new Date(date).getFullYear();
   const month = new Date(date).getMonth() + 1;
 
@@ -41,6 +32,7 @@ const getIncomeTransactions = async ({ date }: TransactionPaymentProps) => {
     {
       // Find transactions within the specified date range and exclude transactions with the specified date (year-month)
       $match: {
+        userId,
         $expr: {
           $and: [
             // { $lte: [{ $year: '$startDate' }, year] },
@@ -173,6 +165,7 @@ const getIncomeTransactions = async ({ date }: TransactionPaymentProps) => {
 
 const getExpenseTransactionPayments = async ({
   date,
+  userId,
 }: TransactionPaymentProps) => {
   const year = new Date(date).getFullYear();
   const month = new Date(date).getMonth() + 1;
@@ -183,6 +176,7 @@ const getExpenseTransactionPayments = async ({
     {
       // Find transactions within the specified date range and exclude transactions with the specified date (year-month)
       $match: {
+        userId,
         $expr: {
           $and: [
             // { $lte: [{ $year: '$startDate' }, year] },
@@ -255,6 +249,7 @@ const getExpenseTransactionPayments = async ({
         pipeline: [
           {
             $match: {
+              userId,
               $expr: {
                 // $and: [
                 //   { $gte: [{ $year: '$date' }, year] },
@@ -597,12 +592,13 @@ const processTransactionPaymentData = ({
 };
 
 const fetchTransactionPayments = async (body: DateCurrencyProps) => {
-  const { date, currency } = body;
+  const { date, currency, userId } = body;
 
-  const incomeTransactions = await getIncomeTransactions({ date });
+  const incomeTransactions = await getIncomeTransactions({ date, userId });
 
   const expenseTransactionPayments = await getExpenseTransactionPayments({
     date,
+    userId,
   });
 
   const latestExchangeRates = await ExchangeRateModel.findOne().sort({
@@ -624,7 +620,7 @@ const fetchMonthlyByCategory = async (
   body: DateRangeCurrencyProps,
   categoryName?: string,
 ) => {
-  const { startDate, endDate, currency } = body;
+  const { startDate, endDate, currency, userId } = body;
 
   try {
     const startYearMonth = formatYearMonth(startDate);
@@ -657,6 +653,11 @@ const fetchMonthlyByCategory = async (
     const rates = latestExchangeRates?.rates || {};
 
     const result = await PaymentModel.aggregate([
+      {
+        $match: {
+          userId,
+        },
+      },
       {
         $facet: {
           dateRange: [
