@@ -87,17 +87,29 @@ const Charts = () => {
   }, [chartData]);
 
   const fetchData = useCallback(async () => {
+    if (!userId || !currency.name || !selectedType._id) {
+      return;
+    }
+
     setIsLoading(true);
 
-    const transactions = await fetchTransactionsDateByCategory({
-      date,
-      currency: currency.name,
-      type: selectedType._id,
-      userId,
-    });
+    try {
+      const transactions = await fetchTransactionsDateByCategory({
+        date,
+        currency: currency.name,
+        type: selectedType._id,
+        userId,
+      });
 
-    setChartData(transactions.data);
-    setIsLoading(false);
+      if (transactions?.data) {
+        setChartData(transactions.data);
+      }
+    } catch (error) {
+      console.error('Failed to fetch transactions:', error);
+      setChartData([]);
+    } finally {
+      setIsLoading(false);
+    }
   }, [date, currency, selectedType, userId]);
 
   useEffect(() => {
