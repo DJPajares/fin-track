@@ -131,7 +131,23 @@
     }
   },
   "Auth": {
-    "redirectingToLogin": "Giriş sayfasına yönlendiriliyor..."
+    "redirectingToLogin": "Giriş sayfasına yönlendiriliyor...",
+    "login": {
+      "title": "Hesabınıza giriş yapın",
+      "description": "Giriş yapmak için e-postanızı girin",
+      "email": "E-posta",
+      "emailPlaceholder": "m@example.com",
+      "password": "Şifre",
+      "submit": "Giriş Yap",
+      "loading": "Giriş yapılıyor...",
+      "signupPrompt": "Hesabınız yok mu?",
+      "signupLink": "Kaydol",
+      "error": {
+        "emailNotRegistered": "E-posta kayıtlı değil. Lütfen önce kaydolun.",
+        "incorrectPassword": "Şifre yanlış. Lütfen tekrar deneyin.",
+        "generic": "Giriş başarısız. Lütfen tekrar deneyin."
+      }
+    }
   },
   "Common": {
     "button": {

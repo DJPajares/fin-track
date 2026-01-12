@@ -131,7 +131,23 @@
     }
   },
   "Auth": {
-    "redirectingToLogin": "กำลังเปลี่ยนเส้นทางไปยังการเข้าสู่ระบบ..."
+    "redirectingToLogin": "กำลังเปลี่ยนเส้นทางไปยังการเข้าสู่ระบบ...",
+    "login": {
+      "title": "เข้าสู่ระบบบัญชีของคุณ",
+      "description": "ป้อนอีเมลของคุณเพื่อเข้าสู่ระบบ",
+      "email": "อีเมล",
+      "emailPlaceholder": "m@example.com",
+      "password": "รหัสผ่าน",
+      "submit": "เข้าสู่ระบบ",
+      "loading": "กำลังเข้าสู่ระบบ...",
+      "signupPrompt": "ไม่มีบัญชี?",
+      "signupLink": "ลงทะเบียน",
+      "error": {
+        "emailNotRegistered": "อีเมลไม่ได้ลงทะเบียน กรุณาลงทะเบียนก่อน",
+        "incorrectPassword": "รหัสผ่านไม่ถูกต้อง กรุณาลองใหม่",
+        "generic": "การเข้าสู่ระบบล้มเหลว กรุณาลองใหม่"
+      }
+    }
   },
   "Common": {
     "button": {

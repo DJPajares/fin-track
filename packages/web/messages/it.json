@@ -131,7 +131,23 @@
     }
   },
   "Auth": {
-    "redirectingToLogin": "Reindirizzamento al login..."
+    "redirectingToLogin": "Reindirizzamento al login...",
+    "login": {
+      "title": "Accedi al tuo account",
+      "description": "Inserisci la tua email per accedere",
+      "email": "Email",
+      "emailPlaceholder": "m@example.com",
+      "password": "Password",
+      "submit": "Accedi",
+      "loading": "Accesso in corso...",
+      "signupPrompt": "Non hai un account?",
+      "signupLink": "Registrati",
+      "error": {
+        "emailNotRegistered": "Email non registrata. Per favore registrati prima.",
+        "incorrectPassword": "Password errata. Riprova.",
+        "generic": "Accesso fallito. Riprova."
+      }
+    }
   },
   "Common": {
     "button": {

@@ -131,7 +131,23 @@
     }
   },
   "Auth": {
-    "redirectingToLogin": "Weiterleitung zur Anmeldung..."
+    "redirectingToLogin": "Weiterleitung zur Anmeldung...",
+    "login": {
+      "title": "Melden Sie sich an Ihrem Konto an",
+      "description": "Geben Sie Ihre E-Mail ein, um sich anzumelden",
+      "email": "E-Mail",
+      "emailPlaceholder": "m@example.com",
+      "password": "Passwort",
+      "submit": "Anmelden",
+      "loading": "Wird angemeldet...",
+      "signupPrompt": "Sie haben kein Konto?",
+      "signupLink": "Registrieren",
+      "error": {
+        "emailNotRegistered": "E-Mail nicht registriert. Bitte registrieren Sie sich zuerst.",
+        "incorrectPassword": "Falsches Passwort. Bitte versuchen Sie es erneut.",
+        "generic": "Anmeldung fehlgeschlagen. Bitte versuchen Sie es erneut."
+      }
+    }
   },
   "Common": {
     "button": {

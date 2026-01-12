@@ -131,7 +131,23 @@
     }
   },
   "Auth": {
-    "redirectingToLogin": "Redirection vers la connexion..."
+    "redirectingToLogin": "Redirection vers la connexion...",
+    "login": {
+      "title": "Connectez-vous à votre compte",
+      "description": "Entrez votre e-mail ci-dessous pour vous connecter",
+      "email": "E-mail",
+      "emailPlaceholder": "m@example.com",
+      "password": "Mot de passe",
+      "submit": "Se connecter",
+      "loading": "Connexion en cours...",
+      "signupPrompt": "Pas de compte?",
+      "signupLink": "S'inscrire",
+      "error": {
+        "emailNotRegistered": "E-mail non enregistré. Veuillez d'abord vous inscrire.",
+        "incorrectPassword": "Mot de passe incorrect. Veuillez réessayer.",
+        "generic": "Échec de la connexion. Veuillez réessayer."
+      }
+    }
   },
   "Common": {
     "button": {

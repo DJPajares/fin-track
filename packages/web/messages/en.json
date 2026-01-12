@@ -131,7 +131,23 @@
     }
   },
   "Auth": {
-    "redirectingToLogin": "Redirecting to login..."
+    "redirectingToLogin": "Redirecting to login...",
+    "login": {
+      "title": "Login to your account",
+      "description": "Enter your email below to login to your account",
+      "email": "Email",
+      "emailPlaceholder": "m@example.com",
+      "password": "Password",
+      "submit": "Login",
+      "loading": "Logging in...",
+      "signupPrompt": "Don't have an account?",
+      "signupLink": "Sign up",
+      "error": {
+        "emailNotRegistered": "Email not registered. Please sign up first.",
+        "incorrectPassword": "Incorrect password. Please try again.",
+        "generic": "Login failed. Please try again."
+      }
+    }
   },
   "Common": {
     "button": {

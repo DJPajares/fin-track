@@ -131,7 +131,23 @@
     }
   },
   "Auth": {
-    "redirectingToLogin": "正在重定向到登录..."
+    "redirectingToLogin": "正在重定向到登录...",
+    "login": {
+      "title": "登录您的账户",
+      "description": "输入您的电子邮件以登录",
+      "email": "电子邮件",
+      "emailPlaceholder": "m@example.com",
+      "password": "密码",
+      "submit": "登录",
+      "loading": "正在登录...",
+      "signupPrompt": "没有账户?",
+      "signupLink": "注册",
+      "error": {
+        "emailNotRegistered": "电子邮件未注册。请先注册。",
+        "incorrectPassword": "密码不正确。请重试。",
+        "generic": "登录失败。请重试。"
+      }
+    }
   },
   "Common": {
     "button": {

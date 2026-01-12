@@ -131,7 +131,23 @@
     }
   },
   "Auth": {
-    "redirectingToLogin": "ログインにリダイレクト中..."
+    "redirectingToLogin": "ログインにリダイレクト中...",
+    "login": {
+      "title": "アカウントにログイン",
+      "description": "ログインするにはメールアドレスを入力してください",
+      "email": "メールアドレス",
+      "emailPlaceholder": "m@example.com",
+      "password": "パスワード",
+      "submit": "ログイン",
+      "loading": "ログイン中...",
+      "signupPrompt": "アカウントをお持ちですか?",
+      "signupLink": "サインアップ",
+      "error": {
+        "emailNotRegistered": "メールアドレスが登録されていません。先にサインアップしてください。",
+        "incorrectPassword": "パスワードが正しくありません。もう一度お試しください。",
+        "generic": "ログインに失敗しました。もう一度お試しください。"
+      }
+    }
   },
   "Common": {
     "button": {

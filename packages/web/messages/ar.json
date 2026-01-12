@@ -131,7 +131,23 @@
     }
   },
   "Auth": {
-    "redirectingToLogin": "إعادة التوجيه إلى تسجيل الدخول..."
+    "redirectingToLogin": "إعادة التوجيه إلى تسجيل الدخول...",
+    "login": {
+      "title": "تسجيل الدخول إلى حسابك",
+      "description": "أدخل بريدك الإلكتروني لتسجيل الدخول",
+      "email": "البريد الإلكتروني",
+      "emailPlaceholder": "m@example.com",
+      "password": "كلمة المرور",
+      "submit": "تسجيل الدخول",
+      "loading": "جاري تسجيل الدخول...",
+      "signupPrompt": "ليس لديك حساب؟",
+      "signupLink": "التسجيل",
+      "error": {
+        "emailNotRegistered": "البريد الإلكتروني غير مسجل. يرجى التسجيل أولاً.",
+        "incorrectPassword": "كلمة المرور غير صحيحة. يرجى المحاولة مرة أخرى.",
+        "generic": "فشل تسجيل الدخول. يرجى المحاولة مرة أخرى."
+      }
+    }
   },
   "Common": {
     "button": {

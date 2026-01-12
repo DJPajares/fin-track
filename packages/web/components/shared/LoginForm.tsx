@@ -17,6 +17,7 @@ import {
 } from '@web/components/ui/field';
 import { Input } from '@web/components/ui/input';
 import { useState } from 'react';
+import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import { useDispatch } from 'react-redux';
 import { loginSuccess } from '@web/lib/redux/feature/auth/authSlice';
@@ -27,12 +28,14 @@ export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<'div'>) {
+  const t = useTranslations('Auth.login');
+  const router = useRouter();
+  const dispatch = useDispatch();
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const router = useRouter();
-  const dispatch = useDispatch();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -65,19 +68,19 @@ export function LoginForm({
         if (axiosError.response?.data?.message) {
           const message = axiosError.response.data.message;
           if (message === 'Email not registered') {
-            setError('Email not registered. Please sign up first.');
+            setError(t('error.emailNotRegistered'));
           } else if (message === 'Incorrect password') {
-            setError('Incorrect password. Please try again.');
+            setError(t('error.incorrectPassword'));
           } else {
             setError(message);
           }
         } else if (axiosError.message) {
           setError(axiosError.message);
         } else {
-          setError('Login failed. Please try again.');
+          setError(t('error.generic'));
         }
       } else {
-        setError('Login failed. Please try again.');
+        setError(t('error.generic'));
       }
     } finally {
       setIsLoading(false);
@@ -88,10 +91,8 @@ export function LoginForm({
     <div className={cn('flex flex-col gap-6', className)} {...props}>
       <Card>
         <CardHeader>
-          <CardTitle className="text-2xl">Login to your account</CardTitle>
-          <CardDescription>
-            Enter your email below to login to your account
-          </CardDescription>
+          <CardTitle className="text-2xl">{t('title')}</CardTitle>
+          <CardDescription>{t('description')}</CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit}>
@@ -102,11 +103,11 @@ export function LoginForm({
                 </div>
               )}
               <Field>
-                <FieldLabel htmlFor="email">Email</FieldLabel>
+                <FieldLabel htmlFor="email">{t('email')}</FieldLabel>
                 <Input
                   id="email"
                   type="email"
-                  placeholder="m@example.com"
+                  placeholder={t('emailPlaceholder')}
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -114,7 +115,7 @@ export function LoginForm({
               </Field>
               <Field>
                 <div className="flex items-center">
-                  <FieldLabel htmlFor="password">Password</FieldLabel>
+                  <FieldLabel htmlFor="password">{t('password')}</FieldLabel>
                 </div>
                 <Input
                   id="password"
@@ -126,12 +127,12 @@ export function LoginForm({
               </Field>
               <Field>
                 <Button type="submit" disabled={isLoading}>
-                  {isLoading ? 'Logging in...' : 'Login'}
+                  {isLoading ? t('loading') : t('submit')}
                 </Button>
                 <FieldDescription className="text-center">
-                  Don&apos;t have an account?{' '}
+                  {t('signupPrompt')}{' '}
                   <Link href="/auth/signup" className="underline">
-                    Sign up
+                    {t('signupLink')}
                   </Link>
                 </FieldDescription>
               </Field>

@@ -131,7 +131,23 @@
     }
   },
   "Auth": {
-    "redirectingToLogin": "Đang chuyển hướng đến đăng nhập..."
+    "redirectingToLogin": "Đang chuyển hướng đến đăng nhập...",
+    "login": {
+      "title": "Đăng nhập vào tài khoản của bạn",
+      "description": "Nhập email của bạn để đăng nhập",
+      "email": "Email",
+      "emailPlaceholder": "m@example.com",
+      "password": "Mật khẩu",
+      "submit": "Đăng nhập",
+      "loading": "Đang đăng nhập...",
+      "signupPrompt": "Không có tài khoản?",
+      "signupLink": "Đăng ký",
+      "error": {
+        "emailNotRegistered": "Email chưa được đăng ký. Vui lòng đăng ký trước.",
+        "incorrectPassword": "Mật khẩu không chính xác. Vui lòng thử lại.",
+        "generic": "Đăng nhập thất bại. Vui lòng thử lại."
+      }
+    }
   },
   "Common": {
     "button": {

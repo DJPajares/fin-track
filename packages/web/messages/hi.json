@@ -131,7 +131,23 @@
     }
   },
   "Auth": {
-    "redirectingToLogin": "लॉगिन पर पुनर्निर्देशित किया जा रहा है..."
+    "redirectingToLogin": "लॉगिन पर पुनर्निर्देशित किया जा रहा है...",
+    "login": {
+      "title": "अपने खाते में लॉगिन करें",
+      "description": "लॉगिन करने के लिए अपना ईमेल दर्ज करें",
+      "email": "ईमेल",
+      "emailPlaceholder": "m@example.com",
+      "password": "पासवर्ड",
+      "submit": "लॉगिन करें",
+      "loading": "लॉगिन हो रहा है...",
+      "signupPrompt": "खाता नहीं है?",
+      "signupLink": "साइन अप करें",
+      "error": {
+        "emailNotRegistered": "ईमेल पंजीकृत नहीं है। कृपया पहले साइन अप करें।",
+        "incorrectPassword": "गलत पासवर्ड। कृपया फिर से कोशिश करें।",
+        "generic": "लॉगिन विफल। कृपया फिर से कोशिश करें।"
+      }
+    }
   },
   "Common": {
     "button": {

@@ -131,7 +131,23 @@
     }
   },
   "Auth": {
-    "redirectingToLogin": "Redirigiendo al inicio de sesión..."
+    "redirectingToLogin": "Redirigiendo al inicio de sesión...",
+    "login": {
+      "title": "Inicia sesión en tu cuenta",
+      "description": "Ingresa tu correo electrónico para iniciar sesión",
+      "email": "Correo electrónico",
+      "emailPlaceholder": "m@example.com",
+      "password": "Contraseña",
+      "submit": "Iniciar sesión",
+      "loading": "Iniciando sesión...",
+      "signupPrompt": "¿No tienes cuenta?",
+      "signupLink": "Regístrate",
+      "error": {
+        "emailNotRegistered": "Correo no registrado. Por favor regístrate primero.",
+        "incorrectPassword": "Contraseña incorrecta. Por favor intenta de nuevo.",
+        "generic": "Fallo en la sesión. Por favor intenta de nuevo."
+      }
+    }
   },
   "Common": {
     "button": {

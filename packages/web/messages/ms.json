@@ -131,7 +131,23 @@
     }
   },
   "Auth": {
-    "redirectingToLogin": "Mengalihkan ke log masuk..."
+    "redirectingToLogin": "Mengalihkan ke log masuk...",
+    "login": {
+      "title": "Masuk ke akaun anda",
+      "description": "Masukkan e-mel anda untuk log masuk",
+      "email": "E-mel",
+      "emailPlaceholder": "m@example.com",
+      "password": "Kata laluan",
+      "submit": "Log Masuk",
+      "loading": "Sedang log masuk...",
+      "signupPrompt": "Tidak mempunyai akaun?",
+      "signupLink": "Daftar",
+      "error": {
+        "emailNotRegistered": "E-mel tidak didaftar. Sila daftar terlebih dahulu.",
+        "incorrectPassword": "Kata laluan tidak betul. Sila cuba lagi.",
+        "generic": "Log masuk gagal. Sila cuba lagi."
+      }
+    }
   },
   "Common": {
     "button": {

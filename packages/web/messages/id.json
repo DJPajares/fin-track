@@ -131,7 +131,23 @@
     }
   },
   "Auth": {
-    "redirectingToLogin": "Mengalihkan ke login..."
+    "redirectingToLogin": "Mengalihkan ke login...",
+    "login": {
+      "title": "Masuk ke akun Anda",
+      "description": "Masukkan email Anda untuk login",
+      "email": "Email",
+      "emailPlaceholder": "m@example.com",
+      "password": "Kata Sandi",
+      "submit": "Masuk",
+      "loading": "Sedang masuk...",
+      "signupPrompt": "Tidak punya akun?",
+      "signupLink": "Daftar",
+      "error": {
+        "emailNotRegistered": "Email belum terdaftar. Silakan daftar terlebih dahulu.",
+        "incorrectPassword": "Kata sandi salah. Silakan coba lagi.",
+        "generic": "Login gagal. Silakan coba lagi."
+      }
+    }
   },
   "Common": {
     "button": {

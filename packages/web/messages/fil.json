@@ -131,7 +131,23 @@
     }
   },
   "Auth": {
-    "redirectingToLogin": "Inililipat sa pag-login..."
+    "redirectingToLogin": "Inililipat sa pag-login...",
+    "login": {
+      "title": "Mag-login sa inyong account",
+      "description": "Ilagay ang inyong email upang mag-login",
+      "email": "Email",
+      "emailPlaceholder": "m@example.com",
+      "password": "Passcode",
+      "submit": "Mag-login",
+      "loading": "Nag-login...",
+      "signupPrompt": "Walang account?",
+      "signupLink": "Mag-sign up",
+      "error": {
+        "emailNotRegistered": "Email ay hindi naka-registro. Mangyaring mag-sign up muna.",
+        "incorrectPassword": "Maling passcode. Mangyaring subukan ulit.",
+        "generic": "Pagpasok ay nabigo. Mangyaring subukan ulit."
+      }
+    }
   },
   "Common": {
     "button": {
