@@ -130,6 +130,9 @@
       }
     }
   },
+  "Auth": {
+    "redirectingToLogin": "Weiterleitung zur Anmeldung..."
+  },
   "Common": {
     "button": {
       "ok": "OK",

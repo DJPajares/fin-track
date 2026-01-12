@@ -29,7 +29,7 @@ const rawLanguages = [
   },
   {
     value: 'zh',
-    label: '中文',
+    label: 'Chinese (Simplified)',
   },
   {
     value: 'es',

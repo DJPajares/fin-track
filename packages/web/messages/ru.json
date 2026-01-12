@@ -130,6 +130,9 @@
       }
     }
   },
+  "Auth": {
+    "redirectingToLogin": "Перенаправление на вход..."
+  },
   "Common": {
     "button": {
       "ok": "Ок",

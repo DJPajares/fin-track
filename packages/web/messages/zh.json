@@ -130,6 +130,9 @@
       }
     }
   },
+  "Auth": {
+    "redirectingToLogin": "正在重定向到登录..."
+  },
   "Common": {
     "button": {
       "ok": "确定",

@@ -130,6 +130,9 @@
       }
     }
   },
+  "Auth": {
+    "redirectingToLogin": "Inililipat sa pag-login..."
+  },
   "Common": {
     "button": {
       "ok": "Sige",

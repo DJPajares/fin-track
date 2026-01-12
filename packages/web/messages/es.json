@@ -130,6 +130,9 @@
       }
     }
   },
+  "Auth": {
+    "redirectingToLogin": "Redirigiendo al inicio de sesión..."
+  },
   "Common": {
     "button": {
       "ok": "Aceptar",

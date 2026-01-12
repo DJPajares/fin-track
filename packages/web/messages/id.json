@@ -130,6 +130,9 @@
       }
     }
   },
+  "Auth": {
+    "redirectingToLogin": "Mengalihkan ke login..."
+  },
   "Common": {
     "button": {
       "ok": "Ok",

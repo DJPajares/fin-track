@@ -130,6 +130,9 @@
       }
     }
   },
+  "Auth": {
+    "redirectingToLogin": "ログインにリダイレクト中..."
+  },
   "Common": {
     "button": {
       "ok": "了解",

@@ -130,6 +130,9 @@
       }
     }
   },
+  "Auth": {
+    "redirectingToLogin": "Đang chuyển hướng đến đăng nhập..."
+  },
   "Common": {
     "button": {
       "ok": "Đồng Ý",

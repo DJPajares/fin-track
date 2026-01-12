@@ -130,6 +130,9 @@
       }
     }
   },
+  "Auth": {
+    "redirectingToLogin": "إعادة التوجيه إلى تسجيل الدخول..."
+  },
   "Common": {
     "button": {
       "ok": "موافق",

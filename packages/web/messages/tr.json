@@ -130,6 +130,9 @@
       }
     }
   },
+  "Auth": {
+    "redirectingToLogin": "Giriş sayfasına yönlendiriliyor..."
+  },
   "Common": {
     "button": {
       "ok": "Tamam",

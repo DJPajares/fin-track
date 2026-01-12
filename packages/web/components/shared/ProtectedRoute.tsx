@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import { useDispatch, useSelector } from 'react-redux';
+import { useTranslations } from 'next-intl';
 import { RootState } from '@web/lib/redux/store';
 import {
   getSessionSuccess,
@@ -21,6 +22,7 @@ export function ProtectedRoute({ children }: ProtectedRouteProps) {
   const router = useRouter();
   const pathname = usePathname();
   const dispatch = useDispatch();
+  const t = useTranslations('Auth');
   const { isAuthenticated, isLoading } = useSelector(
     (state: RootState) => state.auth,
   );
@@ -92,7 +94,7 @@ export function ProtectedRoute({ children }: ProtectedRouteProps) {
   if (!isAuthenticated && !publicRoutes.includes(pathname || '')) {
     return (
       <div className="flex h-screen items-center justify-center">
-        <div className="text-lg">Redirecting to login...</div>
+        <div className="text-lg">{t('redirectingToLogin')}</div>
       </div>
     );
   }
