@@ -929,9 +929,6 @@ const fetchMonthlyByCategory = async (
                   },
                   in: {
                     date: '$$date.date',
-                    year: '$$date.year',
-                    month: '$$date.month',
-                    yearMonth: '$$date.yearMonth',
                     categoryId: {
                       $ifNull: [
                         { $arrayElemAt: ['$$payment._id.categoryId', 0] },
@@ -967,7 +964,7 @@ const fetchMonthlyByCategory = async (
       },
       { $unwind: '$combined' },
       { $replaceRoot: { newRoot: '$combined' } },
-      { $sort: { yearMonth: 1 } },
+      { $sort: { date: 1 } },
     ]);
 
     return result;

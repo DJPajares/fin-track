@@ -10,7 +10,6 @@ import type { QueryParamsProps, SortObjProps } from '../../types/commonTypes';
 import { CategoryModel } from '../../models/v1/categoryModel';
 import { ExchangeRateModel } from '../../models/v1/exchangeRateModel';
 import convertCurrency from '../../utilities/convertCurrency';
-import moment from 'moment';
 
 import { serializeText } from '../../utilities/serializeText';
 
@@ -617,8 +616,6 @@ const getMonthlyTypes = async (data: FetchByDateRangeProps) => {
     });
 
     return {
-      month: moment(date).format('MMMM'),
-      year: moment(date).format('YYYY'),
       date,
       ...types,
     };
@@ -646,8 +643,6 @@ const getMonthlyCategories = async (data: FetchByDateRangeProps) => {
     });
 
     return {
-      month: moment(date).format('MMMM'),
-      year: moment(date).format('YYYY'),
       date,
       ...categories,
     };
