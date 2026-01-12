@@ -389,7 +389,9 @@ const Charts = () => {
               </BarChart>
             </ChartContainer>
           ) : (
-            <Label variant="subtitle-md">{t('Common.label.noData')}</Label>
+            <div className="flex items-center justify-center">
+              <Label variant="subtitle-md">{t('Common.label.noData')}</Label>
+            </div>
           )}
         </CardContent>
       </Card>
