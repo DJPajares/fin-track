@@ -28,6 +28,7 @@ type TransactionDrawerProps = {
   isDrawerOpen: boolean;
   setIsDrawerOpen: Dispatch<SetStateAction<boolean>>;
   defaultDate?: Date;
+  defaultType?: ListProps;
   onSuccess?: () => void | Promise<void>;
 };
 
@@ -35,6 +36,7 @@ const TransactionDrawer = ({
   isDrawerOpen,
   setIsDrawerOpen,
   defaultDate,
+  defaultType,
   onSuccess,
 }: TransactionDrawerProps) => {
   const t = useTranslations();
@@ -86,9 +88,13 @@ const TransactionDrawer = ({
 
   useEffect(() => {
     if (types && types.length > 0) {
-      setType(types[0]);
+      if (defaultType && defaultType._id) {
+        setType(defaultType);
+      } else {
+        setType(types[0]);
+      }
     }
-  }, [types]);
+  }, [types, defaultType]);
 
   // Update type name when translations change
   useEffect(() => {

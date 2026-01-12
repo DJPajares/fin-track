@@ -300,6 +300,7 @@ const Transactions = () => {
         isDrawerOpen={isDrawerOpen}
         setIsDrawerOpen={setIsDrawerOpen}
         defaultDate={date}
+        defaultType={selectedType}
         onSuccess={handleTransactionSuccess}
       />
     </>
