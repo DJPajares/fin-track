@@ -268,11 +268,10 @@ export const dashboardApi = createApi({
 });
 
 export const {
-  useGetDashboardDataQuery,
-  useLazyGetDashboardDataQuery,
-  useGetTransactionPaymentsByCategoryQuery,
-  useGetTransactionsByTypeDateRangeQuery,
-  useLazyGetTransactionsByTypeDateRangeQuery,
-  useUpdateCategoryDataMutation,
-  useUpdateDashboardPaymentsMutation,
+  useGetDashboardDataQuery, // getDashboardData
+  useLazyGetDashboardDataQuery, // getDashboardData
+  useGetTransactionPaymentsByCategoryQuery, // getTransactionPaymentsByCategory
+  useGetTransactionsByTypeDateRangeQuery, // getTransactionsByTypeDateRange
+  useUpdateCategoryDataMutation, // updateCategoryData
+  useUpdateDashboardPaymentsMutation, // updateDashboardPayments
 } = dashboardApi;

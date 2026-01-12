@@ -55,13 +55,13 @@ import { dateStringFormat } from '@shared/constants/dateStringFormat';
 import { Label } from '@web/components/ui/label';
 import Loader from '@web/components/shared/Loader';
 
-type ChartDataProps = {
+type ChartDataPropsA = {
   date: string;
   expense: number;
   income: number;
 };
 
-type ChartDataPropsA = {
+type ChartDataPropsB = {
   date: string;
   incomeVsExpenses: number;
 };
@@ -95,8 +95,8 @@ const Charts = () => {
   const [selectedYear, setSelectedYear] = useState<string>(
     dashboardDate.getFullYear().toString(),
   );
-  const [chartData, setChartData] = useState<ChartDataProps[]>([]);
   const [chartDataA, setChartDataA] = useState<ChartDataPropsA[]>([]);
+  const [chartDataB, setChartDataB] = useState<ChartDataPropsB[]>([]);
   const [savingsChartData, setSavingsChartData] = useState<SavingsDataProps[]>(
     [],
   );
@@ -106,8 +106,8 @@ const Charts = () => {
 
   const { data: savingsData } = useGetTransactionPaymentsByCategoryQuery(
     {
-      startDate: new Date(parseInt(selectedYear), 1, 1),
-      endDate: new Date(parseInt(selectedYear), 11, 31),
+      startDate: moment(selectedYear, 'YYYY').startOf('year').toDate(),
+      endDate: moment(selectedYear, 'YYYY').endOf('year').toDate(),
       currency: currency.name,
       userId,
       category: 'savings',
@@ -126,18 +126,26 @@ const Charts = () => {
 
     try {
       const transactions = await fetchTransactionsDateRangeByType({
-        startDate: new Date(parseInt(selectedYear), 0, 1),
-        endDate: new Date(parseInt(selectedYear), 11, 31),
+        startDate: moment(selectedYear, 'YYYY').startOf('year').toDate(),
+        endDate: moment(selectedYear, 'YYYY').endOf('year').toDate(),
         currency: currency.name,
         userId,
       });
 
+      const updatedTransactions = transactions?.map(
+        (transaction: ChartDataPropsA) => ({
+          ...transaction,
+          month: moment(transaction.date).format('MMM'),
+          year: moment(transaction.date).format('YYYY'),
+        }),
+      );
+
       if (transactions) {
-        setChartData(transactions);
+        setChartDataA(updatedTransactions);
       }
     } catch (error) {
       console.error('Failed to fetch transactions:', error);
-      setChartData([]);
+      setChartDataA([]);
     } finally {
       setIsLoading(false);
     }
@@ -148,28 +156,34 @@ const Charts = () => {
   }, [fetchData]);
 
   useEffect(() => {
-    const data = chartData.map((data) => ({
+    const data = chartDataA.map((data) => ({
       ...data,
       incomeVsExpenses: (data.income || 0) - (data.expense || 0),
     }));
 
-    setChartDataA(data);
-  }, [chartData]);
+    setChartDataB(data);
+  }, [chartDataA]);
 
   useEffect(() => {
     setSavingsChartData(
       savingsData
-        ? savingsData.map((transaction) => {
-            const yearMonth = moment().year(transaction.year).format('YYYY');
-            const month = moment(transaction.month, 'M').format('MMM');
-            const amount = transaction.paidAmount;
+        ? savingsData
+            .filter(
+              (transaction) =>
+                moment(transaction.date).utc().year().toString() ===
+                selectedYear,
+            )
+            .map((transaction) => {
+              const yearMonth = moment(transaction.date).utc().format('YYYYMM');
+              const month = moment(transaction.date).utc().format('MMM');
+              const amount = transaction.paidAmount;
 
-            return {
-              month,
-              yearMonth,
-              amount,
-            };
-          })
+              return {
+                yearMonth,
+                month,
+                amount,
+              };
+            })
         : [],
     );
   }, [savingsData]);
@@ -270,7 +284,7 @@ const Charts = () => {
         </CardHeader>
         <CardContent className="p-1">
           <ChartContainer config={chartConfig}>
-            <BarChart data={chartDataA}>
+            <BarChart data={chartDataB}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis
                 dataKey="month"
@@ -322,7 +336,7 @@ const Charts = () => {
         </CardHeader>
         <CardContent className="p-1">
           <ChartContainer config={chartConfig}>
-            <BarChart accessibilityLayer data={chartData}>
+            <BarChart accessibilityLayer data={chartDataA}>
               <CartesianGrid vertical={false} />
               <XAxis
                 dataKey="month"
@@ -381,7 +395,7 @@ const Charts = () => {
               </BarChart>
             </ChartContainer>
           ) : (
-            <Label variant="subtitle">{t('Common.label.noData')}</Label>
+            <Label variant="subtitle-md">{t('Common.label.noData')}</Label>
           )}
         </CardContent>
       </Card>
