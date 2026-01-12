@@ -6,6 +6,10 @@ import {
   setCurrencies,
   setTypes,
 } from '../lib/redux/feature/main/mainSlice';
+import {
+  DashboardSliceProps,
+  setDashboardCurrency,
+} from '../lib/redux/feature/dashboard/dashboardSlice';
 import { useAppDispatch } from '../lib/hooks/use-redux';
 
 import fetchTypes from '../services/fetchTypes';
@@ -38,6 +42,20 @@ export const ClientDataProvider = ({ children }: ClientDataProviderProps) => {
         },
       );
       dispatch(setCurrencies(sortedCurrencies));
+
+      // Set initial dashboard currency (SGD or first available)
+      if (sortedCurrencies.length > 0) {
+        const defaultCurrency =
+          sortedCurrencies.find(
+            (currency: DashboardSliceProps['currency']) =>
+              currency.name === 'SGD',
+          ) || sortedCurrencies[0];
+        dispatch(
+          setDashboardCurrency({
+            currency: defaultCurrency,
+          }),
+        );
+      }
     };
 
     fetchData();

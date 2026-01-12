@@ -201,7 +201,8 @@ const Home = () => {
   const isLoading =
     isDashboardDataFetching ||
     isTransactionsByTypeDataFetching ||
-    isTransactionPaymentsByCategoryDataFetching;
+    isTransactionPaymentsByCategoryDataFetching ||
+    !currency.name;
 
   if (isLoading) return <Loader />;
 

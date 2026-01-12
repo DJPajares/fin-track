@@ -13,14 +13,14 @@ type DashboardCurrencyProps = {
   };
 };
 
-type DashboardSliceProps = DashboardDateProps & DashboardCurrencyProps;
+export type DashboardSliceProps = DashboardDateProps & DashboardCurrencyProps;
 
 const initialState: DashboardSliceProps = {
   date: moment(new Date()).format(dateStringFormat),
   currency: {
     _id: '',
-    name: 'SGD'
-  }
+    name: '',
+  },
 };
 
 const dashboardSlice = createSlice({
@@ -32,11 +32,11 @@ const dashboardSlice = createSlice({
     },
     setDashboardCurrency: (
       state,
-      action: PayloadAction<DashboardCurrencyProps>
+      action: PayloadAction<DashboardCurrencyProps>,
     ) => {
       state.currency = action.payload.currency;
-    }
-  }
+    },
+  },
 });
 
 export const { setDashboardDate, setDashboardCurrency } =

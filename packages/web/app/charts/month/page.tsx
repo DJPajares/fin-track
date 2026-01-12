@@ -111,7 +111,7 @@ const Charts = () => {
     } finally {
       setIsLoading(false);
     }
-  }, [date, currency, selectedType, userId]);
+  }, [date, currency.name, selectedType._id, userId]);
 
   useEffect(() => {
     if (selectedType._id && newTypes.length > 0) {
@@ -139,6 +139,8 @@ const Charts = () => {
 
     setDate(moment(newDate).toDate());
   };
+
+  if (isLoading || !currency.name) return <Loader />;
 
   const chartConfig: ChartConfig = chartData.reduce((acc, item) => {
     const isTranslated = t.has(`Common.category.${item.idSerialized}`);

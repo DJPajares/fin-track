@@ -141,7 +141,7 @@ const Charts = () => {
     } finally {
       setIsLoading(false);
     }
-  }, [selectedYear, currency, userId]);
+  }, [selectedYear, currency.name, userId]);
 
   useEffect(() => {
     fetchData();
@@ -187,6 +187,8 @@ const Charts = () => {
 
     setSelectedYear(moment(newDate).format('YYYY'));
   };
+
+  if (isLoading || !currency.name) return <Loader />;
 
   const chartConfig = {
     income: {

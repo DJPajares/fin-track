@@ -4,10 +4,7 @@ import { useEffect, useMemo, useState } from 'react';
 import moment from 'moment';
 import { useTranslations } from 'next-intl';
 import { useAppDispatch, useAppSelector } from '../../lib/hooks/use-redux';
-import {
-  setDashboardCurrency,
-  setDashboardDate,
-} from '../../lib/redux/feature/dashboard/dashboardSlice';
+import { setDashboardDate } from '../../lib/redux/feature/dashboard/dashboardSlice';
 import { useGetDashboardDataQuery } from '../../lib/redux/services/dashboard';
 import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
 
@@ -43,11 +40,11 @@ const Dashboard = () => {
   const t = useTranslations('Page.dashboard');
   const dispatch = useAppDispatch();
 
-  const { currencies } = useAppSelector((state) => state.main);
-  const { currency } = useAppSelector((state) => state.dashboard);
+  const { currency, date: dashboardDateString } = useAppSelector(
+    (state) => state.dashboard,
+  );
   const { user } = useAppSelector((state) => state.auth);
   const userId = user?.id || '';
-  const dashboardDateString = useAppSelector((state) => state.dashboard.date);
 
   const dashboardDate = useMemo(
     () => moment(dashboardDateString, dateStringFormat).toDate(),
@@ -60,11 +57,16 @@ const Dashboard = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
-  const { data, isFetching, isLoading } = useGetDashboardDataQuery({
-    date: dashboardDate,
-    currency: currency.name,
-    userId,
-  });
+  const { data, isFetching, isLoading } = useGetDashboardDataQuery(
+    {
+      date: dashboardDate,
+      currency: currency.name,
+      userId,
+    },
+    {
+      skip: !currency.name || !userId,
+    },
+  );
 
   const { dashboardCategories, balance, extra, totalAmount, totalPaidAmount } =
     useMemo(() => {
@@ -76,20 +78,6 @@ const Dashboard = () => {
         totalPaidAmount: data?.main?.totalPaidAmount ?? 0,
       };
     }, [data]);
-
-  useEffect(() => {
-    if (currencies.length > 0) {
-      const dashboardCurrency = currencies.filter(
-        (thisCurrency) => thisCurrency.name === currency.name,
-      );
-
-      dispatch(
-        setDashboardCurrency({
-          currency: dashboardCurrency[0],
-        }),
-      );
-    }
-  }, [currencies, currency, dispatch]);
 
   useEffect(() => {
     dispatch(
@@ -120,7 +108,7 @@ const Dashboard = () => {
     setDate(moment(newDate).toDate());
   };
 
-  if (isLoading) return <Loader />;
+  if (isLoading || !currency.name) return <Loader />;
 
   return (
     <>
