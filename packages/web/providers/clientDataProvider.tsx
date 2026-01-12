@@ -11,10 +11,12 @@ import {
   setDashboardCurrency,
 } from '../lib/redux/feature/dashboard/dashboardSlice';
 import { useAppDispatch } from '../lib/hooks/use-redux';
+import {
+  fetchTypes,
+  fetchCategories,
+  fetchCurrencies,
+} from '@web/services/api';
 
-import fetchTypes from '../services/fetchTypes';
-import fetchCategories from '../services/fetchCategories';
-import fetchCurrencies from '../services/fetchCurrencies';
 import { CurrencyProps } from '@web/types/Currency';
 
 type ClientDataProviderProps = {
