@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import moment from 'moment';
 import { useTranslations } from 'next-intl';
-import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
+import { ChevronLeftIcon, ChevronRightIcon, PlusIcon } from 'lucide-react';
 
 import { useAppSelector } from '../../lib/hooks/use-redux';
 import { useGetTransactionsQuery } from '../../lib/redux/services/transactions';
@@ -15,6 +15,7 @@ import { DatePicker } from '../../components/shared/DatePicker';
 import { SelectBox } from '../../components/shared/SelectBox';
 import Loader from '../../components/shared/Loader';
 import TransactionCard from './Transaction/TransactionCard';
+import TransactionDrawer from '../dashboard/Transaction/TransactionDrawer';
 
 import { dateStringFormat } from '@shared/constants/dateStringFormat';
 
@@ -61,6 +62,7 @@ const Transactions = () => {
 
   const [isResetting, setIsResetting] = useState(false);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const {
     data,
@@ -177,6 +179,10 @@ const Transactions = () => {
     setDate(moment(newDate).toDate());
   };
 
+  const handleAddTransactionButton = () => {
+    setIsDrawerOpen(true);
+  };
+
   const isLoading = isFetching && !isLoadingMore;
 
   if (isLoading) return <Loader />;
@@ -263,6 +269,22 @@ const Transactions = () => {
           </div>
         </ScrollShadow>
       </div>
+
+      {/* FLOATING ACTION BUTTON */}
+      <Button
+        size="rounded-icon"
+        className="fixed right-4 bottom-4 z-50 size-12 cursor-pointer shadow-lg sm:right-8 sm:bottom-8"
+        onClick={handleAddTransactionButton}
+      >
+        <PlusIcon className="size-6" />
+      </Button>
+
+      {/* TRANSACTION DRAWER */}
+      <TransactionDrawer
+        isDrawerOpen={isDrawerOpen}
+        setIsDrawerOpen={setIsDrawerOpen}
+        defaultDate={date}
+      />
     </>
   );
 };

@@ -27,11 +27,13 @@ import type { TransactionFormProps } from '../../../lib/schemas/transaction';
 type TransactionDrawerProps = {
   isDrawerOpen: boolean;
   setIsDrawerOpen: Dispatch<SetStateAction<boolean>>;
+  defaultDate?: Date;
 };
 
 const TransactionDrawer = ({
   isDrawerOpen,
   setIsDrawerOpen,
+  defaultDate,
 }: TransactionDrawerProps) => {
   const t = useTranslations();
 
@@ -48,10 +50,13 @@ const TransactionDrawer = ({
   });
 
   const date = useMemo(() => {
+    if (defaultDate) {
+      return defaultDate;
+    }
     const convertedDate = moment(dashboard.date, dateStringFormat).toDate();
 
     return convertedDate;
-  }, [dashboard.date]);
+  }, [dashboard.date, defaultDate]);
 
   const newTypes = types.map((type) => {
     const isTranslated = t.has(`Common.type.${type.id}`);
