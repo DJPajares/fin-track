@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@web/lib/redux/store';
@@ -9,6 +9,7 @@ import {
   getSessionFailure,
 } from '@web/lib/redux/feature/auth/authSlice';
 import { getCurrentUser, getStoredToken } from '@web/services/auth';
+import Loader from '@web/components/shared/Loader';
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
@@ -23,6 +24,7 @@ export function ProtectedRoute({ children }: ProtectedRouteProps) {
   const { isAuthenticated, isLoading } = useSelector(
     (state: RootState) => state.auth,
   );
+  const [isInitialized, setIsInitialized] = useState(false);
 
   useEffect(() => {
     const initializeAuth = async () => {
@@ -31,6 +33,7 @@ export function ProtectedRoute({ children }: ProtectedRouteProps) {
       if (!token) {
         // No token, user is not authenticated
         dispatch(getSessionFailure('No token found'));
+        setIsInitialized(true);
 
         // Redirect to login if not on a public route
         if (!publicRoutes.includes(pathname || '')) {
@@ -67,6 +70,8 @@ export function ProtectedRoute({ children }: ProtectedRouteProps) {
         if (!publicRoutes.includes(pathname || '')) {
           router.push('/auth');
         }
+      } finally {
+        setIsInitialized(true);
       }
     };
 
@@ -74,12 +79,13 @@ export function ProtectedRoute({ children }: ProtectedRouteProps) {
   }, [pathname, dispatch, router]);
 
   // Show loading state while checking authentication
-  if (isLoading) {
-    return (
-      <div className="flex h-screen items-center justify-center">
-        <div className="text-lg">Loading...</div>
-      </div>
-    );
+  if (isLoading || !isInitialized) {
+    return <Loader />;
+  }
+
+  // If authenticated and on a public route, don't render children (redirect in progress)
+  if (isAuthenticated && publicRoutes.includes(pathname || '')) {
+    return <Loader />;
   }
 
   // If not authenticated and not on a public route, don't render children

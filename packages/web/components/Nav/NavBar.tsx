@@ -81,7 +81,7 @@ const NavBar = ({ children }: NavBarProps) => {
             </Label>
 
             <NavDropdownMenu>
-              <Avatar className="hover:border-primary h-8 w-8 cursor-pointer">
+              <Avatar className="hover:border-primary cursor-pointer">
                 <AvatarImage src={user?.image || undefined} />
                 <AvatarFallback>
                   {getInitials(user?.name, user?.email)}
