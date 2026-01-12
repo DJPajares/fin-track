@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import moment from 'moment';
 import { useTranslations } from 'next-intl';
 
@@ -39,6 +39,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from '../../../components/ui/select';
+import { Label } from '../../../components/ui/label';
+import Loader from '../../../components/shared/Loader';
 
 import {
   ChevronLeftIcon,
@@ -47,13 +49,13 @@ import {
   TrendingUpIcon,
 } from 'lucide-react';
 
-import { useGetTransactionPaymentsByCategoryQuery } from '../../../lib/redux/services/dashboard';
-import { fetchTransactionsDateRangeByType } from '../../../services/fetchTransactions';
+import {
+  useGetTransactionPaymentsByCategoryQuery,
+  useGetTransactionsByTypeDateRangeQuery,
+} from '../../../lib/redux/services/dashboard';
 
 import { formatCurrency } from '@shared/utilities/formatCurrency';
 import { dateStringFormat } from '@shared/constants/dateStringFormat';
-import { Label } from '@web/components/ui/label';
-import Loader from '@web/components/shared/Loader';
 
 type ChartDataPropsA = {
   date: string;
@@ -100,60 +102,50 @@ const Charts = () => {
   const [savingsChartData, setSavingsChartData] = useState<SavingsDataProps[]>(
     [],
   );
-  const [isLoading, setIsLoading] = useState(false);
 
   const { currency } = useAppSelector((state) => state.dashboard);
 
-  const { data: savingsData } = useGetTransactionPaymentsByCategoryQuery(
-    {
-      startDate: moment(selectedYear, 'YYYY').startOf('year').toDate(),
-      endDate: moment(selectedYear, 'YYYY').endOf('year').toDate(),
-      currency: currency.name,
-      userId,
-      category: 'savings',
-    },
-    {
-      skip: !userId || !currency.name,
-    },
-  );
-
-  const fetchData = useCallback(async () => {
-    if (!userId || !currency.name) {
-      return;
-    }
-
-    setIsLoading(true);
-
-    try {
-      const transactions = await fetchTransactionsDateRangeByType({
+  const { data: transactionsData, isFetching: isTransactionsDataFetching } =
+    useGetTransactionsByTypeDateRangeQuery(
+      {
         startDate: moment(selectedYear, 'YYYY').startOf('year').toDate(),
         endDate: moment(selectedYear, 'YYYY').endOf('year').toDate(),
         currency: currency.name,
         userId,
-      });
+      },
+      {
+        skip: !userId || !currency.name,
+      },
+    );
 
-      const updatedTransactions = transactions?.map(
-        (transaction: ChartDataPropsA) => ({
-          ...transaction,
-          month: moment(transaction.date).format('MMM'),
-          year: moment(transaction.date).format('YYYY'),
-        }),
-      );
-
-      if (transactions) {
-        setChartDataA(updatedTransactions);
-      }
-    } catch (error) {
-      console.error('Failed to fetch transactions:', error);
-      setChartDataA([]);
-    } finally {
-      setIsLoading(false);
-    }
-  }, [selectedYear, currency.name, userId]);
+  const { data: savingsData, isFetching: isSavingsDataFetching } =
+    useGetTransactionPaymentsByCategoryQuery(
+      {
+        startDate: moment(selectedYear, 'YYYY').startOf('year').toDate(),
+        endDate: moment(selectedYear, 'YYYY').endOf('year').toDate(),
+        currency: currency.name,
+        userId,
+        category: 'savings',
+      },
+      {
+        skip: !userId || !currency.name,
+      },
+    );
 
   useEffect(() => {
-    fetchData();
-  }, [fetchData]);
+    const updatedTransactionsData = transactionsData?.map((transaction) => {
+      const month = moment(transaction.date).format('MMM');
+      const year = moment(transaction.date).format('YYYY');
+
+      return {
+        ...transaction,
+        month,
+        year,
+      };
+    });
+
+    if (updatedTransactionsData) setChartDataA(updatedTransactionsData);
+  }, [transactionsData]);
 
   useEffect(() => {
     const data = chartDataA.map((data) => ({
@@ -201,6 +193,8 @@ const Charts = () => {
 
     setSelectedYear(moment(newDate).format('YYYY'));
   };
+
+  const isLoading = isTransactionsDataFetching || isSavingsDataFetching;
 
   if (isLoading || !currency.name) return <Loader />;
 

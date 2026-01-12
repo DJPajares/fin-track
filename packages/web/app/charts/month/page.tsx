@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import moment from 'moment';
 import { useTranslations } from 'next-intl';
 import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
@@ -28,8 +28,7 @@ import {
 import { SelectBox } from '../../../components/shared/SelectBox';
 import Loader from '../../../components/shared/Loader';
 
-import { fetchTransactionsDateByCategory } from '../../../services/fetchTransactions';
-
+import { useGetTransactionsByCategoryQuery } from '../../../lib/redux/services/transactions';
 import { dateStringFormat } from '@shared/constants/dateStringFormat';
 import { formatCurrency } from '@shared/utilities/formatCurrency';
 
@@ -66,7 +65,27 @@ const Charts = () => {
     _id: '',
     name: '',
   });
-  const [isLoading, setIsLoading] = useState(false);
+
+  const {
+    data: transactionsByCategory,
+    isFetching: isTransactionsByCategoryFetching,
+  } = useGetTransactionsByCategoryQuery(
+    {
+      date,
+      currency: currency.name,
+      type: selectedType._id,
+      userId,
+    },
+    {
+      skip: !userId || !currency.name || !selectedType._id,
+    },
+  );
+
+  useEffect(() => {
+    if (transactionsByCategory) {
+      setChartData(transactionsByCategory);
+    }
+  }, [transactionsByCategory]);
 
   const newTypes = types.map((type) => {
     const isTranslated = t.has(`Common.type.${type.id}`);
@@ -87,32 +106,6 @@ const Charts = () => {
     return chartData.reduce((acc, curr) => acc + curr.amount, 0);
   }, [chartData]);
 
-  const fetchData = useCallback(async () => {
-    if (!userId || !currency.name || !selectedType._id) {
-      return;
-    }
-
-    setIsLoading(true);
-
-    try {
-      const transactions = await fetchTransactionsDateByCategory({
-        date,
-        currency: currency.name,
-        type: selectedType._id,
-        userId,
-      });
-
-      if (transactions?.data) {
-        setChartData(transactions.data);
-      }
-    } catch (error) {
-      console.error('Failed to fetch transactions:', error);
-      setChartData([]);
-    } finally {
-      setIsLoading(false);
-    }
-  }, [date, currency.name, selectedType._id, userId]);
-
   useEffect(() => {
     if (selectedType._id && newTypes.length > 0) {
       const updatedType = newTypes.find((t) => t._id === selectedType._id);
@@ -121,12 +114,6 @@ const Charts = () => {
       }
     }
   }, [newTypes, selectedType._id, selectedType.name]);
-
-  useEffect(() => {
-    if (selectedType._id) {
-      fetchData();
-    }
-  }, [fetchData, selectedType._id]);
 
   const handlePrevMonth = () => {
     const newDate = moment(date).add(-1, 'months');
@@ -139,6 +126,8 @@ const Charts = () => {
 
     setDate(moment(newDate).toDate());
   };
+
+  const isLoading = isTransactionsByCategoryFetching;
 
   if (isLoading || !currency.name) return <Loader />;
 
