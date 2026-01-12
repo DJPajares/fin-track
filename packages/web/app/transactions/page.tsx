@@ -69,6 +69,7 @@ const Transactions = () => {
     isFetching,
     isLoading: isApiLoading,
     error,
+    refetch,
   } = useGetTransactionsQuery(queryParams, {
     skip: !selectedType._id || !date || !userId || types.length === 0,
   });
@@ -183,6 +184,21 @@ const Transactions = () => {
     setIsDrawerOpen(true);
   };
 
+  const handleTransactionSuccess = async () => {
+    // Reset to page 1 and refetch data
+    setIsResetting(true);
+    setQueryParams((prev) => ({
+      ...prev,
+      page: 1,
+      body: {
+        date: date.toISOString(),
+        type: selectedType._id,
+        userId,
+      },
+    }));
+    await refetch();
+  };
+
   const isLoading = isFetching && !isLoadingMore;
 
   if (isLoading) return <Loader />;
@@ -284,6 +300,7 @@ const Transactions = () => {
         isDrawerOpen={isDrawerOpen}
         setIsDrawerOpen={setIsDrawerOpen}
         defaultDate={date}
+        onSuccess={handleTransactionSuccess}
       />
     </>
   );

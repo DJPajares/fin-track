@@ -28,12 +28,14 @@ type TransactionDrawerProps = {
   isDrawerOpen: boolean;
   setIsDrawerOpen: Dispatch<SetStateAction<boolean>>;
   defaultDate?: Date;
+  onSuccess?: () => void | Promise<void>;
 };
 
 const TransactionDrawer = ({
   isDrawerOpen,
   setIsDrawerOpen,
   defaultDate,
+  onSuccess,
 }: TransactionDrawerProps) => {
   const t = useTranslations();
 
@@ -111,11 +113,15 @@ const TransactionDrawer = ({
       const response = await createTransaction(postData).unwrap();
 
       if (response) {
-        await fetchDashboardData({
-          date,
-          currency: dashboard.currency.name,
-          userId,
-        });
+        if (onSuccess) {
+          await onSuccess();
+        } else {
+          await fetchDashboardData({
+            date,
+            currency: dashboard.currency.name,
+            userId,
+          });
+        }
 
         setIsDrawerOpen(false);
       }
