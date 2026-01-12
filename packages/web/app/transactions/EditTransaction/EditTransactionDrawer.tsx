@@ -18,6 +18,7 @@ import { useAppDispatch, useAppSelector } from '../../../lib/hooks/use-redux';
 import {
   useLazyGetTransactionsQuery,
   useUpdateTransactionMutation,
+  useDeleteTransactionMutation,
 } from '@web/lib/redux/services/transactions';
 import { dashboardApi } from '@web/lib/redux/services/dashboard';
 
@@ -64,11 +65,13 @@ const EditTransactionDrawer = ({
   });
 
   const [updateTransaction] = useUpdateTransactionMutation();
+  const [deleteTransaction] = useDeleteTransactionMutation();
   const [lazyGetTransactions] = useLazyGetTransactionsQuery();
 
   const formRef = useRef<HTMLFormElement>(null);
 
   const defaultValues: TransactionFormProps = {
+    id: transaction._id,
     category: transaction.categoryId,
     name: transaction.name,
     currency: transaction.currencyId,
@@ -116,6 +119,25 @@ const EditTransactionDrawer = ({
     }
   };
 
+  const handleDeleteTransaction = async (transactionId: string) => {
+    try {
+      await deleteTransaction(transactionId).unwrap();
+
+      await lazyGetTransactions({
+        page: 1,
+        limit: 8,
+        body: { type: type._id, date: date.toISOString(), userId },
+      });
+
+      // Invalidate dashboard cache to refresh data
+      dispatch(dashboardApi.util.invalidateTags(['Dashboard']));
+
+      setIsDrawerOpen(false);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const handleSubmit = async () => {
     if (formRef.current) formRef.current.requestSubmit();
   };
@@ -149,6 +171,7 @@ const EditTransactionDrawer = ({
           currencies={currencies}
           defaultValues={defaultValues}
           submitTransaction={submitTransaction}
+          deleteTransaction={handleDeleteTransaction}
           setIsTransactionDrawerOpen={setIsDrawerOpen}
           formRef={formRef}
         />

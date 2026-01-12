@@ -34,8 +34,9 @@ import { Button } from '../ui/button';
 import { Calendar } from '../ui/calendar';
 import { Label } from '../ui/label';
 import { MultiSelectBox } from '../shared/MultiSelectBox';
+import ConfirmationDialog from '../shared/ConfirmationDialog';
 
-import { CalendarIcon } from 'lucide-react';
+import { CalendarIcon, Trash2Icon } from 'lucide-react';
 
 import {
   type TransactionFormProps,
@@ -69,6 +70,7 @@ type TransactionDrawerFormProps = {
   currencies: ListProps[];
   defaultValues?: TransactionFormProps;
   submitTransaction: (data: SubmitTransactionProps) => Promise<void>;
+  deleteTransaction?: (id: string) => Promise<void>;
   setIsTransactionDrawerOpen: Dispatch<SetStateAction<boolean>>;
   formRef: RefObject<HTMLFormElement | null>;
 };
@@ -79,6 +81,7 @@ const TransactionDrawerForm = ({
   currencies,
   defaultValues,
   submitTransaction,
+  deleteTransaction,
   formRef,
 }: TransactionDrawerFormProps) => {
   const t = useTranslations();
@@ -158,6 +161,13 @@ const TransactionDrawerForm = ({
     };
 
     await submitTransaction(transactionData);
+  };
+
+  const handleDeleteTransaction = async () => {
+    const id = defaultValues?.id;
+    if (deleteTransaction && id) {
+      await deleteTransaction(id);
+    }
   };
 
   return (
@@ -478,6 +488,17 @@ const TransactionDrawerForm = ({
             />
           </div>
         </div>
+
+        {/* DELETE BUTTON */}
+        {defaultValues && deleteTransaction && (
+          <div className="mt-6 flex justify-end border-t pt-4">
+            <ConfirmationDialog handleSubmit={handleDeleteTransaction}>
+              <Button type="button" variant="destructive" size="rounded-icon">
+                <Trash2Icon className="size-4" />
+              </Button>
+            </ConfirmationDialog>
+          </div>
+        )}
       </form>
     </Form>
   );

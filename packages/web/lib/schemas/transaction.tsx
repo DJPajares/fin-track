@@ -1,6 +1,7 @@
 import { z } from 'zod';
 
 const transactionSchema = z.object({
+  id: z.string().optional(),
   category: z.string().min(1, {
     message: 'Please select a category',
   }),

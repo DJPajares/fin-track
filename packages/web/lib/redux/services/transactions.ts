@@ -64,6 +64,12 @@ export const transactionsApi = createApi({
         body: postData,
       }),
     }),
+    deleteTransaction: builder.mutation({
+      query: (transactionId) => ({
+        url: `/${transactionId}`,
+        method: 'DELETE',
+      }),
+    }),
   }),
 });
 
@@ -72,4 +78,5 @@ export const {
   useLazyGetTransactionsQuery,
   useCreateTransactionMutation,
   useUpdateTransactionMutation,
+  useDeleteTransactionMutation,
 } = transactionsApi;
