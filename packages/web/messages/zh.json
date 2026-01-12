@@ -147,6 +147,25 @@
         "incorrectPassword": "密码不正确。请重试。",
         "generic": "登录失败。请重试。"
       }
+    },
+    "signup": {
+      "title": "创建账户",
+      "description": "输入您的信息以创建您的账户",
+      "name": "名称（可选）",
+      "namePlaceholder": "John Doe",
+      "email": "电子邮件",
+      "emailPlaceholder": "m@example.com",
+      "password": "密码",
+      "confirmPassword": "确认密码",
+      "submit": "注册",
+      "loading": "正在创建账户...",
+      "loginPrompt": "已有账户?",
+      "loginLink": "登录",
+      "error": {
+        "passwordMismatch": "密码不匹配",
+        "passwordTooShort": "密码必须至少8个字符",
+        "generic": "注册失败。请重试。"
+      }
     }
   },
   "Common": {

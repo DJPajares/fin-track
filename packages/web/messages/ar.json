@@ -147,6 +147,25 @@
         "incorrectPassword": "كلمة المرور غير صحيحة. يرجى المحاولة مرة أخرى.",
         "generic": "فشل تسجيل الدخول. يرجى المحاولة مرة أخرى."
       }
+    },
+    "signup": {
+      "title": "إنشاء حساب",
+      "description": "أدخل معلوماتك لإنشاء حسابك",
+      "name": "الاسم (اختياري)",
+      "namePlaceholder": "John Doe",
+      "email": "البريد الإلكتروني",
+      "emailPlaceholder": "m@example.com",
+      "password": "كلمة المرور",
+      "confirmPassword": "تأكيد كلمة المرور",
+      "submit": "إنشاء حساب",
+      "loading": "جارٍ إنشاء الحساب...",
+      "loginPrompt": "هل لديك حساب بالفعل?",
+      "loginLink": "تسجيل الدخول",
+      "error": {
+        "passwordMismatch": "كلمات المرور غير متطابقة",
+        "passwordTooShort": "يجب أن تكون كلمة المرور 8 أحرف على الأقل",
+        "generic": "فشل التسجيل. حاول مرة أخرى."
+      }
     }
   },
   "Common": {

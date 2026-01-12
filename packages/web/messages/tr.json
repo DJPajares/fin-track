@@ -147,6 +147,25 @@
         "incorrectPassword": "Şifre yanlış. Lütfen tekrar deneyin.",
         "generic": "Giriş başarısız. Lütfen tekrar deneyin."
       }
+    },
+    "signup": {
+      "title": "Hesap oluşturun",
+      "description": "Hesap oluşturmak için bilgilerinizi girin",
+      "name": "Ad (isteğe bağlı)",
+      "namePlaceholder": "John Doe",
+      "email": "E-posta",
+      "emailPlaceholder": "m@example.com",
+      "password": "Şifre",
+      "confirmPassword": "Şifreyi onaylayın",
+      "submit": "Kaydol",
+      "loading": "Hesap oluşturuluyor...",
+      "loginPrompt": "Zaten bir hesabınız var mı?",
+      "loginLink": "Giriş yap",
+      "error": {
+        "passwordMismatch": "Şifreler eşleşmiyor",
+        "passwordTooShort": "Şifre en az 8 karakter olmalıdır",
+        "generic": "Kayıt başarısız. Lütfen tekrar deneyin."
+      }
     }
   },
   "Common": {

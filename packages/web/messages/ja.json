@@ -147,6 +147,25 @@
         "incorrectPassword": "パスワードが正しくありません。もう一度お試しください。",
         "generic": "ログインに失敗しました。もう一度お試しください。"
       }
+    },
+    "signup": {
+      "title": "アカウントを作成する",
+      "description": "情報を入力してアカウントを作成してください",
+      "name": "名前 (オプション)",
+      "namePlaceholder": "John Doe",
+      "email": "メールアドレス",
+      "emailPlaceholder": "m@example.com",
+      "password": "パスワード",
+      "confirmPassword": "パスワードを確認してください",
+      "submit": "登録する",
+      "loading": "アカウントを作成中...",
+      "loginPrompt": "すでにアカウントをお持ちですか?",
+      "loginLink": "ログイン",
+      "error": {
+        "passwordMismatch": "パスワードが一致しません",
+        "passwordTooShort": "パスワードは8文字以上にしてください",
+        "generic": "登録に失敗しました。もう一度試してください。"
+      }
     }
   },
   "Common": {

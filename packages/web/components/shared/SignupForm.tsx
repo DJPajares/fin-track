@@ -1,6 +1,11 @@
 'use client';
 
-import { cn } from '@web/lib/utils';
+import { useState } from 'react';
+import { useTranslations } from 'next-intl';
+import { useDispatch } from 'react-redux';
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
+
 import { Button } from '@web/components/ui/button';
 import {
   Card,
@@ -16,10 +21,8 @@ import {
   FieldLabel,
 } from '@web/components/ui/field';
 import { Input } from '@web/components/ui/input';
-import { useState } from 'react';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { useDispatch } from 'react-redux';
+
+import { cn } from '@web/lib/utils';
 import { loginSuccess } from '@web/lib/redux/feature/auth/authSlice';
 import { signup } from '@web/services/auth';
 
@@ -27,6 +30,7 @@ export function SignupForm({
   className,
   ...props
 }: React.ComponentProps<'div'>) {
+  const t = useTranslations('Auth.signup');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -42,13 +46,13 @@ export function SignupForm({
 
     // Validate password match
     if (password !== confirmPassword) {
-      setError('Passwords do not match');
+      setError(t('error.passwordMismatch'));
       return;
     }
 
     // Validate password length
     if (password.length < 8) {
-      setError('Password must be at least 8 characters');
+      setError(t('error.passwordTooShort'));
       return;
     }
 
@@ -81,10 +85,10 @@ export function SignupForm({
         } else if (axiosError.message) {
           setError(axiosError.message);
         } else {
-          setError('Signup failed. Please try again.');
+          setError(t('error.generic'));
         }
       } else {
-        setError('Signup failed. Please try again.');
+        setError(t('error.generic'));
       }
     } finally {
       setIsLoading(false);
@@ -95,10 +99,8 @@ export function SignupForm({
     <div className={cn('flex flex-col gap-6', className)} {...props}>
       <Card>
         <CardHeader>
-          <CardTitle className="text-2xl">Create an account</CardTitle>
-          <CardDescription>
-            Enter your information to create your account
-          </CardDescription>
+          <CardTitle className="text-2xl">{t('title')}</CardTitle>
+          <CardDescription>{t('description')}</CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit}>
@@ -109,28 +111,28 @@ export function SignupForm({
                 </div>
               )}
               <Field>
-                <FieldLabel htmlFor="name">Name (optional)</FieldLabel>
+                <FieldLabel htmlFor="name">{t('name')}</FieldLabel>
                 <Input
                   id="name"
                   type="text"
-                  placeholder="John Doe"
+                  placeholder={t('namePlaceholder')}
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                 />
               </Field>
               <Field>
-                <FieldLabel htmlFor="email">Email</FieldLabel>
+                <FieldLabel htmlFor="email">{t('email')}</FieldLabel>
                 <Input
                   id="email"
                   type="email"
-                  placeholder="m@example.com"
+                  placeholder={t('emailPlaceholder')}
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </Field>
               <Field>
-                <FieldLabel htmlFor="password">Password</FieldLabel>
+                <FieldLabel htmlFor="password">{t('password')}</FieldLabel>
                 <Input
                   id="password"
                   type="password"
@@ -139,13 +141,10 @@ export function SignupForm({
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
-                <FieldDescription>
-                  Must be at least 8 characters
-                </FieldDescription>
               </Field>
               <Field>
                 <FieldLabel htmlFor="confirmPassword">
-                  Confirm Password
+                  {t('confirmPassword')}
                 </FieldLabel>
                 <Input
                   id="confirmPassword"
@@ -157,12 +156,12 @@ export function SignupForm({
               </Field>
               <Field>
                 <Button type="submit" disabled={isLoading}>
-                  {isLoading ? 'Creating account...' : 'Sign up'}
+                  {isLoading ? t('loading') : t('submit')}
                 </Button>
                 <FieldDescription className="text-center">
-                  Already have an account?{' '}
+                  {t('loginPrompt')}{' '}
                   <Link href="/auth" className="underline">
-                    Login
+                    {t('loginLink')}
                   </Link>
                 </FieldDescription>
               </Field>

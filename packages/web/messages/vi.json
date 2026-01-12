@@ -147,6 +147,25 @@
         "incorrectPassword": "Mật khẩu không chính xác. Vui lòng thử lại.",
         "generic": "Đăng nhập thất bại. Vui lòng thử lại."
       }
+    },
+    "signup": {
+      "title": "Tạo tài khoản",
+      "description": "Nhập thông tin của bạn để tạo tài khoản",
+      "name": "Tên (tùy chọn)",
+      "namePlaceholder": "John Doe",
+      "email": "Email",
+      "emailPlaceholder": "m@example.com",
+      "password": "Mật khẩu",
+      "confirmPassword": "Xác nhận mật khẩu",
+      "submit": "Đăng ký",
+      "loading": "Đang tạo tài khoản...",
+      "loginPrompt": "Đã có tài khoản?",
+      "loginLink": "Đăng nhập",
+      "error": {
+        "passwordMismatch": "Mật khẩu không khớp",
+        "passwordTooShort": "Mật khẩu phải có ít nhất 8 ký tự",
+        "generic": "Đăng ký thất bại. Vui lòng thử lại."
+      }
     }
   },
   "Common": {

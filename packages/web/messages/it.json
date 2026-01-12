@@ -147,6 +147,25 @@
         "incorrectPassword": "Password errata. Riprova.",
         "generic": "Accesso fallito. Riprova."
       }
+    },
+    "signup": {
+      "title": "Crea un account",
+      "description": "Inserisci le tue informazioni per creare il tuo account",
+      "name": "Nome (opzionale)",
+      "namePlaceholder": "John Doe",
+      "email": "Email",
+      "emailPlaceholder": "m@example.com",
+      "password": "Password",
+      "confirmPassword": "Conferma Password",
+      "submit": "Registrati",
+      "loading": "Creazione account in corso...",
+      "loginPrompt": "Hai già un account?",
+      "loginLink": "Accedi",
+      "error": {
+        "passwordMismatch": "Le password non corrispondono",
+        "passwordTooShort": "La password deve contenere almeno 8 caratteri",
+        "generic": "Registrazione fallita. Per favore riprova."
+      }
     }
   },
   "Common": {

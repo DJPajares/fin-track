@@ -147,6 +147,25 @@
         "incorrectPassword": "Contraseña incorrecta. Por favor intenta de nuevo.",
         "generic": "Fallo en la sesión. Por favor intenta de nuevo."
       }
+    },
+    "signup": {
+      "title": "Crear una cuenta",
+      "description": "Ingresa tu información para crear tu cuenta",
+      "name": "Nombre (opcional)",
+      "namePlaceholder": "John Doe",
+      "email": "Correo electrónico",
+      "emailPlaceholder": "m@example.com",
+      "password": "Contraseña",
+      "confirmPassword": "Confirmar contraseña",
+      "submit": "Registrarse",
+      "loading": "Creando cuenta...",
+      "loginPrompt": "¿Ya tienes una cuenta?",
+      "loginLink": "Iniciar sesión",
+      "error": {
+        "passwordMismatch": "Las contraseñas no coinciden",
+        "passwordTooShort": "La contraseña debe tener al menos 8 caracteres",
+        "generic": "Error en el registro. Por favor intenta de nuevo."
+      }
     }
   },
   "Common": {

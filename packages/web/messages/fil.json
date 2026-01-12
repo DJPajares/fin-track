@@ -147,6 +147,25 @@
         "incorrectPassword": "Maling passcode. Mangyaring subukan ulit.",
         "generic": "Pagpasok ay nabigo. Mangyaring subukan ulit."
       }
+    },
+    "signup": {
+      "title": "Lumikha ng account",
+      "description": "Ilagay ang inyong impormasyon upang lumikha ng account",
+      "name": "Pangalan (opsyonal)",
+      "namePlaceholder": "John Doe",
+      "email": "Email",
+      "emailPlaceholder": "m@example.com",
+      "password": "Passcode",
+      "confirmPassword": "Kumpirmahin ang passcode",
+      "submit": "Mag-sign up",
+      "loading": "Lumilikha ng account...",
+      "loginPrompt": "Mayroon nang account?",
+      "loginLink": "Mag-login",
+      "error": {
+        "passwordMismatch": "Hindi magkatugma ang mga passcode",
+        "passwordTooShort": "Ang passcode ay dapat hindi bababa sa 8 na karakter",
+        "generic": "Ang pag-sign up ay nabigo. Mangyaring subukan ulit."
+      }
     }
   },
   "Common": {

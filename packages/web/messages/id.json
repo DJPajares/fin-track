@@ -147,6 +147,25 @@
         "incorrectPassword": "Kata sandi salah. Silakan coba lagi.",
         "generic": "Login gagal. Silakan coba lagi."
       }
+    },
+    "signup": {
+      "title": "Buat akun",
+      "description": "Masukkan informasi Anda untuk membuat akun",
+      "name": "Nama (opsional)",
+      "namePlaceholder": "John Doe",
+      "email": "Email",
+      "emailPlaceholder": "m@example.com",
+      "password": "Sandi",
+      "confirmPassword": "Konfirmasi sandi",
+      "submit": "Daftar",
+      "loading": "Membuat akun...",
+      "loginPrompt": "Sudah punya akun?",
+      "loginLink": "Masuk",
+      "error": {
+        "passwordMismatch": "Sandi tidak cocok",
+        "passwordTooShort": "Sandi harus minimal 8 karakter",
+        "generic": "Gagal mendaftar. Silakan coba lagi."
+      }
     }
   },
   "Common": {

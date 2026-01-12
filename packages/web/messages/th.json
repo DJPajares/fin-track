@@ -147,6 +147,25 @@
         "incorrectPassword": "รหัสผ่านไม่ถูกต้อง กรุณาลองใหม่",
         "generic": "การเข้าสู่ระบบล้มเหลว กรุณาลองใหม่"
       }
+    },
+    "signup": {
+      "title": "สร้างบัญชี",
+      "description": "ป้อนข้อมูลของคุณเพื่อสร้างบัญชี",
+      "name": "ชื่อ (ไม่บังคับ)",
+      "namePlaceholder": "John Doe",
+      "email": "อีเมล",
+      "emailPlaceholder": "m@example.com",
+      "password": "รหัสผ่าน",
+      "confirmPassword": "ยืนยันรหัสผ่าน",
+      "submit": "ลงทะเบียน",
+      "loading": "กำลังสร้างบัญชี...",
+      "loginPrompt": "มีบัญชีแล้วหรือ?",
+      "loginLink": "เข้าสู่ระบบ",
+      "error": {
+        "passwordMismatch": "รหัสผ่านไม่ตรงกัน",
+        "passwordTooShort": "รหัสผ่านต้องมีอย่างน้อย 8 ตัวอักษร",
+        "generic": "ลงทะเบียนล้มเหลว โปรดลองอีกครั้ง"
+      }
     }
   },
   "Common": {

@@ -147,6 +147,25 @@
         "incorrectPassword": "Kata laluan tidak betul. Sila cuba lagi.",
         "generic": "Log masuk gagal. Sila cuba lagi."
       }
+    },
+    "signup": {
+      "title": "Buat akaun",
+      "description": "Masukkan maklumat anda untuk membuat akaun",
+      "name": "Nama (pilihan)",
+      "namePlaceholder": "John Doe",
+      "email": "E-mel",
+      "emailPlaceholder": "m@example.com",
+      "password": "Kata laluan",
+      "confirmPassword": "Sahkan kata laluan",
+      "submit": "Daftar",
+      "loading": "Membuat akaun...",
+      "loginPrompt": "Sudah ada akaun?",
+      "loginLink": "Log masuk",
+      "error": {
+        "passwordMismatch": "Kata laluan tidak sama",
+        "passwordTooShort": "Kata laluan mesti sekurang-kurangnya 8 aksara",
+        "generic": "Gagal mendaftar. Sila cuba lagi."
+      }
     }
   },
   "Common": {

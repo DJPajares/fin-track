@@ -147,6 +147,25 @@
         "incorrectPassword": "गलत पासवर्ड। कृपया फिर से कोशिश करें।",
         "generic": "लॉगिन विफल। कृपया फिर से कोशिश करें।"
       }
+    },
+    "signup": {
+      "title": "खाता बनाएं",
+      "description": "अपनी जानकारी दर्ज करके खाता बनाएं",
+      "name": "नाम (वैकल्पिक)",
+      "namePlaceholder": "John Doe",
+      "email": "ईमेल",
+      "emailPlaceholder": "m@example.com",
+      "password": "पासवर्ड",
+      "confirmPassword": "पासवर्ड की पुष्टि करें",
+      "submit": "साइन अप करें",
+      "loading": "खाता बनाया जा रहा है...",
+      "loginPrompt": "पहले से खाता है?",
+      "loginLink": "लॉगिन करें",
+      "error": {
+        "passwordMismatch": "पासवर्ड मेल नहीं खा रहे हैं",
+        "passwordTooShort": "पासवर्ड कम से कम 8 वर्ण होना चाहिए",
+        "generic": "साइन अप विफल। कृपया दोबारा प्रयास करें।"
+      }
     }
   },
   "Common": {

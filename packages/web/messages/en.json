@@ -147,6 +147,25 @@
         "incorrectPassword": "Incorrect password. Please try again.",
         "generic": "Login failed. Please try again."
       }
+    },
+    "signup": {
+      "title": "Create an account",
+      "description": "Enter your information to create your account",
+      "name": "Name (optional)",
+      "namePlaceholder": "John Doe",
+      "email": "Email",
+      "emailPlaceholder": "m@example.com",
+      "password": "Password",
+      "confirmPassword": "Confirm Password",
+      "submit": "Sign up",
+      "loading": "Creating account...",
+      "loginPrompt": "Already have an account?",
+      "loginLink": "Login",
+      "error": {
+        "passwordMismatch": "Passwords do not match",
+        "passwordTooShort": "Password must be at least 8 characters",
+        "generic": "Signup failed. Please try again."
+      }
     }
   },
   "Common": {

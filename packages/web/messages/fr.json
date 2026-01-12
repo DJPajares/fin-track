@@ -147,6 +147,25 @@
         "incorrectPassword": "Mot de passe incorrect. Veuillez réessayer.",
         "generic": "Échec de la connexion. Veuillez réessayer."
       }
+    },
+    "signup": {
+      "title": "Créer un compte",
+      "description": "Entrez vos informations pour créer votre compte",
+      "name": "Nom (optionnel)",
+      "namePlaceholder": "John Doe",
+      "email": "E-mail",
+      "emailPlaceholder": "m@example.com",
+      "password": "Mot de passe",
+      "confirmPassword": "Confirmer le mot de passe",
+      "submit": "S'inscrire",
+      "loading": "Création du compte...",
+      "loginPrompt": "Vous avez déjà un compte?",
+      "loginLink": "Se connecter",
+      "error": {
+        "passwordMismatch": "Les mots de passe ne correspondent pas",
+        "passwordTooShort": "Le mot de passe doit contenir au moins 8 caractères",
+        "generic": "L'inscription a échoué. Veuillez réessayer."
+      }
     }
   },
   "Common": {
