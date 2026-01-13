@@ -51,13 +51,15 @@ const CategoryContent = ({
   const [customPaidAmount, setCustomPaidAmount] = useState(paidAmount);
   const [openDialog, setOpenDialog] = useState(false);
 
-  const paidAmountPercentage = useMemo(() => {
+  const paidAmountProgress = useMemo(() => {
     return customPaidAmount / amount;
   }, [customPaidAmount, amount]);
 
   const isCompleted = useMemo(() => {
-    return Math.floor(paidAmountPercentage) === 1;
-  }, [paidAmountPercentage]);
+    return Math.floor(paidAmountProgress) === 1;
+  }, [paidAmountProgress]);
+
+  const paidAmountPercentage = Math.floor(paidAmountProgress * 100);
 
   useEffect(() => {
     setCustomPaidAmount(paidAmount);
@@ -72,7 +74,7 @@ const CategoryContent = ({
   const handleUpdateCustomPaidAmount = () => {
     handleTransactionDataUpdate({
       _id,
-      paidAmountPercentage,
+      paidAmountPercentage: paidAmountProgress,
       isTotal,
     });
 
@@ -112,7 +114,7 @@ const CategoryContent = ({
 
                 <Progress
                   label={label}
-                  value={paidAmountPercentage * 100}
+                  value={paidAmountPercentage}
                   size="sm"
                   radius="sm"
                   showValueLabel={true}

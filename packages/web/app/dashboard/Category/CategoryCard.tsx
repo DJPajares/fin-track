@@ -25,6 +25,10 @@ const CategoryCard = ({
 
   const isTranslated = t.has(`Common.category.${id}`);
 
+  const progressPercentage = Math.floor(
+    (category.totalPaidAmount / category.totalAmount) * 100,
+  );
+
   return (
     <Card
       onClick={() => handleCardClick(category)}
@@ -68,15 +72,10 @@ const CategoryCard = ({
         </Label>
 
         <div className="flex flex-row items-center gap-2">
-          <Label variant="caption">
-            {Math.floor(
-              (category.totalPaidAmount / category.totalAmount) * 100,
-            )}
-            %
-          </Label>
+          <Label variant="caption">{progressPercentage}%</Label>
           <Progress
             aria-label="Loading..."
-            value={(category.totalPaidAmount / category.totalAmount) * 100}
+            value={progressPercentage}
             classNames={{
               indicator: 'bg-primary',
             }}

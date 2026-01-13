@@ -219,13 +219,16 @@ const Home = () => {
           >
             <CircularProgress
               classNames={{
-                svg: 'w-24 h-24 drop-shadow-md',
+                svg: 'size-24 drop-shadow-md',
                 value: 'text-2xl font-semibold',
                 indicator: 'stroke-primary',
                 label: 'text-center font-extralight tracking-wider',
               }}
               label={t('Page.home.cards.progress.title')}
-              value={dashboardData?.main?.paymentCompletionRate * 100 || 0}
+              value={
+                Math.floor(dashboardData?.main?.paymentCompletionRate * 100) ||
+                0
+              }
               strokeWidth={3}
               showValueLabel={true}
             />

@@ -157,12 +157,12 @@ const Dashboard = () => {
             <div className="flex flex-col items-center">
               <CircularProgress
                 classNames={{
-                  svg: 'w-36 sm:w-64 h-36 sm:h-64 drop-shadow-md',
+                  svg: 'size-36 sm:size-64 drop-shadow-md',
                   value: 'text-3xl sm:text-6xl font-semibold',
                   indicator: 'stroke-primary',
                 }}
                 label={t('completed')}
-                value={(totalPaidAmount / totalAmount) * 100 || 0}
+                value={Math.floor((totalPaidAmount / totalAmount) * 100) || 0}
                 strokeWidth={3}
                 showValueLabel={true}
               />
