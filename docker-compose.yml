@@ -1,0 +1,62 @@
+version: '3.9'
+
+services:
+  mongo:
+    image: mongo:6
+    container_name: fintrack-mongo
+    ports:
+      - '27017:27017'
+    volumes:
+      - mongo-data:/data/db
+    environment:
+      MONGO_INITDB_DATABASE: fintrack
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build:
+      context: ./packages/api
+      target: development
+    container_name: fintrack-api
+    working_dir: /app
+    volumes:
+      - ./packages/api/src:/app/src
+      - ./packages/api/scripts:/app/scripts
+      - /app/node_modules
+    environment:
+      NODE_ENV: development
+      DATABASE_URL: mongodb://mongo:27017/fintrack
+      PORT: 3001
+      JWT_SECRET: dev-secret-key-change-in-production
+      JWT_EXPIRES_IN: 7d
+    depends_on:
+      mongo:
+        condition: service_healthy
+    ports:
+      - '3001:3001'
+    command: npm run dev
+
+  web:
+    build:
+      context: ./packages/web
+      target: development
+    container_name: fintrack-web
+    working_dir: /app
+    volumes:
+      - ./packages/web:/app
+      - /app/node_modules
+    environment:
+      NODE_ENV: development
+      NEXT_PUBLIC_API_URL: http://localhost:3001
+      CHOKIDAR_USEPOLLING: '1'
+    depends_on:
+      - api
+    ports:
+      - '3000:3000'
+    command: npm run dev
+
+volumes:
+  mongo-data:
