@@ -54,27 +54,33 @@ const CustomDrawer = ({
             className="flex h-screen max-h-dvh flex-col"
             aria-describedby=""
           >
-            <div className="mx-auto flex min-h-0 w-full max-w-sm flex-1 flex-col">
-              <div className="flex shrink-0 flex-row items-center justify-between py-2">
-                <ConfirmationDialog handleSubmit={handleSubmit}>
-                  <Button variant="ghost">
-                    {okButtonLabel || t('Common.button.save')}
-                  </Button>
-                </ConfirmationDialog>
+            <div className="gap-4 overflow-y-scroll px-4">
+              <div className="mx-auto flex min-h-0 w-full max-w-sm flex-1 flex-col">
+                <div className="flex shrink-0 flex-row items-center py-2">
+                  <div className="flex-1">
+                    <ConfirmationDialog handleSubmit={handleSubmit}>
+                      <Button variant="ghost">
+                        {okButtonLabel || t('Common.button.save')}
+                      </Button>
+                    </ConfirmationDialog>
+                  </div>
 
-                <div className="absolute left-1/2 -translate-x-1/2 transform">
-                  <DrawerTitle>{title}</DrawerTitle>
+                  <div className="flex-1 text-center">
+                    <DrawerTitle>{title}</DrawerTitle>
+                  </div>
+
+                  <div className="flex flex-1 justify-end">
+                    <Button variant="ghost" onClick={() => onOpenChange(!open)}>
+                      {cancelButtonLabel || t('Common.button.cancel')}
+                    </Button>
+                  </div>
                 </div>
 
-                <Button variant="ghost" onClick={() => onOpenChange(!open)}>
-                  {cancelButtonLabel || t('Common.button.cancel')}
-                </Button>
-              </div>
+                <Separator className="shrink-0" />
 
-              <Separator className="shrink-0" />
-
-              <div className="min-h-0 w-full flex-1 overflow-y-auto px-2 py-6">
-                {children}
+                <div className="min-h-0 w-full flex-1 overflow-y-auto px-2 py-6">
+                  {children}
+                </div>
               </div>
             </div>
           </DrawerContent>
@@ -96,7 +102,8 @@ const CustomDrawer = ({
             </div>
 
             <DrawerFooter className="mx-auto w-full max-w-sm">
-              <ConfirmationDialog handleSubmit={handleSubmit}>
+              <ConfirmationDialog handleSubmit={() => {}}>
+                {/* <ConfirmationDialog handleSubmit={handleSubmit}> */}
                 <Button>{okButtonLabel || t('Common.button.ok')}</Button>
               </ConfirmationDialog>
 

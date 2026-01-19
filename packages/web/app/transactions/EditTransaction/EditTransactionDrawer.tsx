@@ -153,7 +153,7 @@ const EditTransactionDrawer = ({
       ).toLocaleUpperCase()}
       triggerChildren={children}
     >
-      <div className="space-y-2 px-4">
+      <>
         <div className="flex flex-row justify-end">
           <SelectBox
             variant="ghost"
@@ -175,7 +175,7 @@ const EditTransactionDrawer = ({
           setIsTransactionDrawerOpen={setIsDrawerOpen}
           formRef={formRef}
         />
-      </div>
+      </>
     </CustomDrawer>
   );
 };
