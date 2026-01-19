@@ -144,7 +144,7 @@ const TransactionDrawer = ({
       title={t('Page.dashboard.transactionDrawer.title').toLocaleUpperCase()}
       description={t('Page.dashboard.transactionDrawer.description')}
     >
-      <div className="space-y-2 px-4">
+      <>
         <div className="flex flex-row justify-end">
           <SelectBox
             variant="ghost"
@@ -165,7 +165,7 @@ const TransactionDrawer = ({
           setIsTransactionDrawerOpen={setIsDrawerOpen}
           formRef={formRef}
         />
-      </div>
+      </>
     </CustomDrawer>
   );
 };

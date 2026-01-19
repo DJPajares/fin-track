@@ -113,7 +113,7 @@ const EditCategoryDrawer = ({
       description={type?.name}
       triggerChildren={children}
     >
-      <div className="px-4">
+      <>
         <form onSubmit={form.handleSubmit(onSubmit)} ref={formRef}>
           <div className="flex flex-row items-center justify-center space-x-2 sm:space-x-4">
             <Controller
@@ -185,7 +185,7 @@ const EditCategoryDrawer = ({
             </AlertDialog>
           </div>
         </form>
-      </div>
+      </>
     </CustomDrawer>
   );
 };

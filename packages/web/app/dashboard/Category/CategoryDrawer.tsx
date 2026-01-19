@@ -217,7 +217,7 @@ const CategoryDrawer = ({
         category: drawerCategory.name.toLowerCase(),
       })}
     >
-      <div className="space-y-4 overflow-y-scroll px-4">
+      <>
         <span className="flex flex-col justify-center">
           <span className="flex flex-row items-center space-x-3">
             <Switch
@@ -283,7 +283,7 @@ const CategoryDrawer = ({
               </div>
             ))}
         </div>
-      </div>
+      </>
     </CustomDrawer>
   );
 };
