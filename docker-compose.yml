@@ -2,7 +2,7 @@ version: '3.9'
 
 services:
   mongo:
-    image: mongo:6
+    image: mongo:8.0
     container_name: fintrack-mongo
     ports:
       - '27017:27017'
@@ -18,13 +18,15 @@ services:
 
   api:
     build:
-      context: ./packages/api
+      context: .
+      dockerfile: ./packages/api/Dockerfile
       target: development
     container_name: fintrack-api
     working_dir: /app
     volumes:
       - ./packages/api/src:/app/src
       - ./packages/api/scripts:/app/scripts
+      - ./shared:/app/shared
       - /app/node_modules
     environment:
       NODE_ENV: development
@@ -41,12 +43,14 @@ services:
 
   web:
     build:
-      context: ./packages/web
+      context: .
+      dockerfile: ./packages/web/Dockerfile
       target: development
     container_name: fintrack-web
     working_dir: /app
     volumes:
       - ./packages/web:/app
+      - ./shared:/app/shared
       - /app/node_modules
     environment:
       NODE_ENV: development
