@@ -24,8 +24,8 @@ import type {
 
 type CategoryDrawerProps = {
   category: TransactionPaymentCategoryProps;
-  isDialogOpen: boolean;
-  setIsDialogOpen: Dispatch<SetStateAction<boolean>>;
+  isDrawerOpen: boolean;
+  setIsDrawerOpen: Dispatch<SetStateAction<boolean>>;
 };
 
 const initialTransactionPaymentCategory: TransactionPaymentCategoryProps = {
@@ -40,8 +40,8 @@ const initialTransactionPaymentCategory: TransactionPaymentCategoryProps = {
 
 const CategoryDrawer = ({
   category,
-  isDialogOpen,
-  setIsDialogOpen,
+  isDrawerOpen,
+  setIsDrawerOpen,
 }: CategoryDrawerProps) => {
   const t = useTranslations();
 
@@ -60,7 +60,7 @@ const CategoryDrawer = ({
 
   useEffect(() => {
     setIsLocalCurrency(false);
-  }, [isDialogOpen]);
+  }, [isDrawerOpen]);
 
   const [updateDashboardPayments] = useUpdateDashboardPaymentsMutation();
 
@@ -69,10 +69,10 @@ const CategoryDrawer = ({
   }, [drawerCategory]);
 
   useEffect(() => {
-    if (isDialogOpen) {
+    if (isDrawerOpen) {
       setDrawerCategory(category);
     }
-  }, [isDialogOpen, category]);
+  }, [isDrawerOpen, category]);
 
   const handleTransactionDataUpdate = ({
     _id,
@@ -195,7 +195,7 @@ const CategoryDrawer = ({
       await updateDashboardPayments(body).unwrap();
 
       // No need to manually call fetch, cache is automatically refreshed
-      setIsDialogOpen(false);
+      setIsDrawerOpen(false);
     } catch (error) {
       console.error('Failed to update transaction payments:', error);
     }
@@ -205,8 +205,8 @@ const CategoryDrawer = ({
 
   return (
     <CustomDrawer
-      open={isDialogOpen}
-      onOpenChange={setIsDialogOpen}
+      open={isDrawerOpen}
+      onOpenChange={setIsDrawerOpen}
       handleSubmit={createUpdatePayment}
       title={
         isTranslated
@@ -217,7 +217,7 @@ const CategoryDrawer = ({
         category: drawerCategory.name.toLowerCase(),
       })}
     >
-      <>
+      <div className="flex flex-col gap-4">
         <span className="flex flex-col justify-center">
           <span className="flex flex-row items-center space-x-3">
             <Switch
@@ -228,7 +228,7 @@ const CategoryDrawer = ({
           </span>
         </span>
 
-        <div className="py-4">
+        <div>
           <CategoryContent
             _id={drawerCategory._id}
             name={t('Page.dashboard.cardDrawer.totalLabel').toLocaleUpperCase()}
@@ -247,7 +247,7 @@ const CategoryDrawer = ({
 
         <Divider />
 
-        <div className="space-y-4 py-4">
+        <div className="flex flex-col gap-4">
           {drawerCategoryLength > 0 &&
             drawerCategory.transactions.map((transaction) => (
               <div key={transaction._id} className="space-y-2">
@@ -283,7 +283,7 @@ const CategoryDrawer = ({
               </div>
             ))}
         </div>
-      </>
+      </div>
     </CustomDrawer>
   );
 };

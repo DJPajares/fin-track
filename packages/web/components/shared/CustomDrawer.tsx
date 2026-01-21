@@ -1,4 +1,4 @@
-import { Dispatch, ReactNode, SetStateAction } from 'react';
+import { Dispatch, ReactNode, SetStateAction, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { useIsMobile } from '../../lib/hooks/use-mobile';
 
@@ -15,6 +15,7 @@ import {
 import { Button } from '../ui/button';
 import ConfirmationDialog from './ConfirmationDialog';
 import { Separator } from '../ui/separator';
+import Loader from './Loader';
 
 type CustomDrawerProps = {
   open: boolean;
@@ -41,9 +42,21 @@ const CustomDrawer = ({
 }: CustomDrawerProps) => {
   const isMobile = useIsMobile();
   const t = useTranslations();
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSubmitWithLoading = async () => {
+    setIsLoading(true);
+    try {
+      await handleSubmit();
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <>
+      {isLoading && <Loader />}
+
       {isMobile ? (
         <Drawer open={open} onOpenChange={onOpenChange}>
           {triggerChildren && (
@@ -51,37 +64,39 @@ const CustomDrawer = ({
           )}
 
           <DrawerContent
+            aria-describedby={description}
             className="flex h-screen max-h-dvh flex-col"
-            aria-describedby=""
           >
-            <div className="gap-4 overflow-y-scroll px-4">
-              <div className="mx-auto flex min-h-0 w-full max-w-sm flex-1 flex-col">
-                <div className="flex shrink-0 flex-row items-center py-2">
-                  <div className="flex-1">
-                    <ConfirmationDialog handleSubmit={handleSubmit}>
-                      <Button variant="ghost">
+            <div className="mx-auto flex min-h-0 w-full max-w-sm flex-1 flex-col">
+              <DrawerHeader className="p-2">
+                <div className="grid grid-cols-3 items-center gap-2">
+                  <div className="justify-self-start">
+                    <ConfirmationDialog handleSubmit={handleSubmitWithLoading}>
+                      <Button variant="ghost" disabled={isLoading}>
                         {okButtonLabel || t('Common.button.save')}
                       </Button>
                     </ConfirmationDialog>
                   </div>
 
-                  <div className="flex-1 text-center">
+                  <div className="justify-self-center text-center">
                     <DrawerTitle>{title}</DrawerTitle>
                   </div>
 
-                  <div className="flex flex-1 justify-end">
-                    <Button variant="ghost" onClick={() => onOpenChange(!open)}>
+                  <div className="justify-self-end">
+                    <Button
+                      variant="ghost"
+                      onClick={() => onOpenChange(!open)}
+                      disabled={isLoading}
+                    >
                       {cancelButtonLabel || t('Common.button.cancel')}
                     </Button>
                   </div>
                 </div>
+              </DrawerHeader>
 
-                <Separator className="shrink-0" />
+              <Separator className="shrink-0" />
 
-                <div className="min-h-0 w-full flex-1 overflow-y-auto px-2 py-6">
-                  {children}
-                </div>
-              </div>
+              <div className="flex-1 overflow-y-auto p-4">{children}</div>
             </div>
           </DrawerContent>
         </Drawer>
@@ -102,12 +117,14 @@ const CustomDrawer = ({
             </div>
 
             <DrawerFooter className="mx-auto w-full max-w-sm">
-              <ConfirmationDialog handleSubmit={handleSubmit}>
-                <Button>{okButtonLabel || t('Common.button.ok')}</Button>
+              <ConfirmationDialog handleSubmit={handleSubmitWithLoading}>
+                <Button disabled={isLoading}>
+                  {okButtonLabel || t('Common.button.ok')}
+                </Button>
               </ConfirmationDialog>
 
               <DrawerClose asChild>
-                <Button variant="outline">
+                <Button variant="outline" disabled={isLoading}>
                   {cancelButtonLabel || t('Common.button.cancel')}
                 </Button>
               </DrawerClose>

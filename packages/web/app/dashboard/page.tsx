@@ -54,8 +54,8 @@ const Dashboard = () => {
   const [dashboardCategoryData, setDashboardCategoryData] =
     useState<DashboardDataCategoryResult>(initialTransactionPaymentCategory);
   const [date, setDate] = useState(dashboardDate);
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [isCategoryDrawerOpen, setIsCategoryDrawerOpen] = useState(false);
+  const [isTransactionDrawerOpen, setIsTransactionDrawerOpen] = useState(false);
 
   const { data, isFetching, isLoading } = useGetDashboardDataQuery(
     {
@@ -89,11 +89,11 @@ const Dashboard = () => {
 
   const handleCardClick = (category: DashboardDataCategoryResult) => {
     setDashboardCategoryData(category);
-    setIsDialogOpen(true);
+    setIsCategoryDrawerOpen(true);
   };
 
   const handleAddTransactionButton = () => {
-    setIsDrawerOpen(true);
+    setIsTransactionDrawerOpen(true);
   };
 
   const handlePrevMonth = () => {
@@ -290,13 +290,13 @@ const Dashboard = () => {
       {/* HIDDEN DRAWERS */}
       <CategoryDrawer
         category={dashboardCategoryData}
-        isDialogOpen={isDialogOpen}
-        setIsDialogOpen={setIsDialogOpen}
+        isDrawerOpen={isCategoryDrawerOpen}
+        setIsDrawerOpen={setIsCategoryDrawerOpen}
       />
 
       <TransactionDrawer
-        isDrawerOpen={isDrawerOpen}
-        setIsDrawerOpen={setIsDrawerOpen}
+        isDrawerOpen={isTransactionDrawerOpen}
+        setIsDrawerOpen={setIsTransactionDrawerOpen}
       />
     </>
   );
