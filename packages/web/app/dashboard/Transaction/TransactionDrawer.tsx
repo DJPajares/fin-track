@@ -106,11 +106,15 @@ const TransactionDrawer = ({
   }, [newTypes, type._id, type.name]);
 
   const formRef = useRef<HTMLFormElement>(null);
+  const submissionResolverRef = useRef<(() => void) | null>(null);
 
-  const handleSubmit = async () => {
-    if (formRef.current) {
-      formRef.current.requestSubmit();
-    }
+  const handleSubmit = () => {
+    return new Promise<void>((resolve) => {
+      submissionResolverRef.current = resolve;
+      if (formRef.current) {
+        formRef.current.requestSubmit();
+      }
+    });
   };
 
   const submitTransaction = async (postData: SubmitTransactionProps) => {
@@ -132,6 +136,8 @@ const TransactionDrawer = ({
       }
     } catch (error) {
       console.error(error);
+    } finally {
+      submissionResolverRef.current?.();
     }
   };
 
