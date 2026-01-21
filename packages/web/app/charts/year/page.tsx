@@ -196,8 +196,6 @@ const Charts = () => {
 
   const isLoading = isTransactionsDataFetching || isSavingsDataFetching;
 
-  if (isLoading || !currency.name) return <Loader />;
-
   const chartConfig = {
     income: {
       label: t('Common.type.income'),
@@ -228,7 +226,7 @@ const Charts = () => {
     },
   } satisfies ChartConfig;
 
-  if (isLoading) return <Loader />;
+  if (isLoading || !currency.name) return <Loader />;
 
   return (
     <>

@@ -129,8 +129,6 @@ const Charts = () => {
 
   const isLoading = isTransactionsByCategoryFetching;
 
-  if (isLoading || !currency.name) return <Loader />;
-
   const chartConfig: ChartConfig = chartData.reduce((acc, item) => {
     const isTranslated = t.has(`Common.category.${item.idSerialized}`);
 
@@ -142,7 +140,7 @@ const Charts = () => {
     return acc;
   }, {} as ChartConfig);
 
-  if (isLoading) return <Loader />;
+  if (isLoading || !currency.name) return <Loader />;
 
   return (
     <>
