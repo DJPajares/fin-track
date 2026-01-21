@@ -1,6 +1,7 @@
 import {
   Dispatch,
   SetStateAction,
+  useCallback,
   useEffect,
   useMemo,
   useRef,
@@ -51,6 +52,8 @@ const TransactionDrawer = ({
     _id: '',
     name: '',
   });
+  const [storedFormValues, setStoredFormValues] =
+    useState<TransactionFormProps | null>(null);
 
   const date = useMemo(() => {
     if (defaultDate) {
@@ -74,16 +77,20 @@ const TransactionDrawer = ({
 
   const [fetchDashboardData] = useLazyGetDashboardDataQuery();
 
-  const defaultValues: TransactionFormProps = {
-    category: '',
-    name: '',
-    currency: dashboard.currency._id,
-    amount: 0,
-    isRecurring: false,
-    startDate: date,
-    endDate: date,
-    excludedDates: [],
-  };
+  const defaultValues: TransactionFormProps = useMemo(
+    () =>
+      storedFormValues || {
+        category: '',
+        name: '',
+        currency: dashboard.currency._id,
+        amount: 0,
+        isRecurring: false,
+        startDate: date,
+        endDate: date,
+        excludedDates: [],
+      },
+    [storedFormValues, dashboard.currency._id, date],
+  );
 
   useEffect(() => {
     if (types && types.length > 0) {
@@ -132,6 +139,7 @@ const TransactionDrawer = ({
           });
         }
 
+        setStoredFormValues(null);
         setIsDrawerOpen(false);
       }
     } catch (error) {
@@ -141,10 +149,22 @@ const TransactionDrawer = ({
     }
   };
 
+  const handleDrawerChange = (open: boolean | ((prev: boolean) => boolean)) => {
+    const nextOpen = typeof open === 'function' ? open(isDrawerOpen) : open;
+    setIsDrawerOpen(nextOpen);
+    if (!nextOpen) {
+      // Store form values will be called by the form component
+    }
+  };
+
+  const handleStoreFormValues = useCallback((values: TransactionFormProps) => {
+    setStoredFormValues(values);
+  }, []);
+
   return (
     <CustomDrawer
       open={isDrawerOpen}
-      onOpenChange={setIsDrawerOpen}
+      onOpenChange={handleDrawerChange}
       handleSubmit={handleSubmit}
       title={t('Page.dashboard.transactionDrawer.title').toLocaleUpperCase()}
       description={t('Page.dashboard.transactionDrawer.description')}
@@ -168,6 +188,7 @@ const TransactionDrawer = ({
           defaultValues={defaultValues}
           submitTransaction={submitTransaction}
           setIsTransactionDrawerOpen={setIsDrawerOpen}
+          onStoreFormValues={handleStoreFormValues}
           formRef={formRef}
         />
       </>

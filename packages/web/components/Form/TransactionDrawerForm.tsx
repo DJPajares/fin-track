@@ -72,6 +72,7 @@ type TransactionDrawerFormProps = {
   submitTransaction: (data: SubmitTransactionProps) => Promise<void>;
   deleteTransaction?: (id: string) => Promise<void>;
   setIsTransactionDrawerOpen: Dispatch<SetStateAction<boolean>>;
+  onStoreFormValues?: (values: TransactionFormProps) => void;
   formRef: RefObject<HTMLFormElement | null>;
 };
 
@@ -82,6 +83,7 @@ const TransactionDrawerForm = ({
   defaultValues,
   submitTransaction,
   deleteTransaction,
+  onStoreFormValues,
   formRef,
 }: TransactionDrawerFormProps) => {
   const t = useTranslations();
@@ -103,6 +105,25 @@ const TransactionDrawerForm = ({
   const startDate = useWatch({ control: form.control, name: 'startDate' });
   const endDate = useWatch({ control: form.control, name: 'endDate' });
   const isRecurring = useWatch({ control: form.control, name: 'isRecurring' });
+
+  // Reset form when defaultValues change
+  useEffect(() => {
+    if (defaultValues) {
+      form.reset(defaultValues);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [defaultValues]);
+
+  // Store form values before component unmounts
+  useEffect(() => {
+    return () => {
+      if (onStoreFormValues) {
+        const currentValues = form.getValues();
+        onStoreFormValues(currentValues);
+      }
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [onStoreFormValues]);
 
   useEffect(() => {
     if (startDate && endDate && endDate < startDate) {
