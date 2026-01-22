@@ -102,4 +102,69 @@ const getLatest = async () => {
   }
 };
 
-export { create, getAll, get, update, remove, getLatest };
+const updateLatest = async () => {
+  try {
+    // Fetch from external API
+    const response = await fetch(
+      'https://api.exchangerate-api.com/v4/latest/USD',
+    );
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch exchange rates from external API');
+    }
+
+    const externalData = await response.json();
+
+    // Parse the date and set time to start of day (00:00:00)
+    const apiDate = new Date(externalData.date);
+    const startOfDay = new Date(
+      apiDate.getFullYear(),
+      apiDate.getMonth(),
+      apiDate.getDate(),
+      0,
+      0,
+      0,
+      0,
+    );
+    const endOfDay = new Date(
+      apiDate.getFullYear(),
+      apiDate.getMonth(),
+      apiDate.getDate(),
+      23,
+      59,
+      59,
+      999,
+    );
+
+    // Transform to our schema format
+    const exchangeRateData = {
+      baseCurrency: externalData.base,
+      date: startOfDay,
+      rates: externalData.rates,
+    };
+
+    // Upsert: find by baseCurrency and date range (ignoring time), update or insert
+    const result = await ExchangeRateModel.findOneAndUpdate(
+      {
+        baseCurrency: exchangeRateData.baseCurrency,
+        date: {
+          $gte: startOfDay,
+          $lte: endOfDay,
+        },
+      },
+      exchangeRateData,
+      {
+        new: true, // Return the updated document
+        upsert: true, // Create if doesn't exist
+      },
+    );
+
+    return result;
+  } catch (error) {
+    throw new Error(
+      `Error updating latest exchange rates: ${error instanceof Error ? error.message : 'Unknown error'}`,
+    );
+  }
+};
+
+export { create, getAll, get, update, remove, getLatest, updateLatest };
