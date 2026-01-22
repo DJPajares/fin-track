@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl';
 import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { useTheme } from 'next-themes';
 
 import { Button } from '@web/components/ui/button';
 import {
@@ -25,6 +26,8 @@ import { Input } from '@web/components/ui/input';
 import { cn } from '@web/lib/utils';
 import { loginSuccess } from '@web/lib/redux/feature/auth/authSlice';
 import { login as loginAPI } from '@web/services/auth';
+// import { setUserLocale } from '@web/services/locale';
+// import { setDashboardCurrency } from '@web/lib/redux/feature/dashboard/dashboardSlice';
 
 export function LoginForm({
   className,
@@ -33,6 +36,8 @@ export function LoginForm({
   const t = useTranslations('Auth.login');
   const router = useRouter();
   const dispatch = useDispatch();
+  // const { setTheme } = useTheme();
+  const { theme, setTheme } = useTheme();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -45,18 +50,35 @@ export function LoginForm({
     setIsLoading(true);
 
     try {
-      const result = await loginAPI({ email, password });
+      const { user, token } = await loginAPI({ email, password });
 
       // Update Redux state
       dispatch(
         loginSuccess({
-          user: result.user,
+          user,
           session: {
-            token: result.token,
+            token,
             expiresAt: Date.now() + 7 * 24 * 60 * 60 * 1000, // 7 days
           },
         }),
       );
+
+      // Update user settings (if present)
+      if (user.settings) {
+        // const { language, currency } = user.settings;
+
+        // if (language) setUserLocale(language);
+
+        // if (currency) {
+        //   dispatch(setDashboardCurrency({ currency }));
+        // }
+
+        if (user.settings?.darkMode !== undefined) {
+          setTheme(user.settings.darkMode ? 'dark' : 'light');
+        } else if (theme) {
+          setTheme(theme);
+        }
+      }
 
       // Redirect to dashboard
       router.push('/dashboard');

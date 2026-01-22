@@ -1,30 +1,30 @@
 import axios from 'axios';
+import type { AuthUser } from '@shared/types/Auth';
 
 const BASE_URL =
   process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3001/api/v1';
 
-export interface LoginCredentials {
+export type LoginCredentials = {
   email: string;
   password: string;
-}
+};
 
-export interface SignupCredentials {
+export type SignupCredentials = {
   email: string;
   password: string;
   name?: string;
-}
+};
 
-export interface AuthUser {
-  id: string;
-  email?: string | null;
-  name?: string | null;
-  image?: string | null;
-}
-
-export interface AuthResponse {
+export type AuthResponse = {
   user: AuthUser;
   token: string;
-}
+};
+
+export type UserSettings = {
+  language?: string;
+  currency?: string;
+  darkMode?: boolean;
+};
 
 /**
  * Login with email and password
@@ -121,4 +121,12 @@ export const getStoredToken = (): string | null => {
  */
 export const isAuthenticated = (): boolean => {
   return !!getStoredToken();
+};
+
+export const updateUserSettings = async (settings: UserSettings) => {
+  const token = localStorage.getItem('auth_token');
+  const { data } = await axios.put(`${BASE_URL}/auth/me/settings`, settings, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  return data?.data?.user;
 };

@@ -32,6 +32,7 @@ import { Switch } from '../ui/switch';
 import packageInfo from '../../package.json';
 import { languages, LocaleProps } from '../../i18n/config';
 import { setUserLocale } from '../../services/locale';
+import { updateUserSettings } from '../../services/auth';
 
 import { useLocale, useTranslations } from 'next-intl';
 import { useAppSelector } from '../../lib/hooks/use-redux';
@@ -58,24 +59,6 @@ const NavDropdownMenu = ({ children }: NavDropdownMenuProps) => {
   const { currencies } = useAppSelector((state) => state.main);
   const dashboardCurrency = useAppSelector((state) => state.dashboard.currency);
 
-  const handleLanguageChange = (language: LocaleProps) => {
-    setUserLocale(language);
-  };
-
-  const handleCurrencyChange = (currency: ListProps) => {
-    // store in redux state
-    dispatch(
-      setDashboardCurrency({
-        currency,
-      }),
-    );
-  };
-
-  const handleDarkModeToggle = () => {
-    setTheme(isDarkMode ? 'light' : 'dark');
-    setIsDarkMode(!isDarkMode);
-  };
-
   const { user } = useAppSelector((state) => state.auth);
 
   const handleLogout = async () => {
@@ -93,6 +76,22 @@ const NavDropdownMenu = ({ children }: NavDropdownMenuProps) => {
       dispatch(logoutSuccess());
       router.push('/auth');
     }
+  };
+
+  const handleLanguageChange = (language: LocaleProps) => {
+    setUserLocale(language);
+    updateUserSettings({ language }).catch(() => {});
+  };
+
+  const handleCurrencyChange = (currency: ListProps) => {
+    dispatch(setDashboardCurrency({ currency }));
+    updateUserSettings({ currency: currency.name }).catch(() => {});
+  };
+
+  const handleDarkModeToggle = () => {
+    setTheme(isDarkMode ? 'light' : 'dark');
+    setIsDarkMode(!isDarkMode);
+    updateUserSettings({ darkMode: !isDarkMode }).catch(() => {});
   };
 
   return (

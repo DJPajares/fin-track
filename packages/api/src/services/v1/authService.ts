@@ -108,6 +108,7 @@ const login = async (credentials: LoginCredentials): Promise<AuthResponse> => {
     email: string;
     name?: string;
     image?: string;
+    settings?: Record<string, unknown>;
     comparePassword: (password: string) => Promise<boolean>;
   };
 
@@ -130,6 +131,7 @@ const login = async (credentials: LoginCredentials): Promise<AuthResponse> => {
       email: user.email,
       name: user.name,
       image: user.image,
+      settings: user.settings,
     },
     token,
   };
@@ -150,7 +152,51 @@ const getUserById = async (userId: string) => {
     email: user.email,
     name: user.name,
     image: user.image,
+    settings: user.settings,
   };
 };
 
-export { signup, login, generateToken, verifyToken, getUserById };
+const updateSettings = async ({
+  userId,
+  language,
+  currency,
+  darkMode,
+}: {
+  userId: string;
+  language?: string;
+  currency?: string;
+  darkMode?: boolean;
+}) => {
+  const user = await UserModel.findByIdAndUpdate(
+    userId,
+    {
+      $set: {
+        'settings.language': language,
+        'settings.currency': currency,
+        'settings.darkMode': darkMode,
+      },
+    },
+    { new: true },
+  );
+
+  if (!user) {
+    throw new Error('User not found');
+  }
+
+  return {
+    id: user?._id.toString(),
+    email: user?.email,
+    name: user?.name,
+    image: user?.image,
+    settings: user?.settings,
+  };
+};
+
+export {
+  signup,
+  login,
+  generateToken,
+  verifyToken,
+  getUserById,
+  updateSettings,
+};
