@@ -12,8 +12,8 @@ import {
 } from '../ui/card';
 import { X, Download, Wifi, WifiOff, RefreshCw } from 'lucide-react';
 import { usePWA } from '../../lib/hooks/use-pwa';
+import { STORAGE_KEYS } from '@web/constants/storageKeys';
 
-const PWA_PROMPT_DISMISSED_KEY = 'pwa-prompt-dismissed';
 const PWA_PROMPT_DELAY = 3000; // 3 seconds delay before showing
 const PWA_PROMPT_AUTO_DISMISS = 10000; // 10 seconds auto-dismiss
 
@@ -33,7 +33,7 @@ export default function PWAInstallPrompt() {
 
   // Check localStorage on mount
   useEffect(() => {
-    const dismissed = localStorage.getItem(PWA_PROMPT_DISMISSED_KEY);
+    const dismissed = localStorage.getItem(STORAGE_KEYS.PWA_PROMPT_DISMISSED);
     if (dismissed === 'true') {
       setIsDismissed(true);
     }
@@ -82,7 +82,7 @@ export default function PWAInstallPrompt() {
     setIsDismissed(true);
     setShouldShow(false);
     // Store dismiss state in localStorage
-    localStorage.setItem(PWA_PROMPT_DISMISSED_KEY, 'true');
+    localStorage.setItem(STORAGE_KEYS.PWA_PROMPT_DISMISSED, 'true');
   };
 
   const handleUpdate = () => {

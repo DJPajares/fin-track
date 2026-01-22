@@ -5,6 +5,7 @@ import { useRouter, usePathname } from 'next/navigation';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslations } from 'next-intl';
 import { RootState } from '@web/lib/redux/store';
+import { STORAGE_KEYS } from '@web/constants/storageKeys';
 import {
   getSessionSuccess,
   getSessionFailure,
@@ -67,7 +68,7 @@ export function ProtectedRoute({ children }: ProtectedRouteProps) {
         dispatch(getSessionFailure('Session expired'));
 
         // Token is invalid, clear it and redirect to login
-        localStorage.removeItem('auth_token');
+        localStorage.removeItem(STORAGE_KEYS.AUTH_TOKEN);
 
         if (!publicRoutes.includes(pathname || '')) {
           router.push('/auth');

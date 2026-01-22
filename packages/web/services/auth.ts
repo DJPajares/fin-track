@@ -1,5 +1,6 @@
 import axios from 'axios';
 import type { AuthUser } from '@shared/types/Auth';
+import { STORAGE_KEYS } from '@web/constants/storageKeys';
 
 const BASE_URL =
   process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3001/api/v1';
@@ -64,7 +65,7 @@ export const signup = async (
  * Logout user
  */
 export const logout = async (): Promise<void> => {
-  const token = localStorage.getItem('auth_token');
+  const token = localStorage.getItem(STORAGE_KEYS.AUTH_TOKEN);
 
   if (token) {
     try {
@@ -83,14 +84,14 @@ export const logout = async (): Promise<void> => {
   }
 
   // Clear token from localStorage
-  localStorage.removeItem('auth_token');
+  localStorage.removeItem(STORAGE_KEYS.AUTH_TOKEN);
 };
 
 /**
  * Get current user
  */
 export const getCurrentUser = async (): Promise<AuthUser> => {
-  const token = localStorage.getItem('auth_token');
+  const token = localStorage.getItem(STORAGE_KEYS.AUTH_TOKEN);
 
   if (!token) {
     throw new Error('No token found');
@@ -113,7 +114,7 @@ export const getCurrentUser = async (): Promise<AuthUser> => {
  * Get stored token
  */
 export const getStoredToken = (): string | null => {
-  return localStorage.getItem('auth_token');
+  return localStorage.getItem(STORAGE_KEYS.AUTH_TOKEN);
 };
 
 /**
@@ -124,7 +125,7 @@ export const isAuthenticated = (): boolean => {
 };
 
 export const updateUserSettings = async (settings: UserSettings) => {
-  const token = localStorage.getItem('auth_token');
+  const token = localStorage.getItem(STORAGE_KEYS.AUTH_TOKEN);
   const { data } = await axios.put(`${BASE_URL}/auth/me/settings`, settings, {
     headers: { Authorization: `Bearer ${token}` },
   });
