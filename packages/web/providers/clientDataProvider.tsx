@@ -18,6 +18,7 @@ import {
 } from '@web/services/api';
 
 import { CurrencyProps } from '@web/types/Currency';
+import { STORAGE_KEYS } from '@web/constants/storageKeys';
 
 type ClientDataProviderProps = {
   children: ReactNode;
@@ -48,23 +49,54 @@ export const ClientDataProvider = ({ children }: ClientDataProviderProps) => {
       dispatch(setCurrencies(sortedCurrencies));
 
       // Set initial dashboard currency (if not set)
+      // Currency is set during login from user settings
       if (sortedCurrencies.length > 0 && !currency.name) {
-        const defaultCurrency =
-          sortedCurrencies.find(
-            (currency: DashboardSliceProps['currency']) =>
-              currency.name === 'SGD',
-          ) || sortedCurrencies[0];
+        // Try to load from localStorage first
+        const storedCurrency = localStorage.getItem(STORAGE_KEYS.USER_CURRENCY);
+        let defaultCurrency: CurrencyProps | undefined;
 
-        dispatch(
-          setDashboardCurrency({
-            currency: defaultCurrency,
-          }),
-        );
+        if (storedCurrency) {
+          try {
+            const parsed = JSON.parse(storedCurrency);
+            defaultCurrency = sortedCurrencies.find(
+              (c: CurrencyProps) => c.name === parsed.name,
+            );
+          } catch {
+            // Invalid JSON, ignore
+          }
+        }
+
+        // Fallback to SGD or first currency if not in localStorage
+        if (!defaultCurrency) {
+          defaultCurrency =
+            sortedCurrencies.find(
+              (currency: DashboardSliceProps['currency']) =>
+                currency.name === 'SGD',
+            ) || sortedCurrencies[0];
+        }
+
+        if (defaultCurrency) {
+          dispatch(
+            setDashboardCurrency({
+              currency: defaultCurrency,
+            }),
+          );
+        }
       }
     };
 
     fetchData();
-  }, [dispatch]);
+  }, [dispatch, currency.name]);
+
+  // Automatically sync currency to localStorage whenever it changes
+  useEffect(() => {
+    if (currency.name) {
+      localStorage.setItem(
+        STORAGE_KEYS.USER_CURRENCY,
+        JSON.stringify(currency),
+      );
+    }
+  }, [currency]);
 
   return <>{children}</>;
 };
