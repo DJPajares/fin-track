@@ -102,7 +102,9 @@ const CustomDrawer = ({
 
               <Separator className="shrink-0" />
 
-              <div className="flex-1 overflow-y-auto p-4">{children}</div>
+              <div className="flex-1 overflow-y-auto p-4">
+                <div className="mx-auto w-full max-w-sm">{children}</div>
+              </div>
             </div>
           </DrawerContent>
         </Drawer>
