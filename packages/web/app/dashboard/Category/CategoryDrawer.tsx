@@ -218,39 +218,35 @@ const CategoryDrawer = ({
       })}
     >
       <div className="flex flex-col gap-4">
-        <span className="flex flex-col justify-center">
-          <span className="flex flex-row items-center space-x-3">
-            <Switch
-              checked={isLocalCurrency}
-              onChange={() => setIsLocalCurrency(!isLocalCurrency)}
-            />
-            <Label>{t('Page.dashboard.cardDrawer.showLocalCurrency')}</Label>
-          </span>
+        <span className="flex flex-row items-center gap-3">
+          <Switch
+            checked={isLocalCurrency}
+            onChange={() => setIsLocalCurrency(!isLocalCurrency)}
+          />
+          <Label>{t('Page.dashboard.cardDrawer.showLocalCurrency')}</Label>
         </span>
 
-        <div>
-          <CategoryContent
-            _id={drawerCategory._id}
-            name={t('Page.dashboard.cardDrawer.totalLabel').toLocaleUpperCase()}
-            label={formatCurrency({
-              value: drawerCategory.totalAmount,
-              currency: currency.name,
-              decimal: 2,
-            })}
-            amount={drawerCategory.totalAmount}
-            paidAmount={drawerCategory.totalPaidAmount}
-            currency={currency}
-            handleTransactionDataUpdate={handleTransactionDataUpdate}
-            isTotal
-          />
-        </div>
+        <CategoryContent
+          _id={drawerCategory._id}
+          name={t('Page.dashboard.cardDrawer.totalLabel').toLocaleUpperCase()}
+          label={formatCurrency({
+            value: drawerCategory.totalAmount,
+            currency: currency.name,
+            decimal: 2,
+          })}
+          amount={drawerCategory.totalAmount}
+          paidAmount={drawerCategory.totalPaidAmount}
+          currency={currency}
+          handleTransactionDataUpdate={handleTransactionDataUpdate}
+          isTotal
+        />
 
         <Divider />
 
         <div className="flex flex-col gap-4">
           {drawerCategoryLength > 0 &&
             drawerCategory.transactions.map((transaction) => (
-              <div key={transaction._id} className="space-y-2">
+              <div key={transaction._id}>
                 <CategoryContent
                   _id={transaction._id}
                   name={transaction.name}

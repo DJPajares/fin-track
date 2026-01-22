@@ -67,7 +67,7 @@ const CustomDrawer = ({
             aria-describedby=""
             className="flex h-screen max-h-dvh flex-col"
           >
-            <div className="mx-auto flex min-h-0 w-full max-w-sm flex-1 flex-col">
+            <div className="mx-auto flex min-h-0 w-full flex-1 flex-col">
               <DrawerHeader className="p-2">
                 <div className="grid grid-cols-3 items-center gap-2">
                   <div className="justify-self-start">
@@ -113,7 +113,7 @@ const CustomDrawer = ({
 
               <Separator />
 
-              <div className="flex-1 overflow-y-auto py-4">{children}</div>
+              <div className="flex-1 overflow-y-auto p-4">{children}</div>
             </div>
 
             <DrawerFooter className="mx-auto w-full max-w-sm">
