@@ -1,4 +1,4 @@
-const rawLanguages = [
+export const languages = [
   {
     value: 'en',
     label: 'English',
@@ -68,15 +68,3 @@ const rawLanguages = [
     label: 'Bahasa Melayu',
   },
 ] as const;
-
-export const languages = [...rawLanguages].sort((a, b) => {
-  if (a.value === 'en') return -1;
-  if (b.value === 'en') return 1;
-  return a.label.localeCompare(b.label);
-});
-
-export const locales = rawLanguages.map((language) => language.value);
-
-export type LocaleProps = (typeof locales)[number];
-
-export const defaultLocale: LocaleProps = 'en';

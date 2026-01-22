@@ -1,6 +1,6 @@
 import { Response, NextFunction } from 'express';
 import { verifyToken, getUserById } from '../services/v1/authService';
-import { RequestWithUser } from '../types/userTypes';
+import { AuthUser, RequestWithUser } from '../types/userTypes';
 
 /**
  * Middleware to authenticate requests using JWT token
@@ -30,10 +30,27 @@ export const authenticateToken = async (
     const decoded = verifyToken(token);
 
     // Get user details
-    const user = await getUserById(decoded.id);
+    const dbUser = await getUserById(decoded.id);
+
+    if (!dbUser) {
+      const error = new Error('User not found') as Error & {
+        statusCode?: number;
+      };
+      error.statusCode = 401;
+      throw error;
+    }
+
+    const authUser: AuthUser = {
+      id: dbUser.id,
+      email: dbUser.email ?? null,
+      name: dbUser.name ?? null,
+      image: dbUser.image ?? null,
+      // convert null settings to undefined and omit extra fields
+      settings: dbUser.settings ?? undefined,
+    };
 
     // Attach user to request
-    req.user = user;
+    req.user = authUser;
 
     next();
   } catch (error) {

@@ -10,7 +10,7 @@ import {
   DashboardSliceProps,
   setDashboardCurrency,
 } from '../lib/redux/feature/dashboard/dashboardSlice';
-import { useAppDispatch } from '../lib/hooks/use-redux';
+import { useAppDispatch, useAppSelector } from '../lib/hooks/use-redux';
 import {
   fetchTypes,
   fetchCategories,
@@ -25,6 +25,8 @@ type ClientDataProviderProps = {
 
 export const ClientDataProvider = ({ children }: ClientDataProviderProps) => {
   const dispatch = useAppDispatch();
+
+  const { currency } = useAppSelector((state) => state.dashboard);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -45,13 +47,14 @@ export const ClientDataProvider = ({ children }: ClientDataProviderProps) => {
       );
       dispatch(setCurrencies(sortedCurrencies));
 
-      // Set initial dashboard currency (SGD or first available)
-      if (sortedCurrencies.length > 0) {
+      // Set initial dashboard currency (if not set)
+      if (sortedCurrencies.length > 0 && !currency.name) {
         const defaultCurrency =
           sortedCurrencies.find(
             (currency: DashboardSliceProps['currency']) =>
               currency.name === 'SGD',
           ) || sortedCurrencies[0];
+
         dispatch(
           setDashboardCurrency({
             currency: defaultCurrency,

@@ -3,6 +3,7 @@ import {
   signup as signupService,
   login as loginService,
   getUserById,
+  updateSettings as updateSettingsService,
 } from '../../services/v1/authService';
 import {
   LoginCredentials,
@@ -108,4 +109,36 @@ const logout = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-export { signup, login, me, logout };
+const updateSettings = async (
+  req: RequestWithUser,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const userId = req.user.id;
+
+    const { language, currency, darkMode } = req.body as {
+      language?: string;
+      currency?: string;
+      darkMode?: boolean;
+    };
+
+    const user = await updateSettingsService({
+      userId,
+      language,
+      currency,
+      darkMode,
+    });
+
+    res.status(200).json({
+      success: true,
+      data: {
+        user,
+      },
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export { signup, login, me, logout, updateSettings };

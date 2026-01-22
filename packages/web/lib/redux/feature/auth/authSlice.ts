@@ -1,12 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-export interface AuthUser {
-  id: string;
-  email?: string | null;
-  name?: string | null;
-  image?: string | null;
-}
-
+import { AuthUser } from 'shared/types/Auth';
 export interface AuthSession {
   token: string;
   expiresAt: number;

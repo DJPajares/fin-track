@@ -18,6 +18,11 @@ const userSchema = new Schema(
     },
     name: { type: String },
     image: { type: String },
+    settings: {
+      language: { type: String },
+      currency: { type: String },
+      darkMode: { type: Boolean },
+    },
   },
   { timestamps: true },
 );

@@ -1,11 +1,5 @@
 import { Request } from 'express';
-
-type AuthUser = {
-  id: string; // MongoDB ObjectId as string
-  email?: string | null;
-  name?: string | null;
-  image?: string | null;
-};
+import type { AuthUser } from '../../../../shared/types/Auth';
 
 type RequestWithUser = Request & { user: AuthUser };
 
