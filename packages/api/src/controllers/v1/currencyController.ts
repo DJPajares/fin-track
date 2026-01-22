@@ -57,6 +57,21 @@ const get = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
+const getByName = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { name } = req.params;
+
+    const data = await currencyService.getByName(name);
+
+    res.status(200).json({
+      success: true,
+      data,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 const update = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const id = new Types.ObjectId(req.params.id);
@@ -87,4 +102,4 @@ const remove = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-export { create, createMany, getAll, get, update, remove };
+export { create, createMany, getAll, get, getByName, update, remove };

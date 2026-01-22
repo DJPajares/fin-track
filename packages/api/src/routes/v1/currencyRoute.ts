@@ -4,6 +4,7 @@ import {
   createMany,
   getAll,
   get,
+  getByName,
   update,
   remove,
 } from '../../controllers/v1/currencyController';
@@ -15,6 +16,8 @@ router.post('/', create);
 router.post('/batch-create', createMany);
 
 router.get('/', getAll);
+
+router.get('/by-name/:name', getByName);
 
 router.get('/:id', get);
 

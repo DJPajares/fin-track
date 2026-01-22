@@ -50,6 +50,10 @@ const get = async (_id: CurrencyProps['_id']) => {
   return await CurrencyModel.find({ _id });
 };
 
+const getByName = async (name: string) => {
+  return await CurrencyModel.findOne({ name });
+};
+
 const update = async (_id: CurrencyProps['_id'], data: CurrencyProps) => {
   return await CurrencyModel.findOneAndUpdate({ _id }, data, { new: true });
 };
@@ -58,4 +62,4 @@ const remove = async (_id: CurrencyProps['_id']) => {
   return await CurrencyModel.findByIdAndDelete({ _id });
 };
 
-export { create, createMany, getAll, get, update, remove };
+export { create, createMany, getAll, get, getByName, update, remove };
