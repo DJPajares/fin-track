@@ -34,7 +34,13 @@ export function usePWA() {
     const isStandalone = window.matchMedia(
       '(display-mode: standalone)',
     ).matches;
-    const isIOS = /iphone|ipad|ipod/.test(navigator.userAgent.toLowerCase());
+    // iPadOS 13+ can present itself as "Mac" in userAgent.
+    // Detect iOS broadly: classic iOS UA or iPadOS via MacIntel + touch.
+    const ua = navigator.userAgent.toLowerCase();
+    const isClassicIOS = /iphone|ipad|ipod/.test(ua);
+    const isIPadOS =
+      navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1;
+    const isIOS = isClassicIOS || isIPadOS;
     const isAndroid = /android/.test(navigator.userAgent.toLowerCase());
     const isMobile = isIOS || isAndroid;
 
@@ -201,5 +207,11 @@ export function usePWA() {
 // Convenience function to check if app is running as PWA
 export function isPWA(): boolean {
   if (typeof window === 'undefined') return false;
-  return window.matchMedia('(display-mode: standalone)').matches;
+  // Include iOS Safari's standalone detection
+  // Some iOS versions don't report display-mode; navigator.standalone is reliable there.
+  const mmStandalone = window.matchMedia('(display-mode: standalone)').matches;
+  const iosStandalone =
+    'standalone' in navigator &&
+    (navigator as Navigator & { standalone?: boolean }).standalone === true;
+  return mmStandalone || iosStandalone;
 }
