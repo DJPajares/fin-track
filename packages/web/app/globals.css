@@ -174,3 +174,13 @@
   border-color: var(--border);
   /* outline-color: var(--ring) / 0.5; */
 }
+
+/* Ensure background extends to safe areas on mobile */
+html {
+  background-color: var(--background);
+}
+
+body {
+  background-color: var(--background);
+  padding-bottom: env(safe-area-inset-bottom);
+}

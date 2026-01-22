@@ -10,7 +10,21 @@ export function ThemeColorProvider() {
     // Function to update theme color meta tags
     const updateThemeColor = () => {
       const currentTheme = resolvedTheme || theme;
-      const themeColor = currentTheme === 'dark' ? '#111116' : '#ffffff';
+
+      // Get the computed background color from the document element
+      const computedBgColor = window.getComputedStyle(
+        document.documentElement,
+      ).backgroundColor;
+
+      // Convert rgb(r, g, b) to hex
+      const rgbMatch = computedBgColor.match(/\d+/g);
+      const themeColor =
+        rgbMatch && rgbMatch.length >= 3
+          ? `#${rgbMatch
+              .slice(0, 3)
+              .map((x) => parseInt(x).toString(16).padStart(2, '0'))
+              .join('')}`
+          : '#ffffff';
 
       // Update the theme-color meta tag
       let metaThemeColor = document.querySelector('meta[name="theme-color"]');
@@ -48,6 +62,11 @@ export function ThemeColorProvider() {
         'content',
         currentTheme === 'dark' ? 'black-translucent' : 'default',
       );
+
+      // CRITICAL for Android: Set background colors on html and body elements
+      // This ensures the safe area (including bottom navigation bar) matches the theme
+      document.documentElement.style.backgroundColor = themeColor;
+      document.body.style.backgroundColor = themeColor;
     };
 
     // Update theme color when component mounts or theme changes
