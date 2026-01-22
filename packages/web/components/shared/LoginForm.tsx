@@ -26,7 +26,7 @@ import { Input } from '@web/components/ui/input';
 import { cn } from '@web/lib/utils';
 import { loginSuccess } from '@web/lib/redux/feature/auth/authSlice';
 import { login as loginAPI } from '@web/services/auth';
-// import { setUserLocale } from '@web/services/locale';
+import { setUserLocale } from '@web/services/locale';
 // import { setDashboardCurrency } from '@web/lib/redux/feature/dashboard/dashboardSlice';
 
 export function LoginForm({
@@ -65,9 +65,9 @@ export function LoginForm({
 
       // Update user settings (if present)
       if (user.settings) {
-        // const { language, currency } = user.settings;
+        const { language } = user.settings;
 
-        // if (language) setUserLocale(language);
+        if (language) setUserLocale(language);
 
         // if (currency) {
         //   dispatch(setDashboardCurrency({ currency }));
