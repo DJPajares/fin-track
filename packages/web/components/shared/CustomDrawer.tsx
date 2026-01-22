@@ -63,11 +63,7 @@ const CustomDrawer = ({
             <DrawerTrigger asChild>{triggerChildren}</DrawerTrigger>
           )}
 
-          <DrawerContent
-            aria-describedby=""
-            className="pb-4"
-            // className="flex h-dvh max-h-dvh flex-col supports-[height:100svh]:h-svh supports-[max-height:100svh]:max-h-svh"
-          >
+          <DrawerContent aria-describedby="">
             <div className="mx-auto flex min-h-0 w-full flex-1 flex-col">
               <DrawerHeader className="p-2">
                 <div className="grid grid-cols-3 items-center gap-2">
