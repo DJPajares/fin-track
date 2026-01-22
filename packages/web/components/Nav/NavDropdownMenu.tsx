@@ -1,8 +1,19 @@
 'use client';
 
 import { ReactNode, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { useTheme } from 'next-themes';
+import { useLocale, useTranslations } from 'next-intl';
+import { useDispatch } from 'react-redux';
 
+import {
+  DollarSignIcon,
+  GlobeIcon,
+  LogOutIcon,
+  MoonIcon,
+  SquarePenIcon,
+  SunIcon,
+} from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -19,28 +30,18 @@ import {
   DropdownMenuTrigger,
 } from '../ui/dropdown-menu';
 import { Label } from '../ui/label';
-import {
-  DollarSignIcon,
-  GlobeIcon,
-  LogOutIcon,
-  MoonIcon,
-  SquarePenIcon,
-  SunIcon,
-} from 'lucide-react';
 import { Switch } from '../ui/switch';
 
-import packageInfo from '../../package.json';
-import { languages, LocaleProps } from '../../i18n/config';
 import { setUserLocale } from '../../services/locale';
 import { updateUserSettings } from '../../services/auth';
+import { sortedLanguages } from '@shared/utilities/common';
+import packageInfo from '../../package.json';
 
-import { useLocale, useTranslations } from 'next-intl';
 import { useAppSelector } from '../../lib/hooks/use-redux';
-import { useDispatch } from 'react-redux';
 import { setDashboardCurrency } from '../../lib/redux/feature/dashboard/dashboardSlice';
 
 import type { ListProps } from '../../types/List';
-import { useRouter } from 'next/navigation';
+import type { LocaleProps } from '@shared/types/Locale';
 
 type NavDropdownMenuProps = {
   children: ReactNode;
@@ -122,7 +123,7 @@ const NavDropdownMenu = ({ children }: NavDropdownMenuProps) => {
             </DropdownMenuSubTrigger>
             <DropdownMenuPortal>
               <DropdownMenuSubContent>
-                {languages.map((language) => {
+                {sortedLanguages.map((language) => {
                   const isSelected = locale === language.value;
 
                   return (
