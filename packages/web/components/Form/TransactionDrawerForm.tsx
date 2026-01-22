@@ -512,7 +512,7 @@ const TransactionDrawerForm = ({
 
         {/* DELETE BUTTON */}
         {defaultValues && deleteTransaction && (
-          <div className="mt-6 flex justify-end border-t pt-4">
+          <div className="flex justify-end">
             <ConfirmationDialog handleSubmit={handleDeleteTransaction}>
               <Button type="button" variant="destructive" size="rounded-icon">
                 <Trash2Icon className="size-4" />
