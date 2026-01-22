@@ -17,6 +17,7 @@ import { useLazyGetDashboardDataQuery } from '../../../lib/redux/services/dashbo
 import { SelectBox } from '../../../components/shared/SelectBox';
 import TransactionDrawerForm, {
   type SubmitTransactionProps,
+  type TransactionDrawerFormRef,
 } from '../../../components/Form/TransactionDrawerForm';
 import CustomDrawer from '../../../components/shared/CustomDrawer';
 
@@ -113,6 +114,7 @@ const TransactionDrawer = ({
   }, [newTypes, type._id, type.name]);
 
   const formRef = useRef<HTMLFormElement>(null);
+  const resetFormRef = useRef<TransactionDrawerFormRef>(null);
   const submissionResolverRef = useRef<(() => void) | null>(null);
 
   const handleSubmit = () => {
@@ -161,11 +163,17 @@ const TransactionDrawer = ({
     setStoredFormValues(values);
   }, []);
 
+  const handleCancel = () => {
+    setStoredFormValues(null);
+    resetFormRef.current?.resetForm();
+  };
+
   return (
     <CustomDrawer
       open={isDrawerOpen}
       onOpenChange={handleDrawerChange}
       handleSubmit={handleSubmit}
+      onCancel={handleCancel}
       title={t('Page.dashboard.transactionDrawer.title').toLocaleUpperCase()}
       description={t('Page.dashboard.transactionDrawer.description')}
     >
@@ -190,6 +198,7 @@ const TransactionDrawer = ({
           setIsTransactionDrawerOpen={setIsDrawerOpen}
           onStoreFormValues={handleStoreFormValues}
           formRef={formRef}
+          resetFormRef={resetFormRef}
         />
       </>
     </CustomDrawer>

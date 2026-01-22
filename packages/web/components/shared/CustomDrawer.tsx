@@ -27,6 +27,7 @@ type CustomDrawerProps = {
   children: ReactNode;
   triggerChildren?: ReactNode;
   handleSubmit: () => void | Promise<void>;
+  onCancel?: () => void;
 };
 
 const CustomDrawer = ({
@@ -39,6 +40,7 @@ const CustomDrawer = ({
   children,
   triggerChildren,
   handleSubmit,
+  onCancel,
 }: CustomDrawerProps) => {
   const isMobile = useIsMobile();
   const t = useTranslations();
@@ -50,6 +52,13 @@ const CustomDrawer = ({
       await handleSubmit();
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const handleCancel = () => {
+    if (!isLoading) {
+      onCancel?.();
+      onOpenChange(false);
     }
   };
 
@@ -82,7 +91,7 @@ const CustomDrawer = ({
                   <div className="justify-self-end">
                     <Button
                       variant="ghost"
-                      onClick={() => onOpenChange(!open)}
+                      onClick={handleCancel}
                       disabled={isLoading}
                     >
                       {cancelButtonLabel || t('Common.button.cancel')}
@@ -121,7 +130,11 @@ const CustomDrawer = ({
               </ConfirmationDialog>
 
               <DrawerClose asChild>
-                <Button variant="outline" disabled={isLoading}>
+                <Button
+                  variant="outline"
+                  disabled={isLoading}
+                  onClick={handleCancel}
+                >
                   {cancelButtonLabel || t('Common.button.cancel')}
                 </Button>
               </DrawerClose>

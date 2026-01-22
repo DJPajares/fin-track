@@ -3,6 +3,7 @@ import {
   RefObject,
   SetStateAction,
   useEffect,
+  useImperativeHandle,
   useState,
 } from 'react';
 import { addMonths, differenceInCalendarMonths, format } from 'date-fns';
@@ -64,6 +65,10 @@ export type SubmitTransactionProps = {
   userId: string;
 };
 
+export type TransactionDrawerFormRef = {
+  resetForm: () => void;
+};
+
 type TransactionDrawerFormProps = {
   type: ListProps;
   categories: CategoryItemProps[];
@@ -74,6 +79,7 @@ type TransactionDrawerFormProps = {
   setIsTransactionDrawerOpen: Dispatch<SetStateAction<boolean>>;
   onStoreFormValues?: (values: TransactionFormProps) => void;
   formRef: RefObject<HTMLFormElement | null>;
+  resetFormRef?: RefObject<TransactionDrawerFormRef | null>;
 };
 
 const TransactionDrawerForm = ({
@@ -85,6 +91,7 @@ const TransactionDrawerForm = ({
   deleteTransaction,
   onStoreFormValues,
   formRef,
+  resetFormRef,
 }: TransactionDrawerFormProps) => {
   const t = useTranslations();
 
@@ -101,6 +108,17 @@ const TransactionDrawerForm = ({
     resolver: zodResolver(transactionSchema),
     defaultValues,
   });
+
+  // Expose reset method to parent component
+  useImperativeHandle(resetFormRef, () => ({
+    resetForm: () => {
+      if (defaultValues) {
+        form.reset(defaultValues);
+      } else {
+        form.reset();
+      }
+    },
+  }));
 
   const startDate = useWatch({ control: form.control, name: 'startDate' });
   const endDate = useWatch({ control: form.control, name: 'endDate' });
