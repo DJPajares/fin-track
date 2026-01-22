@@ -62,4 +62,44 @@ const remove = async (_id: ExchangeRateProps['_id']) => {
   return await ExchangeRateModel.findByIdAndDelete({ _id });
 };
 
-export { create, getAll, get, update, remove };
+const getLatest = async () => {
+  try {
+    // Fetch from external API
+    const response = await fetch(
+      'https://api.exchangerate-api.com/v4/latest/USD',
+    );
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch exchange rates from external API');
+    }
+
+    const externalData = await response.json();
+
+    // Transform to our schema format
+    const exchangeRateData = {
+      baseCurrency: externalData.base,
+      date: new Date(externalData.date),
+      rates: externalData.rates,
+    };
+
+    // Check if we already have this data for the same date
+    const existingRate = await ExchangeRateModel.findOne({
+      baseCurrency: exchangeRateData.baseCurrency,
+      date: exchangeRateData.date,
+    });
+
+    // If exists, return it; otherwise create a new one
+    if (existingRate) {
+      return existingRate;
+    }
+
+    const newRate = await ExchangeRateModel.create(exchangeRateData);
+    return newRate;
+  } catch (error) {
+    throw new Error(
+      `Error fetching latest exchange rates: ${error instanceof Error ? error.message : 'Unknown error'}`,
+    );
+  }
+};
+
+export { create, getAll, get, update, remove, getLatest };

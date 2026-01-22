@@ -18,7 +18,7 @@ router.use('/api/v1/currencies', currencyRoute);
 router.use('/api/v1/payments', paymentRoute);
 router.use('/api/v1/transactions', transactionRoute);
 router.use('/api/v1/transaction-payments', transactionPaymentRoute);
-router.use('/api/v1/exchangeRates', exchangeRateRoute);
+router.use('/api/v1/exchange-rates', exchangeRateRoute);
 router.use('/api/v1/users', userRoute);
 
 export default router;

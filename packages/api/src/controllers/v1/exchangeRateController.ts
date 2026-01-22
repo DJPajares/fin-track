@@ -73,4 +73,17 @@ const remove = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-export { create, getAll, get, update, remove };
+const getLatest = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const data = await exchangeRateService.getLatest();
+
+    res.status(200).json({
+      success: true,
+      data,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export { create, getAll, get, update, remove, getLatest };
