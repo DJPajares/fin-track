@@ -28,6 +28,7 @@ import { loginSuccess } from '@web/lib/redux/feature/auth/authSlice';
 import { login as loginAPI } from '@web/services/auth';
 import { setUserLocale } from '@web/services/locale';
 import { setDashboardCurrency } from '@web/lib/redux/feature/dashboard/dashboardSlice';
+import { fetchCurrencyByName } from '@web/services/api';
 
 export function LoginForm({
   className,
@@ -70,9 +71,15 @@ export function LoginForm({
         if (language) setUserLocale(language);
 
         if (currency) {
-          const dashboardCurrency = { _id: '', name: currency };
-
-          dispatch(setDashboardCurrency({ currency: dashboardCurrency }));
+          try {
+            const currencyData = await fetchCurrencyByName(currency);
+            dispatch(setDashboardCurrency({ currency: currencyData }));
+          } catch (error) {
+            console.error('Failed to fetch currency:', error);
+            // Fallback: set currency with name only
+            const dashboardCurrency = { _id: '', name: currency };
+            dispatch(setDashboardCurrency({ currency: dashboardCurrency }));
+          }
         }
 
         if (user.settings?.darkMode !== undefined) {

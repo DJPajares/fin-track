@@ -43,4 +43,16 @@ const fetchCurrencies = async () => {
   }
 };
 
-export { fetchTypes, fetchCategories, fetchCurrencies };
+const fetchCurrencyByName = async (name: string) => {
+  try {
+    const url = `${process.env.NEXT_PUBLIC_BASE_URL}/currencies/by-name/${name}`;
+
+    const { status, data } = await axios.get(url);
+    if (status === 200) return data.data;
+  } catch (error) {
+    console.error('Fetch currency by name failed', error);
+    throw error;
+  }
+};
+
+export { fetchTypes, fetchCategories, fetchCurrencies, fetchCurrencyByName };
