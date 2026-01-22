@@ -65,7 +65,8 @@ const CustomDrawer = ({
 
           <DrawerContent
             aria-describedby=""
-            className="flex h-dvh max-h-dvh flex-col"
+            className="pb-4"
+            // className="flex h-dvh max-h-dvh flex-col supports-[height:100svh]:h-svh supports-[max-height:100svh]:max-h-svh"
           >
             <div className="mx-auto flex min-h-0 w-full flex-1 flex-col">
               <DrawerHeader className="p-2">
