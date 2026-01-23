@@ -183,24 +183,24 @@
     },
     "steps": {
       "dashboard": {
-        "title": "Dashboard overview",
-        "description": "See balances, trends, and upcoming items at a glance."
+        "title": "Total clarity",
+        "description": "A streamlined view of your balances, trends, and financial health."
       },
       "transactions": {
-        "title": "Transactions",
-        "description": "Track income and expenses with smart filters."
+        "title": "Frictionless tracking",
+        "description": "Manage global currencies and recurring payments without the spreadsheet headache."
       },
       "categories": {
-        "title": "Categories",
-        "description": "Keep spending organized with flexible categories and icons."
+        "title": "Smart organization",
+        "description": "Flexible tagging and categorization designed to adapt to your needs."
       },
       "charts": {
-        "title": "Charts & insights",
-        "description": "Visualize cash flow and category trends with interactive charts."
+        "title": "Insights, not just numbers",
+        "description": "Unlock a deeper understanding of your cash flow through dynamic visualizations."
       },
       "budgets": {
-        "title": "Budgets & goals",
-        "description": "Set budgets and track completion with progress indicators."
+        "title": "Intentional spending",
+        "description": "Monitor your progress bars and stay aligned with your financial targets."
       }
     }
   },

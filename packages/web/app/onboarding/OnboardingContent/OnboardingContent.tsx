@@ -59,7 +59,9 @@ function OnboardingContent({ features }: { features: FeatureCard[] }) {
     <div className="flex flex-col items-center justify-center gap-8">
       {/* App Name */}
       <div className="text-center">
-        <Label variant="title-lg">{CONSTANTS.APP_NAME}</Label>
+        <Label variant="title" className="font-bold">
+          {CONSTANTS.APP_NAME}
+        </Label>
       </div>
 
       {/* Carousel */}
@@ -83,11 +85,17 @@ function OnboardingContent({ features }: { features: FeatureCard[] }) {
                     />
                   </div>
 
-                  <Label variant="title-xl">{feature.title}</Label>
+                  <div className="flex flex-col items-center gap-3">
+                    <span className="w-full max-w-sm px-12 text-center leading-none">
+                      <Label variant="title-xl" className="text-3xl font-bold">
+                        {feature.title}
+                      </Label>
+                    </span>
 
-                  <span className="w-full max-w-xs px-14 text-center leading-none">
-                    <Label variant="caption">{feature.description}</Label>
-                  </span>
+                    <span className="w-full max-w-xs px-14 text-center leading-none">
+                      <Label variant="caption">{feature.description}</Label>
+                    </span>
+                  </div>
                 </div>
               </CarouselItem>
             );
