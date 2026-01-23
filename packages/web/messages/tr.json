@@ -287,5 +287,40 @@
         "step3": "3. Onaylamak için \"Ekle\"ye dokunun"
       }
     }
+  },
+  "Profile": {
+    "title": "Profili düzenle",
+    "description": "Kişisel bilgilerini güncelle veya şifreni değiştir.",
+    "name": "Ad",
+    "email": "E-posta",
+    "currentPassword": "Mevcut şifre",
+    "currentPasswordPlaceholder": "Şifre değişimi veya silme için gerekli",
+    "currentPasswordHint": "Hassas değişiklikleri onaylamak için mevcut şifreni kullan.",
+    "newPassword": "Yeni şifre",
+    "confirmPassword": "Yeni şifreyi doğrula",
+    "cancel": "İptal",
+    "save": "Değişiklikleri kaydet",
+    "saving": "Kaydediliyor...",
+    "saveConfirmTitle": "Değişiklikler uygulansın mı?",
+    "saveConfirmDescription": "Profilin ve (varsa) şifren güncellenecek.",
+    "saveConfirmAction": "Kaydetmeyi onayla",
+    "success": "Profil başarıyla güncellendi.",
+    "delete": {
+      "title": "Hesabı sil",
+      "description": "Bu işlem hesabını ve verilerini kalıcı olarak silecek.",
+      "button": "Hesabı sil",
+      "confirmTitle": "Hesap silmeyi onayla",
+      "confirmDescription": "Hesabını silmek istediğine emin misin? Bu işlem geri alınamaz.",
+      "confirmAction": "Evet, sil",
+      "cancel": "İptal",
+      "loading": "Siliniyor..."
+    },
+    "error": {
+      "passwordMismatch": "Şifreler eşleşmiyor.",
+      "passwordTooShort": "Şifre en az 8 karakter olmalı.",
+      "currentPasswordRequired": "Mevcut şifre gerekli.",
+      "generic": "Profil güncellenemedi. Lütfen tekrar deneyin.",
+      "deleteGeneric": "Hesap silinemedi. Lütfen tekrar deneyin."
+    }
   }
 }

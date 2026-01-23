@@ -287,5 +287,40 @@
         "step3": "3. 点击\"添加\"确认"
       }
     }
+  },
+  "Profile": {
+    "title": "编辑个人资料",
+    "description": "更新个人信息或更改密码。",
+    "name": "姓名",
+    "email": "电子邮箱",
+    "currentPassword": "当前密码",
+    "currentPasswordPlaceholder": "更改或删除时必填",
+    "currentPasswordHint": "使用当前密码以确认敏感更改。",
+    "newPassword": "新密码",
+    "confirmPassword": "确认新密码",
+    "cancel": "取消",
+    "save": "保存更改",
+    "saving": "正在保存...",
+    "saveConfirmTitle": "应用更改？",
+    "saveConfirmDescription": "这将更新你的资料及（如填写）密码。",
+    "saveConfirmAction": "确认保存",
+    "success": "个人资料已成功更新。",
+    "delete": {
+      "title": "删除账户",
+      "description": "这将永久删除你的账户和数据。",
+      "button": "删除账户",
+      "confirmTitle": "确认删除账户",
+      "confirmDescription": "确定要删除账户吗？此操作无法撤销。",
+      "confirmAction": "是的，删除",
+      "cancel": "取消",
+      "loading": "正在删除..."
+    },
+    "error": {
+      "passwordMismatch": "两次密码不一致。",
+      "passwordTooShort": "密码至少需要 8 个字符。",
+      "currentPasswordRequired": "需要当前密码。",
+      "generic": "无法更新个人资料，请重试。",
+      "deleteGeneric": "无法删除账户，请重试。"
+    }
   }
 }

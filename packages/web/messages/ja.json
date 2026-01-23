@@ -287,5 +287,40 @@
         "step3": "3. 「追加」をタップして確認"
       }
     }
+  },
+  "Profile": {
+    "title": "プロフィールを編集",
+    "description": "個人情報を更新するか、パスワードを変更します。",
+    "name": "名前",
+    "email": "メールアドレス",
+    "currentPassword": "現在のパスワード",
+    "currentPasswordPlaceholder": "パスワード変更または削除に必要",
+    "currentPasswordHint": "機密性の高い変更を確認するため現在のパスワードを使用してください。",
+    "newPassword": "新しいパスワード",
+    "confirmPassword": "新しいパスワードを確認",
+    "cancel": "キャンセル",
+    "save": "変更を保存",
+    "saving": "保存中...",
+    "saveConfirmTitle": "変更を適用しますか？",
+    "saveConfirmDescription": "入力があればプロフィールとパスワードを更新します。",
+    "saveConfirmAction": "保存を確認",
+    "success": "プロフィールを更新しました。",
+    "delete": {
+      "title": "アカウントを削除",
+      "description": "アカウントとデータが完全に削除されます。",
+      "button": "アカウントを削除",
+      "confirmTitle": "アカウント削除の確認",
+      "confirmDescription": "本当にアカウントを削除しますか？この操作は元に戻せません。",
+      "confirmAction": "はい、削除します",
+      "cancel": "キャンセル",
+      "loading": "削除中..."
+    },
+    "error": {
+      "passwordMismatch": "パスワードが一致しません。",
+      "passwordTooShort": "パスワードは8文字以上にしてください。",
+      "currentPasswordRequired": "現在のパスワードが必要です。",
+      "generic": "プロフィールを更新できません。もう一度お試しください。",
+      "deleteGeneric": "アカウントを削除できません。もう一度お試しください。"
+    }
   }
 }

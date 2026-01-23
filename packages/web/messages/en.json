@@ -287,5 +287,40 @@
         "step3": "3. Tap \"Add\" to confirm"
       }
     }
+  },
+  "Profile": {
+    "title": "Edit profile",
+    "description": "Update your personal details or change your password.",
+    "name": "Name",
+    "email": "Email",
+    "currentPassword": "Current password",
+    "currentPasswordPlaceholder": "Required for password or deletion",
+    "currentPasswordHint": "Use your current password to confirm sensitive changes.",
+    "newPassword": "New password",
+    "confirmPassword": "Confirm new password",
+    "cancel": "Cancel",
+    "save": "Save changes",
+    "saving": "Saving...",
+    "saveConfirmTitle": "Apply changes?",
+    "saveConfirmDescription": "This will update your profile and password if provided.",
+    "saveConfirmAction": "Confirm Save",
+    "success": "Profile updated successfully.",
+    "delete": {
+      "title": "Delete account",
+      "description": "This will permanently remove your account and data.",
+      "button": "Delete account",
+      "confirmTitle": "Confirm account deletion",
+      "confirmDescription": "Are you sure you want to delete your account? This action cannot be undone.",
+      "confirmAction": "Yes, delete it",
+      "cancel": "Cancel",
+      "loading": "Deleting..."
+    },
+    "error": {
+      "passwordMismatch": "Passwords do not match.",
+      "passwordTooShort": "Password must be at least 8 characters.",
+      "currentPasswordRequired": "Current password is required.",
+      "generic": "Unable to update profile. Please try again.",
+      "deleteGeneric": "Unable to delete account. Please try again."
+    }
   }
 }

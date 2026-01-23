@@ -33,12 +33,14 @@ import { Label } from '../ui/label';
 import { Switch } from '../ui/switch';
 
 import { setUserLocale } from '../../services/locale';
-import { updateUserSettings } from '../../services/auth';
+import { logout, updateUserSettings } from '../../services/auth';
 import { sortedLanguages } from '@shared/utilities/common';
 import packageInfo from '../../../../package.json';
 
 import { useAppSelector } from '../../lib/hooks/use-redux';
 import { setDashboardCurrency } from '../../lib/redux/feature/dashboard/dashboardSlice';
+import { logoutSuccess } from '../../lib/redux/feature/auth/authSlice';
+import ProfileDialog from './ProfileDialog';
 
 import type { ListProps } from '../../types/List';
 import type { LocaleProps } from '@shared/types/Locale';
@@ -54,19 +56,18 @@ const NavDropdownMenu = ({ children }: NavDropdownMenuProps) => {
   const router = useRouter();
   const dispatch = useDispatch();
   const t = useTranslations('MenuDropdown');
-
+  const { user } = useAppSelector((state) => state.auth);
   const [isDarkMode, setIsDarkMode] = useState(theme === 'dark');
+  const [isProfileDialogOpen, setIsProfileDialogOpen] = useState(false);
 
   const { currencies } = useAppSelector((state) => state.main);
   const dashboardCurrency = useAppSelector((state) => state.dashboard.currency);
 
-  const { user } = useAppSelector((state) => state.auth);
+  const handleProfileDialogChange = (open: boolean) => {
+    setIsProfileDialogOpen(open);
+  };
 
   const handleLogout = async () => {
-    const { logout } = await import('../../services/auth');
-    const { logoutSuccess } =
-      await import('../../lib/redux/feature/auth/authSlice');
-
     try {
       await logout();
       dispatch(logoutSuccess());
@@ -96,114 +97,126 @@ const NavDropdownMenu = ({ children }: NavDropdownMenuProps) => {
   };
 
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>{children}</DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56" align="end" forceMount>
-        <DropdownMenuLabel className="font-normal">
-          <div className="flex flex-col space-y-1">
-            <Label variant="subtitle-md">{user?.name || 'User'}</Label>
-            <Label variant="caption" className="text-muted-foreground">
-              {user?.email || ''}
-            </Label>
-          </div>
-        </DropdownMenuLabel>
-
-        <DropdownMenuSeparator />
-
-        <DropdownMenuGroup>
-          <DropdownMenuItem>
-            <SquarePenIcon className="text-muted-foreground size-4" />
-            {t('editProfile')}
-          </DropdownMenuItem>
-
-          <DropdownMenuSub>
-            <DropdownMenuSubTrigger>
-              <GlobeIcon className="text-muted-foreground mr-2 size-4" />
-              {t('language')}
-            </DropdownMenuSubTrigger>
-            <DropdownMenuPortal>
-              <DropdownMenuSubContent>
-                {sortedLanguages.map((language) => {
-                  const isSelected = locale === language.value;
-
-                  return (
-                    <DropdownMenuCheckboxItem
-                      key={language.value}
-                      checked={isSelected}
-                      onClick={() => handleLanguageChange(language.value)}
-                    >
-                      <Label
-                        variant="subtitle-md"
-                        className={`${isSelected && 'font-bold'}`}
-                      >
-                        {language.label}
-                      </Label>
-                    </DropdownMenuCheckboxItem>
-                  );
-                })}
-              </DropdownMenuSubContent>
-            </DropdownMenuPortal>
-          </DropdownMenuSub>
-
-          <DropdownMenuSub>
-            <DropdownMenuSubTrigger>
-              <DollarSignIcon className="text-muted-foreground mr-2 size-4" />
-              {t('currency')}
-            </DropdownMenuSubTrigger>
-            <DropdownMenuPortal>
-              <DropdownMenuSubContent>
-                {currencies.map((currency) => {
-                  const isSelected = dashboardCurrency.name === currency.name;
-                  return (
-                    <DropdownMenuCheckboxItem
-                      key={currency._id}
-                      checked={isSelected}
-                      onClick={() => handleCurrencyChange(currency)}
-                    >
-                      <Label
-                        variant="subtitle-md"
-                        className={`${isSelected && 'font-bold'}`}
-                      >
-                        {currency.name}
-                      </Label>
-                    </DropdownMenuCheckboxItem>
-                  );
-                })}
-              </DropdownMenuSubContent>
-            </DropdownMenuPortal>
-          </DropdownMenuSub>
-
-          <DropdownMenuItem>
-            {isDarkMode ? (
-              <MoonIcon className="text-muted-foreground size-4" />
-            ) : (
-              <SunIcon className="text-muted-foreground size-4" />
-            )}
-            {t('darkMode')}
-            <DropdownMenuShortcut>
-              <Switch
-                checked={isDarkMode}
-                onCheckedChange={handleDarkModeToggle}
-              />
-            </DropdownMenuShortcut>
-          </DropdownMenuItem>
-        </DropdownMenuGroup>
-
-        <DropdownMenuSeparator />
-
-        <DropdownMenuGroup>
-          <DropdownMenuItem onClick={handleLogout}>
-            <LogOutIcon className="text-muted-foreground size-4" />
-            {t('logout')}
-            <DropdownMenuShortcut>
+    <>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>{children}</DropdownMenuTrigger>
+        <DropdownMenuContent className="w-56" align="end" forceMount>
+          <DropdownMenuLabel className="font-normal">
+            <div className="flex flex-col space-y-1">
+              <Label variant="subtitle-md">{user?.name || 'User'}</Label>
               <Label variant="caption" className="text-muted-foreground">
-                {`v${packageInfo.version}`}
+                {user?.email || ''}
               </Label>
-            </DropdownMenuShortcut>
-          </DropdownMenuItem>
-        </DropdownMenuGroup>
-      </DropdownMenuContent>
-    </DropdownMenu>
+            </div>
+          </DropdownMenuLabel>
+
+          <DropdownMenuSeparator />
+
+          <DropdownMenuGroup>
+            <DropdownMenuItem
+              onSelect={(event) => {
+                event.preventDefault();
+                handleProfileDialogChange(true);
+              }}
+            >
+              <SquarePenIcon className="text-muted-foreground size-4" />
+              {t('editProfile')}
+            </DropdownMenuItem>
+
+            <DropdownMenuSub>
+              <DropdownMenuSubTrigger>
+                <GlobeIcon className="text-muted-foreground mr-2 size-4" />
+                {t('language')}
+              </DropdownMenuSubTrigger>
+              <DropdownMenuPortal>
+                <DropdownMenuSubContent>
+                  {sortedLanguages.map((language) => {
+                    const isSelected = locale === language.value;
+
+                    return (
+                      <DropdownMenuCheckboxItem
+                        key={language.value}
+                        checked={isSelected}
+                        onClick={() => handleLanguageChange(language.value)}
+                      >
+                        <Label
+                          variant="subtitle-md"
+                          className={`${isSelected && 'font-bold'}`}
+                        >
+                          {language.label}
+                        </Label>
+                      </DropdownMenuCheckboxItem>
+                    );
+                  })}
+                </DropdownMenuSubContent>
+              </DropdownMenuPortal>
+            </DropdownMenuSub>
+
+            <DropdownMenuSub>
+              <DropdownMenuSubTrigger>
+                <DollarSignIcon className="text-muted-foreground mr-2 size-4" />
+                {t('currency')}
+              </DropdownMenuSubTrigger>
+              <DropdownMenuPortal>
+                <DropdownMenuSubContent>
+                  {currencies.map((currency) => {
+                    const isSelected = dashboardCurrency.name === currency.name;
+                    return (
+                      <DropdownMenuCheckboxItem
+                        key={currency._id}
+                        checked={isSelected}
+                        onClick={() => handleCurrencyChange(currency)}
+                      >
+                        <Label
+                          variant="subtitle-md"
+                          className={`${isSelected && 'font-bold'}`}
+                        >
+                          {currency.name}
+                        </Label>
+                      </DropdownMenuCheckboxItem>
+                    );
+                  })}
+                </DropdownMenuSubContent>
+              </DropdownMenuPortal>
+            </DropdownMenuSub>
+
+            <DropdownMenuItem>
+              {isDarkMode ? (
+                <MoonIcon className="text-muted-foreground size-4" />
+              ) : (
+                <SunIcon className="text-muted-foreground size-4" />
+              )}
+              {t('darkMode')}
+              <DropdownMenuShortcut>
+                <Switch
+                  checked={isDarkMode}
+                  onCheckedChange={handleDarkModeToggle}
+                />
+              </DropdownMenuShortcut>
+            </DropdownMenuItem>
+          </DropdownMenuGroup>
+
+          <DropdownMenuSeparator />
+
+          <DropdownMenuGroup>
+            <DropdownMenuItem onClick={handleLogout}>
+              <LogOutIcon className="text-muted-foreground size-4" />
+              {t('logout')}
+              <DropdownMenuShortcut>
+                <Label variant="caption" className="text-muted-foreground">
+                  {`v${packageInfo.version}`}
+                </Label>
+              </DropdownMenuShortcut>
+            </DropdownMenuItem>
+          </DropdownMenuGroup>
+        </DropdownMenuContent>
+      </DropdownMenu>
+
+      <ProfileDialog
+        open={isProfileDialogOpen}
+        onOpenChange={handleProfileDialogChange}
+      />
+    </>
   );
 };
 

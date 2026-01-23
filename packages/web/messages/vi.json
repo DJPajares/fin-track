@@ -287,5 +287,40 @@
         "step3": "3. Nhấn \"Thêm\" để xác nhận"
       }
     }
+  },
+  "Profile": {
+    "title": "Chỉnh sửa hồ sơ",
+    "description": "Cập nhật thông tin cá nhân hoặc đổi mật khẩu của bạn.",
+    "name": "Tên",
+    "email": "Email",
+    "currentPassword": "Mật khẩu hiện tại",
+    "currentPasswordPlaceholder": "Cần để đổi hoặc xóa mật khẩu",
+    "currentPasswordHint": "Dùng mật khẩu hiện tại để xác nhận thay đổi quan trọng.",
+    "newPassword": "Mật khẩu mới",
+    "confirmPassword": "Xác nhận mật khẩu mới",
+    "cancel": "Hủy",
+    "save": "Lưu thay đổi",
+    "saving": "Đang lưu...",
+    "saveConfirmTitle": "Áp dụng thay đổi?",
+    "saveConfirmDescription": "Thao tác này sẽ cập nhật hồ sơ và mật khẩu của bạn nếu có.",
+    "saveConfirmAction": "Xác nhận lưu",
+    "success": "Cập nhật hồ sơ thành công.",
+    "delete": {
+      "title": "Xóa tài khoản",
+      "description": "Thao tác này sẽ xóa vĩnh viễn tài khoản và dữ liệu của bạn.",
+      "button": "Xóa tài khoản",
+      "confirmTitle": "Xác nhận xóa tài khoản",
+      "confirmDescription": "Bạn có chắc muốn xóa tài khoản? Hành động này không thể hoàn tác.",
+      "confirmAction": "Có, xóa",
+      "cancel": "Hủy",
+      "loading": "Đang xóa..."
+    },
+    "error": {
+      "passwordMismatch": "Mật khẩu không khớp.",
+      "passwordTooShort": "Mật khẩu phải có ít nhất 8 ký tự.",
+      "currentPasswordRequired": "Cần mật khẩu hiện tại.",
+      "generic": "Không thể cập nhật hồ sơ. Vui lòng thử lại.",
+      "deleteGeneric": "Không thể xóa tài khoản. Vui lòng thử lại."
+    }
   }
 }

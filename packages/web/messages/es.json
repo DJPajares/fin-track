@@ -287,5 +287,40 @@
         "step3": "3. Toca \"Agregar\" para confirmar"
       }
     }
+  },
+  "Profile": {
+    "title": "Editar perfil",
+    "description": "Actualiza tus datos personales o cambia tu contraseña.",
+    "name": "Nombre",
+    "email": "Correo electrónico",
+    "currentPassword": "Contraseña actual",
+    "currentPasswordPlaceholder": "Requerida para cambiar o eliminar",
+    "currentPasswordHint": "Usa tu contraseña actual para confirmar cambios sensibles.",
+    "newPassword": "Nueva contraseña",
+    "confirmPassword": "Confirmar nueva contraseña",
+    "cancel": "Cancelar",
+    "save": "Guardar cambios",
+    "saving": "Guardando...",
+    "saveConfirmTitle": "¿Aplicar cambios?",
+    "saveConfirmDescription": "Esto actualizará tu perfil y la contraseña si se proporciona.",
+    "saveConfirmAction": "Confirmar guardado",
+    "success": "Perfil actualizado con éxito.",
+    "delete": {
+      "title": "Eliminar cuenta",
+      "description": "Esto eliminará permanentemente tu cuenta y tus datos.",
+      "button": "Eliminar cuenta",
+      "confirmTitle": "Confirmar eliminación de cuenta",
+      "confirmDescription": "¿Seguro que deseas eliminar tu cuenta? Esta acción no se puede deshacer.",
+      "confirmAction": "Sí, eliminar",
+      "cancel": "Cancelar",
+      "loading": "Eliminando..."
+    },
+    "error": {
+      "passwordMismatch": "Las contraseñas no coinciden.",
+      "passwordTooShort": "La contraseña debe tener al menos 8 caracteres.",
+      "currentPasswordRequired": "Se requiere la contraseña actual.",
+      "generic": "No se pudo actualizar el perfil. Inténtalo de nuevo.",
+      "deleteGeneric": "No se pudo eliminar la cuenta. Inténtalo de nuevo."
+    }
   }
 }

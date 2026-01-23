@@ -287,5 +287,40 @@
         "step3": "3. Ketuk \"Tambahkan\" untuk mengonfirmasi"
       }
     }
+  },
+  "Profile": {
+    "title": "Edit profil",
+    "description": "Perbarui detail pribadi atau ubah kata sandi Anda.",
+    "name": "Nama",
+    "email": "Email",
+    "currentPassword": "Kata sandi saat ini",
+    "currentPasswordPlaceholder": "Diperlukan untuk perubahan atau penghapusan kata sandi",
+    "currentPasswordHint": "Gunakan kata sandi saat ini untuk mengonfirmasi perubahan sensitif.",
+    "newPassword": "Kata sandi baru",
+    "confirmPassword": "Konfirmasi kata sandi baru",
+    "cancel": "Batal",
+    "save": "Simpan perubahan",
+    "saving": "Menyimpan...",
+    "saveConfirmTitle": "Terapkan perubahan?",
+    "saveConfirmDescription": "Ini akan memperbarui profil dan kata sandi Anda jika diisi.",
+    "saveConfirmAction": "Konfirmasi Simpan",
+    "success": "Profil berhasil diperbarui.",
+    "delete": {
+      "title": "Hapus akun",
+      "description": "Ini akan menghapus akun dan data Anda secara permanen.",
+      "button": "Hapus akun",
+      "confirmTitle": "Konfirmasi penghapusan akun",
+      "confirmDescription": "Anda yakin ingin menghapus akun? Tindakan ini tidak dapat dibatalkan.",
+      "confirmAction": "Ya, hapus",
+      "cancel": "Batal",
+      "loading": "Menghapus..."
+    },
+    "error": {
+      "passwordMismatch": "Kata sandi tidak cocok.",
+      "passwordTooShort": "Kata sandi harus minimal 8 karakter.",
+      "currentPasswordRequired": "Kata sandi saat ini diperlukan.",
+      "generic": "Tidak dapat memperbarui profil. Silakan coba lagi.",
+      "deleteGeneric": "Tidak dapat menghapus akun. Silakan coba lagi."
+    }
   }
 }

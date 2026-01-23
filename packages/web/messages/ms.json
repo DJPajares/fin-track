@@ -287,5 +287,40 @@
         "step3": "3. Ketuk \"Tambah\" untuk mengesahkan"
       }
     }
+  },
+  "Profile": {
+    "title": "Edit profil",
+    "description": "Kemas kini butiran peribadi atau tukar kata laluan anda.",
+    "name": "Nama",
+    "email": "E-mel",
+    "currentPassword": "Kata laluan semasa",
+    "currentPasswordPlaceholder": "Diperlukan untuk menukar atau memadam kata laluan",
+    "currentPasswordHint": "Gunakan kata laluan semasa untuk mengesahkan perubahan sensitif.",
+    "newPassword": "Kata laluan baharu",
+    "confirmPassword": "Sahkan kata laluan baharu",
+    "cancel": "Batal",
+    "save": "Simpan perubahan",
+    "saving": "Menyimpan...",
+    "saveConfirmTitle": "Terapkan perubahan?",
+    "saveConfirmDescription": "Ini akan mengemas kini profil dan kata laluan anda jika diisi.",
+    "saveConfirmAction": "Sahkan Simpan",
+    "success": "Profil berjaya dikemas kini.",
+    "delete": {
+      "title": "Padam akaun",
+      "description": "Ini akan memadam akaun dan data anda secara kekal.",
+      "button": "Padam akaun",
+      "confirmTitle": "Sahkan pemadaman akaun",
+      "confirmDescription": "Anda pasti mahu memadam akaun? Tindakan ini tidak boleh dibuat asal.",
+      "confirmAction": "Ya, padam",
+      "cancel": "Batal",
+      "loading": "Memadam..."
+    },
+    "error": {
+      "passwordMismatch": "Kata laluan tidak sepadan.",
+      "passwordTooShort": "Kata laluan mesti sekurang-kurangnya 8 aksara.",
+      "currentPasswordRequired": "Kata laluan semasa diperlukan.",
+      "generic": "Tidak dapat mengemas kini profil. Sila cuba lagi.",
+      "deleteGeneric": "Tidak dapat memadam akaun. Sila cuba lagi."
+    }
   }
 }

@@ -89,6 +89,13 @@ export const authSlice = createSlice({
       state.error = null;
     },
 
+    updateUserProfile: (state, action: PayloadAction<AuthUser>) => {
+      state.user = {
+        ...(state.user ?? {}),
+        ...action.payload,
+      } as AuthUser;
+    },
+
     // Reset auth state
     resetAuth: (state) => {
       state.user = null;
@@ -112,6 +119,7 @@ export const {
   getSessionFailure,
   clearError,
   resetAuth,
+  updateUserProfile,
 } = authSlice.actions;
 
 export default authSlice.reducer;

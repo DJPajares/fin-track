@@ -287,5 +287,40 @@
         "step3": "3. Appuyez sur \"Ajouter\" pour confirmer"
       }
     }
+  },
+  "Profile": {
+    "title": "Modifier le profil",
+    "description": "Mettez à jour vos informations personnelles ou changez votre mot de passe.",
+    "name": "Nom",
+    "email": "E-mail",
+    "currentPassword": "Mot de passe actuel",
+    "currentPasswordPlaceholder": "Requis pour modifier ou supprimer",
+    "currentPasswordHint": "Utilisez votre mot de passe actuel pour confirmer les changements sensibles.",
+    "newPassword": "Nouveau mot de passe",
+    "confirmPassword": "Confirmer le nouveau mot de passe",
+    "cancel": "Annuler",
+    "save": "Enregistrer les modifications",
+    "saving": "Enregistrement...",
+    "saveConfirmTitle": "Appliquer les modifications ?",
+    "saveConfirmDescription": "Cela mettra à jour votre profil et votre mot de passe si renseigné.",
+    "saveConfirmAction": "Confirmer l'enregistrement",
+    "success": "Profil mis à jour avec succès.",
+    "delete": {
+      "title": "Supprimer le compte",
+      "description": "Cela supprimera définitivement votre compte et vos données.",
+      "button": "Supprimer le compte",
+      "confirmTitle": "Confirmer la suppression du compte",
+      "confirmDescription": "Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.",
+      "confirmAction": "Oui, supprimer",
+      "cancel": "Annuler",
+      "loading": "Suppression..."
+    },
+    "error": {
+      "passwordMismatch": "Les mots de passe ne correspondent pas.",
+      "passwordTooShort": "Le mot de passe doit contenir au moins 8 caractères.",
+      "currentPasswordRequired": "Le mot de passe actuel est requis.",
+      "generic": "Impossible de mettre à jour le profil. Veuillez réessayer.",
+      "deleteGeneric": "Impossible de supprimer le compte. Veuillez réessayer."
+    }
   }
 }

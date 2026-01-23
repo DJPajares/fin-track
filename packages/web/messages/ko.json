@@ -287,5 +287,40 @@
         "step3": "3. \"추가\"를 누르세요"
       }
     }
+  },
+  "Profile": {
+    "title": "프로필 수정",
+    "description": "개인 정보를 업데이트하거나 비밀번호를 변경하세요.",
+    "name": "이름",
+    "email": "이메일",
+    "currentPassword": "현재 비밀번호",
+    "currentPasswordPlaceholder": "비밀번호 변경 또는 삭제 시 필요",
+    "currentPasswordHint": "민감한 변경을 확인하려면 현재 비밀번호를 사용하세요.",
+    "newPassword": "새 비밀번호",
+    "confirmPassword": "새 비밀번호 확인",
+    "cancel": "취소",
+    "save": "변경 사항 저장",
+    "saving": "저장 중...",
+    "saveConfirmTitle": "변경 사항을 적용할까요?",
+    "saveConfirmDescription": "입력한 경우 프로필과 비밀번호가 업데이트됩니다.",
+    "saveConfirmAction": "저장 확인",
+    "success": "프로필이 업데이트되었습니다.",
+    "delete": {
+      "title": "계정 삭제",
+      "description": "계정과 데이터가 영구적으로 삭제됩니다.",
+      "button": "계정 삭제",
+      "confirmTitle": "계정 삭제 확인",
+      "confirmDescription": "정말 계정을 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.",
+      "confirmAction": "네, 삭제합니다",
+      "cancel": "취소",
+      "loading": "삭제 중..."
+    },
+    "error": {
+      "passwordMismatch": "비밀번호가 일치하지 않습니다.",
+      "passwordTooShort": "비밀번호는 최소 8자여야 합니다.",
+      "currentPasswordRequired": "현재 비밀번호가 필요합니다.",
+      "generic": "프로필을 업데이트할 수 없습니다. 다시 시도하세요.",
+      "deleteGeneric": "계정을 삭제할 수 없습니다. 다시 시도하세요."
+    }
   }
 }

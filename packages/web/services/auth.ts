@@ -27,6 +27,13 @@ export type UserSettings = {
   darkMode?: boolean;
 };
 
+export type UpdateProfilePayload = {
+  name?: string;
+  email?: string;
+  currentPassword?: string;
+  newPassword?: string;
+};
+
 /**
  * Login with email and password
  */
@@ -130,4 +137,33 @@ export const updateUserSettings = async (settings: UserSettings) => {
     headers: { Authorization: `Bearer ${token}` },
   });
   return data?.data?.user;
+};
+
+export const updateProfile = async (payload: UpdateProfilePayload) => {
+  const token = localStorage.getItem(STORAGE_KEYS.AUTH_TOKEN);
+  if (!token) {
+    throw new Error('No token found');
+  }
+
+  const { data } = await axios.put(`${BASE_URL}/auth/me/profile`, payload, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+
+  return data?.data?.user;
+};
+
+export const deleteAccount = async (payload: { currentPassword: string }) => {
+  const token = localStorage.getItem(STORAGE_KEYS.AUTH_TOKEN);
+  if (!token) {
+    throw new Error('No token found');
+  }
+
+  const { data } = await axios.delete(`${BASE_URL}/auth/me`, {
+    headers: { Authorization: `Bearer ${token}` },
+    data: payload,
+  });
+
+  localStorage.removeItem(STORAGE_KEYS.AUTH_TOKEN);
+
+  return data;
 };

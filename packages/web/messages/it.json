@@ -287,5 +287,40 @@
         "step3": "3. Tocca \"Aggiungi\" per confermare"
       }
     }
+  },
+  "Profile": {
+    "title": "Modifica profilo",
+    "description": "Aggiorna i tuoi dati personali o cambia la password.",
+    "name": "Nome",
+    "email": "Email",
+    "currentPassword": "Password attuale",
+    "currentPasswordPlaceholder": "Richiesta per modificare o eliminare",
+    "currentPasswordHint": "Usa la password attuale per confermare le modifiche sensibili.",
+    "newPassword": "Nuova password",
+    "confirmPassword": "Conferma nuova password",
+    "cancel": "Annulla",
+    "save": "Salva modifiche",
+    "saving": "Salvataggio...",
+    "saveConfirmTitle": "Applicare le modifiche?",
+    "saveConfirmDescription": "Aggiornerà il tuo profilo e la password se fornita.",
+    "saveConfirmAction": "Conferma salvataggio",
+    "success": "Profilo aggiornato con successo.",
+    "delete": {
+      "title": "Elimina account",
+      "description": "Questo rimuoverà definitivamente il tuo account e i tuoi dati.",
+      "button": "Elimina account",
+      "confirmTitle": "Conferma eliminazione account",
+      "confirmDescription": "Sei sicuro di voler eliminare il tuo account? Questa azione è irreversibile.",
+      "confirmAction": "Sì, elimina",
+      "cancel": "Annulla",
+      "loading": "Eliminazione..."
+    },
+    "error": {
+      "passwordMismatch": "Le password non coincidono.",
+      "passwordTooShort": "La password deve contenere almeno 8 caratteri.",
+      "currentPasswordRequired": "La password attuale è obbligatoria.",
+      "generic": "Impossibile aggiornare il profilo. Riprova.",
+      "deleteGeneric": "Impossibile eliminare l'account. Riprova."
+    }
   }
 }

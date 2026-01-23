@@ -287,5 +287,40 @@
         "step3": "3. Tap \"Add\" para i-confirm"
       }
     }
+  },
+  "Profile": {
+    "title": "I-edit ang profile",
+    "description": "I-update ang iyong personal na detalye o palitan ang iyong password.",
+    "name": "Pangalan",
+    "email": "Email",
+    "currentPassword": "Kasalukuyang password",
+    "currentPasswordPlaceholder": "Kailangan para sa password o pagbura",
+    "currentPasswordHint": "Gamitin ang kasalukuyang password para kumpirmahin ang sensitibong pagbabago.",
+    "newPassword": "Bagong password",
+    "confirmPassword": "Kumpirmahin ang bagong password",
+    "cancel": "Kanselahin",
+    "save": "I-save ang mga pagbabago",
+    "saving": "Nagse-save...",
+    "saveConfirmTitle": "Ilapat ang mga pagbabago?",
+    "saveConfirmDescription": "Ia-update nito ang iyong profile at password kung ibinigay.",
+    "saveConfirmAction": "Kumpirmahin ang Save",
+    "success": "Matagumpay na na-update ang profile.",
+    "delete": {
+      "title": "I-delete ang account",
+      "description": "Permanenteng tatanggalin nito ang iyong account at data.",
+      "button": "I-delete ang account",
+      "confirmTitle": "Kumpirmahin ang pag-delete ng account",
+      "confirmDescription": "Sigurado ka bang gusto mong i-delete ang iyong account? Hindi na ito mababawi.",
+      "confirmAction": "Oo, i-delete",
+      "cancel": "Kanselahin",
+      "loading": "Nagdi-delete..."
+    },
+    "error": {
+      "passwordMismatch": "Hindi tugma ang mga password.",
+      "passwordTooShort": "Dapat hindi bababa sa 8 character ang password.",
+      "currentPasswordRequired": "Kailangan ang kasalukuyang password.",
+      "generic": "Hindi mai-update ang profile. Pakisubukang muli.",
+      "deleteGeneric": "Hindi mai-delete ang account. Pakisubukang muli."
+    }
   }
 }
