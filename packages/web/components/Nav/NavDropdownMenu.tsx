@@ -35,7 +35,7 @@ import { Switch } from '../ui/switch';
 import { setUserLocale } from '../../services/locale';
 import { updateUserSettings } from '../../services/auth';
 import { sortedLanguages } from '@shared/utilities/common';
-import packageInfo from '../../package.json';
+import packageInfo from '../../../../package.json';
 
 import { useAppSelector } from '../../lib/hooks/use-redux';
 import { setDashboardCurrency } from '../../lib/redux/feature/dashboard/dashboardSlice';
