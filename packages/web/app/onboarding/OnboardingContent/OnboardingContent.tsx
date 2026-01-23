@@ -1,8 +1,8 @@
 import { ComponentType, useEffect, useState } from 'react';
+import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 
 import { Button } from '@web/components/ui/button';
-import { Card, CardHeader, CardTitle } from '@web/components/ui/card';
 import {
   Carousel,
   CarouselContent,
@@ -70,26 +70,24 @@ function OnboardingContent({ features }: { features: FeatureCard[] }) {
       >
         <CarouselContent>
           {features.map((feature) => {
-            const Icon = feature.icon;
             return (
               <CarouselItem key={feature.id} className="basis-full">
-                <Card className="border-border/70 flex flex-col">
-                  <CardHeader className="space-y-4">
-                    <div className="flex justify-center">
-                      <div className="bg-primary/10 text-primary flex h-16 w-16 items-center justify-center rounded-2xl">
-                        <Icon className="h-8 w-8" />
-                      </div>
-                    </div>
-                    <div className="space-y-2 text-center">
-                      <CardTitle className="text-2xl">
-                        {feature.title}
-                      </CardTitle>
-                      <p className="text-muted-foreground text-sm">
-                        {feature.description}
-                      </p>
-                    </div>
-                  </CardHeader>
-                </Card>
+                <div className="flex flex-col items-center">
+                  <div className="relative h-[40vh] w-full max-w-sm overflow-hidden rounded-lg">
+                    <div className="to-background pointer-events-none absolute inset-0 z-10 bg-linear-to-b via-transparent" />
+                    <Image
+                      src={`/images/${feature.id}.webp`}
+                      alt={feature.title}
+                      fill
+                      className="object-contain"
+                    />
+                  </div>
+
+                  <Label variant="title-xl">{feature.title}</Label>
+                  <div className="w-full max-w-xs px-14 text-center leading-none">
+                    <Label variant="caption">{feature.description}</Label>
+                  </div>
+                </div>
               </CarouselItem>
             );
           })}
