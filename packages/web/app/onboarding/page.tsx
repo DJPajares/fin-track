@@ -1,23 +1,11 @@
 'use client';
 
-import { useEffect, useMemo, useState, type ComponentType } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useTranslations } from 'next-intl';
-import {
-  BarChart3,
-  LayoutDashboard,
-  ListChecks,
-  PiggyBank,
-  Wallet,
-} from 'lucide-react';
+
 import OnboardingContent from '@web/app/onboarding/OnboardingContent/OnboardingContent';
 
-type FeatureCard = {
-  id: string;
-  icon: ComponentType<{ className?: string }>;
-  title: string;
-  description: string;
-  badge: string;
-};
+import type { FeatureCardProps } from '@web/types/Onboarding';
 
 export default function OnboardingPage() {
   const t = useTranslations('Onboarding');
@@ -27,39 +15,34 @@ export default function OnboardingPage() {
     setIsReady(true);
   }, []);
 
-  const featureCards: FeatureCard[] = useMemo(
+  const featureCards: FeatureCardProps[] = useMemo(
     () => [
       {
         id: 'onboarding-card-dashboard',
-        icon: LayoutDashboard,
         title: t('steps.dashboard.title'),
         description: t('steps.dashboard.description'),
         badge: t('badges.overview'),
       },
       {
         id: 'onboarding-card-transactions',
-        icon: Wallet,
         title: t('steps.transactions.title'),
         description: t('steps.transactions.description'),
         badge: t('badges.cashflow'),
       },
       {
         id: 'onboarding-card-categories',
-        icon: ListChecks,
         title: t('steps.categories.title'),
         description: t('steps.categories.description'),
         badge: t('badges.organization'),
       },
       {
         id: 'onboarding-card-charts',
-        icon: BarChart3,
         title: t('steps.charts.title'),
         description: t('steps.charts.description'),
         badge: t('badges.insights'),
       },
       {
         id: 'onboarding-card-budgets',
-        icon: PiggyBank,
         title: t('steps.budgets.title'),
         description: t('steps.budgets.description'),
         badge: t('badges.control'),

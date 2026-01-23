@@ -1,4 +1,4 @@
-import { ComponentType, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 
@@ -14,15 +14,9 @@ import { Label } from '@web/components/ui/label';
 import { cn } from '@web/lib/utils';
 import { CONSTANTS } from '@shared/constants/common';
 
-type FeatureCard = {
-  id: string;
-  icon: ComponentType<{ className?: string }>;
-  title: string;
-  description: string;
-  badge: string;
-};
+import type { FeatureCardProps } from '@web/types/Onboarding';
 
-function OnboardingContent({ features }: { features: FeatureCard[] }) {
+function OnboardingContent({ features }: { features: FeatureCardProps[] }) {
   const t = useTranslations('Onboarding');
   const [api, setApi] = useState<CarouselApi>();
   const [currentStep, setCurrentStep] = useState(0);
