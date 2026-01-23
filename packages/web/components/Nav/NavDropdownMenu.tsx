@@ -129,7 +129,7 @@ const NavDropdownMenu = ({ children }: NavDropdownMenuProps) => {
                 {t('language')}
               </DropdownMenuSubTrigger>
               <DropdownMenuPortal>
-                <DropdownMenuSubContent>
+                <DropdownMenuSubContent className="max-h-100 overflow-y-auto">
                   {sortedLanguages.map((language) => {
                     const isSelected = locale === language.value;
 
@@ -158,7 +158,7 @@ const NavDropdownMenu = ({ children }: NavDropdownMenuProps) => {
                 {t('currency')}
               </DropdownMenuSubTrigger>
               <DropdownMenuPortal>
-                <DropdownMenuSubContent>
+                <DropdownMenuSubContent className="max-h-100 overflow-y-auto">
                   {currencies.map((currency) => {
                     const isSelected = dashboardCurrency.name === currency.name;
                     return (
