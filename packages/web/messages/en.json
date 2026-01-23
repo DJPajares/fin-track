@@ -169,30 +169,11 @@
     }
   },
   "Onboarding": {
-    "appName": "Fin-Track",
     "getStarted": "Get Started",
     "skipForNow": "Skip for now",
-    "eyebrow": "Guided setup",
-    "title": "Welcome to Fin-Track",
-    "subtitle": "See how to stay on top of your money with clear insights and quick actions.",
-    "topper": "Get oriented",
-    "headline": "A quick tour of what matters most",
-    "description": "We’ll spotlight the views you’ll use every day—start when you’re ready.",
-    "startTour": "Start guided tour",
-    "restart": "Replay tour",
-    "skip": "Skip for now",
-    "continueToApp": "Continue to dashboard",
     "next": "Next",
     "back": "Back",
     "done": "Finish tour",
-    "cta": {
-      "seeIt": "Open this view"
-    },
-    "highlight": {
-      "title": "Stay on track",
-      "value": "Plan, spend, review",
-      "caption": "Built for clear, confident money moves."
-    },
     "badges": {
       "overview": "Overview",
       "cashflow": "Cash flow",
@@ -201,31 +182,25 @@
       "control": "Control"
     },
     "steps": {
-      "label": "Step {current} of {total}",
       "dashboard": {
         "title": "Dashboard overview",
-        "description": "See balances, trends, and upcoming items at a glance.",
-        "tooltip": "Your home base—check cash position, goals, and alerts in seconds."
+        "description": "See balances, trends, and upcoming items at a glance."
       },
       "transactions": {
         "title": "Transactions",
-        "description": "Track income and expenses with smart filters.",
-        "tooltip": "Add, edit, and search payments fast. Keep recurring items tidy."
+        "description": "Track income and expenses with smart filters."
       },
       "categories": {
         "title": "Categories",
-        "description": "Keep spending organized with flexible categories and icons.",
-        "tooltip": "Group expenses and income, customize icons, and keep reports consistent."
+        "description": "Keep spending organized with flexible categories and icons."
       },
       "charts": {
         "title": "Charts & insights",
-        "description": "Visualize cash flow and category trends with interactive charts.",
-        "tooltip": "Drill into patterns by category, time, and type to spot changes early."
+        "description": "Visualize cash flow and category trends with interactive charts."
       },
       "budgets": {
         "title": "Budgets & goals",
-        "description": "Set budgets and track completion with progress indicators.",
-        "tooltip": "Plan monthly limits, monitor remaining balances, and stay ahead of overspend."
+        "description": "Set budgets and track completion with progress indicators."
       }
     }
   },
