@@ -17,7 +17,7 @@ interface ProtectedRouteProps {
   children: React.ReactNode;
 }
 
-const publicRoutes = ['/auth', '/auth/signup', '/onboarding'];
+const publicRoutes = ['/auth', '/auth/signup'];
 
 export function ProtectedRoute({ children }: ProtectedRouteProps) {
   const router = useRouter();
@@ -28,6 +28,7 @@ export function ProtectedRoute({ children }: ProtectedRouteProps) {
     (state: RootState) => state.auth,
   );
   const [isInitialized, setIsInitialized] = useState(false);
+  const isOnboardingRoute = pathname === '/onboarding';
 
   useEffect(() => {
     const initializeAuth = async () => {
@@ -60,7 +61,7 @@ export function ProtectedRoute({ children }: ProtectedRouteProps) {
         );
 
         // If user is authenticated and on a public route, redirect to dashboard
-        if (publicRoutes.includes(pathname || '')) {
+        if (publicRoutes.includes(pathname || '') && !isOnboardingRoute) {
           router.push('/dashboard');
         }
       } catch (error) {
@@ -79,7 +80,7 @@ export function ProtectedRoute({ children }: ProtectedRouteProps) {
     };
 
     initializeAuth();
-  }, [pathname, dispatch, router]);
+  }, [pathname, dispatch, router, isOnboardingRoute]);
 
   // Show loading state while checking authentication
   if (isLoading || !isInitialized) {
@@ -98,6 +99,11 @@ export function ProtectedRoute({ children }: ProtectedRouteProps) {
         <div className="text-lg">{t('redirectingToLogin')}</div>
       </div>
     );
+  }
+
+  // Allow authenticated users to access the onboarding route
+  if (isAuthenticated && isOnboardingRoute) {
+    return <>{children}</>;
   }
 
   return <>{children}</>;
