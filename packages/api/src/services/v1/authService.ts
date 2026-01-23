@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
-import { UserModel } from '../../models/v1/userModel';
+import { UserModel, type UserProps } from '../../models/v1/userModel';
 import {
   AuthResponse,
   LoginCredentials,
@@ -156,6 +156,127 @@ const getUserById = async (userId: string) => {
   };
 };
 
+const updateProfile = async ({
+  userId,
+  name,
+  email,
+  currentPassword,
+  newPassword,
+}: {
+  userId: string;
+  name?: string;
+  email?: string;
+  currentPassword?: string;
+  newPassword?: string;
+}) => {
+  const user = (await UserModel.findById(userId)
+    .select('+password')
+    .exec()) as UserProps | null;
+
+  if (!user) {
+    throw new Error('User not found');
+  }
+
+  if (email && email.toLowerCase() !== user.email) {
+    const emailInUse = await UserModel.findOne({
+      email: email.toLowerCase(),
+      _id: { $ne: userId },
+    });
+
+    if (emailInUse) {
+      const error = new Error('Email already registered') as Error & {
+        statusCode?: number;
+      };
+      error.statusCode = 400;
+      throw error;
+    }
+
+    user.email = email.toLowerCase();
+  }
+
+  if (name !== undefined) {
+    user.name = name;
+  }
+
+  if (newPassword) {
+    if (!currentPassword) {
+      const error = new Error(
+        'Current password is required to change password',
+      ) as Error & { statusCode?: number };
+      error.statusCode = 400;
+      throw error;
+    }
+
+    const isCurrentValid = await user.comparePassword(currentPassword);
+
+    if (!isCurrentValid) {
+      const error = new Error('Incorrect password') as Error & {
+        statusCode?: number;
+      };
+      error.statusCode = 401;
+      throw error;
+    }
+
+    if (newPassword.length < 8) {
+      const error = new Error(
+        'Password must be at least 8 characters',
+      ) as Error & { statusCode?: number };
+      error.statusCode = 400;
+      throw error;
+    }
+
+    user.password = newPassword;
+  }
+
+  await user.save();
+
+  return {
+    id: user._id.toString(),
+    email: user.email,
+    name: user.name,
+    image: user.image,
+    settings: user.settings,
+  };
+};
+
+const deleteAccount = async ({
+  userId,
+  currentPassword,
+}: {
+  userId: string;
+  currentPassword?: string;
+}) => {
+  const user = (await UserModel.findById(userId)
+    .select('+password')
+    .exec()) as UserProps | null;
+
+  if (!user) {
+    throw new Error('User not found');
+  }
+
+  if (!currentPassword) {
+    const error = new Error('Current password is required') as Error & {
+      statusCode?: number;
+    };
+    error.statusCode = 400;
+    throw error;
+  }
+
+  const isCurrentValid = await user.comparePassword(currentPassword);
+
+  if (!isCurrentValid) {
+    const error = new Error('Incorrect password') as Error & {
+      statusCode?: number;
+    };
+    error.statusCode = 401;
+    throw error;
+  }
+
+  await user.deleteOne();
+
+  return { id: userId };
+};
+
 const updateSettings = async ({
   userId,
   language,
@@ -199,4 +320,6 @@ export {
   verifyToken,
   getUserById,
   updateSettings,
+  updateProfile,
+  deleteAccount,
 };
