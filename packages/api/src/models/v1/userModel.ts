@@ -18,6 +18,7 @@ const userSchema = new Schema(
     },
     name: { type: String },
     image: { type: String },
+    lastLoginAt: { type: Date },
     settings: {
       language: { type: String },
       currency: { type: String },

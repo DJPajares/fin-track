@@ -122,6 +122,9 @@ const login = async (credentials: LoginCredentials): Promise<AuthResponse> => {
     throw new Error('Incorrect password');
   }
 
+  // Update last login time
+  await UserModel.updateOne({ _id: user.id }, { lastLoginAt: new Date() });
+
   // Generate token
   const token = generateToken(user.id);
 
