@@ -168,6 +168,42 @@
       }
     }
   },
+  "Onboarding": {
+    "getStarted": "시작하기",
+    "skipForNow": "지금은 건너뛰기",
+    "next": "다음",
+    "back": "뒤로",
+    "done": "투어 완료",
+    "badges": {
+      "overview": "개요",
+      "cashflow": "현금 흐름",
+      "organization": "조직",
+      "insights": "인사이트",
+      "control": "제어"
+    },
+    "steps": {
+      "dashboard": {
+        "title": "완전한 명확성",
+        "description": "잔액, 추세 및 재정 건강의 간결한 보기입니다."
+      },
+      "transactions": {
+        "title": "마찰 없는 추적",
+        "description": "스프레드시트의 복잡함 없이 글로벌 통화 및 정기 결제를 관리합니다."
+      },
+      "categories": {
+        "title": "스마트 조직",
+        "description": "귀하의 요구에 맞게 조정하도록 설계된 유연한 태깅 및 분류."
+      },
+      "charts": {
+        "title": "숫자뿐만 아니라 인사이트",
+        "description": "동적 시각화를 통해 현금 흐름을 더 깊이 이해합니다."
+      },
+      "budgets": {
+        "title": "의도적인 지출",
+        "description": "진행률을 모니터링하고 재정 목표에 맞춰 유지하세요."
+      }
+    }
+  },
   "Common": {
     "button": {
       "ok": "확인",

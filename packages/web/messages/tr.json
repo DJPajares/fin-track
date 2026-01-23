@@ -168,6 +168,42 @@
       }
     }
   },
+  "Onboarding": {
+    "getStarted": "Başla",
+    "skipForNow": "Şimdilik Atla",
+    "next": "Sonraki",
+    "back": "Geri",
+    "done": "Turu Bitir",
+    "badges": {
+      "overview": "Genel Bakış",
+      "cashflow": "Nakit Akışı",
+      "organization": "Organizasyon",
+      "insights": "İçgörüler",
+      "control": "Kontrol"
+    },
+    "steps": {
+      "dashboard": {
+        "title": "Tam Netlik",
+        "description": "Bakiyelerinizin, eğilimlerinizin ve finansal sağlığınızın basitleştirilmiş bir görünümü."
+      },
+      "transactions": {
+        "title": "Sürtüşünsüz İzleme",
+        "description": "Elektronik tablo başı ağrısı olmadan küresel para birimlerini ve yinelenen ödemeleri yönetin."
+      },
+      "categories": {
+        "title": "Akıllı Organizasyon",
+        "description": "Gereksinimlerinize uyum sağlamak için tasarlanmış esnek etiketleme ve kategorizasyon."
+      },
+      "charts": {
+        "title": "İçgörüler, sadece sayılar değil",
+        "description": "Dinamik görselleştirmeler aracılığıyla nakit akışınızı daha derinlemesine anlayın."
+      },
+      "budgets": {
+        "title": "Kasıtlı Harcama",
+        "description": "İlerleme çubuklarınızı izleyin ve finansal hedeflerinizle uyumlu kalın."
+      }
+    }
+  },
   "Common": {
     "button": {
       "ok": "Tamam",

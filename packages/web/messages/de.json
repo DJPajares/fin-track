@@ -168,6 +168,42 @@
       }
     }
   },
+  "Onboarding": {
+    "getStarted": "Loslegen",
+    "skipForNow": "Jetzt überspringen",
+    "next": "Nächster",
+    "back": "Zurück",
+    "done": "Tour beenden",
+    "badges": {
+      "overview": "Übersicht",
+      "cashflow": "Cashflow",
+      "organization": "Organisation",
+      "insights": "Einblicke",
+      "control": "Kontrolle"
+    },
+    "steps": {
+      "dashboard": {
+        "title": "Gesamtübersicht",
+        "description": "Eine übersichtliche Darstellung Ihrer Salden, Trends und finanziellen Gesundheit."
+      },
+      "transactions": {
+        "title": "Reibungslose Verfolgung",
+        "description": "Verwalten Sie globale Währungen und wiederkehrende Zahlungen ohne die Kopfschmerzen von Tabellenkalkulationen."
+      },
+      "categories": {
+        "title": "Intelligente Organisation",
+        "description": "Flexible Kennzeichnung und Kategorisierung, die sich an Ihre Bedürfnisse anpasst."
+      },
+      "charts": {
+        "title": "Einblicke, nicht nur Zahlen",
+        "description": "Erhalten Sie ein tieferes Verständnis Ihres Cashflows durch dynamische Visualisierungen."
+      },
+      "budgets": {
+        "title": "Zielgerichtete Ausgaben",
+        "description": "Überwachen Sie Ihre Fortschrittsbalken und bleiben Sie im Einklang mit Ihren finanziellen Zielen."
+      }
+    }
+  },
   "Common": {
     "button": {
       "ok": "OK",

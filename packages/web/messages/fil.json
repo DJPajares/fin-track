@@ -168,6 +168,42 @@
       }
     }
   },
+  "Onboarding": {
+    "getStarted": "Magsimula",
+    "skipForNow": "Lumaktaw para sa ngayon",
+    "next": "Susunod",
+    "back": "Bumalik",
+    "done": "Tapusin ang tour",
+    "badges": {
+      "overview": "Pangkalahatang Pag-overview",
+      "cashflow": "Daloy ng Pera",
+      "organization": "Organisasyon",
+      "insights": "Mga Insight",
+      "control": "Kontrol"
+    },
+    "steps": {
+      "dashboard": {
+        "title": "Kabuuang Kalinisan",
+        "description": "Isang streamlined na view ng iyong mga balanse, trends, at kalusugan sa pananalapi."
+      },
+      "transactions": {
+        "title": "Walang Alalahanin na Pagsubaybay",
+        "description": "Pamahalaan ang pandaigdigang currency at mga paulit-ulit na pagbabayad nang walang problema ng spreadsheet."
+      },
+      "categories": {
+        "title": "Matalinong Organisasyon",
+        "description": "Flexible na tagging at categorization na dinisenyo upang umangkop sa iyong pangangailangan."
+      },
+      "charts": {
+        "title": "Mga Insight, hindi lang mga numero",
+        "description": "Buksan ang mas malalim na pag-unawa sa iyong cash flow sa pamamagitan ng dynamic na visualizations."
+      },
+      "budgets": {
+        "title": "Sinasadyang Gastos",
+        "description": "Subaybawan ang iyong mga progress bar at manatiling aligned sa iyong mga financial target."
+      }
+    }
+  },
   "Common": {
     "button": {
       "ok": "Sige",

@@ -168,6 +168,42 @@
       }
     }
   },
+  "Onboarding": {
+    "getStarted": "Inizia",
+    "skipForNow": "Salta per ora",
+    "next": "Avanti",
+    "back": "Indietro",
+    "done": "Termina il tour",
+    "badges": {
+      "overview": "Panoramica",
+      "cashflow": "Flusso di cassa",
+      "organization": "Organizzazione",
+      "insights": "Intuizioni",
+      "control": "Controllo"
+    },
+    "steps": {
+      "dashboard": {
+        "title": "Chiarezza totale",
+        "description": "Una visualizzazione semplificata dei tuoi saldi, tendenze e salute finanziaria."
+      },
+      "transactions": {
+        "title": "Monitoraggio senza attriti",
+        "description": "Gestisci valute globali e pagamenti ricorrenti senza le complicazioni dei fogli di calcolo."
+      },
+      "categories": {
+        "title": "Organizzazione intelligente",
+        "description": "Tag e categorizzazione flessibili progettati per adattarsi alle tue esigenze."
+      },
+      "charts": {
+        "title": "Intuizioni, non solo numeri",
+        "description": "Sblocca una comprensione più profonda del tuo flusso di cassa attraverso visualizzazioni dinamiche."
+      },
+      "budgets": {
+        "title": "Spesa intenzionale",
+        "description": "Monitora le tue barre di avanzamento e mantieniti allineato con i tuoi obiettivi finanziari."
+      }
+    }
+  },
   "Common": {
     "button": {
       "ok": "Ok",

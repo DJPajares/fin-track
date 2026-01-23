@@ -168,6 +168,42 @@
       }
     }
   },
+  "Onboarding": {
+    "getStarted": "Commencer",
+    "skipForNow": "Passer pour l'instant",
+    "next": "Suivant",
+    "back": "Retour",
+    "done": "Terminer la visite",
+    "badges": {
+      "overview": "Aperçu",
+      "cashflow": "Flux de trésorerie",
+      "organization": "Organisation",
+      "insights": "Aperçus",
+      "control": "Contrôle"
+    },
+    "steps": {
+      "dashboard": {
+        "title": "Clarté totale",
+        "description": "Une vue simplifiée de vos soldes, tendances et santé financière."
+      },
+      "transactions": {
+        "title": "Suivi sans friction",
+        "description": "Gérez les devises mondiales et les paiements récurrents sans le casse-tête des tableurs."
+      },
+      "categories": {
+        "title": "Organisation intelligente",
+        "description": "Étiquetage et catégorisation flexibles conçus pour s'adapter à vos besoins."
+      },
+      "charts": {
+        "title": "Aperçus, pas seulement des chiffres",
+        "description": "Débloquez une compréhension plus profonde de votre flux de trésorerie grâce à des visualisations dynamiques."
+      },
+      "budgets": {
+        "title": "Dépenses intentionnelles",
+        "description": "Surveillez vos barres de progression et restez aligné avec vos objectifs financiers."
+      }
+    }
+  },
   "Common": {
     "button": {
       "ok": "D'accord",

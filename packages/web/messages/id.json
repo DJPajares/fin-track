@@ -168,6 +168,42 @@
       }
     }
   },
+  "Onboarding": {
+    "getStarted": "Mulai Sekarang",
+    "skipForNow": "Lewatkan untuk Sekarang",
+    "next": "Selanjutnya",
+    "back": "Kembali",
+    "done": "Selesaikan Tur",
+    "badges": {
+      "overview": "Ikhtisar",
+      "cashflow": "Arus Kas",
+      "organization": "Organisasi",
+      "insights": "Wawasan",
+      "control": "Kontrol"
+    },
+    "steps": {
+      "dashboard": {
+        "title": "Kejelasan Total",
+        "description": "Tampilan yang disederhanakan tentang saldo, tren, dan kesehatan keuangan Anda."
+      },
+      "transactions": {
+        "title": "Pelacakan Tanpa Gesekan",
+        "description": "Kelola mata uang global dan pembayaran berulang tanpa kerumitan spreadsheet."
+      },
+      "categories": {
+        "title": "Organisasi Cerdas",
+        "description": "Pemberian tag dan kategorisasi fleksibel yang dirancang untuk beradaptasi dengan kebutuhan Anda."
+      },
+      "charts": {
+        "title": "Wawasan, Bukan Sekedar Angka",
+        "description": "Buka pemahaman yang lebih dalam tentang arus kas Anda melalui visualisasi dinamis."
+      },
+      "budgets": {
+        "title": "Pengeluaran yang Disengaja",
+        "description": "Pantau batang kemajuan Anda dan tetap selaras dengan target keuangan Anda."
+      }
+    }
+  },
   "Common": {
     "button": {
       "ok": "Ok",

@@ -168,6 +168,42 @@
       }
     }
   },
+  "Onboarding": {
+    "getStarted": "Comenzar",
+    "skipForNow": "Saltar por ahora",
+    "next": "Siguiente",
+    "back": "Atrás",
+    "done": "Terminar tour",
+    "badges": {
+      "overview": "Descripción general",
+      "cashflow": "Flujo de caja",
+      "organization": "Organización",
+      "insights": "Perspectivas",
+      "control": "Control"
+    },
+    "steps": {
+      "dashboard": {
+        "title": "Claridad total",
+        "description": "Una vista simplificada de sus saldos, tendencias y salud financiera."
+      },
+      "transactions": {
+        "title": "Seguimiento sin fricciones",
+        "description": "Administre monedas globales y pagos recurrentes sin el dolor de cabeza de las hojas de cálculo."
+      },
+      "categories": {
+        "title": "Organización inteligente",
+        "description": "Etiquetado y categorización flexibles diseñados para adaptarse a sus necesidades."
+      },
+      "charts": {
+        "title": "Perspectivas, no solo números",
+        "description": "Desbloquee una comprensión más profunda de su flujo de caja a través de visualizaciones dinámicas."
+      },
+      "budgets": {
+        "title": "Gastos intencionales",
+        "description": "Monitoree sus barras de progreso y manténgase alineado con sus objetivos financieros."
+      }
+    }
+  },
   "Common": {
     "button": {
       "ok": "Aceptar",
