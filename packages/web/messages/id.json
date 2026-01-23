@@ -217,19 +217,19 @@
   "PWA": {
     "installPrompt": {
       "title": {
-        "install": "Instal Fin-Track",
+        "install": "Instal {appName}",
         "update": "Pembaruan Tersedia",
         "offline": "Mode Offline"
       },
       "description": {
-        "install": "Instal Fin-Track sebagai aplikasi untuk pengalaman yang lebih baik",
-        "update": "Versi baru Fin-Track tersedia",
+        "install": "Instal {appName} sebagai aplikasi untuk pengalaman yang lebih baik",
+        "update": "Versi baru {appName} tersedia",
         "offline": "Anda saat ini offline. Beberapa fitur mungkin terbatas."
       },
       "content": {
         "install": {
-          "description": "Instal Fin-Track untuk akses cepat dan fungsionalitas offline.",
-          "descriptionIOS": "Instal Fin-Track untuk akses cepat dan fungsionalitas offline. Ketuk \"Tampilkan Instruksi\" untuk mempelajari caranya.",
+          "description": "Instal {appName} untuk akses cepat dan fungsionalitas offline.",
+          "descriptionIOS": "Instal {appName} untuk akses cepat dan fungsionalitas offline. Ketuk \"Tampilkan Instruksi\" untuk mempelajari caranya.",
           "button": "Instal Aplikasi",
           "buttonIOS": "Tampilkan Instruksi",
           "dismiss": "Mungkin nanti"

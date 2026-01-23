@@ -217,19 +217,19 @@
   "PWA": {
     "installPrompt": {
       "title": {
-        "install": "Fin-Track'i Yükle",
+        "install": "{appName}'i Yükle",
         "update": "Güncelleme Mevcut",
         "offline": "Çevrimdışı Mod"
       },
       "description": {
-        "install": "Daha iyi bir deneyim için Fin-Track'i uygulama olarak yükleyin",
-        "update": "Fin-Track'in yeni bir sürümü mevcut",
+        "install": "Daha iyi bir deneyim için {appName}'i uygulama olarak yükleyin",
+        "update": "{appName}'in yeni bir sürümü mevcut",
         "offline": "Şu anda çevrimdışısınız. Bazı özellikler sınırlı olabilir."
       },
       "content": {
         "install": {
-          "description": "Hızlı erişim ve çevrimdışı işlevsellik için Fin-Track'i yükleyin.",
-          "descriptionIOS": "Hızlı erişim ve çevrimdışı işlevsellik için Fin-Track'i yükleyin. Nasıl yapılacağını öğrenmek için \"Talimatları Göster\"e dokunun.",
+          "description": "Hızlı erişim ve çevrimdışı işlevsellik için {appName}'i yükleyin.",
+          "descriptionIOS": "Hızlı erişim ve çevrimdışı işlevsellik için {appName}'i yükleyin. Nasıl yapılacağını öğrenmek için \"Talimatları Göster\"e dokunun.",
           "button": "Uygulamayı Yükle",
           "buttonIOS": "Talimatları Göster",
           "dismiss": "Belki daha sonra"

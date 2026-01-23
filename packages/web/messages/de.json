@@ -217,19 +217,19 @@
   "PWA": {
     "installPrompt": {
       "title": {
-        "install": "Fin-Track installieren",
+        "install": "{appName} installieren",
         "update": "Update verfügbar",
         "offline": "Offline-Modus"
       },
       "description": {
-        "install": "Installieren Sie Fin-Track als App für ein besseres Erlebnis",
-        "update": "Eine neue Version von Fin-Track ist verfügbar",
+        "install": "Installieren Sie {appName} als App für ein besseres Erlebnis",
+        "update": "Eine neue Version von {appName} ist verfügbar",
         "offline": "Sie sind derzeit offline. Einige Funktionen können eingeschränkt sein."
       },
       "content": {
         "install": {
-          "description": "Installieren Sie Fin-Track für schnellen Zugriff und Offline-Funktionalität.",
-          "descriptionIOS": "Installieren Sie Fin-Track für schnellen Zugriff und Offline-Funktionalität. Tippen Sie auf \"Anweisungen anzeigen\" um zu erfahren wie.",
+          "description": "Installieren Sie {appName} für schnellen Zugriff und Offline-Funktionalität.",
+          "descriptionIOS": "Installieren Sie {appName} für schnellen Zugriff und Offline-Funktionalität. Tippen Sie auf \"Anweisungen anzeigen\" um zu erfahren wie.",
           "button": "App installieren",
           "buttonIOS": "Anweisungen anzeigen",
           "dismiss": "Vielleicht später"

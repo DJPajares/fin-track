@@ -253,19 +253,19 @@
   "PWA": {
     "installPrompt": {
       "title": {
-        "install": "Install Fin-Track",
+        "install": "Install {appName}",
         "update": "Update Available",
         "offline": "Offline Mode"
       },
       "description": {
-        "install": "Install Fin-Track as an app for a better experience",
-        "update": "A new version of Fin-Track is available",
+        "install": "Install {appName} as an app for a better experience",
+        "update": "A new version of {appName} is available",
         "offline": "You are currently offline. Some features may be limited."
       },
       "content": {
         "install": {
-          "description": "Install Fin-Track for quick access and offline functionality.",
-          "descriptionIOS": "Install Fin-Track for quick access and offline functionality. Tap \"Show Instructions\" to learn how.",
+          "description": "Install {appName} for quick access and offline functionality.",
+          "descriptionIOS": "Install {appName} for quick access and offline functionality. Tap \"Show Instructions\" to learn how.",
           "button": "Install App",
           "buttonIOS": "Show Instructions",
           "dismiss": "Maybe Later"

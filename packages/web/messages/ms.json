@@ -217,19 +217,19 @@
   "PWA": {
     "installPrompt": {
       "title": {
-        "install": "Pasang Fin-Track",
+        "install": "Pasang {appName}",
         "update": "Kemas Kini Tersedia",
         "offline": "Mod Luar Talian"
       },
       "description": {
-        "install": "Pasang Fin-Track sebagai aplikasi untuk pengalaman yang lebih baik",
-        "update": "Versi baru Fin-Track tersedia",
+        "install": "Pasang {appName} sebagai aplikasi untuk pengalaman yang lebih baik",
+        "update": "Versi baru {appName} tersedia",
         "offline": "Anda sedang luar talian. Sesetengah ciri mungkin terhad."
       },
       "content": {
         "install": {
-          "description": "Pasang Fin-Track untuk akses pantas dan fungsi luar talian.",
-          "descriptionIOS": "Pasang Fin-Track untuk akses pantas dan fungsi luar talian. Ketuk \"Tunjukkan Arahan\" untuk belajar cara.",
+          "description": "Pasang {appName} untuk akses pantas dan fungsi luar talian.",
+          "descriptionIOS": "Pasang {appName} untuk akses pantas dan fungsi luar talian. Ketuk \"Tunjukkan Arahan\" untuk belajar cara.",
           "button": "Pasang Aplikasi",
           "buttonIOS": "Tunjukkan Arahan",
           "dismiss": "Mungkin kemudian"

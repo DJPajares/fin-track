@@ -217,19 +217,19 @@
   "PWA": {
     "installPrompt": {
       "title": {
-        "install": "Cài đặt Fin-Track",
+        "install": "Cài đặt {appName}",
         "update": "Cập nhật có sẵn",
         "offline": "Chế độ ngoại tuyến"
       },
       "description": {
-        "install": "Cài đặt Fin-Track như ứng dụng để có trải nghiệm tốt hơn",
-        "update": "Phiên bản mới của Fin-Track có sẵn",
+        "install": "Cài đặt {appName} như ứng dụng để có trải nghiệm tốt hơn",
+        "update": "Phiên bản mới của {appName} có sẵn",
         "offline": "Bạn hiện đang ngoại tuyến. Một số tính năng có thể bị hạn chế."
       },
       "content": {
         "install": {
-          "description": "Cài đặt Fin-Track để truy cập nhanh và chức năng ngoại tuyến.",
-          "descriptionIOS": "Cài đặt Fin-Track để truy cập nhanh và chức năng ngoại tuyến. Nhấn \"Hiển thị hướng dẫn\" để học cách làm.",
+          "description": "Cài đặt {appName} để truy cập nhanh và chức năng ngoại tuyến.",
+          "descriptionIOS": "Cài đặt {appName} để truy cập nhanh và chức năng ngoại tuyến. Nhấn \"Hiển thị hướng dẫn\" để học cách làm.",
           "button": "Cài đặt ứng dụng",
           "buttonIOS": "Hiển thị hướng dẫn",
           "dismiss": "Có thể sau"

@@ -217,19 +217,19 @@
   "PWA": {
     "installPrompt": {
       "title": {
-        "install": "Fin-Trackをインストール",
+        "install": "{appName}をインストール",
         "update": "アップデート利用可能",
         "offline": "オフラインモード"
       },
       "description": {
-        "install": "より良い体験のためにFin-Trackをアプリとしてインストール",
-        "update": "Fin-Trackの新しいバージョンが利用可能です",
+        "install": "より良い体験のために{appName}をアプリとしてインストール",
+        "update": "{appName}の新しいバージョンが利用可能です",
         "offline": "現在オフラインです。一部の機能が制限される場合があります。"
       },
       "content": {
         "install": {
-          "description": "Fin-Trackをインストールして、クイックアクセスとオフライン機能を利用できます。",
-          "descriptionIOS": "Fin-Trackをインストールして、クイックアクセスとオフライン機能を利用できます。「手順を表示」をタップして方法を学びます。",
+          "description": "{appName}をインストールして、クイックアクセスとオフライン機能を利用できます。",
+          "descriptionIOS": "{appName}をインストールして、クイックアクセスとオフライン機能を利用できます。「手順を表示」をタップして方法を学びます。",
           "button": "アプリをインストール",
           "buttonIOS": "手順を表示",
           "dismiss": "また後で"

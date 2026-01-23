@@ -217,19 +217,19 @@
   "PWA": {
     "installPrompt": {
       "title": {
-        "install": "安装 Fin-Track",
+        "install": "安装 {appName}",
         "update": "更新可用",
         "offline": "离线模式"
       },
       "description": {
-        "install": "将 Fin-Track 安装为应用程序以获得更好的体验",
-        "update": "Fin-Track 的新版本可用",
+        "install": "将 {appName} 安装为应用程序以获得更好的体验",
+        "update": "{appName} 的新版本可用",
         "offline": "您当前处于离线状态。某些功能可能受限。"
       },
       "content": {
         "install": {
-          "description": "安装 Fin-Track 以获得快速访问和离线功能。",
-          "descriptionIOS": "安装 Fin-Track 以获得快速访问和离线功能。点击\"显示说明\"了解如何操作。",
+          "description": "安装 {appName} 以获得快速访问和离线功能。",
+          "descriptionIOS": "安装 {appName} 以获得快速访问和离线功能。点击\"显示说明\"了解如何操作。",
           "button": "安装应用",
           "buttonIOS": "显示说明",
           "dismiss": "稍后再说"

@@ -6,10 +6,11 @@ import { usePathname } from 'next/navigation';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 import { SidebarInset, SidebarProvider, SidebarTrigger } from '../ui/sidebar';
 import { Label } from '../ui/label';
-
 import SideNav from './SideNav';
 import NavDropdownMenu from './NavDropdownMenu';
+
 import { useAppSelector } from '../../lib/hooks/use-redux';
+import { CONSTANTS } from '@shared/constants/common';
 
 type NavBarProps = {
   children: ReactNode;
@@ -80,8 +81,8 @@ const NavBar = ({ children }: NavBarProps) => {
           <nav className="flex w-full items-center justify-between">
             <SidebarTrigger />
 
-            <Label variant="title-xs" className="font-bold">
-              FIN-TRACK
+            <Label variant="title-xs" className="font-bold uppercase">
+              {CONSTANTS.APP_NAME}
             </Label>
 
             <NavDropdownMenu>

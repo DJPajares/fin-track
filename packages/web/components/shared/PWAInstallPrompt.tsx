@@ -2,6 +2,9 @@
 
 import { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
+import { usePWA } from '../../lib/hooks/use-pwa';
+
+import { X, Download, Wifi, WifiOff, RefreshCw } from 'lucide-react';
 import { Button } from '../ui/button';
 import {
   Card,
@@ -10,9 +13,9 @@ import {
   CardHeader,
   CardTitle,
 } from '../ui/card';
-import { X, Download, Wifi, WifiOff, RefreshCw } from 'lucide-react';
-import { usePWA } from '../../lib/hooks/use-pwa';
+
 import { STORAGE_KEYS } from '@web/constants/storageKeys';
+import { CONSTANTS } from '@shared/constants/common';
 
 const PWA_PROMPT_DELAY = 3000; // 3 seconds delay before showing
 const PWA_PROMPT_AUTO_DISMISS = 10000; // 10 seconds auto-dismiss
@@ -114,7 +117,7 @@ export default function PWAInstallPrompt() {
                 ? t('title.update')
                 : isOffline
                   ? t('title.offline')
-                  : t('title.install')}
+                  : t('title.install', { appName: CONSTANTS.APP_NAME })}
             </CardTitle>
             <Button
               variant="ghost"
@@ -127,10 +130,10 @@ export default function PWAInstallPrompt() {
           </div>
           <CardDescription>
             {isUpdateAvailable
-              ? t('description.update')
+              ? t('description.update', { appName: CONSTANTS.APP_NAME })
               : isOffline
                 ? t('description.offline')
-                : t('description.install')}
+                : t('description.install', { appName: CONSTANTS.APP_NAME })}
           </CardDescription>
         </CardHeader>
         <CardContent className="pt-0">
@@ -162,8 +165,12 @@ export default function PWAInstallPrompt() {
             <div className="space-y-3">
               <p className="text-muted-foreground text-sm">
                 {isIOS
-                  ? t('content.install.descriptionIOS')
-                  : t('content.install.description')}
+                  ? t('content.install.descriptionIOS', {
+                      appName: CONSTANTS.APP_NAME,
+                    })
+                  : t('content.install.description', {
+                      appName: CONSTANTS.APP_NAME,
+                    })}
               </p>
               <div className="flex flex-row gap-2">
                 <Button onClick={handleInstallClick} className="min-w-0 flex-1">

@@ -11,14 +11,16 @@ import { Toaster } from '../components/ui/sonner';
 import PWAInstallPrompt from '../components/shared/PWAInstallPrompt';
 import PWARefreshButton from '../components/shared/PWARefreshButton';
 
+import { CONSTANTS } from '@shared/constants/common';
+
 export const metadata: Metadata = {
-  title: 'Fin-Track',
+  title: CONSTANTS.APP_NAME,
   description: 'Financial tracker tool for managing your personal finances',
   manifest: '/manifest.ts',
   appleWebApp: {
     capable: true,
     statusBarStyle: 'default',
-    title: 'Fin-Track',
+    title: CONSTANTS.APP_NAME,
   },
   formatDetection: {
     telephone: false,
@@ -45,9 +47,9 @@ export default async function RootLayout({
   return (
     <html lang={locale} suppressHydrationWarning>
       <head>
-        <meta name="application-name" content="Fin-Track" />
+        <meta name="application-name" content={CONSTANTS.APP_NAME} />
         <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-title" content="Fin-Track" />
+        <meta name="apple-mobile-web-app-title" content={CONSTANTS.APP_NAME} />
         <meta
           name="description"
           content="Financial tracker tool for managing your personal finances"
