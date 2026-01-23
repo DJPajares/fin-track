@@ -15,10 +15,14 @@ type NavBarProps = {
   children: ReactNode;
 };
 
+const NAV_HIDDEN_PREFIXES = ['/auth', '/onboarding'];
+
 const NavBar = ({ children }: NavBarProps) => {
   const pathname = usePathname();
   const [isVisible, setIsVisible] = useState(true);
-  const isAuthRoute = pathname?.startsWith('/auth');
+  const isNavHiddenRoute = NAV_HIDDEN_PREFIXES.some((prefix) =>
+    pathname?.startsWith(prefix),
+  );
   const { user } = useAppSelector((state) => state.auth);
 
   // Get user initials
@@ -37,7 +41,7 @@ const NavBar = ({ children }: NavBarProps) => {
   };
 
   useEffect(() => {
-    if (isAuthRoute) return;
+    if (isNavHiddenRoute) return;
 
     let lastScroll = 0;
 
@@ -57,9 +61,9 @@ const NavBar = ({ children }: NavBarProps) => {
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [isAuthRoute]);
+  }, [isNavHiddenRoute]);
 
-  if (isAuthRoute) {
+  if (isNavHiddenRoute) {
     return <>{children}</>;
   }
 

@@ -25,6 +25,7 @@ import { Input } from '@web/components/ui/input';
 import { cn } from '@web/lib/utils';
 import { loginSuccess } from '@web/lib/redux/feature/auth/authSlice';
 import { signup } from '@web/services/auth';
+import { STORAGE_KEYS } from '@web/constants/storageKeys';
 
 export function SignupForm({
   className,
@@ -72,8 +73,11 @@ export function SignupForm({
         }),
       );
 
-      // Redirect to dashboard
-      router.push('/dashboard');
+      // Clear any previous onboarding completion flag so the new user sees the flow
+      localStorage.removeItem(STORAGE_KEYS.ONBOARDING_COMPLETED);
+
+      // Redirect to onboarding so the user can start the guided tour
+      router.push('/onboarding');
     } catch (err) {
       if (err && typeof err === 'object' && 'response' in err) {
         const axiosError = err as {

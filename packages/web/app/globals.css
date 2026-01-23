@@ -7,6 +7,9 @@
 @source '../../../node_modules/@heroui/theme/dist';
 /* for production environment - as a sub-package */
 @source '../node_modules/@heroui/theme/dist';
+/* Onborda tour library styles */
+@source '../../../node_modules/onborda/dist';
+@source '../node_modules/onborda/dist';
 
 @custom-variant dark (&:is(.dark *));
 

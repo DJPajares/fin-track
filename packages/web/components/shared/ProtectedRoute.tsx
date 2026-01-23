@@ -17,7 +17,7 @@ interface ProtectedRouteProps {
   children: React.ReactNode;
 }
 
-const publicRoutes = ['/auth', '/auth/signup'];
+const publicRoutes = ['/auth', '/auth/signup', '/onboarding'];
 
 export function ProtectedRoute({ children }: ProtectedRouteProps) {
   const router = useRouter();
