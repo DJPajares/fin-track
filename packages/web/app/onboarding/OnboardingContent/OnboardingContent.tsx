@@ -59,7 +59,7 @@ function OnboardingContent({ features }: { features: FeatureCard[] }) {
     <div className="flex flex-col items-center justify-center gap-8">
       {/* App Name */}
       <div className="text-center">
-        <h1 className="text-2xl font-bold">{CONSTANTS.APP_NAME}</h1>
+        <Label variant="title-lg">{CONSTANTS.APP_NAME}</Label>
       </div>
 
       {/* Carousel */}
@@ -73,7 +73,7 @@ function OnboardingContent({ features }: { features: FeatureCard[] }) {
             return (
               <CarouselItem key={feature.id} className="basis-full">
                 <div className="flex flex-col items-center">
-                  <div className="relative h-[40vh] w-full max-w-sm overflow-hidden rounded-lg">
+                  <div className="relative h-[50vh] w-full max-w-sm overflow-hidden">
                     <div className="to-background pointer-events-none absolute inset-0 z-10 bg-linear-to-b via-transparent" />
                     <Image
                       src={`/images/${feature.id}.webp`}
@@ -84,9 +84,10 @@ function OnboardingContent({ features }: { features: FeatureCard[] }) {
                   </div>
 
                   <Label variant="title-xl">{feature.title}</Label>
-                  <div className="w-full max-w-xs px-14 text-center leading-none">
+
+                  <span className="w-full max-w-xs px-14 text-center leading-none">
                     <Label variant="caption">{feature.description}</Label>
-                  </div>
+                  </span>
                 </div>
               </CarouselItem>
             );
@@ -115,7 +116,7 @@ function OnboardingContent({ features }: { features: FeatureCard[] }) {
       </div>
 
       {/* Buttons */}
-      <div className="w-full max-w-md">
+      <div className="flex w-full max-w-md flex-col gap-3">
         <div key={currentStep}>
           {currentStep === 0 && (
             <Button size="lg" className="w-full" onClick={handleNext}>
@@ -140,7 +141,7 @@ function OnboardingContent({ features }: { features: FeatureCard[] }) {
         </div>
 
         <Button
-          variant="link"
+          variant="ghost"
           size="sm"
           className="w-full"
           onClick={handleSkip}

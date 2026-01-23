@@ -87,7 +87,7 @@ const NavBar = ({ children }: NavBarProps) => {
             <NavDropdownMenu>
               <Avatar className="hover:border-primary cursor-pointer">
                 <AvatarImage src={user?.image || undefined} />
-                <AvatarFallback>
+                <AvatarFallback className="text-sm font-light">
                   {getInitials(user?.name, user?.email)}
                 </AvatarFallback>
               </Avatar>
