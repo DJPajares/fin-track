@@ -38,10 +38,9 @@ User Signs Up → Redirected to /onboarding → [Sees Welcome Page]
 ## Files Changed
 
 | File                                                                                                   | Change                                            |
-| ------------------------------------------------------------------------------------------------------ | ------------------------------------------------- |
+| ------------------------------------------------------------------------------------------------------ | ------------------------------------------------- | --- |
 | [packages/web/app/onboarding/page.tsx](packages/web/app/onboarding/page.tsx)                           | **NEW** – Main onboarding page with tour          |
-| [packages/web/components/shared/SignupForm.tsx](packages/web/components/shared/SignupForm.tsx)         | Redirect to `/onboarding` instead of `/dashboard` |
-| [packages/web/constants/storageKeys.ts](packages/web/constants/storageKeys.ts)                         | Added `ONBOARDING_COMPLETED` key                  |
+| [packages/web/components/shared/SignupForm.tsx](packages/web/components/shared/SignupForm.tsx)         | Redirect to `/onboarding` instead of `/dashboard` |     |
 | [packages/web/components/shared/ProtectedRoute.tsx](packages/web/components/shared/ProtectedRoute.tsx) | Added `/onboarding` to public routes              |
 | [packages/web/app/globals.css](packages/web/app/globals.css)                                           | Added Onborda styles to Tailwind @source          |
 | [packages/web/messages/en.json](packages/web/messages/en.json)                                         | Added full `Onboarding` i18n namespace            |

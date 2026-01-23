@@ -17,7 +17,6 @@ import {
   CarouselItem,
   type CarouselApi,
 } from '@web/components/ui/carousel';
-import { STORAGE_KEYS } from '@web/constants/storageKeys';
 import { cn } from '@web/lib/utils';
 
 import { CONSTANTS } from '@shared/constants/common';
@@ -45,7 +44,6 @@ function OnboardingContent({ features }: { features: FeatureCard[] }) {
 
   const handleNext = () => {
     if (currentStep === features.length - 1) {
-      localStorage.setItem(STORAGE_KEYS.ONBOARDING_COMPLETED, 'true');
       window.location.href = '/dashboard';
     } else {
       api?.scrollNext();
@@ -61,7 +59,6 @@ function OnboardingContent({ features }: { features: FeatureCard[] }) {
   };
 
   const handleSkip = () => {
-    localStorage.setItem(STORAGE_KEYS.ONBOARDING_COMPLETED, 'true');
     window.location.href = '/dashboard';
   };
 
@@ -177,11 +174,6 @@ function OnboardingPageInner() {
   const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
-    const completed =
-      localStorage.getItem(STORAGE_KEYS.ONBOARDING_COMPLETED) === 'true';
-    if (completed) {
-      window.location.href = '/dashboard';
-    }
     setIsReady(true);
   }, []);
 
