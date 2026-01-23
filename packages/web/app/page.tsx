@@ -284,11 +284,13 @@ const Home = () => {
               <CardDescription>
                 {t('Page.home.cards.extras.title')}
               </CardDescription>
-              <CardTitle className="text-2xl">
-                {formatCurrency({
-                  value: accumulativeExtra,
-                  currency: currency.name,
-                })}
+              <CardTitle>
+                <Label variant="title-xl">
+                  {formatCurrency({
+                    value: accumulativeExtra,
+                    currency: currency.name,
+                  })}
+                </Label>
               </CardTitle>
               <CardDescription>
                 <Label variant="caption">
