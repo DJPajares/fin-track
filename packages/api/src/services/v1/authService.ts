@@ -65,6 +65,7 @@ const signup = async (
       email: email.toLowerCase(),
       password,
       name: name || '',
+      lastLoginAt: new Date(),
     });
 
     // Generate token using MongoDB's _id
