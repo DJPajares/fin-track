@@ -169,6 +169,9 @@
     }
   },
   "Onboarding": {
+    "appName": "Fin-Track",
+    "getStarted": "Get Started",
+    "skipForNow": "Skip for now",
     "eyebrow": "Guided setup",
     "title": "Welcome to Fin-Track",
     "subtitle": "See how to stay on top of your money with clear insights and quick actions.",
@@ -181,7 +184,7 @@
     "continueToApp": "Continue to dashboard",
     "next": "Next",
     "back": "Back",
-    "finish": "Finish tour",
+    "done": "Finish tour",
     "cta": {
       "seeIt": "Open this view"
     },

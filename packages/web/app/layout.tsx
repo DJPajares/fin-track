@@ -63,7 +63,9 @@ export default async function RootLayout({
           sizes="180x180"
         />
       </head>
-      <body className={`${montserrat.variable} antialiased`}>
+      <body
+        className={`${montserrat.className} ${montserrat.variable} font-sans antialiased`}
+      >
         <NextIntlClientProvider messages={messages}>
           <Providers>
             <main className="bg-background" vaul-drawer-wrapper="">
