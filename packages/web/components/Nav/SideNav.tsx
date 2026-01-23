@@ -28,6 +28,7 @@ import {
 } from '../ui/collapsible';
 
 import { MENU_ITEMS } from '../../constants/menuItems';
+import { CONSTANTS } from '@shared/constants/common';
 
 const SideNav = () => {
   const { setOpenMobile } = useSidebar();
@@ -49,8 +50,8 @@ const SideNav = () => {
                 </div>
 
                 <div className="grid flex-1 text-left leading-tight">
-                  <Label variant="title-xs" className="font-bold!">
-                    FIN-TRACK
+                  <Label variant="title-xs" className="font-bold! uppercase">
+                    {CONSTANTS.APP_NAME}
                   </Label>
                 </div>
               </SidebarMenuButton>

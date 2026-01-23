@@ -168,6 +168,42 @@
       }
     }
   },
+  "Onboarding": {
+    "getStarted": "Magsimula",
+    "skipForNow": "Lumaktaw para sa ngayon",
+    "next": "Susunod",
+    "back": "Bumalik",
+    "done": "Tapusin ang tour",
+    "badges": {
+      "overview": "Pangkalahatang Pag-overview",
+      "cashflow": "Daloy ng Pera",
+      "organization": "Organisasyon",
+      "insights": "Mga Insight",
+      "control": "Kontrol"
+    },
+    "steps": {
+      "dashboard": {
+        "title": "Kabuuang Kalinisan",
+        "description": "Isang streamlined na view ng iyong mga balanse, trends, at kalusugan sa pananalapi."
+      },
+      "transactions": {
+        "title": "Walang Alalahanin na Pagsubaybay",
+        "description": "Pamahalaan ang pandaigdigang currency at mga paulit-ulit na pagbabayad nang walang problema ng spreadsheet."
+      },
+      "categories": {
+        "title": "Matalinong Organisasyon",
+        "description": "Flexible na tagging at categorization na dinisenyo upang umangkop sa iyong pangangailangan."
+      },
+      "charts": {
+        "title": "Mga Insight, hindi lang mga numero",
+        "description": "Buksan ang mas malalim na pag-unawa sa iyong cash flow sa pamamagitan ng dynamic na visualizations."
+      },
+      "budgets": {
+        "title": "Sinasadyang Gastos",
+        "description": "Subaybawan ang iyong mga progress bar at manatiling aligned sa iyong mga financial target."
+      }
+    }
+  },
   "Common": {
     "button": {
       "ok": "Sige",
@@ -217,19 +253,19 @@
   "PWA": {
     "installPrompt": {
       "title": {
-        "install": "I-install ang Fin-Track",
+        "install": "I-install ang {appName}",
         "update": "Update Available",
         "offline": "Offline Mode"
       },
       "description": {
-        "install": "I-install ang Fin-Track bilang app para sa mas magandang karanasan",
-        "update": "May bagong bersyon ng Fin-Track na available",
+        "install": "I-install ang {appName} bilang app para sa mas magandang karanasan",
+        "update": "May bagong bersyon ng {appName} na available",
         "offline": "Offline ka ngayon. Maaaring limitado ang ilang features."
       },
       "content": {
         "install": {
-          "description": "I-install ang Fin-Track para sa mabilis na access at offline functionality.",
-          "descriptionIOS": "I-install ang Fin-Track para sa mabilis na access at offline functionality. Tap \"Show Instructions\" para matuto kung paano.",
+          "description": "I-install ang {appName} para sa mabilis na access at offline functionality.",
+          "descriptionIOS": "I-install ang {appName} para sa mabilis na access at offline functionality. Tap \"Show Instructions\" para matuto kung paano.",
           "button": "I-install ang App",
           "buttonIOS": "Show Instructions",
           "dismiss": "Baka mamaya"

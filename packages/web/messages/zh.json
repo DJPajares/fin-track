@@ -168,6 +168,42 @@
       }
     }
   },
+  "Onboarding": {
+    "getStarted": "开始",
+    "skipForNow": "先跳过",
+    "next": "下一个",
+    "back": "返回",
+    "done": "完成导览",
+    "badges": {
+      "overview": "概述",
+      "cashflow": "现金流",
+      "organization": "组织",
+      "insights": "见解",
+      "control": "控制"
+    },
+    "steps": {
+      "dashboard": {
+        "title": "完全清晰",
+        "description": "您的余额、趋势和财务健康的简化视图。"
+      },
+      "transactions": {
+        "title": "无摩擦追踪",
+        "description": "管理全球货币和循环付款，无需电子表格的麻烦。"
+      },
+      "categories": {
+        "title": "智能组织",
+        "description": "灵活的标记和分类，旨在适应您的需求。"
+      },
+      "charts": {
+        "title": "见解，不仅仅是数字",
+        "description": "通过动态可视化深入了解您的现金流。"
+      },
+      "budgets": {
+        "title": "有意的支出",
+        "description": "监控您的进度条，与您的财务目标保持一致。"
+      }
+    }
+  },
   "Common": {
     "button": {
       "ok": "确定",
@@ -217,19 +253,19 @@
   "PWA": {
     "installPrompt": {
       "title": {
-        "install": "安装 Fin-Track",
+        "install": "安装 {appName}",
         "update": "更新可用",
         "offline": "离线模式"
       },
       "description": {
-        "install": "将 Fin-Track 安装为应用程序以获得更好的体验",
-        "update": "Fin-Track 的新版本可用",
+        "install": "将 {appName} 安装为应用程序以获得更好的体验",
+        "update": "{appName} 的新版本可用",
         "offline": "您当前处于离线状态。某些功能可能受限。"
       },
       "content": {
         "install": {
-          "description": "安装 Fin-Track 以获得快速访问和离线功能。",
-          "descriptionIOS": "安装 Fin-Track 以获得快速访问和离线功能。点击\"显示说明\"了解如何操作。",
+          "description": "安装 {appName} 以获得快速访问和离线功能。",
+          "descriptionIOS": "安装 {appName} 以获得快速访问和离线功能。点击\"显示说明\"了解如何操作。",
           "button": "安装应用",
           "buttonIOS": "显示说明",
           "dismiss": "稍后再说"

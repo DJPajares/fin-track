@@ -168,6 +168,42 @@
       }
     }
   },
+  "Onboarding": {
+    "getStarted": "Bắt Đầu",
+    "skipForNow": "Bỏ Qua Bây Giờ",
+    "next": "Tiếp Theo",
+    "back": "Quay Lại",
+    "done": "Kết Thúc Chuyến Tham Quan",
+    "badges": {
+      "overview": "Tổng Quan",
+      "cashflow": "Dòng Tiền",
+      "organization": "Tổ Chức",
+      "insights": "Thông Tin Chi Tiết",
+      "control": "Kiểm Soát"
+    },
+    "steps": {
+      "dashboard": {
+        "title": "Sự Rõ Ràng Toàn Bộ",
+        "description": "Một cách nhìn hợp lý về số dư, xu hướng và sức khỏe tài chính của bạn."
+      },
+      "transactions": {
+        "title": "Theo Dõi Không Có Quặng Cản",
+        "description": "Quản lý các loại tiền tệ toàn cầu và thanh toán định kỳ mà không gặp khó khăn tính bảng."
+      },
+      "categories": {
+        "title": "Tổ Chức Thông Minh",
+        "description": "Gắn thẻ linh hoạt và phân loại được thiết kế để thích ứng với nhu cầu của bạn."
+      },
+      "charts": {
+        "title": "Thông Tin Chi Tiết, Không Phải Chỉ Con Số",
+        "description": "Mở khóa sự hiểu biết sâu hơn về dòng tiền của bạn thông qua các hình ảnh động."
+      },
+      "budgets": {
+        "title": "Chi Tiêu Có Mục Đích",
+        "description": "Giám sát các thanh tiến trình của bạn và giữ sự liên kết với các mục tiêu tài chính của bạn."
+      }
+    }
+  },
   "Common": {
     "button": {
       "ok": "Đồng Ý",
@@ -217,19 +253,19 @@
   "PWA": {
     "installPrompt": {
       "title": {
-        "install": "Cài đặt Fin-Track",
+        "install": "Cài đặt {appName}",
         "update": "Cập nhật có sẵn",
         "offline": "Chế độ ngoại tuyến"
       },
       "description": {
-        "install": "Cài đặt Fin-Track như ứng dụng để có trải nghiệm tốt hơn",
-        "update": "Phiên bản mới của Fin-Track có sẵn",
+        "install": "Cài đặt {appName} như ứng dụng để có trải nghiệm tốt hơn",
+        "update": "Phiên bản mới của {appName} có sẵn",
         "offline": "Bạn hiện đang ngoại tuyến. Một số tính năng có thể bị hạn chế."
       },
       "content": {
         "install": {
-          "description": "Cài đặt Fin-Track để truy cập nhanh và chức năng ngoại tuyến.",
-          "descriptionIOS": "Cài đặt Fin-Track để truy cập nhanh và chức năng ngoại tuyến. Nhấn \"Hiển thị hướng dẫn\" để học cách làm.",
+          "description": "Cài đặt {appName} để truy cập nhanh và chức năng ngoại tuyến.",
+          "descriptionIOS": "Cài đặt {appName} để truy cập nhanh và chức năng ngoại tuyến. Nhấn \"Hiển thị hướng dẫn\" để học cách làm.",
           "button": "Cài đặt ứng dụng",
           "buttonIOS": "Hiển thị hướng dẫn",
           "dismiss": "Có thể sau"

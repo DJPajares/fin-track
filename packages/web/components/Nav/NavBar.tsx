@@ -6,19 +6,24 @@ import { usePathname } from 'next/navigation';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 import { SidebarInset, SidebarProvider, SidebarTrigger } from '../ui/sidebar';
 import { Label } from '../ui/label';
-
 import SideNav from './SideNav';
 import NavDropdownMenu from './NavDropdownMenu';
+
 import { useAppSelector } from '../../lib/hooks/use-redux';
+import { CONSTANTS } from '@shared/constants/common';
 
 type NavBarProps = {
   children: ReactNode;
 };
 
+const NAV_HIDDEN_PREFIXES = ['/auth', '/onboarding'];
+
 const NavBar = ({ children }: NavBarProps) => {
   const pathname = usePathname();
   const [isVisible, setIsVisible] = useState(true);
-  const isAuthRoute = pathname?.startsWith('/auth');
+  const isNavHiddenRoute = NAV_HIDDEN_PREFIXES.some((prefix) =>
+    pathname?.startsWith(prefix),
+  );
   const { user } = useAppSelector((state) => state.auth);
 
   // Get user initials
@@ -37,7 +42,7 @@ const NavBar = ({ children }: NavBarProps) => {
   };
 
   useEffect(() => {
-    if (isAuthRoute) return;
+    if (isNavHiddenRoute) return;
 
     let lastScroll = 0;
 
@@ -57,9 +62,9 @@ const NavBar = ({ children }: NavBarProps) => {
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [isAuthRoute]);
+  }, [isNavHiddenRoute]);
 
-  if (isAuthRoute) {
+  if (isNavHiddenRoute) {
     return <>{children}</>;
   }
 
@@ -76,14 +81,14 @@ const NavBar = ({ children }: NavBarProps) => {
           <nav className="flex w-full items-center justify-between">
             <SidebarTrigger />
 
-            <Label variant="title-xs" className="font-bold">
-              FIN-TRACK
+            <Label variant="title-xs" className="font-bold uppercase">
+              {CONSTANTS.APP_NAME}
             </Label>
 
             <NavDropdownMenu>
               <Avatar className="hover:border-primary cursor-pointer">
                 <AvatarImage src={user?.image || undefined} />
-                <AvatarFallback>
+                <AvatarFallback className="text-sm font-light">
                   {getInitials(user?.name, user?.email)}
                 </AvatarFallback>
               </Avatar>

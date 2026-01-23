@@ -168,6 +168,42 @@
       }
     }
   },
+  "Onboarding": {
+    "getStarted": "Comenzar",
+    "skipForNow": "Saltar por ahora",
+    "next": "Siguiente",
+    "back": "Atrás",
+    "done": "Terminar tour",
+    "badges": {
+      "overview": "Descripción general",
+      "cashflow": "Flujo de caja",
+      "organization": "Organización",
+      "insights": "Perspectivas",
+      "control": "Control"
+    },
+    "steps": {
+      "dashboard": {
+        "title": "Claridad total",
+        "description": "Una vista simplificada de sus saldos, tendencias y salud financiera."
+      },
+      "transactions": {
+        "title": "Seguimiento sin fricciones",
+        "description": "Administre monedas globales y pagos recurrentes sin el dolor de cabeza de las hojas de cálculo."
+      },
+      "categories": {
+        "title": "Organización inteligente",
+        "description": "Etiquetado y categorización flexibles diseñados para adaptarse a sus necesidades."
+      },
+      "charts": {
+        "title": "Perspectivas, no solo números",
+        "description": "Desbloquee una comprensión más profunda de su flujo de caja a través de visualizaciones dinámicas."
+      },
+      "budgets": {
+        "title": "Gastos intencionales",
+        "description": "Monitoree sus barras de progreso y manténgase alineado con sus objetivos financieros."
+      }
+    }
+  },
   "Common": {
     "button": {
       "ok": "Aceptar",
@@ -217,19 +253,19 @@
   "PWA": {
     "installPrompt": {
       "title": {
-        "install": "Instalar Fin-Track",
+        "install": "Instalar {appName}",
         "update": "Actualización Disponible",
         "offline": "Modo Sin Conexión"
       },
       "description": {
-        "install": "Instala Fin-Track como aplicación para una mejor experiencia",
-        "update": "Hay una nueva versión de Fin-Track disponible",
+        "install": "Instala {appName} como aplicación para una mejor experiencia",
+        "update": "Hay una nueva versión de {appName} disponible",
         "offline": "Actualmente estás sin conexión. Algunas funciones pueden estar limitadas."
       },
       "content": {
         "install": {
-          "description": "Instala Fin-Track para acceso rápido y funcionalidad sin conexión.",
-          "descriptionIOS": "Instala Fin-Track para acceso rápido y funcionalidad sin conexión. Toca \"Mostrar Instrucciones\" para aprender cómo.",
+          "description": "Instala {appName} para acceso rápido y funcionalidad sin conexión.",
+          "descriptionIOS": "Instala {appName} para acceso rápido y funcionalidad sin conexión. Toca \"Mostrar Instrucciones\" para aprender cómo.",
           "button": "Instalar App",
           "buttonIOS": "Mostrar Instrucciones",
           "dismiss": "Quizás Después"

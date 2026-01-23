@@ -168,6 +168,42 @@
       }
     }
   },
+  "Onboarding": {
+    "getStarted": "Mulai Sekarang",
+    "skipForNow": "Lewatkan untuk Sekarang",
+    "next": "Selanjutnya",
+    "back": "Kembali",
+    "done": "Selesaikan Tur",
+    "badges": {
+      "overview": "Ikhtisar",
+      "cashflow": "Arus Kas",
+      "organization": "Organisasi",
+      "insights": "Wawasan",
+      "control": "Kontrol"
+    },
+    "steps": {
+      "dashboard": {
+        "title": "Kejelasan Total",
+        "description": "Tampilan yang disederhanakan tentang saldo, tren, dan kesehatan keuangan Anda."
+      },
+      "transactions": {
+        "title": "Pelacakan Tanpa Gesekan",
+        "description": "Kelola mata uang global dan pembayaran berulang tanpa kerumitan spreadsheet."
+      },
+      "categories": {
+        "title": "Organisasi Cerdas",
+        "description": "Pemberian tag dan kategorisasi fleksibel yang dirancang untuk beradaptasi dengan kebutuhan Anda."
+      },
+      "charts": {
+        "title": "Wawasan, Bukan Sekedar Angka",
+        "description": "Buka pemahaman yang lebih dalam tentang arus kas Anda melalui visualisasi dinamis."
+      },
+      "budgets": {
+        "title": "Pengeluaran yang Disengaja",
+        "description": "Pantau batang kemajuan Anda dan tetap selaras dengan target keuangan Anda."
+      }
+    }
+  },
   "Common": {
     "button": {
       "ok": "Ok",
@@ -217,19 +253,19 @@
   "PWA": {
     "installPrompt": {
       "title": {
-        "install": "Instal Fin-Track",
+        "install": "Instal {appName}",
         "update": "Pembaruan Tersedia",
         "offline": "Mode Offline"
       },
       "description": {
-        "install": "Instal Fin-Track sebagai aplikasi untuk pengalaman yang lebih baik",
-        "update": "Versi baru Fin-Track tersedia",
+        "install": "Instal {appName} sebagai aplikasi untuk pengalaman yang lebih baik",
+        "update": "Versi baru {appName} tersedia",
         "offline": "Anda saat ini offline. Beberapa fitur mungkin terbatas."
       },
       "content": {
         "install": {
-          "description": "Instal Fin-Track untuk akses cepat dan fungsionalitas offline.",
-          "descriptionIOS": "Instal Fin-Track untuk akses cepat dan fungsionalitas offline. Ketuk \"Tampilkan Instruksi\" untuk mempelajari caranya.",
+          "description": "Instal {appName} untuk akses cepat dan fungsionalitas offline.",
+          "descriptionIOS": "Instal {appName} untuk akses cepat dan fungsionalitas offline. Ketuk \"Tampilkan Instruksi\" untuk mempelajari caranya.",
           "button": "Instal Aplikasi",
           "buttonIOS": "Tampilkan Instruksi",
           "dismiss": "Mungkin nanti"

@@ -168,6 +168,42 @@
       }
     }
   },
+  "Onboarding": {
+    "getStarted": "Mulakan",
+    "skipForNow": "Langkau buat masa ini",
+    "next": "Seterusnya",
+    "back": "Kembali",
+    "done": "Selesaikan lawatan",
+    "badges": {
+      "overview": "Gambaran Keseluruhan",
+      "cashflow": "Aliran Tunai",
+      "organization": "Organisasi",
+      "insights": "Pandangan",
+      "control": "Kawalan"
+    },
+    "steps": {
+      "dashboard": {
+        "title": "Kejelasan Sepenuhnya",
+        "description": "Pandangan yang dipermudahkan tentang baki, arah aliran, dan kesihatan kewangan anda."
+      },
+      "transactions": {
+        "title": "Pengesan Tanpa Geseran",
+        "description": "Uruskan mata wang global dan pembayaran berulang tanpa kerumitan hamparan."
+      },
+      "categories": {
+        "title": "Organisasi Pintar",
+        "description": "Penandaan dan pengkategorian yang fleksibel dirancang untuk menyesuaikan dengan keperluan anda."
+      },
+      "charts": {
+        "title": "Pandangan, Bukan Hanya Angka",
+        "description": "Buka pemahaman yang lebih mendalam tentang aliran tunai anda melalui visualisasi dinamik."
+      },
+      "budgets": {
+        "title": "Perbelanjaan yang Dirancang",
+        "description": "Pantau bar kemajuan anda dan kekal selaras dengan matlamat kewangan anda."
+      }
+    }
+  },
   "Common": {
     "button": {
       "ok": "Ok",
@@ -217,19 +253,19 @@
   "PWA": {
     "installPrompt": {
       "title": {
-        "install": "Pasang Fin-Track",
+        "install": "Pasang {appName}",
         "update": "Kemas Kini Tersedia",
         "offline": "Mod Luar Talian"
       },
       "description": {
-        "install": "Pasang Fin-Track sebagai aplikasi untuk pengalaman yang lebih baik",
-        "update": "Versi baru Fin-Track tersedia",
+        "install": "Pasang {appName} sebagai aplikasi untuk pengalaman yang lebih baik",
+        "update": "Versi baru {appName} tersedia",
         "offline": "Anda sedang luar talian. Sesetengah ciri mungkin terhad."
       },
       "content": {
         "install": {
-          "description": "Pasang Fin-Track untuk akses pantas dan fungsi luar talian.",
-          "descriptionIOS": "Pasang Fin-Track untuk akses pantas dan fungsi luar talian. Ketuk \"Tunjukkan Arahan\" untuk belajar cara.",
+          "description": "Pasang {appName} untuk akses pantas dan fungsi luar talian.",
+          "descriptionIOS": "Pasang {appName} untuk akses pantas dan fungsi luar talian. Ketuk \"Tunjukkan Arahan\" untuk belajar cara.",
           "button": "Pasang Aplikasi",
           "buttonIOS": "Tunjukkan Arahan",
           "dismiss": "Mungkin kemudian"

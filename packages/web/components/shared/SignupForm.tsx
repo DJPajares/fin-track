@@ -72,8 +72,8 @@ export function SignupForm({
         }),
       );
 
-      // Redirect to dashboard
-      router.push('/dashboard');
+      // Redirect to onboarding so the user can start the guided tour
+      router.push('/onboarding');
     } catch (err) {
       if (err && typeof err === 'object' && 'response' in err) {
         const axiosError = err as {

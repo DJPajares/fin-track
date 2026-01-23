@@ -168,6 +168,42 @@
       }
     }
   },
+  "Onboarding": {
+    "getStarted": "Başla",
+    "skipForNow": "Şimdilik Atla",
+    "next": "Sonraki",
+    "back": "Geri",
+    "done": "Turu Bitir",
+    "badges": {
+      "overview": "Genel Bakış",
+      "cashflow": "Nakit Akışı",
+      "organization": "Organizasyon",
+      "insights": "İçgörüler",
+      "control": "Kontrol"
+    },
+    "steps": {
+      "dashboard": {
+        "title": "Tam Netlik",
+        "description": "Bakiyelerinizin, eğilimlerinizin ve finansal sağlığınızın basitleştirilmiş bir görünümü."
+      },
+      "transactions": {
+        "title": "Sürtüşünsüz İzleme",
+        "description": "Elektronik tablo başı ağrısı olmadan küresel para birimlerini ve yinelenen ödemeleri yönetin."
+      },
+      "categories": {
+        "title": "Akıllı Organizasyon",
+        "description": "Gereksinimlerinize uyum sağlamak için tasarlanmış esnek etiketleme ve kategorizasyon."
+      },
+      "charts": {
+        "title": "İçgörüler, sadece sayılar değil",
+        "description": "Dinamik görselleştirmeler aracılığıyla nakit akışınızı daha derinlemesine anlayın."
+      },
+      "budgets": {
+        "title": "Kasıtlı Harcama",
+        "description": "İlerleme çubuklarınızı izleyin ve finansal hedeflerinizle uyumlu kalın."
+      }
+    }
+  },
   "Common": {
     "button": {
       "ok": "Tamam",
@@ -217,19 +253,19 @@
   "PWA": {
     "installPrompt": {
       "title": {
-        "install": "Fin-Track'i Yükle",
+        "install": "{appName}'i Yükle",
         "update": "Güncelleme Mevcut",
         "offline": "Çevrimdışı Mod"
       },
       "description": {
-        "install": "Daha iyi bir deneyim için Fin-Track'i uygulama olarak yükleyin",
-        "update": "Fin-Track'in yeni bir sürümü mevcut",
+        "install": "Daha iyi bir deneyim için {appName}'i uygulama olarak yükleyin",
+        "update": "{appName}'in yeni bir sürümü mevcut",
         "offline": "Şu anda çevrimdışısınız. Bazı özellikler sınırlı olabilir."
       },
       "content": {
         "install": {
-          "description": "Hızlı erişim ve çevrimdışı işlevsellik için Fin-Track'i yükleyin.",
-          "descriptionIOS": "Hızlı erişim ve çevrimdışı işlevsellik için Fin-Track'i yükleyin. Nasıl yapılacağını öğrenmek için \"Talimatları Göster\"e dokunun.",
+          "description": "Hızlı erişim ve çevrimdışı işlevsellik için {appName}'i yükleyin.",
+          "descriptionIOS": "Hızlı erişim ve çevrimdışı işlevsellik için {appName}'i yükleyin. Nasıl yapılacağını öğrenmek için \"Talimatları Göster\"e dokunun.",
           "button": "Uygulamayı Yükle",
           "buttonIOS": "Talimatları Göster",
           "dismiss": "Belki daha sonra"

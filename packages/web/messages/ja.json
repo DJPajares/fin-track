@@ -168,6 +168,42 @@
       }
     }
   },
+  "Onboarding": {
+    "getStarted": "始める",
+    "skipForNow": "今はスキップ",
+    "next": "次へ",
+    "back": "戻る",
+    "done": "ツアー終了",
+    "badges": {
+      "overview": "概要",
+      "cashflow": "キャッシュフロー",
+      "organization": "整理",
+      "insights": "インサイト",
+      "control": "コントロール"
+    },
+    "steps": {
+      "dashboard": {
+        "title": "完全な明確さ",
+        "description": "残高、トレンド、財務の健全性の合理化されたビュー。"
+      },
+      "transactions": {
+        "title": "摩擦のない追跡",
+        "description": "スプレッドシートの面倒なことなく、グローバル通貨と定期的な支払いを管理します。"
+      },
+      "categories": {
+        "title": "スマートな整理",
+        "description": "ニーズに適応するよう設計された柔軟なタグ付けと分類。"
+      },
+      "charts": {
+        "title": "数字だけでなく、インサイト",
+        "description": "動的な視覚化を通じて、キャッシュフローをより深く理解します。"
+      },
+      "budgets": {
+        "title": "意図的な支出",
+        "description": "進捗バーを監視し、財務目標に合わせた状態を保ちます。"
+      }
+    }
+  },
   "Common": {
     "button": {
       "ok": "了解",
@@ -217,19 +253,19 @@
   "PWA": {
     "installPrompt": {
       "title": {
-        "install": "Fin-Trackをインストール",
+        "install": "{appName}をインストール",
         "update": "アップデート利用可能",
         "offline": "オフラインモード"
       },
       "description": {
-        "install": "より良い体験のためにFin-Trackをアプリとしてインストール",
-        "update": "Fin-Trackの新しいバージョンが利用可能です",
+        "install": "より良い体験のために{appName}をアプリとしてインストール",
+        "update": "{appName}の新しいバージョンが利用可能です",
         "offline": "現在オフラインです。一部の機能が制限される場合があります。"
       },
       "content": {
         "install": {
-          "description": "Fin-Trackをインストールして、クイックアクセスとオフライン機能を利用できます。",
-          "descriptionIOS": "Fin-Trackをインストールして、クイックアクセスとオフライン機能を利用できます。「手順を表示」をタップして方法を学びます。",
+          "description": "{appName}をインストールして、クイックアクセスとオフライン機能を利用できます。",
+          "descriptionIOS": "{appName}をインストールして、クイックアクセスとオフライン機能を利用できます。「手順を表示」をタップして方法を学びます。",
           "button": "アプリをインストール",
           "buttonIOS": "手順を表示",
           "dismiss": "また後で"

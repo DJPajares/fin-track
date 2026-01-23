@@ -168,6 +168,42 @@
       }
     }
   },
+  "Onboarding": {
+    "getStarted": "Get Started",
+    "skipForNow": "Skip for now",
+    "next": "Next",
+    "back": "Back",
+    "done": "Finish tour",
+    "badges": {
+      "overview": "Overview",
+      "cashflow": "Cash flow",
+      "organization": "Organization",
+      "insights": "Insights",
+      "control": "Control"
+    },
+    "steps": {
+      "dashboard": {
+        "title": "Total clarity",
+        "description": "A streamlined view of your balances, trends, and financial health."
+      },
+      "transactions": {
+        "title": "Frictionless tracking",
+        "description": "Manage global currencies and recurring payments without the spreadsheet headache."
+      },
+      "categories": {
+        "title": "Smart organization",
+        "description": "Flexible tagging and categorization designed to adapt to your needs."
+      },
+      "charts": {
+        "title": "Insights, not just numbers",
+        "description": "Unlock a deeper understanding of your cash flow through dynamic visualizations."
+      },
+      "budgets": {
+        "title": "Intentional spending",
+        "description": "Monitor your progress bars and stay aligned with your financial targets."
+      }
+    }
+  },
   "Common": {
     "button": {
       "ok": "Ok",
@@ -217,19 +253,19 @@
   "PWA": {
     "installPrompt": {
       "title": {
-        "install": "Install Fin-Track",
+        "install": "Install {appName}",
         "update": "Update Available",
         "offline": "Offline Mode"
       },
       "description": {
-        "install": "Install Fin-Track as an app for a better experience",
-        "update": "A new version of Fin-Track is available",
+        "install": "Install {appName} as an app for a better experience",
+        "update": "A new version of {appName} is available",
         "offline": "You are currently offline. Some features may be limited."
       },
       "content": {
         "install": {
-          "description": "Install Fin-Track for quick access and offline functionality.",
-          "descriptionIOS": "Install Fin-Track for quick access and offline functionality. Tap \"Show Instructions\" to learn how.",
+          "description": "Install {appName} for quick access and offline functionality.",
+          "descriptionIOS": "Install {appName} for quick access and offline functionality. Tap \"Show Instructions\" to learn how.",
           "button": "Install App",
           "buttonIOS": "Show Instructions",
           "dismiss": "Maybe Later"
