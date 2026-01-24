@@ -15,6 +15,7 @@ const fetchTypes = async () => {
     if (useMockedData) return typesMockData;
 
     const { status, data } = await axios.get(typesUrl);
+
     if (status === 200) return data.data;
   } catch (error) {
     console.error('Fetch failed', error);
@@ -26,6 +27,7 @@ const fetchCategories = async () => {
     if (useMockedData) return categoriesMockData;
 
     const { status, data } = await axios.get(categoriesUrl);
+
     if (status === 200) return data.data;
   } catch (error) {
     console.error('Fetch failed', error);
@@ -37,6 +39,7 @@ const fetchCurrencies = async () => {
     if (useMockedData) return currenciesMockData;
 
     const { status, data } = await axios.get(currenciesUrl);
+
     if (status === 200) return data.data;
   } catch (error) {
     console.error('Fetch failed', error);
@@ -48,7 +51,8 @@ const fetchCurrencyByName = async (name: string) => {
     const url = `${process.env.NEXT_PUBLIC_BASE_URL}/currencies/by-name/${name}`;
 
     const { status, data } = await axios.get(url);
-    if (status === 200) return data.data;
+
+    if (status === 200) return data;
   } catch (error) {
     console.error('Fetch currency by name failed', error);
     throw error;

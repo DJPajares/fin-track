@@ -18,12 +18,15 @@ const BASE_URL =
 export const login = async (
   credentials: AuthLoginRequest,
 ): Promise<AuthResponseToken> => {
-  const { data } = await axios.post(`${BASE_URL}/auth/login`, credentials);
+  const { status, data } = await axios.post(
+    `${BASE_URL}/auth/login`,
+    credentials,
+  );
 
-  if (data.success && data.data) {
+  if (status === 200 && data) {
     // Store token in localStorage
-    localStorage.setItem(STORAGE_KEYS.AUTH_TOKEN, data.data.token);
-    return data.data;
+    localStorage.setItem(STORAGE_KEYS.AUTH_TOKEN, data.token);
+    return data;
   }
 
   throw new Error('Login failed');
@@ -35,12 +38,15 @@ export const login = async (
 export const signup = async (
   credentials: AuthSignupRequest,
 ): Promise<AuthResponseToken> => {
-  const { data } = await axios.post(`${BASE_URL}/auth/signup`, credentials);
+  const { status, data } = await axios.post(
+    `${BASE_URL}/auth/signup`,
+    credentials,
+  );
 
-  if (data.success && data.data) {
+  if (status === 200 && data) {
     // Store token in localStorage
-    localStorage.setItem(STORAGE_KEYS.AUTH_TOKEN, data.data.token);
-    return data.data;
+    localStorage.setItem(STORAGE_KEYS.AUTH_TOKEN, data.token);
+    return data;
   }
 
   throw new Error('Signup failed');
@@ -82,14 +88,14 @@ export const getCurrentUser = async (): Promise<AuthResponse> => {
     throw new Error('No token found');
   }
 
-  const { data } = await axios.get(`${BASE_URL}/auth/me`, {
+  const { status, data } = await axios.get(`${BASE_URL}/auth/me`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   });
 
-  if (data.success && data.data) {
-    return data.data;
+  if (status === 200 && data) {
+    return data;
   }
 
   throw new Error('Failed to get current user');

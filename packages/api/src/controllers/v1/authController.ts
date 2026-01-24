@@ -30,12 +30,9 @@ const signup = async (req: Request, res: Response, next: NextFunction) => {
       throw error;
     }
 
-    const result = await signupService(credentials);
+    const data = await signupService(credentials);
 
-    res.status(201).json({
-      success: true,
-      data: result,
-    });
+    res.status(201).json(data);
   } catch (error) {
     if (
       error instanceof Error &&
@@ -63,12 +60,9 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
       throw error;
     }
 
-    const result = await loginService(credentials);
+    const data = await loginService(credentials);
 
-    res.status(200).json({
-      success: true,
-      data: result,
-    });
+    res.status(200).json(data);
   } catch (error) {
     if (
       error instanceof Error &&
@@ -87,12 +81,9 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
 const me = async (req: RequestWithUser, res: Response, next: NextFunction) => {
   try {
     const userId = req.user.id;
-    const user = await getUserById(userId);
+    const data = await getUserById(userId);
 
-    res.status(200).json({
-      success: true,
-      data: user,
-    });
+    res.status(200).json(data);
   } catch (error) {
     next(error);
   }
@@ -103,10 +94,11 @@ const me = async (req: RequestWithUser, res: Response, next: NextFunction) => {
  */
 const logout = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    res.status(200).json({
-      success: true,
+    const data = {
       message: 'Logged out successfully',
-    });
+    };
+
+    res.status(200).json(data);
   } catch (error) {
     next(error);
   }
@@ -122,19 +114,14 @@ const updateSettings = async (
 
     const { language, currency, darkMode } = req.body as AuthSettingsRequest;
 
-    const user = await updateSettingsService({
+    const data = await updateSettingsService({
       userId,
       language,
       currency,
       darkMode,
     });
 
-    res.status(200).json({
-      success: true,
-      data: {
-        user,
-      },
-    });
+    res.status(200).json(data);
   } catch (error) {
     next(error);
   }
@@ -154,7 +141,7 @@ const updateProfile = async (
       newPassword?: string;
     };
 
-    const user = await updateProfileService({
+    const data = await updateProfileService({
       userId,
       name,
       email,
@@ -162,12 +149,7 @@ const updateProfile = async (
       newPassword,
     });
 
-    res.status(200).json({
-      success: true,
-      data: {
-        user,
-      },
-    });
+    res.status(200).json(data);
   } catch (error) {
     if (error instanceof Error) {
       const messagesToStatus: Record<string, number> = {
@@ -200,12 +182,9 @@ const deleteAccount = async (
 
     await deleteAccountService({ userId, currentPassword });
 
-    res.status(200).json({
-      success: true,
-      data: {
-        deleted: true,
-      },
-    });
+    const data = { deleted: true };
+
+    res.status(200).json(data);
   } catch (error) {
     if (error instanceof Error) {
       const messagesToStatus: Record<string, number> = {

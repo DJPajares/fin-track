@@ -33,7 +33,7 @@ export const transactionsApi = createApi({
       }),
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       transformResponse: (response: { data: any; pagination: any }) => {
-        const { data, pagination } = response.data;
+        const { data, pagination } = response;
 
         return {
           data,

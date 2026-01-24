@@ -14,10 +14,7 @@ const create = async (
   try {
     const data = await userService.create(req.body);
 
-    res.status(200).json({
-      success: true,
-      data,
-    });
+    res.status(200).json(data);
   } catch (error) {
     next(error);
   }
@@ -27,10 +24,7 @@ const getAll = async (_req: Request, res: Response, next: NextFunction) => {
   try {
     const data = await userService.getAll();
 
-    res.status(200).json({
-      success: true,
-      data,
-    });
+    res.status(200).json(data);
   } catch (error) {
     next(error);
   }
@@ -44,10 +38,7 @@ const get = async (
   try {
     const data = await userService.get(req.params.id);
 
-    res.status(200).json({
-      success: true,
-      data,
-    });
+    res.status(200).json(data);
   } catch (error) {
     next(error);
   }
@@ -61,10 +52,7 @@ const update = async (
   try {
     const data = await userService.update(req.params.id, req.body);
 
-    res.status(200).json({
-      success: true,
-      data,
-    });
+    res.status(200).json(data);
   } catch (error) {
     next(error);
   }
@@ -78,10 +66,7 @@ const remove = async (
   try {
     const data = await userService.remove(req.params.id);
 
-    res.status(200).json({
-      success: true,
-      data,
-    });
+    res.status(200).json(data);
   } catch (error) {
     next(error);
   }

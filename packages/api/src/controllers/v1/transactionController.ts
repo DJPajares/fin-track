@@ -19,10 +19,7 @@ const create = async (
   try {
     const data = await transactionService.create(req.body);
 
-    res.status(200).json({
-      success: true,
-      data,
-    });
+    res.status(200).json(data);
   } catch (error) {
     next(error);
   }
@@ -36,10 +33,7 @@ const createMany = async (
   try {
     const data = await transactionService.createMany(req.body);
 
-    res.status(200).json({
-      success: true,
-      data,
-    });
+    res.status(200).json(data);
   } catch (error) {
     next(error);
   }
@@ -49,9 +43,9 @@ const getAll = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const query = req.query as unknown as QueryParamsProps;
 
-    const result = await transactionService.getAll(query);
+    const data = await transactionService.getAll(query);
 
-    res.status(200).json(result);
+    res.status(200).json(data);
   } catch (error) {
     next(error);
   }
@@ -63,9 +57,7 @@ const getAdvanced = async (req: Request, res: Response, next: NextFunction) => {
 
     const data = await transactionService.getAdvanced(query, req.body);
 
-    res.status(200).json({
-      data,
-    });
+    res.status(200).json(data);
   } catch (error) {
     next(error);
   }
@@ -77,9 +69,9 @@ const getCategories = async (
   next: NextFunction,
 ) => {
   try {
-    const result = await transactionService.getCategories(req.body);
+    const data = await transactionService.getCategories(req.body);
 
-    res.status(200).json(result);
+    res.status(200).json(data);
   } catch (error) {
     next(error);
   }
@@ -91,9 +83,9 @@ const getMonthlyTypes = async (
   next: NextFunction,
 ) => {
   try {
-    const result = await transactionService.getMonthlyTypes(req.body);
+    const data = await transactionService.getMonthlyTypes(req.body);
 
-    res.status(200).json(result);
+    res.status(200).json(data);
   } catch (error) {
     next(error);
   }
@@ -105,9 +97,9 @@ const getMonthlyCategories = async (
   next: NextFunction,
 ) => {
   try {
-    const result = await transactionService.getMonthlyCategories(req.body);
+    const data = await transactionService.getMonthlyCategories(req.body);
 
-    res.status(200).json(result);
+    res.status(200).json(data);
   } catch (error) {
     next(error);
   }
@@ -119,10 +111,7 @@ const get = async (req: Request, res: Response, next: NextFunction) => {
 
     const data = await transactionService.get(id);
 
-    res.status(200).json({
-      success: true,
-      data,
-    });
+    res.status(200).json(data);
   } catch (error) {
     next(error);
   }
@@ -138,10 +127,7 @@ const update = async (
 
     const data = await transactionService.update(id, req.body);
 
-    res.status(200).json({
-      success: true,
-      data,
-    });
+    res.status(200).json(data);
   } catch (error) {
     next(error);
   }
@@ -153,10 +139,7 @@ const remove = async (req: Request, res: Response, next: NextFunction) => {
 
     const data = transactionService.remove(id);
 
-    res.status(200).json({
-      success: true,
-      data,
-    });
+    res.status(200).json(data);
   } catch (error) {
     next(error);
   }

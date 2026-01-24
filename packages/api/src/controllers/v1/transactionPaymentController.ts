@@ -16,10 +16,7 @@ const fetchTransactionPayments = async (
       req.body,
     );
 
-    res.status(200).json({
-      success: true,
-      data,
-    });
+    res.status(200).json(data);
   } catch (error) {
     next(error);
   }
@@ -31,12 +28,12 @@ const fetchMonthlyByCategory = async (
   next: NextFunction,
 ) => {
   try {
-    const result = await transactionPaymentService.fetchMonthlyByCategory(
+    const data = await transactionPaymentService.fetchMonthlyByCategory(
       req.body,
       req.params.category,
     );
 
-    res.status(200).json(result);
+    res.status(200).json(data);
   } catch (error) {
     next(error);
   }

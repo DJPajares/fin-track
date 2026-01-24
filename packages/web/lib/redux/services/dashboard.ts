@@ -118,7 +118,7 @@ export const dashboardApi = createApi({
       },
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       transformResponse: (response: any) => {
-        return useMockedData ? DASHBOARD_DATA : response.data;
+        return useMockedData ? DASHBOARD_DATA : response;
       },
       providesTags: (result, error, { date, currency, userId }) => {
         return [
