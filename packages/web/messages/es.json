@@ -16,6 +16,7 @@
     "language": "Idioma",
     "currency": "Moneda",
     "darkMode": "Modo oscuro",
+    "restartTour": "Reiniciar tour",
     "logout": "Cerrar sesión"
   },
   "Page": {

@@ -9,6 +9,7 @@ import { useDispatch } from 'react-redux';
 import {
   DollarSignIcon,
   GlobeIcon,
+  InfoIcon,
   LogOutIcon,
   MoonIcon,
   SquarePenIcon,
@@ -94,6 +95,10 @@ const NavDropdownMenu = ({ children }: NavDropdownMenuProps) => {
     setTheme(isDarkMode ? 'light' : 'dark');
     setIsDarkMode(!isDarkMode);
     updateUserSettings({ darkMode: !isDarkMode }).catch(() => {});
+  };
+
+  const handleRestartTour = () => {
+    router.push('/onboarding');
   };
 
   return (
@@ -193,6 +198,15 @@ const NavDropdownMenu = ({ children }: NavDropdownMenuProps) => {
                   onCheckedChange={handleDarkModeToggle}
                 />
               </DropdownMenuShortcut>
+            </DropdownMenuItem>
+          </DropdownMenuGroup>
+
+          <DropdownMenuSeparator />
+
+          <DropdownMenuGroup>
+            <DropdownMenuItem onClick={handleRestartTour}>
+              <InfoIcon className="text-muted-foreground size-4" />
+              {t('restartTour')}
             </DropdownMenuItem>
           </DropdownMenuGroup>
 

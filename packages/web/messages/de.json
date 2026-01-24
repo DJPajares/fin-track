@@ -16,6 +16,7 @@
     "language": "Sprache",
     "currency": "Währung",
     "darkMode": "Dunkelmodus",
+    "restartTour": "Tour neu starten",
     "logout": "Abmelden"
   },
   "Page": {

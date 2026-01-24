@@ -16,6 +16,7 @@
     "language": "Ngôn Ngữ",
     "currency": "Tiền Tệ",
     "darkMode": "Chế Độ Tối",
+    "restartTour": "Khởi động lại Tour",
     "logout": "Đăng Xuất"
   },
   "Page": {

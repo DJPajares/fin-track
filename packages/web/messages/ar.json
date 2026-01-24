@@ -16,6 +16,7 @@
     "language": "اللغة",
     "currency": "العملة",
     "darkMode": "الوضع الداكن",
+    "restartTour": "إعادة تشغيل الجولة",
     "logout": "تسجيل الخروج"
   },
   "Page": {

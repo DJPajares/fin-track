@@ -16,6 +16,7 @@
     "language": "Langue",
     "currency": "Devise",
     "darkMode": "Mode sombre",
+    "restartTour": "Redémarrer la visite",
     "logout": "Déconnexion"
   },
   "Page": {

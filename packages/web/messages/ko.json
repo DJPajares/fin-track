@@ -16,6 +16,7 @@
     "language": "언어",
     "currency": "통화",
     "darkMode": "다크 모드",
+    "restartTour": "투어 다시 시작",
     "logout": "로그아웃"
   },
   "Page": {

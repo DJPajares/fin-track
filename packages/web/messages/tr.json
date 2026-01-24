@@ -16,6 +16,7 @@
     "language": "Dil",
     "currency": "Para Birimi",
     "darkMode": "Karanlık Mod",
+    "restartTour": "Turu Yeniden Başlat",
     "logout": "Çıkış Yap"
   },
   "Page": {

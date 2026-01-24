@@ -16,6 +16,7 @@
     "language": "ภาษา",
     "currency": "สกุลเงิน",
     "darkMode": "โหมดมืด",
+    "restartTour": "เริ่มทัวร์ใหม่",
     "logout": "ออกจากระบบ"
   },
   "Page": {

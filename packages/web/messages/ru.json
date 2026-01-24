@@ -16,6 +16,7 @@
     "language": "Язык",
     "currency": "Валюта",
     "darkMode": "Темный режим",
+    "restartTour": "Перезапустить тур",
     "logout": "Выйти"
   },
   "Page": {
