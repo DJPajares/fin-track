@@ -185,7 +185,11 @@ const TransactionDrawerForm = ({
     () => ({
       resetForm: () => {
         form.reset(resolvedDefaults);
-        setFormattedAmount(formatAmountDisplay(resolvedDefaults.amount ?? 0));
+        setFormattedAmount(
+          resolvedDefaults.amount
+            ? formatAmountDisplay(resolvedDefaults.amount)
+            : '',
+        );
         setIsDetailsOpen(false);
       },
     }),
@@ -198,7 +202,11 @@ const TransactionDrawerForm = ({
 
   useEffect(() => {
     form.reset(resolvedDefaults);
-    setFormattedAmount(formatAmountDisplay(resolvedDefaults.amount ?? 0));
+    setFormattedAmount(
+      resolvedDefaults.amount
+        ? formatAmountDisplay(resolvedDefaults.amount)
+        : '',
+    );
   }, [form, formatAmountDisplay, resolvedDefaults]);
 
   useEffect(() => {
