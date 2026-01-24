@@ -1,6 +1,7 @@
 import { Response, NextFunction } from 'express';
 import { verifyToken, getUserById } from '../services/v1/authService';
-import { AuthUser, RequestWithUser } from '../types/userTypes';
+import { RequestWithUser } from '../types/userTypes';
+import { AuthResponse } from '../../../../shared/types/Auth';
 
 /**
  * Middleware to authenticate requests using JWT token
@@ -40,7 +41,7 @@ export const authenticateToken = async (
       throw error;
     }
 
-    const authUser: AuthUser = {
+    const authUser: AuthResponse = {
       id: dbUser.id,
       email: dbUser.email ?? null,
       name: dbUser.name ?? null,

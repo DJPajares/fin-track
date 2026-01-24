@@ -7,18 +7,19 @@ import {
   updateProfile as updateProfileService,
   deleteAccount as deleteAccountService,
 } from '../../services/v1/authService';
-import {
-  LoginCredentials,
-  SignupCredentials,
-  RequestWithUser,
-} from '../../types/userTypes';
+import type { RequestWithUser } from '../../types/userTypes';
+import type {
+  AuthSignupRequest,
+  AuthLoginRequest,
+  AuthSettingsRequest,
+} from '../../../../../shared/types/Auth';
 
 /**
  * Signup controller
  */
 const signup = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const credentials: SignupCredentials = req.body;
+    const credentials: AuthSignupRequest = req.body;
 
     // Validate required fields
     if (!credentials.email || !credentials.password) {
@@ -51,7 +52,7 @@ const signup = async (req: Request, res: Response, next: NextFunction) => {
  */
 const login = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const credentials: LoginCredentials = req.body;
+    const credentials: AuthLoginRequest = req.body;
 
     // Validate required fields
     if (!credentials.email || !credentials.password) {
@@ -119,11 +120,7 @@ const updateSettings = async (
   try {
     const userId = req.user.id;
 
-    const { language, currency, darkMode } = req.body as {
-      language?: string;
-      currency?: string;
-      darkMode?: boolean;
-    };
+    const { language, currency, darkMode } = req.body as AuthSettingsRequest;
 
     const user = await updateSettingsService({
       userId,

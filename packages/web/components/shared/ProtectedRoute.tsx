@@ -13,9 +13,9 @@ import {
 import { getCurrentUser, getStoredToken } from '@web/services/auth';
 import Loader from '@web/components/shared/Loader';
 
-interface ProtectedRouteProps {
+type ProtectedRouteProps = {
   children: React.ReactNode;
-}
+};
 
 const publicRoutes = ['/auth', '/auth/signup'];
 

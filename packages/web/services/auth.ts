@@ -1,45 +1,23 @@
 import axios from 'axios';
-import type { AuthUser } from '@shared/types/Auth';
 import { STORAGE_KEYS } from '@web/constants/storageKeys';
+import type {
+  AuthResponse,
+  AuthResponseToken,
+  AuthSignupRequest,
+  AuthLoginRequest,
+  AuthUpdateRequest,
+  AuthSettingsRequest,
+} from '@shared/types/Auth';
 
 const BASE_URL =
   process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3001/api/v1';
-
-export type LoginCredentials = {
-  email: string;
-  password: string;
-};
-
-export type SignupCredentials = {
-  email: string;
-  password: string;
-  name?: string;
-};
-
-export type AuthResponse = {
-  user: AuthUser;
-  token: string;
-};
-
-export type UserSettings = {
-  language?: string;
-  currency?: string;
-  darkMode?: boolean;
-};
-
-export type UpdateProfilePayload = {
-  name?: string;
-  email?: string;
-  currentPassword?: string;
-  newPassword?: string;
-};
 
 /**
  * Login with email and password
  */
 export const login = async (
-  credentials: LoginCredentials,
-): Promise<AuthResponse> => {
+  credentials: AuthLoginRequest,
+): Promise<AuthResponseToken> => {
   const { data } = await axios.post(`${BASE_URL}/auth/login`, credentials);
 
   if (data.success && data.data) {
@@ -55,8 +33,8 @@ export const login = async (
  * Signup with email and password
  */
 export const signup = async (
-  credentials: SignupCredentials,
-): Promise<AuthResponse> => {
+  credentials: AuthSignupRequest,
+): Promise<AuthResponseToken> => {
   const { data } = await axios.post(`${BASE_URL}/auth/signup`, credentials);
 
   if (data.success && data.data) {
@@ -97,7 +75,7 @@ export const logout = async (): Promise<void> => {
 /**
  * Get current user
  */
-export const getCurrentUser = async (): Promise<AuthUser> => {
+export const getCurrentUser = async (): Promise<AuthResponse> => {
   const token = localStorage.getItem(STORAGE_KEYS.AUTH_TOKEN);
 
   if (!token) {
@@ -131,7 +109,7 @@ export const isAuthenticated = (): boolean => {
   return !!getStoredToken();
 };
 
-export const updateUserSettings = async (settings: UserSettings) => {
+export const updateUserSettings = async (settings: AuthSettingsRequest) => {
   const token = localStorage.getItem(STORAGE_KEYS.AUTH_TOKEN);
   const { data } = await axios.put(`${BASE_URL}/auth/me/settings`, settings, {
     headers: { Authorization: `Bearer ${token}` },
@@ -139,7 +117,7 @@ export const updateUserSettings = async (settings: UserSettings) => {
   return data?.data?.user;
 };
 
-export const updateProfile = async (payload: UpdateProfilePayload) => {
+export const updateProfile = async (payload: AuthUpdateRequest) => {
   const token = localStorage.getItem(STORAGE_KEYS.AUTH_TOKEN);
   if (!token) {
     throw new Error('No token found');

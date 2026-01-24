@@ -1,11 +1,12 @@
 import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
 import { UserModel, type UserProps } from '../../models/v1/userModel';
-import {
-  AuthResponse,
-  LoginCredentials,
-  SignupCredentials,
-} from '../../types/userTypes';
+import type {
+  AuthResponseToken,
+  AuthSignupRequest,
+  AuthLoginRequest,
+  AuthSettingsRequest,
+} from '../../../../../shared/types/Auth';
 
 dotenv.config();
 
@@ -37,8 +38,8 @@ const verifyToken = (token: string): { id: string } => {
  * Register a new user
  */
 const signup = async (
-  credentials: SignupCredentials,
-): Promise<AuthResponse> => {
+  credentials: AuthSignupRequest,
+): Promise<AuthResponseToken> => {
   const { email, password, name } = credentials;
 
   // Validate email format
@@ -98,7 +99,9 @@ const signup = async (
 /**
  * Login user
  */
-const login = async (credentials: LoginCredentials): Promise<AuthResponse> => {
+const login = async (
+  credentials: AuthLoginRequest,
+): Promise<AuthResponseToken> => {
   const { email, password } = credentials;
 
   // Find user and include password field
@@ -281,17 +284,16 @@ const deleteAccount = async ({
   return { id: userId };
 };
 
+type UpdateSettingsProps = {
+  userId: string;
+} & AuthSettingsRequest;
+
 const updateSettings = async ({
   userId,
   language,
   currency,
   darkMode,
-}: {
-  userId: string;
-  language?: string;
-  currency?: string;
-  darkMode?: boolean;
-}) => {
+}: UpdateSettingsProps) => {
   const user = await UserModel.findByIdAndUpdate(
     userId,
     {

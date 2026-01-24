@@ -1,17 +1,18 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { AuthUser } from 'shared/types/Auth';
-export interface AuthSession {
+import { AuthResponse } from 'shared/types/Auth';
+
+type AuthSession = {
   token: string;
   expiresAt: number;
-}
+};
 
-export interface AuthState {
-  user: AuthUser | null;
+type AuthState = {
+  user: AuthResponse | null;
   session: AuthSession | null;
   isLoading: boolean;
   error: string | null;
   isAuthenticated: boolean;
-}
+};
 
 const initialState: AuthState = {
   user: null,
@@ -32,7 +33,7 @@ export const authSlice = createSlice({
     },
     loginSuccess: (
       state,
-      action: PayloadAction<{ user: AuthUser; session: AuthSession }>,
+      action: PayloadAction<{ user: AuthResponse; session: AuthSession }>,
     ) => {
       state.isLoading = false;
       state.user = action.payload.user;
@@ -68,7 +69,7 @@ export const authSlice = createSlice({
     },
     getSessionSuccess: (
       state,
-      action: PayloadAction<{ user: AuthUser; session: AuthSession }>,
+      action: PayloadAction<{ user: AuthResponse; session: AuthSession }>,
     ) => {
       state.user = action.payload.user;
       state.session = action.payload.session;
@@ -89,11 +90,11 @@ export const authSlice = createSlice({
       state.error = null;
     },
 
-    updateUserProfile: (state, action: PayloadAction<AuthUser>) => {
+    updateUserProfile: (state, action: PayloadAction<AuthResponse>) => {
       state.user = {
         ...(state.user ?? {}),
         ...action.payload,
-      } as AuthUser;
+      } as AuthResponse;
     },
 
     // Reset auth state
