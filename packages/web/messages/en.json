@@ -91,13 +91,18 @@
             "startDate": "Start Date",
             "endDate": "End Date",
             "excludedDates": "Excluded Dates",
-            "isRecurring": "Recurring?"
+            "isRecurring": "Recurring?",
+            "type": "Transaction Type",
+            "description": "Notes"
           },
           "placeholder": {
-            "category": "Select a category",
             "title": "e.g. Electricity bill",
             "currency": "Select a currency",
             "excludedDates": "Select dates..."
+          },
+          "helper": {
+            "category": "Select a category",
+            "isRecurring": "Enable recurring to set an end date and skip months."
           }
         }
       }

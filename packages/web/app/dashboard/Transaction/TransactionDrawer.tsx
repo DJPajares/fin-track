@@ -14,7 +14,6 @@ import { useAppSelector } from '../../../lib/hooks/use-redux';
 import { useCreateTransactionMutation } from '../../../lib/redux/services/transactions';
 import { useLazyGetDashboardDataQuery } from '../../../lib/redux/services/dashboard';
 
-import { SelectBox } from '../../../components/shared/SelectBox';
 import TransactionDrawerForm, {
   type SubmitTransactionProps,
   type TransactionDrawerFormRef,
@@ -85,6 +84,7 @@ const TransactionDrawer = ({
         name: '',
         currency: dashboard.currency._id,
         amount: 0,
+        description: '',
         isRecurring: false,
         startDate: date,
         endDate: date,
@@ -177,30 +177,19 @@ const TransactionDrawer = ({
       title={t('Page.dashboard.transactionDrawer.title').toLocaleUpperCase()}
       description={t('Page.dashboard.transactionDrawer.description')}
     >
-      <>
-        <div className="flex flex-row justify-end">
-          <SelectBox
-            variant="ghost"
-            items={newTypes}
-            selectedItem={type}
-            setSelectedItem={setType}
-            placeholder={t('Common.label.selectPlaceholder')}
-            className="w-fit p-0 text-base font-semibold"
-          />
-        </div>
-
-        <TransactionDrawerForm
-          type={type}
-          categories={categories}
-          currencies={currencies}
-          defaultValues={defaultValues}
-          submitTransaction={submitTransaction}
-          setIsTransactionDrawerOpen={setIsDrawerOpen}
-          onStoreFormValues={handleStoreFormValues}
-          formRef={formRef}
-          resetFormRef={resetFormRef}
-        />
-      </>
+      <TransactionDrawerForm
+        type={type}
+        typeOptions={newTypes}
+        onTypeChange={setType}
+        categories={categories}
+        currencies={currencies}
+        defaultValues={defaultValues}
+        submitTransaction={submitTransaction}
+        setIsTransactionDrawerOpen={setIsDrawerOpen}
+        onStoreFormValues={handleStoreFormValues}
+        formRef={formRef}
+        resetFormRef={resetFormRef}
+      />
     </CustomDrawer>
   );
 };

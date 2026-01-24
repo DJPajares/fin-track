@@ -9,7 +9,6 @@ import {
 import { useTranslations } from 'next-intl';
 
 import CustomDrawer from '../../../components/shared/CustomDrawer';
-import { SelectBox } from '../../../components/shared/SelectBox';
 import TransactionDrawerForm, {
   type SubmitTransactionProps,
 } from '../../../components/Form/TransactionDrawerForm';
@@ -76,6 +75,7 @@ const EditTransactionDrawer = ({
     name: transaction.name,
     currency: transaction.currencyId,
     amount: transaction.amount,
+    description: transaction.description ?? '',
     isRecurring: transaction.isRecurring || false,
     startDate: new Date(transaction.startDate),
     endDate: new Date(transaction.endDate),
@@ -153,29 +153,18 @@ const EditTransactionDrawer = ({
       ).toLocaleUpperCase()}
       triggerChildren={children}
     >
-      <>
-        <div className="flex flex-row justify-end">
-          <SelectBox
-            variant="ghost"
-            items={newTypes}
-            selectedItem={type}
-            setSelectedItem={setType}
-            placeholder={t('Common.label.selectPlaceholder')}
-            className="w-fit p-0 text-base font-semibold"
-          />
-        </div>
-
-        <TransactionDrawerForm
-          type={type}
-          categories={categories}
-          currencies={currencies}
-          defaultValues={defaultValues}
-          submitTransaction={submitTransaction}
-          deleteTransaction={handleDeleteTransaction}
-          setIsTransactionDrawerOpen={setIsDrawerOpen}
-          formRef={formRef}
-        />
-      </>
+      <TransactionDrawerForm
+        type={type}
+        typeOptions={newTypes}
+        onTypeChange={setType}
+        categories={categories}
+        currencies={currencies}
+        defaultValues={defaultValues}
+        submitTransaction={submitTransaction}
+        deleteTransaction={handleDeleteTransaction}
+        setIsTransactionDrawerOpen={setIsDrawerOpen}
+        formRef={formRef}
+      />
     </CustomDrawer>
   );
 };
