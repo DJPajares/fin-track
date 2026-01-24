@@ -93,7 +93,9 @@
             "excludedDates": "Excluded Dates",
             "isRecurring": "Recurring?",
             "type": "Transaction Type",
-            "description": "Notes"
+            "description": "Notes",
+            "addDetails": "Add details",
+            "hideDetails": "Hide details"
           },
           "placeholder": {
             "title": "e.g. Electricity bill",

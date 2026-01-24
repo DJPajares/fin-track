@@ -15,7 +15,7 @@ import { useTranslations } from 'next-intl';
 import { useAppSelector } from '../../lib/hooks/use-redux';
 import { cn } from '../../lib/utils';
 
-import { Checkbox } from '@heroui/react';
+import { Card, CardBody, Checkbox } from '@heroui/react';
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
 import {
   Form,
@@ -86,14 +86,6 @@ type TransactionDrawerFormProps = {
   onStoreFormValues?: (values: TransactionFormProps) => void;
   formRef: RefObject<HTMLFormElement | null>;
   resetFormRef?: RefObject<TransactionDrawerFormRef | null>;
-};
-
-const Card = ({ children }: { children: React.ReactNode }) => {
-  return (
-    <div className="border-border/60 bg-background/80 rounded-2xl border p-4 shadow-sm">
-      {children}
-    </div>
-  );
 };
 
 const TransactionDrawerForm = ({
@@ -299,37 +291,12 @@ const TransactionDrawerForm = ({
         onSubmit={form.handleSubmit(onSubmit)}
         className="flex flex-col gap-4"
       >
-        <Card>
-          <div className="flex flex-col gap-4">
-            <div className="flex items-center justify-between gap-2">
-              <p className="text-muted-foreground text-xs font-semibold tracking-wide uppercase">
-                {t('Page.dashboard.transactionDrawer.form.title.type')}
-              </p>
-            </div>
-
-            <div className="grid grid-cols-2 gap-2">
-              {typeOptions.map((option) => {
-                const isActive = option._id === type._id;
-
-                return (
-                  <button
-                    key={option._id}
-                    type="button"
-                    onClick={() => onTypeChange(option)}
-                    aria-pressed={isActive}
-                    className={cn(
-                      'flex items-center justify-center rounded-xl border px-3 py-2 text-sm font-semibold transition-colors',
-                      isActive
-                        ? 'border-primary bg-primary/10 text-primary shadow-sm'
-                        : 'border-border/70 bg-background text-muted-foreground hover:border-primary/40 hover:text-foreground',
-                    )}
-                  >
-                    {option.name}
-                  </button>
-                );
-              })}
-            </div>
-
+        <Card
+          isBlurred
+          className="bg-background/60 dark:bg-default-100/50 border-none"
+          shadow="sm"
+        >
+          <CardBody className="flex flex-col gap-4 p-5">
             <FormField
               control={form.control}
               name="name"
@@ -429,75 +396,113 @@ const TransactionDrawerForm = ({
                 </FormItem>
               )}
             />
-          </div>
+          </CardBody>
         </Card>
 
-        <Card>
-          <FormField
-            control={form.control}
-            name="category"
-            render={({ field }) => {
-              const filteredCategories = categories.filter(
-                (category) => category.type._id === type._id && category.active,
-              );
+        <Card
+          isBlurred
+          className="bg-background/60 dark:bg-default-100/50 border-none"
+          shadow="sm"
+        >
+          <CardBody className="flex flex-col gap-4 p-5">
+            <div className="flex flex-col gap-2">
+              <div className="flex items-center justify-between gap-2">
+                <p className="text-muted-foreground text-xs font-semibold tracking-wide uppercase">
+                  {t('Page.dashboard.transactionDrawer.form.title.type')}
+                </p>
+              </div>
 
-              return (
-                <FormItem className="gap-4">
-                  <div className="flex items-center justify-between">
-                    <FormLabel className="text-sm font-semibold">
-                      {t(
-                        'Page.dashboard.transactionDrawer.form.title.category',
+              <div className="grid grid-cols-2 gap-2">
+                {typeOptions.map((option) => {
+                  const isActive = option._id === type._id;
+
+                  return (
+                    <button
+                      key={option._id}
+                      type="button"
+                      onClick={() => onTypeChange(option)}
+                      aria-pressed={isActive}
+                      className={cn(
+                        'flex items-center justify-center rounded-xl border px-3 py-2 text-sm font-semibold transition-colors',
+                        isActive
+                          ? 'border-primary bg-primary/10 text-primary shadow-sm'
+                          : 'border-border/70 bg-background text-muted-foreground hover:border-primary/40 hover:text-foreground',
                       )}
-                    </FormLabel>
-                    <p className="text-muted-foreground text-xs font-medium">
-                      {t(
-                        'Page.dashboard.transactionDrawer.form.helper.category',
-                      )}
-                    </p>
-                  </div>
+                    >
+                      {option.name}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
 
-                  <div className="grid grid-cols-2 gap-2">
-                    {filteredCategories.map((category) => {
-                      const { _id, id, name, icon } = category;
-                      const isTranslated = t.has(`Common.category.${id}`);
-                      const label = isTranslated
-                        ? t(`Common.category.${id}`)
-                        : name;
-                      const isSelected = field.value === _id;
+            <div className="flex items-center justify-between gap-2">
+              <p className="text-muted-foreground text-xs font-semibold tracking-wide uppercase">
+                {t('Page.dashboard.transactionDrawer.form.title.category')}
+              </p>
+              <p className="text-muted-foreground text-xs">
+                {t('Page.dashboard.transactionDrawer.form.helper.category')}
+              </p>
+            </div>
 
-                      return (
-                        <button
-                          key={_id}
-                          type="button"
-                          onClick={() => field.onChange(_id)}
-                          className={cn(
-                            'flex items-center gap-3 rounded-xl border px-3 py-2 text-left shadow-xs transition-colors',
-                            isSelected
-                              ? 'border-primary bg-primary/10 text-foreground'
-                              : 'border-border/70 bg-muted/40 text-foreground hover:border-primary/40',
-                          )}
-                        >
-                          <span className="bg-background flex size-10 items-center justify-center rounded-lg shadow-xs">
-                            <CardIcon icon={icon} className="size-5" />
-                          </span>
+            <FormField
+              control={form.control}
+              name="category"
+              render={({ field }) => {
+                const filteredCategories = categories.filter(
+                  (category) =>
+                    category.type._id === type._id && category.active,
+                );
 
-                          <span className="text-sm leading-tight font-semibold">
-                            {label}
-                          </span>
-                        </button>
-                      );
-                    })}
-                  </div>
+                return (
+                  <FormItem className="gap-4">
+                    <div className="grid grid-cols-2 gap-2">
+                      {filteredCategories.map((category) => {
+                        const { _id, id, name, icon } = category;
+                        const isTranslated = t.has(`Common.category.${id}`);
+                        const label = isTranslated
+                          ? t(`Common.category.${id}`)
+                          : name;
+                        const isSelected = field.value === _id;
 
-                  <FormMessage />
-                </FormItem>
-              );
-            }}
-          />
+                        return (
+                          <button
+                            key={_id}
+                            type="button"
+                            onClick={() => field.onChange(_id)}
+                            className={cn(
+                              'flex items-center gap-3 rounded-xl border px-3 py-2 text-left shadow-xs transition-colors',
+                              isSelected
+                                ? 'border-primary bg-primary/10 text-foreground'
+                                : 'border-border/70 bg-muted/40 text-foreground hover:border-primary/40',
+                            )}
+                          >
+                            <span className="bg-background flex size-10 items-center justify-center rounded-lg shadow-xs">
+                              <CardIcon icon={icon} className="size-5" />
+                            </span>
+
+                            <span className="text-sm leading-tight font-semibold">
+                              {label}
+                            </span>
+                          </button>
+                        );
+                      })}
+                    </div>
+
+                    <FormMessage />
+                  </FormItem>
+                );
+              }}
+            />
+          </CardBody>
         </Card>
 
-        <Card>
-          <div className="flex flex-col gap-4">
+        <Card
+          isBlurred
+          className="bg-background/60 dark:bg-default-100/50 border-none"
+          shadow="sm"
+        >
+          <CardBody className="flex flex-col gap-4 p-5">
             <FormField
               control={form.control}
               name="isRecurring"
@@ -676,25 +681,36 @@ const TransactionDrawerForm = ({
                 )}
               </div>
             )}
-          </div>
+          </CardBody>
         </Card>
 
-        <Card>
-          <div className="flex flex-col gap-4">
-            <button
-              type="button"
-              onClick={() => setIsDetailsOpen((prev) => !prev)}
-              className="text-foreground flex w-full items-center justify-between rounded-xl px-2 py-1 text-sm font-semibold transition"
-              aria-expanded={isDetailsOpen}
-            >
-              <span>{isDetailsOpen ? 'Hide details' : 'Add details'}</span>
-              <ChevronDownIcon
-                className={cn(
-                  'size-4 transition-transform',
-                  isDetailsOpen ? 'rotate-180' : 'rotate-0',
-                )}
-              />
-            </button>
+        <Card
+          isBlurred
+          className="bg-background/60 dark:bg-default-100/50 border-none"
+          shadow="sm"
+        >
+          <CardBody className="flex flex-col gap-4 p-5">
+            <div className="flex items-center justify-between">
+              <p className="text-muted-foreground text-xs font-semibold tracking-wide uppercase">
+                {isDetailsOpen
+                  ? t('Page.dashboard.transactionDrawer.form.title.hideDetails')
+                  : t('Page.dashboard.transactionDrawer.form.title.addDetails')}
+              </p>
+
+              <Button
+                variant="ghost"
+                size="icon"
+                type="button"
+                onClick={() => setIsDetailsOpen((prev) => !prev)}
+              >
+                <ChevronDownIcon
+                  className={cn(
+                    'size-4 transition-transform',
+                    isDetailsOpen ? 'rotate-180' : 'rotate-0',
+                  )}
+                />
+              </Button>
+            </div>
 
             {isDetailsOpen && (
               <div>
@@ -722,7 +738,7 @@ const TransactionDrawerForm = ({
                 />
               </div>
             )}
-          </div>
+          </CardBody>
         </Card>
 
         {defaultValues && deleteTransaction && (
