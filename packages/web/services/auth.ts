@@ -44,7 +44,7 @@ export const login = async (
 
   if (data.success && data.data) {
     // Store token in localStorage
-    localStorage.setItem('auth_token', data.data.token);
+    localStorage.setItem(STORAGE_KEYS.AUTH_TOKEN, data.data.token);
     return data.data;
   }
 
@@ -61,7 +61,7 @@ export const signup = async (
 
   if (data.success && data.data) {
     // Store token in localStorage
-    localStorage.setItem('auth_token', data.data.token);
+    localStorage.setItem(STORAGE_KEYS.AUTH_TOKEN, data.data.token);
     return data.data;
   }
 
