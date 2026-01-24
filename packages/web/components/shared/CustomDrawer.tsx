@@ -72,9 +72,9 @@ const CustomDrawer = ({
             <DrawerTrigger asChild>{triggerChildren}</DrawerTrigger>
           )}
 
-          <DrawerContent aria-describedby="">
-            <div className="mx-auto flex min-h-0 w-full flex-1 flex-col">
-              <DrawerHeader className="p-2">
+          <DrawerContent aria-describedby="" className="max-h-dvh">
+            <div className="mx-auto flex w-full flex-col">
+              <DrawerHeader className="shrink-0 p-2">
                 <div className="grid grid-cols-3 items-center gap-2">
                   <div className="justify-self-start">
                     <ConfirmationDialog handleSubmit={handleSubmitWithLoading}>
@@ -102,7 +102,7 @@ const CustomDrawer = ({
 
               <Separator className="shrink-0" />
 
-              <div className="flex-1 overflow-y-auto p-4">
+              <div className="overflow-y-auto p-4">
                 <div className="mx-auto w-full max-w-sm">{children}</div>
               </div>
             </div>
