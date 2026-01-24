@@ -35,11 +35,11 @@ import {
 } from '../ui/select';
 import { Input } from '../ui/input';
 import { Button } from '../ui/button';
-import { Calendar } from '../ui/calendar';
 import { Label } from '../ui/label';
 import { MultiSelectBox } from '../shared/MultiSelectBox';
 import ConfirmationDialog from '../shared/ConfirmationDialog';
 import CardIcon from '../shared/CardIcon';
+import Calendar from '../shared/Calendar';
 
 import { CalendarIcon, ChevronDownIcon, Trash2Icon } from 'lucide-react';
 
@@ -573,14 +573,9 @@ const TransactionDrawerForm = ({
                       </PopoverTrigger>
                       <PopoverContent className="w-auto p-0" align="start">
                         <Calendar
-                          mode="single"
-                          captionLayout="dropdown"
-                          defaultMonth={field.value}
-                          selected={field.value}
-                          onSelect={(date) => {
-                            field.onChange(date);
-                            setIsStartDatePopoverOpen(false);
-                          }}
+                          date={field.value}
+                          onChange={field.onChange}
+                          closeCalendar={setIsStartDatePopoverOpen}
                         />
                       </PopoverContent>
                     </Popover>
@@ -631,17 +626,9 @@ const TransactionDrawerForm = ({
                         </PopoverTrigger>
                         <PopoverContent className="w-auto p-0" align="start">
                           <Calendar
-                            mode="single"
-                            captionLayout="dropdown"
-                            defaultMonth={field.value}
-                            selected={field.value}
-                            onSelect={(date) => {
-                              field.onChange(date);
-                              setIsEndDatePopoverOpen(false);
-                            }}
-                            disabled={(date) =>
-                              startDate ? date < startDate : false
-                            }
+                            date={field.value}
+                            onChange={field.onChange}
+                            closeCalendar={setIsEndDatePopoverOpen}
                           />
                         </PopoverContent>
                       </Popover>
