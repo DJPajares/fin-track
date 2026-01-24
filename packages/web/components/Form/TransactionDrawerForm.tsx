@@ -85,6 +85,7 @@ type TransactionDrawerFormProps = {
   deleteTransaction?: (id: string) => Promise<void>;
   setIsTransactionDrawerOpen: Dispatch<SetStateAction<boolean>>;
   onStoreFormValues?: (values: TransactionFormProps) => void;
+  onValidationError?: () => void;
   formRef: RefObject<HTMLFormElement | null>;
   resetFormRef?: RefObject<TransactionDrawerFormRef | null>;
 };
@@ -99,6 +100,7 @@ const TransactionDrawerForm = ({
   submitTransaction,
   deleteTransaction,
   onStoreFormValues,
+  onValidationError,
   setIsTransactionDrawerOpen,
   formRef,
   resetFormRef,
@@ -255,34 +257,45 @@ const TransactionDrawerForm = ({
   };
 
   const onSubmit = async (data: TransactionFormProps) => {
-    const excludedDates = data.excludedDates
-      ? data.excludedDates.map((date) => new Date(date.value))
-      : [];
+    try {
+      const excludedDates = data.excludedDates
+        ? data.excludedDates.map((date) => new Date(date.value))
+        : [];
 
-    const {
-      name,
-      category,
-      currency,
-      amount,
-      description,
-      startDate,
-      endDate,
-    } = data;
+      const {
+        name,
+        category,
+        currency,
+        amount,
+        description,
+        startDate,
+        endDate,
+      } = data;
 
-    const transactionData: SubmitTransactionProps = {
-      name,
-      category,
-      currency,
-      amount: amount.toString(),
-      description: description || '',
-      isRecurring,
-      startDate,
-      endDate: isRecurring ? endDate : startDate,
-      excludedDates,
-      userId,
-    };
+      const transactionData: SubmitTransactionProps = {
+        name,
+        category,
+        currency,
+        amount: amount.toString(),
+        description: description || '',
+        isRecurring,
+        startDate,
+        endDate: isRecurring ? endDate : startDate,
+        excludedDates,
+        userId,
+      };
 
-    await submitTransaction(transactionData);
+      await submitTransaction(transactionData);
+    } catch (error) {
+      console.error('Error submitting transaction:', error);
+      throw error;
+    }
+  };
+
+  const onInvalidSubmit = () => {
+    // This is called when form validation fails
+    // Notify parent so it can reset loading state
+    onValidationError?.();
   };
 
   const handleDeleteTransaction = async () => {
@@ -297,7 +310,7 @@ const TransactionDrawerForm = ({
     <Form {...form}>
       <form
         ref={formRef}
-        onSubmit={form.handleSubmit(onSubmit)}
+        onSubmit={form.handleSubmit(onSubmit, onInvalidSubmit)}
         className="flex flex-col gap-4"
       >
         <Card

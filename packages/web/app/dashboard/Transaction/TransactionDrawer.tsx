@@ -151,6 +151,12 @@ const TransactionDrawer = ({
     }
   };
 
+  const handleValidationError = () => {
+    // Called when form validation fails
+    // Resolve the promise so loading state can be reset
+    submissionResolverRef.current?.();
+  };
+
   const handleDrawerChange = (open: boolean | ((prev: boolean) => boolean)) => {
     const nextOpen = typeof open === 'function' ? open(isDrawerOpen) : open;
     setIsDrawerOpen(nextOpen);
@@ -185,6 +191,7 @@ const TransactionDrawer = ({
         currencies={currencies}
         defaultValues={defaultValues}
         submitTransaction={submitTransaction}
+        onValidationError={handleValidationError}
         setIsTransactionDrawerOpen={setIsDrawerOpen}
         onStoreFormValues={handleStoreFormValues}
         formRef={formRef}

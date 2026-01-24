@@ -68,6 +68,7 @@ const EditTransactionDrawer = ({
   const [lazyGetTransactions] = useLazyGetTransactionsQuery();
 
   const formRef = useRef<HTMLFormElement>(null);
+  const submissionResolverRef = useRef<(() => void) | null>(null);
 
   const defaultValues: TransactionFormProps = {
     id: transaction._id,
@@ -116,7 +117,15 @@ const EditTransactionDrawer = ({
       }
     } catch (error) {
       console.error(error);
+    } finally {
+      submissionResolverRef.current?.();
     }
+  };
+
+  const handleValidationError = () => {
+    // Called when form validation fails
+    // Resolve the promise so loading state can be reset
+    submissionResolverRef.current?.();
   };
 
   const handleDeleteTransaction = async (transactionId: string) => {
@@ -138,8 +147,13 @@ const EditTransactionDrawer = ({
     }
   };
 
-  const handleSubmit = async () => {
-    if (formRef.current) formRef.current.requestSubmit();
+  const handleSubmit = () => {
+    return new Promise<void>((resolve) => {
+      submissionResolverRef.current = resolve;
+      if (formRef.current) {
+        formRef.current.requestSubmit();
+      }
+    });
   };
 
   return (
@@ -162,6 +176,7 @@ const EditTransactionDrawer = ({
         defaultValues={defaultValues}
         submitTransaction={submitTransaction}
         deleteTransaction={handleDeleteTransaction}
+        onValidationError={handleValidationError}
         setIsTransactionDrawerOpen={setIsDrawerOpen}
         formRef={formRef}
       />
