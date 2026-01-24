@@ -55,7 +55,6 @@ const get = async (_id: PaymentProps['_id']) => {
 };
 
 const update = async (_id: PaymentProps['_id'], data: UpdatePaymentBody) => {
-  console.log('Updating payment with ID:', _id, 'with data:', data);
   return await PaymentModel.findOneAndUpdate({ _id }, data, {
     new: true,
     upsert: true,

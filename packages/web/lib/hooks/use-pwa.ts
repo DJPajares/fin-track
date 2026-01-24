@@ -110,13 +110,6 @@ export function usePWA() {
       if (pwaState.deferredPrompt) {
         // Call prompt() to show the native install dialog
         pwaState.deferredPrompt.prompt();
-        const { outcome } = await pwaState.deferredPrompt.userChoice;
-
-        if (outcome === 'accepted') {
-          console.log('User accepted the install prompt');
-        } else {
-          console.log('User dismissed the install prompt');
-        }
 
         setPwaState((prev) => ({
           ...prev,
@@ -125,10 +118,6 @@ export function usePWA() {
         }));
       } else {
         // Deferred prompt not available - browser should show its own prompt
-        // This is normal behavior. Just inform the user.
-        console.log(
-          'Install prompt not available, browser should show its own prompt',
-        );
         alert(
           'The app installation prompt will appear shortly, or you can try again in a moment.',
         );

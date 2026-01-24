@@ -82,7 +82,7 @@ const signup = async (
       token,
     };
   } catch (error: unknown) {
-    console.log('Error in signup controller:', error);
+    console.error('Error in signup controller:', error);
     if (error instanceof Error) {
       // Handle MongoDB duplicate key errors
       if (
