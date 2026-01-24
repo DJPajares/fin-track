@@ -91,13 +91,20 @@
             "startDate": "Fecha de inicio",
             "endDate": "Fecha de fin",
             "excludedDates": "Fechas excluidas",
-            "isRecurring": "¿Recurrente?"
+            "isRecurring": "¿Recurrente?",
+            "type": "Tipo de transacción",
+            "description": "Notas",
+            "addDetails": "Agregar detalles",
+            "hideDetails": "Ocultar detalles"
           },
           "placeholder": {
-            "category": "Seleccione una categoría",
             "title": "Ej. Factura de electricidad",
             "currency": "Seleccione una moneda",
             "excludedDates": "Seleccione fechas..."
+          },
+          "helper": {
+            "category": "Selecciona una categoría",
+            "isRecurring": "Activa recurrente para establecer una fecha de fin y omitir meses."
           }
         }
       }

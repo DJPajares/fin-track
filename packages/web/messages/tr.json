@@ -91,13 +91,20 @@
             "startDate": "Başlangıç Tarihi",
             "endDate": "Bitiş Tarihi",
             "excludedDates": "Hariç Tutulan Tarihler",
-            "isRecurring": "Tekrar Eden?"
+            "isRecurring": "Tekrar Eden?",
+            "type": "İşlem Türü",
+            "description": "Notlar",
+            "addDetails": "Detay ekle",
+            "hideDetails": "Detayları gizle"
           },
           "placeholder": {
-            "category": "Bir kategori seçin",
             "title": "Örneğin: Elektrik faturası",
             "currency": "Bir para birimi seçin",
             "excludedDates": "Tarihleri seçin..."
+          },
+          "helper": {
+            "category": "Bir kategori seçin",
+            "isRecurring": "Bitiş tarihi belirlemek ve ayları atlamak için tekrar etmeyi etkinleştirin."
           }
         }
       }

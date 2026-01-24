@@ -91,13 +91,20 @@
             "startDate": "प्रारंभ तिथि",
             "endDate": "समाप्ति तिथि",
             "excludedDates": "अलग की गई तिथियाँ",
-            "isRecurring": "पुनरावर्ती?"
+            "isRecurring": "पुनरावर्ती?",
+            "type": "लेन-देन का प्रकार",
+            "description": "नोट्स",
+            "addDetails": "विवरण जोड़ें",
+            "hideDetails": "विवरण छुपाएँ"
           },
           "placeholder": {
-            "category": "एक श्रेणी चुनें",
             "title": "जैसे: बिजली का बिल",
             "currency": "एक मुद्रा चुनें",
             "excludedDates": "तिथियाँ चुनें..."
+          },
+          "helper": {
+            "category": "एक श्रेणी चुनें",
+            "isRecurring": "अंतिम तिथि सेट करने और महीनों को छोड़ने के लिए आवर्ती सक्षम करें।"
           }
         }
       }

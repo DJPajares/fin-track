@@ -91,13 +91,20 @@
             "startDate": "Data di inizio",
             "endDate": "Data di fine",
             "excludedDates": "Date escluse",
-            "isRecurring": "Ricorrente?"
+            "isRecurring": "Ricorrente?",
+            "type": "Tipo di transazione",
+            "description": "Note",
+            "addDetails": "Aggiungi dettagli",
+            "hideDetails": "Nascondi dettagli"
           },
           "placeholder": {
-            "category": "Seleziona una categoria",
             "title": "Es. Bolletta elettricità",
             "currency": "Seleziona una valuta",
             "excludedDates": "Seleziona le date..."
+          },
+          "helper": {
+            "category": "Seleziona una categoria",
+            "isRecurring": "Abilita ricorrente per impostare una data di fine e saltare mesi."
           }
         }
       }

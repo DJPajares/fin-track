@@ -91,13 +91,20 @@
             "startDate": "開始日",
             "endDate": "終了日",
             "excludedDates": "除外日",
-            "isRecurring": "繰り返し?"
+            "isRecurring": "繰り返し?",
+            "type": "取引タイプ",
+            "description": "メモ",
+            "addDetails": "詳細を追加",
+            "hideDetails": "詳細を隠す"
           },
           "placeholder": {
-            "category": "カテゴリーを選択",
             "title": "例: 電気代",
             "currency": "通貨を選択",
             "excludedDates": "日付を選択..."
+          },
+          "helper": {
+            "category": "カテゴリーを選択",
+            "isRecurring": "繰り返しを有効にして終了日を設定し、月をスキップします。"
           }
         }
       }

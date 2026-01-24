@@ -91,13 +91,20 @@
             "startDate": "Startdatum",
             "endDate": "Enddatum",
             "excludedDates": "Ausgeschlossene Daten",
-            "isRecurring": "Wiederkehrend?"
+            "isRecurring": "Wiederkehrend?",
+            "type": "Transaktionstyp",
+            "description": "Notizen",
+            "addDetails": "Details hinzufügen",
+            "hideDetails": "Details ausblenden"
           },
           "placeholder": {
-            "category": "Wählen Sie eine Kategorie",
             "title": "z. B. Stromrechnung",
             "currency": "Wählen Sie eine Währung",
             "excludedDates": "Wählen Sie Daten aus..."
+          },
+          "helper": {
+            "category": "Kategorie auswählen",
+            "isRecurring": "Aktiviere wiederkehrend, um ein Enddatum festzulegen und Monate zu überspringen."
           }
         }
       }
