@@ -133,7 +133,7 @@ export const updateProfile = async (payload: AuthUpdateRequest) => {
     headers: { Authorization: `Bearer ${token}` },
   });
 
-  return data?.data?.user;
+  return data;
 };
 
 export const deleteAccount = async (payload: { currentPassword: string }) => {

@@ -32,6 +32,7 @@ import {
 } from '../ui/dropdown-menu';
 import { Label } from '../ui/label';
 import { Switch } from '../ui/switch';
+import ProfileDrawer from '@web/components/Nav/ProfileDrawer';
 
 import { setUserLocale } from '../../services/locale';
 import { logout, updateUserSettings } from '../../services/auth';
@@ -41,7 +42,6 @@ import packageInfo from '../../../../package.json';
 import { useAppSelector } from '../../lib/hooks/use-redux';
 import { setDashboardCurrency } from '../../lib/redux/feature/dashboard/dashboardSlice';
 import { logoutSuccess } from '../../lib/redux/feature/auth/authSlice';
-import ProfileDialog from './ProfileDialog';
 
 import type { ListProps } from '../../types/List';
 import type { LocaleProps } from '@shared/types/Locale';
@@ -59,13 +59,17 @@ const NavDropdownMenu = ({ children }: NavDropdownMenuProps) => {
   const t = useTranslations('MenuDropdown');
   const { user } = useAppSelector((state) => state.auth);
   const [isDarkMode, setIsDarkMode] = useState(theme === 'dark');
-  const [isProfileDialogOpen, setIsProfileDialogOpen] = useState(false);
+  const [isProfileDrawerOpen, setIsProfileDrawerOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const { currencies } = useAppSelector((state) => state.main);
   const dashboardCurrency = useAppSelector((state) => state.dashboard.currency);
 
-  const handleProfileDialogChange = (open: boolean) => {
-    setIsProfileDialogOpen(open);
+  const handleProfileDrawerChange = (open: boolean) => {
+    setIsProfileDrawerOpen(open);
+    if (open) {
+      setIsDropdownOpen(false);
+    }
   };
 
   const handleLogout = async () => {
@@ -103,7 +107,7 @@ const NavDropdownMenu = ({ children }: NavDropdownMenuProps) => {
 
   return (
     <>
-      <DropdownMenu>
+      <DropdownMenu open={isDropdownOpen} onOpenChange={setIsDropdownOpen}>
         <DropdownMenuTrigger asChild>{children}</DropdownMenuTrigger>
         <DropdownMenuContent className="w-56" align="end" forceMount>
           <DropdownMenuLabel className="font-normal">
@@ -121,7 +125,7 @@ const NavDropdownMenu = ({ children }: NavDropdownMenuProps) => {
             <DropdownMenuItem
               onSelect={(event) => {
                 event.preventDefault();
-                handleProfileDialogChange(true);
+                handleProfileDrawerChange(true);
               }}
             >
               <SquarePenIcon className="text-muted-foreground size-4" />
@@ -226,9 +230,9 @@ const NavDropdownMenu = ({ children }: NavDropdownMenuProps) => {
         </DropdownMenuContent>
       </DropdownMenu>
 
-      <ProfileDialog
-        open={isProfileDialogOpen}
-        onOpenChange={handleProfileDialogChange}
+      <ProfileDrawer
+        open={isProfileDrawerOpen}
+        onOpenChange={handleProfileDrawerChange}
       />
     </>
   );
