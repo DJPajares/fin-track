@@ -91,13 +91,20 @@
             "startDate": "Tarikh Mula",
             "endDate": "Tarikh Tamat",
             "excludedDates": "Tarikh Dikecualikan",
-            "isRecurring": "Berulang?"
+            "isRecurring": "Berulang?",
+            "type": "Jenis Transaksi",
+            "description": "Nota",
+            "addDetails": "Tambah butiran",
+            "hideDetails": "Sembunyikan butiran"
           },
           "placeholder": {
-            "category": "Pilih kategori",
             "title": "Contoh: Bil elektrik",
             "currency": "Pilih mata wang",
             "excludedDates": "Pilih tarikh..."
+          },
+          "helper": {
+            "category": "Pilih kategori",
+            "isRecurring": "Dayakan berulang untuk menetapkan tarikh tamat dan langkau bulan."
           }
         }
       }

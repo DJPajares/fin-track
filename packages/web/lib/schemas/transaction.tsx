@@ -18,6 +18,10 @@ const transactionSchema = z.object({
     .min(0, {
       message: 'Amount must be a positive number',
     }),
+  description: z
+    .string()
+    .max(240, { message: 'Description must be under 240 characters.' })
+    .optional(),
   isRecurring: z.boolean(),
   startDate: z.date({
     message: 'Please select a start date.',

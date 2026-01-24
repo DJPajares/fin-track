@@ -91,13 +91,20 @@
             "startDate": "Ngày Bắt Đầu",
             "endDate": "Ngày Kết Thúc",
             "excludedDates": "Ngày Loại Trừ",
-            "isRecurring": "Định Kỳ?"
+            "isRecurring": "Định Kỳ?",
+            "type": "Loại giao dịch",
+            "description": "Ghi chú",
+            "addDetails": "Thêm chi tiết",
+            "hideDetails": "Ẩn chi tiết"
           },
           "placeholder": {
-            "category": "Chọn danh mục",
             "title": "Ví dụ: Hóa đơn tiền điện",
             "currency": "Chọn tiền tệ",
             "excludedDates": "Chọn ngày..."
+          },
+          "helper": {
+            "category": "Chọn danh mục",
+            "isRecurring": "Bật định kỳ để đặt ngày kết thúc và bỏ qua các tháng."
           }
         }
       }

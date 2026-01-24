@@ -91,13 +91,20 @@
             "startDate": "Tanggal Mulai",
             "endDate": "Tanggal Berakhir",
             "excludedDates": "Tanggal Dikecualikan",
-            "isRecurring": "Berulang?"
+            "isRecurring": "Berulang?",
+            "type": "Jenis Transaksi",
+            "description": "Catatan",
+            "addDetails": "Tambahkan detail",
+            "hideDetails": "Sembunyikan detail"
           },
           "placeholder": {
-            "category": "Pilih kategori",
             "title": "Contoh: Tagihan listrik",
             "currency": "Pilih mata uang",
             "excludedDates": "Pilih tanggal..."
+          },
+          "helper": {
+            "category": "Pilih kategori",
+            "isRecurring": "Aktifkan berulang untuk mengatur tanggal akhir dan melewati bulan."
           }
         }
       }

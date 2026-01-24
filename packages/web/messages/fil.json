@@ -91,13 +91,20 @@
             "startDate": "Petsa ng Simula",
             "endDate": "Petsa ng Pagtatapos",
             "excludedDates": "Mga Hindi Kasamang Petsa",
-            "isRecurring": "Ulit-ulit?"
+            "isRecurring": "Ulit-ulit?",
+            "type": "Uri ng Transaksyon",
+            "description": "Mga Tala",
+            "addDetails": "Magdagdag ng detalye",
+            "hideDetails": "Itago ang detalye"
           },
           "placeholder": {
-            "category": "Pumili ng kategorya",
             "title": "Hal. Bayarin sa kuryente",
             "currency": "Pumili ng pera",
             "excludedDates": "Pumili ng mga petsa..."
+          },
+          "helper": {
+            "category": "Pumili ng kategorya",
+            "isRecurring": "I-on ang umuulit upang magtakda ng petsa ng pagtatapos at laktawan ang mga buwan."
           }
         }
       }

@@ -91,13 +91,20 @@
             "startDate": "วันที่เริ่มต้น",
             "endDate": "วันที่สิ้นสุด",
             "excludedDates": "วันที่ยกเว้น",
-            "isRecurring": "ทำซ้ำ?"
+            "isRecurring": "ทำซ้ำ?",
+            "type": "ประเภทธุรกรรม",
+            "description": "บันทึก",
+            "addDetails": "เพิ่มรายละเอียด",
+            "hideDetails": "ซ่อนรายละเอียด"
           },
           "placeholder": {
-            "category": "เลือกหมวดหมู่",
             "title": "เช่น ค่าไฟฟ้า",
             "currency": "เลือกสกุลเงิน",
             "excludedDates": "เลือกวันที่..."
+          },
+          "helper": {
+            "category": "เลือกหมวดหมู่",
+            "isRecurring": "เปิดใช้งานทำซ้ำเพื่อกำหนดวันสิ้นสุดและข้ามเดือน."
           }
         }
       }

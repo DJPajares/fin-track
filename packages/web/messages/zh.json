@@ -91,13 +91,20 @@
             "startDate": "开始日期",
             "endDate": "结束日期",
             "excludedDates": "排除日期",
-            "isRecurring": "重复？"
+            "isRecurring": "重复？",
+            "type": "交易类型",
+            "description": "备注",
+            "addDetails": "添加详情",
+            "hideDetails": "隐藏详情"
           },
           "placeholder": {
-            "category": "选择类别",
             "title": "例如：电费账单",
             "currency": "选择货币",
             "excludedDates": "选择日期..."
+          },
+          "helper": {
+            "category": "选择类别",
+            "isRecurring": "启用循环以设置结束日期并跳过月份。"
           }
         }
       }

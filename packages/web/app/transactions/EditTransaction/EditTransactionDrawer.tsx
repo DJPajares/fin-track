@@ -9,7 +9,6 @@ import {
 import { useTranslations } from 'next-intl';
 
 import CustomDrawer from '../../../components/shared/CustomDrawer';
-import { SelectBox } from '../../../components/shared/SelectBox';
 import TransactionDrawerForm, {
   type SubmitTransactionProps,
 } from '../../../components/Form/TransactionDrawerForm';
@@ -69,6 +68,7 @@ const EditTransactionDrawer = ({
   const [lazyGetTransactions] = useLazyGetTransactionsQuery();
 
   const formRef = useRef<HTMLFormElement>(null);
+  const submissionResolverRef = useRef<(() => void) | null>(null);
 
   const defaultValues: TransactionFormProps = {
     id: transaction._id,
@@ -76,6 +76,7 @@ const EditTransactionDrawer = ({
     name: transaction.name,
     currency: transaction.currencyId,
     amount: transaction.amount,
+    description: transaction.description ?? '',
     isRecurring: transaction.isRecurring || false,
     startDate: new Date(transaction.startDate),
     endDate: new Date(transaction.endDate),
@@ -116,7 +117,15 @@ const EditTransactionDrawer = ({
       }
     } catch (error) {
       console.error(error);
+    } finally {
+      submissionResolverRef.current?.();
     }
+  };
+
+  const handleValidationError = () => {
+    // Called when form validation fails
+    // Resolve the promise so loading state can be reset
+    submissionResolverRef.current?.();
   };
 
   const handleDeleteTransaction = async (transactionId: string) => {
@@ -138,8 +147,13 @@ const EditTransactionDrawer = ({
     }
   };
 
-  const handleSubmit = async () => {
-    if (formRef.current) formRef.current.requestSubmit();
+  const handleSubmit = () => {
+    return new Promise<void>((resolve) => {
+      submissionResolverRef.current = resolve;
+      if (formRef.current) {
+        formRef.current.requestSubmit();
+      }
+    });
   };
 
   return (
@@ -153,29 +167,19 @@ const EditTransactionDrawer = ({
       ).toLocaleUpperCase()}
       triggerChildren={children}
     >
-      <>
-        <div className="flex flex-row justify-end">
-          <SelectBox
-            variant="ghost"
-            items={newTypes}
-            selectedItem={type}
-            setSelectedItem={setType}
-            placeholder={t('Common.label.selectPlaceholder')}
-            className="w-fit p-0 text-base font-semibold"
-          />
-        </div>
-
-        <TransactionDrawerForm
-          type={type}
-          categories={categories}
-          currencies={currencies}
-          defaultValues={defaultValues}
-          submitTransaction={submitTransaction}
-          deleteTransaction={handleDeleteTransaction}
-          setIsTransactionDrawerOpen={setIsDrawerOpen}
-          formRef={formRef}
-        />
-      </>
+      <TransactionDrawerForm
+        type={type}
+        typeOptions={newTypes}
+        onTypeChange={setType}
+        categories={categories}
+        currencies={currencies}
+        defaultValues={defaultValues}
+        submitTransaction={submitTransaction}
+        deleteTransaction={handleDeleteTransaction}
+        onValidationError={handleValidationError}
+        setIsTransactionDrawerOpen={setIsDrawerOpen}
+        formRef={formRef}
+      />
     </CustomDrawer>
   );
 };

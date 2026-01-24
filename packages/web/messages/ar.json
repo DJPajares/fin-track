@@ -91,13 +91,20 @@
             "startDate": "تاريخ البدء",
             "endDate": "تاريخ الانتهاء",
             "excludedDates": "التواريخ المستبعدة",
-            "isRecurring": "متكرر؟"
+            "isRecurring": "متكرر؟",
+            "type": "نوع المعاملة",
+            "description": "ملاحظات",
+            "addDetails": "إضافة تفاصيل",
+            "hideDetails": "إخفاء التفاصيل"
           },
           "placeholder": {
-            "category": "اختر فئة",
             "title": "مثال: فاتورة الكهرباء",
             "currency": "اختر العملة",
             "excludedDates": "اختر التواريخ..."
+          },
+          "helper": {
+            "category": "اختر فئة",
+            "isRecurring": "فعّل التكرار لتحديد تاريخ نهاية وتخطي الأشهر."
           }
         }
       }
