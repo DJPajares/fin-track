@@ -38,8 +38,9 @@ import { Button } from '../ui/button';
 import { Label } from '../ui/label';
 import { MultiSelectBox } from '../shared/MultiSelectBox';
 import ConfirmationDialog from '../shared/ConfirmationDialog';
-import CardIcon from '../shared/CardIcon';
+import { IconProps } from '../shared/CardIcon';
 import Calendar from '../shared/Calendar';
+import CardButton from '../shared/CardButton';
 
 import { CalendarIcon, ChevronDownIcon, Trash2Icon } from 'lucide-react';
 
@@ -425,20 +426,12 @@ const TransactionDrawerForm = ({
                   const isActive = option._id === type._id;
 
                   return (
-                    <button
+                    <CardButton
                       key={option._id}
-                      type="button"
-                      onClick={() => onTypeChange(option)}
-                      aria-pressed={isActive}
-                      className={cn(
-                        'flex items-center justify-center rounded-xl border px-3 py-2 text-sm font-semibold transition-colors',
-                        isActive
-                          ? 'border-primary bg-primary/10 text-primary shadow-sm'
-                          : 'border-border/70 bg-background text-muted-foreground hover:border-primary/40 hover:text-foreground',
-                      )}
-                    >
-                      {option.name}
-                    </button>
+                      label={option.name}
+                      handleOnClick={() => onTypeChange(option)}
+                      isActive={isActive}
+                    />
                   );
                 })}
               </div>
@@ -474,25 +467,14 @@ const TransactionDrawerForm = ({
                         const isSelected = field.value === _id;
 
                         return (
-                          <button
+                          <CardButton
                             key={_id}
-                            type="button"
-                            onClick={() => field.onChange(_id)}
-                            className={cn(
-                              'flex items-center gap-3 rounded-xl border px-3 py-2 text-left shadow-xs transition-colors',
-                              isSelected
-                                ? 'border-primary bg-primary/10 text-foreground'
-                                : 'border-border/70 bg-muted/40 text-foreground hover:border-primary/40',
-                            )}
-                          >
-                            <span className="bg-background flex size-10 items-center justify-center rounded-lg shadow-xs">
-                              <CardIcon icon={icon} className="size-5" />
-                            </span>
-
-                            <span className="text-sm leading-tight font-semibold">
-                              {label}
-                            </span>
-                          </button>
+                            label={label}
+                            handleOnClick={() => field.onChange(_id)}
+                            isActive={isSelected}
+                            size="md"
+                            icon={icon as IconProps}
+                          />
                         );
                       })}
                     </div>
