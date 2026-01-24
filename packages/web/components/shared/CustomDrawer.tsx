@@ -127,7 +127,7 @@ const CustomDrawer = ({
             <DrawerFooter className="mx-auto w-full max-w-sm">
               <ConfirmationDialog handleSubmit={handleSubmitWithLoading}>
                 <Button disabled={isLoading}>
-                  {okButtonLabel || t('Common.button.ok')}
+                  {okButtonLabel || t('Common.button.save')}
                 </Button>
               </ConfirmationDialog>
 
