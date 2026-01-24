@@ -43,7 +43,7 @@ export const signup = async (
     credentials,
   );
 
-  if (status === 200 && data) {
+  if (status === 201 && data) {
     // Store token in localStorage
     localStorage.setItem(STORAGE_KEYS.AUTH_TOKEN, data.token);
     return data;

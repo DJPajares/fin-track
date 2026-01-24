@@ -61,8 +61,6 @@ export function SignupForm({
     try {
       const result = await signup({ email, password, name });
 
-      console.log('Signup successful:', result);
-
       // Update Redux state
       dispatch(
         loginSuccess({
