@@ -76,8 +76,8 @@ const CustomDrawer = ({
             <DrawerTrigger asChild>{triggerChildren}</DrawerTrigger>
           )}
 
-          <DrawerContent aria-describedby="" className="max-h-dvh">
-            <div className="mx-auto flex w-full flex-col">
+          <DrawerContent aria-describedby="">
+            <div className="mx-auto flex w-full flex-col overflow-hidden">
               <DrawerHeader className="shrink-0 p-2">
                 <div className="grid grid-cols-3 items-center gap-2">
                   <div className="justify-self-start">
@@ -121,7 +121,7 @@ const CustomDrawer = ({
           <DrawerTrigger asChild>{triggerChildren}</DrawerTrigger>
 
           <DrawerContent aria-describedby={description}>
-            <div className="mx-auto flex w-full max-w-sm flex-1 flex-col overflow-hidden">
+            <div className="mx-auto flex w-full max-w-sm flex-col overflow-hidden">
               <DrawerHeader>
                 <DrawerTitle>{title}</DrawerTitle>
                 <DrawerDescription>{description}</DrawerDescription>
