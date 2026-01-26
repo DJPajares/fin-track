@@ -6,7 +6,7 @@ export type CategoryItemProps = ListProps & {
   id: string;
   type: TypeProps;
   icon: IconProps;
-  active?: boolean;
+  isActive?: boolean;
   serializedName?: string;
 };
 

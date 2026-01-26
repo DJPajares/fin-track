@@ -81,7 +81,7 @@ const getByType = async (query: QueryParamsProps) => {
             _id: '$_id',
             name: '$name',
             icon: '$icon',
-            active: '$active',
+            isActive: '$isActive',
           },
         },
       },

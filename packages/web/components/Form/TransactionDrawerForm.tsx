@@ -465,7 +465,7 @@ const TransactionDrawerForm = ({
               render={({ field }) => {
                 const filteredCategories = categories.filter(
                   (category) =>
-                    category.type._id === type._id && category.active,
+                    category.type._id === type._id && category.isActive,
                 );
 
                 return (

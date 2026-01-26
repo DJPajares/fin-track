@@ -26,7 +26,7 @@ const baseCategory: CategoryItemProps = {
     name: '',
   },
   icon: 'default',
-  active: true,
+  isActive: true,
 };
 
 const defaultType = {
@@ -71,7 +71,7 @@ const Categories = () => {
     dispatch(
       updateCategory({
         ...category,
-        active: true,
+        isActive: true,
       }),
     );
   };
@@ -112,7 +112,7 @@ const Categories = () => {
             {categories
               .filter(
                 (category) =>
-                  category.type._id === selectedType._id && category.active,
+                  category.type._id === selectedType._id && category.isActive,
               )
               .map((category, i, { length }) => (
                 <div key={category._id}>
@@ -142,7 +142,7 @@ const Categories = () => {
             {categories
               .filter(
                 (category) =>
-                  category.type._id === selectedType._id && !category.active,
+                  category.type._id === selectedType._id && !category.isActive,
               )
               .map((category, i, { length }) => (
                 <div key={category._id}>

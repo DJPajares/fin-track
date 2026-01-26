@@ -10,7 +10,7 @@ export const categorySchema = z.object({
     name: z.string(),
   }),
   icon: z.custom<IconProps>(),
-  active: z.boolean().optional(),
+  isActive: z.boolean().optional(),
   serializedName: z.string().optional(),
 });
 
