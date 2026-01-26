@@ -2,7 +2,7 @@ import axios from 'axios';
 import { STORAGE_KEYS } from '@web/constants/storageKeys';
 import type {
   AuthResponse,
-  AuthResponseToken,
+  AuthTokenResponse,
   AuthSignupRequest,
   AuthLoginRequest,
   AuthUpdateRequest,
@@ -17,7 +17,7 @@ const BASE_URL =
  */
 export const login = async (
   credentials: AuthLoginRequest,
-): Promise<AuthResponseToken> => {
+): Promise<AuthTokenResponse> => {
   const { status, data } = await axios.post(
     `${BASE_URL}/auth/login`,
     credentials,
@@ -37,7 +37,7 @@ export const login = async (
  */
 export const signup = async (
   credentials: AuthSignupRequest,
-): Promise<AuthResponseToken> => {
+): Promise<AuthTokenResponse> => {
   const { status, data } = await axios.post(
     `${BASE_URL}/auth/signup`,
     credentials,
