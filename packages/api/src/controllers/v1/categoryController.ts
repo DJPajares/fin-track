@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import * as categoryService from '../../services/v1/categoryService';
 import { Types } from 'mongoose';
+import { RequestWithUser } from '../../types/userTypes';
 
 import type { QueryParamsProps } from '../../types/commonTypes';
 
@@ -24,11 +25,41 @@ const createMany = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-const getAll = async (req: Request, res: Response, next: NextFunction) => {
+const createCustom = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    // const { type, id, name, icon, isActive, userId } = req.body;
+
+    // const data = await categoryService.createCustom({
+    //   type,
+    //   id,
+    //   name,
+    //   icon,
+    //   isActive,
+    //   userId,
+    // });
+
+    const data = await categoryService.createCustom(req.body);
+
+    res.status(200).json(data);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const getAll = async (
+  req: RequestWithUser,
+  res: Response,
+  next: NextFunction,
+) => {
   try {
     const query = req.query as unknown as QueryParamsProps;
+    const userId = req.user?.id;
 
-    const data = await categoryService.getAll(query);
+    const data = await categoryService.getAll(query, userId);
 
     res.status(200).json(data);
   } catch (error) {
@@ -104,6 +135,7 @@ const remove = async (req: Request, res: Response, next: NextFunction) => {
 export {
   create,
   createMany,
+  createCustom,
   getAll,
   get,
   getByType,

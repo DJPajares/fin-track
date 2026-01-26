@@ -22,9 +22,9 @@ import {
 } from '../../../components/ui/popover';
 import { Button } from '../../../components/ui/button';
 
-import { useAppDispatch } from '../../../lib/hooks/use-redux';
+import { useAppDispatch, useAppSelector } from '../../../lib/hooks/use-redux';
 import {
-  addCategory,
+  // addCategory,
   deleteCategory,
   updateCategory,
 } from '../../../lib/redux/feature/main/mainSlice';
@@ -40,6 +40,7 @@ import { Trash2Icon } from 'lucide-react';
 
 import type { ListProps } from '../../../types/List';
 import type { CategoryItemProps } from '../../../types/Category';
+import { createCustomCategory, fetchCategories } from '@web/services/api';
 
 type EditCategoryDrawerProps = {
   type?: ListProps;
@@ -59,11 +60,12 @@ const EditCategoryDrawer = ({
   children,
 }: EditCategoryDrawerProps) => {
   const t = useTranslations();
+  const dispatch = useAppDispatch();
 
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
-  const dispatch = useAppDispatch();
+  const userId = useAppSelector((state) => state.auth.user)?.id || '';
 
   const formRef = useRef<HTMLFormElement>(null);
 
@@ -88,17 +90,28 @@ const EditCategoryDrawer = ({
     dispatch(deleteCategory(category));
   };
 
-  const onSubmit: SubmitHandler<CategoryItemProps> = (data) => {
+  const onSubmit: SubmitHandler<CategoryItemProps> = async (data) => {
     if (isNew) {
-      dispatch(
-        addCategory({
-          ...data,
-          type: {
-            _id: type ? type._id : '',
-            name: type ? type.name : '',
-          },
-        }),
-      );
+      // dispatch(
+      //   addCategory({
+      //     ...data,
+      //     type: {
+      //       _id: type ? type._id : '',
+      //       name: type ? type.name : '',
+      //     },
+      //   }),
+      // );
+
+      await createCustomCategory({
+        id: data.name.toLowerCase().replace(/\s+/g, '-'),
+        name: data.name,
+        icon: data.icon,
+        type: type?._id || '',
+        isActive: data.isActive,
+        userId,
+      });
+
+      await fetchCategories({ userId });
     } else {
       dispatch(updateCategory(data));
     }

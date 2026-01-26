@@ -27,11 +27,12 @@ type ClientDataProviderProps = {
 export const ClientDataProvider = ({ children }: ClientDataProviderProps) => {
   const dispatch = useAppDispatch();
 
+  const userId = useAppSelector((state) => state.auth.user)?.id || '';
   const { currency } = useAppSelector((state) => state.dashboard);
 
   useEffect(() => {
     const fetchData = async () => {
-      const categories = await fetchCategories();
+      const categories = await fetchCategories({ userId });
       dispatch(setCategories(categories));
 
       const types = await fetchTypes();

@@ -7,6 +7,7 @@ import {
 import createPagination from '../../utilities/createPagination';
 
 import type { QueryParamsProps, SortObjProps } from '../../types/commonTypes';
+import type { CustomCategoryRequest } from '../../../../../shared/types/Category';
 
 const create = async (data: CategoryProps) => {
   return await CategoryModel.create(data);
@@ -16,18 +17,69 @@ const createMany = async (data: CategoryProps[]) => {
   return await CategoryModel.insertMany(data);
 };
 
-const getAll = async (query: QueryParamsProps) => {
+const createCustom = async ({
+  type,
+  id,
+  name,
+  icon,
+  isActive,
+  userId,
+}: CustomCategoryRequest) => {
+  const scope = 'custom';
+
+  return await CategoryModel.create({
+    type,
+    id,
+    name,
+    icon,
+    isActive,
+    scope,
+    userId,
+  });
+};
+
+const getAll = async (query: QueryParamsProps, userId?: string) => {
   // [SAMPLE ENDPOINT]: /categories?page=2&limit=4&sort=-name
+  // Fetches: all global categories + custom categories for userId
+  // If same id exists, custom scope takes priority
 
   const { filter, sort } = query;
 
-  // Pagination
-  const totalDocuments = await CategoryModel.countDocuments();
-  const paginationResult = createPagination(query, totalDocuments);
-  const { skip, limit, pagination } = paginationResult;
+  // Fetch global categories and custom categories for the user
+  const globalCategories = await CategoryModel.find({
+    scope: 'global',
+  }).populate('type');
+
+  const customCategories = userId
+    ? await CategoryModel.find({ scope: 'custom', userId }).populate('type')
+    : [];
+
+  console.log('customCategories', customCategories);
+
+  // Merge categories, prioritizing custom over global by id
+  const categoryMap = new Map();
+
+  // Add global categories first
+  globalCategories.forEach((cat) => {
+    categoryMap.set(cat.id, cat);
+  });
+
+  // Override with custom categories (same id will overwrite global)
+  customCategories.forEach((cat) => {
+    categoryMap.set(cat.id, cat);
+  });
+
+  let mergedCategories = Array.from(categoryMap.values());
 
   // Filter
   const filterObj = filter ? JSON.parse(filter) : {};
+  if (Object.keys(filterObj).length > 0) {
+    mergedCategories = mergedCategories.filter((cat) => {
+      return Object.entries(filterObj).every(([key, value]) => {
+        return (cat as Record<string, unknown>)[key] === value;
+      });
+    });
+  }
 
   // Sort
   const sortObj: SortObjProps = {};
@@ -40,12 +92,27 @@ const getAll = async (query: QueryParamsProps) => {
     });
   }
 
-  const data = await CategoryModel.find(filterObj)
-    .populate('type')
-    .sort(sortObj)
-    .collation({ locale: 'en' }) // case insensitive sorting
-    .skip(skip)
-    .limit(limit);
+  if (Object.keys(sortObj).length > 0) {
+    mergedCategories.sort((a, b) => {
+      for (const [field, order] of Object.entries(sortObj)) {
+        const aVal = (a as Record<string, unknown>)[field];
+        const bVal = (b as Record<string, unknown>)[field];
+
+        if (aVal === bVal) continue;
+
+        const comparison = String(aVal).localeCompare(String(bVal));
+        return order === 1 ? comparison : -comparison;
+      }
+      return 0;
+    });
+  }
+
+  // Pagination
+  const totalDocuments = mergedCategories.length;
+  const paginationResult = createPagination(query, totalDocuments);
+  const { skip, limit, pagination } = paginationResult;
+
+  const data = mergedCategories.slice(skip, skip + limit);
 
   return {
     data,
@@ -159,6 +226,7 @@ const remove = async (_id: CategoryProps['_id']) => {
 export {
   create,
   createMany,
+  createCustom,
   getAll,
   get,
   getByType,

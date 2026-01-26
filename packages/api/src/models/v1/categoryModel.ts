@@ -4,15 +4,23 @@ import {
   Schema,
   Types,
   model,
+  // Document,
 } from 'mongoose';
 import CONSTANTS from '../../utilities/constants';
 
+// import type { CategoryRequest } from '../../../../../shared/types/Category';
+
+// type ICategoryDocument = Omit<CategoryRequest, 'type'> & {
+//   type: Types.ObjectId;
+//   userId?: Types.ObjectId;
+// } & Document;
+
+// const categorySchema = new Schema<ICategoryDocument>(
 const categorySchema = new Schema(
   {
     id: {
       type: String,
       required: [true, CONSTANTS.validations.common.id.required],
-      unique: [true, CONSTANTS.validations.common.id.unique],
     },
     name: {
       type: String,
@@ -20,7 +28,10 @@ const categorySchema = new Schema(
     },
     type: { type: Types.ObjectId, ref: 'Type' },
     icon: String,
-    isActive: Boolean,
+    isActive: {
+      type: Boolean,
+      default: true,
+    },
     scope: {
       type: String,
       enum: ['global', 'custom'],
@@ -31,18 +42,27 @@ const categorySchema = new Schema(
     userId: {
       type: Types.ObjectId,
       ref: 'User',
-      required: function () {
-        return [
-          this.scope === 'custom',
-          CONSTANTS.validations.common.id.required,
-        ];
-      },
-      index: function () {
+      required: [
+        function (this: { scope: string }) {
+          return this.scope === 'custom';
+        },
+        CONSTANTS.validations.common.id.required,
+      ],
+      index: function (this: { scope: string }) {
         return this.scope === 'custom';
       },
     },
   },
   { timestamps: true },
+);
+
+// Ensure global category IDs are unique
+categorySchema.index(
+  { scope: 1, id: 1 },
+  {
+    unique: true,
+    partialFilterExpression: { scope: 'global' },
+  },
 );
 
 // Ensure global category names are unique
@@ -51,6 +71,15 @@ categorySchema.index(
   {
     unique: true,
     partialFilterExpression: { scope: 'global' },
+  },
+);
+
+// Ensure each user cannot create duplicate custom category IDs
+categorySchema.index(
+  { userId: 1, id: 1 },
+  {
+    unique: true,
+    partialFilterExpression: { scope: 'custom' },
   },
 );
 
@@ -63,6 +92,7 @@ categorySchema.index(
   },
 );
 
+// const CategoryModel = model<ICategoryDocument>('Category', categorySchema);
 const CategoryModel = model('Category', categorySchema);
 
 type CategoryProps = HydratedDocument<InferSchemaType<typeof categorySchema>>;
