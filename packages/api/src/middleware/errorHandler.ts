@@ -24,11 +24,19 @@ const validationErrorHandler = (error: ValidationError, res: Response) => {
 };
 
 const mongoServerErrorHandler = (error: MongoServerError, res: Response) => {
-  const value = error.keyValue?.name;
+  const keyValue = error.keyValue;
+  if (keyValue) {
+    const field = Object.keys(keyValue)[0];
+    const value = keyValue[field];
+    return res.status(400).send({
+      type: 'MongoServerError',
+      message: `${field} '${value}' is already used`,
+    });
+  }
 
   return res.status(400).send({
     type: 'MongoServerError',
-    message: `${value} is already used`,
+    message: 'Duplicate key error',
   });
 };
 
@@ -61,6 +69,15 @@ const errorHandler = (
         message: (error as MongoServerError).message,
       });
     }
+    return;
+  }
+
+  // Handle MongooseError (includes duplicate key errors)
+  if (
+    error.name === 'MongooseError' ||
+    (error as MongoServerError).code === 11000
+  ) {
+    mongoServerErrorHandler(error as MongoServerError, res);
     return;
   }
 
