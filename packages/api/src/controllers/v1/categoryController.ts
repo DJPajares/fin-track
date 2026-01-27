@@ -57,7 +57,7 @@ const getAll = async (
 ) => {
   try {
     const query = req.query as unknown as QueryParamsProps;
-    const userId = req.user?.id;
+    const userId = req.query?.userId as string | undefined;
 
     const data = await categoryService.getAll(query, userId);
 

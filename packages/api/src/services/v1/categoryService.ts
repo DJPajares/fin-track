@@ -39,7 +39,7 @@ const createCustom = async ({
 };
 
 const getAll = async (query: QueryParamsProps, userId?: string) => {
-  // [SAMPLE ENDPOINT]: /categories?page=2&limit=4&sort=-name
+  // [SAMPLE ENDPOINT]: /categories?page=2&limit=4&sort=-name&userId=69609f8259e099edd12bc995
   // Fetches: all global categories + custom categories for userId
   // If same id exists, custom scope takes priority
 
@@ -53,8 +53,6 @@ const getAll = async (query: QueryParamsProps, userId?: string) => {
   const customCategories = userId
     ? await CategoryModel.find({ scope: 'custom', userId }).populate('type')
     : [];
-
-  console.log('customCategories', customCategories);
 
   // Merge categories, prioritizing custom over global by id
   const categoryMap = new Map();
