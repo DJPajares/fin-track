@@ -33,7 +33,6 @@ export const ClientDataProvider = ({ children }: ClientDataProviderProps) => {
   useEffect(() => {
     const fetchData = async () => {
       const categories = await fetchCategories();
-      console.log('Fetched categories:', categories);
       dispatch(setCategories(categories));
 
       const types = await fetchTypes();
