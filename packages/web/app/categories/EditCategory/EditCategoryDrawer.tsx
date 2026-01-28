@@ -24,7 +24,7 @@ import { Button } from '../../../components/ui/button';
 
 import { useAppDispatch, useAppSelector } from '../../../lib/hooks/use-redux';
 import {
-  // addCategory,
+  createCustomCategory,
   deleteCategory,
   updateCategory,
 } from '../../../lib/redux/feature/main/mainSlice';
@@ -40,7 +40,8 @@ import { Trash2Icon } from 'lucide-react';
 
 import type { ListProps } from '../../../types/List';
 import type { CategoryItemProps } from '../../../types/Category';
-import { createCustomCategory } from '@web/services/api';
+// import { createCustomCategory } from '@web/services/api';
+import { serializeText } from '@shared/utilities/serializeText';
 
 type EditCategoryDrawerProps = {
   type?: ListProps;
@@ -92,24 +93,16 @@ const EditCategoryDrawer = ({
 
   const onSubmit: SubmitHandler<CategoryItemProps> = async (data) => {
     if (isNew) {
-      // dispatch(
-      //   addCategory({
-      //     ...data,
-      //     type: {
-      //       _id: type ? type._id : '',
-      //       name: type ? type.name : '',
-      //     },
-      //   }),
-      // );
-
-      await createCustomCategory({
-        id: data.name.toLowerCase().replace(/\s+/g, '-'),
-        name: data.name,
-        icon: data.icon,
-        type: type?._id || '',
-        isActive: data.isActive,
-        userId,
-      });
+      dispatch(
+        createCustomCategory({
+          id: serializeText(data.name),
+          name: data.name,
+          icon: data.icon,
+          type: type?._id || '',
+          isActive: data.isActive,
+          userId,
+        }),
+      );
     } else {
       dispatch(updateCategory(data));
     }

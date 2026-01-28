@@ -2,12 +2,13 @@ import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { serializeText } from '@shared/utilities/serializeText';
 
-import { fetchCategoriesApi } from '@web/services/api';
+import { createCustomCategoryApi, fetchCategoriesApi } from '@web/services/api';
 
 import type { CategoryItemProps } from '../../../../types/Category';
 import type { ListProps } from '../../../../types/List';
 import type {
   CategoryResponse,
+  CustomCategoryRequest,
   FetchCategoryRequest,
 } from '@shared/types/Category';
 
@@ -41,22 +42,24 @@ export const fetchCategories = createAsyncThunk(
   },
 );
 
+export const createCustomCategory = createAsyncThunk(
+  'createCustomCategory',
+  async (categoryData: CustomCategoryRequest, { rejectWithValue }) => {
+    try {
+      const response = await createCustomCategoryApi(categoryData);
+      return response;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  },
+);
+
 const mainSlice = createSlice({
   name: 'main',
   initialState,
   reducers: {
     setTypes: (state, action: PayloadAction<TypeProps[]>) => {
       state.types = action.payload;
-    },
-    setCategories: (state, action: PayloadAction<CategoryItemProps[]>) => {
-      const rawCategories = action.payload;
-
-      const categories = rawCategories.map((category) => ({
-        ...category,
-        serializedName: serializeText(category.name),
-      }));
-
-      state.categories = categories;
     },
     addCategory: (state, action: PayloadAction<CategoryItemProps>) => {
       const category = action.payload;
@@ -149,12 +152,27 @@ const mainSlice = createSlice({
         state.categories = categories as CategoryItemProps[];
       },
     );
+    builder.addCase(createCustomCategory.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(createCustomCategory.rejected, (state) => {
+      state.isLoading = false;
+    });
+    builder.addCase(createCustomCategory.fulfilled, (state, action) => {
+      const category = action.payload;
+
+      state.isLoading = false;
+
+      state.categories.push({
+        ...category,
+        serializedName: serializeText(category.name),
+      });
+    });
   },
 });
 
 export const {
   setTypes,
-  setCategories,
   addCategory,
   updateCategory,
   deleteCategory,

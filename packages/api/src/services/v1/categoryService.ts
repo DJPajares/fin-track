@@ -27,7 +27,7 @@ const createCustom = async ({
 }: CustomCategoryRequest) => {
   const scope = 'custom';
 
-  return await CategoryModel.create({
+  const category = await CategoryModel.create({
     type,
     id,
     name,
@@ -36,6 +36,11 @@ const createCustom = async ({
     scope,
     userId,
   });
+
+  // Populate the type field before returning
+  await category.populate('type');
+
+  return category;
 };
 
 const getAll = async (query: QueryParamsProps, userId?: string) => {

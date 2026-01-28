@@ -45,6 +45,20 @@ const fetchCategoriesApi = async ({ userId }: FetchCategoryRequest) => {
     return response.data;
   } catch (error) {
     console.error(error);
+    throw error;
+  }
+};
+
+const createCustomCategoryApi = async (categoryData: CustomCategoryRequest) => {
+  const url = `categories/custom`;
+
+  try {
+    const response = await api.post(url, categoryData);
+
+    return response.data;
+  } catch (error) {
+    console.error('Create custom category failed', error);
+    throw error;
   }
 };
 
@@ -92,23 +106,10 @@ const fetchCurrencyByName = async (name: string) => {
   }
 };
 
-const createCustomCategory = async (categoryData: CustomCategoryRequest) => {
-  try {
-    const url = `${process.env.NEXT_PUBLIC_BASE_URL}/categories/custom`;
-
-    const { status, data } = await axios.post(url, categoryData);
-
-    if (status === 200) return data;
-  } catch (error) {
-    console.error('Create custom category failed', error);
-    throw error;
-  }
-};
-
 export {
   fetchCategoriesApi,
+  createCustomCategoryApi,
   fetchTypes,
   fetchCurrencies,
   fetchCurrencyByName,
-  createCustomCategory,
 };
