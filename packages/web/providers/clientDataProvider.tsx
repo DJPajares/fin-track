@@ -27,11 +27,13 @@ type ClientDataProviderProps = {
 export const ClientDataProvider = ({ children }: ClientDataProviderProps) => {
   const dispatch = useAppDispatch();
 
+  const { isAuthenticated, isLoading } = useAppSelector((state) => state.auth);
   const { currency } = useAppSelector((state) => state.dashboard);
 
   useEffect(() => {
     const fetchData = async () => {
       const categories = await fetchCategories();
+      console.log('Fetched categories:', categories);
       dispatch(setCategories(categories));
 
       const types = await fetchTypes();
@@ -85,8 +87,10 @@ export const ClientDataProvider = ({ children }: ClientDataProviderProps) => {
       }
     };
 
-    fetchData();
-  }, [dispatch, currency.name]);
+    if (isAuthenticated && !isLoading) {
+      fetchData();
+    }
+  }, [dispatch, currency.name, isAuthenticated, isLoading]);
 
   // Automatically sync currency to localStorage whenever it changes
   useEffect(() => {
