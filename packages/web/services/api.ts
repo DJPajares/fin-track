@@ -1,10 +1,55 @@
-import axios from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
 
 import typesMockData from '@shared/mockData/types.json';
 import categoriesMockData from '@shared/mockData/categories.json';
 import currenciesMockData from '@shared/mockData/currencies.json';
 
-import type { CustomCategoryRequest } from '@shared/types/Category';
+import type {
+  CustomCategoryRequest,
+  FetchCategoryRequest,
+} from '@shared/types/Category';
+
+const config: AxiosRequestConfig = {
+  baseURL: process.env.NEXT_PUBLIC_BASE_URL,
+  headers: {
+    'Access-Control-Allow-Origin': '*',
+    'Content-Type': 'application/json',
+  },
+};
+
+const api = axios.create(config);
+
+api.interceptors.request.use(
+  (config) => {
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  },
+);
+
+api.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  (error) => {
+    console.error('error', error);
+    throw error;
+  },
+);
+
+const fetchCategoriesApi = async ({ userId }: FetchCategoryRequest) => {
+  const url = `categories?sort=name${userId ? `&userId=${userId}` : ''}`;
+
+  try {
+    const response = await api.get(url);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+// --- old implementation below ---
 
 const typesUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/types?sort=name`;
 const currenciesUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/currencies?sort=name`;
@@ -80,6 +125,7 @@ const createCustomCategory = async (categoryData: CustomCategoryRequest) => {
 };
 
 export {
+  fetchCategoriesApi,
   fetchTypes,
   fetchCategories,
   fetchCurrencies,

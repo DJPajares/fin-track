@@ -1,11 +1,25 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { serializeText } from '@shared/utilities/serializeText';
 
+import { fetchCategoriesApi } from '@web/services/api';
+
 import type { CategoryItemProps } from '../../../../types/Category';
 import type { ListProps } from '../../../../types/List';
+import type {
+  CategoryResponse,
+  FetchCategoryRequest,
+} from '@shared/types/Category';
+
+type MainSliceProps = {
+  isLoading: boolean;
+  types: TypeProps[];
+  categories: CategoryItemProps[];
+  currencies: ListProps[];
+};
 
 const initialState: MainSliceProps = {
+  isLoading: false,
   types: [],
   categories: [],
   currencies: [],
@@ -15,11 +29,17 @@ type TypeProps = ListProps & {
   id: string;
 };
 
-type MainSliceProps = {
-  types: TypeProps[];
-  categories: CategoryItemProps[];
-  currencies: ListProps[];
-};
+export const fetchCategories = createAsyncThunk(
+  'fetchCategories',
+  async ({ userId }: FetchCategoryRequest, { rejectWithValue }) => {
+    try {
+      const response = await fetchCategoriesApi({ userId });
+      return response;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  },
+);
 
 const mainSlice = createSlice({
   name: 'main',
@@ -106,6 +126,29 @@ const mainSlice = createSlice({
     setCurrencies: (state, action: PayloadAction<ListProps[]>) => {
       state.currencies = action.payload;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(fetchCategories.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(fetchCategories.rejected, (state) => {
+      state.isLoading = false;
+    });
+    builder.addCase(
+      fetchCategories.fulfilled,
+      (state, action: PayloadAction<CategoryResponse>) => {
+        const { data } = action.payload;
+
+        state.isLoading = false;
+
+        const categories = data.map((category) => ({
+          ...category,
+          serializedName: serializeText(category.name),
+        }));
+
+        state.categories = categories as CategoryItemProps[];
+      },
+    );
   },
 });
 
