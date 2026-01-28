@@ -1,3 +1,6 @@
+import type { PaginationPageProps } from '@shared/types/Pagination';
+import type { TypeDataResponse } from '@shared/types/Type';
+
 type CategoryRequest = {
   id: string;
   name: string;
@@ -10,4 +13,32 @@ type CustomCategoryRequest = CategoryRequest & {
   userId: string;
 };
 
-export type { CategoryRequest, CustomCategoryRequest };
+type FetchCategoryRequest = {
+  userId?: string;
+};
+
+type CategoryDataResponse = {
+  _id: string;
+  name: string;
+  type: TypeDataResponse;
+  icon: string;
+  id: string;
+  isActive: boolean;
+  scope: 'global' | 'custom';
+  userId?: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+};
+
+type CategoryResponse = {
+  data: CategoryDataResponse[];
+  pagination: PaginationPageProps;
+};
+
+export type {
+  FetchCategoryRequest,
+  CategoryRequest,
+  CustomCategoryRequest,
+  CategoryResponse,
+  CategoryDataResponse,
+};
