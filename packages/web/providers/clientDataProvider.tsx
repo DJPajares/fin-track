@@ -2,7 +2,7 @@
 
 import { ReactNode, useEffect } from 'react';
 import {
-  setCategories,
+  fetchCategories,
   setCurrencies,
   setTypes,
 } from '../lib/redux/feature/main/mainSlice';
@@ -11,11 +11,7 @@ import {
   setDashboardCurrency,
 } from '../lib/redux/feature/dashboard/dashboardSlice';
 import { useAppDispatch, useAppSelector } from '../lib/hooks/use-redux';
-import {
-  fetchTypes,
-  fetchCategories,
-  fetchCurrencies,
-} from '@web/services/api';
+import { fetchTypes, fetchCurrencies } from '@web/services/api';
 
 import { CurrencyProps } from '@web/types/Currency';
 import { STORAGE_KEYS } from '@web/constants/storageKeys';
@@ -33,8 +29,7 @@ export const ClientDataProvider = ({ children }: ClientDataProviderProps) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const categories = await fetchCategories({ userId });
-      dispatch(setCategories(categories));
+      dispatch(fetchCategories({ userId }));
 
       const types = await fetchTypes();
       dispatch(setTypes(types));
@@ -90,7 +85,7 @@ export const ClientDataProvider = ({ children }: ClientDataProviderProps) => {
     if (isAuthenticated && !isLoading) {
       fetchData();
     }
-  }, [dispatch, currency.name, isAuthenticated, isLoading]);
+  }, [dispatch, currency.name, isAuthenticated, isLoading, userId]);
 
   // Automatically sync currency to localStorage whenever it changes
   useEffect(() => {
