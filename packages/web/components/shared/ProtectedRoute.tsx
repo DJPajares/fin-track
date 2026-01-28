@@ -2,16 +2,19 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useTranslations } from 'next-intl';
-import { RootState } from '@web/lib/redux/store';
-import { STORAGE_KEYS } from '@web/constants/storageKeys';
+
 import {
   getSessionSuccess,
   getSessionFailure,
 } from '@web/lib/redux/feature/auth/authSlice';
+import { useAppSelector } from '@web/lib/hooks/use-redux';
 import { getCurrentUser, getStoredToken } from '@web/services/auth';
+
 import Loader from '@web/components/shared/Loader';
+
+import { STORAGE_KEYS } from '@web/constants/storageKeys';
 
 type ProtectedRouteProps = {
   children: React.ReactNode;
@@ -24,9 +27,7 @@ export function ProtectedRoute({ children }: ProtectedRouteProps) {
   const pathname = usePathname();
   const dispatch = useDispatch();
   const t = useTranslations('Auth');
-  const { isAuthenticated, isLoading } = useSelector(
-    (state: RootState) => state.auth,
-  );
+  const { isAuthenticated, isLoading } = useAppSelector((state) => state.auth);
   const [isInitialized, setIsInitialized] = useState(false);
   const isOnboardingRoute = pathname === '/onboarding';
 

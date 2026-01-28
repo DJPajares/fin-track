@@ -28,6 +28,7 @@ export const ClientDataProvider = ({ children }: ClientDataProviderProps) => {
   const dispatch = useAppDispatch();
 
   const userId = useAppSelector((state) => state.auth.user)?.id || '';
+  const { isAuthenticated, isLoading } = useAppSelector((state) => state.auth);
   const { currency } = useAppSelector((state) => state.dashboard);
 
   useEffect(() => {
@@ -86,8 +87,10 @@ export const ClientDataProvider = ({ children }: ClientDataProviderProps) => {
       }
     };
 
-    fetchData();
-  }, [dispatch, currency.name]);
+    if (isAuthenticated && !isLoading) {
+      fetchData();
+    }
+  }, [dispatch, currency.name, isAuthenticated, isLoading]);
 
   // Automatically sync currency to localStorage whenever it changes
   useEffect(() => {
