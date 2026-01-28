@@ -1,13 +1,10 @@
+import type { CategoryDataResponse } from '@shared/types/Category';
 import type { IconProps } from '../components/shared/CardIcon';
-import type { ListProps } from './List';
 import type { TypeProps } from './Type';
 
-export type CategoryItemProps = ListProps & {
-  id: string;
+export type CategoryItemProps = CategoryDataResponse & {
   type: TypeProps;
   icon: IconProps;
-  isActive?: boolean;
-  serializedName?: string;
 };
 
 export type CategoryProps = {

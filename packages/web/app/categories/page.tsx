@@ -27,6 +27,7 @@ const baseCategory: CategoryItemProps = {
   },
   icon: 'default',
   isActive: true,
+  scope: 'custom',
 };
 
 const defaultType = {
@@ -116,16 +117,23 @@ const Categories = () => {
               )
               .map((category, i, { length }) => (
                 <div key={category._id}>
-                  <EditCategoryDrawer
-                    type={selectedType}
-                    category={category}
-                    title={t('Page.categories.categoryDrawer.titleEdit')}
-                  >
-                    <div className="hover:bg-border flex cursor-pointer flex-row items-center space-x-4 p-2">
+                  {category.scope === 'global' ? (
+                    <div className="flex flex-row items-center space-x-4 p-2 opacity-60">
                       <CardIcon icon={category.icon} />
                       <Label>{category.name}</Label>
                     </div>
-                  </EditCategoryDrawer>
+                  ) : (
+                    <EditCategoryDrawer
+                      type={selectedType}
+                      category={category}
+                      title={t('Page.categories.categoryDrawer.titleEdit')}
+                    >
+                      <div className="hover:bg-border flex cursor-pointer flex-row items-center space-x-4 p-2">
+                        <CardIcon icon={category.icon} />
+                        <Label>{category.name}</Label>
+                      </div>
+                    </EditCategoryDrawer>
+                  )}
 
                   {i + 1 !== length && <Separator />}
                 </div>

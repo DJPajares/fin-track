@@ -8,6 +8,7 @@ import type { CategoryItemProps } from '../../../../types/Category';
 import type { ListProps } from '../../../../types/List';
 import type {
   CategoryResponse,
+  CategoryDataResponse,
   CustomCategoryRequest,
   FetchCategoryRequest,
 } from '@shared/types/Category';
@@ -141,16 +142,21 @@ const mainSlice = createSlice({
     builder.addCase(createCustomCategory.rejected, (state) => {
       state.isLoading = false;
     });
-    builder.addCase(createCustomCategory.fulfilled, (state, action) => {
-      const category = action.payload;
+    builder.addCase(
+      createCustomCategory.fulfilled,
+      (state, action: PayloadAction<CategoryDataResponse>) => {
+        const category = action.payload;
 
-      state.isLoading = false;
+        state.isLoading = false;
 
-      state.categories.push({
-        ...category,
-        serializedName: serializeText(category.name),
-      });
-    });
+        const newCustomCategory = {
+          ...category,
+          serializedName: serializeText(category.name),
+        } as CategoryItemProps;
+
+        state.categories.push(newCustomCategory);
+      },
+    );
   },
 });
 

@@ -23,11 +23,12 @@ type CategoryDataResponse = {
   type: TypeDataResponse;
   icon: string;
   id: string;
-  isActive: boolean;
+  isActive?: boolean;
   scope: 'global' | 'custom';
   userId?: string;
   createdAt?: Date;
   updatedAt?: Date;
+  serializedName?: string;
 };
 
 type CategoryResponse = {

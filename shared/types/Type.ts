@@ -3,9 +3,9 @@ import type { PaginationPageProps } from '@shared/types/Pagination';
 type TypeDataResponse = {
   _id: string;
   name: string;
-  createdAt: Date;
-  updatedAt: Date;
-  id: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+  id?: string;
 };
 
 type TypeResponse = {
