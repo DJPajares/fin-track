@@ -61,23 +61,6 @@ const mainSlice = createSlice({
     setTypes: (state, action: PayloadAction<TypeProps[]>) => {
       state.types = action.payload;
     },
-    addCategory: (state, action: PayloadAction<CategoryItemProps>) => {
-      const category = action.payload;
-
-      state.categories.push({
-        ...category,
-        serializedName: serializeText(category.name),
-      });
-
-      // const categories = state.categories;
-
-      // categories.push(category);
-
-      // state.categories = {
-      //   ...state.categories,
-      //   [type._id]: categories
-      // };
-    },
     updateCategory: (state, action: PayloadAction<CategoryItemProps>) => {
       const category = action.payload;
 
@@ -171,12 +154,7 @@ const mainSlice = createSlice({
   },
 });
 
-export const {
-  setTypes,
-  addCategory,
-  updateCategory,
-  deleteCategory,
-  setCurrencies,
-} = mainSlice.actions;
+export const { setTypes, updateCategory, deleteCategory, setCurrencies } =
+  mainSlice.actions;
 
 export default mainSlice.reducer;
