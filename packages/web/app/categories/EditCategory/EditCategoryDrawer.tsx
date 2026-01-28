@@ -40,7 +40,7 @@ import { Trash2Icon } from 'lucide-react';
 
 import type { ListProps } from '../../../types/List';
 import type { CategoryItemProps } from '../../../types/Category';
-import { createCustomCategory, fetchCategories } from '@web/services/api';
+import { createCustomCategory } from '@web/services/api';
 
 type EditCategoryDrawerProps = {
   type?: ListProps;
@@ -110,8 +110,6 @@ const EditCategoryDrawer = ({
         isActive: data.isActive,
         userId,
       });
-
-      await fetchCategories({ userId });
     } else {
       dispatch(updateCategory(data));
     }

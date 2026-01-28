@@ -1,7 +1,6 @@
 import axios, { AxiosRequestConfig } from 'axios';
 
 import typesMockData from '@shared/mockData/types.json';
-import categoriesMockData from '@shared/mockData/categories.json';
 import currenciesMockData from '@shared/mockData/currencies.json';
 
 import type {
@@ -68,24 +67,6 @@ const fetchTypes = async () => {
   }
 };
 
-type CategoriesProps = {
-  userId?: string;
-};
-
-const fetchCategories = async ({ userId }: CategoriesProps) => {
-  try {
-    if (useMockedData) return categoriesMockData;
-
-    const categoriesUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/categories?sort=name${userId ? `&userId=${userId}` : ''}`;
-
-    const { status, data } = await axios.get(categoriesUrl);
-
-    if (status === 200) return data.data;
-  } catch (error) {
-    console.error('Fetch failed', error);
-  }
-};
-
 const fetchCurrencies = async () => {
   try {
     if (useMockedData) return currenciesMockData;
@@ -127,7 +108,6 @@ const createCustomCategory = async (categoryData: CustomCategoryRequest) => {
 export {
   fetchCategoriesApi,
   fetchTypes,
-  fetchCategories,
   fetchCurrencies,
   fetchCurrencyByName,
   createCustomCategory,
