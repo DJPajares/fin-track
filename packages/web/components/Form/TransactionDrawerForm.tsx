@@ -38,7 +38,6 @@ import { Button } from '../ui/button';
 import { Label } from '../ui/label';
 import { MultiSelectBox } from '../shared/MultiSelectBox';
 import ConfirmationDialog from '../shared/ConfirmationDialog';
-import { IconProps } from '../shared/CardIcon';
 import Calendar from '../shared/Calendar';
 import CardButton from '../shared/CardButton';
 
@@ -51,6 +50,7 @@ import {
 
 import type { ListProps } from '../../types/List';
 import type { CategoryItemProps } from '../../types/Category';
+import type { IconProps } from '../shared/CardIcon';
 
 type ExcludedDatesProps = {
   value: string;

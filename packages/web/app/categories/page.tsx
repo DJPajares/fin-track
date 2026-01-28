@@ -9,13 +9,13 @@ import { updateCategory } from '../../lib/redux/feature/main/mainSlice';
 
 import { Separator } from '../../components/ui/separator';
 import { Button } from '../../components/ui/button';
+import { Label } from '../../components/ui/label';
 import CardIcon from '../../components/shared/CardIcon';
 import { SelectBox } from '../../components/shared/SelectBox';
 import EditCategoryDrawer from '../../app/categories/EditCategory/EditCategoryDrawer';
 
 import type { CategoryItemProps } from '../../types/Category';
 import type { ListProps } from '../../types/List';
-import { Label } from '@web/components/ui/label';
 
 const baseCategory: CategoryItemProps = {
   _id: '',
