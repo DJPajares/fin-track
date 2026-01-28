@@ -178,7 +178,7 @@ const Charts = () => {
             })
         : [],
     );
-  }, [savingsData]);
+  }, [savingsData, selectedYear]);
 
   const yearsArray = generateYearsArray(10);
 
