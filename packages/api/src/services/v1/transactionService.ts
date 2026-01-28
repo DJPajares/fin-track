@@ -11,8 +11,7 @@ import { CategoryModel } from '../../models/v1/categoryModel';
 import { ExchangeRateModel } from '../../models/v1/exchangeRateModel';
 import convertCurrency from '../../utilities/convertCurrency';
 
-import { serializeText } from '../../utilities/serializeText';
-
+import { serializeText } from '../../../../../shared/utilities/serializeText';
 import formatYearMonth from '../../../../../shared/utilities/formatYearMonth';
 
 import type { FetchTransactionProps } from '../../../../../shared/types/Transaction';
