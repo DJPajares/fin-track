@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig } from 'axios';
+import axios, { AxiosError, AxiosRequestConfig } from 'axios';
 
 import typesMockData from '@shared/mockData/types.json';
 import currenciesMockData from '@shared/mockData/currencies.json';
@@ -7,6 +7,7 @@ import type {
   CustomCategoryRequest,
   FetchCategoryRequest,
 } from '@shared/types/Category';
+import { ErrorProps } from '@shared/types/Error';
 
 const config: AxiosRequestConfig = {
   baseURL: process.env.NEXT_PUBLIC_BASE_URL,
@@ -32,10 +33,31 @@ api.interceptors.response.use(
     return response;
   },
   (error) => {
-    console.error('error', error);
     throw error;
   },
 );
+
+const handleApiError = (error: unknown) => {
+  if (axios.isAxiosError(error)) {
+    const axiosError = error as AxiosError;
+
+    return {
+      message: axiosError.message || 'An unexpected error occurred',
+      status: axiosError.response?.status || 500,
+      code: axiosError.code || 'UNKNOWN_ERROR',
+      data: axiosError.response?.data as ErrorProps,
+    };
+  }
+
+  return {
+    message: 'An unknown error occurred',
+    status: 500,
+    code: 'UNKNOWN_ERROR',
+    data: {
+      message: 'An unknown error occurred',
+    },
+  };
+};
 
 const fetchCategoriesApi = async ({ userId }: FetchCategoryRequest) => {
   const url = `categories?sort=name${userId ? `&userId=${userId}` : ''}`;
@@ -70,8 +92,8 @@ const updateCategoryApi = async (categoryData: CustomCategoryRequest) => {
 
     return response.data;
   } catch (error) {
-    console.error('Update category failed', error);
-    throw error;
+    // console.error('Update category failed', error);
+    throw handleApiError(error);
   }
 };
 

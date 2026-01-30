@@ -16,9 +16,11 @@ import type {
   CustomCategoryRequest,
   FetchCategoryRequest,
 } from '@shared/types/Category';
+import type { ErrorProps } from '@shared/types/Error';
 
 type MainSliceProps = {
   isLoading: boolean;
+  error?: ErrorProps;
   types: TypeProps[];
   categories: CategoryItemProps[];
   currencies: ListProps[];
@@ -33,6 +35,27 @@ const initialState: MainSliceProps = {
 
 type TypeProps = ListProps & {
   id: string;
+};
+
+const getErrorMessage = (error: unknown) => {
+  if (typeof error === 'string') {
+    return error;
+  }
+
+  if (error && typeof error === 'object') {
+    // Prefer backend error message if present (from handleApiError)
+    if ('data' in error && error.data && typeof error.data === 'object') {
+      if ('message' in error.data && typeof error.data.message === 'string') {
+        return error.data.message;
+      }
+    }
+    // Fallback to top-level message
+    if ('message' in error && typeof error.message === 'string') {
+      return error.message;
+    }
+  }
+
+  return 'Error loading data';
 };
 
 export const fetchCategories = createAsyncThunk(
@@ -81,13 +104,20 @@ const mainSlice = createSlice({
     setCurrencies: (state, action: PayloadAction<ListProps[]>) => {
       state.currencies = action.payload;
     },
+    clearMainError: (state) => {
+      state.error = undefined;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchCategories.pending, (state) => {
       state.isLoading = true;
+      state.error = undefined;
     });
-    builder.addCase(fetchCategories.rejected, (state) => {
+    builder.addCase(fetchCategories.rejected, (state, action) => {
       state.isLoading = false;
+      state.error = {
+        message: getErrorMessage(action.payload ?? action.error),
+      };
     });
     builder.addCase(
       fetchCategories.fulfilled,
@@ -106,9 +136,13 @@ const mainSlice = createSlice({
     );
     builder.addCase(createCustomCategory.pending, (state) => {
       state.isLoading = true;
+      state.error = undefined;
     });
-    builder.addCase(createCustomCategory.rejected, (state) => {
+    builder.addCase(createCustomCategory.rejected, (state, action) => {
       state.isLoading = false;
+      state.error = {
+        message: getErrorMessage(action.payload ?? action.error),
+      };
     });
     builder.addCase(
       createCustomCategory.fulfilled,
@@ -127,9 +161,13 @@ const mainSlice = createSlice({
     );
     builder.addCase(updateCategory.pending, (state) => {
       state.isLoading = true;
+      state.error = undefined;
     });
-    builder.addCase(updateCategory.rejected, (state) => {
+    builder.addCase(updateCategory.rejected, (state, action) => {
       state.isLoading = false;
+      state.error = {
+        message: getErrorMessage(action.payload ?? action.error),
+      };
     });
     builder.addCase(
       updateCategory.fulfilled,
@@ -153,6 +191,6 @@ const mainSlice = createSlice({
   },
 });
 
-export const { setTypes, setCurrencies } = mainSlice.actions;
+export const { setTypes, setCurrencies, clearMainError } = mainSlice.actions;
 
 export default mainSlice.reducer;

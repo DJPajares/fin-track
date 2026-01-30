@@ -12,6 +12,7 @@ import { Button } from '../../components/ui/button';
 import { Label } from '../../components/ui/label';
 import CardIcon from '../../components/shared/CardIcon';
 import { SelectBox } from '../../components/shared/SelectBox';
+import Loader from '@web/components/shared/Loader';
 import EditCategoryDrawer from '../../app/categories/EditCategory/EditCategoryDrawer';
 
 import type { CategoryItemProps } from '../../types/Category';
@@ -40,7 +41,9 @@ const Categories = () => {
   const dispatch = useAppDispatch();
 
   const userId = useAppSelector((state) => state.auth.user)?.id || '';
-  const { types, categories } = useAppSelector((state) => state.main);
+  const { types, categories, isLoading } = useAppSelector(
+    (state) => state.main,
+  );
 
   const [selectedType, setSelectedType] = useState<ListProps>(defaultType);
 
@@ -79,6 +82,8 @@ const Categories = () => {
 
     dispatch(updateCategory(updatedCategory));
   };
+
+  if (isLoading) return <Loader />;
 
   return (
     <>

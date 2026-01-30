@@ -213,8 +213,11 @@
     }
   },
   "Common": {
+    "title": {
+      "errorModal": "Alert Message"
+    },
     "button": {
-      "ok": "Ok",
+      "ok": "OK",
       "cancel": "Cancel",
       "add": "Add",
       "update": "Update",
