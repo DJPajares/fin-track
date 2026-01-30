@@ -37,27 +37,6 @@ type TypeProps = ListProps & {
   id: string;
 };
 
-const getErrorMessage = (error: unknown) => {
-  if (typeof error === 'string') {
-    return error;
-  }
-
-  if (error && typeof error === 'object') {
-    // Prefer backend error message if present (from handleApiError)
-    if ('data' in error && error.data && typeof error.data === 'object') {
-      if ('message' in error.data && typeof error.data.message === 'string') {
-        return error.data.message;
-      }
-    }
-    // Fallback to top-level message
-    if ('message' in error && typeof error.message === 'string') {
-      return error.message;
-    }
-  }
-
-  return 'Error loading data';
-};
-
 export const fetchCategories = createAsyncThunk(
   'fetchCategories',
   async ({ userId }: FetchCategoryRequest, { rejectWithValue }) => {
@@ -115,9 +94,8 @@ const mainSlice = createSlice({
     });
     builder.addCase(fetchCategories.rejected, (state, action) => {
       state.isLoading = false;
-      state.error = {
-        message: getErrorMessage(action.payload ?? action.error),
-      };
+      state.error =
+        (action.payload as { data?: ErrorProps })?.data || undefined;
     });
     builder.addCase(
       fetchCategories.fulfilled,
@@ -140,9 +118,8 @@ const mainSlice = createSlice({
     });
     builder.addCase(createCustomCategory.rejected, (state, action) => {
       state.isLoading = false;
-      state.error = {
-        message: getErrorMessage(action.payload ?? action.error),
-      };
+      state.error =
+        (action.payload as { data?: ErrorProps })?.data || undefined;
     });
     builder.addCase(
       createCustomCategory.fulfilled,
@@ -165,9 +142,8 @@ const mainSlice = createSlice({
     });
     builder.addCase(updateCategory.rejected, (state, action) => {
       state.isLoading = false;
-      state.error = {
-        message: getErrorMessage(action.payload ?? action.error),
-      };
+      state.error =
+        (action.payload as { data?: ErrorProps })?.data || undefined;
     });
     builder.addCase(
       updateCategory.fulfilled,

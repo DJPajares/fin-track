@@ -40,22 +40,22 @@ api.interceptors.response.use(
 const handleApiError = (error: unknown) => {
   if (axios.isAxiosError(error)) {
     const axiosError = error as AxiosError;
-
+    const data = axiosError.response?.data as ErrorProps | undefined;
     return {
-      message: axiosError.message || 'An unexpected error occurred',
+      message:
+        data?.message || axiosError.message || 'An unexpected error occurred',
       status: axiosError.response?.status || 500,
       code: axiosError.code || 'UNKNOWN_ERROR',
-      data: axiosError.response?.data as ErrorProps,
+      data: data || {
+        message: axiosError.message || 'An unexpected error occurred',
+      },
     };
   }
-
   return {
     message: 'An unknown error occurred',
     status: 500,
     code: 'UNKNOWN_ERROR',
-    data: {
-      message: 'An unknown error occurred',
-    },
+    data: { message: 'An unknown error occurred' },
   };
 };
 
@@ -66,8 +66,7 @@ const fetchCategoriesApi = async ({ userId }: FetchCategoryRequest) => {
     const response = await api.get(url);
     return response.data;
   } catch (error) {
-    console.error(error);
-    throw error;
+    throw handleApiError(error);
   }
 };
 
@@ -76,11 +75,9 @@ const createCustomCategoryApi = async (categoryData: CustomCategoryRequest) => {
 
   try {
     const response = await api.post(url, categoryData);
-
     return response.data;
   } catch (error) {
-    console.error('Create custom category failed', error);
-    throw error;
+    throw handleApiError(error);
   }
 };
 
@@ -92,7 +89,6 @@ const updateCategoryApi = async (categoryData: CustomCategoryRequest) => {
 
     return response.data;
   } catch (error) {
-    // console.error('Update category failed', error);
     throw handleApiError(error);
   }
 };
