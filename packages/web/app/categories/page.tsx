@@ -5,7 +5,10 @@ import { useTranslations } from 'next-intl';
 import { PlusIcon } from 'lucide-react';
 
 import { useAppDispatch, useAppSelector } from '../../lib/hooks/use-redux';
-import { updateCategory } from '../../lib/redux/feature/main/mainSlice';
+import {
+  fetchCategories,
+  updateCategory,
+} from '../../lib/redux/feature/main/mainSlice';
 
 import { Separator } from '../../components/ui/separator';
 import { Button } from '../../components/ui/button';
@@ -72,7 +75,7 @@ const Categories = () => {
     }
   }, [newTypes, selectedType._id, selectedType.name]);
 
-  const handleAddSuggestedCategory = (category: CategoryItemProps) => {
+  const handleAddSuggestedCategory = async (category: CategoryItemProps) => {
     const updatedCategory = {
       ...category,
       isActive: true,
@@ -80,7 +83,9 @@ const Categories = () => {
       userId,
     };
 
-    dispatch(updateCategory(updatedCategory));
+    await dispatch(updateCategory(updatedCategory));
+    // Refetch categories to ensure state is in sync after backend creates a custom category
+    dispatch(fetchCategories({ userId }));
   };
 
   if (isLoading) return <Loader />;
