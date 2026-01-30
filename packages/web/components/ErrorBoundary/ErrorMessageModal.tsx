@@ -23,6 +23,23 @@ type ErrorMessageModalProps = {
   onClose?: () => void;
 };
 
+// User-friendly error mapping using translations and error codes/keys
+const getUserFriendlyError = (
+  error: ErrorProps | undefined,
+  t: (key: string) => string,
+): string => {
+  if (!error) return t('Common.error.generic');
+  if (error.userMessageKey) return t(error.userMessageKey);
+  switch (error.code) {
+    case 'DUPLICATE_CATEGORY':
+      return t('Common.error.duplicateCategory');
+    case 'VALIDATION_ERROR':
+      return t('Common.error.validation');
+    default:
+      return error.message || t('Common.error.generic');
+  }
+};
+
 const ErrorMessageModal = ({
   isOpen,
   error,
@@ -30,7 +47,10 @@ const ErrorMessageModal = ({
 }: ErrorMessageModalProps) => {
   const t = useTranslations();
 
-  const errorMessage = useMemo(() => error.message, [error]);
+  const errorMessage = useMemo(
+    () => getUserFriendlyError(error, t),
+    [error, t],
+  );
 
   const handleOk = () => {
     onClose?.();

@@ -213,6 +213,11 @@
     }
   },
   "Common": {
+    "error": {
+      "duplicateCategory": "A category with these details already exists.",
+      "validation": "Please check your input and try again.",
+      "generic": "Something went wrong. Please try again."
+    },
     "title": {
       "errorModal": "Alert Message"
     },
