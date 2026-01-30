@@ -114,6 +114,7 @@ const EditCategoryDrawer = ({
       dispatch(
         updateCategory({
           ...data,
+          id: serializeText(data.name),
           type: type?._id || '',
           userId,
         }),
