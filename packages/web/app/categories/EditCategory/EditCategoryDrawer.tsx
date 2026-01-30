@@ -25,7 +25,6 @@ import { Button } from '../../../components/ui/button';
 import { useAppDispatch, useAppSelector } from '../../../lib/hooks/use-redux';
 import {
   createCustomCategory,
-  deleteCategory,
   updateCategory,
 } from '../../../lib/redux/feature/main/mainSlice';
 import { categorySchema } from '../../../lib/schemas/category';
@@ -87,8 +86,16 @@ const EditCategoryDrawer = ({
   };
 
   const handleCategoryRemoval = () => {
-    // to-do: remove completely if not part of the master list (stored in category collection/table)
-    dispatch(deleteCategory(category));
+    const data = form.getValues();
+
+    dispatch(
+      updateCategory({
+        ...data,
+        type: type?._id || '',
+        userId,
+        isActive: false,
+      }),
+    );
   };
 
   const onSubmit: SubmitHandler<CategoryItemProps> = async (data) => {

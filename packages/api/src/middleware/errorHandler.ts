@@ -26,7 +26,21 @@ const validationErrorHandler = (error: ValidationError, res: Response) => {
 const mongoServerErrorHandler = (error: MongoServerError, res: Response) => {
   const keyValue = error.keyValue;
   if (keyValue) {
-    const field = Object.keys(keyValue)[0];
+    const fields = Object.keys(keyValue);
+
+    // For compound indexes, provide a more descriptive message
+    if (fields.length > 1) {
+      const fieldValuePairs = fields
+        .map((field) => `${field}: '${keyValue[field]}'`)
+        .join(', ');
+      return res.status(400).send({
+        type: 'MongoServerError',
+        message: `A category with the same ${fields.join(' and ')} already exists (${fieldValuePairs})`,
+      });
+    }
+
+    // For single field indexes
+    const field = fields[0];
     const value = keyValue[field];
     return res.status(400).send({
       type: 'MongoServerError',

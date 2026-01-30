@@ -78,26 +78,6 @@ const mainSlice = createSlice({
     setTypes: (state, action: PayloadAction<TypeProps[]>) => {
       state.types = action.payload;
     },
-    deleteCategory: (state, action: PayloadAction<CategoryItemProps>) => {
-      const category = action.payload;
-
-      const updatedCategories = state.categories.filter(
-        (stateCategory) => stateCategory._id !== category._id,
-      );
-
-      state.categories = updatedCategories;
-
-      // const categories = state.categories[type._id];
-
-      // const updatedCategories = categories.filter(
-      //   (item) => item._id !== category._id
-      // );
-
-      // state.categories = {
-      //   ...state.categories,
-      //   [type._id]: updatedCategories
-      // };
-    },
     setCurrencies: (state, action: PayloadAction<ListProps[]>) => {
       state.currencies = action.payload;
     },
@@ -173,6 +153,6 @@ const mainSlice = createSlice({
   },
 });
 
-export const { setTypes, deleteCategory, setCurrencies } = mainSlice.actions;
+export const { setTypes, setCurrencies } = mainSlice.actions;
 
 export default mainSlice.reducer;
