@@ -93,8 +93,8 @@ const Categories = () => {
         />
       </div>
 
-      <div className="space-y-4">
-        <div className="space-y-1">
+      <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-2">
           <div className="flex flex-row items-center justify-between">
             <Label variant="title">
               {t('Page.categories.titleCategories').toLocaleUpperCase()}
@@ -119,9 +119,9 @@ const Categories = () => {
                   category.type._id === selectedType._id && category.isActive,
               )
               .map((category, i, { length }) => (
-                <div key={category._id}>
+                <div key={category._id} className="px-2">
                   {category.scope === 'global' ? (
-                    <div className="flex flex-row items-center space-x-4 p-2 opacity-60">
+                    <div className="flex flex-row items-center gap-4 p-2 opacity-60">
                       <CardIcon icon={category.icon} />
                       <Label>{category.name}</Label>
                     </div>
@@ -131,9 +131,9 @@ const Categories = () => {
                       category={category}
                       title={t('Page.categories.categoryDrawer.titleEdit')}
                     >
-                      <div className="hover:bg-border flex cursor-pointer flex-row items-center space-x-4 p-2">
+                      <div className="hover:bg-border flex cursor-pointer flex-row items-center gap-4 p-2">
                         <CardIcon icon={category.icon} />
-                        <Label>{category.name}</Label>
+                        <Label className="font-semibold">{category.name}</Label>
                       </div>
                     </EditCategoryDrawer>
                   )}
@@ -144,7 +144,7 @@ const Categories = () => {
           </div>
         </div>
 
-        <div className="space-y-1">
+        <div className="flex flex-col gap-2">
           <Label variant="title">
             {t('Page.categories.titleSuggestions').toLocaleUpperCase()}
           </Label>
@@ -163,7 +163,9 @@ const Categories = () => {
                   >
                     <div className="flex flex-row items-center space-x-4">
                       <CardIcon icon={category.icon} />
-                      <Label className="italic">{category.name}</Label>
+                      <Label className="font-semibold italic">
+                        {category.name}
+                      </Label>
                     </div>
 
                     <Button variant="ghost" size="rounded-icon">
