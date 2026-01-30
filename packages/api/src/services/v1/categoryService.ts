@@ -7,7 +7,9 @@ import {
 import createPagination from '../../utilities/createPagination';
 
 import type { QueryParamsProps, SortObjProps } from '../../types/commonTypes';
+
 import type { CustomCategoryRequest } from '../../../../../shared/types/Category';
+import { AppError, ErrorCode } from '../../../../../shared/types/Error';
 
 const create = async (data: CategoryProps) => {
   return await CategoryModel.create(data);
@@ -26,6 +28,12 @@ const createCustom = async ({
   userId,
 }: CustomCategoryRequest) => {
   const scope = 'custom';
+
+  // Check if a global category with the same id exists
+  const existingGlobal = await CategoryModel.findOne({ id, scope: 'global' });
+  if (existingGlobal) {
+    throw new AppError(ErrorCode.CATEGORY_ID_EXISTS_GLOBAL, 409);
+  }
 
   const category = await CategoryModel.create({
     type,

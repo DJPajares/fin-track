@@ -29,15 +29,20 @@ const getUserFriendlyError = (
   t: (key: string) => string,
 ): string => {
   if (!error) return t('Common.error.generic');
-  if (error.userMessageKey) return t(error.userMessageKey);
-  switch (error.code) {
-    case 'DUPLICATE_CATEGORY':
-      return t('Common.error.duplicateCategory');
-    case 'VALIDATION_ERROR':
-      return t('Common.error.validation');
-    default:
-      return error.message || t('Common.error.generic');
+  if (error.code) {
+    switch (error.code) {
+      case 'DUPLICATE_CATEGORY':
+        return t('Common.error.duplicateCategory');
+      case 'VALIDATION_ERROR':
+        return t('Common.error.validation');
+      case 'CATEGORY_ID_EXISTS_GLOBAL':
+        return t('Common.error.duplicateCategory');
+      default:
+        break;
+    }
   }
+  if (error.userMessageKey) return t(error.userMessageKey);
+  return error.message || t('Common.error.generic');
 };
 
 const ErrorMessageModal = ({

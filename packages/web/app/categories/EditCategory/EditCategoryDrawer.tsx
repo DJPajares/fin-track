@@ -28,6 +28,7 @@ import {
   updateCategory,
 } from '../../../lib/redux/feature/main/mainSlice';
 import { categorySchema } from '../../../lib/schemas/category';
+import { Trash2Icon } from 'lucide-react';
 
 import CardIcon, {
   iconMap,
@@ -35,12 +36,10 @@ import CardIcon, {
 } from '../../../components/shared/CardIcon';
 import CustomDrawer from '@web/components/shared/CustomDrawer';
 
-import { Trash2Icon } from 'lucide-react';
+import { serializeText } from '@shared/utilities/serializeText';
 
 import type { ListProps } from '../../../types/List';
 import type { CategoryItemProps } from '../../../types/Category';
-// import { createCustomCategory } from '@web/services/api';
-import { serializeText } from '@shared/utilities/serializeText';
 
 type EditCategoryDrawerProps = {
   type?: ListProps;

@@ -30,17 +30,6 @@ const createCustom = async (
   next: NextFunction,
 ) => {
   try {
-    // const { type, id, name, icon, isActive, userId } = req.body;
-
-    // const data = await categoryService.createCustom({
-    //   type,
-    //   id,
-    //   name,
-    //   icon,
-    //   isActive,
-    //   userId,
-    // });
-
     const data = await categoryService.createCustom(req.body);
 
     res.status(200).json(data);

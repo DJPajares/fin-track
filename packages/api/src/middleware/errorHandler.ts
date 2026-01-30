@@ -22,7 +22,7 @@ const validationErrorHandler = (error: ValidationError, res: Response) => {
     type: 'ValidationError',
     code: ErrorCode.VALIDATION_ERROR,
     message: errorMessage,
-    userMessageKey: 'Common.error.validation',
+    // userMessageKey: 'Common.error.validation',
   });
 };
 
@@ -40,7 +40,7 @@ const mongoServerErrorHandler = (error: MongoServerError, res: Response) => {
         type: 'MongoServerError',
         code: ErrorCode.DUPLICATE_CATEGORY,
         message: `A category with the same ${fields.join(' and ')} already exists (${fieldValuePairs})`,
-        userMessageKey: 'Common.error.duplicateCategory',
+        // userMessageKey: 'Common.error.duplicateCategory',
       });
     }
 
@@ -51,7 +51,7 @@ const mongoServerErrorHandler = (error: MongoServerError, res: Response) => {
       type: 'MongoServerError',
       code: ErrorCode.DUPLICATE_CATEGORY,
       message: `${field} '${value}' is already used`,
-      userMessageKey: 'Common.error.duplicateCategory',
+      // userMessageKey: 'Common.error.duplicateCategory',
     });
   }
 
@@ -59,7 +59,7 @@ const mongoServerErrorHandler = (error: MongoServerError, res: Response) => {
     type: 'MongoServerError',
     code: ErrorCode.DUPLICATE_CATEGORY,
     message: 'Duplicate key error',
-    userMessageKey: 'Common.error.duplicateCategory',
+    // userMessageKey: 'Common.error.duplicateCategory',
   });
 };
 
