@@ -221,7 +221,11 @@ const getSpecificType = async (id: Types.ObjectId, query: QueryParamsProps) => {
   - if the category being updated is a 'global' category (scope: 'global'), create a 'custom' category for the user instead of modifying the global one
   - if the category being updated is already a 'custom' category, proceed with the update as usual
 */
-const update = async (_id: CategoryProps['_id'], data: CategoryProps) => {
+const update = async (
+  _id: CategoryProps['_id'],
+  data: CategoryProps,
+  userId?: string,
+) => {
   const scope = data.scope;
 
   if (scope === 'global') {
@@ -232,13 +236,22 @@ const update = async (_id: CategoryProps['_id'], data: CategoryProps) => {
       throw new Error('Category not found');
     }
 
+    if (!userId) {
+      throw new Error('User ID is required to create custom category');
+    }
+
     // Create a new custom category instead of updating the global one
     const newCustomCategory = await CategoryModel.create({
-      ...existingCategory.toObject(),
-      ...data,
+      type: existingCategory.type?._id,
+      id: existingCategory.id,
+      name: data.name ?? existingCategory.name,
+      icon: data.icon ?? existingCategory.icon,
+      isActive: data.isActive ?? existingCategory.isActive,
       scope: 'custom',
-      _id: undefined, // Let MongoDB generate a new _id
+      userId: new Types.ObjectId(userId),
     });
+
+    await newCustomCategory.populate('type');
 
     return newCustomCategory;
   }

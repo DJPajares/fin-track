@@ -10,7 +10,6 @@ import {
   update,
   remove,
 } from '../../controllers/v1/categoryController';
-import { RequestWithUser } from '../../types/userTypes';
 
 const router = express.Router();
 
@@ -26,7 +25,7 @@ router.get('/types/:id', getSpecificType);
 
 router.get('/:id', get);
 
-router.get('/', (req, res, next) => getAll(req as RequestWithUser, res, next));
+router.get('/', getAll);
 
 router.put('/:id', update);
 

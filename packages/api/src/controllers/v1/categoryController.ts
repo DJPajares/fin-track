@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import * as categoryService from '../../services/v1/categoryService';
 import { Types } from 'mongoose';
-import { RequestWithUser } from '../../types/userTypes';
 
 import type { QueryParamsProps } from '../../types/commonTypes';
 
@@ -50,11 +49,7 @@ const createCustom = async (
   }
 };
 
-const getAll = async (
-  req: RequestWithUser,
-  res: Response,
-  next: NextFunction,
-) => {
+const getAll = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const query = req.query as unknown as QueryParamsProps;
     const userId = req.query?.userId as string | undefined;
@@ -111,8 +106,9 @@ const getSpecificType = async (
 const update = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const id = new Types.ObjectId(req.params.id);
+    const userId = req.body.userId;
 
-    const data = await categoryService.update(id, req.body);
+    const data = await categoryService.update(id, req.body, userId);
 
     res.status(200).json(data);
   } catch (error) {

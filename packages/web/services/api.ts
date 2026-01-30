@@ -62,6 +62,19 @@ const createCustomCategoryApi = async (categoryData: CustomCategoryRequest) => {
   }
 };
 
+const updateCategoryApi = async (categoryData: CustomCategoryRequest) => {
+  const url = `categories/${categoryData._id}`;
+
+  try {
+    const response = await api.put(url, categoryData);
+
+    return response.data;
+  } catch (error) {
+    console.error('Update category failed', error);
+    throw error;
+  }
+};
+
 // --- old implementation below ---
 
 const typesUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/types?sort=name`;
@@ -109,6 +122,7 @@ const fetchCurrencyByName = async (name: string) => {
 export {
   fetchCategoriesApi,
   createCustomCategoryApi,
+  updateCategoryApi,
   fetchTypes,
   fetchCurrencies,
   fetchCurrencyByName,

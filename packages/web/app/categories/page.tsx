@@ -39,6 +39,7 @@ const Categories = () => {
   const t = useTranslations();
   const dispatch = useAppDispatch();
 
+  const userId = useAppSelector((state) => state.auth.user)?.id || '';
   const { types, categories } = useAppSelector((state) => state.main);
 
   const [selectedType, setSelectedType] = useState<ListProps>(defaultType);
@@ -69,12 +70,14 @@ const Categories = () => {
   }, [newTypes, selectedType._id, selectedType.name]);
 
   const handleAddSuggestedCategory = (category: CategoryItemProps) => {
-    dispatch(
-      updateCategory({
-        ...category,
-        isActive: true,
-      }),
-    );
+    const updatedCategory = {
+      ...category,
+      isActive: true,
+      type: category.type._id,
+      userId,
+    };
+
+    dispatch(updateCategory(updatedCategory));
   };
 
   return (

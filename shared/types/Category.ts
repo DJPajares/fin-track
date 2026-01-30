@@ -2,6 +2,7 @@ import type { PaginationPageProps } from '@shared/types/Pagination';
 import type { TypeDataResponse } from '@shared/types/Type';
 
 type CategoryRequest = {
+  _id?: string;
   id: string;
   name: string;
   icon: string;

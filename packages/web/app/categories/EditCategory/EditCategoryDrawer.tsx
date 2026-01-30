@@ -104,7 +104,13 @@ const EditCategoryDrawer = ({
         }),
       );
     } else {
-      dispatch(updateCategory(data));
+      dispatch(
+        updateCategory({
+          ...data,
+          type: type?._id || '',
+          userId,
+        }),
+      );
     }
   };
 
