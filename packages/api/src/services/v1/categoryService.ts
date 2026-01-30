@@ -241,11 +241,15 @@ const update = async (
     const existingCategory = await CategoryModel.findOne({ _id });
 
     if (!existingCategory) {
-      throw new Error('Category not found');
+      throw new AppError(ErrorCode.VALIDATION_ERROR, 404, 'Category not found');
     }
 
     if (!userId) {
-      throw new Error('User ID is required to create custom category');
+      throw new AppError(
+        ErrorCode.VALIDATION_ERROR,
+        400,
+        'User ID is required to create custom category',
+      );
     }
 
     // Create a new custom category instead of updating the global one

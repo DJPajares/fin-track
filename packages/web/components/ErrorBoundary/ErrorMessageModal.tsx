@@ -83,11 +83,9 @@ const ErrorMessageModal = ({
         </div>
 
         <DialogFooter>
-          <DialogFooter className="sm:justify-start">
-            <DialogClose asChild>
-              <Button onClick={handleOk}>{t('Common.button.ok')}</Button>
-            </DialogClose>
-          </DialogFooter>
+          <DialogClose asChild>
+            <Button onClick={handleOk}>{t('Common.button.ok')}</Button>
+          </DialogClose>
         </DialogFooter>
       </DialogContent>
     </Dialog>
