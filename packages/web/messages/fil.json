@@ -213,6 +213,14 @@
     }
   },
   "Common": {
+    "error": {
+      "duplicateCategory": "Ang isang kategorya na may ganitong mga detalye ay umiiral na.",
+      "validation": "Mangyaring suriin ang iyong input at subukan muli.",
+      "generic": "May nangyaring mali. Mangyaring subukan muli."
+    },
+    "title": {
+      "errorModal": "Mensahe ng Babala"
+    },
     "button": {
       "ok": "Sige",
       "cancel": "Kanselahin",
@@ -221,11 +229,27 @@
       "save": "I-save"
     },
     "alertDialog": {
-      "triggerButton": "Update",
-      "title": "Sigurado ka?",
-      "description": "Hindi na ito maaaring bawiin.",
-      "okButton": "Magpatuloy",
-      "cancelButton": "Kanselahin"
+      "generic": {
+        "title": "Sigurado ka?",
+        "description": "Hindi na ito maaaring bawiin",
+        "okButton": "Magpatuloy",
+        "cancelButton": "Kanselahin"
+      },
+      "save": {
+        "title": "I-save ang mga pagbabago?",
+        "description": "Ito ay ia-apply ang iyong mga pagbabago.",
+        "okButton": "I-save"
+      },
+      "hide": {
+        "title": "Itago ang item?",
+        "description": "Itatago ang item na ito. Maaari mo itong ibalik anumang oras.",
+        "okButton": "Itago"
+      },
+      "delete": {
+        "title": "Tanggalin ang item?",
+        "description": "Hindi na maibabalik ang aksyon na ito.",
+        "okButton": "Tanggalin"
+      }
     },
     "label": {
       "selectPlaceholder": "Pumili ng item",
@@ -243,19 +267,48 @@
       "expense": "Gastos"
     },
     "category": {
-      "creditCard": "Credit Card",
+      "bonus": "Bonus",
+      "credit-card": "Credit Card",
       "debt": "Utang",
+      "entertainment": "Libangan",
       "family": "Pamilya",
       "food": "Pagkain",
+      "freelance": "Freelance",
       "healthcare": "Pangangalagang Pangkalusugan",
+      "insurance": "Seguro",
       "investment": "Pamumuhunan",
       "loan": "Pautang",
       "paycheck": "Sahod",
       "rent": "Renta",
       "savings": "Ipon",
+      "shopping": "Shopping",
       "subscription": "Subscription",
       "transportation": "Transportasyon",
-      "utility": "Serbisyo"
+      "travel": "Paglalakbay",
+      "utilities": "Serbisyo"
+    },
+    "tooltip": {
+      "category": {
+        "bonus": "Performance o annual bonuses mula sa trabaho",
+        "credit-card": "Pagbabayad ng credit card",
+        "debt": "Pagbabayad ng utang at interes",
+        "entertainment": "Mga pelikula, laro, hobby, at libangan",
+        "family": "Pamilya gastos at suporta",
+        "food": "Grocery, pagkain, at pagkain gastos",
+        "freelance": "Kita mula sa freelance o contract na trabaho",
+        "healthcare": "Medical na gastos at healthcare",
+        "insurance": "Seguro premium at coverage",
+        "investment": "Pagbabalik mula sa investment o dividends",
+        "loan": "Pagbabayad ng pautang at bayad",
+        "paycheck": "Regular na kita mula sa trabaho",
+        "rent": "Buwan-buwan na bayad ng renta o mortgage",
+        "savings": "Mga paglipat sa mga savings account",
+        "shopping": "Damit, retail, at pamimili",
+        "subscription": "Mga subscription service at membership",
+        "transportation": "Public transport, fuel, parking, at car gastos",
+        "travel": "Bakasyon at travel gastos",
+        "utilities": "Kuryente, tubig, internet, at utilities"
+      }
     }
   },
   "PWA": {

@@ -2,6 +2,7 @@ import express from 'express';
 import {
   create,
   createMany,
+  createCustom,
   getAll,
   get,
   getByType,
@@ -15,6 +16,8 @@ const router = express.Router();
 router.post('/', create);
 
 router.post('/batch-create', createMany);
+
+router.post('/custom', createCustom);
 
 router.get('/types/', getByType);
 

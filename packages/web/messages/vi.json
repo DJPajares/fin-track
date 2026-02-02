@@ -213,6 +213,14 @@
     }
   },
   "Common": {
+    "error": {
+      "duplicateCategory": "Một danh mục có những chi tiết này đã tồn tại.",
+      "validation": "Vui lòng kiểm tra đầu vào của bạn và thử lại.",
+      "generic": "Có điều gì đó không ổn. Vui lòng thử lại."
+    },
+    "title": {
+      "errorModal": "Thông báo cảnh báo"
+    },
     "button": {
       "ok": "Đồng Ý",
       "cancel": "Hủy",
@@ -221,11 +229,27 @@
       "save": "Lưu"
     },
     "alertDialog": {
-      "triggerButton": "Cập Nhật",
-      "title": "Bạn Có Chắc Không?",
-      "description": "Không thể hoàn tác",
-      "okButton": "Tiếp Tục",
-      "cancelButton": "Hủy"
+      "generic": {
+        "title": "Bạn có chắc không?",
+        "description": "Hành động này không thể hoàn tác",
+        "okButton": "Tiếp tục",
+        "cancelButton": "Hủy"
+      },
+      "save": {
+        "title": "Lưu thay đổi?",
+        "description": "Thao tác này sẽ áp dụng các thay đổi của bạn.",
+        "okButton": "Lưu"
+      },
+      "hide": {
+        "title": "Ẩn mục?",
+        "description": "Mục này sẽ bị ẩn. Bạn có thể khôi phục sau.",
+        "okButton": "Ẩn"
+      },
+      "delete": {
+        "title": "Xóa mục?",
+        "description": "Hành động này không thể hoàn tác.",
+        "okButton": "Xóa"
+      }
     },
     "label": {
       "selectPlaceholder": "Chọn một mục",
@@ -243,19 +267,48 @@
       "expense": "Chi tiêu"
     },
     "category": {
-      "creditCard": "Thẻ Tín Dụng",
+      "bonus": "Tiền Thưởng",
+      "credit-card": "Thẻ Tín Dụng",
       "debt": "Nợ",
+      "entertainment": "Giải Trí",
       "family": "Gia Đình",
       "food": "Thực Phẩm",
+      "freelance": "Làm Việc Tự Do",
       "healthcare": "Chăm Sóc Sức Khỏe",
+      "insurance": "Bảo Hiểm",
       "investment": "Đầu Tư",
       "loan": "Khoản Vay",
       "paycheck": "Lương",
       "rent": "Tiền Thuê",
       "savings": "Tiết Kiệm",
+      "shopping": "Mua Sắm",
       "subscription": "Đăng Ký",
       "transportation": "Giao Thông",
-      "utility": "Tiện Ích"
+      "travel": "Du Lịch",
+      "utilities": "Tiện Ích"
+    },
+    "tooltip": {
+      "category": {
+        "bonus": "Thưởng hiệu suất hoặc thưởng hàng năm từ công việc",
+        "credit-card": "Thanh toán thẻ tín dụng",
+        "debt": "Trả nợ và tiền lãi",
+        "entertainment": "Phim ảnh, trò chơi, sở thích và giải trí",
+        "family": "Chi tiêu gia đình và hỗ trợ",
+        "food": "Tạp hóa, ăn uống và chi tiêu thực phẩm",
+        "freelance": "Thu nhập từ làm việc tự do hoặc hợp đồng",
+        "healthcare": "Chi tiêu y tế và chăm sóc sức khỏe",
+        "insurance": "Bảo hiểm phí bảo hiểm và bảo phủ",
+        "investment": "Lợi tức từ đầu tư hoặc cổ tức",
+        "loan": "Thanh toán và hoàn trả khoản vay",
+        "paycheck": "Thu nhập thường xuyên từ công việc",
+        "rent": "Thanh toán thuê hoặc thế chấp hàng tháng",
+        "savings": "Chuyển khoản vào tài khoản tiết kiệm",
+        "shopping": "Quần áo, bán lẻ và mua sắm",
+        "subscription": "Dịch vụ đăng ký và thành viên",
+        "transportation": "Giao thông công cộng, xăng, đỗ xe và chi tiêu ô tô",
+        "travel": "Chi tiêu kỳ nghỉ và du lịch",
+        "utilities": "Điện, nước, internet và dịch vụ công cộng"
+      }
     }
   },
   "PWA": {

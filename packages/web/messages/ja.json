@@ -213,6 +213,14 @@
     }
   },
   "Common": {
+    "error": {
+      "duplicateCategory": "これらの詳細を持つカテゴリは既に存在します。",
+      "validation": "入力を確認してもう一度お試しください。",
+      "generic": "エラーが発生しました。もう一度お試しください。"
+    },
+    "title": {
+      "errorModal": "アラートメッセージ"
+    },
     "button": {
       "ok": "了解",
       "cancel": "キャンセル",
@@ -221,11 +229,27 @@
       "save": "保存"
     },
     "alertDialog": {
-      "triggerButton": "更新",
-      "title": "よろしいですか？",
-      "description": "この操作は元に戻せません",
-      "okButton": "続行",
-      "cancelButton": "キャンセル"
+      "generic": {
+        "title": "よろしいですか？",
+        "description": "この操作は取り消せません",
+        "okButton": "続行",
+        "cancelButton": "キャンセル"
+      },
+      "save": {
+        "title": "変更を保存しますか？",
+        "description": "この操作で変更が適用されます。",
+        "okButton": "保存"
+      },
+      "hide": {
+        "title": "項目を非表示にしますか？",
+        "description": "この項目は非表示になります。いつでも復元できます。",
+        "okButton": "非表示"
+      },
+      "delete": {
+        "title": "項目を削除しますか？",
+        "description": "この操作は取り消せません。",
+        "okButton": "削除"
+      }
     },
     "label": {
       "selectPlaceholder": "アイテムを選択",
@@ -243,19 +267,48 @@
       "expense": "支出"
     },
     "category": {
-      "creditCard": "クレジットカード",
+      "bonus": "ボーナス",
+      "credit-card": "クレジットカード",
       "debt": "借金",
+      "entertainment": "エンターテイメント",
       "family": "家族",
       "food": "食費",
+      "freelance": "フリーランス",
       "healthcare": "医療費",
+      "insurance": "保険",
       "investment": "投資",
       "loan": "ローン",
       "paycheck": "給料",
       "rent": "家賃",
       "savings": "貯金",
+      "shopping": "買い物",
       "subscription": "サブスクリプション",
       "transportation": "交通費",
-      "utility": "光熱費"
+      "travel": "旅行",
+      "utilities": "光熱費"
+    },
+    "tooltip": {
+      "category": {
+        "bonus": "仕事からのパフォーマンスまたは年間ボーナス",
+        "credit-card": "クレジットカード支払い",
+        "debt": "債務返済と利息",
+        "entertainment": "映画、ゲーム、趣味、エンターテイメント",
+        "family": "家族支出とサポート",
+        "food": "食料品、食事、食費支出",
+        "freelance": "フリーランスまたは契約業務からの収入",
+        "healthcare": "医療費と医療",
+        "insurance": "保険料と保険範囲",
+        "investment": "投資からのリターンまたは配当",
+        "loan": "ローン支払いと返済",
+        "paycheck": "雇用からの定期収入",
+        "rent": "月額家賃またはローン返済",
+        "savings": "貯蓄口座への振込",
+        "shopping": "衣料品、小売、ショッピング",
+        "subscription": "サブスクリプションサービスとメンバーシップ",
+        "transportation": "公共交通、燃料、駐車場、車の費用",
+        "travel": "休暇と旅行費用",
+        "utilities": "電気、水、インターネット、ユーティリティ"
+      }
     }
   },
   "PWA": {

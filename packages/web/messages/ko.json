@@ -213,6 +213,14 @@
     }
   },
   "Common": {
+    "error": {
+      "duplicateCategory": "이 세부 정보를 가진 카테고리가 이미 존재합니다.",
+      "validation": "입력을 확인하고 다시 시도하세요.",
+      "generic": "문제가 발생했습니다. 다시 시도하세요."
+    },
+    "title": {
+      "errorModal": "경고 메시지"
+    },
     "button": {
       "ok": "확인",
       "cancel": "취소",
@@ -221,11 +229,27 @@
       "save": "저장"
     },
     "alertDialog": {
-      "triggerButton": "업데이트",
-      "title": "확실하신가요?",
-      "description": "이 작업은 실행 취소할 수 없습니다",
-      "okButton": "계속",
-      "cancelButton": "취소"
+      "generic": {
+        "title": "정말로 진행하시겠습니까?",
+        "description": "이 작업은 취소할 수 없습니다",
+        "okButton": "계속",
+        "cancelButton": "취소"
+      },
+      "save": {
+        "title": "변경사항을 저장할까요?",
+        "description": "이 작업은 변경사항을 적용합니다.",
+        "okButton": "저장"
+      },
+      "hide": {
+        "title": "항목을 숨기시겠습니까?",
+        "description": "이 항목은 숨겨집니다. 언제든 복원할 수 있습니다.",
+        "okButton": "숨기기"
+      },
+      "delete": {
+        "title": "항목을 삭제하시겠습니까?",
+        "description": "이 작업은 취소할 수 없습니다.",
+        "okButton": "삭제"
+      }
     },
     "label": {
       "selectPlaceholder": "항목을 선택하세요",
@@ -243,19 +267,48 @@
       "expense": "지출"
     },
     "category": {
-      "creditCard": "신용카드",
+      "bonus": "보너스",
+      "credit-card": "신용카드",
       "debt": "부채",
+      "entertainment": "오락",
       "family": "가족",
       "food": "음식",
+      "freelance": "프리랜서",
       "healthcare": "의료",
+      "insurance": "보험",
       "investment": "투자",
       "loan": "대출",
       "paycheck": "급여",
       "rent": "임대",
       "savings": "저축",
+      "shopping": "쇼핑",
       "subscription": "구독",
       "transportation": "운송",
-      "utility": "공과금"
+      "travel": "여행",
+      "utilities": "공과금"
+    },
+    "tooltip": {
+      "category": {
+        "bonus": "업무 보너스 및 연보너스",
+        "credit-card": "신용카드 결제",
+        "debt": "채무 상환 및 이자",
+        "entertainment": "영화, 게임, 취미 및 오락",
+        "family": "가족 지출 및 지원",
+        "food": "식료품, 식사 및 식비 지출",
+        "freelance": "프리랜서 또는 계약 업무 수입",
+        "healthcare": "의료 지출 및 의료",
+        "insurance": "보험료 및 보장",
+        "investment": "투자 수익 또는 배당금",
+        "loan": "대출금 상환 및 비용",
+        "paycheck": "고용에서의 정기 수입",
+        "rent": "월간 임차료 또는 모기지 지불",
+        "savings": "저축 계좌로의 이체",
+        "shopping": "의류, 소매 및 쇼핑",
+        "subscription": "구독 서비스 및 회원자격",
+        "transportation": "대중교통, 연료, 주차 및 자동차 지출",
+        "travel": "휴가 및 여행 지출",
+        "utilities": "전기, 수도, 인터넷 및 공과금"
+      }
     }
   },
   "PWA": {

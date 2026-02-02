@@ -20,7 +20,7 @@ export default function CardButton({
       onClick={handleOnClick}
       aria-pressed={isActive}
       className={cn(
-        `flex cursor-pointer items-center rounded-2xl border text-sm font-semibold transition-colors ${size === 'lg' ? 'p-4' : size === 'md' ? 'p-3' : 'p-2'}`,
+        `flex w-full cursor-pointer items-center rounded-2xl border text-sm font-semibold transition-colors ${size === 'lg' ? 'p-4' : size === 'md' ? 'p-3' : 'p-2'}`,
         isActive
           ? 'border-primary bg-primary/10 text-primary hover:bg-background/10 shadow-sm'
           : 'border-border/70 bg-background text-muted-foreground hover:bg-primary/10',

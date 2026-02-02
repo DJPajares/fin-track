@@ -213,6 +213,14 @@
     }
   },
   "Common": {
+    "error": {
+      "duplicateCategory": "Ya existe una categoría con estos detalles.",
+      "validation": "Por favor, verifica tu entrada e intenta de nuevo.",
+      "generic": "Algo salió mal. Por favor, intenta de nuevo."
+    },
+    "title": {
+      "errorModal": "Mensaje de Alerta"
+    },
     "button": {
       "ok": "Aceptar",
       "cancel": "Cancelar",
@@ -221,11 +229,27 @@
       "save": "Guardar"
     },
     "alertDialog": {
-      "triggerButton": "Actualizar",
-      "title": "¿Estás seguro?",
-      "description": "Esto no se puede deshacer",
-      "okButton": "Continuar",
-      "cancelButton": "Cancelar"
+      "generic": {
+        "title": "¿Estás seguro?",
+        "description": "Esto no se puede deshacer",
+        "okButton": "Continuar",
+        "cancelButton": "Cancelar"
+      },
+      "save": {
+        "title": "¿Guardar cambios?",
+        "description": "Esto aplicará tus cambios.",
+        "okButton": "Guardar"
+      },
+      "hide": {
+        "title": "¿Ocultar elemento?",
+        "description": "Este elemento será ocultado. Puedes restaurarlo en cualquier momento.",
+        "okButton": "Ocultar"
+      },
+      "delete": {
+        "title": "¿Eliminar elemento?",
+        "description": "Esta acción no se puede deshacer.",
+        "okButton": "Eliminar"
+      }
     },
     "label": {
       "selectPlaceholder": "Selecciona un elemento",
@@ -243,19 +267,48 @@
       "expense": "Gasto"
     },
     "category": {
-      "creditCard": "Tarjeta de Crédito",
+      "bonus": "Bonificación",
+      "credit-card": "Tarjeta de Crédito",
       "debt": "Deuda",
+      "entertainment": "Entretenimiento",
       "family": "Familia",
       "food": "Comida",
+      "freelance": "Trabajo Independiente",
       "healthcare": "Atención Médica",
+      "insurance": "Seguro",
       "investment": "Inversión",
       "loan": "Préstamo",
       "paycheck": "Salario",
       "rent": "Alquiler",
       "savings": "Ahorros",
+      "shopping": "Compras",
       "subscription": "Suscripción",
       "transportation": "Transporte",
-      "utility": "Servicios Públicos"
+      "travel": "Viajes",
+      "utilities": "Servicios Públicos"
+    },
+    "tooltip": {
+      "category": {
+        "bonus": "Bonificaciones de desempeño o anuales del trabajo",
+        "credit-card": "Pagos de tarjeta de crédito",
+        "debt": "Pagos de deuda e intereses",
+        "entertainment": "Películas, juegos, pasatiempos y entretenimiento",
+        "family": "Gastos familiares y apoyo",
+        "food": "Alimentos, comida y gastos de alimentos",
+        "freelance": "Ingresos de trabajo independiente o por contrato",
+        "healthcare": "Gastos médicos y atención médica",
+        "insurance": "Primas de seguros y cobertura",
+        "investment": "Rendimientos de inversiones o dividendos",
+        "loan": "Pagos y amortizaciones de préstamos",
+        "paycheck": "Ingresos regulares del empleo",
+        "rent": "Pagos mensuales de alquiler o hipoteca",
+        "savings": "Transferencias a cuentas de ahorro",
+        "shopping": "Ropa, comercio minorista y compras",
+        "subscription": "Servicios de suscripción y membresías",
+        "transportation": "Transporte público, combustible, estacionamiento y gastos de automóviles",
+        "travel": "Gastos de vacaciones y viajes",
+        "utilities": "Electricidad, agua, internet y servicios básicos"
+      }
     }
   },
   "PWA": {

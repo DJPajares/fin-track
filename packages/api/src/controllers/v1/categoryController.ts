@@ -24,11 +24,26 @@ const createMany = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
+const createCustom = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const data = await categoryService.createCustom(req.body);
+
+    res.status(200).json(data);
+  } catch (error) {
+    next(error);
+  }
+};
+
 const getAll = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const query = req.query as unknown as QueryParamsProps;
+    const userId = req.query?.userId as string | undefined;
 
-    const data = await categoryService.getAll(query);
+    const data = await categoryService.getAll(query, userId);
 
     res.status(200).json(data);
   } catch (error) {
@@ -80,8 +95,9 @@ const getSpecificType = async (
 const update = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const id = new Types.ObjectId(req.params.id);
+    const userId = req.body.userId;
 
-    const data = await categoryService.update(id, req.body);
+    const data = await categoryService.update(id, req.body, userId);
 
     res.status(200).json(data);
   } catch (error) {
@@ -104,6 +120,7 @@ const remove = async (req: Request, res: Response, next: NextFunction) => {
 export {
   create,
   createMany,
+  createCustom,
   getAll,
   get,
   getByType,

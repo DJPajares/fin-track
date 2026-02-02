@@ -5,17 +5,27 @@ import { useTranslations } from 'next-intl';
 import { PlusIcon } from 'lucide-react';
 
 import { useAppDispatch, useAppSelector } from '../../lib/hooks/use-redux';
-import { updateCategory } from '../../lib/redux/feature/main/mainSlice';
+import {
+  fetchCategories,
+  updateCategory,
+} from '../../lib/redux/feature/main/mainSlice';
 
 import { Separator } from '../../components/ui/separator';
 import { Button } from '../../components/ui/button';
+import { Label } from '../../components/ui/label';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@web/components/ui/tooltip';
 import CardIcon from '../../components/shared/CardIcon';
 import { SelectBox } from '../../components/shared/SelectBox';
+import Loader from '@web/components/shared/Loader';
 import EditCategoryDrawer from '../../app/categories/EditCategory/EditCategoryDrawer';
 
 import type { CategoryItemProps } from '../../types/Category';
 import type { ListProps } from '../../types/List';
-import { Label } from '@web/components/ui/label';
+import ConfirmationDialog from '@web/components/shared/ConfirmationDialog';
 
 const baseCategory: CategoryItemProps = {
   _id: '',
@@ -26,7 +36,8 @@ const baseCategory: CategoryItemProps = {
     name: '',
   },
   icon: 'default',
-  active: true,
+  isActive: true,
+  scope: 'custom',
 };
 
 const defaultType = {
@@ -38,7 +49,10 @@ const Categories = () => {
   const t = useTranslations();
   const dispatch = useAppDispatch();
 
-  const { types, categories } = useAppSelector((state) => state.main);
+  const userId = useAppSelector((state) => state.auth.user)?.id || '';
+  const { types, categories, isLoading } = useAppSelector(
+    (state) => state.main,
+  );
 
   const [selectedType, setSelectedType] = useState<ListProps>(defaultType);
 
@@ -67,14 +81,20 @@ const Categories = () => {
     }
   }, [newTypes, selectedType._id, selectedType.name]);
 
-  const handleAddSuggestedCategory = (category: CategoryItemProps) => {
-    dispatch(
-      updateCategory({
-        ...category,
-        active: true,
-      }),
-    );
+  const handleAddSuggestedCategory = async (category: CategoryItemProps) => {
+    const updatedCategory = {
+      ...category,
+      isActive: true,
+      type: category.type._id,
+      userId,
+    };
+
+    await dispatch(updateCategory(updatedCategory));
+    // Refetch categories to ensure state is in sync after backend creates a custom category
+    dispatch(fetchCategories({ userId }));
   };
+
+  if (isLoading) return <Loader />;
 
   return (
     <>
@@ -89,8 +109,8 @@ const Categories = () => {
         />
       </div>
 
-      <div className="space-y-4">
-        <div className="space-y-1">
+      <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-2">
           <div className="flex flex-row items-center justify-between">
             <Label variant="title">
               {t('Page.categories.titleCategories').toLocaleUpperCase()}
@@ -112,20 +132,36 @@ const Categories = () => {
             {categories
               .filter(
                 (category) =>
-                  category.type._id === selectedType._id && category.active,
+                  category.type._id === selectedType._id && category.isActive,
               )
               .map((category, i, { length }) => (
-                <div key={category._id}>
-                  <EditCategoryDrawer
-                    type={selectedType}
-                    category={category}
-                    title={t('Page.categories.categoryDrawer.titleEdit')}
-                  >
-                    <div className="hover:bg-border flex cursor-pointer flex-row items-center space-x-4 p-2">
-                      <CardIcon icon={category.icon} />
-                      <Label>{category.name}</Label>
-                    </div>
-                  </EditCategoryDrawer>
+                <div key={category._id} className="px-2">
+                  {category.scope === 'global' ? (
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <div className="flex flex-row items-center gap-4 p-2 opacity-60">
+                          <CardIcon icon={category.icon} />
+                          <Label>{t(`Common.category.${category.id}`)}</Label>
+                        </div>
+                      </TooltipTrigger>
+                      {t.has(`Common.tooltip.category.${category.id}`) && (
+                        <TooltipContent>
+                          <p>{t(`Common.tooltip.category.${category.id}`)}</p>
+                        </TooltipContent>
+                      )}
+                    </Tooltip>
+                  ) : (
+                    <EditCategoryDrawer
+                      type={selectedType}
+                      category={category}
+                      title={t('Page.categories.categoryDrawer.titleEdit')}
+                    >
+                      <div className="hover:bg-border flex flex-row items-center gap-4 p-2">
+                        <CardIcon icon={category.icon} />
+                        <Label className="font-semibold">{category.name}</Label>
+                      </div>
+                    </EditCategoryDrawer>
+                  )}
 
                   {i + 1 !== length && <Separator />}
                 </div>
@@ -133,7 +169,7 @@ const Categories = () => {
           </div>
         </div>
 
-        <div className="space-y-1">
+        <div className="flex flex-col gap-2">
           <Label variant="title">
             {t('Page.categories.titleSuggestions').toLocaleUpperCase()}
           </Label>
@@ -142,23 +178,29 @@ const Categories = () => {
             {categories
               .filter(
                 (category) =>
-                  category.type._id === selectedType._id && !category.active,
+                  category.type._id === selectedType._id && !category.isActive,
               )
               .map((category, i, { length }) => (
                 <div key={category._id}>
-                  <div
-                    className="hover:bg-border flex cursor-pointer flex-row items-center justify-between p-2"
-                    onClick={() => handleAddSuggestedCategory(category)}
+                  <ConfirmationDialog
+                    title={t('Common.alertDialog.save.title')}
+                    description={t('Common.alertDialog.save.description')}
+                    ok={t('Common.alertDialog.save.okButton')}
+                    handleSubmit={() => handleAddSuggestedCategory(category)}
                   >
-                    <div className="flex flex-row items-center space-x-4">
-                      <CardIcon icon={category.icon} />
-                      <Label className="italic">{category.name}</Label>
-                    </div>
+                    <div className="hover:bg-border flex cursor-pointer flex-row items-center justify-between p-2">
+                      <div className="flex flex-row items-center space-x-4">
+                        <CardIcon icon={category.icon} />
+                        <Label className="font-semibold italic">
+                          {category.name}
+                        </Label>
+                      </div>
 
-                    <Button variant="ghost" size="rounded-icon">
-                      <PlusIcon className="size-4" />
-                    </Button>
-                  </div>
+                      <Button variant="ghost" size="rounded-icon">
+                        <PlusIcon className="size-4" />
+                      </Button>
+                    </div>
+                  </ConfirmationDialog>
 
                   {i + 1 !== length && <Separator />}
                 </div>

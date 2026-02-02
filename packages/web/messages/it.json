@@ -213,6 +213,14 @@
     }
   },
   "Common": {
+    "error": {
+      "duplicateCategory": "Una categoria con questi dettagli esiste già.",
+      "validation": "Si prega di controllare l'input e riprovare.",
+      "generic": "Qualcosa è andato storto. Si prega di riprovare."
+    },
+    "title": {
+      "errorModal": "Messaggio di Avviso"
+    },
     "button": {
       "ok": "Ok",
       "cancel": "Annulla",
@@ -221,11 +229,27 @@
       "save": "Salva"
     },
     "alertDialog": {
-      "triggerButton": "Aggiorna",
-      "title": "Sei sicuro?",
-      "description": "Questo non può essere annullato",
-      "okButton": "Continua",
-      "cancelButton": "Annulla"
+      "generic": {
+        "title": "Sei sicuro?",
+        "description": "Questa operazione non può essere annullata",
+        "okButton": "Continua",
+        "cancelButton": "Annulla"
+      },
+      "save": {
+        "title": "Salvare le modifiche?",
+        "description": "Questo applicherà le tue modifiche.",
+        "okButton": "Salva"
+      },
+      "hide": {
+        "title": "Nascondi elemento?",
+        "description": "Questo elemento verrà nascosto. Puoi ripristinarlo in qualsiasi momento.",
+        "okButton": "Nascondi"
+      },
+      "delete": {
+        "title": "Eliminare elemento?",
+        "description": "Questa azione non può essere annullata.",
+        "okButton": "Elimina"
+      }
     },
     "label": {
       "selectPlaceholder": "Seleziona un elemento",
@@ -243,19 +267,48 @@
       "expense": "Spesa"
     },
     "category": {
-      "creditCard": "Carta di Credito",
+      "bonus": "Bonus",
+      "credit-card": "Carta di Credito",
       "debt": "Debito",
+      "entertainment": "Intrattenimento",
       "family": "Famiglia",
       "food": "Cibo",
+      "freelance": "Freelance",
       "healthcare": "Assistenza Sanitaria",
+      "insurance": "Assicurazione",
       "investment": "Investimento",
       "loan": "Prestito",
       "paycheck": "Stipendio",
       "rent": "Affitto",
       "savings": "Risparmi",
+      "shopping": "Acquisti",
       "subscription": "Abbonamento",
       "transportation": "Trasporto",
-      "utility": "Servizi Pubblici"
+      "travel": "Viaggio",
+      "utilities": "Servizi Pubblici"
+    },
+    "tooltip": {
+      "category": {
+        "bonus": "Bonus di performance o annuali dal lavoro",
+        "credit-card": "Pagamenti con carta di credito",
+        "debt": "Pagamenti di debiti e interessi",
+        "entertainment": "Film, giochi, hobby e intrattenimento",
+        "family": "Spese e sostegno familiare",
+        "food": "Generi alimentari, ristorazione e spese alimentari",
+        "freelance": "Reddito da lavoro freelance o contrattuale",
+        "healthcare": "Spese mediche e sanitarie",
+        "insurance": "Premi assicurativi e copertura",
+        "investment": "Rendimenti da investimenti o dividendi",
+        "loan": "Pagamenti e rimborsi di prestiti",
+        "paycheck": "Reddito regolare dall'occupazione",
+        "rent": "Pagamenti mensili di affitto o mutuo",
+        "savings": "Trasferimenti a conti di risparmio",
+        "shopping": "Abbigliamento, vendita al dettaglio e acquisti",
+        "subscription": "Servizi di abbonamento e iscrizioni",
+        "transportation": "Trasporto pubblico, carburante, parcheggio e spese auto",
+        "travel": "Spese di vacanze e viaggi",
+        "utilities": "Elettricita, acqua, internet e servizi pubblici"
+      }
     }
   },
   "PWA": {

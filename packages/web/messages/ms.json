@@ -213,6 +213,14 @@
     }
   },
   "Common": {
+    "error": {
+      "duplicateCategory": "Kategori dengan butiran ini sudah wujud.",
+      "validation": "Sila semak input anda dan cuba lagi.",
+      "generic": "Ada yang tidak kena. Sila cuba lagi."
+    },
+    "title": {
+      "errorModal": "Mesej Amaran"
+    },
     "button": {
       "ok": "Ok",
       "cancel": "Batal",
@@ -221,11 +229,27 @@
       "save": "Simpan"
     },
     "alertDialog": {
-      "triggerButton": "Kemaskini",
-      "title": "Adakah Anda Pasti?",
-      "description": "Ini tidak boleh dibatalkan",
-      "okButton": "Teruskan",
-      "cancelButton": "Batal"
+      "generic": {
+        "title": "Adakah anda pasti?",
+        "description": "Tindakan ini tidak boleh dibatalkan",
+        "okButton": "Teruskan",
+        "cancelButton": "Batal"
+      },
+      "save": {
+        "title": "Simpan perubahan?",
+        "description": "Ini akan menerapkan perubahan anda.",
+        "okButton": "Simpan"
+      },
+      "hide": {
+        "title": "Sembunyikan item?",
+        "description": "Item ini akan disembunyikan. Anda boleh memulihkannya bila-bila masa.",
+        "okButton": "Sembunyikan"
+      },
+      "delete": {
+        "title": "Padam item?",
+        "description": "Tindakan ini tidak boleh dibatalkan.",
+        "okButton": "Padam"
+      }
     },
     "label": {
       "selectPlaceholder": "Pilih item",
@@ -243,19 +267,48 @@
       "expense": "Perbelanjaan"
     },
     "category": {
-      "creditCard": "Kad Kredit",
+      "bonus": "Bonus",
+      "credit-card": "Kad Kredit",
       "debt": "Hutang",
+      "entertainment": "Hiburan",
       "family": "Keluarga",
       "food": "Makanan",
+      "freelance": "Freelance",
       "healthcare": "Penjagaan Kesihatan",
+      "insurance": "Insurans",
       "investment": "Pelaburan",
       "loan": "Pinjaman",
       "paycheck": "Gaji",
       "rent": "Sewa",
       "savings": "Simpanan",
+      "shopping": "Beli-Belah",
       "subscription": "Langganan",
       "transportation": "Pengangkutan",
-      "utility": "Perkhidmatan"
+      "travel": "Perjalanan",
+      "utilities": "Perkhidmatan"
+    },
+    "tooltip": {
+      "category": {
+        "bonus": "Bonus prestasi atau bonus tahunan daripada kerja",
+        "credit-card": "Pembayaran kad kredit",
+        "debt": "Pembayaran hutang dan faedah",
+        "entertainment": "Filem, permainan, hobi dan hiburan",
+        "family": "Perbelanjaan dan sokongan keluarga",
+        "food": "Barangan runcit, makanan dan perbelanjaan makanan",
+        "freelance": "Pendapatan daripada kerja bebas atau kontrak",
+        "healthcare": "Perbelanjaan perubatan dan penjagaan kesihatan",
+        "insurance": "Premium insurans dan perlindungan",
+        "investment": "Pulangan daripada pelaburan atau dividen",
+        "loan": "Pembayaran dan pelunasan pinjaman",
+        "paycheck": "Pendapatan tetap daripada pekerjaan",
+        "rent": "Pembayaran sewa atau gadai janji bulanan",
+        "savings": "Pindahan ke akaun simpanan",
+        "shopping": "Pakaian, runcit dan membeli-belah",
+        "subscription": "Layanan langganan dan keahlian",
+        "transportation": "Pengangkutan awam, bahan bakar, tempat letak kereta dan perbelanjaan kereta",
+        "travel": "Perbelanjaan cuti dan perjalanan",
+        "utilities": "Elektrik, air, internet dan perkhidmatan awam"
+      }
     }
   },
   "PWA": {

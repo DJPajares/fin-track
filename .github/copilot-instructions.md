@@ -56,3 +56,11 @@
 - Mirror adjacent files and established patterns.
 - Document assumptions briefly when behavior is non-obvious.
 - Favor clarity over cleverness; prioritize user impact, stability, and accessibility.
+
+## Agent Instructions
+
+- Don't create documentation or instructional files if not specifically requested.
+- Use en.json for all texts to be translated.
+- Don't update other translations unless explicitly asked.
+- When implementing a solution, always look out for typescript errors and fix them.
+- Never use "any" type in typescript files.

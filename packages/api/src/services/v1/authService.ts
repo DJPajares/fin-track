@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
 import { UserModel, type UserProps } from '../../models/v1/userModel';
 import type {
-  AuthResponseToken,
+  AuthTokenResponse,
   AuthSignupRequest,
   AuthLoginRequest,
   AuthSettingsRequest,
@@ -39,7 +39,7 @@ const verifyToken = (token: string): { id: string } => {
  */
 const signup = async (
   credentials: AuthSignupRequest,
-): Promise<AuthResponseToken> => {
+): Promise<AuthTokenResponse> => {
   const { email, password, name } = credentials;
 
   // Validate email format
@@ -82,7 +82,6 @@ const signup = async (
       token,
     };
   } catch (error: unknown) {
-    console.error('Error in signup controller:', error);
     if (error instanceof Error) {
       // Handle MongoDB duplicate key errors
       if (
@@ -101,7 +100,7 @@ const signup = async (
  */
 const login = async (
   credentials: AuthLoginRequest,
-): Promise<AuthResponseToken> => {
+): Promise<AuthTokenResponse> => {
   const { email, password } = credentials;
 
   // Find user and include password field

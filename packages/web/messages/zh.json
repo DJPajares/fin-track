@@ -213,6 +213,14 @@
     }
   },
   "Common": {
+    "error": {
+      "duplicateCategory": "已存在具有这些详情的类别。",
+      "validation": "请检查您的输入并重试。",
+      "generic": "出了问题。请重试。"
+    },
+    "title": {
+      "errorModal": "警告消息"
+    },
     "button": {
       "ok": "确定",
       "cancel": "取消",
@@ -221,11 +229,27 @@
       "save": "保存"
     },
     "alertDialog": {
-      "triggerButton": "更新",
-      "title": "确定吗？",
-      "description": "此操作无法撤销",
-      "okButton": "继续",
-      "cancelButton": "取消"
+      "generic": {
+        "title": "您确定吗？",
+        "description": "此操作不可撤销",
+        "okButton": "继续",
+        "cancelButton": "取消"
+      },
+      "save": {
+        "title": "保存更改？",
+        "description": "这将应用您的更改。",
+        "okButton": "保存"
+      },
+      "hide": {
+        "title": "隐藏项目？",
+        "description": "该项目将被隐藏，您可以稍后恢复。",
+        "okButton": "隐藏"
+      },
+      "delete": {
+        "title": "删除项目？",
+        "description": "此操作不可撤销。",
+        "okButton": "删除"
+      }
     },
     "label": {
       "selectPlaceholder": "选择一个项目",
@@ -243,19 +267,48 @@
       "expense": "支出"
     },
     "category": {
-      "creditCard": "信用卡",
+      "bonus": "奖金",
+      "credit-card": "信用卡",
       "debt": "债务",
+      "entertainment": "娱乐",
       "family": "家庭",
       "food": "食品",
+      "freelance": "自由职业",
       "healthcare": "医疗保健",
+      "insurance": "保险",
       "investment": "投资",
       "loan": "贷款",
       "paycheck": "工资",
       "rent": "租金",
       "savings": "储蓄",
+      "shopping": "购物",
       "subscription": "订阅",
       "transportation": "交通",
-      "utility": "公用事业"
+      "travel": "旅行",
+      "utilities": "公用事业"
+    },
+    "tooltip": {
+      "category": {
+        "bonus": "工作业绩或年度奖金",
+        "credit-card": "信用卡付款",
+        "debt": "债务偿还和利息",
+        "entertainment": "电影、游戏、爱好和娱乐",
+        "family": "家庭支出和支持",
+        "food": "食品杂货、餐饮和食品支出",
+        "freelance": "自由职业或合同工作收入",
+        "healthcare": "医疗支出和医疗保健",
+        "insurance": "保险费和保险范围",
+        "investment": "投资回报或股息",
+        "loan": "贷款支付和偿还",
+        "paycheck": "来自工作的常规收入",
+        "rent": "每月房租或抵押贷款支付",
+        "savings": "转账到储蓄账户",
+        "shopping": "服装、零售和购物",
+        "subscription": "订阅服务和会员资格",
+        "transportation": "公共交通、燃料、停车和汽车支出",
+        "travel": "度假和旅行支出",
+        "utilities": "电力、水、互联网和公用事业"
+      }
     }
   },
   "PWA": {

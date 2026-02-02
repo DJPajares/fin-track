@@ -3,17 +3,6 @@ import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslations } from 'next-intl';
 
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from '../../../components/ui/alert-dialog';
 import { Input } from '../../../components/ui/input';
 import {
   Popover,
@@ -22,13 +11,13 @@ import {
 } from '../../../components/ui/popover';
 import { Button } from '../../../components/ui/button';
 
-import { useAppDispatch } from '../../../lib/hooks/use-redux';
+import { useAppDispatch, useAppSelector } from '../../../lib/hooks/use-redux';
 import {
-  addCategory,
-  deleteCategory,
+  createCustomCategory,
   updateCategory,
 } from '../../../lib/redux/feature/main/mainSlice';
 import { categorySchema } from '../../../lib/schemas/category';
+import { EyeOffIcon } from 'lucide-react';
 
 import CardIcon, {
   iconMap,
@@ -36,10 +25,11 @@ import CardIcon, {
 } from '../../../components/shared/CardIcon';
 import CustomDrawer from '@web/components/shared/CustomDrawer';
 
-import { Trash2Icon } from 'lucide-react';
+import { serializeText } from '@shared/utilities/serializeText';
 
 import type { ListProps } from '../../../types/List';
 import type { CategoryItemProps } from '../../../types/Category';
+import ConfirmationDialog from '@web/components/shared/ConfirmationDialog';
 
 type EditCategoryDrawerProps = {
   type?: ListProps;
@@ -59,11 +49,12 @@ const EditCategoryDrawer = ({
   children,
 }: EditCategoryDrawerProps) => {
   const t = useTranslations();
+  const dispatch = useAppDispatch();
 
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
-  const dispatch = useAppDispatch();
+  const userId = useAppSelector((state) => state.auth.user)?.id || '';
 
   const formRef = useRef<HTMLFormElement>(null);
 
@@ -84,23 +75,39 @@ const EditCategoryDrawer = ({
   };
 
   const handleCategoryRemoval = () => {
-    // to-do: remove completely if not part of the master list (stored in category collection/table)
-    dispatch(deleteCategory(category));
+    const data = form.getValues();
+
+    dispatch(
+      updateCategory({
+        ...data,
+        type: type?._id || '',
+        userId,
+        isActive: false,
+      }),
+    );
   };
 
-  const onSubmit: SubmitHandler<CategoryItemProps> = (data) => {
+  const onSubmit: SubmitHandler<CategoryItemProps> = async (data) => {
     if (isNew) {
       dispatch(
-        addCategory({
-          ...data,
-          type: {
-            _id: type ? type._id : '',
-            name: type ? type.name : '',
-          },
+        createCustomCategory({
+          id: serializeText(data.name),
+          name: data.name,
+          icon: data.icon,
+          type: type?._id || '',
+          isActive: data.isActive,
+          userId,
         }),
       );
     } else {
-      dispatch(updateCategory(data));
+      dispatch(
+        updateCategory({
+          ...data,
+          id: serializeText(data.name),
+          type: type?._id || '',
+          userId,
+        }),
+      );
     }
   };
 
@@ -157,32 +164,23 @@ const EditCategoryDrawer = ({
               )}
             />
 
-            <AlertDialog>
-              <AlertDialogTrigger asChild>
-                <Button variant="outline" size="icon">
-                  <Trash2Icon className="size-4" />
+            <ConfirmationDialog
+              title={t('Common.alertDialog.hide.title')}
+              description={t('Common.alertDialog.hide.description')}
+              ok={t('Common.alertDialog.hide.okButton')}
+              handleSubmit={handleCategoryRemoval}
+              isDestructive
+            >
+              {!isNew && (
+                <Button
+                  variant="destructive"
+                  size="icon"
+                  aria-label={t('Common.alertDialog.hide.title')}
+                >
+                  <EyeOffIcon className="size-4" />
                 </Button>
-              </AlertDialogTrigger>
-
-              <AlertDialogContent>
-                <AlertDialogHeader>
-                  <AlertDialogTitle>
-                    {t('Common.alertDialog.title')}
-                  </AlertDialogTitle>
-                  <AlertDialogDescription>
-                    {t('Common.alertDialog.description')}
-                  </AlertDialogDescription>
-                </AlertDialogHeader>
-                <AlertDialogFooter>
-                  <AlertDialogCancel>
-                    {t('Common.button.cancel')}
-                  </AlertDialogCancel>
-                  <AlertDialogAction onClick={handleCategoryRemoval}>
-                    {t('Common.alertDialog.okButton')}
-                  </AlertDialogAction>
-                </AlertDialogFooter>
-              </AlertDialogContent>
-            </AlertDialog>
+              )}
+            </ConfirmationDialog>
           </div>
         </form>
       </>

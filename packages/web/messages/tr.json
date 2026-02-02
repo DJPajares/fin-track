@@ -213,6 +213,14 @@
     }
   },
   "Common": {
+    "error": {
+      "duplicateCategory": "Bu ayrıntılara sahip bir kategori zaten var.",
+      "validation": "Lütfen girişinizi kontrol edin ve tekrar deneyin.",
+      "generic": "Bir şeyler yanlış gitti. Lütfen tekrar deneyin."
+    },
+    "title": {
+      "errorModal": "Uyarı Mesajı"
+    },
     "button": {
       "ok": "Tamam",
       "cancel": "İptal",
@@ -221,11 +229,27 @@
       "save": "Kaydet"
     },
     "alertDialog": {
-      "triggerButton": "Güncelle",
-      "title": "Emin misiniz?",
-      "description": "Bu işlem geri alınamaz",
-      "okButton": "Devam Et",
-      "cancelButton": "İptal"
+      "generic": {
+        "title": "Emin misiniz?",
+        "description": "Bu işlem geri alınamaz",
+        "okButton": "Devam Et",
+        "cancelButton": "İptal"
+      },
+      "save": {
+        "title": "Değişiklikler kaydedilsin mi?",
+        "description": "Bu, değişikliklerinizi uygular.",
+        "okButton": "Kaydet"
+      },
+      "hide": {
+        "title": "Öğeyi gizle?",
+        "description": "Bu öğe gizlenecektir. Her zaman geri yükleyebilirsiniz.",
+        "okButton": "Gizle"
+      },
+      "delete": {
+        "title": "Öğeyi sil?",
+        "description": "Bu işlem geri alınamaz.",
+        "okButton": "Sil"
+      }
     },
     "label": {
       "selectPlaceholder": "Bir öğe seçin",
@@ -243,19 +267,48 @@
       "expense": "Gider"
     },
     "category": {
-      "creditCard": "Kredi Kartı",
+      "bonus": "Bonus",
+      "credit-card": "Kredi Kartı",
       "debt": "Borç",
+      "entertainment": "Eğlence",
       "family": "Aile",
       "food": "Yemek",
+      "freelance": "Serbest Çalışan",
       "healthcare": "Sağlık Hizmetleri",
+      "insurance": "Sigorta",
       "investment": "Yatırım",
       "loan": "Kredi",
       "paycheck": "Maaş",
       "rent": "Kira",
       "savings": "Tasarruf",
+      "shopping": "Alışveriş",
       "subscription": "Abonelik",
       "transportation": "Ulaşım",
-      "utility": "Kamu Hizmetleri"
+      "travel": "Seyahat",
+      "utilities": "Kamu Hizmetleri"
+    },
+    "tooltip": {
+      "category": {
+        "bonus": "İş üstünlüğü veya yıllık bonuslar",
+        "credit-card": "Kredi kartı ödemeleri",
+        "debt": "Borç ve faiz ödemeleri",
+        "entertainment": "Filmler, oyunlar, hobiler ve eğlence",
+        "family": "Aile harcamaları ve desteği",
+        "food": "Market alışverişi, yemek ve yemek harcamaları",
+        "freelance": "Serbest çalışma veya sözleşmeli işlerden gelir",
+        "healthcare": "Tıbbi harcamalar ve sağlık hizmetleri",
+        "insurance": "Sigorta primler ve kapsamı",
+        "investment": "Yatırımlardan getiri veya temettü",
+        "loan": "Kredi ödemeleri ve geri ödemeler",
+        "paycheck": "İşten düzenli gelir",
+        "rent": "Aylık kira veya ipotek ödemeleri",
+        "savings": "Tasarruf hesaplarına transfer",
+        "shopping": "Giyim, perakende ve alışveriş",
+        "subscription": "Abonelik hizmetleri ve üyelikler",
+        "transportation": "Toplu taşıt, yakıt, park ve araç harcamaları",
+        "travel": "Tatil ve seyahat harcamaları",
+        "utilities": "Elektrik, su, internet ve kamu hizmetleri"
+      }
     }
   },
   "PWA": {

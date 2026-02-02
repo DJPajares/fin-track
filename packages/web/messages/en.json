@@ -213,19 +213,43 @@
     }
   },
   "Common": {
+    "error": {
+      "duplicateCategory": "A category with these details already exists.",
+      "validation": "Please check your input and try again.",
+      "generic": "Something went wrong. Please try again."
+    },
+    "title": {
+      "errorModal": "Alert Message"
+    },
     "button": {
-      "ok": "Ok",
+      "ok": "OK",
       "cancel": "Cancel",
       "add": "Add",
       "update": "Update",
       "save": "Save"
     },
     "alertDialog": {
-      "triggerButton": "Update",
-      "title": "Are you sure?",
-      "description": "This cannot be undone",
-      "okButton": "Continue",
-      "cancelButton": "Cancel"
+      "generic": {
+        "title": "Are you sure?",
+        "description": "This cannot be undone",
+        "okButton": "Continue",
+        "cancelButton": "Cancel"
+      },
+      "save": {
+        "title": "Save Changes?",
+        "description": "This will apply your changes.",
+        "okButton": "Save"
+      },
+      "hide": {
+        "title": "Hide Item?",
+        "description": "This item will be hidden. You can restore it anytime.",
+        "okButton": "Hide"
+      },
+      "delete": {
+        "title": "Delete Item?",
+        "description": "This action cannot be undone.",
+        "okButton": "Delete"
+      }
     },
     "label": {
       "selectPlaceholder": "Select an item",
@@ -243,19 +267,48 @@
       "expense": "Expense"
     },
     "category": {
-      "creditCard": "Credit Card",
+      "bonus": "Bonus",
+      "credit-card": "Credit Card",
       "debt": "Debt",
+      "entertainment": "Entertainment",
       "family": "Family",
       "food": "Food",
+      "freelance": "Freelance",
       "healthcare": "Healthcare",
+      "insurance": "Insurance",
       "investment": "Investment",
       "loan": "Loan",
       "paycheck": "Paycheck",
       "rent": "Rent",
       "savings": "Savings",
+      "shopping": "Shopping",
       "subscription": "Subscription",
       "transportation": "Transportation",
-      "utility": "Utility"
+      "travel": "Travel",
+      "utilities": "Utilities"
+    },
+    "tooltip": {
+      "category": {
+        "bonus": "Performance or annual bonuses from work",
+        "credit-card": "Credit card payments",
+        "debt": "Debt payments and interest",
+        "entertainment": "Movies, games, hobbies, and entertainment",
+        "family": "Family expenses and support",
+        "food": "Groceries, dining, and food expenses",
+        "freelance": "Income from freelance or contract work",
+        "healthcare": "Medical expenses and healthcare",
+        "insurance": "Insurance premiums and coverage",
+        "investment": "Returns from investments or dividends",
+        "loan": "Loan payments and repayments",
+        "paycheck": "Regular income from employment",
+        "rent": "Monthly rent or mortgage payments",
+        "savings": "Transfers to savings accounts",
+        "shopping": "Clothing, retail, and shopping",
+        "subscription": "Subscription services and memberships",
+        "transportation": "Public transport, fuel, parking, and car expenses",
+        "travel": "Vacation and travel expenses",
+        "utilities": "Electricity, water, internet, and utilities"
+      }
     }
   },
   "PWA": {
