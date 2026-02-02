@@ -4,18 +4,9 @@ import {
   Schema,
   Types,
   model,
-  // Document,
 } from 'mongoose';
 import CONSTANTS from '../../utilities/constants';
 
-// import type { CategoryRequest } from '../../../../../shared/types/Category';
-
-// type ICategoryDocument = Omit<CategoryRequest, 'type'> & {
-//   type: Types.ObjectId;
-//   userId?: Types.ObjectId;
-// } & Document;
-
-// const categorySchema = new Schema<ICategoryDocument>(
 const categorySchema = new Schema(
   {
     id: {
@@ -76,7 +67,7 @@ categorySchema.index(
 
 // Ensure each user cannot create duplicate custom category IDs
 categorySchema.index(
-  { userId: 1, id: 1 },
+  { scope: 1, userId: 1, id: 1 },
   {
     unique: true,
     partialFilterExpression: { scope: 'custom' },
@@ -85,14 +76,13 @@ categorySchema.index(
 
 // Ensure each user cannot create duplicate custom category names
 categorySchema.index(
-  { userId: 1, name: 1 },
+  { scope: 1, userId: 1, name: 1 },
   {
     unique: true,
     partialFilterExpression: { scope: 'custom' },
   },
 );
 
-// const CategoryModel = model<ICategoryDocument>('Category', categorySchema);
 const CategoryModel = model('Category', categorySchema);
 
 type CategoryProps = HydratedDocument<InferSchemaType<typeof categorySchema>>;
