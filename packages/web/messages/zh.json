@@ -251,19 +251,25 @@
       "expense": "支出"
     },
     "category": {
-      "creditCard": "信用卡",
+      "bonus": "奖金",
+      "credit-card": "信用卡",
       "debt": "债务",
+      "entertainment": "娱乐",
       "family": "家庭",
       "food": "食品",
+      "freelance": "自由职业",
       "healthcare": "医疗保健",
+      "insurance": "保险",
       "investment": "投资",
       "loan": "贷款",
       "paycheck": "工资",
       "rent": "租金",
       "savings": "储蓄",
+      "shopping": "购物",
       "subscription": "订阅",
       "transportation": "交通",
-      "utility": "公用事业"
+      "travel": "旅行",
+      "utilities": "公用事业"
     }
   },
   "PWA": {

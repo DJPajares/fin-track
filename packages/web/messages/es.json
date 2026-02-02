@@ -251,19 +251,25 @@
       "expense": "Gasto"
     },
     "category": {
-      "creditCard": "Tarjeta de Crédito",
+      "bonus": "Bonificación",
+      "credit-card": "Tarjeta de Crédito",
       "debt": "Deuda",
+      "entertainment": "Entretenimiento",
       "family": "Familia",
       "food": "Comida",
+      "freelance": "Trabajo Independiente",
       "healthcare": "Atención Médica",
+      "insurance": "Seguro",
       "investment": "Inversión",
       "loan": "Préstamo",
       "paycheck": "Salario",
       "rent": "Alquiler",
       "savings": "Ahorros",
+      "shopping": "Compras",
       "subscription": "Suscripción",
       "transportation": "Transporte",
-      "utility": "Servicios Públicos"
+      "travel": "Viajes",
+      "utilities": "Servicios Públicos"
     }
   },
   "PWA": {

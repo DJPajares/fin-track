@@ -251,19 +251,25 @@
       "expense": "ค่าใช้จ่าย"
     },
     "category": {
-      "creditCard": "บัตรเครดิต",
+      "bonus": "โบนัส",
+      "credit-card": "บัตรเครดิต",
       "debt": "หนี้",
+      "entertainment": "ความบันเทิง",
       "family": "ครอบครัว",
       "food": "อาหาร",
+      "freelance": "ฟรีแลนซ์",
       "healthcare": "การดูแลสุขภาพ",
+      "insurance": "ประกันภัย",
       "investment": "การลงทุน",
       "loan": "เงินกู้",
       "paycheck": "เงินเดือน",
       "rent": "ค่าเช่า",
       "savings": "เงินออม",
+      "shopping": "การช้อปปิ้ง",
       "subscription": "การสมัครสมาชิก",
       "transportation": "การขนส่ง",
-      "utility": "สาธารณูปโภค"
+      "travel": "การเดินทาง",
+      "utilities": "สาธารณูปโภค"
     }
   },
   "PWA": {

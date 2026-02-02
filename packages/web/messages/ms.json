@@ -251,19 +251,25 @@
       "expense": "Perbelanjaan"
     },
     "category": {
-      "creditCard": "Kad Kredit",
+      "bonus": "Bonus",
+      "credit-card": "Kad Kredit",
       "debt": "Hutang",
+      "entertainment": "Hiburan",
       "family": "Keluarga",
       "food": "Makanan",
+      "freelance": "Freelance",
       "healthcare": "Penjagaan Kesihatan",
+      "insurance": "Insurans",
       "investment": "Pelaburan",
       "loan": "Pinjaman",
       "paycheck": "Gaji",
       "rent": "Sewa",
       "savings": "Simpanan",
+      "shopping": "Beli-Belah",
       "subscription": "Langganan",
       "transportation": "Pengangkutan",
-      "utility": "Perkhidmatan"
+      "travel": "Perjalanan",
+      "utilities": "Perkhidmatan"
     }
   },
   "PWA": {

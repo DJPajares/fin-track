@@ -251,19 +251,25 @@
       "expense": "Pengeluaran"
     },
     "category": {
-      "creditCard": "Kartu Kredit",
+      "bonus": "Bonus",
+      "credit-card": "Kartu Kredit",
       "debt": "Hutang",
+      "entertainment": "Hiburan",
       "family": "Keluarga",
       "food": "Makanan",
+      "freelance": "Freelance",
       "healthcare": "Perawatan Kesehatan",
+      "insurance": "Asuransi",
       "investment": "Investasi",
       "loan": "Pinjaman",
       "paycheck": "Gaji",
       "rent": "Sewa",
       "savings": "Tabungan",
+      "shopping": "Belanja",
       "subscription": "Berlangganan",
       "transportation": "Transportasi",
-      "utility": "Utilitas"
+      "travel": "Perjalanan",
+      "utilities": "Utilitas"
     }
   },
   "PWA": {

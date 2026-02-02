@@ -251,19 +251,25 @@
       "expense": "支出"
     },
     "category": {
-      "creditCard": "クレジットカード",
+      "bonus": "ボーナス",
+      "credit-card": "クレジットカード",
       "debt": "借金",
+      "entertainment": "エンターテイメント",
       "family": "家族",
       "food": "食費",
+      "freelance": "フリーランス",
       "healthcare": "医療費",
+      "insurance": "保険",
       "investment": "投資",
       "loan": "ローン",
       "paycheck": "給料",
       "rent": "家賃",
       "savings": "貯金",
+      "shopping": "買い物",
       "subscription": "サブスクリプション",
       "transportation": "交通費",
-      "utility": "光熱費"
+      "travel": "旅行",
+      "utilities": "光熱費"
     }
   },
   "PWA": {

@@ -251,19 +251,25 @@
       "expense": "Dépense"
     },
     "category": {
-      "creditCard": "Carte de Crédit",
+      "bonus": "Bonus",
+      "credit-card": "Carte de Crédit",
       "debt": "Dette",
+      "entertainment": "Divertissement",
       "family": "Famille",
       "food": "Nourriture",
+      "freelance": "Travail Indépendant",
       "healthcare": "Soins de Santé",
+      "insurance": "Assurance",
       "investment": "Investissement",
       "loan": "Prêt",
       "paycheck": "Salaire",
       "rent": "Loyer",
       "savings": "Épargnes",
+      "shopping": "Achats",
       "subscription": "Abonnement",
       "transportation": "Transport",
-      "utility": "Services Publics"
+      "travel": "Voyages",
+      "utilities": "Services Publics"
     }
   },
   "PWA": {

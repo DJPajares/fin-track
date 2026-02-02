@@ -251,19 +251,25 @@
       "expense": "Chi tiêu"
     },
     "category": {
-      "creditCard": "Thẻ Tín Dụng",
+      "bonus": "Tiền Thưởng",
+      "credit-card": "Thẻ Tín Dụng",
       "debt": "Nợ",
+      "entertainment": "Giải Trí",
       "family": "Gia Đình",
       "food": "Thực Phẩm",
+      "freelance": "Làm Việc Tự Do",
       "healthcare": "Chăm Sóc Sức Khỏe",
+      "insurance": "Bảo Hiểm",
       "investment": "Đầu Tư",
       "loan": "Khoản Vay",
       "paycheck": "Lương",
       "rent": "Tiền Thuê",
       "savings": "Tiết Kiệm",
+      "shopping": "Mua Sắm",
       "subscription": "Đăng Ký",
       "transportation": "Giao Thông",
-      "utility": "Tiện Ích"
+      "travel": "Du Lịch",
+      "utilities": "Tiện Ích"
     }
   },
   "PWA": {

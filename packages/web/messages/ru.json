@@ -251,19 +251,25 @@
       "expense": "Расход"
     },
     "category": {
-      "creditCard": "Кредитная карта",
+      "bonus": "Бонус",
+      "credit-card": "Кредитная карта",
       "debt": "Долг",
+      "entertainment": "Развлечения",
       "family": "Семья",
       "food": "Еда",
+      "freelance": "Фриланс",
       "healthcare": "Здравоохранение",
+      "insurance": "Страховка",
       "investment": "Инвестиции",
       "loan": "Кредит",
       "paycheck": "Зарплата",
       "rent": "Аренда",
       "savings": "Сбережения",
+      "shopping": "Покупки",
       "subscription": "Подписка",
       "transportation": "Транспорт",
-      "utility": "Коммунальные услуги"
+      "travel": "Путешествия",
+      "utilities": "Коммунальные услуги"
     }
   },
   "PWA": {

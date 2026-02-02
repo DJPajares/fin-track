@@ -251,19 +251,25 @@
       "expense": "Gider"
     },
     "category": {
-      "creditCard": "Kredi Kartı",
+      "bonus": "Bonus",
+      "credit-card": "Kredi Kartı",
       "debt": "Borç",
+      "entertainment": "Eğlence",
       "family": "Aile",
       "food": "Yemek",
+      "freelance": "Serbest Çalışan",
       "healthcare": "Sağlık Hizmetleri",
+      "insurance": "Sigorta",
       "investment": "Yatırım",
       "loan": "Kredi",
       "paycheck": "Maaş",
       "rent": "Kira",
       "savings": "Tasarruf",
+      "shopping": "Alışveriş",
       "subscription": "Abonelik",
       "transportation": "Ulaşım",
-      "utility": "Kamu Hizmetleri"
+      "travel": "Seyahat",
+      "utilities": "Kamu Hizmetleri"
     }
   },
   "PWA": {

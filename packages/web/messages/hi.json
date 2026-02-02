@@ -251,19 +251,25 @@
       "expense": "खर्च"
     },
     "category": {
-      "creditCard": "क्रेडिट कार्ड",
+      "bonus": "बोनस",
+      "credit-card": "क्रेडिट कार्ड",
       "debt": "ऋण",
+      "entertainment": "मनोरंजन",
       "family": "परिवार",
       "food": "भोजन",
+      "freelance": "फ्रीलांस",
       "healthcare": "स्वास्थ्य देखभाल",
+      "insurance": "बीमा",
       "investment": "निवेश",
       "loan": "ऋण",
       "paycheck": "वेतन",
       "rent": "किराया",
       "savings": "बचत",
+      "shopping": "खरीदारी",
       "subscription": "सदस्यता",
       "transportation": "परिवहन",
-      "utility": "उपयोगिता"
+      "travel": "यात्रा",
+      "utilities": "उपयोगिता"
     }
   },
   "PWA": {

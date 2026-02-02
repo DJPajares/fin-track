@@ -251,19 +251,25 @@
       "expense": "지출"
     },
     "category": {
-      "creditCard": "신용카드",
+      "bonus": "보너스",
+      "credit-card": "신용카드",
       "debt": "부채",
+      "entertainment": "오락",
       "family": "가족",
       "food": "음식",
+      "freelance": "프리랜서",
       "healthcare": "의료",
+      "insurance": "보험",
       "investment": "투자",
       "loan": "대출",
       "paycheck": "급여",
       "rent": "임대",
       "savings": "저축",
+      "shopping": "쇼핑",
       "subscription": "구독",
       "transportation": "운송",
-      "utility": "공과금"
+      "travel": "여행",
+      "utilities": "공과금"
     }
   },
   "PWA": {

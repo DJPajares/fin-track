@@ -251,19 +251,25 @@
       "expense": "Spesa"
     },
     "category": {
-      "creditCard": "Carta di Credito",
+      "bonus": "Bonus",
+      "credit-card": "Carta di Credito",
       "debt": "Debito",
+      "entertainment": "Intrattenimento",
       "family": "Famiglia",
       "food": "Cibo",
+      "freelance": "Freelance",
       "healthcare": "Assistenza Sanitaria",
+      "insurance": "Assicurazione",
       "investment": "Investimento",
       "loan": "Prestito",
       "paycheck": "Stipendio",
       "rent": "Affitto",
       "savings": "Risparmi",
+      "shopping": "Acquisti",
       "subscription": "Abbonamento",
       "transportation": "Trasporto",
-      "utility": "Servizi Pubblici"
+      "travel": "Viaggio",
+      "utilities": "Servizi Pubblici"
     }
   },
   "PWA": {
