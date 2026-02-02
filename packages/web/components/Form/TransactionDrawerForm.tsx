@@ -16,7 +16,6 @@ import { useAppSelector } from '../../lib/hooks/use-redux';
 import { cn } from '../../lib/utils';
 
 import { Card, CardBody, Checkbox } from '@heroui/react';
-import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
 import {
   Form,
   FormControl,
@@ -43,8 +42,8 @@ import {
 } from '@web/components/ui/tooltip';
 import { MultiSelectBox } from '../shared/MultiSelectBox';
 import ConfirmationDialog from '../shared/ConfirmationDialog';
-import Calendar from '../shared/Calendar';
 import CardButton from '../shared/CardButton';
+import { DatePicker } from '@web/components/shared/DatePicker';
 
 import { CalendarIcon, ChevronDownIcon, Trash2Icon } from 'lucide-react';
 
@@ -115,8 +114,6 @@ const TransactionDrawerForm = ({
   const { user } = useAppSelector((state) => state.auth);
   const userId = user?.id || '';
 
-  const [isStartDatePopoverOpen, setIsStartDatePopoverOpen] = useState(false);
-  const [isEndDatePopoverOpen, setIsEndDatePopoverOpen] = useState(false);
   const [excludedDatesArray, setExcludedDatesArray] = useState<
     ExcludedDatesProps[]
   >([]);
@@ -560,43 +557,19 @@ const TransactionDrawerForm = ({
                         : t('Page.dashboard.transactionDrawer.form.title.date')}
                     </FormLabel>
 
-                    <Popover
-                      open={isStartDatePopoverOpen}
-                      onOpenChange={setIsStartDatePopoverOpen}
-                    >
-                      <PopoverTrigger asChild>
-                        <FormControl>
-                          <Button
-                            variant="outline"
-                            className="flex h-12 w-full items-center justify-between rounded-xl border-2 text-left font-semibold"
-                          >
-                            <Label className="font-semibold">
-                              {field.value ? (
-                                format(field.value, 'MMM dd, yyyy')
-                              ) : (
-                                <span>
-                                  {isRecurring
-                                    ? t(
-                                        'Page.dashboard.transactionDrawer.form.title.startDate',
-                                      )
-                                    : t(
-                                        'Page.dashboard.transactionDrawer.form.title.date',
-                                      )}
-                                </span>
-                              )}
-                            </Label>
-                            <CalendarIcon className="ml-auto size-4 opacity-60" />
-                          </Button>
-                        </FormControl>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-auto p-0" align="start">
-                        <Calendar
-                          date={field.value}
-                          onChange={field.onChange}
-                          closeCalendar={setIsStartDatePopoverOpen}
-                        />
-                      </PopoverContent>
-                    </Popover>
+                    <DatePicker date={field.value} onChange={field.onChange}>
+                      <FormControl>
+                        <Button
+                          variant="outline"
+                          className="flex h-12 w-full items-center justify-between rounded-xl border-2 text-left font-semibold"
+                        >
+                          <Label className="font-semibold">
+                            {format(field?.value, 'MMM dd, yyyy')}
+                          </Label>
+                          <CalendarIcon className="ml-auto size-4 opacity-60" />
+                        </Button>
+                      </FormControl>
+                    </DatePicker>
 
                     <FormMessage />
                   </FormItem>
@@ -617,39 +590,19 @@ const TransactionDrawerForm = ({
                         )}
                       </FormLabel>
 
-                      <Popover
-                        open={isEndDatePopoverOpen}
-                        onOpenChange={setIsEndDatePopoverOpen}
-                      >
-                        <PopoverTrigger asChild>
-                          <FormControl>
-                            <Button
-                              variant="outline"
-                              className="flex h-12 w-full items-center justify-between rounded-xl border-2 text-left font-semibold"
-                            >
-                              <Label className="font-semibold">
-                                {field.value ? (
-                                  format(field.value, 'MMM dd, yyyy')
-                                ) : (
-                                  <span>
-                                    {t(
-                                      'Page.dashboard.transactionDrawer.form.title.endDate',
-                                    )}
-                                  </span>
-                                )}
-                              </Label>
-                              <CalendarIcon className="ml-auto size-4 opacity-60" />
-                            </Button>
-                          </FormControl>
-                        </PopoverTrigger>
-                        <PopoverContent className="w-auto p-0" align="start">
-                          <Calendar
-                            date={field.value}
-                            onChange={field.onChange}
-                            closeCalendar={setIsEndDatePopoverOpen}
-                          />
-                        </PopoverContent>
-                      </Popover>
+                      <DatePicker date={field.value} onChange={field.onChange}>
+                        <FormControl>
+                          <Button
+                            variant="outline"
+                            className="flex h-12 w-full items-center justify-between rounded-xl border-2 text-left font-semibold"
+                          >
+                            <Label className="font-semibold">
+                              {format(field?.value, 'MMM dd, yyyy')}
+                            </Label>
+                            <CalendarIcon className="ml-auto size-4 opacity-60" />
+                          </Button>
+                        </FormControl>
+                      </DatePicker>
 
                       <FormMessage />
                     </FormItem>

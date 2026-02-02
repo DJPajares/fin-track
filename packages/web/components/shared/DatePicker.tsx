@@ -1,7 +1,9 @@
 import { ReactNode, useState } from 'react';
-
-import { Popover, PopoverContent, PopoverTrigger } from '@heroui/react';
-
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@web/components/ui/popover';
 import Calendar from '@web/components/shared/Calendar';
 
 type DatePickerProps = {
@@ -13,11 +15,24 @@ type DatePickerProps = {
 export const DatePicker = ({ date, onChange, children }: DatePickerProps) => {
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
 
+  const handleDateChange = (selectedDate: Date) => {
+    onChange(selectedDate);
+    setIsCalendarOpen(false);
+  };
+
   return (
-    <Popover isOpen={isCalendarOpen} onOpenChange={setIsCalendarOpen}>
-      <PopoverTrigger>{children}</PopoverTrigger>
-      <PopoverContent className="space-y-4 p-0">
-        <Calendar date={date} onChange={onChange} />
+    <Popover open={isCalendarOpen} onOpenChange={setIsCalendarOpen}>
+      <PopoverTrigger asChild>{children}</PopoverTrigger>
+      <PopoverContent
+        className="w-auto border-0 bg-transparent p-0 shadow-none"
+        align="center"
+        onWheel={(e) => e.stopPropagation()}
+      >
+        <Calendar
+          date={date}
+          onChange={handleDateChange}
+          closeCalendar={setIsCalendarOpen}
+        />
       </PopoverContent>
     </Popover>
   );
