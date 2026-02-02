@@ -748,7 +748,13 @@ const TransactionDrawerForm = ({
 
         {defaultValues && deleteTransaction && (
           <div className="flex justify-end">
-            <ConfirmationDialog handleSubmit={handleDeleteTransaction}>
+            <ConfirmationDialog
+              title={t('Common.alertDialog.delete.title')}
+              description={t('Common.alertDialog.delete.description')}
+              ok={t('Common.alertDialog.delete.okButton')}
+              handleSubmit={handleDeleteTransaction}
+              isDestructive
+            >
               <Button
                 type="button"
                 variant="destructive"

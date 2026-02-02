@@ -81,7 +81,12 @@ const CustomDrawer = ({
               <DrawerHeader className="shrink-0 p-2">
                 <div className="grid grid-cols-3 items-center gap-2">
                   <div className="justify-self-start">
-                    <ConfirmationDialog handleSubmit={handleSubmitWithLoading}>
+                    <ConfirmationDialog
+                      title={t('Common.alertDialog.save.title')}
+                      description={t('Common.alertDialog.save.description')}
+                      ok={t('Common.alertDialog.save.okButton')}
+                      handleSubmit={handleSubmitWithLoading}
+                    >
                       <Button variant="ghost" disabled={isLoading}>
                         {okButtonLabel || t('Common.button.save')}
                       </Button>
@@ -133,7 +138,12 @@ const CustomDrawer = ({
             </div>
 
             <DrawerFooter className="mx-auto w-full max-w-sm">
-              <ConfirmationDialog handleSubmit={handleSubmitWithLoading}>
+              <ConfirmationDialog
+                title={t('Common.alertDialog.save.title')}
+                description={t('Common.alertDialog.save.description')}
+                ok={t('Common.alertDialog.save.okButton')}
+                handleSubmit={handleSubmitWithLoading}
+              >
                 <Button disabled={isLoading}>
                   {okButtonLabel || t('Common.button.save')}
                 </Button>

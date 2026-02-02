@@ -3,17 +3,6 @@ import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslations } from 'next-intl';
 
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from '../../../components/ui/alert-dialog';
 import { Input } from '../../../components/ui/input';
 import {
   Popover,
@@ -40,6 +29,7 @@ import { serializeText } from '@shared/utilities/serializeText';
 
 import type { ListProps } from '../../../types/List';
 import type { CategoryItemProps } from '../../../types/Category';
+import ConfirmationDialog from '@web/components/shared/ConfirmationDialog';
 
 type EditCategoryDrawerProps = {
   type?: ListProps;
@@ -174,34 +164,23 @@ const EditCategoryDrawer = ({
               )}
             />
 
-            <AlertDialog>
-              <AlertDialogTrigger asChild>
-                {!isNew && (
-                  <Button variant="destructive" size="icon">
-                    <EyeOffIcon className="size-4" />
-                  </Button>
-                )}
-              </AlertDialogTrigger>
-
-              <AlertDialogContent>
-                <AlertDialogHeader>
-                  <AlertDialogTitle>
-                    {t('Common.alertDialog.title')}
-                  </AlertDialogTitle>
-                  <AlertDialogDescription>
-                    {t('Common.alertDialog.description')}
-                  </AlertDialogDescription>
-                </AlertDialogHeader>
-                <AlertDialogFooter>
-                  <AlertDialogCancel>
-                    {t('Common.button.cancel')}
-                  </AlertDialogCancel>
-                  <AlertDialogAction onClick={handleCategoryRemoval}>
-                    {t('Common.alertDialog.okButton')}
-                  </AlertDialogAction>
-                </AlertDialogFooter>
-              </AlertDialogContent>
-            </AlertDialog>
+            <ConfirmationDialog
+              title={t('Common.alertDialog.hide.title')}
+              description={t('Common.alertDialog.hide.description')}
+              ok={t('Common.alertDialog.hide.okButton')}
+              handleSubmit={handleCategoryRemoval}
+              isDestructive
+            >
+              {!isNew && (
+                <Button
+                  variant="destructive"
+                  size="icon"
+                  aria-label={t('Common.alertDialog.hide.title')}
+                >
+                  <EyeOffIcon className="size-4" />
+                </Button>
+              )}
+            </ConfirmationDialog>
           </div>
         </form>
       </>

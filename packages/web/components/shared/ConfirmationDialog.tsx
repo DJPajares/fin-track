@@ -15,12 +15,22 @@ import {
 } from '../ui/alert-dialog';
 
 type ConfirmationDialogProps = {
+  title?: string;
+  description?: string;
+  ok?: string;
+  cancel?: string;
   handleSubmit: () => void | Promise<void>;
+  isDestructive?: boolean;
   children: ReactNode;
 };
 
 const ConfirmationDialog = ({
+  title,
+  description,
+  ok,
+  cancel,
   handleSubmit,
+  isDestructive = false,
   children,
 }: ConfirmationDialogProps) => {
   const t = useTranslations();
@@ -30,17 +40,22 @@ const ConfirmationDialog = ({
       <AlertDialogTrigger asChild>{children}</AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>{t('Common.alertDialog.title')}</AlertDialogTitle>
+          <AlertDialogTitle>
+            {title || t('Common.alertDialog.generic.title')}
+          </AlertDialogTitle>
           <AlertDialogDescription>
-            {t('Common.alertDialog.description')}
+            {description || t('Common.alertDialog.generic.description')}
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>
-            {t('Common.alertDialog.cancelButton')}
+            {cancel || t('Common.alertDialog.generic.cancelButton')}
           </AlertDialogCancel>
-          <AlertDialogAction onClick={handleSubmit}>
-            {t('Common.alertDialog.okButton')}
+          <AlertDialogAction
+            onClick={handleSubmit}
+            className={isDestructive ? 'bg-destructive' : ''}
+          >
+            {ok || t('Common.alertDialog.generic.okButton')}
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

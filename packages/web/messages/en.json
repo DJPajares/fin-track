@@ -229,11 +229,27 @@
       "save": "Save"
     },
     "alertDialog": {
-      "triggerButton": "Update",
-      "title": "Are you sure?",
-      "description": "This cannot be undone",
-      "okButton": "Continue",
-      "cancelButton": "Cancel"
+      "generic": {
+        "title": "Are you sure?",
+        "description": "This cannot be undone",
+        "okButton": "Continue",
+        "cancelButton": "Cancel"
+      },
+      "save": {
+        "title": "Save Changes?",
+        "description": "This will apply your changes.",
+        "okButton": "Save"
+      },
+      "hide": {
+        "title": "Hide Item?",
+        "description": "This item will be hidden. You can restore it anytime.",
+        "okButton": "Hide"
+      },
+      "delete": {
+        "title": "Delete Item?",
+        "description": "This action cannot be undone.",
+        "okButton": "Delete"
+      }
     },
     "label": {
       "selectPlaceholder": "Select an item",
