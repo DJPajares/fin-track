@@ -251,19 +251,25 @@
       "expense": "Expense"
     },
     "category": {
-      "creditCard": "Credit Card",
+      "bonus": "Bonus",
+      "credit-card": "Credit Card",
       "debt": "Debt",
+      "entertainment": "Entertainment",
       "family": "Family",
       "food": "Food",
+      "freelance": "Freelance",
       "healthcare": "Healthcare",
+      "insurance": "Insurance",
       "investment": "Investment",
       "loan": "Loan",
       "paycheck": "Paycheck",
       "rent": "Rent",
       "savings": "Savings",
+      "shopping": "Shopping",
       "subscription": "Subscription",
       "transportation": "Transportation",
-      "utility": "Utility"
+      "travel": "Travel",
+      "utilities": "Utilities"
     }
   },
   "PWA": {
