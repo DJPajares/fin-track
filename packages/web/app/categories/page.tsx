@@ -133,7 +133,7 @@ const Categories = () => {
                   {category.scope === 'global' ? (
                     <div className="flex flex-row items-center gap-4 p-2 opacity-60">
                       <CardIcon icon={category.icon} />
-                      <Label>{category.name}</Label>
+                      <Label>{t(`Common.category.${category.id}`)}</Label>
                     </div>
                   ) : (
                     <EditCategoryDrawer
