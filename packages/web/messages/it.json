@@ -229,11 +229,27 @@
       "save": "Salva"
     },
     "alertDialog": {
-      "triggerButton": "Aggiorna",
-      "title": "Sei sicuro?",
-      "description": "Questo non può essere annullato",
-      "okButton": "Continua",
-      "cancelButton": "Annulla"
+      "generic": {
+        "title": "Sei sicuro?",
+        "description": "Questa operazione non può essere annullata",
+        "okButton": "Continua",
+        "cancelButton": "Annulla"
+      },
+      "save": {
+        "title": "Salvare le modifiche?",
+        "description": "Questo applicherà le tue modifiche.",
+        "okButton": "Salva"
+      },
+      "hide": {
+        "title": "Nascondi elemento?",
+        "description": "Questo elemento verrà nascosto. Puoi ripristinarlo in qualsiasi momento.",
+        "okButton": "Nascondi"
+      },
+      "delete": {
+        "title": "Eliminare elemento?",
+        "description": "Questa azione non può essere annullata.",
+        "okButton": "Elimina"
+      }
     },
     "label": {
       "selectPlaceholder": "Seleziona un elemento",

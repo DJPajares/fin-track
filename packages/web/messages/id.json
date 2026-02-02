@@ -229,11 +229,27 @@
       "save": "Simpan"
     },
     "alertDialog": {
-      "triggerButton": "Perbarui",
-      "title": "Apakah Anda Yakin?",
-      "description": "Ini tidak dapat dibatalkan",
-      "okButton": "Lanjutkan",
-      "cancelButton": "Batal"
+      "generic": {
+        "title": "Apakah Anda Yakin?",
+        "description": "Ini tidak dapat dibatalkan",
+        "okButton": "Lanjutkan",
+        "cancelButton": "Batal"
+      },
+      "save": {
+        "title": "Simpan perubahan?",
+        "description": "Ini akan menerapkan perubahan Anda.",
+        "okButton": "Simpan"
+      },
+      "hide": {
+        "title": "Sembunyikan item?",
+        "description": "Item ini akan disembunyikan. Anda dapat memulihkannya nanti.",
+        "okButton": "Sembunyikan"
+      },
+      "delete": {
+        "title": "Hapus item?",
+        "description": "Tindakan ini tidak dapat dibatalkan.",
+        "okButton": "Hapus"
+      }
     },
     "label": {
       "selectPlaceholder": "Pilih item",

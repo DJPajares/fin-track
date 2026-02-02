@@ -229,11 +229,27 @@
       "save": "保存"
     },
     "alertDialog": {
-      "triggerButton": "更新",
-      "title": "确定吗？",
-      "description": "此操作无法撤销",
-      "okButton": "继续",
-      "cancelButton": "取消"
+      "generic": {
+        "title": "您确定吗？",
+        "description": "此操作不可撤销",
+        "okButton": "继续",
+        "cancelButton": "取消"
+      },
+      "save": {
+        "title": "保存更改？",
+        "description": "这将应用您的更改。",
+        "okButton": "保存"
+      },
+      "hide": {
+        "title": "隐藏项目？",
+        "description": "该项目将被隐藏，您可以稍后恢复。",
+        "okButton": "隐藏"
+      },
+      "delete": {
+        "title": "删除项目？",
+        "description": "此操作不可撤销。",
+        "okButton": "删除"
+      }
     },
     "label": {
       "selectPlaceholder": "选择一个项目",

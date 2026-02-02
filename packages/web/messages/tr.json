@@ -229,11 +229,27 @@
       "save": "Kaydet"
     },
     "alertDialog": {
-      "triggerButton": "Güncelle",
-      "title": "Emin misiniz?",
-      "description": "Bu işlem geri alınamaz",
-      "okButton": "Devam Et",
-      "cancelButton": "İptal"
+      "generic": {
+        "title": "Emin misiniz?",
+        "description": "Bu işlem geri alınamaz",
+        "okButton": "Devam Et",
+        "cancelButton": "İptal"
+      },
+      "save": {
+        "title": "Değişiklikler kaydedilsin mi?",
+        "description": "Bu, değişikliklerinizi uygular.",
+        "okButton": "Kaydet"
+      },
+      "hide": {
+        "title": "Öğeyi gizle?",
+        "description": "Bu öğe gizlenecektir. Her zaman geri yükleyebilirsiniz.",
+        "okButton": "Gizle"
+      },
+      "delete": {
+        "title": "Öğeyi sil?",
+        "description": "Bu işlem geri alınamaz.",
+        "okButton": "Sil"
+      }
     },
     "label": {
       "selectPlaceholder": "Bir öğe seçin",

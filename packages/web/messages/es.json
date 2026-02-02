@@ -229,11 +229,27 @@
       "save": "Guardar"
     },
     "alertDialog": {
-      "triggerButton": "Actualizar",
-      "title": "¿Estás seguro?",
-      "description": "Esto no se puede deshacer",
-      "okButton": "Continuar",
-      "cancelButton": "Cancelar"
+      "generic": {
+        "title": "¿Estás seguro?",
+        "description": "Esto no se puede deshacer",
+        "okButton": "Continuar",
+        "cancelButton": "Cancelar"
+      },
+      "save": {
+        "title": "¿Guardar cambios?",
+        "description": "Esto aplicará tus cambios.",
+        "okButton": "Guardar"
+      },
+      "hide": {
+        "title": "¿Ocultar elemento?",
+        "description": "Este elemento será ocultado. Puedes restaurarlo en cualquier momento.",
+        "okButton": "Ocultar"
+      },
+      "delete": {
+        "title": "¿Eliminar elemento?",
+        "description": "Esta acción no se puede deshacer.",
+        "okButton": "Eliminar"
+      }
     },
     "label": {
       "selectPlaceholder": "Selecciona un elemento",

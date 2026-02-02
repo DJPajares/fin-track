@@ -229,11 +229,27 @@
       "save": "I-save"
     },
     "alertDialog": {
-      "triggerButton": "Update",
-      "title": "Sigurado ka?",
-      "description": "Hindi na ito maaaring bawiin.",
-      "okButton": "Magpatuloy",
-      "cancelButton": "Kanselahin"
+      "generic": {
+        "title": "Sigurado ka?",
+        "description": "Hindi na ito maaaring bawiin",
+        "okButton": "Magpatuloy",
+        "cancelButton": "Kanselahin"
+      },
+      "save": {
+        "title": "I-save ang mga pagbabago?",
+        "description": "Ito ay ia-apply ang iyong mga pagbabago.",
+        "okButton": "I-save"
+      },
+      "hide": {
+        "title": "Itago ang item?",
+        "description": "Itatago ang item na ito. Maaari mo itong ibalik anumang oras.",
+        "okButton": "Itago"
+      },
+      "delete": {
+        "title": "Tanggalin ang item?",
+        "description": "Hindi na maibabalik ang aksyon na ito.",
+        "okButton": "Tanggalin"
+      }
     },
     "label": {
       "selectPlaceholder": "Pumili ng item",

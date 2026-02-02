@@ -229,11 +229,27 @@
       "save": "Simpan"
     },
     "alertDialog": {
-      "triggerButton": "Kemaskini",
-      "title": "Adakah Anda Pasti?",
-      "description": "Ini tidak boleh dibatalkan",
-      "okButton": "Teruskan",
-      "cancelButton": "Batal"
+      "generic": {
+        "title": "Adakah anda pasti?",
+        "description": "Tindakan ini tidak boleh dibatalkan",
+        "okButton": "Teruskan",
+        "cancelButton": "Batal"
+      },
+      "save": {
+        "title": "Simpan perubahan?",
+        "description": "Ini akan menerapkan perubahan anda.",
+        "okButton": "Simpan"
+      },
+      "hide": {
+        "title": "Sembunyikan item?",
+        "description": "Item ini akan disembunyikan. Anda boleh memulihkannya bila-bila masa.",
+        "okButton": "Sembunyikan"
+      },
+      "delete": {
+        "title": "Padam item?",
+        "description": "Tindakan ini tidak boleh dibatalkan.",
+        "okButton": "Padam"
+      }
     },
     "label": {
       "selectPlaceholder": "Pilih item",

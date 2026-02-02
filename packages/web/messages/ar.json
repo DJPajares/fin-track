@@ -229,11 +229,27 @@
       "save": "حفظ"
     },
     "alertDialog": {
-      "triggerButton": "تحديث",
-      "title": "هل أنت متأكد؟",
-      "description": "لا يمكن التراجع عن هذا",
-      "okButton": "استمرار",
-      "cancelButton": "إلغاء"
+      "generic": {
+        "title": "هل أنت متأكد؟",
+        "description": "لا يمكن التراجع عن هذا",
+        "okButton": "استمرار",
+        "cancelButton": "إلغاء"
+      },
+      "save": {
+        "title": "حفظ التغييرات؟",
+        "description": "سيتم تطبيق التغييرات.",
+        "okButton": "حفظ"
+      },
+      "hide": {
+        "title": "إخفاء العنصر؟",
+        "description": "سيتم إخفاء هذا العنصر. يمكنك استعادته في أي وقت.",
+        "okButton": "إخفاء"
+      },
+      "delete": {
+        "title": "حذف العنصر؟",
+        "description": "لا يمكن التراجع عن هذا الإجراء.",
+        "okButton": "حذف"
+      }
     },
     "label": {
       "selectPlaceholder": "اختر عنصراً",

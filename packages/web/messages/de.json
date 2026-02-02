@@ -229,11 +229,27 @@
       "save": "Speichern"
     },
     "alertDialog": {
-      "triggerButton": "Aktualisieren",
-      "title": "Bist du sicher?",
-      "description": "Diese Aktion kann nicht rückgängig gemacht werden.",
-      "okButton": "Fortfahren",
-      "cancelButton": "Abbrechen"
+      "generic": {
+        "title": "Sind Sie sicher?",
+        "description": "Dies kann nicht rückgängig gemacht werden",
+        "okButton": "Fortfahren",
+        "cancelButton": "Abbrechen"
+      },
+      "save": {
+        "title": "Änderungen speichern?",
+        "description": "Dies wird Ihre Änderungen übernehmen.",
+        "okButton": "Speichern"
+      },
+      "hide": {
+        "title": "Element verbergen?",
+        "description": "Dieses Element wird ausgeblendet. Sie können es jederzeit wiederherstellen.",
+        "okButton": "Verbergen"
+      },
+      "delete": {
+        "title": "Element löschen?",
+        "description": "Diese Aktion kann nicht rückgängig gemacht werden.",
+        "okButton": "Löschen"
+      }
     },
     "label": {
       "selectPlaceholder": "Wählen Sie ein Element",

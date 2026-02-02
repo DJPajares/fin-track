@@ -229,11 +229,27 @@
       "save": "Enregistrer"
     },
     "alertDialog": {
-      "triggerButton": "Mettre à jour",
-      "title": "Êtes-vous sûr ?",
-      "description": "Cela ne peut pas être annulé",
-      "okButton": "Continuer",
-      "cancelButton": "Annuler"
+      "generic": {
+        "title": "Êtes-vous sûr ?",
+        "description": "Ceci ne peut pas être annulé",
+        "okButton": "Continuer",
+        "cancelButton": "Annuler"
+      },
+      "save": {
+        "title": "Enregistrer les modifications ?",
+        "description": "Cela appliquera vos modifications.",
+        "okButton": "Enregistrer"
+      },
+      "hide": {
+        "title": "Masquer l'élément ?",
+        "description": "Cet élément sera masqué. Vous pouvez le restaurer à tout moment.",
+        "okButton": "Masquer"
+      },
+      "delete": {
+        "title": "Supprimer l'élément ?",
+        "description": "Cette action est irréversible.",
+        "okButton": "Supprimer"
+      }
     },
     "label": {
       "selectPlaceholder": "Sélectionnez un élément",

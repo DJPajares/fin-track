@@ -229,11 +229,27 @@
       "save": "保存"
     },
     "alertDialog": {
-      "triggerButton": "更新",
-      "title": "よろしいですか？",
-      "description": "この操作は元に戻せません",
-      "okButton": "続行",
-      "cancelButton": "キャンセル"
+      "generic": {
+        "title": "よろしいですか？",
+        "description": "この操作は取り消せません",
+        "okButton": "続行",
+        "cancelButton": "キャンセル"
+      },
+      "save": {
+        "title": "変更を保存しますか？",
+        "description": "この操作で変更が適用されます。",
+        "okButton": "保存"
+      },
+      "hide": {
+        "title": "項目を非表示にしますか？",
+        "description": "この項目は非表示になります。いつでも復元できます。",
+        "okButton": "非表示"
+      },
+      "delete": {
+        "title": "項目を削除しますか？",
+        "description": "この操作は取り消せません。",
+        "okButton": "削除"
+      }
     },
     "label": {
       "selectPlaceholder": "アイテムを選択",

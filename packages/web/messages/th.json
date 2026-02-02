@@ -229,11 +229,27 @@
       "save": "บันทึก"
     },
     "alertDialog": {
-      "triggerButton": "อัปเดต",
-      "title": "คุณแน่ใจหรือไม่?",
-      "description": "ไม่สามารถย้อนกลับได้",
-      "okButton": "ดำเนินการต่อ",
-      "cancelButton": "ยกเลิก"
+      "generic": {
+        "title": "คุณแน่ใจหรือไม่?",
+        "description": "ไม่สามารถย้อนกลับได้",
+        "okButton": "ดำเนินการต่อ",
+        "cancelButton": "ยกเลิก"
+      },
+      "save": {
+        "title": "บันทึกการเปลี่ยนแปลง?",
+        "description": "การกระทำนี้จะนำการเปลี่ยนแปลงไปใช้",
+        "okButton": "บันทึก"
+      },
+      "hide": {
+        "title": "ซ่อนรายการ?",
+        "description": "รายการนี้จะถูกซ่อน คุณสามารถกู้คืนได้ตลอดเวลา",
+        "okButton": "ซ่อน"
+      },
+      "delete": {
+        "title": "ลบรายการ?",
+        "description": "การกระทำนี้ไม่สามารถย้อนกลับได้",
+        "okButton": "ลบ"
+      }
     },
     "label": {
       "selectPlaceholder": "เลือกไอเทม",

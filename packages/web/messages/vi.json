@@ -229,11 +229,27 @@
       "save": "Lưu"
     },
     "alertDialog": {
-      "triggerButton": "Cập Nhật",
-      "title": "Bạn Có Chắc Không?",
-      "description": "Không thể hoàn tác",
-      "okButton": "Tiếp Tục",
-      "cancelButton": "Hủy"
+      "generic": {
+        "title": "Bạn có chắc không?",
+        "description": "Hành động này không thể hoàn tác",
+        "okButton": "Tiếp tục",
+        "cancelButton": "Hủy"
+      },
+      "save": {
+        "title": "Lưu thay đổi?",
+        "description": "Thao tác này sẽ áp dụng các thay đổi của bạn.",
+        "okButton": "Lưu"
+      },
+      "hide": {
+        "title": "Ẩn mục?",
+        "description": "Mục này sẽ bị ẩn. Bạn có thể khôi phục sau.",
+        "okButton": "Ẩn"
+      },
+      "delete": {
+        "title": "Xóa mục?",
+        "description": "Hành động này không thể hoàn tác.",
+        "okButton": "Xóa"
+      }
     },
     "label": {
       "selectPlaceholder": "Chọn một mục",
