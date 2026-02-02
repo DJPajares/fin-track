@@ -28,7 +28,7 @@ import {
   updateCategory,
 } from '../../../lib/redux/feature/main/mainSlice';
 import { categorySchema } from '../../../lib/schemas/category';
-import { Trash2Icon } from 'lucide-react';
+import { EyeOffIcon } from 'lucide-react';
 
 import CardIcon, {
   iconMap,
@@ -177,8 +177,8 @@ const EditCategoryDrawer = ({
             <AlertDialog>
               <AlertDialogTrigger asChild>
                 {!isNew && (
-                  <Button variant="outline" size="icon">
-                    <Trash2Icon className="size-4" />
+                  <Button variant="destructive" size="icon">
+                    <EyeOffIcon className="size-4" />
                   </Button>
                 )}
               </AlertDialogTrigger>
