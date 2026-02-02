@@ -213,6 +213,14 @@
     }
   },
   "Common": {
+    "error": {
+      "duplicateCategory": "Eine Kategorie mit diesen Details existiert bereits.",
+      "validation": "Bitte überprüfen Sie Ihre Eingabe und versuchen Sie es erneut.",
+      "generic": "Es ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut."
+    },
+    "title": {
+      "errorModal": "Warnmeldung"
+    },
     "button": {
       "ok": "OK",
       "cancel": "Abbrechen",

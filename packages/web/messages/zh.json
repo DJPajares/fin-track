@@ -213,6 +213,14 @@
     }
   },
   "Common": {
+    "error": {
+      "duplicateCategory": "已存在具有这些详情的类别。",
+      "validation": "请检查您的输入并重试。",
+      "generic": "出了问题。请重试。"
+    },
+    "title": {
+      "errorModal": "警告消息"
+    },
     "button": {
       "ok": "确定",
       "cancel": "取消",

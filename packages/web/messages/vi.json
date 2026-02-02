@@ -213,6 +213,14 @@
     }
   },
   "Common": {
+    "error": {
+      "duplicateCategory": "Một danh mục có những chi tiết này đã tồn tại.",
+      "validation": "Vui lòng kiểm tra đầu vào của bạn và thử lại.",
+      "generic": "Có điều gì đó không ổn. Vui lòng thử lại."
+    },
+    "title": {
+      "errorModal": "Thông báo cảnh báo"
+    },
     "button": {
       "ok": "Đồng Ý",
       "cancel": "Hủy",

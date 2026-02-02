@@ -213,6 +213,14 @@
     }
   },
   "Common": {
+    "error": {
+      "duplicateCategory": "Una categoria con questi dettagli esiste già.",
+      "validation": "Si prega di controllare l'input e riprovare.",
+      "generic": "Qualcosa è andato storto. Si prega di riprovare."
+    },
+    "title": {
+      "errorModal": "Messaggio di Avviso"
+    },
     "button": {
       "ok": "Ok",
       "cancel": "Annulla",

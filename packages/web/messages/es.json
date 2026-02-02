@@ -213,6 +213,14 @@
     }
   },
   "Common": {
+    "error": {
+      "duplicateCategory": "Ya existe una categoría con estos detalles.",
+      "validation": "Por favor, verifica tu entrada e intenta de nuevo.",
+      "generic": "Algo salió mal. Por favor, intenta de nuevo."
+    },
+    "title": {
+      "errorModal": "Mensaje de Alerta"
+    },
     "button": {
       "ok": "Aceptar",
       "cancel": "Cancelar",

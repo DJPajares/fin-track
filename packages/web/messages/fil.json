@@ -213,6 +213,14 @@
     }
   },
   "Common": {
+    "error": {
+      "duplicateCategory": "Ang isang kategorya na may ganitong mga detalye ay umiiral na.",
+      "validation": "Mangyaring suriin ang iyong input at subukan muli.",
+      "generic": "May nangyaring mali. Mangyaring subukan muli."
+    },
+    "title": {
+      "errorModal": "Mensahe ng Babala"
+    },
     "button": {
       "ok": "Sige",
       "cancel": "Kanselahin",

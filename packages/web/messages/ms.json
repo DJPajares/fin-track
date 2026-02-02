@@ -213,6 +213,14 @@
     }
   },
   "Common": {
+    "error": {
+      "duplicateCategory": "Kategori dengan butiran ini sudah wujud.",
+      "validation": "Sila semak input anda dan cuba lagi.",
+      "generic": "Ada yang tidak kena. Sila cuba lagi."
+    },
+    "title": {
+      "errorModal": "Mesej Amaran"
+    },
     "button": {
       "ok": "Ok",
       "cancel": "Batal",

@@ -213,6 +213,14 @@
     }
   },
   "Common": {
+    "error": {
+      "duplicateCategory": "Bu ayrıntılara sahip bir kategori zaten var.",
+      "validation": "Lütfen girişinizi kontrol edin ve tekrar deneyin.",
+      "generic": "Bir şeyler yanlış gitti. Lütfen tekrar deneyin."
+    },
+    "title": {
+      "errorModal": "Uyarı Mesajı"
+    },
     "button": {
       "ok": "Tamam",
       "cancel": "İptal",

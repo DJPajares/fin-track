@@ -213,6 +213,14 @@
     }
   },
   "Common": {
+    "error": {
+      "duplicateCategory": "Une catégorie avec ces détails existe déjà.",
+      "validation": "Veuillez vérifier votre saisie et réessayer.",
+      "generic": "Une erreur s'est produite. Veuillez réessayer."
+    },
+    "title": {
+      "errorModal": "Message d'Alerte"
+    },
     "button": {
       "ok": "D'accord",
       "cancel": "Annuler",

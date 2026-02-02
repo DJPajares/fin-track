@@ -213,6 +213,14 @@
     }
   },
   "Common": {
+    "error": {
+      "duplicateCategory": "Kategori dengan detail ini sudah ada.",
+      "validation": "Silakan periksa input Anda dan coba lagi.",
+      "generic": "Terjadi kesalahan. Silakan coba lagi."
+    },
+    "title": {
+      "errorModal": "Pesan Peringatan"
+    },
     "button": {
       "ok": "Ok",
       "cancel": "Batal",

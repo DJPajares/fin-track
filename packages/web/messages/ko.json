@@ -213,6 +213,14 @@
     }
   },
   "Common": {
+    "error": {
+      "duplicateCategory": "이 세부 정보를 가진 카테고리가 이미 존재합니다.",
+      "validation": "입력을 확인하고 다시 시도하세요.",
+      "generic": "문제가 발생했습니다. 다시 시도하세요."
+    },
+    "title": {
+      "errorModal": "경고 메시지"
+    },
     "button": {
       "ok": "확인",
       "cancel": "취소",
