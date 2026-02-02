@@ -16,7 +16,28 @@ const create = async (data: CategoryProps) => {
 };
 
 const createMany = async (data: CategoryProps[]) => {
-  return await CategoryModel.insertMany(data);
+  const operations = data.map((doc) => {
+    // Build filter dynamically based on available fields
+    const filter: Record<string, unknown> = { id: doc.id };
+
+    if (doc.scope !== undefined) {
+      filter.scope = doc.scope;
+    }
+
+    if (doc.userId !== undefined) {
+      filter.userId = doc.userId;
+    }
+
+    return {
+      updateOne: {
+        filter,
+        update: { $set: doc },
+        upsert: true,
+      },
+    };
+  });
+
+  return await CategoryModel.bulkWrite(operations);
 };
 
 const createCustom = async ({
