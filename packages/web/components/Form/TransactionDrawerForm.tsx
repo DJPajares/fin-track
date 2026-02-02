@@ -36,6 +36,11 @@ import {
 import { Input } from '../ui/input';
 import { Button } from '../ui/button';
 import { Label } from '../ui/label';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@web/components/ui/tooltip';
 import { MultiSelectBox } from '../shared/MultiSelectBox';
 import ConfirmationDialog from '../shared/ConfirmationDialog';
 import Calendar from '../shared/Calendar';
@@ -480,14 +485,24 @@ const TransactionDrawerForm = ({
                         const isSelected = field.value === _id;
 
                         return (
-                          <CardButton
-                            key={_id}
-                            label={label}
-                            handleOnClick={() => field.onChange(_id)}
-                            isActive={isSelected}
-                            size="md"
-                            icon={icon as IconProps}
-                          />
+                          <Tooltip key={_id}>
+                            <TooltipTrigger asChild>
+                              <span>
+                                <CardButton
+                                  label={label}
+                                  handleOnClick={() => field.onChange(_id)}
+                                  isActive={isSelected}
+                                  size="md"
+                                  icon={icon as IconProps}
+                                />
+                              </span>
+                            </TooltipTrigger>
+                            {t.has(`Common.tooltip.category.${id}`) && (
+                              <TooltipContent>
+                                <p>{t(`Common.tooltip.category.${id}`)}</p>
+                              </TooltipContent>
+                            )}
+                          </Tooltip>
                         );
                       })}
                     </div>

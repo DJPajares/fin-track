@@ -13,6 +13,11 @@ import {
 import { Separator } from '../../components/ui/separator';
 import { Button } from '../../components/ui/button';
 import { Label } from '../../components/ui/label';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@web/components/ui/tooltip';
 import CardIcon from '../../components/shared/CardIcon';
 import { SelectBox } from '../../components/shared/SelectBox';
 import Loader from '@web/components/shared/Loader';
@@ -131,17 +136,26 @@ const Categories = () => {
               .map((category, i, { length }) => (
                 <div key={category._id} className="px-2">
                   {category.scope === 'global' ? (
-                    <div className="flex flex-row items-center gap-4 p-2 opacity-60">
-                      <CardIcon icon={category.icon} />
-                      <Label>{t(`Common.category.${category.id}`)}</Label>
-                    </div>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <div className="flex flex-row items-center gap-4 p-2 opacity-60">
+                          <CardIcon icon={category.icon} />
+                          <Label>{t(`Common.category.${category.id}`)}</Label>
+                        </div>
+                      </TooltipTrigger>
+                      {t.has(`Common.tooltip.category.${category.id}`) && (
+                        <TooltipContent>
+                          <p>{t(`Common.tooltip.category.${category.id}`)}</p>
+                        </TooltipContent>
+                      )}
+                    </Tooltip>
                   ) : (
                     <EditCategoryDrawer
                       type={selectedType}
                       category={category}
                       title={t('Page.categories.categoryDrawer.titleEdit')}
                     >
-                      <div className="hover:bg-border flex cursor-pointer flex-row items-center gap-4 p-2">
+                      <div className="hover:bg-border flex flex-row items-center gap-4 p-2">
                         <CardIcon icon={category.icon} />
                         <Label className="font-semibold">{category.name}</Label>
                       </div>
