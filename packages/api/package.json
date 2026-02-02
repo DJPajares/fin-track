@@ -13,6 +13,7 @@
     "update-keys-in-collection": "ts-node scripts/updateKeysInCollection.ts",
     "update-values-in-collection": "ts-node scripts/updateValuesInCollection.ts",
     "seed-categories": "ts-node scripts/seedCategories.ts",
+    "drop-category-indexes": "ts-node scripts/dropCategoryIndexes.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "pre-commit": [
