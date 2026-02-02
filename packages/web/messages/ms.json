@@ -270,6 +270,29 @@
       "transportation": "Pengangkutan",
       "travel": "Perjalanan",
       "utilities": "Perkhidmatan"
+    },
+    "tooltip": {
+      "category": {
+        "bonus": "Bonus prestasi atau bonus tahunan daripada kerja",
+        "credit-card": "Pembayaran kad kredit",
+        "debt": "Pembayaran hutang dan faedah",
+        "entertainment": "Filem, permainan, hobi dan hiburan",
+        "family": "Perbelanjaan dan sokongan keluarga",
+        "food": "Barangan runcit, makanan dan perbelanjaan makanan",
+        "freelance": "Pendapatan daripada kerja bebas atau kontrak",
+        "healthcare": "Perbelanjaan perubatan dan penjagaan kesihatan",
+        "insurance": "Premium insurans dan perlindungan",
+        "investment": "Pulangan daripada pelaburan atau dividen",
+        "loan": "Pembayaran dan pelunasan pinjaman",
+        "paycheck": "Pendapatan tetap daripada pekerjaan",
+        "rent": "Pembayaran sewa atau gadai janji bulanan",
+        "savings": "Pindahan ke akaun simpanan",
+        "shopping": "Pakaian, runcit dan membeli-belah",
+        "subscription": "Layanan langganan dan keahlian",
+        "transportation": "Pengangkutan awam, bahan bakar, tempat letak kereta dan perbelanjaan kereta",
+        "travel": "Perbelanjaan cuti dan perjalanan",
+        "utilities": "Elektrik, air, internet dan perkhidmatan awam"
+      }
     }
   },
   "PWA": {

@@ -270,6 +270,29 @@
       "transportation": "Trasporto",
       "travel": "Viaggio",
       "utilities": "Servizi Pubblici"
+    },
+    "tooltip": {
+      "category": {
+        "bonus": "Bonus di performance o annuali dal lavoro",
+        "credit-card": "Pagamenti con carta di credito",
+        "debt": "Pagamenti di debiti e interessi",
+        "entertainment": "Film, giochi, hobby e intrattenimento",
+        "family": "Spese e sostegno familiare",
+        "food": "Generi alimentari, ristorazione e spese alimentari",
+        "freelance": "Reddito da lavoro freelance o contrattuale",
+        "healthcare": "Spese mediche e sanitarie",
+        "insurance": "Premi assicurativi e copertura",
+        "investment": "Rendimenti da investimenti o dividendi",
+        "loan": "Pagamenti e rimborsi di prestiti",
+        "paycheck": "Reddito regolare dall'occupazione",
+        "rent": "Pagamenti mensili di affitto o mutuo",
+        "savings": "Trasferimenti a conti di risparmio",
+        "shopping": "Abbigliamento, vendita al dettaglio e acquisti",
+        "subscription": "Servizi di abbonamento e iscrizioni",
+        "transportation": "Trasporto pubblico, carburante, parcheggio e spese auto",
+        "travel": "Spese di vacanze e viaggi",
+        "utilities": "Elettricita, acqua, internet e servizi pubblici"
+      }
     }
   },
   "PWA": {

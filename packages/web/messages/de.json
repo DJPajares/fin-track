@@ -270,6 +270,29 @@
       "transportation": "Transport",
       "travel": "Reisen",
       "utilities": "Versorgungsunternehmen"
+    },
+    "tooltip": {
+      "category": {
+        "bonus": "Leistungs- oder Jahresbonusse von der Arbeit",
+        "credit-card": "Kreditkartenzahlungen",
+        "debt": "Schuldenzahlungen und Zinsen",
+        "entertainment": "Filme, Spiele, Hobbys und Unterhaltung",
+        "family": "Familienausgaben und Unterstützung",
+        "food": "Lebensmittel, Essen und Lebensmittelausgaben",
+        "freelance": "Einkommen aus Freiberufler- oder Auftragsarbeit",
+        "healthcare": "Medizinische Ausgaben und Gesundheitswesen",
+        "insurance": "Versicherungsprämien und -leistungen",
+        "investment": "Renditen aus Investitionen oder Dividenden",
+        "loan": "Darlehenszahlungen und Rückzahlungen",
+        "paycheck": "Regelmäßiges Einkommen aus Beschäftigung",
+        "rent": "Monatliche Miet- oder Hypothekenzahlungen",
+        "savings": "Überweisungen auf Sparkonten",
+        "shopping": "Kleidung, Einzelhandel und Einkaufen",
+        "subscription": "Abonnementdienste und Mitgliedschaften",
+        "transportation": "Öffentliche Verkehrsmittel, Kraftstoff, Parkplatz und Autoausgaben",
+        "travel": "Urlaubs- und Reiseausgaben",
+        "utilities": "Strom, Wasser, Internet und Nebenkosten"
+      }
     }
   },
   "PWA": {

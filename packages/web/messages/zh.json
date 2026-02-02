@@ -270,6 +270,29 @@
       "transportation": "交通",
       "travel": "旅行",
       "utilities": "公用事业"
+    },
+    "tooltip": {
+      "category": {
+        "bonus": "工作业绩或年度奖金",
+        "credit-card": "信用卡付款",
+        "debt": "债务偿还和利息",
+        "entertainment": "电影、游戏、爱好和娱乐",
+        "family": "家庭支出和支持",
+        "food": "食品杂货、餐饮和食品支出",
+        "freelance": "自由职业或合同工作收入",
+        "healthcare": "医疗支出和医疗保健",
+        "insurance": "保险费和保险范围",
+        "investment": "投资回报或股息",
+        "loan": "贷款支付和偿还",
+        "paycheck": "来自工作的常规收入",
+        "rent": "每月房租或抵押贷款支付",
+        "savings": "转账到储蓄账户",
+        "shopping": "服装、零售和购物",
+        "subscription": "订阅服务和会员资格",
+        "transportation": "公共交通、燃料、停车和汽车支出",
+        "travel": "度假和旅行支出",
+        "utilities": "电力、水、互联网和公用事业"
+      }
     }
   },
   "PWA": {

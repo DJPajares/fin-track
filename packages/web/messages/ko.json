@@ -270,6 +270,29 @@
       "transportation": "운송",
       "travel": "여행",
       "utilities": "공과금"
+    },
+    "tooltip": {
+      "category": {
+        "bonus": "업무 보너스 및 연보너스",
+        "credit-card": "신용카드 결제",
+        "debt": "채무 상환 및 이자",
+        "entertainment": "영화, 게임, 취미 및 오락",
+        "family": "가족 지출 및 지원",
+        "food": "식료품, 식사 및 식비 지출",
+        "freelance": "프리랜서 또는 계약 업무 수입",
+        "healthcare": "의료 지출 및 의료",
+        "insurance": "보험료 및 보장",
+        "investment": "투자 수익 또는 배당금",
+        "loan": "대출금 상환 및 비용",
+        "paycheck": "고용에서의 정기 수입",
+        "rent": "월간 임차료 또는 모기지 지불",
+        "savings": "저축 계좌로의 이체",
+        "shopping": "의류, 소매 및 쇼핑",
+        "subscription": "구독 서비스 및 회원자격",
+        "transportation": "대중교통, 연료, 주차 및 자동차 지출",
+        "travel": "휴가 및 여행 지출",
+        "utilities": "전기, 수도, 인터넷 및 공과금"
+      }
     }
   },
   "PWA": {

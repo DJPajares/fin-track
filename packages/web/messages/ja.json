@@ -270,6 +270,29 @@
       "transportation": "交通費",
       "travel": "旅行",
       "utilities": "光熱費"
+    },
+    "tooltip": {
+      "category": {
+        "bonus": "仕事からのパフォーマンスまたは年間ボーナス",
+        "credit-card": "クレジットカード支払い",
+        "debt": "債務返済と利息",
+        "entertainment": "映画、ゲーム、趣味、エンターテイメント",
+        "family": "家族支出とサポート",
+        "food": "食料品、食事、食費支出",
+        "freelance": "フリーランスまたは契約業務からの収入",
+        "healthcare": "医療費と医療",
+        "insurance": "保険料と保険範囲",
+        "investment": "投資からのリターンまたは配当",
+        "loan": "ローン支払いと返済",
+        "paycheck": "雇用からの定期収入",
+        "rent": "月額家賃またはローン返済",
+        "savings": "貯蓄口座への振込",
+        "shopping": "衣料品、小売、ショッピング",
+        "subscription": "サブスクリプションサービスとメンバーシップ",
+        "transportation": "公共交通、燃料、駐車場、車の費用",
+        "travel": "休暇と旅行費用",
+        "utilities": "電気、水、インターネット、ユーティリティ"
+      }
     }
   },
   "PWA": {

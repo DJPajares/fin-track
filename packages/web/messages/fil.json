@@ -270,6 +270,29 @@
       "transportation": "Transportasyon",
       "travel": "Paglalakbay",
       "utilities": "Serbisyo"
+    },
+    "tooltip": {
+      "category": {
+        "bonus": "Performance o annual bonuses mula sa trabaho",
+        "credit-card": "Pagbabayad ng credit card",
+        "debt": "Pagbabayad ng utang at interes",
+        "entertainment": "Mga pelikula, laro, hobby, at libangan",
+        "family": "Pamilya gastos at suporta",
+        "food": "Grocery, pagkain, at pagkain gastos",
+        "freelance": "Kita mula sa freelance o contract na trabaho",
+        "healthcare": "Medical na gastos at healthcare",
+        "insurance": "Seguro premium at coverage",
+        "investment": "Pagbabalik mula sa investment o dividends",
+        "loan": "Pagbabayad ng pautang at bayad",
+        "paycheck": "Regular na kita mula sa trabaho",
+        "rent": "Buwan-buwan na bayad ng renta o mortgage",
+        "savings": "Mga paglipat sa mga savings account",
+        "shopping": "Damit, retail, at pamimili",
+        "subscription": "Mga subscription service at membership",
+        "transportation": "Public transport, fuel, parking, at car gastos",
+        "travel": "Bakasyon at travel gastos",
+        "utilities": "Kuryente, tubig, internet, at utilities"
+      }
     }
   },
   "PWA": {

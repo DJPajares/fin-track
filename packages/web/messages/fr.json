@@ -270,6 +270,29 @@
       "transportation": "Transport",
       "travel": "Voyages",
       "utilities": "Services Publics"
+    },
+    "tooltip": {
+      "category": {
+        "bonus": "Bonus de performance ou bonification annuels du travail",
+        "credit-card": "Paiements de carte de crédit",
+        "debt": "Remboursements de dettes et intérêts",
+        "entertainment": "Films, jeux, loisirs et divertissements",
+        "family": "Dépenses familiales et soutien",
+        "food": "Épicerie, restauration et dépenses alimentaires",
+        "freelance": "Revenu du travail indépendant ou contractuel",
+        "healthcare": "Dépenses médicales et soins de santé",
+        "insurance": "Primes d'assurance et couverture",
+        "investment": "Rendements des investissements ou dividendes",
+        "loan": "Remboursements et versements de prêts",
+        "paycheck": "Revenu régulier de l'emploi",
+        "rent": "Paiements mensuels de loyer ou hypothèque",
+        "savings": "Transferts vers les comptes d'épargne",
+        "shopping": "Vêtements, commerce de détail et magasinage",
+        "subscription": "Services d'abonnement et adhésions",
+        "transportation": "Transports en commun, carburant, stationnement et dépenses automobiles",
+        "travel": "Dépenses de vacances et de voyages",
+        "utilities": "Électricité, eau, internet et services publics"
+      }
     }
   },
   "PWA": {

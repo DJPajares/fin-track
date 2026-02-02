@@ -270,6 +270,29 @@
       "transportation": "Transportasi",
       "travel": "Perjalanan",
       "utilities": "Utilitas"
+    },
+    "tooltip": {
+      "category": {
+        "bonus": "Bonus kinerja atau tahunan dari pekerjaan",
+        "credit-card": "Pembayaran kartu kredit",
+        "debt": "Pembayaran hutang dan bunga",
+        "entertainment": "Film, game, hobi, dan hiburan",
+        "family": "Pengeluaran dan dukungan keluarga",
+        "food": "Bahan makanan, restoran, dan pengeluaran makanan",
+        "freelance": "Pendapatan dari pekerjaan freelance atau kontrak",
+        "healthcare": "Pengeluaran medis dan perawatan kesehatan",
+        "insurance": "Premi dan cakupan asuransi",
+        "investment": "Pengembalian dari investasi atau dividen",
+        "loan": "Pembayaran dan pelunasan pinjaman",
+        "paycheck": "Pendapatan reguler dari pekerjaan",
+        "rent": "Pembayaran sewa atau cicilan hipotek bulanan",
+        "savings": "Transfer ke rekening tabungan",
+        "shopping": "Pakaian, ritel, dan belanja",
+        "subscription": "Layanan berlangganan dan keanggotaan",
+        "transportation": "Transportasi umum, bahan bakar, parkir, dan pengeluaran mobil",
+        "travel": "Pengeluaran liburan dan perjalanan",
+        "utilities": "Listrik, air, internet, dan layanan publik"
+      }
     }
   },
   "PWA": {
