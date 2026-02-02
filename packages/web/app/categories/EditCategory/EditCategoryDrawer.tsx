@@ -176,9 +176,11 @@ const EditCategoryDrawer = ({
 
             <AlertDialog>
               <AlertDialogTrigger asChild>
-                <Button variant="outline" size="icon">
-                  <Trash2Icon className="size-4" />
-                </Button>
+                {!isNew && (
+                  <Button variant="outline" size="icon">
+                    <Trash2Icon className="size-4" />
+                  </Button>
+                )}
               </AlertDialogTrigger>
 
               <AlertDialogContent>
