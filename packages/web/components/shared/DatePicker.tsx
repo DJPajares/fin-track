@@ -27,6 +27,7 @@ export const DatePicker = ({ date, onChange, children }: DatePickerProps) => {
         className="w-auto border-0 bg-transparent p-0 shadow-none"
         align="center"
         onWheel={(e) => e.stopPropagation()}
+        onTouchMove={(e) => e.stopPropagation()}
       >
         <Calendar
           date={date}
