@@ -288,6 +288,15 @@ const TransactionDrawerForm = ({
       };
 
       await submitTransaction(transactionData);
+
+      // Reset form after successful submission
+      form.reset(resolvedDefaults);
+      setFormattedAmount(
+        resolvedDefaults.amount
+          ? formatAmountDisplay(resolvedDefaults.amount)
+          : '',
+      );
+      setIsDetailsOpen(false);
     } catch (error) {
       console.error('Error submitting transaction:', error);
       throw error;
