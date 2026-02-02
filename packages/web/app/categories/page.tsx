@@ -25,6 +25,7 @@ import EditCategoryDrawer from '../../app/categories/EditCategory/EditCategoryDr
 
 import type { CategoryItemProps } from '../../types/Category';
 import type { ListProps } from '../../types/List';
+import ConfirmationDialog from '@web/components/shared/ConfirmationDialog';
 
 const baseCategory: CategoryItemProps = {
   _id: '',
@@ -181,21 +182,25 @@ const Categories = () => {
               )
               .map((category, i, { length }) => (
                 <div key={category._id}>
-                  <div
-                    className="hover:bg-border flex cursor-pointer flex-row items-center justify-between p-2"
-                    onClick={() => handleAddSuggestedCategory(category)}
+                  <ConfirmationDialog
+                    title={t('Common.alertDialog.save.title')}
+                    description={t('Common.alertDialog.save.description')}
+                    ok={t('Common.alertDialog.save.okButton')}
+                    handleSubmit={() => handleAddSuggestedCategory(category)}
                   >
-                    <div className="flex flex-row items-center space-x-4">
-                      <CardIcon icon={category.icon} />
-                      <Label className="font-semibold italic">
-                        {category.name}
-                      </Label>
-                    </div>
+                    <div className="hover:bg-border flex cursor-pointer flex-row items-center justify-between p-2">
+                      <div className="flex flex-row items-center space-x-4">
+                        <CardIcon icon={category.icon} />
+                        <Label className="font-semibold italic">
+                          {category.name}
+                        </Label>
+                      </div>
 
-                    <Button variant="ghost" size="rounded-icon">
-                      <PlusIcon className="size-4" />
-                    </Button>
-                  </div>
+                      <Button variant="ghost" size="rounded-icon">
+                        <PlusIcon className="size-4" />
+                      </Button>
+                    </div>
+                  </ConfirmationDialog>
 
                   {i + 1 !== length && <Separator />}
                 </div>
