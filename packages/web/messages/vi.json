@@ -258,9 +258,7 @@
       "errorLoadingData": "Lỗi tải dữ liệu"
     },
     "datePicker": {
-      "today": "Hôm nay",
-      "prevYear": "Năm trước",
-      "nextYear": "Năm sau"
+      "today": "Hôm nay"
     },
     "type": {
       "income": "Thu nhập",

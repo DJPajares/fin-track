@@ -258,9 +258,7 @@
       "errorLoadingData": "خطأ في تحميل البيانات"
     },
     "datePicker": {
-      "today": "اليوم",
-      "prevYear": "السنة السابقة",
-      "nextYear": "السنة التالية"
+      "today": "اليوم"
     },
     "type": {
       "income": "دخل",

@@ -49,7 +49,9 @@ export default function Calendar({
               handleOnChange(moment(date).subtract(1, 'years').toDate())
             }
           >
-            <p className="truncate">{t('Common.datePicker.prevYear')}</p>
+            <p className="truncate">
+              {`< ${moment(date).subtract(1, 'years').format('YYYY')}`}
+            </p>
           </Button>
           <Button onPress={() => handleOnChange(new Date())}>
             <p className="truncate">{t('Common.datePicker.today')}</p>
@@ -59,7 +61,9 @@ export default function Calendar({
               handleOnChange(moment(date).add(1, 'years').toDate())
             }
           >
-            <p className="truncate">{t('Common.datePicker.nextYear')}</p>
+            <p className="truncate">
+              {`${moment(date).add(1, 'years').format('YYYY')} >`}
+            </p>
           </Button>
         </ButtonGroup>
       }

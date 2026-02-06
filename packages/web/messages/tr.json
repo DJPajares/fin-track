@@ -258,9 +258,7 @@
       "errorLoadingData": "Veri yükleme hatası"
     },
     "datePicker": {
-      "today": "Bugün",
-      "prevYear": "Önceki yıl",
-      "nextYear": "Sonraki yıl"
+      "today": "Bugün"
     },
     "type": {
       "income": "Gelir",

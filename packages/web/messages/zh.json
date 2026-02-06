@@ -258,9 +258,7 @@
       "errorLoadingData": "加载数据时出错"
     },
     "datePicker": {
-      "today": "今天",
-      "prevYear": "上一年",
-      "nextYear": "下一年"
+      "today": "今天"
     },
     "type": {
       "income": "收入",

@@ -258,9 +258,7 @@
       "errorLoadingData": "データの読み込みエラー"
     },
     "datePicker": {
-      "today": "今日",
-      "prevYear": "前年",
-      "nextYear": "翌年"
+      "today": "今日"
     },
     "type": {
       "income": "収入",

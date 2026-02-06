@@ -258,9 +258,7 @@
       "errorLoadingData": "Ralat memuat data"
     },
     "datePicker": {
-      "today": "Hari ini",
-      "prevYear": "Tahun lepas",
-      "nextYear": "Tahun depan"
+      "today": "Hari ini"
     },
     "type": {
       "income": "Pendapatan",

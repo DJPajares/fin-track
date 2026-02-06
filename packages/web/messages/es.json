@@ -258,9 +258,7 @@
       "errorLoadingData": "Error al cargar datos"
     },
     "datePicker": {
-      "today": "Hoy",
-      "prevYear": "Año anterior",
-      "nextYear": "Año siguiente"
+      "today": "Hoy"
     },
     "type": {
       "income": "Ingreso",

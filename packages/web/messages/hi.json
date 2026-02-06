@@ -258,9 +258,7 @@
       "errorLoadingData": "डेटा लोड करने में त्रुटि"
     },
     "datePicker": {
-      "today": "आज",
-      "prevYear": "पिछला वर्ष",
-      "nextYear": "अगला वर्ष"
+      "today": "आज"
     },
     "type": {
       "income": "आय",

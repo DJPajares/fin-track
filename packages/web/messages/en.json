@@ -258,9 +258,7 @@
       "errorLoadingData": "Error loading data"
     },
     "datePicker": {
-      "today": "Today",
-      "prevYear": "Previous year",
-      "nextYear": "Next year"
+      "today": "Today"
     },
     "type": {
       "income": "Income",

@@ -258,9 +258,7 @@
       "errorLoadingData": "Error sa pag-load ng data"
     },
     "datePicker": {
-      "today": "Ngayon",
-      "prevYear": "Nakaraang taon",
-      "nextYear": "Susunod na taon"
+      "today": "Ngayon"
     },
     "type": {
       "income": "Kita",

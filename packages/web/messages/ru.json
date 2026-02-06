@@ -258,9 +258,7 @@
       "errorLoadingData": "Ошибка загрузки данных"
     },
     "datePicker": {
-      "today": "Сегодня",
-      "prevYear": "Предыдущий год",
-      "nextYear": "Следующий год"
+      "today": "Сегодня"
     },
     "type": {
       "income": "Доход",

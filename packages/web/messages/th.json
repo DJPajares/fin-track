@@ -258,9 +258,7 @@
       "errorLoadingData": "เกิดข้อผิดพลาดในการโหลดข้อมูล"
     },
     "datePicker": {
-      "today": "วันนี้",
-      "prevYear": "ปีที่แล้ว",
-      "nextYear": "ปีหน้า"
+      "today": "วันนี้"
     },
     "type": {
       "income": "รายได้",
