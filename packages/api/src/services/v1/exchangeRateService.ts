@@ -2,8 +2,11 @@ import {
   ExchangeRateModel,
   ExchangeRateProps,
 } from '../../models/v1/exchangeRateModel';
-import type { QueryParamsProps, SortObjProps } from '../../types/commonTypes';
 import createPagination from '../../utilities/createPagination';
+import { filterRates } from '../../../../../shared/utilities/common';
+
+import type { QueryParamsProps, SortObjProps } from '../../types/commonTypes';
+import type { ExchangeRateRequest } from '../../../../../shared/types/ExchangeRate';
 
 const create = async (data: ExchangeRateProps) => {
   return await ExchangeRateModel.create(data);
@@ -62,7 +65,7 @@ const remove = async (_id: ExchangeRateProps['_id']) => {
   return await ExchangeRateModel.findByIdAndDelete({ _id });
 };
 
-const getLatest = async () => {
+const getLatest = async (data: ExchangeRateRequest) => {
   try {
     // Fetch from external API
     const response = await fetch(
@@ -75,26 +78,16 @@ const getLatest = async () => {
 
     const externalData = await response.json();
 
+    const rates = filterRates(data.currencies, externalData.rates);
+
     // Transform to our schema format
     const exchangeRateData = {
       baseCurrency: externalData.base,
       date: new Date(externalData.date),
-      rates: externalData.rates,
+      rates,
     };
 
-    // Check if we already have this data for the same date
-    const existingRate = await ExchangeRateModel.findOne({
-      baseCurrency: exchangeRateData.baseCurrency,
-      date: exchangeRateData.date,
-    });
-
-    // If exists, return it; otherwise create a new one
-    if (existingRate) {
-      return existingRate;
-    }
-
-    const newRate = await ExchangeRateModel.create(exchangeRateData);
-    return newRate;
+    return exchangeRateData;
   } catch (error) {
     throw new Error(
       `Error fetching latest exchange rates: ${error instanceof Error ? error.message : 'Unknown error'}`,
@@ -102,7 +95,7 @@ const getLatest = async () => {
   }
 };
 
-const updateLatest = async () => {
+const updateToLatest = async (data: ExchangeRateRequest) => {
   try {
     // Fetch from external API
     const response = await fetch(
@@ -116,7 +109,7 @@ const updateLatest = async () => {
     const externalData = await response.json();
 
     // Parse the date and set time to start of day (00:00:00)
-    const apiDate = new Date(externalData.date);
+    const apiDate = new Date();
     const startOfDay = new Date(
       apiDate.getFullYear(),
       apiDate.getMonth(),
@@ -136,11 +129,13 @@ const updateLatest = async () => {
       999,
     );
 
+    const rates = filterRates(data.currencies, externalData.rates);
+
     // Transform to our schema format
     const exchangeRateData = {
       baseCurrency: externalData.base,
-      date: startOfDay,
-      rates: externalData.rates,
+      date: apiDate,
+      rates,
     };
 
     // Upsert: find by baseCurrency and date range (ignoring time), update or insert
@@ -167,4 +162,4 @@ const updateLatest = async () => {
   }
 };
 
-export { create, getAll, get, update, remove, getLatest, updateLatest };
+export { create, getAll, get, update, remove, getLatest, updateToLatest };

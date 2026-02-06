@@ -6,7 +6,7 @@ import {
   update,
   remove,
   getLatest,
-  updateLatest,
+  updateToLatest,
 } from '../../controllers/v1/exchangeRateController';
 
 const router = express.Router();
@@ -17,7 +17,7 @@ router.get('/', getAll);
 
 router.get('/latest', getLatest);
 
-router.put('/latest', updateLatest);
+router.put('/latest', updateToLatest);
 
 router.get('/:id', get);
 

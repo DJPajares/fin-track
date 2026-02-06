@@ -63,7 +63,7 @@ const remove = async (req: Request, res: Response, next: NextFunction) => {
 
 const getLatest = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const data = await exchangeRateService.getLatest();
+    const data = await exchangeRateService.getLatest(req.body);
 
     res.status(200).json(data);
   } catch (error) {
@@ -71,13 +71,13 @@ const getLatest = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-const updateLatest = async (
+const updateToLatest = async (
   req: Request,
   res: Response,
   next: NextFunction,
 ) => {
   try {
-    const data = await exchangeRateService.updateLatest();
+    const data = await exchangeRateService.updateToLatest(req.body);
 
     res.status(200).json(data);
   } catch (error) {
@@ -85,4 +85,4 @@ const updateLatest = async (
   }
 };
 
-export { create, getAll, get, update, remove, getLatest, updateLatest };
+export { create, getAll, get, update, remove, getLatest, updateToLatest };
