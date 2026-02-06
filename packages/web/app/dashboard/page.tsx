@@ -254,7 +254,7 @@ const Dashboard = () => {
                 <Skeleton className="h-44 w-full sm:h-56" />
               </div>
             ) : (
-              <div className="grid grid-cols-2 items-start justify-center gap-4 sm:grid-cols-3 sm:gap-8">
+              <div className="grid grid-cols-[repeat(auto-fit,minmax(140px,1fr))] items-start justify-center gap-4 sm:grid-cols-[repeat(auto-fit,minmax(200px,1fr))] sm:gap-8">
                 {dashboardCategories.map(
                   (category: DashboardDataCategoryResult) => (
                     <div key={category._id}>
