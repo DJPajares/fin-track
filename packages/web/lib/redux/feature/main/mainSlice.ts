@@ -1,7 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { serializeText } from '@shared/utilities/serializeText';
-
 import {
   createCustomCategoryApi,
   fetchCategoriesApi,
@@ -100,14 +98,7 @@ const mainSlice = createSlice({
     builder.addCase(
       fetchCategories.fulfilled,
       (state, action: PayloadAction<CategoryResponse>) => {
-        const { data } = action.payload;
-
-        const categories = data.map((category) => ({
-          ...category,
-          serializedName: serializeText(category.name),
-        }));
-
-        state.categories = categories as CategoryItemProps[];
+        state.categories = action.payload.data as CategoryItemProps[];
 
         state.isLoading = false;
       },
@@ -126,10 +117,7 @@ const mainSlice = createSlice({
       (state, action: PayloadAction<CategoryDataResponse>) => {
         const category = action.payload;
 
-        const newCustomCategory = {
-          ...category,
-          serializedName: serializeText(category.name),
-        } as CategoryItemProps;
+        const newCustomCategory = category as CategoryItemProps;
 
         state.categories.push(newCustomCategory);
 
@@ -152,10 +140,7 @@ const mainSlice = createSlice({
 
         const updatedCategories = state.categories.map((stateCategory) =>
           stateCategory._id === category._id
-            ? (stateCategory = {
-                ...category,
-                serializedName: serializeText(category.name),
-              } as CategoryItemProps)
+            ? (stateCategory = category as CategoryItemProps)
             : stateCategory,
         );
 

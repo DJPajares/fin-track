@@ -30,7 +30,6 @@ type CategoryDataResponse = {
   userId?: string;
   createdAt?: Date;
   updatedAt?: Date;
-  serializedName?: string;
 };
 
 type CategoryResponse = {

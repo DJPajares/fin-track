@@ -11,7 +11,6 @@ export const categorySchema = z.object({
   }),
   icon: z.custom<IconProps>(),
   isActive: z.boolean().optional(),
-  serializedName: z.string().optional(),
   scope: z.enum(['global', 'custom']),
 });
 
