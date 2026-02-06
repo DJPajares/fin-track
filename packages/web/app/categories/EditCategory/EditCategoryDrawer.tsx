@@ -25,8 +25,6 @@ import CardIcon, {
 } from '../../../components/shared/CardIcon';
 import CustomDrawer from '@web/components/shared/CustomDrawer';
 
-import { serializeText } from '@shared/utilities/serializeText';
-
 import type { ListProps } from '../../../types/List';
 import type { CategoryItemProps } from '../../../types/Category';
 import ConfirmationDialog from '@web/components/shared/ConfirmationDialog';
@@ -91,7 +89,6 @@ const EditCategoryDrawer = ({
     if (isNew) {
       dispatch(
         createCustomCategory({
-          id: serializeText(data.name),
           name: data.name,
           icon: data.icon,
           type: type?._id || '',
@@ -103,7 +100,6 @@ const EditCategoryDrawer = ({
       dispatch(
         updateCategory({
           ...data,
-          id: serializeText(data.name),
           type: type?._id || '',
           userId,
         }),

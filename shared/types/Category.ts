@@ -3,10 +3,11 @@ import type { TypeDataResponse } from '@shared/types/Type';
 
 type CategoryRequest = {
   _id?: string;
-  id: string;
+  id?: string; // move serialization to backend
   name: string;
   icon: string;
   type: string;
+  scope?: 'global' | 'custom';
   isActive?: boolean;
 };
 
@@ -20,10 +21,10 @@ type FetchCategoryRequest = {
 
 type CategoryDataResponse = {
   _id: string;
+  id: string;
   name: string;
   type: TypeDataResponse;
   icon: string;
-  id: string;
   isActive?: boolean;
   scope: 'global' | 'custom';
   userId?: string;

@@ -8,8 +8,12 @@ import createPagination from '../../utilities/createPagination';
 
 import type { QueryParamsProps, SortObjProps } from '../../types/commonTypes';
 
-import type { CustomCategoryRequest } from '../../../../../shared/types/Category';
+import type {
+  CategoryRequest,
+  CustomCategoryRequest,
+} from '../../../../../shared/types/Category';
 import { AppError, ErrorCode } from '../../../../../shared/types/Error';
+import { serializeText } from '../../../../../shared/utilities/serializeText';
 
 const create = async (data: CategoryProps) => {
   return await CategoryModel.create(data);
@@ -42,13 +46,13 @@ const createMany = async (data: CategoryProps[]) => {
 
 const createCustom = async ({
   type,
-  id,
   name,
   icon,
   isActive,
   userId,
 }: CustomCategoryRequest) => {
   const scope = 'custom';
+  const id = serializeText(name);
 
   // Check if a global category with the same id exists
   const existingGlobal = await CategoryModel.findOne({ id, scope: 'global' });
@@ -252,9 +256,10 @@ const getSpecificType = async (id: Types.ObjectId, query: QueryParamsProps) => {
 */
 const update = async (
   _id: CategoryProps['_id'],
-  data: CategoryProps,
+  data: CategoryRequest,
   userId?: string,
 ) => {
+  const id = serializeText(data.name);
   const scope = data.scope;
 
   if (scope === 'global') {
@@ -289,9 +294,13 @@ const update = async (
     return newCustomCategory;
   }
 
-  return await CategoryModel.findOneAndUpdate({ _id }, data, {
-    new: true,
-  }).populate('type');
+  return await CategoryModel.findOneAndUpdate(
+    { _id },
+    { ...data, id },
+    {
+      new: true,
+    },
+  ).populate('type');
 };
 
 const remove = async (_id: CategoryProps['_id']) => {
