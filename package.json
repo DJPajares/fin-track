@@ -7,7 +7,9 @@
     "prepare": "if [ \"$VERCEL\" != \"1\" ]; then husky install; fi",
     "prettier": "prettier --write .",
     "lint": "eslint && npm run type-check",
-    "type-check": "cd packages/web && npx tsc --noEmit",
+    "type-check": "npm run type-check:web && npm run type-check:api",
+    "type-check:web": "npm --prefix packages/web run type-check",
+    "type-check:api": "npm --prefix packages/api run type-check",
     "build": "cd packages/web && npm run build"
   },
   "lint-staged": {
