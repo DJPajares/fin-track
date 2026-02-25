@@ -10,6 +10,7 @@ import type { QueryParamsProps, SortObjProps } from '../../types/commonTypes';
 import { CategoryModel } from '../../models/v1/categoryModel';
 import { ExchangeRateModel } from '../../models/v1/exchangeRateModel';
 import convertCurrency from '../../utilities/convertCurrency';
+import { getBaseTransactionDateConditions } from '../../utilities/getBaseTransactionDateConditions';
 
 import { serializeText } from '../../../../../shared/utilities/serializeText';
 import formatYearMonth from '../../../../../shared/utilities/formatYearMonth';
@@ -82,8 +83,6 @@ const getAll = async (query: QueryParamsProps) => {
 const buildFilters = (data: FetchTransactionProps) => {
   const userId = ensureUserId(data);
   const date = new Date(data.date);
-  const year = new Date(date).getFullYear();
-  const month = new Date(date).getMonth() + 1;
 
   const yearMonth = formatYearMonth(date);
 
@@ -91,58 +90,7 @@ const buildFilters = (data: FetchTransactionProps) => {
     user: { userId },
     date: {
       $expr: {
-        $and: [
-          {
-            $lte: [
-              {
-                $add: [
-                  { $multiply: [{ $year: '$startDate' }, 100] },
-                  { $month: '$startDate' },
-                ],
-              },
-              yearMonth,
-            ],
-          },
-          {
-            $gte: [
-              {
-                $add: [
-                  { $multiply: [{ $year: '$endDate' }, 100] },
-                  { $month: '$endDate' },
-                ],
-              },
-              yearMonth,
-            ],
-          },
-          {
-            $not: {
-              $in: [
-                month,
-                {
-                  $map: {
-                    input: '$excludedDates',
-                    as: 'date',
-                    in: { $month: '$$date' },
-                  },
-                },
-              ],
-            },
-          },
-          {
-            $not: {
-              $in: [
-                year,
-                {
-                  $map: {
-                    input: '$excludedDates',
-                    as: 'date',
-                    in: { $year: '$$date' },
-                  },
-                },
-              ],
-            },
-          },
-        ],
+        $and: [...getBaseTransactionDateConditions(yearMonth)],
       },
     },
     type: data.type ? { 'type._id': new Types.ObjectId(data.type) } : {},
@@ -152,10 +100,7 @@ const buildFilters = (data: FetchTransactionProps) => {
 const getTotalCount = async (data: FetchTransactionProps) => {
   const userId = ensureUserId(data);
   const date = new Date(data.date);
-  const year = date.getFullYear();
-  const month = date.getMonth() + 1;
-  const paddedMonth = month.toString().padStart(2, '0');
-  const yearMonth = parseInt(`${year}${paddedMonth}`);
+  const yearMonth = formatYearMonth(date);
 
   const type = new Types.ObjectId(data.type);
 
@@ -179,58 +124,7 @@ const getTotalCount = async (data: FetchTransactionProps) => {
       },
       {
         $expr: {
-          $and: [
-            {
-              $lte: [
-                {
-                  $add: [
-                    { $multiply: [{ $year: '$startDate' }, 100] },
-                    { $month: '$startDate' },
-                  ],
-                },
-                yearMonth,
-              ],
-            },
-            {
-              $gte: [
-                {
-                  $add: [
-                    { $multiply: [{ $year: '$endDate' }, 100] },
-                    { $month: '$endDate' },
-                  ],
-                },
-                yearMonth,
-              ],
-            },
-            {
-              $not: {
-                $in: [
-                  month,
-                  {
-                    $map: {
-                      input: '$excludedDates',
-                      as: 'date',
-                      in: { $month: '$$date' },
-                    },
-                  },
-                ],
-              },
-            },
-            {
-              $not: {
-                $in: [
-                  year,
-                  {
-                    $map: {
-                      input: '$excludedDates',
-                      as: 'date',
-                      in: { $year: '$$date' },
-                    },
-                  },
-                ],
-              },
-            },
-          ],
+          $and: [...getBaseTransactionDateConditions(yearMonth)],
         },
       },
     ],
@@ -300,6 +194,7 @@ const getAdvanced = async (
         isRecurring: '$isRecurring',
         startDate: '$startDate',
         endDate: '$endDate',
+        excludedDates: '$excludedDates',
         currencyId: '$currency._id',
         currencyName: '$currency.name',
         amount: { $toDouble: '$amount' },
