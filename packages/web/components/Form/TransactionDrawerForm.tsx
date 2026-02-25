@@ -8,7 +8,7 @@ import {
   useMemo,
   useState,
 } from 'react';
-import { addMonths, differenceInCalendarMonths, format } from 'date-fns';
+import moment from 'moment';
 import { useForm, useWatch } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslations } from 'next-intl';
@@ -243,15 +243,17 @@ const TransactionDrawerForm = ({
       return;
     }
 
-    const totalMonths = differenceInCalendarMonths(endDate, startDate);
+    const totalMonths = moment(endDate)
+      .startOf('month')
+      .diff(moment(startDate).startOf('month'), 'months');
     const nextExcludedDates: ExcludedDatesProps[] = [];
 
     for (let months = 0; months <= totalMonths; months++) {
-      const date = addMonths(startDate, months);
+      const date = moment(startDate).add(months, 'months').toDate();
 
       nextExcludedDates.push({
         value: date.toDateString(),
-        label: format(date, 'MMM yyyy'),
+        label: moment(date).format('MMM YYYY'),
       });
     }
 
@@ -573,7 +575,7 @@ const TransactionDrawerForm = ({
                           className="flex h-12 w-full items-center justify-between rounded-xl border-2 text-left font-semibold"
                         >
                           <Label className="font-semibold">
-                            {format(field?.value, 'MMM dd, yyyy')}
+                            {moment(field?.value).format('MMM DD, YYYY')}
                           </Label>
                           <CalendarIcon className="ml-auto size-4 opacity-60" />
                         </Button>
@@ -606,7 +608,7 @@ const TransactionDrawerForm = ({
                             className="flex h-12 w-full items-center justify-between rounded-xl border-2 text-left font-semibold"
                           >
                             <Label className="font-semibold">
-                              {format(field?.value, 'MMM dd, yyyy')}
+                              {moment(field?.value).format('MMM DD, YYYY')}
                             </Label>
                             <CalendarIcon className="ml-auto size-4 opacity-60" />
                           </Button>
