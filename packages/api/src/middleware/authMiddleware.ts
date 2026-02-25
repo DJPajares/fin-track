@@ -2,6 +2,15 @@ import { Response, NextFunction } from 'express';
 import { verifyToken, getUserById } from '../services/v1/authService';
 import { RequestWithUser } from '../types/userTypes';
 import { AuthResponse } from '../../../../shared/types/Auth';
+import { languages } from '../../../../shared/constants/languages';
+import type { LocaleProps } from '../../../../shared/types/Locale';
+
+const isLocale = (value: string | null | undefined): value is LocaleProps => {
+  return (
+    typeof value === 'string' &&
+    languages.some((language) => language.value === value)
+  );
+};
 
 /**
  * Middleware to authenticate requests using JWT token
@@ -41,13 +50,22 @@ export const authenticateToken = async (
       throw error;
     }
 
+    const settings = dbUser.settings
+      ? {
+          language: isLocale(dbUser.settings.language)
+            ? dbUser.settings.language
+            : null,
+          currency: dbUser.settings.currency ?? null,
+          darkMode: dbUser.settings.darkMode ?? null,
+        }
+      : undefined;
+
     const authUser: AuthResponse = {
       id: dbUser.id,
       email: dbUser.email ?? null,
       name: dbUser.name ?? null,
       image: dbUser.image ?? null,
-      // convert null settings to undefined and omit extra fields
-      settings: dbUser.settings ?? undefined,
+      settings,
     };
 
     // Attach user to request

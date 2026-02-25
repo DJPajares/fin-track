@@ -1,8 +1,14 @@
 import { NextFunction, Request, Response } from 'express';
 import * as currencyService from '../../services/v1/currencyService';
-import { Types } from 'mongoose';
 
 import type { QueryParamsProps } from '../../types/commonTypes';
+import parseObjectId from '../../utilities/parseObjectId';
+
+const parseStringParam = (param: string | string[] | undefined) => {
+  const value = Array.isArray(param) ? param[0] : param;
+
+  return value?.trim() ? value : null;
+};
 
 const create = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -38,7 +44,12 @@ const getAll = async (req: Request, res: Response, next: NextFunction) => {
 
 const get = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const id = new Types.ObjectId(req.params.id);
+    const id = parseObjectId(req.params.id);
+
+    if (!id) {
+      res.status(400).json({ message: 'Invalid currency id' });
+      return;
+    }
 
     const data = await currencyService.get(id);
 
@@ -50,7 +61,12 @@ const get = async (req: Request, res: Response, next: NextFunction) => {
 
 const getByName = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { name } = req.params;
+    const name = parseStringParam(req.params.name);
+
+    if (!name) {
+      res.status(400).json({ message: 'Invalid currency name' });
+      return;
+    }
 
     const data = await currencyService.getByName(name);
 
@@ -62,7 +78,12 @@ const getByName = async (req: Request, res: Response, next: NextFunction) => {
 
 const update = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const id = new Types.ObjectId(req.params.id);
+    const id = parseObjectId(req.params.id);
+
+    if (!id) {
+      res.status(400).json({ message: 'Invalid currency id' });
+      return;
+    }
 
     const data = await currencyService.update(id, req.body);
 
@@ -74,7 +95,12 @@ const update = async (req: Request, res: Response, next: NextFunction) => {
 
 const remove = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const id = new Types.ObjectId(req.params.id);
+    const id = parseObjectId(req.params.id);
+
+    if (!id) {
+      res.status(400).json({ message: 'Invalid currency id' });
+      return;
+    }
 
     const data = await currencyService.remove(id);
 

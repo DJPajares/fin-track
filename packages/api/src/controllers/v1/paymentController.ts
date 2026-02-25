@@ -7,7 +7,7 @@ import type {
   UpdatePaymentBody,
   UpsertManyPaymentsBody,
 } from '../../types/v1/paymentRequestTypes';
-import { Types } from 'mongoose';
+import parseObjectId from '../../utilities/parseObjectId';
 
 const create = async (
   req: Request<unknown, unknown, CreatePaymentBody>,
@@ -37,7 +37,12 @@ const getAll = async (req: Request, res: Response, next: NextFunction) => {
 
 const get = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const id = new Types.ObjectId(req.params.id);
+    const id = parseObjectId(req.params.id);
+
+    if (!id) {
+      res.status(400).json({ message: 'Invalid payment id' });
+      return;
+    }
 
     const data = await paymentService.get(id);
 
@@ -53,7 +58,12 @@ const update = async (
   next: NextFunction,
 ) => {
   try {
-    const id = new Types.ObjectId(req.params.id);
+    const id = parseObjectId(req.params.id);
+
+    if (!id) {
+      res.status(400).json({ message: 'Invalid payment id' });
+      return;
+    }
 
     const data = await paymentService.update(id, req.body);
 
@@ -79,7 +89,12 @@ const upsertMany = async (
 
 const remove = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const id = new Types.ObjectId(req.params.id);
+    const id = parseObjectId(req.params.id);
+
+    if (!id) {
+      res.status(400).json({ message: 'Invalid payment id' });
+      return;
+    }
 
     const data = await paymentService.remove(id);
 
