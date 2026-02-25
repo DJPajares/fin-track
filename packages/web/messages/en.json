@@ -96,7 +96,9 @@
             "type": "Transaction Type",
             "description": "Notes",
             "addDetails": "Add details",
-            "hideDetails": "Hide details"
+            "hideDetails": "Hide details",
+            "showMore": "Show more",
+            "showLess": "Show less"
           },
           "placeholder": {
             "title": "e.g. Electricity bill",

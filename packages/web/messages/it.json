@@ -96,7 +96,9 @@
             "type": "Tipo di transazione",
             "description": "Note",
             "addDetails": "Aggiungi dettagli",
-            "hideDetails": "Nascondi dettagli"
+            "hideDetails": "Nascondi dettagli",
+            "showMore": "Mostra di più",
+            "showLess": "Mostra di meno"
           },
           "placeholder": {
             "title": "Es. Bolletta elettricità",

@@ -96,6 +96,8 @@ type TransactionDrawerFormProps = {
   resetFormRef?: RefObject<TransactionDrawerFormRef | null>;
 };
 
+const CATEGORY_PREVIEW_LIMIT = 8;
+
 const TransactionDrawerForm = ({
   type,
   typeOptions,
@@ -121,6 +123,7 @@ const TransactionDrawerForm = ({
   >([]);
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
   const [formattedAmount, setFormattedAmount] = useState('');
+  const [isShowingAllCategories, setIsShowingAllCategories] = useState(false);
 
   const resolvedDefaults = useMemo(() => {
     const today = new Date();
@@ -215,6 +218,10 @@ const TransactionDrawerForm = ({
         : '',
     );
   }, [form, formatAmountDisplay, resolvedDefaults]);
+
+  useEffect(() => {
+    setIsShowingAllCategories(false);
+  }, [type._id]);
 
   useEffect(() => {
     return () => {
@@ -482,11 +489,40 @@ const TransactionDrawerForm = ({
                   (category) =>
                     category.type._id === type._id && category.isActive,
                 );
+                const previewCategories = filteredCategories.slice(
+                  0,
+                  CATEGORY_PREVIEW_LIMIT,
+                );
+                const isSelectedOutsidePreview =
+                  !!field.value &&
+                  !previewCategories.some(
+                    (category) => category._id === field.value,
+                  );
+                const selectedCategory = isSelectedOutsidePreview
+                  ? filteredCategories.find(
+                      (category) => category._id === field.value,
+                    )
+                  : undefined;
+                const collapsedCategories =
+                  isSelectedOutsidePreview && selectedCategory
+                    ? [
+                        ...previewCategories.slice(
+                          0,
+                          Math.max(CATEGORY_PREVIEW_LIMIT - 1, 0),
+                        ),
+                        selectedCategory,
+                      ]
+                    : previewCategories;
+                const displayedCategories = isShowingAllCategories
+                  ? filteredCategories
+                  : collapsedCategories;
+                const hasMoreCategories =
+                  filteredCategories.length > CATEGORY_PREVIEW_LIMIT;
 
                 return (
                   <FormItem className="gap-4">
                     <div className="grid grid-cols-2 gap-2">
-                      {filteredCategories.map((category) => {
+                      {displayedCategories.map((category) => {
                         const { _id, id, name, icon } = category;
                         const isTranslated = t.has(`Common.category.${id}`);
                         const label = isTranslated
@@ -500,7 +536,9 @@ const TransactionDrawerForm = ({
                               <span>
                                 <CardButton
                                   label={label}
-                                  handleOnClick={() => field.onChange(_id)}
+                                  handleOnClick={() =>
+                                    field.onChange(isSelected ? '' : _id)
+                                  }
                                   isActive={isSelected}
                                   size="md"
                                   icon={icon as IconProps}
@@ -516,6 +554,27 @@ const TransactionDrawerForm = ({
                         );
                       })}
                     </div>
+
+                    {hasMoreCategories && (
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        className="text-muted-foreground hover:text-foreground w-full justify-start px-0"
+                        onClick={() =>
+                          setIsShowingAllCategories(
+                            (previousValue) => !previousValue,
+                          )
+                        }
+                      >
+                        {isShowingAllCategories
+                          ? t(
+                              'Page.dashboard.transactionDrawer.form.title.showLess',
+                            )
+                          : t(
+                              'Page.dashboard.transactionDrawer.form.title.showMore',
+                            )}
+                      </Button>
+                    )}
 
                     <FormMessage />
                   </FormItem>

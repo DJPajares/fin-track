@@ -96,7 +96,9 @@
             "type": "Uri ng Transaksyon",
             "description": "Mga Tala",
             "addDetails": "Magdagdag ng detalye",
-            "hideDetails": "Itago ang detalye"
+            "hideDetails": "Itago ang detalye",
+            "showMore": "Ipakita pa",
+            "showLess": "Ipakita nang mas kaunti"
           },
           "placeholder": {
             "title": "Hal. Bayarin sa kuryente",

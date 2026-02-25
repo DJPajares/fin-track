@@ -96,7 +96,9 @@
             "type": "ประเภทธุรกรรม",
             "description": "บันทึก",
             "addDetails": "เพิ่มรายละเอียด",
-            "hideDetails": "ซ่อนรายละเอียด"
+            "hideDetails": "ซ่อนรายละเอียด",
+            "showMore": "แสดงเพิ่มเติม",
+            "showLess": "แสดงน้อยลง"
           },
           "placeholder": {
             "title": "เช่น ค่าไฟฟ้า",

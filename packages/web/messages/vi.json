@@ -96,7 +96,9 @@
             "type": "Loại giao dịch",
             "description": "Ghi chú",
             "addDetails": "Thêm chi tiết",
-            "hideDetails": "Ẩn chi tiết"
+            "hideDetails": "Ẩn chi tiết",
+            "showMore": "Hiển thị thêm",
+            "showLess": "Hiển thị ít hơn"
           },
           "placeholder": {
             "title": "Ví dụ: Hóa đơn tiền điện",

@@ -96,7 +96,9 @@
             "type": "Jenis Transaksi",
             "description": "Nota",
             "addDetails": "Tambah butiran",
-            "hideDetails": "Sembunyikan butiran"
+            "hideDetails": "Sembunyikan butiran",
+            "showMore": "Tunjukkan lagi",
+            "showLess": "Tunjukkan kurang"
           },
           "placeholder": {
             "title": "Contoh: Bil elektrik",
