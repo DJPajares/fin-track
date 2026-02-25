@@ -554,7 +554,7 @@ const update = async (
   data: UpdateTransactionBody,
 ) => {
   return await TransactionModel.findOneAndUpdate({ _id }, data, {
-    new: true,
+    returnDocument: 'after',
   }).populate(['category', 'currency']);
 };
 

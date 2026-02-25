@@ -302,7 +302,7 @@ const updateSettings = async ({
         'settings.darkMode': darkMode,
       },
     },
-    { new: true },
+    { returnDocument: 'after' },
   );
 
   if (!user) {

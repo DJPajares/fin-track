@@ -18,7 +18,7 @@ const get = async (id: string) => {
 
 const update = async (id: string, data: UpdateUserBody) => {
   return await UserModel.findOneAndUpdate({ id }, data, {
-    new: true,
+    returnDocument: 'after',
   });
 };
 

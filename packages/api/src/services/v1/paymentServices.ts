@@ -56,7 +56,7 @@ const get = async (_id: PaymentProps['_id']) => {
 
 const update = async (_id: PaymentProps['_id'], data: UpdatePaymentBody) => {
   return await PaymentModel.findOneAndUpdate({ _id }, data, {
-    new: true,
+    returnDocument: 'after',
     upsert: true,
   }).populate('transaction');
 };
@@ -83,7 +83,7 @@ const upsertMany = async (body: UpsertManyPaymentsBody) => {
         date: payment.date,
       },
       {
-        new: true,
+        returnDocument: 'after',
         upsert: true,
         setDefaultsOnInsert: true,
       },
