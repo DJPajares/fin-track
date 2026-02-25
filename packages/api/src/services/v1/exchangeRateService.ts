@@ -57,7 +57,7 @@ const update = async (
   data: ExchangeRateProps,
 ) => {
   return await ExchangeRateModel.findByIdAndUpdate({ _id }, data, {
-    new: true,
+    returnDocument: 'after',
   });
 };
 
@@ -149,7 +149,7 @@ const updateToLatest = async (data: ExchangeRateRequest) => {
       },
       exchangeRateData,
       {
-        new: true, // Return the updated document
+        returnDocument: 'after', // Return the updated document
         upsert: true, // Create if doesn't exist
       },
     );

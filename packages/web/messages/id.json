@@ -96,7 +96,9 @@
             "type": "Jenis Transaksi",
             "description": "Catatan",
             "addDetails": "Tambahkan detail",
-            "hideDetails": "Sembunyikan detail"
+            "hideDetails": "Sembunyikan detail",
+            "showMore": "Tampilkan lebih banyak",
+            "showLess": "Tampilkan lebih sedikit"
           },
           "placeholder": {
             "title": "Contoh: Tagihan listrik",

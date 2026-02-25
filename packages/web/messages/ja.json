@@ -96,7 +96,9 @@
             "type": "取引タイプ",
             "description": "メモ",
             "addDetails": "詳細を追加",
-            "hideDetails": "詳細を隠す"
+            "hideDetails": "詳細を隠す",
+            "showMore": "もっと表示",
+            "showLess": "表示を減らす"
           },
           "placeholder": {
             "title": "例: 電気代",

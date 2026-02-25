@@ -298,7 +298,7 @@ const update = async (
     { _id },
     { ...data, id },
     {
-      new: true,
+      returnDocument: 'after',
     },
   ).populate('type');
 };

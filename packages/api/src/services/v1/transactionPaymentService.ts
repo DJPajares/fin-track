@@ -5,6 +5,10 @@ import { PaymentModel } from '../../models/v1/paymentModel';
 import { TransactionModel } from '../../models/v1/transactionModel';
 import { TypeModel } from '../../models/v1/typeModel';
 import convertCurrency from '../../utilities/convertCurrency';
+import {
+  getBaseTransactionDateConditions,
+  getYearMonthExpression,
+} from '../../utilities/getBaseTransactionDateConditions';
 import formatYearMonth from '../../../../../shared/utilities/formatYearMonth';
 
 import type {
@@ -19,14 +23,126 @@ import type {
   TransactionPaymentProps,
 } from '../../types/v1/transactionPaymentRequestTypes';
 
+type DateContextProps = {
+  year: number;
+  month: number;
+  yearMonth: number;
+};
+
+type ConvertValueProps = {
+  value: number;
+  fromCurrency: string;
+  currency: string;
+  rates: Record<string, number>;
+};
+
+const getDateContext = (date: Date): DateContextProps => {
+  return {
+    year: new Date(date).getFullYear(),
+    month: new Date(date).getMonth() + 1,
+    yearMonth: formatYearMonth(date),
+  };
+};
+
+const getPaymentMonthConditions = (yearMonth: number) => {
+  return [
+    {
+      $lte: [getYearMonthExpression('date'), yearMonth],
+    },
+    {
+      $gte: [getYearMonthExpression('date'), yearMonth],
+    },
+  ];
+};
+
+const convertValue = ({
+  value,
+  fromCurrency,
+  currency,
+  rates,
+}: ConvertValueProps) => {
+  return convertCurrency({
+    value,
+    fromCurrency,
+    toCurrency: currency,
+    rates,
+  });
+};
+
+const getLatestRates = async () => {
+  const latestExchangeRates = await ExchangeRateModel.findOne().sort({
+    date: -1,
+  });
+
+  return latestExchangeRates?.rates || {};
+};
+
+const getCategoryTransactionAmounts = ({
+  expenseTransactionPayment,
+  currency,
+  rates,
+}: {
+  expenseTransactionPayment: ExpenseTransactionPaymentsProps;
+  currency: string;
+  rates: Record<string, number>;
+}) => {
+  let amount = 0;
+  let localAmount = 0;
+
+  if (expenseTransactionPayment.amount) {
+    const amountCurrency = expenseTransactionPayment.currency;
+    const transactionAmount = parseFloat(
+      String(expenseTransactionPayment.amount),
+    );
+
+    amount =
+      currency === amountCurrency
+        ? transactionAmount
+        : convertValue({
+            value: transactionAmount,
+            fromCurrency: amountCurrency,
+            currency,
+            rates,
+          });
+
+    localAmount = transactionAmount;
+  }
+
+  let paidAmount = 0;
+  let localPaidAmount = 0;
+
+  if (expenseTransactionPayment.paidAmount) {
+    const paidCurrency = expenseTransactionPayment.paidCurrency;
+    const transactionPaidAmount = parseFloat(
+      String(expenseTransactionPayment.paidAmount),
+    );
+
+    paidAmount =
+      currency === paidCurrency
+        ? transactionPaidAmount
+        : convertValue({
+            value: transactionPaidAmount,
+            fromCurrency: paidCurrency,
+            currency,
+            rates,
+          });
+
+    localPaidAmount = transactionPaidAmount;
+  }
+
+  return {
+    amount,
+    paidAmount,
+    localAmount,
+    localPaidAmount,
+  };
+};
+
 const getIncomeTransactions = async ({
   date,
   userId,
 }: TransactionPaymentProps) => {
-  const year = new Date(date).getFullYear();
-  const month = new Date(date).getMonth() + 1;
-
-  const yearMonth = formatYearMonth(date);
+  const { yearMonth } = getDateContext(date);
 
   return await TransactionModel.aggregate([
     {
@@ -41,56 +157,7 @@ const getIncomeTransactions = async ({
             // { $gte: [{ $month: '$endDate' }, month] },
             // { $lte: ['$startDate', new Date(data.date)] },
             // { $gte: ['$endDate', new Date(data.date)] },
-            {
-              $lte: [
-                {
-                  $add: [
-                    { $multiply: [{ $year: '$startDate' }, 100] },
-                    { $month: '$startDate' },
-                  ],
-                },
-                yearMonth,
-              ],
-            },
-            {
-              $gte: [
-                {
-                  $add: [
-                    { $multiply: [{ $year: '$endDate' }, 100] },
-                    { $month: '$endDate' },
-                  ],
-                },
-                yearMonth,
-              ],
-            },
-            {
-              $not: {
-                $in: [
-                  month,
-                  {
-                    $map: {
-                      input: '$excludedDates',
-                      as: 'date',
-                      in: { $month: '$$date' },
-                    },
-                  },
-                ],
-              },
-            },
-            {
-              $not: {
-                $in: [
-                  year,
-                  {
-                    $map: {
-                      input: '$excludedDates',
-                      as: 'date',
-                      in: { $year: '$$date' },
-                    },
-                  },
-                ],
-              },
-            },
+            ...getBaseTransactionDateConditions(yearMonth),
           ],
         },
       },
@@ -167,10 +234,7 @@ const getExpenseTransactionPayments = async ({
   date,
   userId,
 }: TransactionPaymentProps) => {
-  const year = new Date(date).getFullYear();
-  const month = new Date(date).getMonth() + 1;
-
-  const yearMonth = formatYearMonth(date);
+  const { yearMonth } = getDateContext(date);
 
   return await TransactionModel.aggregate([
     {
@@ -185,56 +249,7 @@ const getExpenseTransactionPayments = async ({
             // { $gte: [{ $month: '$endDate' }, month] },
             // { $lte: ['$startDate', new Date(data.date)] },
             // { $gte: ['$endDate', new Date(data.date)] },
-            {
-              $lte: [
-                {
-                  $add: [
-                    { $multiply: [{ $year: '$startDate' }, 100] },
-                    { $month: '$startDate' },
-                  ],
-                },
-                yearMonth,
-              ],
-            },
-            {
-              $gte: [
-                {
-                  $add: [
-                    { $multiply: [{ $year: '$endDate' }, 100] },
-                    { $month: '$endDate' },
-                  ],
-                },
-                yearMonth,
-              ],
-            },
-            {
-              $not: {
-                $in: [
-                  month,
-                  {
-                    $map: {
-                      input: '$excludedDates',
-                      as: 'date',
-                      in: { $month: '$$date' },
-                    },
-                  },
-                ],
-              },
-            },
-            {
-              $not: {
-                $in: [
-                  year,
-                  {
-                    $map: {
-                      input: '$excludedDates',
-                      as: 'date',
-                      in: { $year: '$$date' },
-                    },
-                  },
-                ],
-              },
-            },
+            ...getBaseTransactionDateConditions(yearMonth),
           ],
         },
       },
@@ -256,28 +271,7 @@ const getExpenseTransactionPayments = async ({
                 //   { $gte: [{ $month: '$date' }, month] }
                 // ]
                 $and: [
-                  {
-                    $lte: [
-                      {
-                        $add: [
-                          { $multiply: [{ $year: '$date' }, 100] },
-                          { $month: '$date' },
-                        ],
-                      },
-                      yearMonth,
-                    ],
-                  },
-                  {
-                    $gte: [
-                      {
-                        $add: [
-                          { $multiply: [{ $year: '$date' }, 100] },
-                          { $month: '$date' },
-                        ],
-                      },
-                      yearMonth,
-                    ],
-                  },
+                  ...getPaymentMonthConditions(yearMonth),
                   // {
                   //   $not: {
                   //     $in: [
@@ -412,16 +406,12 @@ const processTransactionPaymentData = ({
   rates,
   currency,
 }: ProcessTransactionPaymentDataProps) => {
-  // MAIN
   const budget = incomeTransactions.reduce(
     (accumulator: number, incomeTransaction: IncomeTransactionsProps) => {
-      const value = parseFloat(incomeTransaction.amount.toString());
-      const fromCurrency = incomeTransaction.currency;
-
-      const amount = convertCurrency({
-        value,
-        fromCurrency,
-        toCurrency: currency,
+      const amount = convertValue({
+        value: parseFloat(String(incomeTransaction.amount)),
+        fromCurrency: incomeTransaction.currency,
+        currency,
         rates,
       });
 
@@ -436,29 +426,19 @@ const processTransactionPaymentData = ({
   expenseTransactionPayments.forEach(
     (expenseTransactionPayment: ExpenseTransactionPaymentsProps) => {
       if (expenseTransactionPayment.amount) {
-        const totalAmountValue = parseFloat(
-          expenseTransactionPayment.amount.toString(),
-        );
-        const totalAmountCurrency = expenseTransactionPayment.currency;
-
-        totalAmount += convertCurrency({
-          value: totalAmountValue,
-          fromCurrency: totalAmountCurrency,
-          toCurrency: currency,
+        totalAmount += convertValue({
+          value: parseFloat(String(expenseTransactionPayment.amount)),
+          fromCurrency: expenseTransactionPayment.currency,
+          currency,
           rates,
         });
       }
 
       if (expenseTransactionPayment.paidAmount) {
-        const totalPaidAmountValue = parseFloat(
-          expenseTransactionPayment.paidAmount.toString(),
-        );
-        const totalPaidAmountCurrency = expenseTransactionPayment.paidCurrency;
-
-        totalPaidAmount += convertCurrency({
-          value: totalPaidAmountValue,
-          fromCurrency: totalPaidAmountCurrency,
-          toCurrency: currency,
+        totalPaidAmount += convertValue({
+          value: parseFloat(String(expenseTransactionPayment.paidAmount)),
+          fromCurrency: expenseTransactionPayment.paidCurrency,
+          currency,
           rates,
         });
       }
@@ -498,53 +478,12 @@ const processTransactionPaymentData = ({
           };
         }
 
-        // TRANSACTION
-        // [Amount]
-        let amount = 0;
-        let localAmount = 0;
-
-        if (expenseTransactionPayment.amount) {
-          const amountCurrency = expenseTransactionPayment.currency;
-
-          const transactionAmount = parseFloat(
-            expenseTransactionPayment.amount.toString(),
-          );
-
-          amount =
-            currency === amountCurrency
-              ? transactionAmount
-              : convertCurrency({
-                  value: transactionAmount,
-                  fromCurrency: amountCurrency,
-                  toCurrency: currency,
-                  rates,
-                });
-
-          localAmount = transactionAmount;
-        }
-
-        // [Paid Amount]
-        let paidAmount = 0;
-        let localPaidAmount = 0;
-
-        if (expenseTransactionPayment.paidAmount) {
-          const transactionPaidAmount = parseFloat(
-            expenseTransactionPayment.paidAmount.toString(),
-          );
-          const paidCurrency = expenseTransactionPayment.paidCurrency;
-
-          paidAmount =
-            currency === paidCurrency
-              ? transactionPaidAmount
-              : convertCurrency({
-                  value: transactionPaidAmount,
-                  fromCurrency: paidCurrency,
-                  toCurrency: currency,
-                  rates,
-                });
-
-          localPaidAmount = transactionPaidAmount;
-        }
+        const { amount, paidAmount, localAmount, localPaidAmount } =
+          getCategoryTransactionAmounts({
+            expenseTransactionPayment,
+            currency,
+            rates,
+          });
 
         // [In Local Currency]
         const localAmountValue = {
@@ -601,10 +540,7 @@ const fetchTransactionPayments = async (body: DateCurrencyProps) => {
     userId,
   });
 
-  const latestExchangeRates = await ExchangeRateModel.findOne().sort({
-    date: -1,
-  });
-  const rates = latestExchangeRates?.rates || {};
+  const rates = await getLatestRates();
 
   const output = processTransactionPaymentData({
     incomeTransactions,
@@ -647,10 +583,7 @@ const fetchMonthlyByCategory = async (
       throw new Error(`Category "${categoryName}" not found`);
     }
 
-    const latestExchangeRates = await ExchangeRateModel.findOne().sort({
-      date: -1,
-    });
-    const rates = latestExchangeRates?.rates || {};
+    const rates = await getLatestRates();
 
     const result = await PaymentModel.aggregate([
       {

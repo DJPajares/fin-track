@@ -96,7 +96,9 @@
             "type": "Transaktionstyp",
             "description": "Notizen",
             "addDetails": "Details hinzufügen",
-            "hideDetails": "Details ausblenden"
+            "hideDetails": "Details ausblenden",
+            "showMore": "Mehr anzeigen",
+            "showLess": "Weniger anzeigen"
           },
           "placeholder": {
             "title": "z. B. Stromrechnung",

@@ -96,7 +96,9 @@
             "type": "交易类型",
             "description": "备注",
             "addDetails": "添加详情",
-            "hideDetails": "隐藏详情"
+            "hideDetails": "隐藏详情",
+            "showMore": "显示更多",
+            "showLess": "显示更少"
           },
           "placeholder": {
             "title": "例如：电费账单",

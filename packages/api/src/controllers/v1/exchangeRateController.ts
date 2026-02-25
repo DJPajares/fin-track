@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import * as exchangeRateService from '../../services/v1/exchangeRateService';
 import type { QueryParamsProps } from '../../types/commonTypes';
-import { Types } from 'mongoose';
+import parseObjectId from '../../utilities/parseObjectId';
 
 const create = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -27,7 +27,12 @@ const getAll = async (req: Request, res: Response, next: NextFunction) => {
 
 const get = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const id = new Types.ObjectId(req.params.id);
+    const id = parseObjectId(req.params.id);
+
+    if (!id) {
+      res.status(400).json({ message: 'Invalid exchange rate id' });
+      return;
+    }
 
     const data = await exchangeRateService.get(id);
 
@@ -39,7 +44,12 @@ const get = async (req: Request, res: Response, next: NextFunction) => {
 
 const update = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const id = new Types.ObjectId(req.params.id);
+    const id = parseObjectId(req.params.id);
+
+    if (!id) {
+      res.status(400).json({ message: 'Invalid exchange rate id' });
+      return;
+    }
 
     const data = await exchangeRateService.update(id, req.body);
 
@@ -51,7 +61,12 @@ const update = async (req: Request, res: Response, next: NextFunction) => {
 
 const remove = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const id = new Types.ObjectId(req.params.id);
+    const id = parseObjectId(req.params.id);
+
+    if (!id) {
+      res.status(400).json({ message: 'Invalid exchange rate id' });
+      return;
+    }
 
     const data = await exchangeRateService.remove(id);
 

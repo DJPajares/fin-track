@@ -9,7 +9,7 @@ import type {
   FetchByDateRangeProps,
   FetchByDateProps,
 } from '../../types/v1/transactionRequestTypes';
-import { Types } from 'mongoose';
+import parseObjectId from '../../utilities/parseObjectId';
 
 const create = async (
   req: Request<unknown, unknown, CreateTransactionBody>,
@@ -107,7 +107,12 @@ const getMonthlyCategories = async (
 
 const get = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const id = new Types.ObjectId(req.params.id);
+    const id = parseObjectId(req.params.id);
+
+    if (!id) {
+      res.status(400).json({ message: 'Invalid transaction id' });
+      return;
+    }
 
     const data = await transactionService.get(id);
 
@@ -123,7 +128,12 @@ const update = async (
   next: NextFunction,
 ) => {
   try {
-    const id = new Types.ObjectId(req.params.id);
+    const id = parseObjectId(req.params.id);
+
+    if (!id) {
+      res.status(400).json({ message: 'Invalid transaction id' });
+      return;
+    }
 
     const data = await transactionService.update(id, req.body);
 
@@ -135,7 +145,12 @@ const update = async (
 
 const remove = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const id = new Types.ObjectId(req.params.id);
+    const id = parseObjectId(req.params.id);
+
+    if (!id) {
+      res.status(400).json({ message: 'Invalid transaction id' });
+      return;
+    }
 
     const data = transactionService.remove(id);
 

@@ -55,7 +55,9 @@ const getByName = async (name: string) => {
 };
 
 const update = async (_id: CurrencyProps['_id'], data: CurrencyProps) => {
-  return await CurrencyModel.findOneAndUpdate({ _id }, data, { new: true });
+  return await CurrencyModel.findOneAndUpdate({ _id }, data, {
+    returnDocument: 'after',
+  });
 };
 
 const remove = async (_id: CurrencyProps['_id']) => {

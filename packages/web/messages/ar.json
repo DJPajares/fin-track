@@ -96,7 +96,9 @@
             "type": "نوع المعاملة",
             "description": "ملاحظات",
             "addDetails": "إضافة تفاصيل",
-            "hideDetails": "إخفاء التفاصيل"
+            "hideDetails": "إخفاء التفاصيل",
+            "showMore": "عرض المزيد",
+            "showLess": "عرض أقل"
           },
           "placeholder": {
             "title": "مثال: فاتورة الكهرباء",

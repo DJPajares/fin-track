@@ -96,7 +96,9 @@
             "type": "거래 유형",
             "description": "메모",
             "addDetails": "세부정보 추가",
-            "hideDetails": "세부정보 숨기기"
+            "hideDetails": "세부정보 숨기기",
+            "showMore": "더 보기",
+            "showLess": "접기"
           },
           "placeholder": {
             "title": "예: 전기료",

@@ -96,7 +96,9 @@
             "type": "Type de transaction",
             "description": "Notes",
             "addDetails": "Ajouter des détails",
-            "hideDetails": "Masquer les détails"
+            "hideDetails": "Masquer les détails",
+            "showMore": "Afficher plus",
+            "showLess": "Afficher moins"
           },
           "placeholder": {
             "title": "Ex. Facture d'électricité",

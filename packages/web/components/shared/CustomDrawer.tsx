@@ -81,6 +81,20 @@ const CustomDrawer = ({
               <DrawerHeader className="shrink-0 p-2">
                 <div className="grid grid-cols-3 items-center gap-2">
                   <div className="justify-self-start">
+                    <Button
+                      variant="ghost"
+                      onClick={handleCancel}
+                      disabled={isLoading}
+                    >
+                      {cancelButtonLabel || t('Common.button.cancel')}
+                    </Button>
+                  </div>
+
+                  <div className="justify-self-center text-center">
+                    <DrawerTitle>{title}</DrawerTitle>
+                  </div>
+
+                  <div className="justify-self-end">
                     <ConfirmationDialog
                       title={t('Common.alertDialog.save.title')}
                       description={t('Common.alertDialog.save.description')}
@@ -91,20 +105,6 @@ const CustomDrawer = ({
                         {okButtonLabel || t('Common.button.save')}
                       </Button>
                     </ConfirmationDialog>
-                  </div>
-
-                  <div className="justify-self-center text-center">
-                    <DrawerTitle>{title}</DrawerTitle>
-                  </div>
-
-                  <div className="justify-self-end">
-                    <Button
-                      variant="ghost"
-                      onClick={handleCancel}
-                      disabled={isLoading}
-                    >
-                      {cancelButtonLabel || t('Common.button.cancel')}
-                    </Button>
                   </div>
                 </div>
               </DrawerHeader>

@@ -96,7 +96,9 @@
             "type": "İşlem Türü",
             "description": "Notlar",
             "addDetails": "Detay ekle",
-            "hideDetails": "Detayları gizle"
+            "hideDetails": "Detayları gizle",
+            "showMore": "Daha fazla göster",
+            "showLess": "Daha az göster"
           },
           "placeholder": {
             "title": "Örneğin: Elektrik faturası",

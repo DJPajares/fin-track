@@ -8,7 +8,7 @@ import {
   useMemo,
   useState,
 } from 'react';
-import { addMonths, differenceInCalendarMonths, format } from 'date-fns';
+import moment from 'moment';
 import { useForm, useWatch } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslations } from 'next-intl';
@@ -52,6 +52,8 @@ import {
   transactionSchema,
 } from '../../lib/schemas/transaction';
 
+import { excludedDateStringFormat } from '@shared/constants/dateStringFormat';
+
 import type { ListProps } from '../../types/List';
 import type { CategoryItemProps } from '../../types/Category';
 import type { IconProps } from '../shared/CardIcon';
@@ -94,6 +96,8 @@ type TransactionDrawerFormProps = {
   resetFormRef?: RefObject<TransactionDrawerFormRef | null>;
 };
 
+const CATEGORY_PREVIEW_LIMIT = 8;
+
 const TransactionDrawerForm = ({
   type,
   typeOptions,
@@ -119,6 +123,7 @@ const TransactionDrawerForm = ({
   >([]);
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
   const [formattedAmount, setFormattedAmount] = useState('');
+  const [isShowingAllCategories, setIsShowingAllCategories] = useState(false);
 
   const resolvedDefaults = useMemo(() => {
     const today = new Date();
@@ -215,6 +220,10 @@ const TransactionDrawerForm = ({
   }, [form, formatAmountDisplay, resolvedDefaults]);
 
   useEffect(() => {
+    setIsShowingAllCategories(false);
+  }, [type._id]);
+
+  useEffect(() => {
     return () => {
       if (onStoreFormValues) {
         const currentValues = form.getValues();
@@ -243,15 +252,17 @@ const TransactionDrawerForm = ({
       return;
     }
 
-    const totalMonths = differenceInCalendarMonths(endDate, startDate);
+    const totalMonths = moment(endDate)
+      .startOf('month')
+      .diff(moment(startDate).startOf('month'), 'months');
     const nextExcludedDates: ExcludedDatesProps[] = [];
 
     for (let months = 0; months <= totalMonths; months++) {
-      const date = addMonths(startDate, months);
+      const date = moment(startDate).add(months, 'months').toDate();
 
       nextExcludedDates.push({
         value: date.toDateString(),
-        label: format(date, 'MMM yyyy'),
+        label: moment(date).format(excludedDateStringFormat),
       });
     }
 
@@ -478,11 +489,40 @@ const TransactionDrawerForm = ({
                   (category) =>
                     category.type._id === type._id && category.isActive,
                 );
+                const previewCategories = filteredCategories.slice(
+                  0,
+                  CATEGORY_PREVIEW_LIMIT,
+                );
+                const isSelectedOutsidePreview =
+                  !!field.value &&
+                  !previewCategories.some(
+                    (category) => category._id === field.value,
+                  );
+                const selectedCategory = isSelectedOutsidePreview
+                  ? filteredCategories.find(
+                      (category) => category._id === field.value,
+                    )
+                  : undefined;
+                const collapsedCategories =
+                  isSelectedOutsidePreview && selectedCategory
+                    ? [
+                        ...previewCategories.slice(
+                          0,
+                          Math.max(CATEGORY_PREVIEW_LIMIT - 1, 0),
+                        ),
+                        selectedCategory,
+                      ]
+                    : previewCategories;
+                const displayedCategories = isShowingAllCategories
+                  ? filteredCategories
+                  : collapsedCategories;
+                const hasMoreCategories =
+                  filteredCategories.length > CATEGORY_PREVIEW_LIMIT;
 
                 return (
                   <FormItem className="gap-4">
                     <div className="grid grid-cols-2 gap-2">
-                      {filteredCategories.map((category) => {
+                      {displayedCategories.map((category) => {
                         const { _id, id, name, icon } = category;
                         const isTranslated = t.has(`Common.category.${id}`);
                         const label = isTranslated
@@ -496,7 +536,9 @@ const TransactionDrawerForm = ({
                               <span>
                                 <CardButton
                                   label={label}
-                                  handleOnClick={() => field.onChange(_id)}
+                                  handleOnClick={() =>
+                                    field.onChange(isSelected ? '' : _id)
+                                  }
                                   isActive={isSelected}
                                   size="md"
                                   icon={icon as IconProps}
@@ -512,6 +554,27 @@ const TransactionDrawerForm = ({
                         );
                       })}
                     </div>
+
+                    {hasMoreCategories && (
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        className="text-muted-foreground hover:text-foreground w-full justify-start px-0"
+                        onClick={() =>
+                          setIsShowingAllCategories(
+                            (previousValue) => !previousValue,
+                          )
+                        }
+                      >
+                        {isShowingAllCategories
+                          ? t(
+                              'Page.dashboard.transactionDrawer.form.title.showLess',
+                            )
+                          : t(
+                              'Page.dashboard.transactionDrawer.form.title.showMore',
+                            )}
+                      </Button>
+                    )}
 
                     <FormMessage />
                   </FormItem>
@@ -573,7 +636,7 @@ const TransactionDrawerForm = ({
                           className="flex h-12 w-full items-center justify-between rounded-xl border-2 text-left font-semibold"
                         >
                           <Label className="font-semibold">
-                            {format(field?.value, 'MMM dd, yyyy')}
+                            {moment(field?.value).format('MMM DD, YYYY')}
                           </Label>
                           <CalendarIcon className="ml-auto size-4 opacity-60" />
                         </Button>
@@ -606,7 +669,7 @@ const TransactionDrawerForm = ({
                             className="flex h-12 w-full items-center justify-between rounded-xl border-2 text-left font-semibold"
                           >
                             <Label className="font-semibold">
-                              {format(field?.value, 'MMM dd, yyyy')}
+                              {moment(field?.value).format('MMM DD, YYYY')}
                             </Label>
                             <CalendarIcon className="ml-auto size-4 opacity-60" />
                           </Button>

@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from 'express';
 import * as categoryService from '../../services/v1/categoryService';
-import { Types } from 'mongoose';
 
 import type { QueryParamsProps } from '../../types/commonTypes';
+import parseObjectId from '../../utilities/parseObjectId';
 
 const create = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -53,7 +53,12 @@ const getAll = async (req: Request, res: Response, next: NextFunction) => {
 
 const get = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const id = new Types.ObjectId(req.params.id);
+    const id = parseObjectId(req.params.id);
+
+    if (!id) {
+      res.status(400).json({ message: 'Invalid category id' });
+      return;
+    }
 
     const data = await categoryService.get(id);
 
@@ -81,7 +86,13 @@ const getSpecificType = async (
   next: NextFunction,
 ) => {
   try {
-    const id = new Types.ObjectId(req.params.id);
+    const id = parseObjectId(req.params.id);
+
+    if (!id) {
+      res.status(400).json({ message: 'Invalid category id' });
+      return;
+    }
+
     const query = req.query as unknown as QueryParamsProps;
 
     const data = await categoryService.getSpecificType(id, query);
@@ -94,7 +105,13 @@ const getSpecificType = async (
 
 const update = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const id = new Types.ObjectId(req.params.id);
+    const id = parseObjectId(req.params.id);
+
+    if (!id) {
+      res.status(400).json({ message: 'Invalid category id' });
+      return;
+    }
+
     const userId = req.body.userId;
 
     const data = await categoryService.update(id, req.body, userId);
@@ -107,7 +124,12 @@ const update = async (req: Request, res: Response, next: NextFunction) => {
 
 const remove = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const id = new Types.ObjectId(req.params.id);
+    const id = parseObjectId(req.params.id);
+
+    if (!id) {
+      res.status(400).json({ message: 'Invalid category id' });
+      return;
+    }
 
     const data = await categoryService.remove(id);
 

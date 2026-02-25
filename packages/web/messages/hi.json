@@ -96,7 +96,9 @@
             "type": "लेन-देन का प्रकार",
             "description": "नोट्स",
             "addDetails": "विवरण जोड़ें",
-            "hideDetails": "विवरण छुपाएँ"
+            "hideDetails": "विवरण छुपाएँ",
+            "showMore": "और दिखाएँ",
+            "showLess": "कम दिखाएँ"
           },
           "placeholder": {
             "title": "जैसे: बिजली का बिल",

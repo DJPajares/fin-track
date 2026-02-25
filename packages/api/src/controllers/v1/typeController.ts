@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import * as typeService from '../../services/v1/typeService';
-import { Types } from 'mongoose';
 import type { QueryParamsProps } from '../../types/commonTypes';
+import parseObjectId from '../../utilities/parseObjectId';
 
 const create = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -37,7 +37,14 @@ const getAll = async (req: Request, res: Response, next: NextFunction) => {
 
 const get = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const _id = new Types.ObjectId(req.params.id);
+    const _id = parseObjectId(req.params.id);
+
+    if (!_id) {
+      res.status(400).json({
+        message: 'Invalid type id',
+      });
+      return;
+    }
 
     const data = await typeService.get(_id);
 
@@ -49,7 +56,14 @@ const get = async (req: Request, res: Response, next: NextFunction) => {
 
 const update = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const _id = new Types.ObjectId(req.params.id);
+    const _id = parseObjectId(req.params.id);
+
+    if (!_id) {
+      res.status(400).json({
+        message: 'Invalid type id',
+      });
+      return;
+    }
 
     const data = await typeService.update(_id, req.body);
 
@@ -61,7 +75,14 @@ const update = async (req: Request, res: Response, next: NextFunction) => {
 
 const remove = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const _id = new Types.ObjectId(req.params.id);
+    const _id = parseObjectId(req.params.id);
+
+    if (!_id) {
+      res.status(400).json({
+        message: 'Invalid type id',
+      });
+      return;
+    }
 
     const data = await typeService.remove(_id);
 

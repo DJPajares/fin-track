@@ -7,6 +7,7 @@ import {
   useState,
 } from 'react';
 import { useTranslations } from 'next-intl';
+import moment from 'moment';
 
 import CustomDrawer from '../../../components/shared/CustomDrawer';
 import TransactionDrawerForm, {
@@ -20,6 +21,7 @@ import {
   useDeleteTransactionMutation,
 } from '@web/lib/redux/services/transactions';
 import { dashboardApi } from '@web/lib/redux/services/dashboard';
+import { excludedDateStringFormat } from '@shared/constants/dateStringFormat';
 
 import type { TransactionFormProps } from '../../../lib/schemas/transaction';
 import type { TransactionProps } from '../../../types/Transaction';
@@ -82,8 +84,8 @@ const EditTransactionDrawer = ({
     endDate: new Date(transaction.endDate),
     excludedDates:
       transaction.excludedDates?.map((date) => ({
-        value: date.toDateString(),
-        label: date.toDateString(),
+        value: new Date(date).toDateString(),
+        label: moment(date).format(excludedDateStringFormat),
       })) || [],
   };
 
