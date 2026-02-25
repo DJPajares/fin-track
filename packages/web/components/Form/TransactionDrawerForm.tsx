@@ -52,6 +52,8 @@ import {
   transactionSchema,
 } from '../../lib/schemas/transaction';
 
+import { excludedDateStringFormat } from '@shared/constants/dateStringFormat';
+
 import type { ListProps } from '../../types/List';
 import type { CategoryItemProps } from '../../types/Category';
 import type { IconProps } from '../shared/CardIcon';
@@ -253,7 +255,7 @@ const TransactionDrawerForm = ({
 
       nextExcludedDates.push({
         value: date.toDateString(),
-        label: moment(date).format('MMM YYYY'),
+        label: moment(date).format(excludedDateStringFormat),
       });
     }
 

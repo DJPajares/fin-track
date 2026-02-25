@@ -1,1 +1,5 @@
-export const dateStringFormat = 'YYYYMMDD';
+const dateStringFormat = 'YYYYMMDD';
+
+const excludedDateStringFormat = 'MMM YYYY';
+
+export { dateStringFormat, excludedDateStringFormat };
