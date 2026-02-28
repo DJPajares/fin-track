@@ -46,7 +46,10 @@ const AmountSettledCard = ({
         </CardDescription>
       </CardHeader>
       <CardContent className="px-4">
-        <Progress value={Math.floor(paymentCompletionRate * 100) || 0} />
+        <Progress
+          aria-label={t('Page.home.cards.amountSettled.title')}
+          value={Math.floor(paymentCompletionRate * 100) || 0}
+        />
       </CardContent>
     </Card>
   );

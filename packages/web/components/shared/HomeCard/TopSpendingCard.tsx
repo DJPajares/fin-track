@@ -57,7 +57,14 @@ const TopSpendingCard = ({
                   })}
                 </Label>
               </div>
-              <Progress value={category.paymentCompletionRate * 100} />
+              <Progress
+                aria-label={
+                  isTranslated
+                    ? t(`Common.category.${category.id}`)
+                    : category.name
+                }
+                value={category.paymentCompletionRate * 100}
+              />
             </div>
           );
         })}

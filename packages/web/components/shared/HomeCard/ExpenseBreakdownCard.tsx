@@ -17,7 +17,7 @@ import { Label } from '@web/components/ui/label';
 
 import { formatCurrency } from '@shared/utilities/formatCurrency';
 
-import type { ExpensePieDataProps } from './types';
+import type { ExpensePieDataProps } from '@web/types/HomeCard';
 
 type ExpenseBreakdownCardProps = {
   expensePieData: ExpensePieDataProps[];

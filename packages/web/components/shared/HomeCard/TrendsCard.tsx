@@ -16,7 +16,7 @@ import { Label } from '@web/components/ui/label';
 
 import { formatCurrency } from '@shared/utilities/formatCurrency';
 
-import type { TrendDataProps } from './types';
+import type { TrendDataProps } from '@web/types/HomeCard';
 
 type TrendsCardProps = {
   trendsData: TrendDataProps[];

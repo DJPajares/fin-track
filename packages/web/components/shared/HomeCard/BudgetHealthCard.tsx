@@ -1,8 +1,14 @@
 import { useMemo } from 'react';
 import { useTranslations } from 'next-intl';
 import { CircularProgress } from '@heroui/react';
-import CardDialog from '@web/components/shared/CardDialog';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+} from '@web/components/ui/card';
 import { Label } from '@web/components/ui/label';
+import { Badge } from '@web/components/ui/badge';
 
 import { formatCurrency } from '@shared/utilities/formatCurrency';
 
@@ -39,60 +45,57 @@ const BudgetHealthCard = ({
 
   const remaining = budget - totalAmount;
 
+  const badgeVariant =
+    budgetHealthColor === 'danger' ? 'destructive' : 'secondary';
+
   return (
-    <CardDialog
-      className="flex flex-col items-center justify-center"
-      isExpandable
-    >
-      <div className="flex flex-col items-center gap-1">
+    <Card className="relative flex flex-col">
+      <CardHeader className="px-4">
+        <CardDescription>
+          {t('Page.home.cards.budgetHealth.title')}
+        </CardDescription>
+      </CardHeader>
+      <CardContent className="flex items-center gap-3 px-4">
         <CircularProgress
+          aria-label={t('Page.home.cards.budgetHealth.title')}
           classNames={{
-            svg: 'size-24 drop-shadow-md',
-            value: 'text-2xl font-semibold',
+            svg: 'size-16 drop-shadow-md',
+            value: 'text-base font-semibold',
             indicator:
               budgetHealthColor === 'success'
                 ? 'stroke-green-500'
                 : budgetHealthColor === 'warning'
                   ? 'stroke-yellow-500'
                   : 'stroke-destructive',
-            label: 'text-center font-extralight tracking-wider',
           }}
-          label={t('Page.home.cards.budgetHealth.title')}
           value={Math.min(budgetUtilization, 100)}
           strokeWidth={3}
           showValueLabel={true}
         />
-        <Label variant="caption" className="block text-center">
-          {budgetHealthLabel}
-        </Label>
-        <Label
-          variant="caption"
-          className="text-muted-foreground block text-center"
-        >
-          {t('Page.home.cards.budgetHealth.description')}
-        </Label>
-        <Label
-          variant="caption"
-          className="text-muted-foreground block text-center"
-        >
-          {t('Page.home.cards.budgetHealth.used', {
-            spent: formatCurrency({ value: totalAmount, currency }),
-            budget: formatCurrency({ value: budget, currency }),
-          })}
-        </Label>
-        <Label
-          variant="caption"
-          className={`block text-center ${remaining >= 0 ? 'text-green-500' : 'text-destructive'}`}
-        >
-          {t('Page.home.cards.budgetHealth.remaining', {
-            amount: formatCurrency({
-              value: Math.abs(remaining),
-              currency,
-            }),
-          })}
-        </Label>
-      </div>
-    </CardDialog>
+        <div className="flex min-w-0 flex-1 flex-col gap-1">
+          <Badge variant={badgeVariant} className="w-fit">
+            {budgetHealthLabel}
+          </Badge>
+          <Label variant="caption" className="text-muted-foreground truncate">
+            {t('Page.home.cards.budgetHealth.used', {
+              spent: formatCurrency({ value: totalAmount, currency }),
+              budget: formatCurrency({ value: budget, currency }),
+            })}
+          </Label>
+          <Label
+            variant="caption"
+            className={`truncate ${remaining >= 0 ? 'text-green-500' : 'text-destructive'}`}
+          >
+            {t('Page.home.cards.budgetHealth.remaining', {
+              amount: formatCurrency({
+                value: Math.abs(remaining),
+                currency,
+              }),
+            })}
+          </Label>
+        </div>
+      </CardContent>
+    </Card>
   );
 };
 

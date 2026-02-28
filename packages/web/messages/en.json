@@ -23,6 +23,7 @@
     "home": {
       "greetings": "Welcome",
       "dashboardButton": "Go to Dashboard",
+      "ariaLabel": "Finance overview",
       "motivation": {
         "title": "Motivation today",
         "quotes": [

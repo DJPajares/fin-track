@@ -13,7 +13,7 @@ import { Label } from '@web/components/ui/label';
 
 import { formatCurrency } from '@shared/utilities/formatCurrency';
 
-import type { UpcomingExtraProps } from './types';
+import type { UpcomingExtraProps } from '@web/types/HomeCard';
 
 type ExtrasCardProps = {
   accumulativeExtra: number;

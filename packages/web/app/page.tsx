@@ -16,21 +16,21 @@ import {
 } from '../components/ui/card';
 import Loader from '../components/shared/Loader';
 
-import {
-  TrendsCard,
-  SavingsCard,
-  ExtrasCard,
-  BalanceCard,
-  AmountSettledCard,
-  UnpaidBillsCard,
-  TopSpendingCard,
-  ExpenseBreakdownCard,
-  BudgetHealthCard,
-  type TrendDataProps,
-  type UpcomingExtraProps,
-  type PreviousSavingsProps,
-  type ExpensePieDataProps,
-} from '../components/shared/HomeCard';
+import TrendsCard from '../components/shared/HomeCard/TrendsCard';
+import SavingsCard from '../components/shared/HomeCard/SavingsCard';
+import ExtrasCard from '../components/shared/HomeCard/ExtrasCard';
+import BalanceCard from '../components/shared/HomeCard/BalanceCard';
+import AmountSettledCard from '../components/shared/HomeCard/AmountSettledCard';
+import UnpaidBillsCard from '../components/shared/HomeCard/UnpaidBillsCard';
+import TopSpendingCard from '../components/shared/HomeCard/TopSpendingCard';
+import ExpenseBreakdownCard from '../components/shared/HomeCard/ExpenseBreakdownCard';
+import BudgetHealthCard from '../components/shared/HomeCard/BudgetHealthCard';
+import type {
+  TrendDataProps,
+  UpcomingExtraProps,
+  PreviousSavingsProps,
+  ExpensePieDataProps,
+} from '../types/HomeCard';
 
 import {
   useGetDashboardDataQuery,
@@ -225,7 +225,7 @@ const Home = () => {
           b: TransactionPaymentCategoryProps,
         ) => a.paymentCompletionRate - b.paymentCompletionRate,
       )
-      .slice(0, 3);
+      .slice(0, 5);
   }, [dashboardData?.categories]);
 
   // Top spending categories — sorted by highest totalAmount
@@ -241,7 +241,7 @@ const Home = () => {
             b: TransactionPaymentCategoryProps,
           ) => b.totalAmount - a.totalAmount,
         )
-        .slice(0, 3);
+        .slice(0, 5);
     }, [dashboardData?.categories]);
 
   // Expense pie chart data — from categories
@@ -268,6 +268,7 @@ const Home = () => {
   return (
     <>
       <ScrollShadow
+        aria-label={t('Page.home.ariaLabel')}
         className="flex max-h-[calc(100dvh-theme(height.36))] flex-col gap-4 sm:max-h-none sm:gap-8"
         hideScrollBar
       >

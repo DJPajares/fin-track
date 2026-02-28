@@ -9,8 +9,12 @@ import {
   DialogTitle,
   DialogDescription,
 } from '../../components/ui/dialog';
-import { Card, CardContent, CardHeader } from '../../components/ui/card';
-import { Label } from '@web/components/ui/label';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+} from '../../components/ui/card';
 
 type CardDialogProps = {
   title?: string;
@@ -51,18 +55,18 @@ const CardDialog = ({
     <Card className={cn(`${isExpandable && 'cursor-pointer'}`, className)}>
       {title ? (
         <>
-          <CardHeader>
-            <Label variant="title-xs">{title}</Label>
+          <CardHeader className="px-4">
+            <CardDescription>{title}</CardDescription>
           </CardHeader>
 
-          <CardContent>
+          <CardContent className="px-4">
             <Content isExpandable={isExpandable} title={title}>
               {children}
             </Content>
           </CardContent>
         </>
       ) : (
-        <CardContent>
+        <CardContent className="px-4">
           <Content isExpandable={isExpandable} title={title}>
             {children}
           </Content>

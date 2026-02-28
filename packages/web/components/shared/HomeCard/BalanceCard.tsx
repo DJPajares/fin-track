@@ -1,5 +1,4 @@
 import { useTranslations } from 'next-intl';
-import { WalletIcon } from 'lucide-react';
 import {
   Card,
   CardDescription,
@@ -21,10 +20,7 @@ const BalanceCard = ({ balance, currency }: BalanceCardProps) => {
   return (
     <Card className="relative flex flex-col">
       <CardHeader className="px-4">
-        <CardDescription className="flex items-center gap-2">
-          <WalletIcon className="size-4" />
-          {t('Page.home.cards.balance.title')}
-        </CardDescription>
+        <CardDescription>{t('Page.home.cards.balance.title')}</CardDescription>
         <CardTitle>
           <Label
             variant="title-xl"

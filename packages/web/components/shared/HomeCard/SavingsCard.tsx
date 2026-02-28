@@ -12,7 +12,7 @@ import { Label } from '@web/components/ui/label';
 
 import { formatCurrency } from '@shared/utilities/formatCurrency';
 
-import type { PreviousSavingsProps } from './types';
+import type { PreviousSavingsProps } from '@web/types/HomeCard';
 
 type SavingsCardProps = {
   accumulativeSavings: number;
