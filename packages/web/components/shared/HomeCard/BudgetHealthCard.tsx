@@ -55,7 +55,7 @@ const BudgetHealthCard = ({
           {t('Page.home.cards.budgetHealth.title')}
         </CardDescription>
       </CardHeader>
-      <CardContent className="flex items-center gap-3 px-4">
+      <CardContent className="flex flex-col items-center gap-3 px-4">
         <CircularProgress
           aria-label={t('Page.home.cards.budgetHealth.title')}
           classNames={{
@@ -72,27 +72,30 @@ const BudgetHealthCard = ({
           strokeWidth={3}
           showValueLabel={true}
         />
-        <div className="flex min-w-0 flex-1 flex-col gap-1">
-          <Badge variant={badgeVariant} className="w-fit">
+        <div className="flex w-full flex-col gap-4">
+          <Badge variant={badgeVariant} className="w-fit self-center">
             {budgetHealthLabel}
           </Badge>
-          <Label variant="caption" className="text-muted-foreground truncate">
-            {t('Page.home.cards.budgetHealth.used', {
-              spent: formatCurrency({ value: totalAmount, currency }),
-              budget: formatCurrency({ value: budget, currency }),
-            })}
-          </Label>
-          <Label
-            variant="caption"
-            className={`truncate ${remaining >= 0 ? 'text-green-500' : 'text-destructive'}`}
-          >
-            {t('Page.home.cards.budgetHealth.remaining', {
-              amount: formatCurrency({
-                value: Math.abs(remaining),
-                currency,
-              }),
-            })}
-          </Label>
+
+          <div className="flex w-full flex-col">
+            <Label variant="caption" className="text-muted-foreground">
+              {t('Page.home.cards.budgetHealth.used', {
+                spent: formatCurrency({ value: totalAmount, currency }),
+                budget: formatCurrency({ value: budget, currency }),
+              })}
+            </Label>
+            <Label
+              variant="caption"
+              className={remaining >= 0 ? 'text-green-500' : 'text-destructive'}
+            >
+              {t('Page.home.cards.budgetHealth.remaining', {
+                amount: formatCurrency({
+                  value: Math.abs(remaining),
+                  currency,
+                }),
+              })}
+            </Label>
+          </div>
         </div>
       </CardContent>
     </Card>

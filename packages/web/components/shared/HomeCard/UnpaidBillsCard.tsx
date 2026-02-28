@@ -18,13 +18,11 @@ const UnpaidBillsCard = ({ unpaidCategories }: UnpaidBillsCardProps) => {
     <CardDialog
       className="flex flex-col"
       title={t('Page.home.cards.unpaidBills.title')}
+      description={t('Page.home.cards.unpaidBills.description')}
       isExpandable
     >
       {unpaidCategories.length > 0 ? (
         <div className="flex flex-col gap-3">
-          <Label variant="caption">
-            {t('Page.home.cards.unpaidBills.description')}
-          </Label>
           {unpaidCategories.map((category) => {
             const isTranslated = t.has(`Common.category.${category.id}`);
             return (

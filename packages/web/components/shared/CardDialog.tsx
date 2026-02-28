@@ -15,9 +15,11 @@ import {
   CardDescription,
   CardHeader,
 } from '../../components/ui/card';
+import { Label } from '@web/components/ui/label';
 
 type CardDialogProps = {
   title?: string;
+  description?: string;
   isExpandable?: boolean;
   children: ReactNode;
   className?: string;
@@ -47,6 +49,7 @@ const Content = ({ title, isExpandable, children }: CardDialogProps) =>
 
 const CardDialog = ({
   title,
+  description,
   isExpandable = false,
   children,
   className,
@@ -57,6 +60,11 @@ const CardDialog = ({
         <>
           <CardHeader className="px-4">
             <CardDescription>{title}</CardDescription>
+            {description && (
+              <CardDescription>
+                <Label variant="caption">{description}</Label>
+              </CardDescription>
+            )}
           </CardHeader>
 
           <CardContent className="px-4">
