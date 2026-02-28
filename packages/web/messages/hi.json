@@ -44,8 +44,9 @@
         ]
       },
       "cards": {
-        "progress": {
-          "title": "भुगतान प्रगति"
+        "trends": {
+          "title": "आय रुझान",
+          "description": "पिछले 6 महीने"
         },
         "savings": {
           "title": "बचत प्रगति",
@@ -54,6 +55,37 @@
         "extras": {
           "title": "अतिरिक्त धन",
           "description": "अगले 3 महीने के लिए अनुमानित"
+        },
+        "balance": {
+          "title": "मासिक शेष",
+          "description": "भुगतान के बाद शेष"
+        },
+        "amountSettled": {
+          "title": "भुगतान की गई राशि",
+          "description": "इस महीने भुगतान किया गया",
+          "outOf": "{amount} में से"
+        },
+        "unpaidBills": {
+          "title": "अवैतनिक बिल",
+          "description": "ध्यान देने योग्य श्रेणियाँ",
+          "allSettled": "सभी बिल चुकता!"
+        },
+        "topSpending": {
+          "title": "शीर्ष खर्च",
+          "description": "सबसे अधिक खर्च की श्रेणियाँ"
+        },
+        "expenseBreakdown": {
+          "title": "खर्च विवरण",
+          "description": "श्रेणी अनुसार खर्च"
+        },
+        "budgetHealth": {
+          "title": "बजट स्वास्थ्य",
+          "description": "इस महीने बजट का उपयोग",
+          "good": "सही रास्ते पर",
+          "warning": "करीब पहुँच रहा",
+          "over": "बजट से अधिक",
+          "used": "{budget} में से {spent} उपयोग किया",
+          "remaining": "{amount} शेष"
         }
       }
     },

@@ -44,8 +44,9 @@
         ]
       },
       "cards": {
-        "progress": {
-          "title": "Kemajuan Pembayaran"
+        "trends": {
+          "title": "Tren Pendapatan",
+          "description": "6 bulan terakhir"
         },
         "savings": {
           "title": "Kemajuan Tabungan",
@@ -54,6 +55,37 @@
         "extras": {
           "title": "Dana Tambahan",
           "description": "Diproyeksikan untuk 3 bulan ke depan"
+        },
+        "balance": {
+          "title": "Saldo Bulanan",
+          "description": "Sisa setelah pembayaran"
+        },
+        "amountSettled": {
+          "title": "Jumlah Terbayar",
+          "description": "Dibayar bulan ini",
+          "outOf": "dari {amount}"
+        },
+        "unpaidBills": {
+          "title": "Tagihan Belum Dibayar",
+          "description": "Kategori yang butuh perhatian",
+          "allSettled": "Semua tagihan sudah dibayar!"
+        },
+        "topSpending": {
+          "title": "Pengeluaran Teratas",
+          "description": "Kategori pengeluaran tertinggi"
+        },
+        "expenseBreakdown": {
+          "title": "Rincian Pengeluaran",
+          "description": "Pengeluaran berdasarkan kategori"
+        },
+        "budgetHealth": {
+          "title": "Kesehatan Anggaran",
+          "description": "Penggunaan anggaran bulan ini",
+          "good": "Sesuai rencana",
+          "warning": "Mendekati batas",
+          "over": "Melebihi anggaran",
+          "used": "{spent} dari {budget} digunakan",
+          "remaining": "{amount} tersisa"
         }
       }
     },

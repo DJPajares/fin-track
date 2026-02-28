@@ -44,8 +44,9 @@
         ]
       },
       "cards": {
-        "progress": {
-          "title": "Tiến Độ Thanh Toán"
+        "trends": {
+          "title": "Xu hướng thu nhập",
+          "description": "6 tháng gần đây"
         },
         "savings": {
           "title": "Tiến Độ Tiết Kiệm",
@@ -54,6 +55,37 @@
         "extras": {
           "title": "Quỹ Bổ Sung",
           "description": "Dự kiến trong 3 tháng tới"
+        },
+        "balance": {
+          "title": "Số Dư Hàng Tháng",
+          "description": "Còn lại sau thanh toán"
+        },
+        "amountSettled": {
+          "title": "Số Tiền Đã Thanh Toán",
+          "description": "Đã thanh toán tháng này",
+          "outOf": "trên {amount}"
+        },
+        "unpaidBills": {
+          "title": "Hóa Đơn Chưa Thanh Toán",
+          "description": "Danh mục cần chú ý",
+          "allSettled": "Tất cả hóa đơn đã thanh toán!"
+        },
+        "topSpending": {
+          "title": "Chi Tiêu Hàng Đầu",
+          "description": "Danh mục chi tiêu cao nhất"
+        },
+        "expenseBreakdown": {
+          "title": "Phân Tích Chi Phí",
+          "description": "Chi tiêu theo danh mục"
+        },
+        "budgetHealth": {
+          "title": "Sức Khỏe Ngân Sách",
+          "description": "Sử dụng ngân sách tháng này",
+          "good": "Đúng hướng",
+          "warning": "Sắp đến giới hạn",
+          "over": "Vượt ngân sách",
+          "used": "Đã dùng {spent} trên {budget}",
+          "remaining": "Còn lại {amount}"
         }
       }
     },

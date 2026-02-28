@@ -44,8 +44,9 @@
         ]
       },
       "cards": {
-        "progress": {
-          "title": "Progresso dei Pagamenti"
+        "trends": {
+          "title": "Tendenze entrate",
+          "description": "Ultimi 6 mesi"
         },
         "savings": {
           "title": "Progresso del Risparmio",
@@ -54,6 +55,37 @@
         "extras": {
           "title": "Fondi Extra",
           "description": "Previsti per i prossimi 3 mesi"
+        },
+        "balance": {
+          "title": "Saldo Mensile",
+          "description": "Rimanente dopo i pagamenti"
+        },
+        "amountSettled": {
+          "title": "Importo Saldato",
+          "description": "Pagato questo mese",
+          "outOf": "su {amount}"
+        },
+        "unpaidBills": {
+          "title": "Fatture Non Pagate",
+          "description": "Categorie che richiedono attenzione",
+          "allSettled": "Tutte le fatture saldate!"
+        },
+        "topSpending": {
+          "title": "Spese Principali",
+          "description": "Categorie di spesa più alte"
+        },
+        "expenseBreakdown": {
+          "title": "Ripartizione Spese",
+          "description": "Spese per categoria"
+        },
+        "budgetHealth": {
+          "title": "Salute del Budget",
+          "description": "Utilizzo del budget questo mese",
+          "good": "In linea",
+          "warning": "Si avvicina",
+          "over": "Oltre il budget",
+          "used": "{spent} di {budget} utilizzato",
+          "remaining": "{amount} rimanente"
         }
       }
     },

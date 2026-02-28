@@ -44,8 +44,9 @@
         ]
       },
       "cards": {
-        "progress": {
-          "title": "付款进度"
+        "trends": {
+          "title": "收入趋势",
+          "description": "最近6个月"
         },
         "savings": {
           "title": "储蓄进度",
@@ -54,6 +55,37 @@
         "extras": {
           "title": "额外资金",
           "description": "未来3个月的预计"
+        },
+        "balance": {
+          "title": "月度余额",
+          "description": "付款后剩余"
+        },
+        "amountSettled": {
+          "title": "已结算金额",
+          "description": "本月已支付",
+          "outOf": "共 {amount}"
+        },
+        "unpaidBills": {
+          "title": "未付账单",
+          "description": "需要关注的类别",
+          "allSettled": "所有账单已结清！"
+        },
+        "topSpending": {
+          "title": "最高支出",
+          "description": "支出最高的类别"
+        },
+        "expenseBreakdown": {
+          "title": "支出明细",
+          "description": "按类别的支出"
+        },
+        "budgetHealth": {
+          "title": "预算健康度",
+          "description": "本月预算使用情况",
+          "good": "正常",
+          "warning": "接近上限",
+          "over": "超出预算",
+          "used": "{budget}中已使用{spent}",
+          "remaining": "剩余{amount}"
         }
       }
     },

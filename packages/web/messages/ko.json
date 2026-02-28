@@ -44,8 +44,9 @@
         ]
       },
       "cards": {
-        "progress": {
-          "title": "결제 진행률"
+        "trends": {
+          "title": "수입 동향",
+          "description": "최근 6개월"
         },
         "savings": {
           "title": "저축 진행률",
@@ -54,6 +55,37 @@
         "extras": {
           "title": "추가 자금",
           "description": "다음 3개월 동안 예상"
+        },
+        "balance": {
+          "title": "월간 잔액",
+          "description": "결제 후 남은 금액"
+        },
+        "amountSettled": {
+          "title": "결제 완료 금액",
+          "description": "이번 달 결제 금액",
+          "outOf": "{amount} 중"
+        },
+        "unpaidBills": {
+          "title": "미결제 청구서",
+          "description": "주의가 필요한 카테고리",
+          "allSettled": "모든 청구서 결제 완료!"
+        },
+        "topSpending": {
+          "title": "상위 지출",
+          "description": "가장 높은 지출 카테고리"
+        },
+        "expenseBreakdown": {
+          "title": "지출 내역",
+          "description": "카테고리별 지출"
+        },
+        "budgetHealth": {
+          "title": "예산 건강도",
+          "description": "이번 달 예산 사용률",
+          "good": "순조로움",
+          "warning": "주의 필요",
+          "over": "예산 초과",
+          "used": "{budget} 중 {spent} 사용",
+          "remaining": "{amount} 남음"
         }
       }
     },

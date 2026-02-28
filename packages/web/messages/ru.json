@@ -44,8 +44,9 @@
         ]
       },
       "cards": {
-        "progress": {
-          "title": "Прогресс Платежей"
+        "trends": {
+          "title": "Тренды доходов",
+          "description": "Последние 6 месяцев"
         },
         "savings": {
           "title": "Прогресс Сбережений",
@@ -54,6 +55,37 @@
         "extras": {
           "title": "Дополнительные Средства",
           "description": "Прогноз на следующие 3 месяца"
+        },
+        "balance": {
+          "title": "Месячный Баланс",
+          "description": "Остаток после платежей"
+        },
+        "amountSettled": {
+          "title": "Оплаченная Сумма",
+          "description": "Оплачено в этом месяце",
+          "outOf": "из {amount}"
+        },
+        "unpaidBills": {
+          "title": "Неоплаченные Счета",
+          "description": "Категории требующие внимания",
+          "allSettled": "Все счета оплачены!"
+        },
+        "topSpending": {
+          "title": "Основные Расходы",
+          "description": "Категории с наибольшими расходами"
+        },
+        "expenseBreakdown": {
+          "title": "Разбивка Расходов",
+          "description": "Расходы по категориям"
+        },
+        "budgetHealth": {
+          "title": "Здоровье Бюджета",
+          "description": "Использование бюджета в этом месяце",
+          "good": "По плану",
+          "warning": "Приближается",
+          "over": "Превышение бюджета",
+          "used": "{spent} из {budget} использовано",
+          "remaining": "Осталось {amount}"
         }
       }
     },

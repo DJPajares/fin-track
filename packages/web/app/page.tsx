@@ -1,27 +1,36 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import moment from 'moment';
 
-import { TrendingUpIcon } from 'lucide-react';
-
-import { CircularProgress, ScrollShadow } from '@heroui/react';
+import { ScrollShadow } from '@heroui/react';
 import { Button } from '../components/ui/button';
-import CardDialog from '../components/shared/CardDialog';
 import { Separator } from '../components/ui/separator';
-import { Area, AreaChart } from 'recharts';
-import { ChartConfig, ChartContainer } from '../components/ui/chart';
 import {
   Card,
-  CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
 } from '../components/ui/card';
-import { Label } from '../components/ui/label';
 import Loader from '../components/shared/Loader';
+
+import {
+  TrendsCard,
+  SavingsCard,
+  ExtrasCard,
+  BalanceCard,
+  AmountSettledCard,
+  UnpaidBillsCard,
+  TopSpendingCard,
+  ExpenseBreakdownCard,
+  BudgetHealthCard,
+  type TrendDataProps,
+  type UpcomingExtraProps,
+  type PreviousSavingsProps,
+  type ExpensePieDataProps,
+} from '../components/shared/HomeCard';
 
 import {
   useGetDashboardDataQuery,
@@ -30,22 +39,10 @@ import {
 } from '../lib/redux/services/dashboard';
 import { useAppSelector } from '../lib/hooks/use-redux';
 
-import { formatCurrency } from '@shared/utilities/formatCurrency';
+import type { TransactionPaymentCategoryProps } from '../types/TransactionPayment';
 
 // Force dynamic rendering to avoid prerendering issues
 export const dynamic = 'force-dynamic';
-
-type UpcomingExtraProps = {
-  month: string;
-  yearMonth: string;
-  extra: number;
-};
-
-type PreviousSavingsProps = {
-  month: string;
-  yearMonth: string;
-  amount: number;
-};
 
 const Home = () => {
   const router = useRouter();
@@ -67,6 +64,7 @@ const Home = () => {
   const [previousSavings, setPreviousSavings] = useState<
     PreviousSavingsProps[]
   >([]);
+  const [trendsData, setTrendsData] = useState<TrendDataProps[]>([]);
 
   const date = new Date();
 
@@ -112,6 +110,19 @@ const Home = () => {
       skip: !userId || !currency.name,
     },
   );
+
+  const { data: incomeTrendsData, isFetching: isIncomeTrendsDataFetching } =
+    useGetTransactionsByTypeDateRangeQuery(
+      {
+        startDate: moment(date).subtract(5, 'months').toDate(),
+        endDate: date,
+        currency: currency.name,
+        userId,
+      },
+      {
+        skip: !userId || !currency.name,
+      },
+    );
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -171,20 +182,23 @@ const Home = () => {
     );
   }, [transactionPaymentsByCategoryData]);
 
-  const upcomingExtraChartConfig = {
-    extra: {
-      label: 'Extra',
-      color: 'var(--chart-1)',
-      icon: TrendingUpIcon,
-    },
-  } satisfies ChartConfig;
+  useEffect(() => {
+    setTrendsData(
+      incomeTrendsData
+        ? incomeTrendsData.map((transaction) => {
+            const yearMonth = moment(transaction.date).format('MMM YYYY');
+            const month = moment(transaction.date).format('MMM');
 
-  const previousSavingsChartConfig = {
-    amount: {
-      label: 'Amount',
-      color: 'var(--chart-1)',
-    },
-  } satisfies ChartConfig;
+            return {
+              month,
+              yearMonth,
+              income: transaction.income || 0,
+              expense: transaction.expense || 0,
+            };
+          })
+        : [],
+    );
+  }, [incomeTrendsData]);
 
   // Calculate accumulative extra per month
   const accumulativeExtra =
@@ -198,10 +212,55 @@ const Home = () => {
       ? previousSavings.reduce((sum, item) => sum + item.amount, 0)
       : 0;
 
+  // Unpaid categories — sorted by lowest completion rate
+  const unpaidCategories = useMemo((): TransactionPaymentCategoryProps[] => {
+    if (!dashboardData?.categories) return [];
+    return (dashboardData.categories as TransactionPaymentCategoryProps[])
+      .filter(
+        (cat: TransactionPaymentCategoryProps) => cat.paymentCompletionRate < 1,
+      )
+      .sort(
+        (
+          a: TransactionPaymentCategoryProps,
+          b: TransactionPaymentCategoryProps,
+        ) => a.paymentCompletionRate - b.paymentCompletionRate,
+      )
+      .slice(0, 3);
+  }, [dashboardData?.categories]);
+
+  // Top spending categories — sorted by highest totalAmount
+  const topSpendingCategories =
+    useMemo((): TransactionPaymentCategoryProps[] => {
+      if (!dashboardData?.categories) return [];
+      return [
+        ...(dashboardData.categories as TransactionPaymentCategoryProps[]),
+      ]
+        .sort(
+          (
+            a: TransactionPaymentCategoryProps,
+            b: TransactionPaymentCategoryProps,
+          ) => b.totalAmount - a.totalAmount,
+        )
+        .slice(0, 3);
+    }, [dashboardData?.categories]);
+
+  // Expense pie chart data — from categories
+  const expensePieData = useMemo((): ExpensePieDataProps[] => {
+    if (!dashboardData?.categories) return [];
+    return (dashboardData.categories as TransactionPaymentCategoryProps[])
+      .filter((cat: TransactionPaymentCategoryProps) => cat.totalAmount > 0)
+      .map((cat: TransactionPaymentCategoryProps) => ({
+        id: cat.id,
+        name: cat.name,
+        amount: cat.totalAmount,
+      }));
+  }, [dashboardData?.categories]);
+
   const isLoading =
     isDashboardDataFetching ||
     isTransactionsByTypeDataFetching ||
     isTransactionPaymentsByCategoryDataFetching ||
+    isIncomeTrendsDataFetching ||
     !currency.name;
 
   if (isLoading) return <Loader />;
@@ -212,117 +271,53 @@ const Home = () => {
         className="flex max-h-[calc(100dvh-theme(height.36))] flex-col gap-4 sm:max-h-none sm:gap-8"
         hideScrollBar
       >
+        {/* Finance Overview Cards */}
         <div className="grid auto-rows-fr grid-cols-2 gap-5 sm:grid-cols-3 sm:gap-10">
-          <CardDialog
-            className="flex flex-col items-center justify-center"
-            isExpandable
-          >
-            <CircularProgress
-              classNames={{
-                svg: 'size-24 drop-shadow-md',
-                value: 'text-2xl font-semibold',
-                indicator: 'stroke-primary',
-                label: 'text-center font-extralight tracking-wider',
-              }}
-              label={t('Page.home.cards.progress.title')}
-              value={
-                Math.floor(dashboardData?.main?.paymentCompletionRate * 100) ||
-                0
-              }
-              strokeWidth={3}
-              showValueLabel={true}
-            />
-          </CardDialog>
+          <AmountSettledCard
+            totalPaidAmount={dashboardData?.main?.totalPaidAmount ?? 0}
+            totalAmount={dashboardData?.main?.totalAmount ?? 0}
+            paymentCompletionRate={
+              dashboardData?.main?.paymentCompletionRate ?? 0
+            }
+            currency={currency.name}
+          />
 
-          <Card className="relative flex flex-col pb-0">
-            <CardHeader className="px-4">
-              <CardDescription>
-                {t('Page.home.cards.savings.title')}
-              </CardDescription>
-              <CardTitle>
-                <Label variant="title-xl">
-                  {formatCurrency({
-                    value: accumulativeSavings,
-                    currency: currency.name,
-                  })}
-                </Label>
-              </CardTitle>
-              <CardDescription>
-                <Label variant="caption">
-                  {t('Page.home.cards.savings.description')}
-                </Label>
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="relative mt-auto flex-1 p-0">
-              <ChartContainer
-                config={previousSavingsChartConfig}
-                className="relative size-full overflow-hidden rounded-xl"
-              >
-                <AreaChart
-                  data={previousSavings}
-                  margin={{
-                    top: 5,
-                  }}
-                  className="size-fit"
-                >
-                  <Area
-                    dataKey="amount"
-                    fill="var(--chart-1)"
-                    fillOpacity={0.1}
-                    stroke="var(--chart-1)"
-                    strokeWidth={2}
-                    type="monotone"
-                    baseValue="dataMin"
-                  />
-                </AreaChart>
-              </ChartContainer>
-            </CardContent>
-          </Card>
+          <SavingsCard
+            accumulativeSavings={accumulativeSavings}
+            previousSavings={previousSavings}
+            currency={currency.name}
+          />
 
-          <Card className="relative flex flex-col pb-0">
-            <CardHeader className="px-4">
-              <CardDescription>
-                {t('Page.home.cards.extras.title')}
-              </CardDescription>
-              <CardTitle>
-                <Label variant="title-xl">
-                  {formatCurrency({
-                    value: accumulativeExtra,
-                    currency: currency.name,
-                  })}
-                </Label>
-              </CardTitle>
-              <CardDescription>
-                <Label variant="caption">
-                  {t('Page.home.cards.extras.description')}
-                </Label>
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="relative mt-auto flex-1 p-0">
-              <ChartContainer
-                config={upcomingExtraChartConfig}
-                className="relative size-full overflow-hidden rounded-xl"
-              >
-                <AreaChart
-                  data={upcomingExtras}
-                  margin={{
-                    top: 5,
-                  }}
-                  className="size-fit"
-                >
-                  <Area
-                    dataKey="extra"
-                    fill="var(--chart-1)"
-                    fillOpacity={0.1}
-                    stroke="var(--chart-1)"
-                    strokeWidth={2}
-                    type="monotone"
-                    baseValue="dataMin"
-                  />
-                </AreaChart>
-              </ChartContainer>
-            </CardContent>
-          </Card>
+          <ExtrasCard
+            accumulativeExtra={accumulativeExtra}
+            upcomingExtras={upcomingExtras}
+            currency={currency.name}
+          />
+
+          <TrendsCard trendsData={trendsData} currency={currency.name} />
+
+          <BalanceCard
+            balance={dashboardData?.main?.balance ?? 0}
+            currency={currency.name}
+          />
+
+          <UnpaidBillsCard unpaidCategories={unpaidCategories} />
+
+          <TopSpendingCard
+            topSpendingCategories={topSpendingCategories}
+            currency={currency.name}
+          />
+
+          <ExpenseBreakdownCard
+            expensePieData={expensePieData}
+            currency={currency.name}
+          />
+
+          <BudgetHealthCard
+            budget={dashboardData?.main?.budget ?? 0}
+            totalAmount={dashboardData?.main?.totalAmount ?? 0}
+            currency={currency.name}
+          />
         </div>
 
         <Separator />

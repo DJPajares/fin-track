@@ -44,8 +44,9 @@
         ]
       },
       "cards": {
-        "progress": {
-          "title": "تقدم الدفع"
+        "trends": {
+          "title": "اتجاهات الدخل",
+          "description": "آخر 6 أشهر"
         },
         "savings": {
           "title": "تقدم المدخرات",
@@ -54,6 +55,37 @@
         "extras": {
           "title": "أموال إضافية",
           "description": "متوقع خلال الأشهر الثلاثة القادمة"
+        },
+        "balance": {
+          "title": "الرصيد الشهري",
+          "description": "المتبقي بعد المدفوعات"
+        },
+        "amountSettled": {
+          "title": "المبلغ المسوّى",
+          "description": "المدفوع هذا الشهر",
+          "outOf": "من أصل {amount}"
+        },
+        "unpaidBills": {
+          "title": "فواتير غير مدفوعة",
+          "description": "فئات تحتاج انتباه",
+          "allSettled": "تم تسوية جميع الفواتير!"
+        },
+        "topSpending": {
+          "title": "أعلى الإنفاق",
+          "description": "أعلى فئات المصاريف"
+        },
+        "expenseBreakdown": {
+          "title": "تفصيل المصاريف",
+          "description": "الإنفاق حسب الفئة"
+        },
+        "budgetHealth": {
+          "title": "صحة الميزانية",
+          "description": "استخدام الميزانية هذا الشهر",
+          "good": "على المسار",
+          "warning": "يقترب",
+          "over": "تجاوز الميزانية",
+          "used": "{spent} من {budget} مستخدم",
+          "remaining": "{amount} متبقي"
         }
       }
     },

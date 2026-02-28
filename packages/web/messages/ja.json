@@ -44,8 +44,9 @@
         ]
       },
       "cards": {
-        "progress": {
-          "title": "支払い進捗"
+        "trends": {
+          "title": "収入トレンド",
+          "description": "過去6ヶ月"
         },
         "savings": {
           "title": "貯蓄進捗",
@@ -54,6 +55,37 @@
         "extras": {
           "title": "追加資金",
           "description": "今後3ヶ月間の予想"
+        },
+        "balance": {
+          "title": "月間残高",
+          "description": "支払い後の残り"
+        },
+        "amountSettled": {
+          "title": "支払い済み金額",
+          "description": "今月の支払い分",
+          "outOf": "{amount}のうち"
+        },
+        "unpaidBills": {
+          "title": "未払いの請求",
+          "description": "注意が必要なカテゴリ",
+          "allSettled": "すべての請求が支払い済み！"
+        },
+        "topSpending": {
+          "title": "上位の支出",
+          "description": "最も支出の多いカテゴリ"
+        },
+        "expenseBreakdown": {
+          "title": "支出内訳",
+          "description": "カテゴリ別の支出"
+        },
+        "budgetHealth": {
+          "title": "予算の健全性",
+          "description": "今月の予算利用状況",
+          "good": "順調",
+          "warning": "注意",
+          "over": "予算超過",
+          "used": "{budget}のうち{spent}使用",
+          "remaining": "残り{amount}"
         }
       }
     },
