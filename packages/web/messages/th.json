@@ -44,8 +44,9 @@
         ]
       },
       "cards": {
-        "progress": {
-          "title": "ความคืบหน้าการชำระเงิน"
+        "trends": {
+          "title": "แนวโน้มรายได้",
+          "description": "6 เดือนที่ผ่านมา"
         },
         "savings": {
           "title": "ความคืบหน้าการออมเงิน",
@@ -54,6 +55,37 @@
         "extras": {
           "title": "กองทุนเพิ่มเติม",
           "description": "คาดการณ์สำหรับ 3 เดือนข้างหน้า"
+        },
+        "balance": {
+          "title": "ยอดคงเหลือรายเดือน",
+          "description": "คงเหลือหลังชำระเงิน"
+        },
+        "amountSettled": {
+          "title": "จำนวนที่ชำระแล้ว",
+          "description": "ชำระในเดือนนี้",
+          "outOf": "จาก {amount}"
+        },
+        "unpaidBills": {
+          "title": "บิลค้างชำระ",
+          "description": "หมวดหมู่ที่ต้องให้ความสนใจ",
+          "allSettled": "ชำระบิลทั้งหมดแล้ว!"
+        },
+        "topSpending": {
+          "title": "ค่าใช้จ่ายสูงสุด",
+          "description": "หมวดหมู่ค่าใช้จ่ายสูงสุด"
+        },
+        "expenseBreakdown": {
+          "title": "รายละเอียดค่าใช้จ่าย",
+          "description": "ค่าใช้จ่ายตามหมวดหมู่"
+        },
+        "budgetHealth": {
+          "title": "สุขภาพงบประมาณ",
+          "description": "การใช้งบประมาณเดือนนี้",
+          "good": "ตามแผน",
+          "warning": "ใกล้ถึงขีดจำกัด",
+          "over": "เกินงบประมาณ",
+          "used": "ใช้ไป {spent} จาก {budget}",
+          "remaining": "เหลือ {amount}"
         }
       }
     },

@@ -44,8 +44,9 @@
         ]
       },
       "cards": {
-        "progress": {
-          "title": "Ödeme İlerlemesi"
+        "trends": {
+          "title": "Gelir Trendleri",
+          "description": "Son 6 ay"
         },
         "savings": {
           "title": "Tasarruf İlerlemesi",
@@ -54,6 +55,37 @@
         "extras": {
           "title": "Ek Fonlar",
           "description": "Sonraki 3 ay için öngörülen"
+        },
+        "balance": {
+          "title": "Aylık Bakiye",
+          "description": "Ödemelerden sonra kalan"
+        },
+        "amountSettled": {
+          "title": "Ödenen Tutar",
+          "description": "Bu ay ödenen",
+          "outOf": "{amount} tutarından"
+        },
+        "unpaidBills": {
+          "title": "Ödenmemiş Faturalar",
+          "description": "İlgi gerektiren kategoriler",
+          "allSettled": "Tüm faturalar ödendi!"
+        },
+        "topSpending": {
+          "title": "En Yüksek Harcamalar",
+          "description": "En yüksek gider kategorileri"
+        },
+        "expenseBreakdown": {
+          "title": "Gider Dağılımı",
+          "description": "Kategoriye göre harcamalar"
+        },
+        "budgetHealth": {
+          "title": "Bütçe Sağlığı",
+          "description": "Bu ayki bütçe kullanımı",
+          "good": "Yolunda",
+          "warning": "Sınıra yaklaşıyor",
+          "over": "Bütçe aşıldı",
+          "used": "{budget} bütçeden {spent} kullanıldı",
+          "remaining": "{amount} kalan"
         }
       }
     },

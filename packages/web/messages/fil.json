@@ -44,8 +44,9 @@
         ]
       },
       "cards": {
-        "progress": {
-          "title": "Pag-unlad ng Pagbabayad"
+        "trends": {
+          "title": "Mga Trend ng Kita",
+          "description": "Huling 6 na buwan"
         },
         "savings": {
           "title": "Pag-unlad ng Ipon",
@@ -54,6 +55,37 @@
         "extras": {
           "title": "Dagdag na Pondo",
           "description": "Inaasahang sa susunod na 3 buwan"
+        },
+        "balance": {
+          "title": "Buwanang Balanse",
+          "description": "Natitirang pagkatapos ng mga bayarin"
+        },
+        "amountSettled": {
+          "title": "Halagang Nabayaran",
+          "description": "Binayaran ngayong buwan",
+          "outOf": "sa {amount}"
+        },
+        "unpaidBills": {
+          "title": "Hindi Nabayarang Bayarin",
+          "description": "Mga kategoryang nangangailangan ng atensyon",
+          "allSettled": "Lahat ng bayarin ay nabayaran na!"
+        },
+        "topSpending": {
+          "title": "Pinakamataas na Gastos",
+          "description": "Pinakamataas na kategorya ng gastos"
+        },
+        "expenseBreakdown": {
+          "title": "Detalye ng Gastos",
+          "description": "Gastos ayon sa kategorya"
+        },
+        "budgetHealth": {
+          "title": "Kalusugan ng Budget",
+          "description": "Paggamit ng budget ngayong buwan",
+          "good": "Nasa tamang landas",
+          "warning": "Papalapit na",
+          "over": "Lampas sa budget",
+          "used": "{spent} sa {budget} ang nagamit",
+          "remaining": "{amount} ang natitira"
         }
       }
     },

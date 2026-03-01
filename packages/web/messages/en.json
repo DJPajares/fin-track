@@ -23,6 +23,7 @@
     "home": {
       "greetings": "Welcome",
       "dashboardButton": "Go to Dashboard",
+      "ariaLabel": "Finance overview",
       "motivation": {
         "title": "Motivation today",
         "quotes": [
@@ -44,8 +45,9 @@
         ]
       },
       "cards": {
-        "progress": {
-          "title": "Payment Progress"
+        "trends": {
+          "title": "Income Trends",
+          "description": "Last 6 months"
         },
         "savings": {
           "title": "Savings Progress",
@@ -54,6 +56,37 @@
         "extras": {
           "title": "Extra Funds",
           "description": "Projected over next 3 months"
+        },
+        "balance": {
+          "title": "Monthly Balance",
+          "description": "Remaining after payments"
+        },
+        "amountSettled": {
+          "title": "Amount Settled",
+          "description": "Paid this month",
+          "outOf": "out of {amount}"
+        },
+        "unpaidBills": {
+          "title": "Unpaid Bills",
+          "description": "Categories needing attention",
+          "allSettled": "All bills settled!"
+        },
+        "topSpending": {
+          "title": "Top Spending",
+          "description": "Highest expense categories"
+        },
+        "expenseBreakdown": {
+          "title": "Expense Breakdown",
+          "description": "Spending by category"
+        },
+        "budgetHealth": {
+          "title": "Budget Health",
+          "description": "Budget utilization this month",
+          "good": "On track",
+          "warning": "Getting close",
+          "over": "Over budget",
+          "used": "{spent} of {budget} used",
+          "remaining": "{amount} remaining"
         }
       }
     },
