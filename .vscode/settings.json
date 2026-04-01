@@ -8,10 +8,8 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit"
   },
-  "typescript.preferences.importModuleSpecifier": "non-relative",
-  "javascript.preferences.importModuleSpecifier": "non-relative",
   "files.trimTrailingWhitespace": true,
-  "i18n-ally.localesPaths": ["packages/web/messages"],
+  "i18n-ally.localesPaths": ["apps/web/messages"],
   "i18n-ally.enabledFrameworks": ["next-intl"],
   "i18n-ally.keystyle": "nested"
 }
