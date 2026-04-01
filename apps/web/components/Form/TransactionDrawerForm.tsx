@@ -1,0 +1,735 @@
+import {
+  Button,
+  Card,
+  Checkbox,
+  FieldError,
+  Form,
+  Input,
+  Label as HeroUILabel,
+  ListBox,
+  Select,
+  TextField,
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@heroui/react';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { excludedDateStringFormat } from '@shared/constants/dateStringFormat';
+import { DatePicker } from '@web/components/shared/DatePicker';
+import { CalendarIcon, ChevronDownIcon, Trash2Icon } from 'lucide-react';
+import moment from 'moment';
+import { useTranslations } from 'next-intl';
+import {
+  Dispatch,
+  RefObject,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useImperativeHandle,
+  useMemo,
+  useState,
+} from 'react';
+import { Controller, useForm, useWatch } from 'react-hook-form';
+
+import { useAppSelector } from '../../lib/hooks/use-redux';
+import {
+  type TransactionFormProps,
+  transactionSchema,
+} from '../../lib/schemas/transaction';
+import { cn } from '../../lib/utils';
+import type { CategoryItemProps } from '../../types/Category';
+import type { ListProps } from '../../types/List';
+import CardButton from '../shared/CardButton';
+import type { IconProps } from '../shared/CardIcon';
+import ConfirmationDialog from '../shared/ConfirmationDialog';
+import { MultiSelectBox } from '../shared/MultiSelectBox';
+import { Label } from '../shared/Typography';
+
+type ExcludedDatesProps = {
+  value: string;
+  label: string;
+};
+
+export type SubmitTransactionProps = {
+  name: string;
+  category: string;
+  currency: string;
+  amount: string;
+  description: string;
+  isRecurring: boolean;
+  startDate: Date;
+  excludedDates: Date[];
+  endDate?: Date;
+  userId: string;
+};
+
+export type TransactionDrawerFormRef = {
+  resetForm: () => void;
+};
+
+type TransactionDrawerFormProps = {
+  type: ListProps;
+  typeOptions: ListProps[];
+  onTypeChange: (type: ListProps) => void;
+  categories: CategoryItemProps[];
+  currencies: ListProps[];
+  defaultValues?: TransactionFormProps;
+  submitTransaction: (data: SubmitTransactionProps) => Promise<void>;
+  deleteTransaction?: (id: string) => Promise<void>;
+  setIsTransactionDrawerOpen: Dispatch<SetStateAction<boolean>>;
+  onStoreFormValues?: (values: TransactionFormProps) => void;
+  onValidationError?: () => void;
+  formRef: RefObject<HTMLFormElement | null>;
+  resetFormRef?: RefObject<TransactionDrawerFormRef | null>;
+};
+
+const CATEGORY_PREVIEW_LIMIT = 8;
+
+const TransactionDrawerForm = ({
+  type,
+  typeOptions,
+  onTypeChange,
+  categories,
+  currencies,
+  defaultValues,
+  submitTransaction,
+  deleteTransaction,
+  onStoreFormValues,
+  onValidationError,
+  setIsTransactionDrawerOpen,
+  formRef,
+  resetFormRef,
+}: TransactionDrawerFormProps) => {
+  const t = useTranslations();
+
+  const { user } = useAppSelector((state) => state.auth);
+  const userId = user?.id || '';
+
+  const [isDetailsOpen, setIsDetailsOpen] = useState(false);
+  const [isShowingAllCategories, setIsShowingAllCategories] = useState(false);
+
+  const resolvedDefaults = useMemo(() => {
+    const today = new Date();
+    const start = defaultValues?.startDate ?? today;
+    const end = defaultValues?.endDate ?? start;
+    const currencyFallback =
+      defaultValues?.currency || currencies[0]?._id || '';
+
+    return {
+      id: defaultValues?.id,
+      category: defaultValues?.category ?? '',
+      name: defaultValues?.name ?? '',
+      currency: currencyFallback,
+      amount: defaultValues?.amount ?? 0,
+      description: defaultValues?.description ?? '',
+      isRecurring: defaultValues?.isRecurring ?? false,
+      startDate: start,
+      endDate: end,
+      excludedDates: defaultValues?.excludedDates ?? [],
+    } satisfies TransactionFormProps;
+  }, [currencies, defaultValues]);
+
+  const formatAmountDisplay = useCallback((value: number | string) => {
+    if (value === null || value === undefined) return '';
+    const raw = typeof value === 'number' ? value.toString() : value;
+    if (!raw) return '';
+
+    const sanitized = raw.replace(/[^\d.]/g, '');
+    if (!sanitized) return '';
+
+    const [whole = '0', decimals] = sanitized.split('.');
+    const formattedWhole = Number(whole || '0').toLocaleString('en-US');
+
+    if (decimals !== undefined) {
+      const trimmedDecimals = decimals.slice(0, 2);
+      const hasTrailingDot = raw.endsWith('.') && trimmedDecimals.length === 0;
+      return `${formattedWhole}${hasTrailingDot ? '.' : trimmedDecimals ? `.${trimmedDecimals}` : ''}`;
+    }
+
+    return formattedWhole;
+  }, []);
+
+  const parseAmountInput = useCallback((raw: string) => {
+    const sanitized = raw.replace(/[^\d.]/g, '');
+    if (!sanitized) {
+      return { display: '', value: 0 };
+    }
+
+    const [whole = '0', decimals] = sanitized.split('.');
+    const trimmedDecimals = decimals ? decimals.slice(0, 2) : '';
+    const numericValue = Number(
+      `${whole || '0'}${trimmedDecimals ? `.${trimmedDecimals}` : ''}`,
+    );
+    const hasTrailingDot = raw.endsWith('.') && trimmedDecimals.length === 0;
+    const display = `${Number(whole || '0').toLocaleString('en-US')}${
+      hasTrailingDot ? '.' : trimmedDecimals ? `.${trimmedDecimals}` : ''
+    }`;
+
+    return { display, value: Number.isNaN(numericValue) ? 0 : numericValue };
+  }, []);
+
+  const form = useForm<TransactionFormProps>({
+    resolver: zodResolver(transactionSchema),
+    defaultValues: resolvedDefaults,
+  });
+
+  useImperativeHandle(
+    resetFormRef,
+    () => ({
+      resetForm: () => {
+        form.reset(resolvedDefaults);
+        setIsDetailsOpen(false);
+      },
+    }),
+    [form, resolvedDefaults],
+  );
+
+  const startDate = useWatch({ control: form.control, name: 'startDate' });
+  const endDate = useWatch({ control: form.control, name: 'endDate' });
+  const isRecurring = useWatch({ control: form.control, name: 'isRecurring' });
+
+  useEffect(() => {
+    return () => {
+      if (onStoreFormValues) {
+        const currentValues = form.getValues();
+        onStoreFormValues(currentValues);
+      }
+    };
+  }, [form, onStoreFormValues]);
+
+  const excludedDatesArray = useMemo((): ExcludedDatesProps[] => {
+    if (!(startDate && endDate)) {
+      return [];
+    }
+
+    const totalMonths = moment(endDate)
+      .startOf('month')
+      .diff(moment(startDate).startOf('month'), 'months');
+
+    return Array.from({ length: totalMonths + 1 }, (_, months) => {
+      const date = moment(startDate).add(months, 'months').toDate();
+
+      return {
+        value: date.toDateString(),
+        label: moment(date).format(excludedDateStringFormat),
+      };
+    });
+  }, [endDate, startDate]);
+
+  useEffect(() => {
+    form.reset(resolvedDefaults);
+  }, [form, resolvedDefaults]);
+
+  useEffect(() => {
+    if (startDate && endDate && endDate < startDate) {
+      form.setValue('endDate', startDate);
+    }
+  }, [startDate, endDate, form]);
+
+  const handleTypeChange = useCallback(
+    (nextType: ListProps) => {
+      setIsShowingAllCategories(false);
+      onTypeChange(nextType);
+    },
+    [onTypeChange],
+  );
+
+  const onSubmit = async (data: TransactionFormProps) => {
+    try {
+      const excludedDates = data.excludedDates
+        ? data.excludedDates.map((date) => new Date(date.value))
+        : [];
+
+      const {
+        name,
+        category,
+        currency,
+        amount,
+        description,
+        startDate,
+        endDate,
+      } = data;
+
+      const transactionData: SubmitTransactionProps = {
+        name,
+        category,
+        currency,
+        amount: amount.toString(),
+        description: description || '',
+        isRecurring,
+        startDate,
+        endDate: isRecurring ? endDate : startDate,
+        excludedDates,
+        userId,
+      };
+
+      await submitTransaction(transactionData);
+
+      // Reset form after successful submission
+      form.reset(resolvedDefaults);
+      setIsDetailsOpen(false);
+    } catch (error) {
+      console.error('Error submitting transaction:', error);
+      throw error;
+    }
+  };
+
+  const onInvalidSubmit = () => {
+    // This is called when form validation fails
+    // Notify parent so it can reset loading state
+    onValidationError?.();
+  };
+
+  const handleDeleteTransaction = async () => {
+    const id = defaultValues?.id;
+    if (deleteTransaction && id) {
+      await deleteTransaction(id);
+      setIsTransactionDrawerOpen(false);
+    }
+  };
+
+  return (
+    <Form
+      ref={formRef}
+      onSubmit={form.handleSubmit(onSubmit, onInvalidSubmit)}
+      className="flex flex-col gap-4"
+    >
+      <Card className="bg-background/60 dark:bg-default-100/50 border-none p-0 shadow-sm">
+        <Card.Content className="flex flex-col gap-4 p-5">
+          <Controller
+            control={form.control}
+            name="name"
+            render={({ field, fieldState }) => (
+              <TextField isInvalid={fieldState.invalid} className="gap-2">
+                <HeroUILabel className="text-sm font-semibold">
+                  {t('Page.dashboard.transactionDrawer.form.title.title')}
+                </HeroUILabel>
+
+                <Input
+                  placeholder={t(
+                    'Page.dashboard.transactionDrawer.form.placeholder.title',
+                  )}
+                  autoComplete="off"
+                  className="h-11 rounded-xl"
+                  {...field}
+                />
+
+                {fieldState.error?.message ? (
+                  <FieldError>{fieldState.error.message}</FieldError>
+                ) : null}
+              </TextField>
+            )}
+          />
+
+          <Controller
+            control={form.control}
+            name="currency"
+            render={({ field, fieldState }) => (
+              <div className="grid gap-2">
+                <HeroUILabel className="text-sm font-semibold">
+                  {t('Page.dashboard.transactionDrawer.form.title.currency')}
+                </HeroUILabel>
+
+                <Select onChange={field.onChange} defaultValue={field.value}>
+                  <Select.Trigger className="h-12 rounded-xl border-2">
+                    <Select.Value />
+                  </Select.Trigger>
+
+                  <Select.Popover>
+                    <ListBox>
+                      {currencies.map((currency) => (
+                        <ListBox.Item
+                          key={currency._id}
+                          id={currency._id}
+                          textValue={currency.name}
+                        >
+                          {currency.name}
+                          <ListBox.ItemIndicator />
+                        </ListBox.Item>
+                      ))}
+                    </ListBox>
+                  </Select.Popover>
+                </Select>
+
+                {fieldState.error?.message ? (
+                  <FieldError>{fieldState.error.message}</FieldError>
+                ) : null}
+              </div>
+            )}
+          />
+
+          <Controller
+            control={form.control}
+            name="amount"
+            render={({ field, fieldState }) => (
+              <TextField isInvalid={fieldState.invalid} className="gap-2">
+                <HeroUILabel className="text-sm font-semibold">
+                  {t('Page.dashboard.transactionDrawer.form.title.amount')}
+                </HeroUILabel>
+
+                <Input
+                  {...field}
+                  type="text"
+                  inputMode="decimal"
+                  placeholder="0.00"
+                  value={field.value ? formatAmountDisplay(field.value) : ''}
+                  onChange={(e) => {
+                    const { value } = parseAmountInput(e.target.value);
+                    field.onChange(value);
+                  }}
+                  onBlur={(e) => {
+                    const { value } = parseAmountInput(e.target.value);
+                    field.onChange(value);
+                  }}
+                  className="h-14 rounded-xl border-2 text-2xl font-semibold tracking-tight"
+                  autoComplete="off"
+                />
+
+                {fieldState.error?.message ? (
+                  <FieldError>{fieldState.error.message}</FieldError>
+                ) : null}
+              </TextField>
+            )}
+          />
+        </Card.Content>
+      </Card>
+
+      <Card className="bg-background/60 dark:bg-default-100/50 border-none p-0 shadow-sm">
+        <Card.Content className="flex flex-col gap-4 p-5">
+          <div className="flex flex-col gap-2">
+            <div className="flex items-center justify-between gap-2">
+              <p className="text-muted-foreground text-xs font-semibold tracking-wide uppercase">
+                {t('Page.dashboard.transactionDrawer.form.title.type')}
+              </p>
+            </div>
+
+            <div className="grid grid-cols-2 gap-2">
+              {typeOptions.map((option) => {
+                const isActive = option._id === type._id;
+
+                return (
+                  <CardButton
+                    key={option._id}
+                    label={option.name}
+                    handleOnClick={() => handleTypeChange(option)}
+                    isActive={isActive}
+                  />
+                );
+              })}
+            </div>
+          </div>
+
+          <div className="flex items-center justify-between gap-2">
+            <p className="text-muted-foreground text-xs font-semibold tracking-wide uppercase">
+              {t('Page.dashboard.transactionDrawer.form.title.category')}
+            </p>
+            <p className="text-muted-foreground text-xs">
+              {t('Page.dashboard.transactionDrawer.form.helper.category')}
+            </p>
+          </div>
+
+          <Controller
+            control={form.control}
+            name="category"
+            render={({ field, fieldState }) => {
+              const filteredCategories = categories.filter(
+                (category) =>
+                  category.type._id === type._id && category.isActive,
+              );
+              const previewCategories = filteredCategories.slice(
+                0,
+                CATEGORY_PREVIEW_LIMIT,
+              );
+              const isSelectedOutsidePreview =
+                !!field.value &&
+                !previewCategories.some(
+                  (category) => category._id === field.value,
+                );
+              const selectedCategory = isSelectedOutsidePreview
+                ? filteredCategories.find(
+                    (category) => category._id === field.value,
+                  )
+                : undefined;
+              const collapsedCategories =
+                isSelectedOutsidePreview && selectedCategory
+                  ? [
+                      ...previewCategories.slice(
+                        0,
+                        Math.max(CATEGORY_PREVIEW_LIMIT - 1, 0),
+                      ),
+                      selectedCategory,
+                    ]
+                  : previewCategories;
+              const displayedCategories = isShowingAllCategories
+                ? filteredCategories
+                : collapsedCategories;
+              const hasMoreCategories =
+                filteredCategories.length > CATEGORY_PREVIEW_LIMIT;
+
+              return (
+                <div className="grid gap-4">
+                  <div className="grid grid-cols-2 gap-2">
+                    {displayedCategories.map((category) => {
+                      const { _id, id, name, icon } = category;
+                      const isTranslated = t.has(`Common.category.${id}`);
+                      const label = isTranslated
+                        ? t(`Common.category.${id}`)
+                        : name;
+                      const isSelected = field.value === _id;
+
+                      return (
+                        <Tooltip key={_id}>
+                          <TooltipTrigger>
+                            <span>
+                              <CardButton
+                                label={label}
+                                handleOnClick={() =>
+                                  field.onChange(isSelected ? '' : _id)
+                                }
+                                isActive={isSelected}
+                                size="md"
+                                icon={icon as IconProps}
+                              />
+                            </span>
+                          </TooltipTrigger>
+                          {t.has(`Common.tooltip.category.${id}`) && (
+                            <TooltipContent>
+                              <p>{t(`Common.tooltip.category.${id}`)}</p>
+                            </TooltipContent>
+                          )}
+                        </Tooltip>
+                      );
+                    })}
+                  </div>
+
+                  {hasMoreCategories && (
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      className="text-muted-foreground hover:text-foreground justify-start px-0"
+                      onClick={() =>
+                        setIsShowingAllCategories(
+                          (previousValue) => !previousValue,
+                        )
+                      }
+                      fullWidth
+                    >
+                      {isShowingAllCategories
+                        ? t(
+                            'Page.dashboard.transactionDrawer.form.title.showLess',
+                          )
+                        : t(
+                            'Page.dashboard.transactionDrawer.form.title.showMore',
+                          )}
+                    </Button>
+                  )}
+
+                  {fieldState.error?.message ? (
+                    <FieldError>{fieldState.error.message}</FieldError>
+                  ) : null}
+                </div>
+              );
+            }}
+          />
+        </Card.Content>
+      </Card>
+
+      <Card className="bg-background/60 dark:bg-default-100/50 border-none p-0 shadow-sm">
+        <Card.Content className="flex flex-col gap-4 p-5">
+          <Controller
+            control={form.control}
+            name="isRecurring"
+            render={({ field, fieldState }) => (
+              <div className="grid gap-2">
+                <Checkbox isSelected={field.value} onChange={field.onChange}>
+                  {t('Page.dashboard.transactionDrawer.form.title.isRecurring')}
+                </Checkbox>
+                <p className="text-muted-foreground text-xs">
+                  {t(
+                    'Page.dashboard.transactionDrawer.form.helper.isRecurring',
+                  )}
+                </p>
+                {fieldState.error?.message ? (
+                  <FieldError>{fieldState.error.message}</FieldError>
+                ) : null}
+              </div>
+            )}
+          />
+
+          <div className="grid grid-cols-1 gap-3">
+            <Controller
+              control={form.control}
+              name="startDate"
+              render={({ field, fieldState }) => (
+                <div className="grid gap-2">
+                  <HeroUILabel className="text-sm font-semibold">
+                    {isRecurring
+                      ? t(
+                          'Page.dashboard.transactionDrawer.form.title.startDate',
+                        )
+                      : t('Page.dashboard.transactionDrawer.form.title.date')}
+                  </HeroUILabel>
+
+                  <DatePicker date={field.value} onChange={field.onChange}>
+                    <Button
+                      variant="outline"
+                      className="flex h-12 items-center justify-between rounded-xl border-2 text-left font-semibold"
+                      fullWidth
+                    >
+                      <Label className="font-semibold">
+                        {moment(field?.value).format('MMM DD, YYYY')}
+                      </Label>
+                      <CalendarIcon className="ml-auto size-4 opacity-60" />
+                    </Button>
+                  </DatePicker>
+
+                  {fieldState.error?.message ? (
+                    <FieldError>{fieldState.error.message}</FieldError>
+                  ) : null}
+                </div>
+              )}
+            />
+          </div>
+
+          {isRecurring && (
+            <div className="grid grid-cols-1 gap-3">
+              <Controller
+                control={form.control}
+                name="endDate"
+                render={({ field, fieldState }) => (
+                  <div className="grid gap-2">
+                    <HeroUILabel className="text-sm font-semibold">
+                      {t('Page.dashboard.transactionDrawer.form.title.endDate')}
+                    </HeroUILabel>
+
+                    <DatePicker date={field.value} onChange={field.onChange}>
+                      <Button
+                        variant="outline"
+                        className="flex h-12 items-center justify-between rounded-xl border-2 text-left font-semibold"
+                        fullWidth
+                      >
+                        <Label className="font-semibold">
+                          {moment(field?.value).format('MMM DD, YYYY')}
+                        </Label>
+                        <CalendarIcon className="ml-auto size-4 opacity-60" />
+                      </Button>
+                    </DatePicker>
+
+                    {fieldState.error?.message ? (
+                      <FieldError>{fieldState.error.message}</FieldError>
+                    ) : null}
+                  </div>
+                )}
+              />
+
+              {excludedDatesArray.length > 1 && (
+                <Controller
+                  control={form.control}
+                  name="excludedDates"
+                  render={({ field, fieldState }) => (
+                    <div className="grid gap-2">
+                      <HeroUILabel className="text-sm font-semibold">
+                        {t(
+                          'Page.dashboard.transactionDrawer.form.title.excludedDates',
+                        )}
+                      </HeroUILabel>
+
+                      <MultiSelectBox
+                        dataArray={excludedDatesArray}
+                        value={field.value || []}
+                        onChange={field.onChange}
+                        placeholder={t(
+                          'Page.dashboard.transactionDrawer.form.placeholder.excludedDates',
+                        )}
+                      />
+
+                      {fieldState.error?.message ? (
+                        <FieldError>{fieldState.error.message}</FieldError>
+                      ) : null}
+                    </div>
+                  )}
+                />
+              )}
+            </div>
+          )}
+        </Card.Content>
+      </Card>
+
+      <Card className="bg-background/60 dark:bg-default-100/50 border-none p-0 shadow-sm">
+        <Card.Content className="flex flex-col gap-4 p-5">
+          <div className="flex items-center justify-between">
+            <p className="text-muted-foreground text-xs font-semibold tracking-wide uppercase">
+              {isDetailsOpen
+                ? t('Page.dashboard.transactionDrawer.form.title.hideDetails')
+                : t('Page.dashboard.transactionDrawer.form.title.addDetails')}
+            </p>
+
+            <Button
+              variant="ghost"
+              type="button"
+              onClick={() => setIsDetailsOpen((prev) => !prev)}
+              isIconOnly
+            >
+              <ChevronDownIcon
+                className={cn(
+                  'size-4 transition-transform',
+                  isDetailsOpen ? 'rotate-180' : 'rotate-0',
+                )}
+              />
+            </Button>
+          </div>
+
+          {isDetailsOpen && (
+            <div>
+              <Controller
+                control={form.control}
+                name="description"
+                render={({ field, fieldState }) => (
+                  <div className="grid gap-2">
+                    <HeroUILabel className="text-sm font-semibold">
+                      {t(
+                        'Page.dashboard.transactionDrawer.form.title.description',
+                      )}
+                    </HeroUILabel>
+                    <textarea
+                      {...field}
+                      rows={3}
+                      placeholder="Add an optional note"
+                      className="border-input bg-background focus-visible:border-ring focus-visible:ring-ring/50 min-h-24 w-full rounded-xl border px-3 py-2 text-sm shadow-xs transition outline-none focus-visible:ring-[3px]"
+                    />
+                    {fieldState.error?.message ? (
+                      <FieldError>{fieldState.error.message}</FieldError>
+                    ) : null}
+                  </div>
+                )}
+              />
+            </div>
+          )}
+        </Card.Content>
+      </Card>
+
+      {defaultValues && deleteTransaction && (
+        <div className="flex justify-end">
+          <ConfirmationDialog
+            title={t('Common.alertDialog.delete.title')}
+            description={t('Common.alertDialog.delete.description')}
+            ok={t('Common.alertDialog.delete.okButton')}
+            handleSubmit={handleDeleteTransaction}
+            isDestructive
+          >
+            <Button
+              type="button"
+              variant="danger"
+              className="rounded-2xl"
+              isIconOnly
+            >
+              <Trash2Icon className="size-4" />
+            </Button>
+          </ConfirmationDialog>
+        </div>
+      )}
+    </Form>
+  );
+};
+
+export default TransactionDrawerForm;

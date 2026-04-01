@@ -1,0 +1,14 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "rootDir": ".",
+    "outDir": "dist",
+    "module": "Node16",
+    "moduleResolution": "node16",
+    "declaration": true,
+    "noEmit": false,
+    "isolatedModules": false
+  },
+  "include": ["constants/**/*.ts", "types/**/*.ts", "utilities/**/*.ts"],
+  "exclude": ["dist", "node_modules", "**/*.js"]
+}

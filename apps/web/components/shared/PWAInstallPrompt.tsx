@@ -1,0 +1,188 @@
+'use client';
+
+import { Button, Card } from '@heroui/react';
+import { CONSTANTS } from '@shared/constants/common';
+import { STORAGE_KEYS } from '@web/constants/storageKeys';
+import { Download, RefreshCw, Wifi, WifiOff, X } from 'lucide-react';
+import { useTranslations } from 'next-intl';
+import { useCallback, useEffect, useState } from 'react';
+
+import { usePWA } from '../../lib/hooks/use-pwa';
+
+const PWA_PROMPT_DELAY = 3000; // 3 seconds delay before showing
+const PWA_PROMPT_AUTO_DISMISS = 10000; // 10 seconds auto-dismiss
+
+export default function PWAInstallPrompt() {
+  const [isDismissed, setIsDismissed] = useState(() => {
+    if (typeof window === 'undefined') {
+      return false;
+    }
+
+    return localStorage.getItem(STORAGE_KEYS.PWA_PROMPT_DISMISSED) === 'true';
+  });
+  const [shouldShow, setShouldShow] = useState(false);
+  const t = useTranslations('PWA.installPrompt');
+  const {
+    isInstallable,
+    isInstalled,
+    isOffline,
+    isUpdateAvailable,
+    isIOS,
+    installApp,
+    updateApp,
+  } = usePWA();
+  // Show prompt after delay
+  useEffect(() => {
+    if (!isDismissed && (isInstallable || isOffline || isUpdateAvailable)) {
+      const timer = setTimeout(() => {
+        setShouldShow(true);
+      }, PWA_PROMPT_DELAY);
+
+      return () => clearTimeout(timer);
+    }
+  }, [isDismissed, isInstallable, isOffline, isUpdateAvailable]);
+
+  const handleDismiss = useCallback(() => {
+    setIsDismissed(true);
+    setShouldShow(false);
+    localStorage.setItem(STORAGE_KEYS.PWA_PROMPT_DISMISSED, 'true');
+  }, []);
+
+  // Auto-dismiss after certain time
+  useEffect(() => {
+    if (shouldShow && !isUpdateAvailable) {
+      const timer = setTimeout(() => {
+        handleDismiss();
+      }, PWA_PROMPT_AUTO_DISMISS);
+
+      return () => clearTimeout(timer);
+    }
+  }, [handleDismiss, shouldShow, isUpdateAvailable]);
+
+  const handleInstallClick = async () => {
+    try {
+      const getIOSInstructions = () => {
+        return (
+          `${t('iosInstructions.title')}\n\n` +
+          `${t('iosInstructions.step1')}\n` +
+          `${t('iosInstructions.step2')}\n` +
+          `${t('iosInstructions.step3')}`
+        );
+      };
+
+      await installApp(getIOSInstructions);
+    } catch (error) {
+      console.error('Failed to install app:', error);
+    }
+  };
+
+  const handleUpdate = () => {
+    updateApp();
+  };
+
+  // Don't show if app is already installed, dismissed, or no prompt available
+  if (
+    isInstalled ||
+    isDismissed ||
+    !shouldShow ||
+    (!isInstallable && !isOffline && !isUpdateAvailable)
+  ) {
+    return null;
+  }
+
+  return (
+    <div className="fixed bottom-4 left-1/2 z-50 w-full max-w-sm -translate-x-1/2 px-4">
+      <Card className="border-2 shadow-lg">
+        <Card.Header>
+          <div className="flex items-center justify-between">
+            <Card.Title className="flex items-center gap-2 text-lg">
+              {isUpdateAvailable && <RefreshCw className="h-5 w-5" />}
+              {isOffline && <WifiOff className="h-5 w-5" />}
+              {isInstallable && !isOffline && !isUpdateAvailable && (
+                <Download className="h-5 w-5" />
+              )}
+              {isUpdateAvailable
+                ? t('title.update')
+                : isOffline
+                  ? t('title.offline')
+                  : t('title.install', { appName: CONSTANTS.APP_NAME })}
+            </Card.Title>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={handleDismiss}
+              className="size-6 p-0"
+              isIconOnly
+            >
+              <X className="h-4 w-4" />
+            </Button>
+          </div>
+          <Card.Description>
+            {isUpdateAvailable
+              ? t('description.update', { appName: CONSTANTS.APP_NAME })
+              : isOffline
+                ? t('description.offline')
+                : t('description.install', { appName: CONSTANTS.APP_NAME })}
+          </Card.Description>
+        </Card.Header>
+        <Card.Content className="pt-0">
+          {isUpdateAvailable ? (
+            <div className="space-y-3">
+              <p className="text-muted-foreground text-sm">
+                {t('content.update.description')}
+              </p>
+              <div className="flex gap-2">
+                <Button onClick={handleUpdate} className="flex-1">
+                  {t('content.update.button')}
+                </Button>
+                <Button variant="outline" onClick={handleDismiss}>
+                  {t('content.update.dismiss')}
+                </Button>
+              </div>
+            </div>
+          ) : isOffline ? (
+            <div className="space-y-3">
+              <p className="text-muted-foreground text-sm">
+                {t('content.offline.description')}
+              </p>
+              <div className="flex items-center gap-2 text-sm">
+                <Wifi className="h-4 w-4" />
+                <span>{t('content.offline.checkConnection')}</span>
+              </div>
+            </div>
+          ) : (
+            <div className="space-y-3">
+              <p className="text-muted-foreground text-sm">
+                {isIOS
+                  ? t('content.install.descriptionIOS', {
+                      appName: CONSTANTS.APP_NAME,
+                    })
+                  : t('content.install.description', {
+                      appName: CONSTANTS.APP_NAME,
+                    })}
+              </p>
+              <div className="flex flex-row gap-2">
+                <Button onClick={handleInstallClick} className="min-w-0 flex-1">
+                  <span className="truncate">
+                    {isIOS
+                      ? t('content.install.buttonIOS')
+                      : t('content.install.button')}
+                  </span>
+                </Button>
+                <Button
+                  variant="outline"
+                  onClick={handleDismiss}
+                  className="min-w-0 flex-1"
+                >
+                  <span className="truncate">
+                    {t('content.install.dismiss')}
+                  </span>
+                </Button>
+              </div>
+            </div>
+          )}
+        </Card.Content>
+      </Card>
+    </div>
+  );
+}

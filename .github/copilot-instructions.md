@@ -7,7 +7,7 @@
 
 ## Architecture and Project Conventions
 
-- Monorepo layout: `packages/api` (Node/Express, Vercel), `packages/web` (Next.js/React/TypeScript), `shared` utilities/types.
+- Monorepo layout: `apps/api` (Node/Express, Vercel), `apps/web` (Next.js/React/TypeScript), `packages/shared` utilities/types.
 - Reuse shared types from `shared/types` and backend types to keep API and UI aligned. Avoid ad-hoc shapes.
 - Keep feature code colocated (e.g., `app/{feature}` with nearby components/hooks); keep generic UI in `components/ui`, domain UI in `components/shared`.
 - Prefer server components in Next.js; add `"use client"` only when browser-only state or effects are required.

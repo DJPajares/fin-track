@@ -1,10 +1,9 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
     "paths": {
-      "@shared/*": ["./shared/*"],
-      "@web/*": ["./packages/web/*"], // Specific to the `web` package
-      "@api/*": ["./packages/api/*"] // Specific to the `api` package
+      "@shared/*": ["./packages/shared/*"],
+      "@web/*": ["./apps/web/*"],
+      "@api/*": ["./apps/api/*"]
     }
   }
 }

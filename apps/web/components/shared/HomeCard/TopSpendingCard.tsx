@@ -1,0 +1,69 @@
+import { Card, ProgressBar } from '@heroui/react';
+import { formatCurrency } from '@shared/utilities/formatCurrency';
+import CardIcon from '@web/components/shared/CardIcon';
+import { Label } from '@web/components/shared/Typography';
+import type { TransactionPaymentCategoryProps } from '@web/types/TransactionPayment';
+import { useTranslations } from 'next-intl';
+
+type TopSpendingCardProps = {
+  topSpendingCategories: TransactionPaymentCategoryProps[];
+  currency: string;
+};
+
+const TopSpendingCard = ({
+  topSpendingCategories,
+  currency,
+}: TopSpendingCardProps) => {
+  const t = useTranslations();
+
+  return (
+    <Card className="relative flex flex-col">
+      <Card.Header className="px-4">
+        <Card.Description>
+          {t('Page.home.cards.topSpending.title')}
+        </Card.Description>
+        <Card.Description>
+          <Label variant="caption">
+            {t('Page.home.cards.topSpending.description')}
+          </Label>
+        </Card.Description>
+      </Card.Header>
+      <Card.Content className="flex flex-col gap-3 px-4">
+        {topSpendingCategories.map((category) => {
+          const isTranslated = t.has(`Common.category.${category.id}`);
+          return (
+            <div key={category._id} className="flex flex-col gap-1">
+              <div className="flex items-center justify-between gap-2">
+                <div className="flex items-center gap-2 truncate">
+                  <CardIcon icon={category.icon} />
+                  <Label variant="caption" className="truncate">
+                    {isTranslated
+                      ? t(`Common.category.${category.id}`)
+                      : category.name}
+                  </Label>
+                </div>
+                <Label variant="caption" className="shrink-0">
+                  {formatCurrency({
+                    value: category.totalAmount,
+                    currency,
+                  })}
+                </Label>
+              </div>
+              <ProgressBar
+                className="w-full"
+                aria-label={
+                  isTranslated
+                    ? t(`Common.category.${category.id}`)
+                    : category.name
+                }
+                value={category.paymentCompletionRate * 100}
+              />
+            </div>
+          );
+        })}
+      </Card.Content>
+    </Card>
+  );
+};
+
+export default TopSpendingCard;
