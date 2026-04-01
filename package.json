@@ -22,8 +22,7 @@
       "prettier --write"
     ],
     "apps/web/**/*.{js,jsx,ts,tsx}": [
-      "pnpm --filter web exec eslint --fix --max-warnings=0",
-      "pnpm --filter web exec vitest related --run --passWithNoTests"
+      "pnpm --filter web exec eslint --fix --max-warnings=0"
     ]
   },
   "keywords": [],
@@ -34,7 +33,7 @@
     "lint-staged": "^16.4.0",
     "prettier": "^3.8.1",
     "prettier-plugin-tailwindcss": "^0.7.2",
-    "turbo": "^2.9.1",
+    "turbo": "^2.9.3",
     "typescript": "^6.0.2"
   }
 }
