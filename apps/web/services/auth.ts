@@ -1,5 +1,4 @@
 import { STORAGE_KEYS } from 'apps/web/constants/storageKeys';
-import axios from 'axios';
 import type {
   AuthLoginRequest,
   AuthResponse,
@@ -12,16 +11,92 @@ import type {
 const BASE_URL =
   process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3001/api/v1';
 
+type UpdateUserSettingsResponse = {
+  data?: {
+    user?: AuthResponse;
+  };
+};
+
+const toAuthUrl = (path: string): string => {
+  const normalizedBase = BASE_URL.replace(/\/$/, '');
+  const normalizedPath = path.replace(/^\//, '');
+  return `${normalizedBase}/${normalizedPath}`;
+};
+
+const parseJsonResponse = async <T>(response: Response): Promise<T | null> => {
+  const text = await response.text();
+
+  if (!text) {
+    return null;
+  }
+
+  try {
+    return JSON.parse(text) as T;
+  } catch {
+    return null;
+  }
+};
+
+const readErrorMessage = (payload: unknown): string | undefined => {
+  if (!payload || typeof payload !== 'object') {
+    return undefined;
+  }
+
+  const payloadRecord = payload as Record<string, unknown>;
+  const nestedError = payloadRecord.error;
+
+  if (nestedError && typeof nestedError === 'object') {
+    const nestedErrorRecord = nestedError as Record<string, unknown>;
+    if (typeof nestedErrorRecord.message === 'string') {
+      return nestedErrorRecord.message;
+    }
+  }
+
+  if (typeof payloadRecord.message === 'string') {
+    return payloadRecord.message;
+  }
+
+  return undefined;
+};
+
+const authRequest = async <T>(
+  path: string,
+  init: RequestInit = {},
+): Promise<{ status: number; data: T | null }> => {
+  const headers = new Headers(init.headers);
+
+  if (!headers.has('Content-Type')) {
+    headers.set('Content-Type', 'application/json');
+  }
+
+  const response = await fetch(toAuthUrl(path), {
+    ...init,
+    headers,
+  });
+
+  const data = await parseJsonResponse<T>(response);
+
+  if (!response.ok) {
+    const message =
+      readErrorMessage(data) ||
+      response.statusText ||
+      `Request failed with status ${response.status}`;
+    throw new Error(message);
+  }
+
+  return { status: response.status, data };
+};
+
 /**
  * Login with email and password
  */
 export const login = async (
   credentials: AuthLoginRequest,
 ): Promise<AuthTokenResponse> => {
-  const { status, data } = await axios.post(
-    `${BASE_URL}/auth/login`,
-    credentials,
-  );
+  const { status, data } = await authRequest<AuthTokenResponse>('auth/login', {
+    method: 'POST',
+    body: JSON.stringify(credentials),
+  });
 
   if (status === 200 && data) {
     // Store token in localStorage
@@ -38,10 +113,10 @@ export const login = async (
 export const signup = async (
   credentials: AuthSignupRequest,
 ): Promise<AuthTokenResponse> => {
-  const { status, data } = await axios.post(
-    `${BASE_URL}/auth/signup`,
-    credentials,
-  );
+  const { status, data } = await authRequest<AuthTokenResponse>('auth/signup', {
+    method: 'POST',
+    body: JSON.stringify(credentials),
+  });
 
   if (status === 201 && data) {
     // Store token in localStorage
@@ -60,15 +135,13 @@ export const logout = async (): Promise<void> => {
 
   if (token) {
     try {
-      await axios.post(
-        `${BASE_URL}/auth/logout`,
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+      await authRequest<null>('auth/logout', {
+        method: 'POST',
+        body: JSON.stringify({}),
+        headers: {
+          Authorization: `Bearer ${token}`,
         },
-      );
+      });
     } catch (error) {
       console.error('Logout API call failed:', error);
     }
@@ -88,7 +161,8 @@ export const getCurrentUser = async (): Promise<AuthResponse> => {
     throw new Error('No token found');
   }
 
-  const { status, data } = await axios.get(`${BASE_URL}/auth/me`, {
+  const { status, data } = await authRequest<AuthResponse>('auth/me', {
+    method: 'GET',
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -117,10 +191,20 @@ export const isAuthenticated = (): boolean => {
 
 export const updateUserSettings = async (settings: AuthSettingsRequest) => {
   const token = localStorage.getItem(STORAGE_KEYS.AUTH_TOKEN);
-  const { data } = await axios.put(`${BASE_URL}/auth/me/settings`, settings, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
-  return data?.data?.user;
+  const { data } = await authRequest<UpdateUserSettingsResponse>(
+    'auth/me/settings',
+    {
+      method: 'PUT',
+      body: JSON.stringify(settings),
+      headers: { Authorization: `Bearer ${token}` },
+    },
+  );
+
+  if (!data) {
+    return undefined;
+  }
+
+  return data.data?.user;
 };
 
 export const updateProfile = async (payload: AuthUpdateRequest) => {
@@ -129,7 +213,9 @@ export const updateProfile = async (payload: AuthUpdateRequest) => {
     throw new Error('No token found');
   }
 
-  const { data } = await axios.put(`${BASE_URL}/auth/me/profile`, payload, {
+  const { data } = await authRequest<unknown>('auth/me/profile', {
+    method: 'PUT',
+    body: JSON.stringify(payload),
     headers: { Authorization: `Bearer ${token}` },
   });
 
@@ -142,9 +228,10 @@ export const deleteAccount = async (payload: { currentPassword: string }) => {
     throw new Error('No token found');
   }
 
-  const { data } = await axios.delete(`${BASE_URL}/auth/me`, {
+  const { data } = await authRequest<unknown>('auth/me', {
+    method: 'DELETE',
+    body: JSON.stringify(payload),
     headers: { Authorization: `Bearer ${token}` },
-    data: payload,
   });
 
   localStorage.removeItem(STORAGE_KEYS.AUTH_TOKEN);
