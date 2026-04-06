@@ -120,13 +120,15 @@ const SideNav = () => {
                             onClick={handleLinkClick}
                             passHref
                           >
-                            <SidebarMenuSubButton size="sm" asChild>
-                              <Label
-                                variant="title-xs"
-                                className="text-muted-foreground font-light"
-                              >
-                                {t(subItem.value)}
-                              </Label>
+                            <SidebarMenuSubButton asChild>
+                              <div className="grid flex-1 text-left leading-tight">
+                                <Label
+                                  variant="title-xs"
+                                  className="text-muted-foreground"
+                                >
+                                  {t(subItem.value)}
+                                </Label>
+                              </div>
                             </SidebarMenuSubButton>
                           </Link>
                         </SidebarMenuSubItem>

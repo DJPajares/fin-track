@@ -19,7 +19,7 @@ import {
 import { useIsMobile } from '@web/lib/hooks/use-mobile';
 import { cn } from '@web/lib/utils';
 import { cva, type VariantProps } from 'class-variance-authority';
-import { PanelLeftIcon } from 'lucide-react';
+import { MenuIcon } from 'lucide-react';
 import { Slot } from 'radix-ui';
 import * as React from 'react';
 
@@ -269,7 +269,7 @@ function SidebarTrigger({
       }}
       {...props}
     >
-      <PanelLeftIcon className="cn-rtl-flip" />
+      <MenuIcon className="cn-rtl-flip" />
       <span className="sr-only">Toggle Sidebar</span>
     </Button>
   );
