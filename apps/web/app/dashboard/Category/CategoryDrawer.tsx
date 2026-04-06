@@ -1,8 +1,9 @@
-import { Divider, Switch } from '@heroui/react';
 import { dateStringFormat } from '@shared/constants/dateStringFormat';
 import { formatCurrency } from '@shared/utilities/formatCurrency';
 import CustomDrawer from '@web/components/shared/CustomDrawer';
 import { Label } from '@web/components/ui/label';
+import { Separator } from '@web/components/ui/separator';
+import { Switch } from '@web/components/ui/switch';
 import { useAppSelector } from '@web/lib/hooks/use-redux';
 import {
   UpdateDashboardPaymentsDataProps,
@@ -195,7 +196,7 @@ const CategoryDrawer = ({
         <span className="flex flex-row items-center gap-3">
           <Switch
             checked={isLocalCurrency}
-            onChange={() => setIsLocalCurrency(!isLocalCurrency)}
+            onCheckedChange={() => setIsLocalCurrency(!isLocalCurrency)}
           />
           <Label>{t('Page.dashboard.cardDrawer.showLocalCurrency')}</Label>
         </span>
@@ -215,7 +216,7 @@ const CategoryDrawer = ({
           isTotal
         />
 
-        <Divider />
+        <Separator />
 
         <div className="flex flex-col gap-4">
           {drawerCategoryLength > 0 &&

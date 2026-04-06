@@ -1,7 +1,7 @@
-import { Chip } from '@heroui/react';
 import { formatCurrency } from '@shared/utilities/formatCurrency';
 import EditTransactionDrawer from '@web/app/transactions/EditTransaction/EditTransactionDrawer';
 import CardIcon from '@web/components/shared/CardIcon';
+import { Badge } from '@web/components/ui/badge';
 import { Card, CardContent } from '@web/components/ui/card';
 import { Label } from '@web/components/ui/label';
 import type { TransactionProps } from '@web/types/Transaction';
@@ -59,14 +59,7 @@ const TransactionCard = ({ date, transaction }: TransactionCardProps) => {
                     : transaction.categoryName}
                 </Label>
 
-                <Chip
-                  variant="flat"
-                  size="sm"
-                  radius="lg"
-                  classNames={{ content: 'font-bold' }}
-                >
-                  {transaction.currencyName}
-                </Chip>
+                <Badge variant="outline">{transaction.currencyName}</Badge>
               </div>
             </div>
           </CardContent>
