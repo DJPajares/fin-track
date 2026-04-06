@@ -1,14 +1,14 @@
 import { CircularProgress } from '@heroui/react';
-import { Badge } from 'apps/web/components/ui/badge';
+import { formatCurrency } from '@shared/utilities/formatCurrency';
+import { Badge } from '@web/components/ui/badge';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
-} from 'apps/web/components/ui/card';
-import { Label } from 'apps/web/components/ui/label';
+} from '@web/components/ui/card';
+import { Label } from '@web/components/ui/label';
 import { useTranslations } from 'next-intl';
-import { formatCurrency } from 'packages/shared/utilities/formatCurrency';
 import { useMemo } from 'react';
 
 type BudgetHealthCardProps = {

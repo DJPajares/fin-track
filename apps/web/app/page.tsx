@@ -1,42 +1,41 @@
 'use client';
 
 import { ScrollShadow } from '@heroui/react';
-import moment from 'moment';
-import { useRouter } from 'next/navigation';
-import { useTranslations } from 'next-intl';
-import { useEffect, useMemo, useState } from 'react';
-
-import AmountSettledCard from '../components/shared/HomeCard/AmountSettledCard';
-import BalanceCard from '../components/shared/HomeCard/BalanceCard';
-import BudgetHealthCard from '../components/shared/HomeCard/BudgetHealthCard';
-import ExpenseBreakdownCard from '../components/shared/HomeCard/ExpenseBreakdownCard';
-import ExtrasCard from '../components/shared/HomeCard/ExtrasCard';
-import SavingsCard from '../components/shared/HomeCard/SavingsCard';
-import TopSpendingCard from '../components/shared/HomeCard/TopSpendingCard';
-import TrendsCard from '../components/shared/HomeCard/TrendsCard';
-import UnpaidBillsCard from '../components/shared/HomeCard/UnpaidBillsCard';
-import Loader from '../components/shared/Loader';
-import { Button } from '../components/ui/button';
+import AmountSettledCard from '@web/components/shared/HomeCard/AmountSettledCard';
+import BalanceCard from '@web/components/shared/HomeCard/BalanceCard';
+import BudgetHealthCard from '@web/components/shared/HomeCard/BudgetHealthCard';
+import ExpenseBreakdownCard from '@web/components/shared/HomeCard/ExpenseBreakdownCard';
+import ExtrasCard from '@web/components/shared/HomeCard/ExtrasCard';
+import SavingsCard from '@web/components/shared/HomeCard/SavingsCard';
+import TopSpendingCard from '@web/components/shared/HomeCard/TopSpendingCard';
+import TrendsCard from '@web/components/shared/HomeCard/TrendsCard';
+import UnpaidBillsCard from '@web/components/shared/HomeCard/UnpaidBillsCard';
+import Loader from '@web/components/shared/Loader';
+import { Button } from '@web/components/ui/button';
 import {
   Card,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '../components/ui/card';
-import { Separator } from '../components/ui/separator';
-import { useAppSelector } from '../lib/hooks/use-redux';
+} from '@web/components/ui/card';
+import { Separator } from '@web/components/ui/separator';
+import { useAppSelector } from '@web/lib/hooks/use-redux';
 import {
   useGetDashboardDataQuery,
   useGetTransactionPaymentsByCategoryQuery,
   useGetTransactionsByTypeDateRangeQuery,
-} from '../lib/redux/services/dashboard';
+} from '@web/lib/redux/services/dashboard';
 import type {
   ExpensePieDataProps,
   PreviousSavingsProps,
   TrendDataProps,
   UpcomingExtraProps,
-} from '../types/HomeCard';
-import type { TransactionPaymentCategoryProps } from '../types/TransactionPayment';
+} from '@web/types/HomeCard';
+import type { TransactionPaymentCategoryProps } from '@web/types/TransactionPayment';
+import moment from 'moment';
+import { useRouter } from 'next/navigation';
+import { useTranslations } from 'next-intl';
+import { useEffect, useMemo, useState } from 'react';
 
 // Force dynamic rendering to avoid prerendering issues
 export const dynamic = 'force-dynamic';

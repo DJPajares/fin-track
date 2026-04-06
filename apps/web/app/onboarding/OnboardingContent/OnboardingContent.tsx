@@ -1,16 +1,16 @@
-import { Button } from 'apps/web/components/ui/button';
+import { CONSTANTS } from '@shared/constants/common';
+import { Button } from '@web/components/ui/button';
 import {
   Carousel,
   type CarouselApi,
   CarouselContent,
   CarouselItem,
-} from 'apps/web/components/ui/carousel';
-import { Label } from 'apps/web/components/ui/label';
-import { cn } from 'apps/web/lib/utils';
-import type { FeatureCardProps } from 'apps/web/types/Onboarding';
+} from '@web/components/ui/carousel';
+import { Label } from '@web/components/ui/label';
+import { cn } from '@web/lib/utils';
+import type { FeatureCardProps } from '@web/types/Onboarding';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
-import { CONSTANTS } from 'packages/shared/constants/common';
 import { useEffect, useState } from 'react';
 
 function OnboardingContent({ features }: { features: FeatureCardProps[] }) {

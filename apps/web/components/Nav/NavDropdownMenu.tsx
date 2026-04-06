@@ -1,30 +1,8 @@
 'use client';
 
-import ProfileDrawer from 'apps/web/components/Nav/ProfileDrawer';
-import {
-  DollarSignIcon,
-  GlobeIcon,
-  InfoIcon,
-  LogOutIcon,
-  MoonIcon,
-  SquarePenIcon,
-  SunIcon,
-} from 'lucide-react';
-import { useRouter } from 'next/navigation';
-import { useLocale, useTranslations } from 'next-intl';
-import { useTheme } from 'next-themes';
-import type { LocaleProps } from 'packages/shared/types/Locale';
-import { sortedLanguages } from 'packages/shared/utilities/common';
-import { ReactNode, useState } from 'react';
-import { useDispatch } from 'react-redux';
-
-import packageInfo from '../../../../package.json';
-import { useAppSelector } from '../../lib/hooks/use-redux';
-import { logoutSuccess } from '../../lib/redux/feature/auth/authSlice';
-import { setDashboardCurrency } from '../../lib/redux/feature/dashboard/dashboardSlice';
-import { logout, updateUserSettings } from '../../services/auth';
-import { setUserLocale } from '../../services/locale';
-import type { ListProps } from '../../types/List';
+import type { LocaleProps } from '@shared/types/Locale';
+import { sortedLanguages } from '@shared/utilities/common';
+import ProfileDrawer from '@web/components/Nav/ProfileDrawer';
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -39,9 +17,31 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
-} from '../ui/dropdown-menu';
-import { Label } from '../ui/label';
-import { Switch } from '../ui/switch';
+} from '@web/components/ui/dropdown-menu';
+import { Label } from '@web/components/ui/label';
+import { Switch } from '@web/components/ui/switch';
+import { useAppSelector } from '@web/lib/hooks/use-redux';
+import { logoutSuccess } from '@web/lib/redux/feature/auth/authSlice';
+import { setDashboardCurrency } from '@web/lib/redux/feature/dashboard/dashboardSlice';
+import { logout, updateUserSettings } from '@web/services/auth';
+import { setUserLocale } from '@web/services/locale';
+import type { ListProps } from '@web/types/List';
+import {
+  DollarSignIcon,
+  GlobeIcon,
+  InfoIcon,
+  LogOutIcon,
+  MoonIcon,
+  SquarePenIcon,
+  SunIcon,
+} from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { useLocale, useTranslations } from 'next-intl';
+import { useTheme } from 'next-themes';
+import { ReactNode, useState } from 'react';
+import { useDispatch } from 'react-redux';
+
+import packageInfo from '../../../../package.json';
 
 type NavDropdownMenuProps = {
   children: ReactNode;

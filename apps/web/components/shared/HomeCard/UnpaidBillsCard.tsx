@@ -1,8 +1,8 @@
-import CardDialog from 'apps/web/components/shared/CardDialog';
-import CardIcon from 'apps/web/components/shared/CardIcon';
-import { Badge } from 'apps/web/components/ui/badge';
-import { Label } from 'apps/web/components/ui/label';
-import type { TransactionPaymentCategoryProps } from 'apps/web/types/TransactionPayment';
+import CardDialog from '@web/components/shared/CardDialog';
+import CardIcon from '@web/components/shared/CardIcon';
+import { Badge } from '@web/components/ui/badge';
+import { Label } from '@web/components/ui/label';
+import type { TransactionPaymentCategoryProps } from '@web/types/TransactionPayment';
 import { CheckCircle2Icon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 

@@ -1,13 +1,13 @@
 'use client';
 
-import Loader from 'apps/web/components/shared/Loader';
-import { STORAGE_KEYS } from 'apps/web/constants/storageKeys';
-import { useAppSelector } from 'apps/web/lib/hooks/use-redux';
+import Loader from '@web/components/shared/Loader';
+import { STORAGE_KEYS } from '@web/constants/storageKeys';
+import { useAppSelector } from '@web/lib/hooks/use-redux';
 import {
   getSessionFailure,
   getSessionSuccess,
-} from 'apps/web/lib/redux/feature/auth/authSlice';
-import { getCurrentUser, getStoredToken } from 'apps/web/services/auth';
+} from '@web/lib/redux/feature/auth/authSlice';
+import { getCurrentUser, getStoredToken } from '@web/services/auth';
 import { usePathname, useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';

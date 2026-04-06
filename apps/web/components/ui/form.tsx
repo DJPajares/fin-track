@@ -1,7 +1,7 @@
 'use client';
 
-import { Label } from 'apps/web/components/ui/label';
-import { cn } from 'apps/web/lib/utils';
+import { Label } from '@web/components/ui/label';
+import { cn } from '@web/lib/utils';
 import { Label as LabelPrimitive, Slot as SlotPrimitive } from 'radix-ui';
 import * as React from 'react';
 import {

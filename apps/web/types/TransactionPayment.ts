@@ -1,4 +1,5 @@
-import type { IconProps } from '../components/shared/CardIcon';
+import type { IconProps } from '@web/components/shared/CardIcon';
+
 import { ListProps } from './List';
 
 type TransactionPaymentMainProps = {

@@ -1,7 +1,7 @@
 'use client';
 
-import { Button, buttonVariants } from 'apps/web/components/ui/button';
-import { cn } from 'apps/web/lib/utils';
+import { Button, buttonVariants } from '@web/components/ui/button';
+import { cn } from '@web/lib/utils';
 import {
   ChevronDownIcon,
   ChevronLeftIcon,

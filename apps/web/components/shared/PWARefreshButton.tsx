@@ -1,12 +1,15 @@
 'use client';
 
+import { Button } from '@web/components/ui/button';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@web/components/ui/tooltip';
+import { isPWA, usePWA } from '@web/lib/hooks/use-pwa';
+import { cn } from '@web/lib/utils';
 import { Loader2, RotateCcw } from 'lucide-react';
 import { useState } from 'react';
-
-import { isPWA, usePWA } from '../../lib/hooks/use-pwa';
-import { cn } from '../../lib/utils';
-import { Button } from '../ui/button';
-import { Tooltip, TooltipContent, TooltipTrigger } from '../ui/tooltip';
 
 export default function PWARefreshButton() {
   const [isRefreshing, setIsRefreshing] = useState(false);

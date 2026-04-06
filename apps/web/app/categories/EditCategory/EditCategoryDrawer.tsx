@@ -1,30 +1,29 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import ConfirmationDialog from 'apps/web/components/shared/ConfirmationDialog';
-import CustomDrawer from 'apps/web/components/shared/CustomDrawer';
-import { EyeOffIcon } from 'lucide-react';
-import { useTranslations } from 'next-intl';
-import { ReactNode, useRef, useState } from 'react';
-import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-
 import CardIcon, {
   iconMap,
   type IconProps,
-} from '../../../components/shared/CardIcon';
-import { Button } from '../../../components/ui/button';
-import { Input } from '../../../components/ui/input';
+} from '@web/components/shared/CardIcon';
+import ConfirmationDialog from '@web/components/shared/ConfirmationDialog';
+import CustomDrawer from '@web/components/shared/CustomDrawer';
+import { Button } from '@web/components/ui/button';
+import { Input } from '@web/components/ui/input';
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '../../../components/ui/popover';
-import { useAppDispatch, useAppSelector } from '../../../lib/hooks/use-redux';
+} from '@web/components/ui/popover';
+import { useAppDispatch, useAppSelector } from '@web/lib/hooks/use-redux';
 import {
   createCustomCategory,
   updateCategory,
-} from '../../../lib/redux/feature/main/mainSlice';
-import { categorySchema } from '../../../lib/schemas/category';
-import type { CategoryItemProps } from '../../../types/Category';
-import type { ListProps } from '../../../types/List';
+} from '@web/lib/redux/feature/main/mainSlice';
+import { categorySchema } from '@web/lib/schemas/category';
+import type { CategoryItemProps } from '@web/types/Category';
+import type { ListProps } from '@web/types/List';
+import { EyeOffIcon } from 'lucide-react';
+import { useTranslations } from 'next-intl';
+import { ReactNode, useRef, useState } from 'react';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 
 type EditCategoryDrawerProps = {
   type?: ListProps;

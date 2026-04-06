@@ -1,7 +1,7 @@
 'use server';
 
+import { LocaleProps } from '@shared/types/Locale';
 import { cookies } from 'next/headers';
-import { LocaleProps } from 'packages/shared/types/Locale';
 
 const COOKIE_NAME = 'NEXT_LOCALE';
 

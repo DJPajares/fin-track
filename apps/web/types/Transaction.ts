@@ -1,4 +1,4 @@
-import { IconProps } from '../components/shared/CardIcon';
+import { IconProps } from '@web/components/shared/CardIcon';
 
 export type TransactionProps = {
   _id: string;

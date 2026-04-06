@@ -1,14 +1,14 @@
 import currenciesMockData from '@shared/mockData/currencies.json';
 import typesMockData from '@shared/mockData/types.json';
-import type { CurrencyProps } from 'apps/web/types/Currency';
-import type { ListProps } from 'apps/web/types/List';
 import type {
   CategoryDataResponse,
   CategoryResponse,
   CustomCategoryRequest,
   FetchCategoryRequest,
-} from 'packages/shared/types/Category';
-import { ErrorProps } from 'packages/shared/types/Error';
+} from '@shared/types/Category';
+import { ErrorProps } from '@shared/types/Error';
+import type { CurrencyProps } from '@web/types/Currency';
+import type { ListProps } from '@web/types/List';
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || '';
 

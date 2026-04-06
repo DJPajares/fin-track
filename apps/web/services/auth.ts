@@ -1,4 +1,3 @@
-import { STORAGE_KEYS } from 'apps/web/constants/storageKeys';
 import type {
   AuthLoginRequest,
   AuthResponse,
@@ -6,7 +5,8 @@ import type {
   AuthSignupRequest,
   AuthTokenResponse,
   AuthUpdateRequest,
-} from 'packages/shared/types/Auth';
+} from '@shared/types/Auth';
+import { STORAGE_KEYS } from '@web/constants/storageKeys';
 
 const BASE_URL =
   process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3001/api/v1';

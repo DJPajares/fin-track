@@ -1,20 +1,19 @@
 'use client';
 
-import { STORAGE_KEYS } from 'apps/web/constants/storageKeys';
-import { fetchCurrencies, fetchTypes } from 'apps/web/services/api';
-import { CurrencyProps } from 'apps/web/types/Currency';
-import { ReactNode, useEffect } from 'react';
-
-import { useAppDispatch, useAppSelector } from '../lib/hooks/use-redux';
+import { STORAGE_KEYS } from '@web/constants/storageKeys';
+import { useAppDispatch, useAppSelector } from '@web/lib/hooks/use-redux';
 import {
   DashboardSliceProps,
   setDashboardCurrency,
-} from '../lib/redux/feature/dashboard/dashboardSlice';
+} from '@web/lib/redux/feature/dashboard/dashboardSlice';
 import {
   fetchCategories,
   setCurrencies,
   setTypes,
-} from '../lib/redux/feature/main/mainSlice';
+} from '@web/lib/redux/feature/main/mainSlice';
+import { fetchCurrencies, fetchTypes } from '@web/services/api';
+import { CurrencyProps } from '@web/types/Currency';
+import { ReactNode, useEffect } from 'react';
 
 type ClientDataProviderProps = {
   children: ReactNode;

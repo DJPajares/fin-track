@@ -1,7 +1,7 @@
 'use client';
 
-import OnboardingContent from 'apps/web/app/onboarding/OnboardingContent/OnboardingContent';
-import type { FeatureCardProps } from 'apps/web/types/Onboarding';
+import OnboardingContent from '@web/app/onboarding/OnboardingContent/OnboardingContent';
+import type { FeatureCardProps } from '@web/types/Onboarding';
 import { useTranslations } from 'next-intl';
 import { useMemo } from 'react';
 

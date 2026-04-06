@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { AuthResponse } from 'packages/shared/types/Auth';
+import { AuthResponse } from '@shared/types/Auth';
 
 type AuthSession = {
   token: string;

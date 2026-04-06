@@ -1,5 +1,5 @@
-import CardIcon, { IconProps } from 'apps/web/components/shared/CardIcon';
-import { cn } from 'apps/web/lib/utils';
+import CardIcon, { IconProps } from '@web/components/shared/CardIcon';
+import { cn } from '@web/lib/utils';
 
 export default function CardButton({
   label,

@@ -1,16 +1,15 @@
 import './globals.css';
 
+import { CONSTANTS } from '@shared/constants/common';
+import NavBar from '@web/components/Nav/NavBar';
+import PWAInstallPrompt from '@web/components/shared/PWAInstallPrompt';
+import PWARefreshButton from '@web/components/shared/PWARefreshButton';
+import { Toaster } from '@web/components/ui/sonner';
+import { montserrat } from '@web/lib/fonts';
+import { Providers } from '@web/providers/providers';
 import type { Metadata, Viewport } from 'next';
 import { NextIntlClientProvider } from 'next-intl';
 import { getLocale, getMessages } from 'next-intl/server';
-import { CONSTANTS } from 'packages/shared/constants/common';
-
-import NavBar from '../components/Nav/NavBar';
-import PWAInstallPrompt from '../components/shared/PWAInstallPrompt';
-import PWARefreshButton from '../components/shared/PWARefreshButton';
-import { Toaster } from '../components/ui/sonner';
-import { montserrat } from '../lib/fonts';
-import { Providers } from '../providers/providers';
 
 export const metadata: Metadata = {
   title: CONSTANTS.APP_NAME,

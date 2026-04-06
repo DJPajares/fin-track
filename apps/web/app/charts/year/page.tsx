@@ -1,5 +1,39 @@
 'use client';
 
+import { dateStringFormat } from '@shared/constants/dateStringFormat';
+import { formatCurrency } from '@shared/utilities/formatCurrency';
+import Loader from '@web/components/shared/Loader';
+import { Button } from '@web/components/ui/button';
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from '@web/components/ui/card';
+import {
+  ChartConfig,
+  ChartContainer,
+  ChartLegend,
+  ChartLegendContent,
+  ChartTooltip,
+  ChartTooltipContent,
+} from '@web/components/ui/chart';
+import { Label } from '@web/components/ui/label';
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from '@web/components/ui/select';
+import { useIsMobile } from '@web/lib/hooks/use-mobile';
+import { useAppSelector } from '@web/lib/hooks/use-redux';
+import {
+  useGetTransactionPaymentsByCategoryQuery,
+  useGetTransactionsByTypeDateRangeQuery,
+} from '@web/lib/redux/services/dashboard';
 import {
   ChevronLeftIcon,
   ChevronRightIcon,
@@ -8,8 +42,6 @@ import {
 } from 'lucide-react';
 import moment from 'moment';
 import { useTranslations } from 'next-intl';
-import { dateStringFormat } from 'packages/shared/constants/dateStringFormat';
-import { formatCurrency } from 'packages/shared/utilities/formatCurrency';
 import { useMemo, useState } from 'react';
 import {
   Bar,
@@ -19,39 +51,6 @@ import {
   XAxis,
   YAxis,
 } from 'recharts';
-
-import Loader from '../../../components/shared/Loader';
-import { Button } from '../../../components/ui/button';
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from '../../../components/ui/card';
-import {
-  ChartConfig,
-  ChartContainer,
-  ChartLegend,
-  ChartLegendContent,
-  ChartTooltip,
-  ChartTooltipContent,
-} from '../../../components/ui/chart';
-import { Label } from '../../../components/ui/label';
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from '../../../components/ui/select';
-import { useIsMobile } from '../../../lib/hooks/use-mobile';
-import { useAppSelector } from '../../../lib/hooks/use-redux';
-import {
-  useGetTransactionPaymentsByCategoryQuery,
-  useGetTransactionsByTypeDateRangeQuery,
-} from '../../../lib/redux/services/dashboard';
 
 type ChartDataPropsA = {
   date: string;

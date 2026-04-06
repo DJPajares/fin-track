@@ -1,5 +1,5 @@
+import { CONSTANTS } from '@shared/constants/common';
 import type { MetadataRoute } from 'next';
-import { CONSTANTS } from 'packages/shared/constants/common';
 
 export default function manifest(): MetadataRoute.Manifest {
   return {

@@ -1,8 +1,5 @@
 'use client';
 
-import { useTranslations } from 'next-intl';
-import { ReactNode } from 'react';
-
 import {
   AlertDialog,
   AlertDialogAction,
@@ -13,7 +10,9 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from '../ui/alert-dialog';
+} from '@web/components/ui/alert-dialog';
+import { useTranslations } from 'next-intl';
+import { ReactNode } from 'react';
 
 type ConfirmationDialogProps = {
   title?: string;

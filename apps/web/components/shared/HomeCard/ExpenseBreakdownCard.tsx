@@ -1,19 +1,19 @@
+import { formatCurrency } from '@shared/utilities/formatCurrency';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
-} from 'apps/web/components/ui/card';
+} from '@web/components/ui/card';
 import {
   ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-} from 'apps/web/components/ui/chart';
-import { Label } from 'apps/web/components/ui/label';
-import type { ExpensePieDataProps } from 'apps/web/types/HomeCard';
+} from '@web/components/ui/chart';
+import { Label } from '@web/components/ui/label';
+import type { ExpensePieDataProps } from '@web/types/HomeCard';
 import { useTranslations } from 'next-intl';
-import { formatCurrency } from 'packages/shared/utilities/formatCurrency';
 import { useMemo } from 'react';
 import { Cell, Pie, PieChart } from 'recharts';
 
