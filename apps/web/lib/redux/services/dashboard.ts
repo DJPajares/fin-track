@@ -1,0 +1,276 @@
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import DASHBOARD_DATA from '@shared/mockData/transactionPayments.json';
+import TRANSACTION_PAYMENTS_BY_CATEGORY from '@shared/mockData/transactionPaymentsByCategory.json';
+import TRANSACTIONS_BY_TYPE_DATA from '@shared/mockData/transactionsDateRangeByType.json';
+import { TransactionProps } from 'apps/web/types/TransactionPayment';
+import { Moment } from 'moment';
+import formatYearMonth from 'packages/shared/utilities/formatYearMonth';
+
+const useMockedData = process.env.NEXT_PUBLIC_USE_MOCKED_DATA === 'true';
+
+const type = 'Dashboard';
+
+export type DashboardDataProps = {
+  date: Date;
+  currency: string;
+  userId: string;
+};
+
+export type TransactionsByTypeProps = {
+  startDate: Date;
+  endDate: Date;
+  currency: string;
+  userId: string;
+};
+
+export type TransactionsByTypeResult = {
+  month: string;
+  year: string;
+  date: string;
+  expense: number;
+  income: number;
+};
+
+export type TransactionPaymentsByCategoryProps = {
+  startDate: Date;
+  endDate: Date;
+  currency: string;
+  category: string;
+  userId: string;
+};
+
+export type TransactionPaymentsByCategoryResult = {
+  date: string;
+  year: number;
+  month: number;
+  yearMonth: string;
+  categoryId: string;
+  categoryName: string;
+  currencyId: string;
+  currencyName: string;
+  paidAmount: number;
+};
+
+export type UpdateDashboardPaymentsDataProps = {
+  _id: TransactionProps['paymentId'];
+  transaction: TransactionProps['_id'];
+  currency: TransactionProps['localAmount']['currency']['_id'];
+  amount: TransactionProps['localAmount']['paidAmount'];
+  date: Moment;
+};
+
+export type UpdateDashboardPaymentsProps = {
+  payments: UpdateDashboardPaymentsDataProps[];
+  userId: string;
+};
+
+const formatDashboardDataQueryKey = ({
+  date,
+  currency,
+  userId,
+}: DashboardDataProps & { userId: string }) => {
+  const yearMonth = formatYearMonth(new Date(date));
+
+  return `${yearMonth}_${currency}_${userId}`;
+};
+
+const formatTransactionsByTypeQueryKey = ({
+  startDate,
+  endDate,
+  currency,
+  userId,
+}: TransactionsByTypeProps & { userId: string }) => {
+  const startYearMonth = formatYearMonth(new Date(startDate));
+  const endYearMonth = formatYearMonth(new Date(endDate));
+
+  return `${startYearMonth}_${endYearMonth}_${currency}_${userId}`;
+};
+
+const formatTransactionPaymentsByCategoryQueryKey = ({
+  startDate,
+  endDate,
+  currency,
+  category,
+  userId,
+}: TransactionPaymentsByCategoryProps & { userId: string }) => {
+  const startYearMonth = formatYearMonth(new Date(startDate));
+  const endYearMonth = formatYearMonth(new Date(endDate));
+
+  return `${startYearMonth}_${endYearMonth}_${currency}_${category}_${userId}`;
+};
+
+export const dashboardApi = createApi({
+  reducerPath: 'dashboardApi',
+  baseQuery: fetchBaseQuery({ baseUrl: process.env.NEXT_PUBLIC_BASE_URL }),
+  tagTypes: [type],
+  endpoints: (builder) => ({
+    getDashboardData: builder.query({
+      query: (body) => {
+        return useMockedData
+          ? { url: '', method: 'GET' } // Empty request since data is mocked
+          : {
+              url: '/transaction-payments',
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body,
+            };
+      },
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      transformResponse: (response: any) => {
+        return useMockedData ? DASHBOARD_DATA : response;
+      },
+      providesTags: (result, error, { date, currency, userId }) => {
+        return [
+          {
+            type: type,
+            id: formatDashboardDataQueryKey({ date, currency, userId }),
+          },
+        ];
+      },
+      serializeQueryArgs: ({ endpointName, queryArgs }) => {
+        const { date, currency, userId } = queryArgs;
+
+        const provider = formatDashboardDataQueryKey({
+          date,
+          currency,
+          userId,
+        });
+
+        return `${endpointName}_${provider}`;
+      },
+    }),
+    getTransactionPaymentsByCategory: builder.query({
+      query: ({ startDate, endDate, currency, userId, category }) => {
+        return useMockedData
+          ? { url: '', method: 'GET' } // Empty request since data is mocked
+          : {
+              url: `/transaction-payments/monthly-by-category/${category}`,
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: { startDate, endDate, currency, userId },
+            };
+      },
+      transformResponse: (
+        response: unknown,
+      ): TransactionPaymentsByCategoryResult[] => {
+        return useMockedData
+          ? TRANSACTION_PAYMENTS_BY_CATEGORY
+          : (response as TransactionPaymentsByCategoryResult[]);
+      },
+      providesTags: (
+        result,
+        error,
+        { startDate, endDate, currency, category, userId },
+      ) => {
+        return [
+          {
+            type: type,
+            id: formatTransactionPaymentsByCategoryQueryKey({
+              startDate,
+              endDate,
+              currency,
+              category,
+              userId,
+            }),
+          },
+        ];
+      },
+      serializeQueryArgs: ({ endpointName, queryArgs }) => {
+        const { startDate, endDate, currency, category, userId } = queryArgs;
+
+        const provider = formatTransactionPaymentsByCategoryQueryKey({
+          startDate,
+          endDate,
+          currency,
+          category,
+          userId,
+        });
+
+        return `${endpointName}_${provider}`;
+      },
+    }),
+    getTransactionsByTypeDateRange: builder.query({
+      query: (body) => {
+        return useMockedData
+          ? { url: '', method: 'GET' } // Empty request since data is mocked
+          : {
+              url: '/transactions/monthly-types',
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body,
+            };
+      },
+      transformResponse: (response: unknown): TransactionsByTypeResult[] => {
+        return useMockedData
+          ? TRANSACTIONS_BY_TYPE_DATA
+          : (response as TransactionsByTypeResult[]);
+      },
+      providesTags: (
+        result,
+        error,
+        { startDate, endDate, currency, userId },
+      ) => {
+        return [
+          {
+            type: type,
+            id: formatTransactionsByTypeQueryKey({
+              startDate,
+              endDate,
+              currency,
+              userId,
+            }),
+          },
+        ];
+      },
+      serializeQueryArgs: ({ endpointName, queryArgs }) => {
+        const { startDate, endDate, currency, userId } = queryArgs;
+
+        const provider = formatTransactionsByTypeQueryKey({
+          startDate,
+          endDate,
+          currency,
+          userId,
+        });
+
+        return `${endpointName}_${provider}`;
+      },
+    }),
+    updateCategoryData: builder.mutation({
+      query: (updatedData) => ({
+        url: `transaction-payments/update`,
+        method: 'POST',
+        body: updatedData,
+      }),
+      invalidatesTags: (_result, _error, { date, currency, userId }) => [
+        {
+          type: type,
+          id: formatDashboardDataQueryKey({ date, currency, userId }),
+        },
+      ],
+    }),
+    updateDashboardPayments: builder.mutation({
+      query: (body: UpdateDashboardPaymentsProps) => ({
+        url: '/payments',
+        method: 'PUT',
+        body,
+      }),
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        try {
+          await queryFulfilled;
+          dispatch(dashboardApi.util.invalidateTags([type]));
+        } catch (error) {
+          console.error('Update failed:', error);
+        }
+      },
+    }),
+  }),
+});
+
+export const {
+  useGetDashboardDataQuery, // getDashboardData
+  useLazyGetDashboardDataQuery, // getDashboardData
+  useGetTransactionPaymentsByCategoryQuery, // getTransactionPaymentsByCategory
+  useGetTransactionsByTypeDateRangeQuery, // getTransactionsByTypeDateRange
+  useUpdateCategoryDataMutation, // updateCategoryData
+  useUpdateDashboardPaymentsMutation, // updateDashboardPayments
+} = dashboardApi;

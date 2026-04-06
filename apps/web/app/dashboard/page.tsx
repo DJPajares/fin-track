@@ -1,0 +1,303 @@
+'use client';
+
+import { CircularProgress, ScrollShadow } from '@heroui/react';
+import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
+import moment from 'moment';
+import { useTranslations } from 'next-intl';
+import { dateStringFormat } from 'packages/shared/constants/dateStringFormat';
+import { formatCurrency } from 'packages/shared/utilities/formatCurrency';
+import { useEffect, useMemo, useState } from 'react';
+
+import { DatePicker } from '../../components/shared/DatePicker';
+import Loader from '../../components/shared/Loader';
+import { Button } from '../../components/ui/button';
+import { Card } from '../../components/ui/card';
+import { Label } from '../../components/ui/label';
+import { Separator } from '../../components/ui/separator';
+import { Skeleton } from '../../components/ui/skeleton';
+import { useAppDispatch, useAppSelector } from '../../lib/hooks/use-redux';
+import { setDashboardDate } from '../../lib/redux/feature/dashboard/dashboardSlice';
+import { useGetDashboardDataQuery } from '../../lib/redux/services/dashboard';
+import type { DashboardDataCategoryResult } from '../../types/Dashboard';
+import CategoryCard from './Category/CategoryCard';
+import CategoryDrawer from './Category/CategoryDrawer';
+import TransactionDrawer from './Transaction/TransactionDrawer';
+
+const initialTransactionPaymentCategory = {
+  _id: '',
+  id: '',
+  name: '',
+  totalAmount: 0,
+  totalPaidAmount: 0,
+  paymentCompletionRate: 0,
+  transactions: [],
+};
+
+const Dashboard = () => {
+  const t = useTranslations('Page.dashboard');
+  const dispatch = useAppDispatch();
+
+  const { currency, date: dashboardDateString } = useAppSelector(
+    (state) => state.dashboard,
+  );
+  const { user } = useAppSelector((state) => state.auth);
+  const userId = user?.id || '';
+
+  const dashboardDate = useMemo(
+    () => moment(dashboardDateString, dateStringFormat).toDate(),
+    [dashboardDateString],
+  );
+
+  const [dashboardCategoryData, setDashboardCategoryData] =
+    useState<DashboardDataCategoryResult>(initialTransactionPaymentCategory);
+  const [date, setDate] = useState(dashboardDate);
+  const [isCategoryDrawerOpen, setIsCategoryDrawerOpen] = useState(false);
+  const [isTransactionDrawerOpen, setIsTransactionDrawerOpen] = useState(false);
+
+  const { data, isFetching, isLoading } = useGetDashboardDataQuery(
+    {
+      date: dashboardDate,
+      currency: currency.name,
+      userId,
+    },
+    {
+      skip: !currency.name || !userId,
+    },
+  );
+
+  const { dashboardCategories, balance, extra, totalAmount, totalPaidAmount } =
+    useMemo(() => {
+      return {
+        dashboardCategories: data?.categories || [],
+        balance: data?.main?.balance ?? 0,
+        extra: data?.main?.extra ?? 0,
+        totalAmount: data?.main?.totalAmount ?? 0,
+        totalPaidAmount: data?.main?.totalPaidAmount ?? 0,
+      };
+    }, [data]);
+
+  useEffect(() => {
+    dispatch(
+      setDashboardDate({
+        date: moment(date).format(dateStringFormat),
+      }),
+    );
+  }, [date, dispatch]);
+
+  const handleCardClick = (category: DashboardDataCategoryResult) => {
+    setDashboardCategoryData(category);
+    setIsCategoryDrawerOpen(true);
+  };
+
+  const handleAddTransactionButton = () => {
+    setIsTransactionDrawerOpen(true);
+  };
+
+  const handlePrevMonth = () => {
+    const newDate = moment(dashboardDate).add(-1, 'months');
+
+    setDate(moment(newDate).toDate());
+  };
+
+  const handleNextMonth = () => {
+    const newDate = moment(dashboardDate).add(1, 'months');
+
+    setDate(moment(newDate).toDate());
+  };
+
+  if (isLoading || !currency.name) return <Loader />;
+
+  return (
+    <>
+      <>
+        <ScrollShadow
+          className="flex max-h-[calc(100dvh-theme(height.36))] flex-col gap-4 sm:max-h-none sm:gap-8"
+          hideScrollBar
+        >
+          {/* CALENDAR */}
+          <div className="flex flex-row items-center justify-center gap-1 sm:gap-4">
+            <Button
+              variant="ghost"
+              size="rounded-icon"
+              onClick={handlePrevMonth}
+            >
+              <ChevronLeftIcon className="size-4" />
+            </Button>
+
+            <DatePicker date={date} onChange={setDate}>
+              <Button variant="ghost" className="px-1">
+                <Label
+                  variant="title-xl"
+                  className="hover:bg-background hover:underline"
+                >
+                  {moment(date).format('MMM yyyy')}
+                </Label>
+              </Button>
+            </DatePicker>
+
+            <Button
+              variant="ghost"
+              size="rounded-icon"
+              onClick={handleNextMonth}
+            >
+              <ChevronRightIcon className="size-4" />
+            </Button>
+          </div>
+
+          {/* CIRCULAR PROGRESS BAR */}
+          {isFetching ? (
+            <div className="flex flex-col items-center space-y-2">
+              <Skeleton className="aspect-square h-36 rounded-full sm:h-64" />
+              <Skeleton className="h-4 w-20" />
+            </div>
+          ) : (
+            <div className="flex flex-col items-center">
+              <CircularProgress
+                classNames={{
+                  svg: 'size-36 sm:size-64 drop-shadow-md',
+                  value: 'text-3xl sm:text-6xl font-semibold',
+                  indicator: 'stroke-primary',
+                }}
+                label={t('completed')}
+                value={Math.floor((totalPaidAmount / totalAmount) * 100) || 0}
+                strokeWidth={3}
+                showValueLabel={true}
+              />
+            </div>
+          )}
+
+          {/* BALANCE CARD */}
+          {isFetching ? (
+            <Skeleton className="h-40 w-full" />
+          ) : (
+            <Card className="flex flex-col gap-3 p-4">
+              {/* Primary Metrics - Balance & Extra */}
+              <div className="flex flex-row justify-between gap-4">
+                <div className="flex flex-col gap-1">
+                  <Label variant="caption" className="text-muted-foreground">
+                    {t('totalDue')}
+                  </Label>
+                  <Label variant="title-lg">
+                    {formatCurrency({
+                      value: totalAmount,
+                      currency: currency.name,
+                    })}
+                  </Label>
+                </div>
+
+                <div className="flex flex-col items-end gap-1">
+                  <Label variant="caption" className="text-muted-foreground">
+                    {t('monthlyExtra')}
+                  </Label>
+                  <Label variant="title-lg">
+                    {formatCurrency({
+                      value: extra,
+                      currency: currency.name,
+                    })}
+                  </Label>
+                </div>
+              </div>
+
+              <Separator />
+
+              {/* Secondary Metrics - Total Due, Settled & Unsettled */}
+              <div className="flex flex-row justify-between gap-4">
+                <div className="flex flex-col gap-1">
+                  <Label variant="caption" className="text-muted-foreground">
+                    {t('runningBalance')}
+                  </Label>
+                  <Label variant="title-lg">
+                    {formatCurrency({
+                      value: balance,
+                      currency: currency.name,
+                    })}
+                  </Label>
+                </div>
+
+                <div className="flex flex-col items-end">
+                  <div className="space-x-2">
+                    <Label variant="caption" className="text-muted-foreground">
+                      {t('settled')}:
+                    </Label>
+                    <Label variant="title-sm">
+                      {formatCurrency({
+                        value: totalPaidAmount,
+                        currency: currency.name,
+                      })}
+                    </Label>
+                  </div>
+
+                  <div className="space-x-2">
+                    <Label variant="caption" className="text-muted-foreground">
+                      {t('unsettled')}:
+                    </Label>
+                    <Label variant="title-sm">
+                      {formatCurrency({
+                        value: totalAmount - totalPaidAmount,
+                        currency: currency.name,
+                      })}
+                    </Label>
+                  </div>
+                </div>
+              </div>
+            </Card>
+          )}
+
+          {/* CATEGORY CARD */}
+          <ScrollShadow className="max-h-[40vh] sm:max-h-[90vh]" hideScrollBar>
+            {isFetching ? (
+              <div className="grid grid-cols-2 items-start justify-center gap-4 sm:grid-cols-3 sm:gap-8">
+                <Skeleton className="h-44 w-full sm:h-56" />
+                <Skeleton className="h-44 w-full sm:h-56" />
+              </div>
+            ) : (
+              <div className="grid grid-cols-[repeat(auto-fill,minmax(140px,1fr))] items-start justify-center gap-4 sm:grid-cols-[repeat(auto-fill,minmax(200px,1fr))] sm:gap-8">
+                {dashboardCategories.map(
+                  (category: DashboardDataCategoryResult) => (
+                    <div key={category._id}>
+                      <CategoryCard
+                        category={category}
+                        currency={currency.name}
+                        handleCardClick={handleCardClick}
+                      />
+                    </div>
+                  ),
+                )}
+              </div>
+            )}
+          </ScrollShadow>
+        </ScrollShadow>
+
+        {/* TRANSACTION BUTTON */}
+        <div className="sticky right-0 bottom-0 left-0 mt-auto sm:relative">
+          {isFetching ? (
+            <Skeleton className="h-10 w-full" />
+          ) : (
+            <Button
+              size="lg"
+              className="w-full"
+              onClick={handleAddTransactionButton}
+            >
+              {t('transactionButton')}
+            </Button>
+          )}
+        </div>
+      </>
+
+      {/* HIDDEN DRAWERS */}
+      <CategoryDrawer
+        key={`${dashboardCategoryData._id || 'empty'}-${isCategoryDrawerOpen ? 'open' : 'closed'}`}
+        category={dashboardCategoryData}
+        isDrawerOpen={isCategoryDrawerOpen}
+        setIsDrawerOpen={setIsCategoryDrawerOpen}
+      />
+
+      <TransactionDrawer
+        isDrawerOpen={isTransactionDrawerOpen}
+        setIsDrawerOpen={setIsTransactionDrawerOpen}
+      />
+    </>
+  );
+};
+
+export default Dashboard;

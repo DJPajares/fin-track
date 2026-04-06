@@ -1,0 +1,164 @@
+import type { ExchangeRateRequest } from '../../../../../packages/shared/types/ExchangeRate';
+import { filterRates } from '../../../../../packages/shared/utilities/common';
+import {
+  ExchangeRateModel,
+  ExchangeRateProps,
+} from '../../models/v1/exchangeRateModel';
+import type { QueryParamsProps, SortObjProps } from '../../types/commonTypes';
+import createPagination from '../../utilities/createPagination';
+
+const create = async (data: ExchangeRateProps) => {
+  return await ExchangeRateModel.create(data);
+};
+
+const getAll = async (query: QueryParamsProps) => {
+  // [SAMPLE ENDPOINT]: /exchangeRates?page=2&limit=4&sort=-name
+
+  const { filter, sort } = query;
+
+  // Pagination
+  const totalDocuments = await ExchangeRateModel.countDocuments();
+  const paginationResult = createPagination(query, totalDocuments);
+  const { skip, limit, pagination } = paginationResult;
+
+  // Filter
+  const filterObj = filter ? JSON.parse(filter) : {};
+
+  // Sort
+  const sortObj: SortObjProps = {};
+  if (sort) {
+    sort.split(',').forEach((sortField: string) => {
+      const order = sortField.startsWith('-') ? -1 : 1;
+      const field = sortField.replace(/^[-+]/, '');
+
+      sortObj[field] = order;
+    });
+  }
+
+  const data = await ExchangeRateModel.find(filterObj)
+    .sort(sortObj)
+    .collation({ locale: 'en' }) // case insensitive sorting
+    .skip(skip)
+    .limit(limit);
+
+  return {
+    data,
+    pagination,
+  };
+};
+
+const get = async (_id: ExchangeRateProps['_id']) => {
+  return await ExchangeRateModel.find({ _id });
+};
+
+const update = async (
+  _id: ExchangeRateProps['_id'],
+  data: ExchangeRateProps,
+) => {
+  return await ExchangeRateModel.findByIdAndUpdate({ _id }, data, {
+    returnDocument: 'after',
+  });
+};
+
+const remove = async (_id: ExchangeRateProps['_id']) => {
+  return await ExchangeRateModel.findByIdAndDelete({ _id });
+};
+
+const getLatest = async (data: ExchangeRateRequest) => {
+  try {
+    // Fetch from external API
+    const response = await fetch(
+      'https://api.exchangerate-api.com/v4/latest/USD',
+    );
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch exchange rates from external API');
+    }
+
+    const externalData = await response.json();
+
+    const rates = filterRates(data.currencies, externalData.rates);
+
+    // Transform to our schema format
+    const exchangeRateData = {
+      baseCurrency: externalData.base,
+      date: new Date(externalData.date),
+      rates,
+    };
+
+    return exchangeRateData;
+  } catch (error) {
+    throw new Error(
+      `Error fetching latest exchange rates: ${error instanceof Error ? error.message : 'Unknown error'}`,
+    );
+  }
+};
+
+const updateToLatest = async (data: ExchangeRateRequest) => {
+  try {
+    // Fetch from external API
+    const response = await fetch(
+      'https://api.exchangerate-api.com/v4/latest/USD',
+    );
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch exchange rates from external API');
+    }
+
+    const externalData = await response.json();
+
+    // Parse the date and set time to start of day (00:00:00)
+    const apiDate = new Date();
+    const startOfDay = new Date(
+      apiDate.getFullYear(),
+      apiDate.getMonth(),
+      apiDate.getDate(),
+      0,
+      0,
+      0,
+      0,
+    );
+    const endOfDay = new Date(
+      apiDate.getFullYear(),
+      apiDate.getMonth(),
+      apiDate.getDate(),
+      23,
+      59,
+      59,
+      999,
+    );
+
+    const rates = filterRates(data.currencies, externalData.rates);
+
+    // Transform to our schema format
+    const exchangeRateData = {
+      baseCurrency: externalData.base,
+      date: apiDate,
+      rates,
+    };
+
+    // Upsert: find by baseCurrency and date range (ignoring time), update or insert
+    const result = await ExchangeRateModel.findOneAndUpdate(
+      {
+        baseCurrency: exchangeRateData.baseCurrency,
+        date: {
+          $gte: startOfDay,
+          $lte: endOfDay,
+        },
+      },
+      exchangeRateData,
+      {
+        returnDocument: 'after', // Return the updated document
+        upsert: true, // Create if doesn't exist
+      },
+    );
+
+    return result;
+  } catch (error) {
+    throw new Error(
+      `Error updating latest exchange rates: ${error instanceof Error ? error.message : 'Unknown error'}`,
+    );
+  }
+};
+
+export { create, get, getAll, getLatest, remove, update, updateToLatest };

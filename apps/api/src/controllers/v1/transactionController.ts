@@ -1,0 +1,174 @@
+import { NextFunction, Request, Response } from 'express';
+
+import * as transactionService from '../../services/v1/transactionService';
+import type { QueryParamsProps } from '../../types/commonTypes';
+import type {
+  CreateManyTransactionsBody,
+  CreateTransactionBody,
+  FetchByDateProps,
+  FetchByDateRangeProps,
+  UpdateTransactionBody,
+} from '../../types/v1/transactionRequestTypes';
+import parseObjectId from '../../utilities/parseObjectId';
+
+const create = async (
+  req: Request<unknown, unknown, CreateTransactionBody>,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const data = await transactionService.create(req.body);
+
+    res.status(200).json(data);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const createMany = async (
+  req: Request<unknown, unknown, CreateManyTransactionsBody>,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const data = await transactionService.createMany(req.body);
+
+    res.status(200).json(data);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const getAll = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const query = req.query as unknown as QueryParamsProps;
+
+    const data = await transactionService.getAll(query);
+
+    res.status(200).json(data);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const getAdvanced = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const query = req.query as unknown as QueryParamsProps;
+
+    const data = await transactionService.getAdvanced(query, req.body);
+
+    res.status(200).json(data);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const getCategories = async (
+  req: Request<unknown, unknown, FetchByDateProps>,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const data = await transactionService.getCategories(req.body);
+
+    res.status(200).json(data);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const getMonthlyTypes = async (
+  req: Request<unknown, unknown, FetchByDateRangeProps>,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const data = await transactionService.getMonthlyTypes(req.body);
+
+    res.status(200).json(data);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const getMonthlyCategories = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const data = await transactionService.getMonthlyCategories(req.body);
+
+    res.status(200).json(data);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const get = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const id = parseObjectId(req.params.id);
+
+    if (!id) {
+      res.status(400).json({ message: 'Invalid transaction id' });
+      return;
+    }
+
+    const data = await transactionService.get(id);
+
+    res.status(200).json(data);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const update = async (
+  req: Request<{ id: string }, unknown, UpdateTransactionBody>,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const id = parseObjectId(req.params.id);
+
+    if (!id) {
+      res.status(400).json({ message: 'Invalid transaction id' });
+      return;
+    }
+
+    const data = await transactionService.update(id, req.body);
+
+    res.status(200).json(data);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const remove = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const id = parseObjectId(req.params.id);
+
+    if (!id) {
+      res.status(400).json({ message: 'Invalid transaction id' });
+      return;
+    }
+
+    const data = transactionService.remove(id);
+
+    res.status(200).json(data);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export {
+  create,
+  createMany,
+  get,
+  getAdvanced,
+  getAll,
+  getCategories,
+  getMonthlyCategories,
+  getMonthlyTypes,
+  remove,
+  update,
+};
