@@ -1,6 +1,10 @@
 import currenciesMockData from '@shared/mockData/currencies.json';
 import typesMockData from '@shared/mockData/types.json';
+import type { CurrencyProps } from 'apps/web/types/Currency';
+import type { ListProps } from 'apps/web/types/List';
 import type {
+  CategoryDataResponse,
+  CategoryResponse,
   CustomCategoryRequest,
   FetchCategoryRequest,
 } from 'packages/shared/types/Category';
@@ -13,6 +17,20 @@ type ApiError = {
   status: number;
   code: string;
   data: ErrorProps;
+};
+
+type TypeOption = ListProps & {
+  id: string;
+};
+
+const normalizeTypeOptions = (
+  types: Array<{ _id: string; name: string; id?: string }>,
+): TypeOption[] => {
+  return types.map((type) => ({
+    _id: type._id,
+    name: type.name,
+    id: type.id || type.name.toLowerCase(),
+  }));
 };
 
 const toAbsoluteUrl = (path: string): string => {
@@ -50,10 +68,7 @@ const getErrorData = (payload: unknown): ErrorProps | undefined => {
   return payload as ErrorProps;
 };
 
-const request = async (
-  path: string,
-  init: RequestInit = {},
-): Promise<unknown> => {
+const request = async <T>(path: string, init: RequestInit = {}): Promise<T> => {
   const headers = new Headers(init.headers);
 
   headers.set('Access-Control-Allow-Origin', '*');
@@ -83,7 +98,7 @@ const request = async (
     throw error;
   }
 
-  return payload;
+  return payload as T;
 };
 
 const handleApiError = (error: unknown) => {
@@ -111,7 +126,9 @@ const handleApiError = (error: unknown) => {
   };
 };
 
-const fetchCategoriesApi = async ({ userId }: FetchCategoryRequest) => {
+const fetchCategoriesApi = async ({
+  userId,
+}: FetchCategoryRequest): Promise<CategoryResponse> => {
   const url = `categories?sort=name${userId ? `&userId=${userId}` : ''}`;
 
   try {
@@ -121,11 +138,13 @@ const fetchCategoriesApi = async ({ userId }: FetchCategoryRequest) => {
   }
 };
 
-const createCustomCategoryApi = async (categoryData: CustomCategoryRequest) => {
+const createCustomCategoryApi = async (
+  categoryData: CustomCategoryRequest,
+): Promise<CategoryDataResponse> => {
   const url = `categories/custom`;
 
   try {
-    return await request(url, {
+    return await request<CategoryDataResponse>(url, {
       method: 'POST',
       body: JSON.stringify(categoryData),
     });
@@ -134,11 +153,13 @@ const createCustomCategoryApi = async (categoryData: CustomCategoryRequest) => {
   }
 };
 
-const updateCategoryApi = async (categoryData: CustomCategoryRequest) => {
+const updateCategoryApi = async (
+  categoryData: CustomCategoryRequest,
+): Promise<CategoryDataResponse> => {
   const url = `categories/${categoryData._id}`;
 
   try {
-    return await request(url, {
+    return await request<CategoryDataResponse>(url, {
       method: 'PUT',
       body: JSON.stringify(categoryData),
     });
@@ -154,9 +175,11 @@ const currenciesUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/currencies?sort=name`
 
 const useMockedData = process.env.NEXT_PUBLIC_USE_MOCKED_DATA === 'true';
 
-const fetchTypes = async () => {
+const fetchTypes = async (): Promise<TypeOption[]> => {
   try {
-    if (useMockedData) return typesMockData;
+    if (useMockedData) {
+      return normalizeTypeOptions(typesMockData);
+    }
 
     const response = await fetch(typesUrl, {
       headers: { 'Content-Type': 'application/json' },
@@ -165,16 +188,19 @@ const fetchTypes = async () => {
       throw new Error(`Failed to fetch types with status ${response.status}`);
     }
 
-    const data = (await response.json()) as { data?: unknown };
-    return data.data;
+    const data = (await response.json()) as {
+      data?: Array<{ _id: string; name: string; id?: string }>;
+    };
+    return normalizeTypeOptions(data.data || []);
   } catch (error) {
     console.error('Fetch failed', error);
+    return [];
   }
 };
 
-const fetchCurrencies = async () => {
+const fetchCurrencies = async (): Promise<CurrencyProps[]> => {
   try {
-    if (useMockedData) return currenciesMockData;
+    if (useMockedData) return currenciesMockData as CurrencyProps[];
 
     const response = await fetch(currenciesUrl, {
       headers: { 'Content-Type': 'application/json' },
@@ -185,14 +211,15 @@ const fetchCurrencies = async () => {
       );
     }
 
-    const data = (await response.json()) as { data?: unknown };
-    return data.data;
+    const data = (await response.json()) as { data?: CurrencyProps[] };
+    return data.data || [];
   } catch (error) {
     console.error('Fetch failed', error);
+    return [];
   }
 };
 
-const fetchCurrencyByName = async (name: string) => {
+const fetchCurrencyByName = async (name: string): Promise<CurrencyProps> => {
   try {
     const url = `${process.env.NEXT_PUBLIC_BASE_URL}/currencies/by-name/${name}`;
 
@@ -206,7 +233,13 @@ const fetchCurrencyByName = async (name: string) => {
       );
     }
 
-    return (await response.json()) as unknown;
+    const data = (await response.json()) as CurrencyProps | null;
+
+    if (!data) {
+      throw new Error(`Currency not found: ${name}`);
+    }
+
+    return data;
   } catch (error) {
     console.error('Fetch currency by name failed', error);
     throw error;

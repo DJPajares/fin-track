@@ -213,11 +213,15 @@ export const updateProfile = async (payload: AuthUpdateRequest) => {
     throw new Error('No token found');
   }
 
-  const { data } = await authRequest<unknown>('auth/me/profile', {
+  const { data } = await authRequest<AuthResponse>('auth/me/profile', {
     method: 'PUT',
     body: JSON.stringify(payload),
     headers: { Authorization: `Bearer ${token}` },
   });
+
+  if (!data) {
+    throw new Error('Failed to update profile');
+  }
 
   return data;
 };
@@ -228,7 +232,7 @@ export const deleteAccount = async (payload: { currentPassword: string }) => {
     throw new Error('No token found');
   }
 
-  const { data } = await authRequest<unknown>('auth/me', {
+  const { data } = await authRequest<{ id: string }>('auth/me', {
     method: 'DELETE',
     body: JSON.stringify(payload),
     headers: { Authorization: `Bearer ${token}` },
