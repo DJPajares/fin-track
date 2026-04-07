@@ -3,6 +3,7 @@
 import { dateStringFormat } from '@shared/constants/dateStringFormat';
 import { formatCurrency } from '@shared/utilities/formatCurrency';
 import Loader from '@web/components/shared/Loader';
+import { TypographyLead } from '@web/components/shared/Typography';
 import { Button } from '@web/components/ui/button';
 import {
   Card,
@@ -18,7 +19,6 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from '@web/components/ui/chart';
-import { Label } from '@web/components/ui/label';
 import {
   Select,
   SelectContent,
@@ -212,7 +212,7 @@ const Charts = () => {
   return (
     <>
       <div className="flex flex-row items-center justify-center">
-        <Button variant="ghost" size="rounded-icon" onClick={handlePrevYear}>
+        <Button variant="ghost" size="icon" onClick={handlePrevYear}>
           <ChevronLeftIcon className="size-4" />
         </Button>
 
@@ -222,10 +222,7 @@ const Charts = () => {
             setSelectedYear(value);
           }}
         >
-          <SelectTrigger
-            variant="ghost-clean"
-            className="w-fit text-2xl font-bold"
-          >
+          <SelectTrigger className="w-fit text-2xl font-bold">
             <SelectValue placeholder="Year..."></SelectValue>
           </SelectTrigger>
           <SelectContent>
@@ -245,7 +242,7 @@ const Charts = () => {
           </SelectContent>
         </Select>
 
-        <Button variant="ghost" size="rounded-icon" onClick={handleNextMonth}>
+        <Button variant="ghost" size="icon" onClick={handleNextMonth}>
           <ChevronRightIcon className="size-4" />
         </Button>
       </div>
@@ -369,7 +366,7 @@ const Charts = () => {
             </ChartContainer>
           ) : (
             <div className="flex items-center justify-center">
-              <Label variant="subtitle-md">{t('Common.label.noData')}</Label>
+              <TypographyLead>{t('Common.label.noData')}</TypographyLead>
             </div>
           )}
         </CardContent>

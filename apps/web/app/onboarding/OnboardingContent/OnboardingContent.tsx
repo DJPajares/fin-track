@@ -1,4 +1,9 @@
 import { CONSTANTS } from '@shared/constants/common';
+import {
+  TypographyCardTitle,
+  TypographyMuted,
+  TypographyPageTitle,
+} from '@web/components/shared/Typography';
 import { Button } from '@web/components/ui/button';
 import {
   Carousel,
@@ -6,7 +11,6 @@ import {
   CarouselContent,
   CarouselItem,
 } from '@web/components/ui/carousel';
-import { Label } from '@web/components/ui/label';
 import { cn } from '@web/lib/utils';
 import type { FeatureCardProps } from '@web/types/Onboarding';
 import Image from 'next/image';
@@ -50,9 +54,7 @@ function OnboardingContent({ features }: { features: FeatureCardProps[] }) {
     <div className="flex flex-col items-center justify-center gap-8">
       {/* App Name */}
       <div className="text-center">
-        <Label variant="title" className="font-bold">
-          {CONSTANTS.APP_NAME}
-        </Label>
+        <TypographyCardTitle>{CONSTANTS.APP_NAME}</TypographyCardTitle>
       </div>
 
       {/* Carousel */}
@@ -78,13 +80,11 @@ function OnboardingContent({ features }: { features: FeatureCardProps[] }) {
 
                   <div className="flex flex-col items-center gap-3">
                     <span className="w-full max-w-sm px-12 text-center leading-none">
-                      <Label variant="title-xl" className="text-3xl font-bold">
-                        {feature.title}
-                      </Label>
+                      <TypographyPageTitle>{feature.title}</TypographyPageTitle>
                     </span>
 
                     <span className="w-full max-w-xs px-14 text-center leading-none">
-                      <Label variant="caption">{feature.description}</Label>
+                      <TypographyMuted>{feature.description}</TypographyMuted>
                     </span>
                   </div>
                 </div>
@@ -145,9 +145,7 @@ function OnboardingContent({ features }: { features: FeatureCardProps[] }) {
           className="w-full"
           onClick={handleSkip}
         >
-          <Label variant="caption" className="text-muted-foreground">
-            {t('skipForNow')}
-          </Label>
+          <TypographyMuted>{t('skipForNow')}</TypographyMuted>
         </Button>
       </div>
     </div>

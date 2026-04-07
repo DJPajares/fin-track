@@ -5,8 +5,9 @@ import {
   CardHeader,
   CardTitle,
 } from '@web/components/ui/card';
-import { Label } from '@web/components/ui/label';
 import { useTranslations } from 'next-intl';
+
+import { TypographyLabel, TypographyLead } from '../Typography';
 
 type BalanceCardProps = {
   balance: number;
@@ -21,17 +22,16 @@ const BalanceCard = ({ balance, currency }: BalanceCardProps) => {
       <CardHeader className="px-4">
         <CardDescription>{t('Page.home.cards.balance.title')}</CardDescription>
         <CardTitle>
-          <Label
-            variant="title-xl"
+          <TypographyLead
             className={balance >= 0 ? 'text-green-500' : 'text-destructive'}
           >
             {formatCurrency({ value: balance, currency })}
-          </Label>
+          </TypographyLead>
         </CardTitle>
         <CardDescription>
-          <Label variant="caption">
+          <TypographyLabel>
             {t('Page.home.cards.balance.description')}
-          </Label>
+          </TypographyLabel>
         </CardDescription>
       </CardHeader>
     </Card>

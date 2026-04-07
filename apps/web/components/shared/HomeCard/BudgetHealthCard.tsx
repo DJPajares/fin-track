@@ -7,9 +7,10 @@ import {
   CardDescription,
   CardHeader,
 } from '@web/components/ui/card';
-import { Label } from '@web/components/ui/label';
 import { useTranslations } from 'next-intl';
 import { useMemo } from 'react';
+
+import { TypographyLabel, TypographyMuted } from '../Typography';
 
 type BudgetHealthCardProps = {
   budget: number;
@@ -77,14 +78,13 @@ const BudgetHealthCard = ({
           </Badge>
 
           <div className="flex w-full flex-col">
-            <Label variant="caption" className="text-muted-foreground">
+            <TypographyMuted>
               {t('Page.home.cards.budgetHealth.used', {
                 spent: formatCurrency({ value: totalAmount, currency }),
                 budget: formatCurrency({ value: budget, currency }),
               })}
-            </Label>
-            <Label
-              variant="caption"
+            </TypographyMuted>
+            <TypographyLabel
               className={remaining >= 0 ? 'text-green-500' : 'text-destructive'}
             >
               {t('Page.home.cards.budgetHealth.remaining', {
@@ -93,7 +93,7 @@ const BudgetHealthCard = ({
                   currency,
                 }),
               })}
-            </Label>
+            </TypographyLabel>
           </div>
         </div>
       </CardContent>

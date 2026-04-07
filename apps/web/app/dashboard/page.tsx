@@ -5,9 +5,13 @@ import { dateStringFormat } from '@shared/constants/dateStringFormat';
 import { formatCurrency } from '@shared/utilities/formatCurrency';
 import { DatePicker } from '@web/components/shared/DatePicker';
 import Loader from '@web/components/shared/Loader';
+import {
+  TypographyLabel,
+  TypographyLead,
+  TypographyMuted,
+} from '@web/components/shared/Typography';
 import { Button } from '@web/components/ui/button';
 import { Card } from '@web/components/ui/card';
-import { Label } from '@web/components/ui/label';
 import { Separator } from '@web/components/ui/separator';
 import { Skeleton } from '@web/components/ui/skeleton';
 import { useAppDispatch, useAppSelector } from '@web/lib/hooks/use-redux';
@@ -116,30 +120,19 @@ const Dashboard = () => {
         >
           {/* CALENDAR */}
           <div className="flex flex-row items-center justify-center gap-1 sm:gap-4">
-            <Button
-              variant="ghost"
-              size="rounded-icon"
-              onClick={handlePrevMonth}
-            >
+            <Button variant="ghost" size="icon-sm" onClick={handlePrevMonth}>
               <ChevronLeftIcon className="size-4" />
             </Button>
 
             <DatePicker date={date} onChange={setDate}>
               <Button variant="ghost" className="px-1">
-                <Label
-                  variant="title-xl"
-                  className="hover:bg-background hover:underline"
-                >
+                <TypographyLead className="hover:bg-background hover:underline">
                   {moment(date).format('MMM yyyy')}
-                </Label>
+                </TypographyLead>
               </Button>
             </DatePicker>
 
-            <Button
-              variant="ghost"
-              size="rounded-icon"
-              onClick={handleNextMonth}
-            >
+            <Button variant="ghost" size="icon-sm" onClick={handleNextMonth}>
               <ChevronRightIcon className="size-4" />
             </Button>
           </div>
@@ -174,27 +167,23 @@ const Dashboard = () => {
               {/* Primary Metrics - Balance & Extra */}
               <div className="flex flex-row justify-between gap-4">
                 <div className="flex flex-col gap-1">
-                  <Label variant="caption" className="text-muted-foreground">
-                    {t('totalDue')}
-                  </Label>
-                  <Label variant="title-lg">
+                  <TypographyMuted>{t('totalDue')}</TypographyMuted>
+                  <TypographyLabel>
                     {formatCurrency({
                       value: totalAmount,
                       currency: currency.name,
                     })}
-                  </Label>
+                  </TypographyLabel>
                 </div>
 
                 <div className="flex flex-col items-end gap-1">
-                  <Label variant="caption" className="text-muted-foreground">
-                    {t('monthlyExtra')}
-                  </Label>
-                  <Label variant="title-lg">
+                  <TypographyMuted>{t('monthlyExtra')}</TypographyMuted>
+                  <TypographyLabel>
                     {formatCurrency({
                       value: extra,
                       currency: currency.name,
                     })}
-                  </Label>
+                  </TypographyLabel>
                 </div>
               </div>
 
@@ -203,40 +192,34 @@ const Dashboard = () => {
               {/* Secondary Metrics - Total Due, Settled & Unsettled */}
               <div className="flex flex-row justify-between gap-4">
                 <div className="flex flex-col gap-1">
-                  <Label variant="caption" className="text-muted-foreground">
-                    {t('runningBalance')}
-                  </Label>
-                  <Label variant="title-lg">
+                  <TypographyMuted>{t('runningBalance')}</TypographyMuted>
+                  <TypographyLabel>
                     {formatCurrency({
                       value: balance,
                       currency: currency.name,
                     })}
-                  </Label>
+                  </TypographyLabel>
                 </div>
 
                 <div className="flex flex-col items-end">
                   <div className="space-x-2">
-                    <Label variant="caption" className="text-muted-foreground">
-                      {t('settled')}:
-                    </Label>
-                    <Label variant="title-sm">
+                    <TypographyMuted>{t('settled')}:</TypographyMuted>
+                    <TypographyLabel>
                       {formatCurrency({
                         value: totalPaidAmount,
                         currency: currency.name,
                       })}
-                    </Label>
+                    </TypographyLabel>
                   </div>
 
                   <div className="space-x-2">
-                    <Label variant="caption" className="text-muted-foreground">
-                      {t('unsettled')}:
-                    </Label>
-                    <Label variant="title-sm">
+                    <TypographyMuted>{t('unsettled')}:</TypographyMuted>
+                    <TypographyLabel>
                       {formatCurrency({
                         value: totalAmount - totalPaidAmount,
                         currency: currency.name,
                       })}
-                    </Label>
+                    </TypographyLabel>
                   </div>
                 </div>
               </div>

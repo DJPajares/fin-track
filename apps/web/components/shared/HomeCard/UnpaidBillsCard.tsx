@@ -1,10 +1,11 @@
 import CardDialog from '@web/components/shared/CardDialog';
 import CardIcon from '@web/components/shared/CardIcon';
 import { Badge } from '@web/components/ui/badge';
-import { Label } from '@web/components/ui/label';
 import type { TransactionPaymentCategoryProps } from '@web/types/TransactionPayment';
 import { CheckCircle2Icon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+
+import { TypographyLabel } from '../Typography';
 
 type UnpaidBillsCardProps = {
   unpaidCategories: TransactionPaymentCategoryProps[];
@@ -31,11 +32,11 @@ const UnpaidBillsCard = ({ unpaidCategories }: UnpaidBillsCardProps) => {
               >
                 <div className="flex items-center gap-2 truncate">
                   <CardIcon icon={category.icon} />
-                  <Label variant="caption" className="truncate">
+                  <TypographyLabel className="truncate">
                     {isTranslated
                       ? t(`Common.category.${category.id}`)
                       : category.name}
-                  </Label>
+                  </TypographyLabel>
                 </div>
                 <Badge variant="destructive">
                   {Math.floor(category.paymentCompletionRate * 100)}%
@@ -47,9 +48,9 @@ const UnpaidBillsCard = ({ unpaidCategories }: UnpaidBillsCardProps) => {
       ) : (
         <div className="flex flex-col items-center justify-center gap-2 py-4">
           <CheckCircle2Icon className="size-8 text-green-500" />
-          <Label variant="caption" className="text-center">
+          <TypographyLabel className="text-center">
             {t('Page.home.cards.unpaidBills.allSettled')}
-          </Label>
+          </TypographyLabel>
         </div>
       )}
     </CardDialog>

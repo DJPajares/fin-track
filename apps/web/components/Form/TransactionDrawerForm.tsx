@@ -16,7 +16,6 @@ import {
   FormMessage,
 } from '@web/components/ui/form';
 import { Input } from '@web/components/ui/input';
-import { Label } from '@web/components/ui/label';
 import {
   Select,
   SelectContent,
@@ -52,6 +51,8 @@ import {
   useState,
 } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
+
+import { TypographyLabel } from '../shared/Typography';
 
 type ExcludedDatesProps = {
   value: string;
@@ -501,7 +502,7 @@ const TransactionDrawerForm = ({
 
                         return (
                           <Tooltip key={_id}>
-                            <TooltipTrigger asChild>
+                            <TooltipTrigger>
                               <span>
                                 <CardButton
                                   label={label}
@@ -604,9 +605,9 @@ const TransactionDrawerForm = ({
                           variant="outline"
                           className="flex h-12 w-full items-center justify-between rounded-xl border-2 text-left font-semibold"
                         >
-                          <Label className="font-semibold">
+                          <TypographyLabel>
                             {moment(field?.value).format('MMM DD, YYYY')}
-                          </Label>
+                          </TypographyLabel>
                           <CalendarIcon className="ml-auto size-4 opacity-60" />
                         </Button>
                       </FormControl>
@@ -637,9 +638,9 @@ const TransactionDrawerForm = ({
                             variant="outline"
                             className="flex h-12 w-full items-center justify-between rounded-xl border-2 text-left font-semibold"
                           >
-                            <Label className="font-semibold">
+                            <TypographyLabel>
                               {moment(field?.value).format('MMM DD, YYYY')}
-                            </Label>
+                            </TypographyLabel>
                             <CalendarIcon className="ml-auto size-4 opacity-60" />
                           </Button>
                         </FormControl>
@@ -749,12 +750,7 @@ const TransactionDrawerForm = ({
               handleSubmit={handleDeleteTransaction}
               isDestructive
             >
-              <Button
-                type="button"
-                variant="destructive"
-                size="rounded-icon"
-                className="rounded-2xl"
-              >
+              <Button type="button" variant="destructive" size="icon">
                 <Trash2Icon className="size-4" />
               </Button>
             </ConfirmationDialog>

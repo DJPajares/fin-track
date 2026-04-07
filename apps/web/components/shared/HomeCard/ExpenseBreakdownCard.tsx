@@ -11,11 +11,12 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from '@web/components/ui/chart';
-import { Label } from '@web/components/ui/label';
 import type { ExpensePieDataProps } from '@web/types/HomeCard';
 import { useTranslations } from 'next-intl';
 import { useMemo } from 'react';
 import { Cell, Pie, PieChart } from 'recharts';
+
+import { TypographyLabel } from '../Typography';
 
 type ExpenseBreakdownCardProps = {
   expensePieData: ExpensePieDataProps[];
@@ -42,9 +43,9 @@ const ExpenseBreakdownCard = ({
           {t('Page.home.cards.expenseBreakdown.title')}
         </CardDescription>
         <CardDescription>
-          <Label variant="caption">
+          <TypographyLabel>
             {t('Page.home.cards.expenseBreakdown.description')}
-          </Label>
+          </TypographyLabel>
         </CardDescription>
       </CardHeader>
       <CardContent className="relative mt-auto flex-1 p-0">

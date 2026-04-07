@@ -31,7 +31,7 @@ export default function PWARefreshButton() {
 
   return (
     <Tooltip>
-      <TooltipTrigger asChild>
+      <TooltipTrigger>
         <Button
           variant="ghost"
           size="sm"

@@ -112,70 +112,68 @@ const EditCategoryDrawer = ({
       description={type?.name}
       triggerChildren={children}
     >
-      <>
-        <form onSubmit={form.handleSubmit(onSubmit)} ref={formRef}>
-          <div className="flex flex-row items-center justify-center space-x-2 sm:space-x-4">
-            <Controller
-              name="icon"
-              control={form.control}
-              render={({ field }) => (
-                <Popover open={isPopoverOpen} onOpenChange={setIsPopoverOpen}>
-                  <PopoverTrigger asChild>
-                    <Button variant="outline" size="icon">
-                      <CardIcon icon={field.value} />
-                    </Button>
-                  </PopoverTrigger>
+      <form onSubmit={form.handleSubmit(onSubmit)} ref={formRef}>
+        <div className="flex flex-row items-center justify-center gap-2">
+          <Controller
+            name="icon"
+            control={form.control}
+            render={({ field }) => (
+              <Popover open={isPopoverOpen} onOpenChange={setIsPopoverOpen}>
+                <PopoverTrigger>
+                  <Button variant="outline" size="icon">
+                    <CardIcon icon={field.value} />
+                  </Button>
+                </PopoverTrigger>
 
-                  <PopoverContent>
-                    <div className="grid grid-cols-6 gap-2 align-middle">
-                      {iconMapArray.map((icon) => (
-                        <Button
-                          key={icon}
-                          variant="outline"
-                          size="icon"
-                          className={`${
-                            field.value === icon &&
-                            'bg-primary text-primary-foreground'
-                          }`}
-                          onClick={() => handleChangeIcon(icon)}
-                        >
-                          <CardIcon icon={icon} />
-                        </Button>
-                      ))}
-                    </div>
-                  </PopoverContent>
-                </Popover>
-              )}
-            />
+                <PopoverContent>
+                  <div className="grid grid-cols-6 gap-2 align-middle">
+                    {iconMapArray.map((icon) => (
+                      <Button
+                        key={icon}
+                        variant="outline"
+                        size="icon"
+                        className={`${
+                          field.value === icon &&
+                          'bg-primary text-primary-foreground'
+                        }`}
+                        onClick={() => handleChangeIcon(icon)}
+                      >
+                        <CardIcon icon={icon} />
+                      </Button>
+                    ))}
+                  </div>
+                </PopoverContent>
+              </Popover>
+            )}
+          />
 
-            <Controller
-              name="name"
-              control={form.control}
-              render={({ field }) => (
-                <Input placeholder="Category name" {...field} />
-              )}
-            />
+          <Controller
+            name="name"
+            control={form.control}
+            render={({ field }) => (
+              <Input placeholder="Category name" {...field} />
+            )}
+          />
 
-            <ConfirmationDialog
-              title={t('Common.alertDialog.hide.title')}
-              description={t('Common.alertDialog.hide.description')}
-              ok={t('Common.alertDialog.hide.okButton')}
-              handleSubmit={handleCategoryRemoval}
-              isDestructive
-            >
-              {!isNew && (
-                <Button
-                  variant="destructive"
-                  size="icon"
-                  aria-label={t('Common.alertDialog.hide.title')}
-                >
-                  <EyeOffIcon className="size-4" />
-                </Button>
-              )}
-            </ConfirmationDialog>
-          </div>
-        </form>
-      </>
+          <ConfirmationDialog
+            title={t('Common.alertDialog.hide.title')}
+            description={t('Common.alertDialog.hide.description')}
+            ok={t('Common.alertDialog.hide.okButton')}
+            handleSubmit={handleCategoryRemoval}
+            isDestructive
+          >
+            {!isNew && (
+              <Button
+                variant="destructive"
+                size="icon"
+                aria-label={t('Common.alertDialog.hide.title')}
+              >
+                <EyeOffIcon className="size-4" />
+              </Button>
+            )}
+          </ConfirmationDialog>
+        </div>
+      </form>
     </CustomDrawer>
   );
 };

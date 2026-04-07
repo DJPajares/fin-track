@@ -12,9 +12,10 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@web/components/ui/dialog';
-import { Label } from '@web/components/ui/label';
 import { cn } from '@web/lib/utils';
 import { ReactNode } from 'react';
+
+import { TypographyMuted } from './Typography';
 
 type CardDialogProps = {
   title?: string;
@@ -27,7 +28,7 @@ type CardDialogProps = {
 const Content = ({ title, isExpandable, children }: CardDialogProps) =>
   isExpandable ? (
     <Dialog>
-      <DialogTrigger asChild>
+      <DialogTrigger>
         <div className={`${title && 'my-2'}`}>{children}</div>
       </DialogTrigger>
 
@@ -61,7 +62,7 @@ const CardDialog = ({
             <CardDescription>{title}</CardDescription>
             {description && (
               <CardDescription>
-                <Label variant="caption">{description}</Label>
+                <TypographyMuted>{description}</TypographyMuted>
               </CardDescription>
             )}
           </CardHeader>

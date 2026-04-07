@@ -306,7 +306,7 @@ const ProfileDrawer = ({ open, onOpenChange }: ProfileDrawerProps) => {
               </p>
             </div>
             <AlertDialog>
-              <AlertDialogTrigger asChild>
+              <AlertDialogTrigger>
                 <Button variant="destructive" size="sm">
                   {t('Profile.delete.button')}
                 </Button>

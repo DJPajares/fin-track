@@ -2,7 +2,6 @@
 
 import { CONSTANTS } from '@shared/constants/common';
 import { Avatar, AvatarFallback, AvatarImage } from '@web/components/ui/avatar';
-import { Label } from '@web/components/ui/label';
 import {
   SidebarInset,
   SidebarProvider,
@@ -12,6 +11,7 @@ import { useAppSelector } from '@web/lib/hooks/use-redux';
 import { usePathname } from 'next/navigation';
 import { ReactNode, useEffect, useState } from 'react';
 
+import { TypographyLabel } from '../shared/Typography';
 import NavDropdownMenu from './NavDropdownMenu';
 import SideNav from './SideNav';
 
@@ -84,9 +84,9 @@ const NavBar = ({ children }: NavBarProps) => {
           <nav className="flex w-full items-center justify-between">
             <SidebarTrigger />
 
-            <Label variant="title-xs" className="font-bold uppercase">
+            <TypographyLabel className="uppercase">
               {CONSTANTS.APP_NAME}
-            </Label>
+            </TypographyLabel>
 
             <NavDropdownMenu>
               <Avatar className="hover:border-primary cursor-pointer">

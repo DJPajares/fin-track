@@ -11,9 +11,10 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@web/components/ui/dialog';
-import { Label } from '@web/components/ui/label';
 import { useTranslations } from 'next-intl';
 import { useMemo } from 'react';
+
+import { TypographyLabel } from '../shared/Typography';
 
 type ErrorMessageModalProps = {
   isOpen: boolean;
@@ -77,11 +78,13 @@ const ErrorMessageModal = ({
         </DialogHeader>
 
         <div>
-          <Label className="text-destructive">{errorMessage}</Label>
+          <TypographyLabel className="text-destructive-foreground">
+            {errorMessage}
+          </TypographyLabel>
         </div>
 
         <DialogFooter>
-          <DialogClose asChild>
+          <DialogClose>
             <Button onClick={handleOk}>{t('Common.button.ok')}</Button>
           </DialogClose>
         </DialogFooter>

@@ -11,10 +11,11 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from '@web/components/ui/chart';
-import { Label } from '@web/components/ui/label';
 import type { TrendDataProps } from '@web/types/HomeCard';
 import { useTranslations } from 'next-intl';
 import { Area, AreaChart } from 'recharts';
+
+import { TypographyLabel } from '../Typography';
 
 type TrendsCardProps = {
   trendsData: TrendDataProps[];
@@ -40,9 +41,9 @@ const TrendsCard = ({ trendsData, currency }: TrendsCardProps) => {
       <CardHeader className="px-4">
         <CardDescription>{t('Page.home.cards.trends.title')}</CardDescription>
         <CardDescription>
-          <Label variant="caption">
+          <TypographyLabel>
             {t('Page.home.cards.trends.description')}
-          </Label>
+          </TypographyLabel>
         </CardDescription>
       </CardHeader>
       <CardContent className="relative mt-auto flex-1 p-0">

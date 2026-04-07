@@ -4,8 +4,8 @@ import CardIcon from '@web/components/shared/CardIcon';
 import ConfirmationDialog from '@web/components/shared/ConfirmationDialog';
 import Loader from '@web/components/shared/Loader';
 import { SelectBox } from '@web/components/shared/SelectBox';
+import { TypographyLabel } from '@web/components/shared/Typography';
 import { Button } from '@web/components/ui/button';
-import { Label } from '@web/components/ui/label';
 import { Separator } from '@web/components/ui/separator';
 import {
   Tooltip,
@@ -94,16 +94,16 @@ const Categories = () => {
           selectedItem={selectedType}
           setSelectedItem={(item) => setSelectedTypeId(item._id)}
           placeholder={t('Common.label.selectPlaceholder')}
-          className="w-fit p-0 text-base font-semibold"
+          className="w-fit text-base font-semibold"
         />
       </div>
 
       <div className="flex flex-col gap-6">
         <div className="flex flex-col gap-2">
           <div className="flex flex-row items-center justify-between">
-            <Label variant="title">
+            <TypographyLabel>
               {t('Page.categories.titleCategories').toLocaleUpperCase()}
-            </Label>
+            </TypographyLabel>
 
             <EditCategoryDrawer
               type={selectedType}
@@ -111,7 +111,7 @@ const Categories = () => {
               title={t('Page.categories.categoryDrawer.titleAdd')}
               isNew
             >
-              <Button variant="ghost" size="rounded-icon">
+              <Button variant="ghost">
                 <PlusIcon className="size-4" />
               </Button>
             </EditCategoryDrawer>
@@ -126,28 +126,32 @@ const Categories = () => {
               .map((category, i, { length }) => (
                 <div key={category._id} className="px-2">
                   {category.scope === 'global' ? (
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <div className="flex flex-row items-center gap-4 p-2 opacity-60">
-                          <CardIcon icon={category.icon} />
-                          <Label>{t(`Common.category.${category.id}`)}</Label>
-                        </div>
-                      </TooltipTrigger>
-                      {t.has(`Common.tooltip.category.${category.id}`) && (
-                        <TooltipContent>
-                          <p>{t(`Common.tooltip.category.${category.id}`)}</p>
-                        </TooltipContent>
-                      )}
-                    </Tooltip>
+                    <div>
+                      <Tooltip>
+                        <TooltipTrigger className="opacity-60">
+                          <div className="flex flex-row items-center gap-2 py-2 opacity-60">
+                            <CardIcon icon={category.icon} />
+                            <TypographyLabel>
+                              {t(`Common.category.${category.id}`)}
+                            </TypographyLabel>
+                          </div>
+                        </TooltipTrigger>
+                        {t.has(`Common.tooltip.category.${category.id}`) && (
+                          <TooltipContent>
+                            <p>{t(`Common.tooltip.category.${category.id}`)}</p>
+                          </TooltipContent>
+                        )}
+                      </Tooltip>
+                    </div>
                   ) : (
                     <EditCategoryDrawer
                       type={selectedType}
                       category={category}
                       title={t('Page.categories.categoryDrawer.titleEdit')}
                     >
-                      <div className="hover:bg-border flex flex-row items-center gap-4 p-2">
+                      <div className="hover:bg-border flex cursor-pointer flex-row items-center gap-2 py-2">
                         <CardIcon icon={category.icon} />
-                        <Label className="font-semibold">{category.name}</Label>
+                        <TypographyLabel>{category.name}</TypographyLabel>
                       </div>
                     </EditCategoryDrawer>
                   )}
@@ -159,9 +163,9 @@ const Categories = () => {
         </div>
 
         <div className="flex flex-col gap-2">
-          <Label variant="title">
+          <TypographyLabel>
             {t('Page.categories.titleSuggestions').toLocaleUpperCase()}
-          </Label>
+          </TypographyLabel>
 
           <div className="bg-card rounded-lg">
             {categories
@@ -178,14 +182,14 @@ const Categories = () => {
                     handleSubmit={() => handleAddSuggestedCategory(category)}
                   >
                     <div className="hover:bg-border flex cursor-pointer flex-row items-center justify-between p-2">
-                      <div className="flex flex-row items-center space-x-4">
+                      <div className="flex flex-row items-center justify-between">
                         <CardIcon icon={category.icon} />
-                        <Label className="font-semibold italic">
+                        <TypographyLabel className="italic">
                           {category.name}
-                        </Label>
+                        </TypographyLabel>
                       </div>
 
-                      <Button variant="ghost" size="rounded-icon">
+                      <Button variant="ghost" size="icon-sm">
                         <PlusIcon className="size-4" />
                       </Button>
                     </div>

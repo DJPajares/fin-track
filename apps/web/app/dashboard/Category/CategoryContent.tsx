@@ -1,5 +1,9 @@
 import { Card, Checkbox, Progress } from '@heroui/react';
 import { formatCurrency } from '@shared/utilities/formatCurrency';
+import {
+  TypographyLabel,
+  TypographyMuted,
+} from '@web/components/shared/Typography';
 import { Button } from '@web/components/ui/button';
 import {
   Dialog,
@@ -10,7 +14,6 @@ import {
   DialogTitle,
 } from '@web/components/ui/dialog';
 import { Input } from '@web/components/ui/input';
-import { Label } from '@web/components/ui/label';
 import type { DashboardSelectionItemsProps } from '@web/types/Dashboard';
 import type {
   TransactionDataUpdateProps,
@@ -102,12 +105,9 @@ const CategoryContent = ({
               onClick={() => setOpenDialog(!isTotal)}
             >
               <div className="flex-1 space-y-1">
-                <Label
-                  variant="title-sm"
-                  className={`${isTotal && 'font-extrabold'}`}
-                >
+                <TypographyLabel className={`${isTotal && 'font-extrabold'}`}>
                   {name}
-                </Label>
+                </TypographyLabel>
 
                 <Progress
                   label={label}
@@ -143,7 +143,7 @@ const CategoryContent = ({
           </DialogHeader>
 
           <div className="flex flex-col gap-2">
-            <Label variant="title-sm">{name}</Label>
+            <TypographyLabel>{name}</TypographyLabel>
 
             <div className="flex flex-col gap-2">
               <Input
@@ -155,7 +155,7 @@ const CategoryContent = ({
               />
 
               <span className="flex flex-row justify-end">
-                <Label variant="caption">
+                <TypographyMuted>
                   {t('Page.dashboard.cardDrawer.content.outOf', {
                     amount: formatCurrency({
                       value: amount,
@@ -163,7 +163,7 @@ const CategoryContent = ({
                       decimal: 2,
                     }),
                   })}
-                </Label>
+                </TypographyMuted>
               </span>
             </div>
           </div>

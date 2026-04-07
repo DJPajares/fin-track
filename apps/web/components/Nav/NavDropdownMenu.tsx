@@ -18,7 +18,6 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from '@web/components/ui/dropdown-menu';
-import { Label } from '@web/components/ui/label';
 import { Switch } from '@web/components/ui/switch';
 import { useAppSelector } from '@web/lib/hooks/use-redux';
 import { logoutSuccess } from '@web/lib/redux/feature/auth/authSlice';
@@ -42,6 +41,7 @@ import { ReactNode, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import packageInfo from '../../../../package.json';
+import { TypographyLabel, TypographyMuted } from '../shared/Typography';
 
 type NavDropdownMenuProps = {
   children: ReactNode;
@@ -105,14 +105,12 @@ const NavDropdownMenu = ({ children }: NavDropdownMenuProps) => {
   return (
     <>
       <DropdownMenu open={isDropdownOpen} onOpenChange={setIsDropdownOpen}>
-        <DropdownMenuTrigger asChild>{children}</DropdownMenuTrigger>
-        <DropdownMenuContent className="w-56" align="end" forceMount>
+        <DropdownMenuTrigger>{children}</DropdownMenuTrigger>
+        <DropdownMenuContent className="w-56" align="end">
           <DropdownMenuLabel className="font-normal">
             <div className="flex flex-col space-y-1">
-              <Label variant="subtitle-md">{user?.name || 'User'}</Label>
-              <Label variant="caption" className="text-muted-foreground">
-                {user?.email || ''}
-              </Label>
+              <TypographyLabel>{user?.name || 'User'}</TypographyLabel>
+              <TypographyMuted>{user?.email || ''}</TypographyMuted>
             </div>
           </DropdownMenuLabel>
 
@@ -145,12 +143,11 @@ const NavDropdownMenu = ({ children }: NavDropdownMenuProps) => {
                         checked={isSelected}
                         onClick={() => handleLanguageChange(language.value)}
                       >
-                        <Label
-                          variant="subtitle-md"
+                        <TypographyLabel
                           className={`${isSelected && 'font-bold'}`}
                         >
                           {language.label}
-                        </Label>
+                        </TypographyLabel>
                       </DropdownMenuCheckboxItem>
                     );
                   })}
@@ -173,12 +170,11 @@ const NavDropdownMenu = ({ children }: NavDropdownMenuProps) => {
                         checked={isSelected}
                         onClick={() => handleCurrencyChange(currency)}
                       >
-                        <Label
-                          variant="subtitle-md"
+                        <TypographyLabel
                           className={`${isSelected && 'font-bold'}`}
                         >
                           {currency.name}
-                        </Label>
+                        </TypographyLabel>
                       </DropdownMenuCheckboxItem>
                     );
                   })}
@@ -218,9 +214,7 @@ const NavDropdownMenu = ({ children }: NavDropdownMenuProps) => {
               <LogOutIcon className="text-muted-foreground size-4" />
               {t('logout')}
               <DropdownMenuShortcut>
-                <Label variant="caption" className="text-muted-foreground">
-                  {`v${packageInfo.version}`}
-                </Label>
+                <TypographyMuted>{`v${packageInfo.version}`}</TypographyMuted>
               </DropdownMenuShortcut>
             </DropdownMenuItem>
           </DropdownMenuGroup>

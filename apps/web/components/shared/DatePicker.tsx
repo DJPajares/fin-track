@@ -22,7 +22,7 @@ export const DatePicker = ({ date, onChange, children }: DatePickerProps) => {
 
   return (
     <Popover open={isCalendarOpen} onOpenChange={setIsCalendarOpen}>
-      <PopoverTrigger asChild>{children}</PopoverTrigger>
+      <PopoverTrigger>{children}</PopoverTrigger>
       <PopoverContent
         className="w-auto border-0 bg-transparent p-0 shadow-none"
         align="center"

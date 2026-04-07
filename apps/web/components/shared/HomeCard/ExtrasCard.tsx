@@ -7,11 +7,12 @@ import {
   CardTitle,
 } from '@web/components/ui/card';
 import { ChartConfig, ChartContainer } from '@web/components/ui/chart';
-import { Label } from '@web/components/ui/label';
 import type { UpcomingExtraProps } from '@web/types/HomeCard';
 import { TrendingUpIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { Area, AreaChart } from 'recharts';
+
+import { TypographyLabel, TypographyLead } from '../Typography';
 
 type ExtrasCardProps = {
   accumulativeExtra: number;
@@ -39,17 +40,17 @@ const ExtrasCard = ({
       <CardHeader className="px-4">
         <CardDescription>{t('Page.home.cards.extras.title')}</CardDescription>
         <CardTitle>
-          <Label variant="title-xl">
+          <TypographyLead>
             {formatCurrency({
               value: accumulativeExtra,
               currency,
             })}
-          </Label>
+          </TypographyLead>
         </CardTitle>
         <CardDescription>
-          <Label variant="caption">
+          <TypographyLabel>
             {t('Page.home.cards.extras.description')}
-          </Label>
+          </TypographyLabel>
         </CardDescription>
       </CardHeader>
       <CardContent className="relative mt-auto flex-1 p-0">

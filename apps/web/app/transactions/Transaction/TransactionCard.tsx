@@ -1,9 +1,12 @@
 import { formatCurrency } from '@shared/utilities/formatCurrency';
 import EditTransactionDrawer from '@web/app/transactions/EditTransaction/EditTransactionDrawer';
 import CardIcon from '@web/components/shared/CardIcon';
+import {
+  TypographyLabel,
+  TypographyMuted,
+} from '@web/components/shared/Typography';
 import { Badge } from '@web/components/ui/badge';
 import { Card, CardContent } from '@web/components/ui/card';
-import { Label } from '@web/components/ui/label';
 import type { TransactionProps } from '@web/types/Transaction';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
@@ -39,25 +42,25 @@ const TransactionCard = ({ date, transaction }: TransactionCardProps) => {
 
             <div className="min-w-0 flex-1">
               <div className="flex flex-row items-center justify-between gap-2">
-                <Label className="min-w-0 flex-1 truncate text-sm font-semibold">
+                <TypographyLabel className="min-w-0 flex-1 truncate">
                   {transaction.name}
-                </Label>
+                </TypographyLabel>
 
-                <Label className="shrink-0 text-sm font-semibold">
+                <TypographyLabel>
                   {formatCurrency({
                     value: transaction.amount,
                     currency: transaction.currencyName,
                     decimal: 2,
                   })}
-                </Label>
+                </TypographyLabel>
               </div>
 
               <div className="flex flex-row items-center justify-between">
-                <Label className="text-muted-foreground truncate text-xs hover:text-clip sm:text-base">
+                <TypographyMuted className="truncate hover:text-clip">
                   {isTranslated
                     ? t(`Common.category.${transaction.categoryIdSerialized}`)
                     : transaction.categoryName}
-                </Label>
+                </TypographyMuted>
 
                 <Badge variant="outline">{transaction.currencyName}</Badge>
               </div>

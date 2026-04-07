@@ -9,7 +9,6 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from '@web/components/ui/drawer';
-import { Separator } from '@web/components/ui/separator';
 import { useIsMobile } from '@web/lib/hooks/use-mobile';
 import { useTranslations } from 'next-intl';
 import { Dispatch, ReactNode, SetStateAction, useState } from 'react';
@@ -72,9 +71,7 @@ const CustomDrawer = ({
           onOpenChange={onOpenChange}
           repositionInputs={false}
         >
-          {triggerChildren && (
-            <DrawerTrigger asChild>{triggerChildren}</DrawerTrigger>
-          )}
+          {triggerChildren && <DrawerTrigger>{triggerChildren}</DrawerTrigger>}
 
           <DrawerContent aria-describedby="">
             <div className="mx-auto flex w-full flex-col overflow-hidden">
@@ -82,7 +79,7 @@ const CustomDrawer = ({
                 <div className="grid grid-cols-3 items-center gap-2">
                   <div className="justify-self-start">
                     <Button
-                      variant="ghost"
+                      variant="secondary"
                       onClick={handleCancel}
                       disabled={isLoading}
                     >
@@ -109,8 +106,6 @@ const CustomDrawer = ({
                 </div>
               </DrawerHeader>
 
-              <Separator className="shrink-0" />
-
               <div className="overflow-y-auto p-4">
                 <div className="mx-auto w-full max-w-sm">{children}</div>
               </div>
@@ -123,42 +118,43 @@ const CustomDrawer = ({
           onOpenChange={onOpenChange}
           repositionInputs={false}
         >
-          <DrawerTrigger asChild>{triggerChildren}</DrawerTrigger>
+          <DrawerTrigger>{triggerChildren}</DrawerTrigger>
 
           <DrawerContent aria-describedby={description}>
-            <div className="mx-auto flex w-full max-w-sm flex-col overflow-hidden">
+            <div className="mx-auto w-full max-w-sm overflow-hidden">
               <DrawerHeader>
                 <DrawerTitle>{title}</DrawerTitle>
                 <DrawerDescription>{description}</DrawerDescription>
               </DrawerHeader>
 
-              <Separator />
+              {/* <div className="flex-1 overflow-y-auto p-4">{children}</div> */}
 
-              <div className="flex-1 overflow-y-auto p-4">{children}</div>
-            </div>
+              <div className="overflow-y-auto p-4">
+                <div className="mx-auto w-full max-w-sm">{children}</div>
+              </div>
 
-            <DrawerFooter className="mx-auto w-full max-w-sm">
-              <ConfirmationDialog
-                title={t('Common.alertDialog.save.title')}
-                description={t('Common.alertDialog.save.description')}
-                ok={t('Common.alertDialog.save.okButton')}
-                handleSubmit={handleSubmitWithLoading}
-              >
-                <Button disabled={isLoading}>
-                  {okButtonLabel || t('Common.button.save')}
-                </Button>
-              </ConfirmationDialog>
-
-              <DrawerClose asChild>
-                <Button
-                  variant="outline"
-                  disabled={isLoading}
-                  onClick={handleCancel}
+              <DrawerFooter>
+                <ConfirmationDialog
+                  title={t('Common.alertDialog.save.title')}
+                  description={t('Common.alertDialog.save.description')}
+                  ok={t('Common.alertDialog.save.okButton')}
+                  handleSubmit={handleSubmitWithLoading}
                 >
-                  {cancelButtonLabel || t('Common.button.cancel')}
-                </Button>
-              </DrawerClose>
-            </DrawerFooter>
+                  <Button disabled={isLoading}>
+                    {okButtonLabel || t('Common.button.save')}
+                  </Button>
+                </ConfirmationDialog>
+                <DrawerClose asChild>
+                  <Button
+                    variant="outline"
+                    disabled={isLoading}
+                    onClick={handleCancel}
+                  >
+                    {cancelButtonLabel || t('Common.button.cancel')}
+                  </Button>
+                </DrawerClose>
+              </DrawerFooter>
+            </div>
           </DrawerContent>
         </Drawer>
       )}

@@ -6,6 +6,10 @@ import type { IconProps } from '@web/components/shared/CardIcon';
 import { DatePicker } from '@web/components/shared/DatePicker';
 import Loader from '@web/components/shared/Loader';
 import { SelectBox } from '@web/components/shared/SelectBox';
+import {
+  TypographyCardTitle,
+  TypographyLabel,
+} from '@web/components/shared/Typography';
 import { Button } from '@web/components/ui/button';
 import {
   Card,
@@ -21,7 +25,6 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from '@web/components/ui/chart';
-import { Label } from '@web/components/ui/label';
 import { useIsMobile } from '@web/lib/hooks/use-mobile';
 import { useAppSelector } from '@web/lib/hooks/use-redux';
 import { useGetTransactionsByCategoryQuery } from '@web/lib/redux/services/transactions';
@@ -130,22 +133,19 @@ const Charts = () => {
   return (
     <>
       <div className="flex flex-row items-center justify-center gap-1 sm:gap-4">
-        <Button variant="ghost" size="rounded-icon" onClick={handlePrevMonth}>
+        <Button variant="ghost" size="icon" onClick={handlePrevMonth}>
           <ChevronLeftIcon className="size-4" />
         </Button>
 
         <DatePicker date={date} onChange={setDate}>
           <Button variant="ghost" className="px-1">
-            <Label
-              variant="title-xl"
-              className="hover:bg-background hover:underline"
-            >
+            <TypographyCardTitle className="hover:bg-background hover:underline">
               {moment(date).format('MMM yyyy')}
-            </Label>
+            </TypographyCardTitle>
           </Button>
         </DatePicker>
 
-        <Button variant="ghost" size="rounded-icon" onClick={handleNextMonth}>
+        <Button variant="ghost" size="icon" onClick={handleNextMonth}>
           <ChevronRightIcon className="size-4" />
         </Button>
       </div>
@@ -235,17 +235,17 @@ const Charts = () => {
 
                           return (
                             <div className="flex flex-col justify-between">
-                              <Label className="font-bold">
+                              <TypographyLabel>
                                 {isTranslated
                                   ? t(`Common.category.${idSerialized}`)
                                   : category}
-                              </Label>
-                              <Label className="italic">
+                              </TypographyLabel>
+                              <TypographyLabel className="italic">
                                 {formatCurrency({
                                   value: parseFloat(value.toString()),
                                   currency: currency.name,
                                 })}
-                              </Label>
+                              </TypographyLabel>
                             </div>
                           );
                         }}

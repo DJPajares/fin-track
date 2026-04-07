@@ -6,9 +6,10 @@ import {
   CardHeader,
   CardTitle,
 } from '@web/components/ui/card';
-import { Label } from '@web/components/ui/label';
 import { Progress } from '@web/components/ui/progress';
 import { useTranslations } from 'next-intl';
+
+import { TypographyLabel, TypographyLead } from '../Typography';
 
 type AmountSettledCardProps = {
   totalPaidAmount: number;
@@ -32,16 +33,16 @@ const AmountSettledCard = ({
           {t('Page.home.cards.amountSettled.title')}
         </CardDescription>
         <CardTitle>
-          <Label variant="title-xl">
+          <TypographyLead>
             {formatCurrency({ value: totalPaidAmount, currency })}
-          </Label>
+          </TypographyLead>
         </CardTitle>
         <CardDescription>
-          <Label variant="caption">
+          <TypographyLabel>
             {t('Page.home.cards.amountSettled.outOf', {
               amount: formatCurrency({ value: totalAmount, currency }),
             })}
-          </Label>
+          </TypographyLabel>
         </CardDescription>
       </CardHeader>
       <CardContent className="px-4">

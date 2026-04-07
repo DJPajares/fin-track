@@ -6,10 +6,11 @@ import {
   CardDescription,
   CardHeader,
 } from '@web/components/ui/card';
-import { Label } from '@web/components/ui/label';
 import { Progress } from '@web/components/ui/progress';
 import type { TransactionPaymentCategoryProps } from '@web/types/TransactionPayment';
 import { useTranslations } from 'next-intl';
+
+import { TypographyLabel } from '../Typography';
 
 type TopSpendingCardProps = {
   topSpendingCategories: TransactionPaymentCategoryProps[];
@@ -29,9 +30,9 @@ const TopSpendingCard = ({
           {t('Page.home.cards.topSpending.title')}
         </CardDescription>
         <CardDescription>
-          <Label variant="caption">
+          <TypographyLabel>
             {t('Page.home.cards.topSpending.description')}
-          </Label>
+          </TypographyLabel>
         </CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col gap-3 px-4">
@@ -42,18 +43,18 @@ const TopSpendingCard = ({
               <div className="flex items-center justify-between gap-2">
                 <div className="flex items-center gap-2 truncate">
                   <CardIcon icon={category.icon} />
-                  <Label variant="caption" className="truncate">
+                  <TypographyLabel className="truncate">
                     {isTranslated
                       ? t(`Common.category.${category.id}`)
                       : category.name}
-                  </Label>
+                  </TypographyLabel>
                 </div>
-                <Label variant="caption" className="shrink-0">
+                <TypographyLabel className="shrink-0">
                   {formatCurrency({
                     value: category.totalAmount,
                     currency,
                   })}
-                </Label>
+                </TypographyLabel>
               </div>
               <Progress
                 aria-label={
