@@ -1,8 +1,9 @@
-import { Label } from 'apps/web/components/ui/label';
-import { ReactNode } from 'react';
-
-import { cn } from '../../lib/utils';
-import { Card, CardContent, CardDescription, CardHeader } from '../ui/card';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+} from '@web/components/ui/card';
 import {
   Dialog,
   DialogContent,
@@ -10,7 +11,10 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '../ui/dialog';
+} from '@web/components/ui/dialog';
+import { Label } from '@web/components/ui/label';
+import { cn } from '@web/lib/utils';
+import { ReactNode } from 'react';
 
 type CardDialogProps = {
   title?: string;

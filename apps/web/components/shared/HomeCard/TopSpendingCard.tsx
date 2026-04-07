@@ -1,15 +1,15 @@
-import CardIcon from 'apps/web/components/shared/CardIcon';
+import { formatCurrency } from '@shared/utilities/formatCurrency';
+import CardIcon from '@web/components/shared/CardIcon';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
-} from 'apps/web/components/ui/card';
-import { Label } from 'apps/web/components/ui/label';
-import { Progress } from 'apps/web/components/ui/progress';
-import type { TransactionPaymentCategoryProps } from 'apps/web/types/TransactionPayment';
+} from '@web/components/ui/card';
+import { Label } from '@web/components/ui/label';
+import { Progress } from '@web/components/ui/progress';
+import type { TransactionPaymentCategoryProps } from '@web/types/TransactionPayment';
 import { useTranslations } from 'next-intl';
-import { formatCurrency } from 'packages/shared/utilities/formatCurrency';
 
 type TopSpendingCardProps = {
   topSpendingCategories: TransactionPaymentCategoryProps[];

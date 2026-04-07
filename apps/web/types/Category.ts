@@ -1,6 +1,6 @@
-import type { CategoryDataResponse } from 'packages/shared/types/Category';
+import type { CategoryDataResponse } from '@shared/types/Category';
+import type { IconProps } from '@web/components/shared/CardIcon';
 
-import type { IconProps } from '../components/shared/CardIcon';
 import type { TypeProps } from './Type';
 
 export type CategoryItemProps = CategoryDataResponse & {

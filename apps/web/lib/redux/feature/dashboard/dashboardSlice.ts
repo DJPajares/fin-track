@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { dateStringFormat } from '@shared/constants/dateStringFormat';
 import moment from 'moment';
-import { dateStringFormat } from 'packages/shared/constants/dateStringFormat';
 
 type DashboardDateProps = {
   date: string;

@@ -1,26 +1,26 @@
 'use client';
 
-import { Button } from 'apps/web/components/ui/button';
+import { Button } from '@web/components/ui/button';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from 'apps/web/components/ui/card';
+} from '@web/components/ui/card';
 import {
   Field,
   FieldDescription,
   FieldGroup,
   FieldLabel,
-} from 'apps/web/components/ui/field';
-import { Input } from 'apps/web/components/ui/input';
-import { loginSuccess } from 'apps/web/lib/redux/feature/auth/authSlice';
-import { setDashboardCurrency } from 'apps/web/lib/redux/feature/dashboard/dashboardSlice';
-import { cn } from 'apps/web/lib/utils';
-import { fetchCurrencyByName } from 'apps/web/services/api';
-import { login as loginAPI } from 'apps/web/services/auth';
-import { setUserLocale } from 'apps/web/services/locale';
+} from '@web/components/ui/field';
+import { Input } from '@web/components/ui/input';
+import { loginSuccess } from '@web/lib/redux/feature/auth/authSlice';
+import { setDashboardCurrency } from '@web/lib/redux/feature/dashboard/dashboardSlice';
+import { cn } from '@web/lib/utils';
+import { fetchCurrencyByName } from '@web/services/api';
+import { login as loginAPI } from '@web/services/auth';
+import { setUserLocale } from '@web/services/locale';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';

@@ -1,8 +1,4 @@
-import { useTranslations } from 'next-intl';
-import { Dispatch, ReactNode, SetStateAction, useState } from 'react';
-
-import { useIsMobile } from '../../lib/hooks/use-mobile';
-import { Button } from '../ui/button';
+import { Button } from '@web/components/ui/button';
 import {
   Drawer,
   DrawerClose,
@@ -12,8 +8,12 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-} from '../ui/drawer';
-import { Separator } from '../ui/separator';
+} from '@web/components/ui/drawer';
+import { Separator } from '@web/components/ui/separator';
+import { useIsMobile } from '@web/lib/hooks/use-mobile';
+import { useTranslations } from 'next-intl';
+import { Dispatch, ReactNode, SetStateAction, useState } from 'react';
+
 import ConfirmationDialog from './ConfirmationDialog';
 import Loader from './Loader';
 

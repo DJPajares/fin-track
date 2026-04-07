@@ -1,17 +1,6 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
-import { useTranslations } from 'next-intl';
-import { useEffect, useMemo, useState } from 'react';
-import { useDispatch } from 'react-redux';
-
-import { useAppSelector } from '../../lib/hooks/use-redux';
-import {
-  logoutSuccess,
-  updateUserProfile,
-} from '../../lib/redux/feature/auth/authSlice';
-import { deleteAccount, updateProfile } from '../../services/auth';
-import CustomDrawer from '../shared/CustomDrawer';
+import CustomDrawer from '@web/components/shared/CustomDrawer';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -22,12 +11,22 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from '../ui/alert-dialog';
-import { Avatar, AvatarFallback } from '../ui/avatar';
-import { Button } from '../ui/button';
-import { Field, FieldGroup, FieldLabel } from '../ui/field';
-import { Input } from '../ui/input';
-import { Separator } from '../ui/separator';
+} from '@web/components/ui/alert-dialog';
+import { Avatar, AvatarFallback } from '@web/components/ui/avatar';
+import { Button } from '@web/components/ui/button';
+import { Field, FieldGroup, FieldLabel } from '@web/components/ui/field';
+import { Input } from '@web/components/ui/input';
+import { Separator } from '@web/components/ui/separator';
+import { useAppSelector } from '@web/lib/hooks/use-redux';
+import {
+  logoutSuccess,
+  updateUserProfile,
+} from '@web/lib/redux/feature/auth/authSlice';
+import { deleteAccount, updateProfile } from '@web/services/auth';
+import { useRouter } from 'next/navigation';
+import { useTranslations } from 'next-intl';
+import { useEffect, useMemo, useState } from 'react';
+import { useDispatch } from 'react-redux';
 
 type ProfileDrawerProps = {
   open: boolean;

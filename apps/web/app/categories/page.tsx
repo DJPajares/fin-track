@@ -1,27 +1,27 @@
 'use client';
 
-import ConfirmationDialog from 'apps/web/components/shared/ConfirmationDialog';
-import Loader from 'apps/web/components/shared/Loader';
+import CardIcon from '@web/components/shared/CardIcon';
+import ConfirmationDialog from '@web/components/shared/ConfirmationDialog';
+import Loader from '@web/components/shared/Loader';
+import { SelectBox } from '@web/components/shared/SelectBox';
+import { Button } from '@web/components/ui/button';
+import { Label } from '@web/components/ui/label';
+import { Separator } from '@web/components/ui/separator';
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from 'apps/web/components/ui/tooltip';
+} from '@web/components/ui/tooltip';
+import { useAppDispatch, useAppSelector } from '@web/lib/hooks/use-redux';
+import {
+  fetchCategories,
+  updateCategory,
+} from '@web/lib/redux/feature/main/mainSlice';
+import type { CategoryItemProps } from '@web/types/Category';
 import { PlusIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useMemo, useState } from 'react';
 
-import CardIcon from '../../components/shared/CardIcon';
-import { SelectBox } from '../../components/shared/SelectBox';
-import { Button } from '../../components/ui/button';
-import { Label } from '../../components/ui/label';
-import { Separator } from '../../components/ui/separator';
-import { useAppDispatch, useAppSelector } from '../../lib/hooks/use-redux';
-import {
-  fetchCategories,
-  updateCategory,
-} from '../../lib/redux/feature/main/mainSlice';
-import type { CategoryItemProps } from '../../types/Category';
 import EditCategoryDrawer from './EditCategory/EditCategoryDrawer';
 
 const baseCategory: CategoryItemProps = {

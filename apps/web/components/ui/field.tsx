@@ -1,8 +1,8 @@
 'use client';
 
-import { Label } from 'apps/web/components/ui/label';
-import { Separator } from 'apps/web/components/ui/separator';
-import { cn } from 'apps/web/lib/utils';
+import { Label } from '@web/components/ui/label';
+import { Separator } from '@web/components/ui/separator';
+import { cn } from '@web/lib/utils';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { useMemo } from 'react';
 

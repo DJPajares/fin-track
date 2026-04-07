@@ -1,22 +1,23 @@
-import { Divider, Switch } from '@heroui/react';
-import moment from 'moment';
-import { useTranslations } from 'next-intl';
-import { dateStringFormat } from 'packages/shared/constants/dateStringFormat';
-import { formatCurrency } from 'packages/shared/utilities/formatCurrency';
-import { Dispatch, SetStateAction, useMemo, useState } from 'react';
-
-import CustomDrawer from '../../../components/shared/CustomDrawer';
-import { Label } from '../../../components/ui/label';
-import { useAppSelector } from '../../../lib/hooks/use-redux';
+import { dateStringFormat } from '@shared/constants/dateStringFormat';
+import { formatCurrency } from '@shared/utilities/formatCurrency';
+import CustomDrawer from '@web/components/shared/CustomDrawer';
+import { Label } from '@web/components/ui/label';
+import { Separator } from '@web/components/ui/separator';
+import { Switch } from '@web/components/ui/switch';
+import { useAppSelector } from '@web/lib/hooks/use-redux';
 import {
   UpdateDashboardPaymentsDataProps,
   UpdateDashboardPaymentsProps,
   useUpdateDashboardPaymentsMutation,
-} from '../../../lib/redux/services/dashboard';
+} from '@web/lib/redux/services/dashboard';
 import type {
   TransactionDataUpdateProps,
   TransactionPaymentCategoryProps,
-} from '../../../types/TransactionPayment';
+} from '@web/types/TransactionPayment';
+import moment from 'moment';
+import { useTranslations } from 'next-intl';
+import { Dispatch, SetStateAction, useMemo, useState } from 'react';
+
 import CategoryContent from './CategoryContent';
 
 type CategoryDrawerProps = {
@@ -195,7 +196,7 @@ const CategoryDrawer = ({
         <span className="flex flex-row items-center gap-3">
           <Switch
             checked={isLocalCurrency}
-            onChange={() => setIsLocalCurrency(!isLocalCurrency)}
+            onCheckedChange={() => setIsLocalCurrency(!isLocalCurrency)}
           />
           <Label>{t('Page.dashboard.cardDrawer.showLocalCurrency')}</Label>
         </span>
@@ -215,7 +216,7 @@ const CategoryDrawer = ({
           isTotal
         />
 
-        <Divider />
+        <Separator />
 
         <div className="flex flex-col gap-4">
           {drawerCategoryLength > 0 &&

@@ -1,24 +1,24 @@
 'use client';
 
 import { CircularProgress, ScrollShadow } from '@heroui/react';
+import { dateStringFormat } from '@shared/constants/dateStringFormat';
+import { formatCurrency } from '@shared/utilities/formatCurrency';
+import { DatePicker } from '@web/components/shared/DatePicker';
+import Loader from '@web/components/shared/Loader';
+import { Button } from '@web/components/ui/button';
+import { Card } from '@web/components/ui/card';
+import { Label } from '@web/components/ui/label';
+import { Separator } from '@web/components/ui/separator';
+import { Skeleton } from '@web/components/ui/skeleton';
+import { useAppDispatch, useAppSelector } from '@web/lib/hooks/use-redux';
+import { setDashboardDate } from '@web/lib/redux/feature/dashboard/dashboardSlice';
+import { useGetDashboardDataQuery } from '@web/lib/redux/services/dashboard';
+import type { DashboardDataCategoryResult } from '@web/types/Dashboard';
 import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
 import moment from 'moment';
 import { useTranslations } from 'next-intl';
-import { dateStringFormat } from 'packages/shared/constants/dateStringFormat';
-import { formatCurrency } from 'packages/shared/utilities/formatCurrency';
 import { useEffect, useMemo, useState } from 'react';
 
-import { DatePicker } from '../../components/shared/DatePicker';
-import Loader from '../../components/shared/Loader';
-import { Button } from '../../components/ui/button';
-import { Card } from '../../components/ui/card';
-import { Label } from '../../components/ui/label';
-import { Separator } from '../../components/ui/separator';
-import { Skeleton } from '../../components/ui/skeleton';
-import { useAppDispatch, useAppSelector } from '../../lib/hooks/use-redux';
-import { setDashboardDate } from '../../lib/redux/feature/dashboard/dashboardSlice';
-import { useGetDashboardDataQuery } from '../../lib/redux/services/dashboard';
-import type { DashboardDataCategoryResult } from '../../types/Dashboard';
 import CategoryCard from './Category/CategoryCard';
 import CategoryDrawer from './Category/CategoryDrawer';
 import TransactionDrawer from './Transaction/TransactionDrawer';

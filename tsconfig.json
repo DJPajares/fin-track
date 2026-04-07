@@ -1,10 +1,11 @@
 {
   "compilerOptions": {
+    "ignoreDeprecations": "6.0",
     "baseUrl": ".",
     "paths": {
       "@shared/*": ["packages/shared/*"],
-      "@web/*": ["./apps/web/*"], // Specific to the `web` package
-      "@api/*": ["./apps/api/*"] // Specific to the `api` package
+      "@web/*": ["apps/web/*"],
+      "@api/*": ["apps/api/*"]
     }
   }
 }

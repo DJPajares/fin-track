@@ -1,11 +1,15 @@
 'use client';
 
+import { Badge } from '@web/components/ui/badge';
+import {
+  Command,
+  CommandGroup,
+  CommandItem,
+  CommandList,
+} from '@web/components/ui/command';
 import { Command as CommandPrimitive } from 'cmdk';
 import { X } from 'lucide-react';
 import { KeyboardEvent, useCallback, useRef, useState } from 'react';
-
-import { Badge } from '../ui/badge';
-import { Command, CommandGroup, CommandItem, CommandList } from '../ui/command';
 
 type MultiSelectBoxDataProps = {
   value: string;

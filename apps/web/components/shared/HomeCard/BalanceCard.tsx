@@ -1,12 +1,12 @@
+import { formatCurrency } from '@shared/utilities/formatCurrency';
 import {
   Card,
   CardDescription,
   CardHeader,
   CardTitle,
-} from 'apps/web/components/ui/card';
-import { Label } from 'apps/web/components/ui/label';
+} from '@web/components/ui/card';
+import { Label } from '@web/components/ui/label';
 import { useTranslations } from 'next-intl';
-import { formatCurrency } from 'packages/shared/utilities/formatCurrency';
 
 type BalanceCardProps = {
   balance: number;

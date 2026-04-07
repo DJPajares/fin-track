@@ -1,3 +1,4 @@
+import { cn } from '@web/lib/utils';
 import {
   ActivityIcon,
   BabyIcon,
@@ -43,8 +44,6 @@ import {
   WrenchIcon,
   ZapIcon,
 } from 'lucide-react';
-
-import { cn } from '../../lib/utils';
 
 export const iconMap = {
   activity: ActivityIcon,

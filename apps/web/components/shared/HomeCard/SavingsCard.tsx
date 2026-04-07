@@ -1,15 +1,15 @@
+import { formatCurrency } from '@shared/utilities/formatCurrency';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from 'apps/web/components/ui/card';
-import { ChartConfig, ChartContainer } from 'apps/web/components/ui/chart';
-import { Label } from 'apps/web/components/ui/label';
-import type { PreviousSavingsProps } from 'apps/web/types/HomeCard';
+} from '@web/components/ui/card';
+import { ChartConfig, ChartContainer } from '@web/components/ui/chart';
+import { Label } from '@web/components/ui/label';
+import type { PreviousSavingsProps } from '@web/types/HomeCard';
 import { useTranslations } from 'next-intl';
-import { formatCurrency } from 'packages/shared/utilities/formatCurrency';
 import { Area, AreaChart } from 'recharts';
 
 type SavingsCardProps = {

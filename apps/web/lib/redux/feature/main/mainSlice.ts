@@ -1,19 +1,18 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import {
-  createCustomCategoryApi,
-  fetchCategoriesApi,
-  updateCategoryApi,
-} from 'apps/web/services/api';
 import type {
   CategoryDataResponse,
   CategoryResponse,
   CustomCategoryRequest,
   FetchCategoryRequest,
-} from 'packages/shared/types/Category';
-import type { ErrorProps } from 'packages/shared/types/Error';
-
-import type { CategoryItemProps } from '../../../../types/Category';
-import type { ListProps } from '../../../../types/List';
+} from '@shared/types/Category';
+import type { ErrorProps } from '@shared/types/Error';
+import {
+  createCustomCategoryApi,
+  fetchCategoriesApi,
+  updateCategoryApi,
+} from '@web/services/api';
+import type { CategoryItemProps } from '@web/types/Category';
+import type { ListProps } from '@web/types/List';
 
 type MainSliceProps = {
   isLoading: boolean;

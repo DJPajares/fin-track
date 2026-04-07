@@ -1,6 +1,7 @@
 'use client';
 
-import { Button } from 'apps/web/components/ui/button';
+import type { ErrorProps } from '@shared/types/Error';
+import { Button } from '@web/components/ui/button';
 import {
   Dialog,
   DialogClose,
@@ -9,10 +10,9 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from 'apps/web/components/ui/dialog';
-import { Label } from 'apps/web/components/ui/label';
+} from '@web/components/ui/dialog';
+import { Label } from '@web/components/ui/label';
 import { useTranslations } from 'next-intl';
-import type { ErrorProps } from 'packages/shared/types/Error';
 import { useMemo } from 'react';
 
 type ErrorMessageModalProps = {

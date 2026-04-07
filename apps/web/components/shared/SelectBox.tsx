@@ -1,4 +1,3 @@
-import type { ListProps } from '../../types/List';
 import {
   Select,
   SelectContent,
@@ -8,7 +7,8 @@ import {
   SelectTrigger,
   type SelectTriggerProps,
   SelectValue,
-} from '../ui/select';
+} from '@web/components/ui/select';
+import type { ListProps } from '@web/types/List';
 
 export type SelectBoxProps = {
   variant?: SelectTriggerProps['variant'];

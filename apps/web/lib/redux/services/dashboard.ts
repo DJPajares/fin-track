@@ -2,9 +2,9 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import DASHBOARD_DATA from '@shared/mockData/transactionPayments.json';
 import TRANSACTION_PAYMENTS_BY_CATEGORY from '@shared/mockData/transactionPaymentsByCategory.json';
 import TRANSACTIONS_BY_TYPE_DATA from '@shared/mockData/transactionsDateRangeByType.json';
-import { TransactionProps } from 'apps/web/types/TransactionPayment';
+import formatYearMonth from '@shared/utilities/formatYearMonth';
+import { TransactionProps } from '@web/types/TransactionPayment';
 import { Moment } from 'moment';
-import formatYearMonth from 'packages/shared/utilities/formatYearMonth';
 
 const useMockedData = process.env.NEXT_PUBLIC_USE_MOCKED_DATA === 'true';
 

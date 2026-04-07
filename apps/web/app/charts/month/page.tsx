@@ -2,23 +2,17 @@
 
 import { dateStringFormat } from '@shared/constants/dateStringFormat';
 import { formatCurrency } from '@shared/utilities/formatCurrency';
-import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
-import moment from 'moment';
-import { useTranslations } from 'next-intl';
-import { useMemo, useState } from 'react';
-import { Cell, Label as ChartLabel, Pie, PieChart } from 'recharts';
-
-import type { IconProps } from '../../../components/shared/CardIcon';
-import { DatePicker } from '../../../components/shared/DatePicker';
-import Loader from '../../../components/shared/Loader';
-import { SelectBox } from '../../../components/shared/SelectBox';
-import { Button } from '../../../components/ui/button';
+import type { IconProps } from '@web/components/shared/CardIcon';
+import { DatePicker } from '@web/components/shared/DatePicker';
+import Loader from '@web/components/shared/Loader';
+import { SelectBox } from '@web/components/shared/SelectBox';
+import { Button } from '@web/components/ui/button';
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
-} from '../../../components/ui/card';
+} from '@web/components/ui/card';
 import {
   ChartConfig,
   ChartContainer,
@@ -26,11 +20,16 @@ import {
   ChartLegendContent,
   ChartTooltip,
   ChartTooltipContent,
-} from '../../../components/ui/chart';
-import { Label } from '../../../components/ui/label';
-import { useIsMobile } from '../../../lib/hooks/use-mobile';
-import { useAppSelector } from '../../../lib/hooks/use-redux';
-import { useGetTransactionsByCategoryQuery } from '../../../lib/redux/services/transactions';
+} from '@web/components/ui/chart';
+import { Label } from '@web/components/ui/label';
+import { useIsMobile } from '@web/lib/hooks/use-mobile';
+import { useAppSelector } from '@web/lib/hooks/use-redux';
+import { useGetTransactionsByCategoryQuery } from '@web/lib/redux/services/transactions';
+import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
+import moment from 'moment';
+import { useTranslations } from 'next-intl';
+import { useMemo, useState } from 'react';
+import { Cell, Label as ChartLabel, Pie, PieChart } from 'recharts';
 
 type TransactionByCategory = {
   id: string;

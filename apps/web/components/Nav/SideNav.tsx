@@ -1,17 +1,12 @@
 'use client';
 
-import { ChevronRightIcon, TrendingUpIcon } from 'lucide-react';
-import Link from 'next/link';
-import { useTranslations } from 'next-intl';
-import { CONSTANTS } from 'packages/shared/constants/common';
-
-import { MENU_ITEMS } from '../../constants/menuItems';
+import { CONSTANTS } from '@shared/constants/common';
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from '../ui/collapsible';
-import { Label } from '../ui/label';
+} from '@web/components/ui/collapsible';
+import { Label } from '@web/components/ui/label';
 import {
   Sidebar,
   SidebarContent,
@@ -26,7 +21,11 @@ import {
   SidebarMenuSubItem,
   SidebarRail,
   useSidebar,
-} from '../ui/sidebar';
+} from '@web/components/ui/sidebar';
+import { MENU_ITEMS } from '@web/constants/menuItems';
+import { ChevronRightIcon, TrendingUpIcon } from 'lucide-react';
+import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 
 const SideNav = () => {
   const { setOpenMobile } = useSidebar();
@@ -121,13 +120,15 @@ const SideNav = () => {
                             onClick={handleLinkClick}
                             passHref
                           >
-                            <SidebarMenuSubButton size="sm" asChild>
-                              <Label
-                                variant="title-xs"
-                                className="text-muted-foreground font-light"
-                              >
-                                {t(subItem.value)}
-                              </Label>
+                            <SidebarMenuSubButton asChild>
+                              <div className="grid flex-1 text-left leading-tight">
+                                <Label
+                                  variant="title-xs"
+                                  className="text-muted-foreground"
+                                >
+                                  {t(subItem.value)}
+                                </Label>
+                              </div>
                             </SidebarMenuSubButton>
                           </Link>
                         </SidebarMenuSubItem>

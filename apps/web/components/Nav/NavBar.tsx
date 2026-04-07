@@ -1,13 +1,17 @@
 'use client';
 
+import { CONSTANTS } from '@shared/constants/common';
+import { Avatar, AvatarFallback, AvatarImage } from '@web/components/ui/avatar';
+import { Label } from '@web/components/ui/label';
+import {
+  SidebarInset,
+  SidebarProvider,
+  SidebarTrigger,
+} from '@web/components/ui/sidebar';
+import { useAppSelector } from '@web/lib/hooks/use-redux';
 import { usePathname } from 'next/navigation';
-import { CONSTANTS } from 'packages/shared/constants/common';
 import { ReactNode, useEffect, useState } from 'react';
 
-import { useAppSelector } from '../../lib/hooks/use-redux';
-import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
-import { Label } from '../ui/label';
-import { SidebarInset, SidebarProvider, SidebarTrigger } from '../ui/sidebar';
 import NavDropdownMenu from './NavDropdownMenu';
 import SideNav from './SideNav';
 

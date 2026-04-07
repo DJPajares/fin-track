@@ -1,20 +1,19 @@
 'use client';
 
 import { CONSTANTS } from '@shared/constants/common';
-import { STORAGE_KEYS } from 'apps/web/constants/storageKeys';
-import { Download, RefreshCw, Wifi, WifiOff, X } from 'lucide-react';
-import { useTranslations } from 'next-intl';
-import { useCallback, useEffect, useState } from 'react';
-
-import { usePWA } from '../../lib/hooks/use-pwa';
-import { Button } from '../ui/button';
+import { Button } from '@web/components/ui/button';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '../ui/card';
+} from '@web/components/ui/card';
+import { STORAGE_KEYS } from '@web/constants/storageKeys';
+import { usePWA } from '@web/lib/hooks/use-pwa';
+import { Download, RefreshCw, Wifi, WifiOff, X } from 'lucide-react';
+import { useTranslations } from 'next-intl';
+import { useCallback, useEffect, useState } from 'react';
 
 const PWA_PROMPT_DELAY = 3000; // 3 seconds delay before showing
 const PWA_PROMPT_AUTO_DISMISS = 10000; // 10 seconds auto-dismiss

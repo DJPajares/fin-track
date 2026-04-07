@@ -1,23 +1,23 @@
 'use client';
 
-import { Button } from 'apps/web/components/ui/button';
+import { Button } from '@web/components/ui/button';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from 'apps/web/components/ui/card';
+} from '@web/components/ui/card';
 import {
   Field,
   FieldDescription,
   FieldGroup,
   FieldLabel,
-} from 'apps/web/components/ui/field';
-import { Input } from 'apps/web/components/ui/input';
-import { loginSuccess } from 'apps/web/lib/redux/feature/auth/authSlice';
-import { cn } from 'apps/web/lib/utils';
-import { signup } from 'apps/web/services/auth';
+} from '@web/components/ui/field';
+import { Input } from '@web/components/ui/input';
+import { loginSuccess } from '@web/lib/redux/feature/auth/authSlice';
+import { cn } from '@web/lib/utils';
+import { signup } from '@web/services/auth';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';

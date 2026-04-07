@@ -1,15 +1,15 @@
 'use client';
 
 import { HeroUIProvider } from '@heroui/react';
+import ErrorMessageModal from '@web/components/ErrorBoundary/ErrorMessageModal';
+import { ProtectedRoute } from '@web/components/shared/ProtectedRoute';
+import { useAppDispatch, useAppSelector } from '@web/lib/hooks/use-redux';
+import { clearMainError } from '@web/lib/redux/feature/main/mainSlice';
+import { AppStore, store } from '@web/lib/redux/store';
 import { ThemeProvider as NextThemesProvider } from 'next-themes';
 import { useState } from 'react';
 import { Provider as ReduxProvider } from 'react-redux';
 
-import ErrorMessageModal from '../components/ErrorBoundary/ErrorMessageModal';
-import { ProtectedRoute } from '../components/shared/ProtectedRoute';
-import { useAppDispatch, useAppSelector } from '../lib/hooks/use-redux';
-import { clearMainError } from '../lib/redux/feature/main/mainSlice';
-import { AppStore, store } from '../lib/redux/store';
 import { ClientDataProvider } from './clientDataProvider';
 import { ThemeColorProvider } from './themeColorProvider';
 

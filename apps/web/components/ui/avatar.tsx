@@ -1,6 +1,6 @@
 'use client';
 
-import { cn } from 'apps/web/lib/utils';
+import { cn } from '@web/lib/utils';
 import { Avatar as AvatarPrimitive } from 'radix-ui';
 import * as React from 'react';
 

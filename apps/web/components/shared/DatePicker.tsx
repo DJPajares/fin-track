@@ -1,9 +1,9 @@
-import Calendar from 'apps/web/components/shared/Calendar';
+import Calendar from '@web/components/shared/Calendar';
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from 'apps/web/components/ui/popover';
+} from '@web/components/ui/popover';
 import { ReactNode, useState } from 'react';
 
 type DatePickerProps = {

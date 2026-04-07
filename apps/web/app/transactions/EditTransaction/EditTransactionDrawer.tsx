@@ -1,12 +1,20 @@
-import { dashboardApi } from 'apps/web/lib/redux/services/dashboard';
+import { excludedDateStringFormat } from '@shared/constants/dateStringFormat';
+import TransactionDrawerForm, {
+  type SubmitTransactionProps,
+} from '@web/components/Form/TransactionDrawerForm';
+import CustomDrawer from '@web/components/shared/CustomDrawer';
+import { useAppDispatch, useAppSelector } from '@web/lib/hooks/use-redux';
+import { dashboardApi } from '@web/lib/redux/services/dashboard';
 import {
   useDeleteTransactionMutation,
   useLazyGetTransactionsQuery,
   useUpdateTransactionMutation,
-} from 'apps/web/lib/redux/services/transactions';
+} from '@web/lib/redux/services/transactions';
+import type { TransactionFormProps } from '@web/lib/schemas/transaction';
+import type { ListProps } from '@web/types/List';
+import type { TransactionProps } from '@web/types/Transaction';
 import moment from 'moment';
 import { useTranslations } from 'next-intl';
-import { excludedDateStringFormat } from 'packages/shared/constants/dateStringFormat';
 import {
   Dispatch,
   ReactNode,
@@ -15,15 +23,6 @@ import {
   useRef,
   useState,
 } from 'react';
-
-import TransactionDrawerForm, {
-  type SubmitTransactionProps,
-} from '../../../components/Form/TransactionDrawerForm';
-import CustomDrawer from '../../../components/shared/CustomDrawer';
-import { useAppDispatch, useAppSelector } from '../../../lib/hooks/use-redux';
-import type { TransactionFormProps } from '../../../lib/schemas/transaction';
-import type { ListProps } from '../../../types/List';
-import type { TransactionProps } from '../../../types/Transaction';
 
 type EditTransactionDrawerProps = {
   date: Date;

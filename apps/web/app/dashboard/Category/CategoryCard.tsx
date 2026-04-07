@@ -1,11 +1,10 @@
 import { Progress } from '@heroui/react';
+import { formatCurrencyToParts } from '@shared/utilities/formatCurrency';
+import CardIcon from '@web/components/shared/CardIcon';
+import { Card } from '@web/components/ui/card';
+import { Label } from '@web/components/ui/label';
+import type { TransactionPaymentCategoryProps } from '@web/types/TransactionPayment';
 import { useTranslations } from 'next-intl';
-import { formatCurrencyToParts } from 'packages/shared/utilities/formatCurrency';
-
-import CardIcon from '../../../components/shared/CardIcon';
-import { Card } from '../../../components/ui/card';
-import { Label } from '../../../components/ui/label';
-import type { TransactionPaymentCategoryProps } from '../../../types/TransactionPayment';
 
 type CategoryCardProps = {
   category: TransactionPaymentCategoryProps;
