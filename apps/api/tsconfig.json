@@ -1,11 +1,6 @@
 {
   "compilerOptions": {
     "rootDir": "../..",
-    "paths": {
-      "@shared/*": ["packages/shared/*"],
-      "@web/*": ["apps/web/*"],
-      "@api/*": ["apps/api/*"]
-    },
     "outDir": "dist",
     "module": "commonjs",
     "target": "es6",

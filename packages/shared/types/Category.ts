@@ -1,5 +1,5 @@
-import type { PaginationPageProps } from 'packages/shared/types/Pagination';
-import type { TypeDataResponse } from 'packages/shared/types/Type';
+import type { PaginationPageProps } from './Pagination';
+import type { TypeDataResponse } from './Type';
 
 type CategoryRequest = {
   _id?: string;
