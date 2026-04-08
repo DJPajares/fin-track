@@ -26,7 +26,7 @@ import { ChevronRightIcon, TrendingUpIcon } from 'lucide-react';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 
-import { TypographyLabel, TypographyMuted } from '../shared/Typography';
+import { TypographyLabel } from '../shared/Typography';
 
 const SideNav = () => {
   const { setOpenMobile } = useSidebar();
@@ -81,7 +81,7 @@ const SideNav = () => {
                         </div>
 
                         <div className="grid flex-1 text-left leading-tight">
-                          <TypographyMuted>{t(item.value)}</TypographyMuted>
+                          <TypographyLabel>{t(item.value)}</TypographyLabel>
                         </div>
 
                         <ChevronRightIcon className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
@@ -95,7 +95,7 @@ const SideNav = () => {
                         </div>
 
                         <div className="grid flex-1 text-left leading-tight">
-                          <TypographyMuted>{t(item.value)}</TypographyMuted>
+                          <TypographyLabel>{t(item.value)}</TypographyLabel>
                         </div>
                       </SidebarMenuButton>
                     </Link>
@@ -112,9 +112,9 @@ const SideNav = () => {
                           >
                             <SidebarMenuSubButton>
                               <div className="grid flex-1 text-left leading-tight">
-                                <TypographyMuted>
+                                <TypographyLabel>
                                   {t(subItem.value)}
-                                </TypographyMuted>
+                                </TypographyLabel>
                               </div>
                             </SidebarMenuSubButton>
                           </Link>
