@@ -1,4 +1,3 @@
-import { Card, CardBody, Checkbox } from '@heroui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { excludedDateStringFormat } from '@shared/constants/dateStringFormat';
 import CardButton from '@web/components/shared/CardButton';
@@ -6,15 +5,16 @@ import type { IconProps } from '@web/components/shared/CardIcon';
 import ConfirmationDialog from '@web/components/shared/ConfirmationDialog';
 import { DatePicker } from '@web/components/shared/DatePicker';
 import { MultiSelectBox } from '@web/components/shared/MultiSelectBox';
+import { TypographyLabel } from '@web/components/shared/Typography';
 import { Button } from '@web/components/ui/button';
+import { Card, CardContent } from '@web/components/ui/card';
+import { Checkbox } from '@web/components/ui/checkbox';
 import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@web/components/ui/form';
+  Field,
+  FieldError,
+  FieldGroup,
+  FieldLabel,
+} from '@web/components/ui/field';
 import { Input } from '@web/components/ui/input';
 import {
   Select,
@@ -24,6 +24,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@web/components/ui/select';
+import { Textarea } from '@web/components/ui/textarea';
 import {
   Tooltip,
   TooltipContent,
@@ -50,9 +51,7 @@ import {
   useMemo,
   useState,
 } from 'react';
-import { useForm, useWatch } from 'react-hook-form';
-
-import { TypographyLabel } from '../shared/Typography';
+import { Controller, useForm, useWatch } from 'react-hook-form';
 
 type ExcludedDatesProps = {
   value: string;
@@ -299,64 +298,69 @@ const TransactionDrawerForm = ({
   };
 
   return (
-    <Form {...form}>
-      <form
-        ref={formRef}
-        onSubmit={form.handleSubmit(onSubmit, onInvalidSubmit)}
-        className="flex flex-col gap-4"
-      >
-        <Card
-          isBlurred
-          className="bg-background/60 dark:bg-default-100/50 border-none"
-          shadow="sm"
-        >
-          <CardBody className="flex flex-col gap-4 p-5">
-            <FormField
+    <form
+      ref={formRef}
+      onSubmit={form.handleSubmit(onSubmit, onInvalidSubmit)}
+      className="flex flex-col gap-4"
+    >
+      <Card className="bg-background/60 dark:bg-default-100/50 border-none">
+        <CardContent className="flex flex-col gap-4 p-5">
+          <FieldGroup>
+            <Controller
               control={form.control}
               name="name"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="text-sm font-semibold">
+              render={({ field, fieldState }) => (
+                <Field>
+                  <FieldLabel
+                    htmlFor="form-name"
+                    className="text-sm font-semibold"
+                  >
                     {t('Page.dashboard.transactionDrawer.form.title.title')}
-                  </FormLabel>
-
-                  <FormControl>
-                    <Input
-                      placeholder={t(
-                        'Page.dashboard.transactionDrawer.form.placeholder.title',
-                      )}
-                      autoComplete="off"
-                      className="h-11 rounded-xl"
-                      {...field}
-                    />
-                  </FormControl>
-
-                  <FormMessage />
-                </FormItem>
+                  </FieldLabel>
+                  <Input
+                    {...field}
+                    id="form-name"
+                    aria-invalid={fieldState.invalid}
+                    placeholder={t(
+                      'Page.dashboard.transactionDrawer.form.placeholder.title',
+                    )}
+                    autoComplete="off"
+                    className="h-11 rounded-xl"
+                  />
+                  {fieldState.invalid && (
+                    <FieldError errors={[fieldState.error]} />
+                  )}
+                </Field>
               )}
             />
 
-            <FormField
+            <Controller
               control={form.control}
               name="currency"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="text-sm font-semibold">
-                    {t('Page.dashboard.transactionDrawer.form.title.currency')}
-                  </FormLabel>
-
-                  <Select
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
+              render={({ field, fieldState }) => (
+                <Field>
+                  <FieldLabel
+                    htmlFor="form-currency"
+                    className="text-sm font-semibold"
                   >
-                    <SelectTrigger className="h-12 rounded-xl border-2">
+                    {t('Page.dashboard.transactionDrawer.form.title.currency')}
+                  </FieldLabel>
+                  <Select
+                    name={field.name}
+                    value={field.value}
+                    onValueChange={field.onChange}
+                  >
+                    <SelectTrigger
+                      id="form-currency"
+                      aria-invalid={fieldState.invalid}
+                      className="h-12 rounded-xl border-2"
+                    >
                       <SelectValue
                         placeholder={t(
                           'Page.dashboard.transactionDrawer.form.placeholder.currency',
                         )}
                       />
                     </SelectTrigger>
-
                     <SelectContent>
                       <SelectGroup>
                         {currencies.map((currency) => (
@@ -367,397 +371,395 @@ const TransactionDrawerForm = ({
                       </SelectGroup>
                     </SelectContent>
                   </Select>
-
-                  <FormMessage />
-                </FormItem>
+                  {fieldState.invalid && (
+                    <FieldError errors={[fieldState.error]} />
+                  )}
+                </Field>
               )}
             />
 
-            <FormField
+            <Controller
               control={form.control}
               name="amount"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="text-sm font-semibold">
+              render={({ field, fieldState }) => (
+                <Field>
+                  <FieldLabel
+                    htmlFor="form-amount"
+                    className="text-sm font-semibold"
+                  >
                     {t('Page.dashboard.transactionDrawer.form.title.amount')}
-                  </FormLabel>
-
-                  <FormControl>
-                    <Input
-                      {...field}
-                      type="text"
-                      inputMode="decimal"
-                      placeholder="0.00"
-                      value={formattedAmount}
-                      onChange={(e) => {
-                        const { display, value } = parseAmountInput(
-                          e.target.value,
-                        );
-                        setFormattedAmount(display);
-                        field.onChange(value);
-                      }}
-                      onBlur={(e) => {
-                        const { value } = parseAmountInput(e.target.value);
-                        setFormattedAmount(formatAmountDisplay(value));
-                        field.onChange(value);
-                      }}
-                      className="h-14 rounded-xl border-2 text-2xl font-semibold tracking-tight"
-                      autoComplete="off"
-                    />
-                  </FormControl>
-
-                  <FormMessage />
-                </FormItem>
+                  </FieldLabel>
+                  <Input
+                    {...field}
+                    id="form-amount"
+                    type="text"
+                    inputMode="decimal"
+                    placeholder="0.00"
+                    value={formattedAmount}
+                    onChange={(e) => {
+                      const { display, value } = parseAmountInput(
+                        e.target.value,
+                      );
+                      setFormattedAmount(display);
+                      field.onChange(value);
+                    }}
+                    onBlur={(e) => {
+                      const { value } = parseAmountInput(e.target.value);
+                      setFormattedAmount(formatAmountDisplay(value));
+                      field.onChange(value);
+                    }}
+                    className="h-14 rounded-xl border-2 text-2xl font-semibold tracking-tight"
+                    autoComplete="off"
+                  />
+                  {fieldState.invalid && (
+                    <FieldError errors={[fieldState.error]} />
+                  )}
+                </Field>
               )}
             />
-          </CardBody>
-        </Card>
+          </FieldGroup>
+        </CardContent>
+      </Card>
 
-        <Card
-          isBlurred
-          className="bg-background/60 dark:bg-default-100/50 border-none"
-          shadow="sm"
-        >
-          <CardBody className="flex flex-col gap-4 p-5">
-            <div className="flex flex-col gap-2">
-              <div className="flex items-center justify-between gap-2">
-                <p className="text-muted-foreground text-xs font-semibold tracking-wide uppercase">
-                  {t('Page.dashboard.transactionDrawer.form.title.type')}
-                </p>
-              </div>
-
-              <div className="grid grid-cols-2 gap-2">
-                {typeOptions.map((option) => {
-                  const isActive = option._id === type._id;
-
-                  return (
-                    <CardButton
-                      key={option._id}
-                      label={option.name}
-                      handleOnClick={() => onTypeChange(option)}
-                      isActive={isActive}
-                    />
-                  );
-                })}
-              </div>
-            </div>
-
+      <Card className="bg-background/60 dark:bg-default-100/50 border-none">
+        <CardContent className="flex flex-col gap-4 p-5">
+          <div className="flex flex-col gap-2">
             <div className="flex items-center justify-between gap-2">
               <p className="text-muted-foreground text-xs font-semibold tracking-wide uppercase">
-                {t('Page.dashboard.transactionDrawer.form.title.category')}
-              </p>
-              <p className="text-muted-foreground text-xs">
-                {t('Page.dashboard.transactionDrawer.form.helper.category')}
+                {t('Page.dashboard.transactionDrawer.form.title.type')}
               </p>
             </div>
 
-            <FormField
-              control={form.control}
-              name="category"
-              render={({ field }) => {
-                const filteredCategories = categories.filter(
-                  (category) =>
-                    category.type._id === type._id && category.isActive,
-                );
-                const previewCategories = filteredCategories.slice(
-                  0,
-                  CATEGORY_PREVIEW_LIMIT,
-                );
-                const isSelectedOutsidePreview =
-                  !!field.value &&
-                  !previewCategories.some(
-                    (category) => category._id === field.value,
-                  );
-                const selectedCategory = isSelectedOutsidePreview
-                  ? filteredCategories.find(
-                      (category) => category._id === field.value,
-                    )
-                  : undefined;
-                const collapsedCategories =
-                  isSelectedOutsidePreview && selectedCategory
-                    ? [
-                        ...previewCategories.slice(
-                          0,
-                          Math.max(CATEGORY_PREVIEW_LIMIT - 1, 0),
-                        ),
-                        selectedCategory,
-                      ]
-                    : previewCategories;
-                const displayedCategories = isShowingAllCategories
-                  ? filteredCategories
-                  : collapsedCategories;
-                const hasMoreCategories =
-                  filteredCategories.length > CATEGORY_PREVIEW_LIMIT;
+            <div className="grid grid-cols-2 gap-2">
+              {typeOptions.map((option) => {
+                const isActive = option._id === type._id;
 
                 return (
-                  <FormItem className="gap-4">
-                    <div className="grid grid-cols-2 gap-2">
-                      {displayedCategories.map((category) => {
-                        const { _id, id, name, icon } = category;
-                        const isTranslated = t.has(`Common.category.${id}`);
-                        const label = isTranslated
-                          ? t(`Common.category.${id}`)
-                          : name;
-                        const isSelected = field.value === _id;
-
-                        return (
-                          <Tooltip key={_id}>
-                            <TooltipTrigger>
-                              <span>
-                                <CardButton
-                                  label={label}
-                                  handleOnClick={() =>
-                                    field.onChange(isSelected ? '' : _id)
-                                  }
-                                  isActive={isSelected}
-                                  size="md"
-                                  icon={icon as IconProps}
-                                />
-                              </span>
-                            </TooltipTrigger>
-                            {t.has(`Common.tooltip.category.${id}`) && (
-                              <TooltipContent>
-                                <p>{t(`Common.tooltip.category.${id}`)}</p>
-                              </TooltipContent>
-                            )}
-                          </Tooltip>
-                        );
-                      })}
-                    </div>
-
-                    {hasMoreCategories && (
-                      <Button
-                        type="button"
-                        variant="ghost"
-                        className="text-muted-foreground hover:text-foreground w-full justify-start px-0"
-                        onClick={() =>
-                          setIsShowingAllCategories(
-                            (previousValue) => !previousValue,
-                          )
-                        }
-                      >
-                        {isShowingAllCategories
-                          ? t(
-                              'Page.dashboard.transactionDrawer.form.title.showLess',
-                            )
-                          : t(
-                              'Page.dashboard.transactionDrawer.form.title.showMore',
-                            )}
-                      </Button>
-                    )}
-
-                    <FormMessage />
-                  </FormItem>
+                  <CardButton
+                    key={option._id}
+                    label={option.name}
+                    handleOnClick={() => onTypeChange(option)}
+                    isActive={isActive}
+                  />
                 );
-              }}
-            />
-          </CardBody>
-        </Card>
+              })}
+            </div>
+          </div>
 
-        <Card
-          isBlurred
-          className="bg-background/60 dark:bg-default-100/50 border-none"
-          shadow="sm"
-        >
-          <CardBody className="flex flex-col gap-4 p-5">
-            <FormField
-              control={form.control}
-              name="isRecurring"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <Checkbox
-                      isSelected={field.value}
-                      onValueChange={field.onChange}
+          <div className="flex items-center justify-between gap-2">
+            <p className="text-muted-foreground text-xs font-semibold tracking-wide uppercase">
+              {t('Page.dashboard.transactionDrawer.form.title.category')}
+            </p>
+            <p className="text-muted-foreground text-xs">
+              {t('Page.dashboard.transactionDrawer.form.helper.category')}
+            </p>
+          </div>
+
+          <Controller
+            control={form.control}
+            name="category"
+            render={({ field, fieldState }) => {
+              const filteredCategories = categories.filter(
+                (category) =>
+                  category.type._id === type._id && category.isActive,
+              );
+              const previewCategories = filteredCategories.slice(
+                0,
+                CATEGORY_PREVIEW_LIMIT,
+              );
+              const isSelectedOutsidePreview =
+                !!field.value &&
+                !previewCategories.some(
+                  (category) => category._id === field.value,
+                );
+              const selectedCategory = isSelectedOutsidePreview
+                ? filteredCategories.find(
+                    (category) => category._id === field.value,
+                  )
+                : undefined;
+              const collapsedCategories =
+                isSelectedOutsidePreview && selectedCategory
+                  ? [
+                      ...previewCategories.slice(
+                        0,
+                        Math.max(CATEGORY_PREVIEW_LIMIT - 1, 0),
+                      ),
+                      selectedCategory,
+                    ]
+                  : previewCategories;
+              const displayedCategories = isShowingAllCategories
+                ? filteredCategories
+                : collapsedCategories;
+              const hasMoreCategories =
+                filteredCategories.length > CATEGORY_PREVIEW_LIMIT;
+
+              return (
+                <Field className="gap-4">
+                  <div className="grid grid-cols-2 gap-2">
+                    {displayedCategories.map((category) => {
+                      const { _id, id, name, icon } = category;
+                      const isTranslated = t.has(`Common.category.${id}`);
+                      const label = isTranslated
+                        ? t(`Common.category.${id}`)
+                        : name;
+                      const isSelected = field.value === _id;
+
+                      return (
+                        <Tooltip key={_id}>
+                          <TooltipTrigger>
+                            <span>
+                              <CardButton
+                                label={label}
+                                handleOnClick={() =>
+                                  field.onChange(isSelected ? '' : _id)
+                                }
+                                isActive={isSelected}
+                                size="md"
+                                icon={icon as IconProps}
+                              />
+                            </span>
+                          </TooltipTrigger>
+                          {t.has(`Common.tooltip.category.${id}`) && (
+                            <TooltipContent>
+                              <p>{t(`Common.tooltip.category.${id}`)}</p>
+                            </TooltipContent>
+                          )}
+                        </Tooltip>
+                      );
+                    })}
+                  </div>
+
+                  {hasMoreCategories && (
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      onClick={() =>
+                        setIsShowingAllCategories(
+                          (previousValue) => !previousValue,
+                        )
+                      }
                     >
-                      {t(
-                        'Page.dashboard.transactionDrawer.form.title.isRecurring',
-                      )}
-                    </Checkbox>
-                  </FormControl>
-                  <p className="text-muted-foreground text-xs">
-                    {t(
-                      'Page.dashboard.transactionDrawer.form.helper.isRecurring',
-                    )}
-                  </p>
-                  <FormMessage />
-                </FormItem>
+                      {isShowingAllCategories
+                        ? t(
+                            'Page.dashboard.transactionDrawer.form.title.showLess',
+                          )
+                        : t(
+                            'Page.dashboard.transactionDrawer.form.title.showMore',
+                          )}
+                    </Button>
+                  )}
+
+                  {fieldState.invalid && (
+                    <FieldError errors={[fieldState.error]} />
+                  )}
+                </Field>
+              );
+            }}
+          />
+        </CardContent>
+      </Card>
+
+      <Card className="bg-background/60 dark:bg-default-100/50 border-none">
+        <CardContent className="flex flex-col gap-4 p-5">
+          <Controller
+            control={form.control}
+            name="isRecurring"
+            render={({ field, fieldState }) => (
+              <Field orientation="horizontal">
+                <Checkbox
+                  id="form-isRecurring"
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
+                />
+                <FieldLabel htmlFor="form-isRecurring">
+                  {t('Page.dashboard.transactionDrawer.form.title.isRecurring')}
+                </FieldLabel>
+                {fieldState.invalid && (
+                  <FieldError errors={[fieldState.error]} />
+                )}
+              </Field>
+            )}
+          />
+
+          <TypographyLabel>
+            {t('Page.dashboard.transactionDrawer.form.helper.isRecurring')}
+          </TypographyLabel>
+
+          <div className="grid grid-cols-1 gap-3">
+            <Controller
+              control={form.control}
+              name="startDate"
+              render={({ field, fieldState }) => (
+                <Field>
+                  <FieldLabel
+                    htmlFor="form-startDate"
+                    className="text-sm font-semibold"
+                  >
+                    {isRecurring
+                      ? t(
+                          'Page.dashboard.transactionDrawer.form.title.startDate',
+                        )
+                      : t('Page.dashboard.transactionDrawer.form.title.date')}
+                  </FieldLabel>
+                  <DatePicker date={field.value} onChange={field.onChange}>
+                    <Button
+                      id="form-startDate"
+                      variant="outline"
+                      className="flex h-12 w-full items-center justify-between rounded-xl border-2 text-left font-semibold"
+                    >
+                      <TypographyLabel>
+                        {moment(field?.value).format('MMM DD, YYYY')}
+                      </TypographyLabel>
+                      <CalendarIcon className="ml-auto size-4 opacity-60" />
+                    </Button>
+                  </DatePicker>
+                  {fieldState.invalid && (
+                    <FieldError errors={[fieldState.error]} />
+                  )}
+                </Field>
               )}
             />
+          </div>
 
+          {isRecurring && (
             <div className="grid grid-cols-1 gap-3">
-              <FormField
+              <Controller
                 control={form.control}
-                name="startDate"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="text-sm font-semibold">
-                      {isRecurring
-                        ? t(
-                            'Page.dashboard.transactionDrawer.form.title.startDate',
-                          )
-                        : t('Page.dashboard.transactionDrawer.form.title.date')}
-                    </FormLabel>
-
+                name="endDate"
+                render={({ field, fieldState }) => (
+                  <Field>
+                    <FieldLabel
+                      htmlFor="form-endDate"
+                      className="text-sm font-semibold"
+                    >
+                      {t('Page.dashboard.transactionDrawer.form.title.endDate')}
+                    </FieldLabel>
                     <DatePicker date={field.value} onChange={field.onChange}>
-                      <FormControl>
-                        <Button
-                          variant="outline"
-                          className="flex h-12 w-full items-center justify-between rounded-xl border-2 text-left font-semibold"
-                        >
-                          <TypographyLabel>
-                            {moment(field?.value).format('MMM DD, YYYY')}
-                          </TypographyLabel>
-                          <CalendarIcon className="ml-auto size-4 opacity-60" />
-                        </Button>
-                      </FormControl>
+                      <Button
+                        id="form-endDate"
+                        variant="outline"
+                        className="flex h-12 w-full items-center justify-between rounded-xl border-2 text-left font-semibold"
+                      >
+                        <TypographyLabel>
+                          {moment(field?.value).format('MMM DD, YYYY')}
+                        </TypographyLabel>
+                        <CalendarIcon className="ml-auto size-4 opacity-60" />
+                      </Button>
                     </DatePicker>
+                    {fieldState.invalid && (
+                      <FieldError errors={[fieldState.error]} />
+                    )}
+                  </Field>
+                )}
+              />
 
-                    <FormMessage />
-                  </FormItem>
+              {excludedDatesArray.length > 1 && (
+                <Controller
+                  control={form.control}
+                  name="excludedDates"
+                  render={({ field, fieldState }) => (
+                    <Field>
+                      <FieldLabel className="text-sm font-semibold">
+                        {t(
+                          'Page.dashboard.transactionDrawer.form.title.excludedDates',
+                        )}
+                      </FieldLabel>
+                      <MultiSelectBox
+                        dataArray={excludedDatesArray}
+                        value={field.value || []}
+                        onChange={field.onChange}
+                        placeholder={t(
+                          'Page.dashboard.transactionDrawer.form.placeholder.excludedDates',
+                        )}
+                      />
+                      {fieldState.invalid && (
+                        <FieldError errors={[fieldState.error]} />
+                      )}
+                    </Field>
+                  )}
+                />
+              )}
+            </div>
+          )}
+        </CardContent>
+      </Card>
+
+      <Card className="bg-background/60 dark:bg-default-100/50 border-none">
+        <CardContent className="flex flex-col gap-4 p-5">
+          <div className="flex items-center justify-between">
+            <p className="text-muted-foreground text-xs font-semibold tracking-wide uppercase">
+              {isDetailsOpen
+                ? t('Page.dashboard.transactionDrawer.form.title.hideDetails')
+                : t('Page.dashboard.transactionDrawer.form.title.addDetails')}
+            </p>
+
+            <Button
+              variant="ghost"
+              size="icon"
+              type="button"
+              onClick={() => setIsDetailsOpen((prev) => !prev)}
+            >
+              <ChevronDownIcon
+                className={cn(
+                  'size-4 transition-transform',
+                  isDetailsOpen ? 'rotate-180' : 'rotate-0',
+                )}
+              />
+            </Button>
+          </div>
+
+          {isDetailsOpen && (
+            <div>
+              <Controller
+                control={form.control}
+                name="description"
+                render={({ field, fieldState }) => (
+                  <Field>
+                    <FieldLabel
+                      htmlFor="form-description"
+                      className="text-sm font-semibold"
+                    >
+                      {t(
+                        'Page.dashboard.transactionDrawer.form.title.description',
+                      )}
+                    </FieldLabel>
+                    <Textarea
+                      {...field}
+                      id="form-description"
+                      aria-invalid={fieldState.invalid}
+                      placeholder={t(
+                        'Page.dashboard.transactionDrawer.form.placeholder.description',
+                      )}
+                      rows={3}
+                      // className="border-input bg-background focus-visible:border-ring focus-visible:ring-ring/50 min-h-24 w-full rounded-xl border px-3 py-2 text-sm shadow-xs transition outline-none focus-visible:ring-[3px]"
+                    />
+                    {fieldState.invalid && (
+                      <FieldError errors={[fieldState.error]} />
+                    )}
+                  </Field>
                 )}
               />
             </div>
+          )}
+        </CardContent>
+      </Card>
 
-            {isRecurring && (
-              <div className="grid grid-cols-1 gap-3">
-                <FormField
-                  control={form.control}
-                  name="endDate"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="text-sm font-semibold">
-                        {t(
-                          'Page.dashboard.transactionDrawer.form.title.endDate',
-                        )}
-                      </FormLabel>
-
-                      <DatePicker date={field.value} onChange={field.onChange}>
-                        <FormControl>
-                          <Button
-                            variant="outline"
-                            className="flex h-12 w-full items-center justify-between rounded-xl border-2 text-left font-semibold"
-                          >
-                            <TypographyLabel>
-                              {moment(field?.value).format('MMM DD, YYYY')}
-                            </TypographyLabel>
-                            <CalendarIcon className="ml-auto size-4 opacity-60" />
-                          </Button>
-                        </FormControl>
-                      </DatePicker>
-
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-
-                {excludedDatesArray.length > 1 && (
-                  <FormField
-                    control={form.control}
-                    name="excludedDates"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="text-sm font-semibold">
-                          {t(
-                            'Page.dashboard.transactionDrawer.form.title.excludedDates',
-                          )}
-                        </FormLabel>
-
-                        <FormControl>
-                          <MultiSelectBox
-                            dataArray={excludedDatesArray}
-                            value={field.value || []}
-                            onChange={field.onChange}
-                            placeholder={t(
-                              'Page.dashboard.transactionDrawer.form.placeholder.excludedDates',
-                            )}
-                          />
-                        </FormControl>
-
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                )}
-              </div>
-            )}
-          </CardBody>
-        </Card>
-
-        <Card
-          isBlurred
-          className="bg-background/60 dark:bg-default-100/50 border-none"
-          shadow="sm"
-        >
-          <CardBody className="flex flex-col gap-4 p-5">
-            <div className="flex items-center justify-between">
-              <p className="text-muted-foreground text-xs font-semibold tracking-wide uppercase">
-                {isDetailsOpen
-                  ? t('Page.dashboard.transactionDrawer.form.title.hideDetails')
-                  : t('Page.dashboard.transactionDrawer.form.title.addDetails')}
-              </p>
-
-              <Button
-                variant="ghost"
-                size="icon"
-                type="button"
-                onClick={() => setIsDetailsOpen((prev) => !prev)}
-              >
-                <ChevronDownIcon
-                  className={cn(
-                    'size-4 transition-transform',
-                    isDetailsOpen ? 'rotate-180' : 'rotate-0',
-                  )}
-                />
-              </Button>
-            </div>
-
-            {isDetailsOpen && (
-              <div>
-                <FormField
-                  control={form.control}
-                  name="description"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="text-sm font-semibold">
-                        {t(
-                          'Page.dashboard.transactionDrawer.form.title.description',
-                        )}
-                      </FormLabel>
-                      <FormControl>
-                        <textarea
-                          {...field}
-                          rows={3}
-                          placeholder="Add an optional note"
-                          className="border-input bg-background focus-visible:border-ring focus-visible:ring-ring/50 min-h-24 w-full rounded-xl border px-3 py-2 text-sm shadow-xs transition outline-none focus-visible:ring-[3px]"
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
-            )}
-          </CardBody>
-        </Card>
-
-        {defaultValues && deleteTransaction && (
-          <div className="flex justify-end">
-            <ConfirmationDialog
-              title={t('Common.alertDialog.delete.title')}
-              description={t('Common.alertDialog.delete.description')}
-              ok={t('Common.alertDialog.delete.okButton')}
-              handleSubmit={handleDeleteTransaction}
-              isDestructive
-            >
-              <Button type="button" variant="destructive" size="icon">
-                <Trash2Icon className="size-4" />
-              </Button>
-            </ConfirmationDialog>
-          </div>
-        )}
-      </form>
-    </Form>
+      {defaultValues && deleteTransaction && (
+        <div className="flex justify-end">
+          <ConfirmationDialog
+            title={t('Common.alertDialog.delete.title')}
+            description={t('Common.alertDialog.delete.description')}
+            ok={t('Common.alertDialog.delete.okButton')}
+            handleSubmit={handleDeleteTransaction}
+            isDestructive
+          >
+            <Button type="button" variant="destructive" size="icon">
+              <Trash2Icon className="size-4" />
+            </Button>
+          </ConfirmationDialog>
+        </div>
+      )}
+    </form>
   );
 };
 

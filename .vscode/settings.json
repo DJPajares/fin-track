@@ -9,6 +9,7 @@
     "source.fixAll.eslint": "explicit"
   },
   "files.trimTrailingWhitespace": true,
+  "js/ts.preferences.importModuleSpecifier": "non-relative",
   "i18n-ally.localesPaths": ["apps/web/messages"],
   "i18n-ally.enabledFrameworks": ["next-intl"],
   "i18n-ally.keystyle": "nested"
