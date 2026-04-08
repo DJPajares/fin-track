@@ -23,7 +23,12 @@ import type { ListProps } from '@web/types/List';
 import { EyeOffIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { ReactNode, useRef, useState } from 'react';
-import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import {
+  Controller,
+  type Resolver,
+  SubmitHandler,
+  useForm,
+} from 'react-hook-form';
 
 type EditCategoryDrawerProps = {
   type?: ListProps;
@@ -53,7 +58,11 @@ const EditCategoryDrawer = ({
   const formRef = useRef<HTMLFormElement>(null);
 
   const form = useForm<CategoryItemProps>({
-    resolver: zodResolver(categorySchema),
+    resolver: (
+      zodResolver as unknown as (
+        schema: typeof categorySchema,
+      ) => Resolver<CategoryItemProps>
+    )(categorySchema),
     defaultValues: category,
   });
 

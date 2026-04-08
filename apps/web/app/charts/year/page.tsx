@@ -219,7 +219,9 @@ const Charts = () => {
         <Select
           value={selectedYear}
           onValueChange={(value) => {
-            setSelectedYear(value);
+            if (value) {
+              setSelectedYear(value);
+            }
           }}
         >
           <SelectTrigger className="w-fit text-2xl font-bold">
@@ -229,11 +231,7 @@ const Charts = () => {
             <SelectGroup>
               <SelectLabel>
                 {yearsArray.map((year) => (
-                  <SelectItem
-                    key={year}
-                    value={year.toString()}
-                    defaultValue={selectedYear}
-                  >
+                  <SelectItem key={year} value={year.toString()}>
                     {year}
                   </SelectItem>
                 ))}
@@ -277,8 +275,11 @@ const Charts = () => {
                   <ChartTooltipContent
                     hideIndicator
                     formatter={(value) => {
+                      const amount =
+                        typeof value === 'number' ? value : Number(value ?? 0);
+
                       return formatCurrency({
-                        value: parseFloat(value.toString()),
+                        value: amount,
                         currency: currency.name,
                       });
                     }}
@@ -353,8 +354,13 @@ const Charts = () => {
                     <ChartTooltipContent
                       hideIndicator
                       formatter={(value) => {
+                        const amount =
+                          typeof value === 'number'
+                            ? value
+                            : Number(value ?? 0);
+
                         return formatCurrency({
-                          value: parseFloat(value.toString()),
+                          value: amount,
                           currency: currency.name,
                         });
                       }}

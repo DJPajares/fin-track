@@ -65,13 +65,8 @@ const ErrorMessageModal = ({
   };
 
   return (
-    <Dialog open={isOpen} onOpenChange={handleClose}>
-      <DialogContent
-        className="[&>button]:hidden"
-        onInteractOutside={(e) => {
-          e.preventDefault();
-        }}
-      >
+    <Dialog open={isOpen} onOpenChange={handleClose} disablePointerDismissal>
+      <DialogContent className="[&>button]:hidden">
         <DialogHeader>
           <DialogTitle>{t('Common.title.errorModal')}</DialogTitle>
           <DialogDescription></DialogDescription>

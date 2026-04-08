@@ -180,7 +180,6 @@ const Charts = () => {
                     nameKey="idSerialized"
                     innerRadius={isMobile ? 70 : 90}
                     strokeWidth={5}
-                    activeIndex={0}
                     paddingAngle={chartData.length > 1 ? 2 : 0}
                   >
                     {chartData.map((entry, index) => (
@@ -225,6 +224,7 @@ const Charts = () => {
                   </Pie>
                   <ChartTooltip
                     cursor={false}
+                    defaultIndex={0}
                     content={
                       <ChartTooltipContent
                         formatter={(value, name, item) => {
@@ -232,6 +232,10 @@ const Charts = () => {
                           const isTranslated = t.has(
                             `Common.category.${idSerialized}`,
                           );
+                          const amount =
+                            typeof value === 'number'
+                              ? value
+                              : Number(value ?? 0);
 
                           return (
                             <div className="flex flex-col justify-between">
@@ -242,7 +246,7 @@ const Charts = () => {
                               </TypographyLabel>
                               <TypographyLabel className="italic">
                                 {formatCurrency({
-                                  value: parseFloat(value.toString()),
+                                  value: amount,
                                   currency: currency.name,
                                 })}
                               </TypographyLabel>

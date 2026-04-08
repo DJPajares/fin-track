@@ -51,7 +51,7 @@ import {
   useMemo,
   useState,
 } from 'react';
-import { Controller, useForm, useWatch } from 'react-hook-form';
+import { Controller, type Resolver, useForm, useWatch } from 'react-hook-form';
 
 type ExcludedDatesProps = {
   value: string;
@@ -180,7 +180,11 @@ const TransactionDrawerForm = ({
   const [isShowingAllCategories, setIsShowingAllCategories] = useState(false);
 
   const form = useForm<TransactionFormProps>({
-    resolver: zodResolver(transactionSchema),
+    resolver: (
+      zodResolver as unknown as (
+        schema: typeof transactionSchema,
+      ) => Resolver<TransactionFormProps>
+    )(transactionSchema),
     defaultValues: resolvedDefaults,
   });
 
