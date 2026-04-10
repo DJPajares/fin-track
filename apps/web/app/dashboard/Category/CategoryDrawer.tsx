@@ -155,7 +155,7 @@ const CategoryDrawer = ({
       .map((transaction) => ({
         _id: transaction.paymentId,
         transaction: transaction._id,
-        currency: transaction.localAmount.currency._id,
+        currency: transaction.localAmount.currency.value,
         amount: transaction.localAmount.paidAmount,
         date,
       }));
@@ -208,7 +208,7 @@ const CategoryDrawer = ({
           name={t('Page.dashboard.cardDrawer.totalLabel').toLocaleUpperCase()}
           label={formatCurrency({
             value: drawerCategory.totalAmount,
-            currency: currency.name,
+            currency: currency.label,
             decimal: 2,
           })}
           amount={drawerCategory.totalAmount}
@@ -232,8 +232,8 @@ const CategoryDrawer = ({
                       ? transaction.localAmount.amount
                       : transaction.amount,
                     currency: isLocalCurrency
-                      ? transaction.localAmount.currency.name
-                      : currency.name,
+                      ? transaction.localAmount.currency.label
+                      : currency.label,
                     decimal: 2,
                   })}
                   amount={

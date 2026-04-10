@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { dateStringFormat } from '@shared/constants/dateStringFormat';
+import type { ListProps } from '@shared/types/List';
 import moment from 'moment';
 
 type DashboardDateProps = {
@@ -7,10 +8,7 @@ type DashboardDateProps = {
 };
 
 type DashboardCurrencyProps = {
-  currency: {
-    _id: string;
-    name: string;
-  };
+  currency: ListProps;
 };
 
 export type DashboardSliceProps = DashboardDateProps & DashboardCurrencyProps;
@@ -18,8 +16,8 @@ export type DashboardSliceProps = DashboardDateProps & DashboardCurrencyProps;
 const initialState: DashboardSliceProps = {
   date: moment(new Date()).format(dateStringFormat),
   currency: {
-    _id: '',
-    name: '',
+    value: '',
+    label: '',
   },
 };
 

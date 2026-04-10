@@ -6,13 +6,13 @@ import type {
   FetchCategoryRequest,
 } from '@shared/types/Category';
 import type { ErrorProps } from '@shared/types/Error';
+import type { ListProps } from '@shared/types/List';
 import {
   createCustomCategoryApi,
   fetchCategoriesApi,
   updateCategoryApi,
 } from '@web/services/api';
 import type { CategoryItemProps } from '@web/types/Category';
-import type { ListProps } from '@web/types/List';
 
 type MainSliceProps = {
   isLoading: boolean;

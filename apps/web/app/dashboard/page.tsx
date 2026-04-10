@@ -61,11 +61,11 @@ const Dashboard = () => {
   const { data, isFetching, isLoading } = useGetDashboardDataQuery(
     {
       date: dashboardDate,
-      currency: currency.name,
+      currency: currency.label,
       userId,
     },
     {
-      skip: !currency.name || !userId,
+      skip: !currency.label || !userId,
     },
   );
 
@@ -109,7 +109,7 @@ const Dashboard = () => {
     setDate(moment(newDate).toDate());
   };
 
-  if (isLoading || !currency.name) return <Loader />;
+  if (isLoading || !currency.label) return <Loader />;
 
   return (
     <>
@@ -171,7 +171,7 @@ const Dashboard = () => {
                   <TypographyLabel>
                     {formatCurrency({
                       value: totalAmount,
-                      currency: currency.name,
+                      currency: currency.label,
                     })}
                   </TypographyLabel>
                 </div>
@@ -181,7 +181,7 @@ const Dashboard = () => {
                   <TypographyLabel>
                     {formatCurrency({
                       value: extra,
-                      currency: currency.name,
+                      currency: currency.label,
                     })}
                   </TypographyLabel>
                 </div>
@@ -196,7 +196,7 @@ const Dashboard = () => {
                   <TypographyLabel>
                     {formatCurrency({
                       value: balance,
-                      currency: currency.name,
+                      currency: currency.label,
                     })}
                   </TypographyLabel>
                 </div>
@@ -207,7 +207,7 @@ const Dashboard = () => {
                     <TypographyLabel>
                       {formatCurrency({
                         value: totalPaidAmount,
-                        currency: currency.name,
+                        currency: currency.label,
                       })}
                     </TypographyLabel>
                   </div>
@@ -217,7 +217,7 @@ const Dashboard = () => {
                     <TypographyLabel>
                       {formatCurrency({
                         value: totalAmount - totalPaidAmount,
-                        currency: currency.name,
+                        currency: currency.label,
                       })}
                     </TypographyLabel>
                   </div>
@@ -240,7 +240,7 @@ const Dashboard = () => {
                     <div key={category._id}>
                       <CategoryCard
                         category={category}
-                        currency={currency.name}
+                        currency={currency.label}
                         handleCardClick={handleCardClick}
                       />
                     </div>

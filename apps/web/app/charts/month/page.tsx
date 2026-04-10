@@ -65,17 +65,17 @@ const Charts = () => {
     const isTranslated = t.has(`Common.type.${type.id}`);
 
     return {
-      _id: type._id,
-      name: isTranslated ? t(`Common.type.${type.id}`) : type.name,
+      value: type.value,
+      label: isTranslated ? t(`Common.type.${type.id}`) : type.label,
     };
   });
 
   const selectedType = useMemo(() => {
     return (
-      newTypes.find((type) => type._id === selectedTypeId) ??
+      newTypes.find((type) => type.value === selectedTypeId) ??
       newTypes[0] ?? {
-        _id: '',
-        name: '',
+        value: '',
+        label: '',
       }
     );
   }, [newTypes, selectedTypeId]);
@@ -86,12 +86,12 @@ const Charts = () => {
   } = useGetTransactionsByCategoryQuery(
     {
       date,
-      currency: currency.name,
-      type: selectedType._id,
+      currency: currency.label,
+      type: selectedType.value,
       userId,
     },
     {
-      skip: !userId || !currency.name || !selectedType._id,
+      skip: !userId || !currency.label || !selectedType.value,
     },
   );
 
@@ -128,7 +128,7 @@ const Charts = () => {
     return acc;
   }, {} as ChartConfig);
 
-  if (isLoading || !currency.name) return <Loader />;
+  if (isLoading || !currency.label) return <Loader />;
 
   return (
     <>
@@ -156,7 +156,7 @@ const Charts = () => {
             variant="ghost"
             items={newTypes}
             selectedItem={selectedType}
-            setSelectedItem={(item) => setSelectedTypeId(item._id)}
+            setSelectedItem={(item) => setSelectedTypeId(item.value)}
             placeholder={t('Common.label.selectPlaceholder')}
             className="w-fit p-0 text-base font-semibold"
           />
@@ -206,7 +206,7 @@ const Charts = () => {
                               >
                                 {formatCurrency({
                                   value: totalAmount,
-                                  currency: currency.name,
+                                  currency: currency.label,
                                 })}
                               </tspan>
                               <tspan
@@ -247,7 +247,7 @@ const Charts = () => {
                               <TypographyLabel className="italic">
                                 {formatCurrency({
                                   value: amount,
-                                  currency: currency.name,
+                                  currency: currency.label,
                                 })}
                               </TypographyLabel>
                             </div>

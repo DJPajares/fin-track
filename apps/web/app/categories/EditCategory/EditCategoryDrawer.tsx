@@ -1,4 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
+import type { ListProps } from '@shared/types/List';
 import CardIcon, {
   iconMap,
   type IconProps,
@@ -19,7 +20,6 @@ import {
 } from '@web/lib/redux/feature/main/mainSlice';
 import { categorySchema } from '@web/lib/schemas/category';
 import type { CategoryItemProps } from '@web/types/Category';
-import type { ListProps } from '@web/types/List';
 import { EyeOffIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { ReactNode, useRef, useState } from 'react';
@@ -83,7 +83,7 @@ const EditCategoryDrawer = ({
     dispatch(
       updateCategory({
         ...data,
-        type: type?._id || '',
+        type: type?.value || '',
         userId,
         isActive: false,
       }),
@@ -96,7 +96,7 @@ const EditCategoryDrawer = ({
         createCustomCategory({
           name: data.name,
           icon: data.icon,
-          type: type?._id || '',
+          type: type?.value || '',
           isActive: data.isActive,
           userId,
         }),
@@ -105,7 +105,7 @@ const EditCategoryDrawer = ({
       dispatch(
         updateCategory({
           ...data,
-          type: type?._id || '',
+          type: type?.value || '',
           userId,
         }),
       );
@@ -118,7 +118,7 @@ const EditCategoryDrawer = ({
       onOpenChange={setIsDrawerOpen}
       handleSubmit={handleSubmit}
       title={title}
-      description={type?.name}
+      description={type?.label}
       triggerChildren={children}
     >
       <form onSubmit={form.handleSubmit(onSubmit)} ref={formRef}>

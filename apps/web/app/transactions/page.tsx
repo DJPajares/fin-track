@@ -2,6 +2,7 @@
 
 import { ScrollShadow } from '@heroui/react';
 import { dateStringFormat } from '@shared/constants/dateStringFormat';
+import type { ListProps } from '@shared/types/List';
 import TransactionDrawer from '@web/app/dashboard/Transaction/TransactionDrawer';
 import { DatePicker } from '@web/components/shared/DatePicker';
 import Loader from '@web/components/shared/Loader';
@@ -15,7 +16,6 @@ import { Button } from '@web/components/ui/button';
 import { Spinner } from '@web/components/ui/spinner';
 import { useAppSelector } from '@web/lib/hooks/use-redux';
 import { useGetTransactionsQuery } from '@web/lib/redux/services/transactions';
-import type { ListProps } from '@web/types/List';
 import type { TransactionProps } from '@web/types/Transaction';
 import { ChevronLeftIcon, ChevronRightIcon, PlusIcon } from 'lucide-react';
 import moment from 'moment';
@@ -25,8 +25,8 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import TransactionCard from './Transaction/TransactionCard';
 
 const defaultType: ListProps = {
-  _id: '',
-  name: '',
+  value: '',
+  label: '',
 };
 
 const Transactions = () => {
@@ -41,8 +41,8 @@ const Transactions = () => {
     const isTranslated = t.has(`Common.type.${type.id}`);
 
     return {
-      _id: type._id,
-      name: isTranslated ? t(`Common.type.${type.id}`) : type.name,
+      value: type.value,
+      label: isTranslated ? t(`Common.type.${type.id}`) : type.label,
     };
   });
 
@@ -58,7 +58,7 @@ const Transactions = () => {
 
   const selectedType = useMemo(() => {
     return (
-      newTypes.find((type) => type._id === selectedTypeId) ??
+      newTypes.find((type) => type.value === selectedTypeId) ??
       newTypes[0] ??
       defaultType
     );
@@ -70,11 +70,11 @@ const Transactions = () => {
       limit: 8,
       body: {
         date: date.toISOString(),
-        type: selectedType._id,
+        type: selectedType.value,
         userId,
       },
     }),
-    [date, page, selectedType._id, userId],
+    [date, page, selectedType.value, userId],
   );
 
   const {
@@ -84,7 +84,7 @@ const Transactions = () => {
     error,
     refetch,
   } = useGetTransactionsQuery(queryParams, {
-    skip: !selectedType._id || !userId || types.length === 0,
+    skip: !selectedType.value || !userId || types.length === 0,
   });
 
   const transactions: TransactionProps[] = useMemo(() => {
@@ -144,7 +144,7 @@ const Transactions = () => {
   };
 
   const handleTypeChange = (nextType: ListProps) => {
-    setSelectedTypeId(nextType._id);
+    setSelectedTypeId(nextType.value);
     setPage(1);
     scrollToTop();
   };

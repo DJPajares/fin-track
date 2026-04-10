@@ -1,3 +1,4 @@
+import type { ListProps } from '@shared/types/List';
 import {
   Select,
   SelectContent,
@@ -8,7 +9,6 @@ import {
   SelectValue,
 } from '@web/components/ui/select';
 import { cn } from '@web/lib/utils';
-import type { ListProps } from '@web/types/List';
 
 export type SelectBoxProps = {
   variant?: 'default' | 'ghost';
@@ -35,21 +35,23 @@ export const SelectBox = ({
 
   return (
     <Select
-      value={selectedItem._id.toString()}
+      value={selectedItem.value.toString()}
       onValueChange={(value) => {
-        const selected = items.find((item) => item._id.toString() === value);
+        const selected = items.find((item) => item.value.toString() === value);
         if (selected) setSelectedItem(selected);
       }}
     >
       <SelectTrigger className={triggerClassName}>
-        <SelectValue placeholder={placeholder}>{selectedItem.name}</SelectValue>
+        <SelectValue placeholder={placeholder}>
+          {selectedItem.label}
+        </SelectValue>
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
           <SelectLabel>
             {items.map((item) => (
-              <SelectItem key={item._id} value={item._id.toString()}>
-                {item.name}
+              <SelectItem key={item.value} value={item.value.toString()}>
+                {item.label}
               </SelectItem>
             ))}
           </SelectLabel>

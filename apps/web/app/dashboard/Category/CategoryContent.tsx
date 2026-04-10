@@ -152,7 +152,7 @@ const CategoryContent = ({
                   {t('Page.dashboard.cardDrawer.content.outOf', {
                     amount: formatCurrency({
                       value: amount,
-                      currency: currency.name,
+                      currency: currency.label,
                       decimal: 2,
                     }),
                   })}

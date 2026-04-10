@@ -1,5 +1,6 @@
 'use client';
 
+import type { ListProps } from '@shared/types/List';
 import type { LocaleProps } from '@shared/types/Locale';
 import { sortedLanguages } from '@shared/utilities/common';
 import ProfileDrawer from '@web/components/Nav/ProfileDrawer';
@@ -24,7 +25,6 @@ import { logoutSuccess } from '@web/lib/redux/feature/auth/authSlice';
 import { setDashboardCurrency } from '@web/lib/redux/feature/dashboard/dashboardSlice';
 import { logout, updateUserSettings } from '@web/services/auth';
 import { setUserLocale } from '@web/services/locale';
-import type { ListProps } from '@web/types/List';
 import {
   DollarSignIcon,
   GlobeIcon,
@@ -89,7 +89,7 @@ const NavDropdownMenu = ({ children }: NavDropdownMenuProps) => {
 
   const handleCurrencyChange = (currency: ListProps) => {
     dispatch(setDashboardCurrency({ currency }));
-    updateUserSettings({ currency: currency.name }).catch(() => {});
+    updateUserSettings({ currency: currency.label }).catch(() => {});
   };
 
   const handleDarkModeToggle = () => {
@@ -163,17 +163,18 @@ const NavDropdownMenu = ({ children }: NavDropdownMenuProps) => {
               <DropdownMenuPortal>
                 <DropdownMenuSubContent className="max-h-100 overflow-y-auto">
                   {currencies.map((currency) => {
-                    const isSelected = dashboardCurrency.name === currency.name;
+                    const isSelected =
+                      dashboardCurrency.label === currency.label;
                     return (
                       <DropdownMenuCheckboxItem
-                        key={currency._id}
+                        key={currency.value}
                         checked={isSelected}
                         onClick={() => handleCurrencyChange(currency)}
                       >
                         <TypographyLabel
                           className={`${isSelected && 'font-bold'}`}
                         >
-                          {currency.name}
+                          {currency.label}
                         </TypographyLabel>
                       </DropdownMenuCheckboxItem>
                     );

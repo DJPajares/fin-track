@@ -7,8 +7,8 @@ import type {
   FetchCategoryRequest,
 } from '@shared/types/Category';
 import { ErrorProps } from '@shared/types/Error';
+import type { ListProps } from '@shared/types/List';
 import type { CurrencyProps } from '@web/types/Currency';
-import type { ListProps } from '@web/types/List';
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || '';
 
@@ -27,8 +27,8 @@ const normalizeTypeOptions = (
   types: Array<{ _id: string; name: string; id?: string }>,
 ): TypeOption[] => {
   return types.map((type) => ({
-    _id: type._id,
-    name: type.name,
+    value: type._id,
+    label: type.name,
     id: type.id || type.name.toLowerCase(),
   }));
 };

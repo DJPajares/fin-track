@@ -71,11 +71,15 @@ export function LoginForm({
         if (currency) {
           try {
             const currencyData = await fetchCurrencyByName(currency);
-            dispatch(setDashboardCurrency({ currency: currencyData }));
+            dispatch(
+              setDashboardCurrency({
+                currency: { value: currencyData._id, label: currencyData.name },
+              }),
+            );
           } catch (error) {
             console.error('Failed to fetch currency:', error);
             // Fallback: set currency with name only
-            const dashboardCurrency = { _id: '', name: currency };
+            const dashboardCurrency = { value: '', label: currency };
             dispatch(setDashboardCurrency({ currency: dashboardCurrency }));
           }
         }

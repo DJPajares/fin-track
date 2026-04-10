@@ -1,4 +1,5 @@
 import { excludedDateStringFormat } from '@shared/constants/dateStringFormat';
+import type { ListProps } from '@shared/types/List';
 import TransactionDrawerForm, {
   type SubmitTransactionProps,
 } from '@web/components/Form/TransactionDrawerForm';
@@ -11,7 +12,6 @@ import {
   useUpdateTransactionMutation,
 } from '@web/lib/redux/services/transactions';
 import type { TransactionFormProps } from '@web/lib/schemas/transaction';
-import type { ListProps } from '@web/types/List';
 import type { TransactionProps } from '@web/types/Transaction';
 import moment from 'moment';
 import { useTranslations } from 'next-intl';
@@ -49,16 +49,16 @@ const EditTransactionDrawer = ({
   );
 
   const [type, setType] = useState<ListProps>({
-    _id: transaction.typeId,
-    name: transaction.typeName,
+    value: transaction.typeId,
+    label: transaction.typeName,
   });
 
   const newTypes = types.map((type) => {
     const isTranslated = t.has(`Common.type.${type.id}`);
 
     return {
-      _id: type._id,
-      name: isTranslated ? t(`Common.type.${type.id}`) : type.name,
+      value: type.value,
+      label: isTranslated ? t(`Common.type.${type.id}`) : type.label,
     };
   });
 
@@ -87,13 +87,13 @@ const EditTransactionDrawer = ({
   };
 
   useEffect(() => {
-    if (type._id && newTypes.length > 0) {
-      const updatedType = newTypes.find((t) => t._id === type._id);
-      if (updatedType && updatedType.name !== type.name) {
+    if (type.value && newTypes.length > 0) {
+      const updatedType = newTypes.find((t) => t.value === type.value);
+      if (updatedType && updatedType.label !== type.label) {
         setType(updatedType);
       }
     }
-  }, [newTypes, type._id, type.name]);
+  }, [newTypes, type.value, type.label]);
 
   const submitTransaction = async (postData: SubmitTransactionProps) => {
     try {
@@ -106,7 +106,7 @@ const EditTransactionDrawer = ({
         await lazyGetTransactions({
           page: 1,
           limit: 8,
-          body: { type: type._id, date: date.toISOString(), userId },
+          body: { type: type.value, date: date.toISOString(), userId },
         });
 
         // Invalidate dashboard cache to refresh data
@@ -134,7 +134,7 @@ const EditTransactionDrawer = ({
       await lazyGetTransactions({
         page: 1,
         limit: 8,
-        body: { type: type._id, date: date.toISOString(), userId },
+        body: { type: type.value, date: date.toISOString(), userId },
       });
 
       // Invalidate dashboard cache to refresh data
@@ -167,7 +167,7 @@ const EditTransactionDrawer = ({
       triggerChildren={children}
     >
       <TransactionDrawerForm
-        key={`${type._id || 'type'}-${defaultValues.id || 'edit'}-${defaultValues.startDate.toISOString()}-${defaultValues.endDate?.toISOString() || defaultValues.startDate.toISOString()}-${defaultValues.currency}-${defaultValues.category}-${defaultValues.amount}`}
+        key={`${type.value || 'type'}-${defaultValues.id || 'edit'}-${defaultValues.startDate.toISOString()}-${defaultValues.endDate?.toISOString() || defaultValues.startDate.toISOString()}-${defaultValues.currency}-${defaultValues.category}-${defaultValues.amount}`}
         type={type}
         typeOptions={newTypes}
         onTypeChange={setType}

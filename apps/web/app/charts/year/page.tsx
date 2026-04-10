@@ -100,11 +100,11 @@ const Charts = () => {
       {
         startDate: moment(selectedYear, 'YYYY').startOf('year').toDate(),
         endDate: moment(selectedYear, 'YYYY').endOf('year').toDate(),
-        currency: currency.name,
+        currency: currency.label,
         userId,
       },
       {
-        skip: !userId || !currency.name,
+        skip: !userId || !currency.label,
       },
     );
 
@@ -113,12 +113,12 @@ const Charts = () => {
       {
         startDate: moment(selectedYear, 'YYYY').startOf('year').toDate(),
         endDate: moment(selectedYear, 'YYYY').endOf('year').toDate(),
-        currency: currency.name,
+        currency: currency.label,
         userId,
         category: 'savings',
       },
       {
-        skip: !userId || !currency.name,
+        skip: !userId || !currency.label,
       },
     );
 
@@ -207,7 +207,7 @@ const Charts = () => {
     },
   } satisfies ChartConfig;
 
-  if (isLoading || !currency.name) return <Loader />;
+  if (isLoading || !currency.label) return <Loader />;
 
   return (
     <>
@@ -265,7 +265,7 @@ const Charts = () => {
                 <YAxis
                   axisLine={false}
                   tickFormatter={(value) =>
-                    formatCurrency({ value, currency: currency.name })
+                    formatCurrency({ value, currency: currency.label })
                   }
                 />
               )}
@@ -280,7 +280,7 @@ const Charts = () => {
 
                       return formatCurrency({
                         value: amount,
-                        currency: currency.name,
+                        currency: currency.label,
                       });
                     }}
                   />
@@ -320,7 +320,7 @@ const Charts = () => {
                 <YAxis
                   axisLine={false}
                   tickFormatter={(value) =>
-                    formatCurrency({ value, currency: currency.name })
+                    formatCurrency({ value, currency: currency.label })
                   }
                 />
               )}
@@ -361,7 +361,7 @@ const Charts = () => {
 
                         return formatCurrency({
                           value: amount,
-                          currency: currency.name,
+                          currency: currency.label,
                         });
                       }}
                     />

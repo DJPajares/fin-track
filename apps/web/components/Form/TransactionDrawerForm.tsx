@@ -1,5 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { excludedDateStringFormat } from '@shared/constants/dateStringFormat';
+import type { ListProps } from '@shared/types/List';
 import CardButton from '@web/components/shared/CardButton';
 import type { IconProps } from '@web/components/shared/CardIcon';
 import ConfirmationDialog from '@web/components/shared/ConfirmationDialog';
@@ -37,7 +38,6 @@ import {
 } from '@web/lib/schemas/transaction';
 import { cn } from '@web/lib/utils';
 import type { CategoryItemProps } from '@web/types/Category';
-import type { ListProps } from '@web/types/List';
 import { CalendarIcon, ChevronDownIcon, Trash2Icon } from 'lucide-react';
 import moment from 'moment';
 import { useTranslations } from 'next-intl';
@@ -118,7 +118,7 @@ const TransactionDrawerForm = ({
     const start = defaultValues?.startDate ?? today;
     const end = defaultValues?.endDate ?? start;
     const currencyFallback =
-      defaultValues?.currency || currencies[0]?._id || '';
+      defaultValues?.currency || currencies[0]?.value || '';
 
     return {
       id: defaultValues?.id,
@@ -368,8 +368,11 @@ const TransactionDrawerForm = ({
                     <SelectContent>
                       <SelectGroup>
                         {currencies.map((currency) => (
-                          <SelectItem key={currency._id} value={currency._id}>
-                            {currency.name}
+                          <SelectItem
+                            key={currency.value}
+                            value={currency.value}
+                          >
+                            {currency.label}
                           </SelectItem>
                         ))}
                       </SelectGroup>
@@ -436,12 +439,12 @@ const TransactionDrawerForm = ({
 
             <div className="grid grid-cols-2 gap-2">
               {typeOptions.map((option) => {
-                const isActive = option._id === type._id;
+                const isActive = option.value === type.value;
 
                 return (
                   <CardButton
-                    key={option._id}
-                    label={option.name}
+                    key={option.value}
+                    label={option.label}
                     handleOnClick={() => onTypeChange(option)}
                     isActive={isActive}
                   />
@@ -465,7 +468,7 @@ const TransactionDrawerForm = ({
             render={({ field, fieldState }) => {
               const filteredCategories = categories.filter(
                 (category) =>
-                  category.type._id === type._id && category.isActive,
+                  category.type.value === type.value && category.isActive,
               );
               const previewCategories = filteredCategories.slice(
                 0,

@@ -2,10 +2,7 @@
 
 import { STORAGE_KEYS } from '@web/constants/storageKeys';
 import { useAppDispatch, useAppSelector } from '@web/lib/hooks/use-redux';
-import {
-  DashboardSliceProps,
-  setDashboardCurrency,
-} from '@web/lib/redux/feature/dashboard/dashboardSlice';
+import { setDashboardCurrency } from '@web/lib/redux/feature/dashboard/dashboardSlice';
 import {
   fetchCategories,
   setCurrencies,
@@ -42,11 +39,18 @@ export const ClientDataProvider = ({ children }: ClientDataProviderProps) => {
           return a.name.localeCompare(b.name);
         },
       );
-      dispatch(setCurrencies(sortedCurrencies));
+      dispatch(
+        setCurrencies(
+          sortedCurrencies.map((c: CurrencyProps) => ({
+            value: c._id,
+            label: c.name,
+          })),
+        ),
+      );
 
       // Set initial dashboard currency (if not set)
       // Currency is set during login from user settings
-      if (sortedCurrencies.length > 0 && !currency.name) {
+      if (sortedCurrencies.length > 0 && !currency.label) {
         // Try to load from localStorage first
         const storedCurrency = localStorage.getItem(STORAGE_KEYS.USER_CURRENCY);
         let defaultCurrency: CurrencyProps | undefined;
@@ -66,15 +70,17 @@ export const ClientDataProvider = ({ children }: ClientDataProviderProps) => {
         if (!defaultCurrency) {
           defaultCurrency =
             sortedCurrencies.find(
-              (currency: DashboardSliceProps['currency']) =>
-                currency.name === 'SGD',
+              (currency: CurrencyProps) => currency.name === 'SGD',
             ) || sortedCurrencies[0];
         }
 
         if (defaultCurrency) {
           dispatch(
             setDashboardCurrency({
-              currency: defaultCurrency,
+              currency: {
+                value: defaultCurrency._id,
+                label: defaultCurrency.name,
+              },
             }),
           );
         }
@@ -84,11 +90,11 @@ export const ClientDataProvider = ({ children }: ClientDataProviderProps) => {
     if (isAuthenticated && !isLoading) {
       fetchData();
     }
-  }, [dispatch, currency.name, isAuthenticated, isLoading, userId]);
+  }, [dispatch, currency.label, isAuthenticated, isLoading, userId]);
 
   // Automatically sync currency to localStorage whenever it changes
   useEffect(() => {
-    if (currency.name) {
+    if (currency.label) {
       localStorage.setItem(
         STORAGE_KEYS.USER_CURRENCY,
         JSON.stringify(currency),

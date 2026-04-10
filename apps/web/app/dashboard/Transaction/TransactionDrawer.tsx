@@ -1,4 +1,5 @@
 import { dateStringFormat } from '@shared/constants/dateStringFormat';
+import type { ListProps } from '@shared/types/List';
 import TransactionDrawerForm, {
   type SubmitTransactionProps,
   type TransactionDrawerFormRef,
@@ -8,7 +9,6 @@ import { useAppSelector } from '@web/lib/hooks/use-redux';
 import { useLazyGetDashboardDataQuery } from '@web/lib/redux/services/dashboard';
 import { useCreateTransactionMutation } from '@web/lib/redux/services/transactions';
 import type { TransactionFormProps } from '@web/lib/schemas/transaction';
-import type { ListProps } from '@web/types/List';
 import moment from 'moment';
 import { useTranslations } from 'next-intl';
 import {
@@ -45,8 +45,8 @@ const TransactionDrawer = ({
   const dashboard = useAppSelector((state) => state.dashboard);
 
   const [type, setType] = useState<ListProps>({
-    _id: '',
-    name: '',
+    value: '',
+    label: '',
   });
   const [storedFormValues, setStoredFormValues] =
     useState<TransactionFormProps | null>(null);
@@ -64,8 +64,8 @@ const TransactionDrawer = ({
     const isTranslated = t.has(`Common.type.${type.id}`);
 
     return {
-      _id: type._id,
-      name: isTranslated ? t(`Common.type.${type.id}`) : type.name,
+      value: type.value,
+      label: isTranslated ? t(`Common.type.${type.id}`) : type.label,
     };
   });
 
@@ -78,7 +78,7 @@ const TransactionDrawer = ({
       storedFormValues || {
         category: '',
         name: '',
-        currency: dashboard.currency._id,
+        currency: dashboard.currency.value,
         amount: 0,
         description: '',
         isRecurring: false,
@@ -86,12 +86,12 @@ const TransactionDrawer = ({
         endDate: date,
         excludedDates: [],
       },
-    [storedFormValues, dashboard.currency._id, date],
+    [storedFormValues, dashboard.currency.value, date],
   );
 
   useEffect(() => {
     if (types && types.length > 0) {
-      if (defaultType && defaultType._id) {
+      if (defaultType && defaultType.value) {
         setType(defaultType);
       } else {
         setType(types[0]);
@@ -101,13 +101,13 @@ const TransactionDrawer = ({
 
   // Update type name when translations change
   useEffect(() => {
-    if (type._id && newTypes.length > 0) {
-      const updatedType = newTypes.find((t) => t._id === type._id);
-      if (updatedType && updatedType.name !== type.name) {
+    if (type.value && newTypes.length > 0) {
+      const updatedType = newTypes.find((t) => t.value === type.value);
+      if (updatedType && updatedType.label !== type.label) {
         setType(updatedType);
       }
     }
-  }, [newTypes, type._id, type.name]);
+  }, [newTypes, type.value, type.label]);
 
   const formRef = useRef<HTMLFormElement>(null);
   const resetFormRef = useRef<TransactionDrawerFormRef>(null);
@@ -132,7 +132,7 @@ const TransactionDrawer = ({
         } else {
           await fetchDashboardData({
             date,
-            currency: dashboard.currency.name,
+            currency: dashboard.currency.label,
             userId,
           });
         }
@@ -180,7 +180,7 @@ const TransactionDrawer = ({
       description={t('Page.dashboard.transactionDrawer.description')}
     >
       <TransactionDrawerForm
-        key={`${type._id || 'type'}-${defaultValues.id || 'new'}-${defaultValues.startDate.toISOString()}-${defaultValues.endDate?.toISOString() || defaultValues.startDate.toISOString()}-${defaultValues.currency}-${defaultValues.category}-${defaultValues.amount}`}
+        key={`${type.value || 'type'}-${defaultValues.id || 'new'}-${defaultValues.startDate.toISOString()}-${defaultValues.endDate?.toISOString() || defaultValues.startDate.toISOString()}-${defaultValues.currency}-${defaultValues.category}-${defaultValues.amount}`}
         type={type}
         typeOptions={newTypes}
         onTypeChange={setType}
