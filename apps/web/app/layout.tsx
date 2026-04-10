@@ -77,7 +77,7 @@ export default async function RootLayout({
       >
         <NextIntlClientProvider messages={messages}>
           <Providers>
-            <main className="bg-background" vaul-drawer-wrapper="">
+            <main className="bg-background">
               <NavBar>
                 <div className="mx-auto max-w-5xl justify-center">
                   <div className="flex min-h-[calc(100dvh-3rem)] flex-col gap-4 p-4 sm:min-h-[calc(100dvh-3.5rem)] sm:gap-8 sm:p-8">

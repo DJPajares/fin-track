@@ -66,11 +66,7 @@ const CustomDrawer = ({
       {isLoading && <Loader />}
 
       {isMobile ? (
-        <Drawer
-          open={open}
-          onOpenChange={onOpenChange}
-          repositionInputs={false}
-        >
+        <Drawer open={open} onOpenChange={onOpenChange}>
           {triggerChildren && (
             <DrawerTrigger asChild>{triggerChildren}</DrawerTrigger>
           )}
@@ -115,11 +111,7 @@ const CustomDrawer = ({
           </DrawerContent>
         </Drawer>
       ) : (
-        <Drawer
-          open={open}
-          onOpenChange={onOpenChange}
-          repositionInputs={false}
-        >
+        <Drawer open={open} onOpenChange={onOpenChange}>
           <DrawerTrigger asChild>{triggerChildren}</DrawerTrigger>
 
           <DrawerContent aria-describedby={description}>
