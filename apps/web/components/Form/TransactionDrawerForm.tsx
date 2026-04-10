@@ -350,6 +350,7 @@ const TransactionDrawerForm = ({
                     {t('Page.dashboard.transactionDrawer.form.title.currency')}
                   </FieldLabel>
                   <Select
+                    items={currencies}
                     name={field.name}
                     value={field.value}
                     onValueChange={field.onChange}
@@ -468,7 +469,7 @@ const TransactionDrawerForm = ({
             render={({ field, fieldState }) => {
               const filteredCategories = categories.filter(
                 (category) =>
-                  category.type.value === type.value && category.isActive,
+                  category.type._id === type.value && category.isActive,
               );
               const previewCategories = filteredCategories.slice(
                 0,
