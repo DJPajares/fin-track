@@ -10,6 +10,19 @@ import { TypographyLabel } from '@web/components/shared/Typography';
 import { Button } from '@web/components/ui/button';
 import { Card, CardContent } from '@web/components/ui/card';
 import { Checkbox } from '@web/components/ui/checkbox';
+// import {
+//   Combobox,
+//   ComboboxChip,
+//   ComboboxChips,
+//   ComboboxChipsInput,
+//   ComboboxContent,
+//   ComboboxEmpty,
+//   ComboboxInput,
+//   ComboboxItem,
+//   ComboboxList,
+//   ComboboxValue,
+//   useComboboxAnchor,
+// } from '@web/components/ui/combobox';
 import {
   Field,
   FieldError,
@@ -41,7 +54,7 @@ import type { CategoryItemProps } from '@web/types/Category';
 import { CalendarIcon, ChevronDownIcon, Trash2Icon } from 'lucide-react';
 import moment from 'moment';
 import { useTranslations } from 'next-intl';
-import {
+import React, {
   Dispatch,
   RefObject,
   SetStateAction,
@@ -109,6 +122,7 @@ const TransactionDrawerForm = ({
   resetFormRef,
 }: TransactionDrawerFormProps) => {
   const t = useTranslations();
+  // const anchor = useComboboxAnchor();
 
   const { user } = useAppSelector((state) => state.auth);
   const userId = user?.id || '';
@@ -682,6 +696,53 @@ const TransactionDrawerForm = ({
                           'Page.dashboard.transactionDrawer.form.placeholder.excludedDates',
                         )}
                       />
+                      {/* <Combobox
+                        items={excludedDatesArray}
+                        value={field.value}
+                        onInputValueChange={field.onChange}
+                        multiple
+                      >
+                        <ComboboxChips ref={anchor} className="w-full max-w-xs">
+                          <ComboboxValue>
+                            {(values) => {
+                              console.log(
+                                'Rendering ComboboxValue with values:',
+                                values,
+                              );
+                              return (
+                                <React.Fragment>
+                                  {values.map((value: string) => (
+                                    <ComboboxChip key={value}>
+                                      {value}
+                                    </ComboboxChip>
+                                  ))}
+                                  <ComboboxChipsInput />
+                                </React.Fragment>
+                              );
+                            }}
+                          </ComboboxValue>
+                        </ComboboxChips>
+                        <ComboboxContent anchor={anchor}>
+                          <ComboboxEmpty>No items found.</ComboboxEmpty>
+                          <ComboboxList>
+                            {(item) => {
+                              console.log(
+                                'Rendering item in ComboboxList:',
+                                item,
+                              );
+
+                              return (
+                                <ComboboxItem
+                                  key={item.value}
+                                  value={item.value}
+                                >
+                                  {item.label}
+                                </ComboboxItem>
+                              );
+                            }}
+                          </ComboboxList>
+                        </ComboboxContent>
+                      </Combobox> */}
                       {fieldState.invalid && (
                         <FieldError errors={[fieldState.error]} />
                       )}
