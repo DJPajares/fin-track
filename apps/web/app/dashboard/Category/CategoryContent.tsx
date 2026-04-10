@@ -1,10 +1,11 @@
-import { Card, Checkbox, Progress } from '@heroui/react';
 import { formatCurrency } from '@shared/utilities/formatCurrency';
 import {
   TypographyLabel,
   TypographyMuted,
 } from '@web/components/shared/Typography';
 import { Button } from '@web/components/ui/button';
+import { Card } from '@web/components/ui/card';
+import { Checkbox } from '@web/components/ui/checkbox';
 import {
   Dialog,
   DialogContent,
@@ -14,6 +15,11 @@ import {
   DialogTitle,
 } from '@web/components/ui/dialog';
 import { Input } from '@web/components/ui/input';
+import {
+  Progress,
+  ProgressLabel,
+  ProgressValue,
+} from '@web/components/ui/progress';
 import type { DashboardSelectionItemsProps } from '@web/types/Dashboard';
 import type {
   TransactionDataUpdateProps,
@@ -89,9 +95,8 @@ const CategoryContent = ({
         >
           <div className="flex flex-row items-center justify-center gap-2">
             <Checkbox
-              aria-label="category_content"
-              isSelected={isCompleted}
-              onValueChange={() =>
+              checked={isCompleted}
+              onCheckedChange={() =>
                 handleTransactionDataUpdate({
                   _id,
                   paidAmountPercentage: isCompleted ? 0 : 1,
@@ -108,22 +113,10 @@ const CategoryContent = ({
                 <TypographyLabel className={`${isTotal && 'font-extrabold'}`}>
                   {name}
                 </TypographyLabel>
-
-                <Progress
-                  label={label}
-                  value={paidAmountPercentage}
-                  size="sm"
-                  radius="sm"
-                  showValueLabel={true}
-                  classNames={{
-                    label: `${
-                      isTotal &&
-                      'text-base font-semibold truncate hover:text-clip'
-                    }`,
-                    value: `${isTotal && 'text-base font-semibold'}`,
-                    indicator: 'bg-primary',
-                  }}
-                />
+                <Progress value={paidAmountPercentage}>
+                  <ProgressLabel>{label}</ProgressLabel>
+                  <ProgressValue />
+                </Progress>
               </div>
             </div>
           </div>

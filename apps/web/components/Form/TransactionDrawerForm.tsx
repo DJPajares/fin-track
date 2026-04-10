@@ -510,19 +510,21 @@ const TransactionDrawerForm = ({
 
                       return (
                         <Tooltip key={_id}>
-                          <TooltipTrigger>
-                            <span>
-                              <CardButton
-                                label={label}
-                                handleOnClick={() =>
-                                  field.onChange(isSelected ? '' : _id)
-                                }
-                                isActive={isSelected}
-                                size="md"
-                                icon={icon as IconProps}
-                              />
-                            </span>
-                          </TooltipTrigger>
+                          <TooltipTrigger
+                            render={
+                              <span>
+                                <CardButton
+                                  label={label}
+                                  handleOnClick={() =>
+                                    field.onChange(isSelected ? '' : _id)
+                                  }
+                                  isActive={isSelected}
+                                  size="md"
+                                  icon={icon as IconProps}
+                                />
+                              </span>
+                            }
+                          />
                           {t.has(`Common.tooltip.category.${id}`) && (
                             <TooltipContent>
                               <p>{t(`Common.tooltip.category.${id}`)}</p>

@@ -144,7 +144,7 @@ const CustomDrawer = ({
                     {okButtonLabel || t('Common.button.save')}
                   </Button>
                 </ConfirmationDialog>
-                <DrawerClose asChild>
+                <DrawerClose>
                   <Button
                     variant="outline"
                     disabled={isLoading}

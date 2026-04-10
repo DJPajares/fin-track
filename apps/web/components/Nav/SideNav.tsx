@@ -41,19 +41,21 @@ const SideNav = () => {
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
-            <Link href="/" onClick={handleLinkClick} passHref>
-              <SidebarMenuButton size="lg" className="flex flex-row gap-3">
-                <div className="bg-primary text-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
-                  <TrendingUpIcon className="size-4" />
-                </div>
+            <SidebarMenuButton
+              render={<Link href="/" onClick={handleLinkClick} />}
+              size="lg"
+              className="flex flex-row gap-3"
+            >
+              <div className="bg-primary text-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
+                <TrendingUpIcon className="size-4" />
+              </div>
 
-                <div className="grid flex-1 text-left leading-tight">
-                  <TypographyLabel className="uppercase">
-                    {CONSTANTS.APP_NAME}
-                  </TypographyLabel>
-                </div>
-              </SidebarMenuButton>
-            </Link>
+              <div className="grid flex-1 text-left leading-tight">
+                <TypographyLabel className="uppercase">
+                  {CONSTANTS.APP_NAME}
+                </TypographyLabel>
+              </div>
+            </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
@@ -70,54 +72,61 @@ const SideNav = () => {
               >
                 <SidebarMenuItem>
                   {item.items?.length ? (
-                    <CollapsibleTrigger>
-                      <SidebarMenuButton
-                        className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
-                        size="lg"
-                        tooltip={item.label}
-                      >
-                        <div className="text-muted-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
-                          {item.icon && <item.icon />}
-                        </div>
+                    <CollapsibleTrigger
+                      render={
+                        <SidebarMenuButton
+                          className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+                          size="lg"
+                          title={t(item.value)}
+                        >
+                          <div className="text-muted-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
+                            {item.icon && <item.icon />}
+                          </div>
 
-                        <div className="grid flex-1 text-left leading-tight">
-                          <TypographyLabel>{t(item.value)}</TypographyLabel>
-                        </div>
+                          <div className="grid flex-1 text-left leading-tight">
+                            <TypographyLabel>{t(item.value)}</TypographyLabel>
+                          </div>
 
-                        <ChevronRightIcon className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
-                      </SidebarMenuButton>
-                    </CollapsibleTrigger>
+                          <ChevronRightIcon className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
+                        </SidebarMenuButton>
+                      }
+                    />
                   ) : (
-                    <Link href={item.route} onClick={handleLinkClick} passHref>
-                      <SidebarMenuButton size="lg" tooltip={item.label}>
-                        <div className="text-muted-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
-                          {item.icon && <item.icon />}
-                        </div>
+                    <SidebarMenuButton
+                      render={
+                        <Link href={item.route} onClick={handleLinkClick} />
+                      }
+                      size="lg"
+                      title={t(item.value)}
+                    >
+                      <div className="text-muted-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
+                        {item.icon && <item.icon />}
+                      </div>
 
-                        <div className="grid flex-1 text-left leading-tight">
-                          <TypographyLabel>{t(item.value)}</TypographyLabel>
-                        </div>
-                      </SidebarMenuButton>
-                    </Link>
+                      <div className="grid flex-1 text-left leading-tight">
+                        <TypographyLabel>{t(item.value)}</TypographyLabel>
+                      </div>
+                    </SidebarMenuButton>
                   )}
 
                   <CollapsibleContent>
                     <SidebarMenuSub>
                       {item.items?.map((subItem) => (
                         <SidebarMenuSubItem key={subItem.value}>
-                          <Link
-                            href={subItem.route}
-                            onClick={handleLinkClick}
-                            passHref
+                          <SidebarMenuSubButton
+                            render={
+                              <Link
+                                href={subItem.route}
+                                onClick={handleLinkClick}
+                              />
+                            }
                           >
-                            <SidebarMenuSubButton>
-                              <div className="grid flex-1 text-left leading-tight">
-                                <TypographyLabel>
-                                  {t(subItem.value)}
-                                </TypographyLabel>
-                              </div>
-                            </SidebarMenuSubButton>
-                          </Link>
+                            <div className="grid flex-1 text-left leading-tight">
+                              <TypographyLabel>
+                                {t(subItem.value)}
+                              </TypographyLabel>
+                            </div>
+                          </SidebarMenuSubButton>
                         </SidebarMenuSubItem>
                       ))}
                     </SidebarMenuSub>

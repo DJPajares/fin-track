@@ -1,6 +1,6 @@
 'use client';
 
-import { CircularProgress, ScrollShadow } from '@heroui/react';
+import { ScrollShadow } from '@heroui/react';
 import { dateStringFormat } from '@shared/constants/dateStringFormat';
 import TransactionDrawer from '@web/app/dashboard/Transaction/TransactionDrawer';
 import { DatePicker } from '@web/components/shared/DatePicker';
@@ -12,6 +12,7 @@ import {
   TypographyMuted,
 } from '@web/components/shared/Typography';
 import { Button } from '@web/components/ui/button';
+import { Spinner } from '@web/components/ui/spinner';
 import { useAppSelector } from '@web/lib/hooks/use-redux';
 import { useGetTransactionsQuery } from '@web/lib/redux/services/transactions';
 import type { ListProps } from '@web/types/List';
@@ -205,7 +206,7 @@ const Transactions = () => {
           className="h-[70vh] overflow-y-auto"
           hideScrollBar
         >
-          <div className="space-y-4">
+          <div className="flex flex-col gap-4">
             {transactions.length > 0 &&
               transactions.map((transaction) => (
                 <TransactionCard
@@ -216,8 +217,8 @@ const Transactions = () => {
               ))}
 
             {isLoadingMore && (
-              <div className="flex justify-center py-4">
-                <CircularProgress size="sm" aria-label="Loading more..." />
+              <div className="flex items-center justify-center gap-6">
+                <Spinner className="size-6" />
               </div>
             )}
 
