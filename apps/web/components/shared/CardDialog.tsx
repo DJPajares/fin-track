@@ -28,9 +28,9 @@ type CardDialogProps = {
 const Content = ({ title, isExpandable, children }: CardDialogProps) =>
   isExpandable ? (
     <Dialog>
-      <DialogTrigger
-        render={<div className={`${title && 'my-2'}`}>{children}</div>}
-      />
+      <DialogTrigger>
+        <div className={`${title && 'my-2'}`}>{children}</div>
+      </DialogTrigger>
 
       <DialogContent className="max-w-xs justify-center">
         <DialogHeader>

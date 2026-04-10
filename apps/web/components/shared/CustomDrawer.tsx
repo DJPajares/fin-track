@@ -77,7 +77,7 @@ const CustomDrawer = ({
                 <div className="grid grid-cols-3 items-center gap-2">
                   <div className="justify-self-start">
                     <Button
-                      variant="secondary"
+                      variant="ghost"
                       onClick={handleCancel}
                       disabled={isLoading}
                     >
