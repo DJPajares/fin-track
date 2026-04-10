@@ -33,7 +33,7 @@ const TransactionCard = ({ date, transaction }: TransactionCardProps) => {
         isDrawerOpen={isDrawerOpen}
         setIsDrawerOpen={setIsDrawerOpen}
       >
-        <Card className="cursor-pointer">
+        <Card className="w-full cursor-pointer">
           <CardContent className="flex items-center gap-4">
             <CardIcon
               icon={transaction.categoryIcon}

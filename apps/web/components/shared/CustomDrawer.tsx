@@ -71,7 +71,9 @@ const CustomDrawer = ({
           onOpenChange={onOpenChange}
           repositionInputs={false}
         >
-          {triggerChildren && <DrawerTrigger>{triggerChildren}</DrawerTrigger>}
+          {triggerChildren && (
+            <DrawerTrigger asChild>{triggerChildren}</DrawerTrigger>
+          )}
 
           <DrawerContent aria-describedby="">
             <div className="mx-auto flex w-full flex-col overflow-hidden">
@@ -118,34 +120,33 @@ const CustomDrawer = ({
           onOpenChange={onOpenChange}
           repositionInputs={false}
         >
-          <DrawerTrigger>{triggerChildren}</DrawerTrigger>
+          <DrawerTrigger asChild>{triggerChildren}</DrawerTrigger>
 
           <DrawerContent aria-describedby={description}>
-            <div className="mx-auto w-full max-w-sm overflow-hidden">
-              <DrawerHeader>
+            <div className="mx-auto flex w-full max-w-sm flex-col overflow-hidden">
+              <DrawerHeader className="shrink-0">
                 <DrawerTitle>{title}</DrawerTitle>
                 <DrawerDescription>{description}</DrawerDescription>
               </DrawerHeader>
 
-              {/* <div className="flex-1 overflow-y-auto p-4">{children}</div> */}
-
-              <div className="overflow-y-auto p-4">
+              <div className="flex-1 overflow-y-auto p-4">
                 <div className="mx-auto w-full max-w-sm">{children}</div>
               </div>
 
-              <DrawerFooter>
+              <DrawerFooter className="shrink-0">
                 <ConfirmationDialog
                   title={t('Common.alertDialog.save.title')}
                   description={t('Common.alertDialog.save.description')}
                   ok={t('Common.alertDialog.save.okButton')}
                   handleSubmit={handleSubmitWithLoading}
                 >
-                  <Button disabled={isLoading}>
+                  <Button className="w-full" disabled={isLoading}>
                     {okButtonLabel || t('Common.button.save')}
                   </Button>
                 </ConfirmationDialog>
-                <DrawerClose>
+                <DrawerClose asChild>
                   <Button
+                    className="w-full"
                     variant="outline"
                     disabled={isLoading}
                     onClick={handleCancel}
