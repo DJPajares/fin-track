@@ -6,7 +6,10 @@ import type { IconProps } from '@web/components/shared/CardIcon';
 import ConfirmationDialog from '@web/components/shared/ConfirmationDialog';
 import { DatePicker } from '@web/components/shared/DatePicker';
 import { MultiSelectBox } from '@web/components/shared/MultiSelectBox';
-import { TypographyLabel } from '@web/components/shared/Typography';
+import {
+  TypographyCaption,
+  TypographyLabel,
+} from '@web/components/shared/Typography';
 import { Button } from '@web/components/ui/button';
 import { Card, CardContent } from '@web/components/ui/card';
 import { Checkbox } from '@web/components/ui/checkbox';
@@ -28,8 +31,15 @@ import {
   FieldError,
   FieldGroup,
   FieldLabel,
+  FieldSeparator,
 } from '@web/components/ui/field';
 import { Input } from '@web/components/ui/input';
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupInput,
+} from '@web/components/ui/input-group';
 import {
   Select,
   SelectContent,
@@ -39,6 +49,7 @@ import {
   SelectValue,
 } from '@web/components/ui/select';
 import { Textarea } from '@web/components/ui/textarea';
+// import { ToggleGroup, ToggleGroupItem } from '@web/components/ui/toggle-group';
 import {
   Tooltip,
   TooltipContent,
@@ -51,7 +62,7 @@ import {
 } from '@web/lib/schemas/transaction';
 import { cn } from '@web/lib/utils';
 import type { CategoryItemProps } from '@web/types/Category';
-import { CalendarIcon, ChevronDownIcon, Trash2Icon } from 'lucide-react';
+import { CalendarIcon, ChevronDownIcon, Trash2Icon, XIcon } from 'lucide-react';
 import moment from 'moment';
 import { useTranslations } from 'next-intl';
 import React, {
@@ -321,8 +332,8 @@ const TransactionDrawerForm = ({
       onSubmit={form.handleSubmit(onSubmit, onInvalidSubmit)}
       className="flex flex-col gap-4"
     >
-      <Card className="bg-background/60 dark:bg-default-100/50 border-none">
-        <CardContent className="flex flex-col gap-4 p-5">
+      <Card size="sm">
+        <CardContent>
           <FieldGroup>
             <Controller
               control={form.control}
@@ -343,7 +354,6 @@ const TransactionDrawerForm = ({
                       'Page.dashboard.transactionDrawer.form.placeholder.title',
                     )}
                     autoComplete="off"
-                    className="h-11 rounded-xl"
                   />
                   {fieldState.invalid && (
                     <FieldError errors={[fieldState.error]} />
@@ -372,12 +382,12 @@ const TransactionDrawerForm = ({
                     <SelectTrigger
                       id="form-currency"
                       aria-invalid={fieldState.invalid}
-                      className="h-12 rounded-xl border-2"
                     >
                       <SelectValue
                         placeholder={t(
                           'Page.dashboard.transactionDrawer.form.placeholder.currency',
                         )}
+                        aria-invalid={fieldState.invalid}
                       />
                     </SelectTrigger>
                     <SelectContent>
@@ -411,47 +421,67 @@ const TransactionDrawerForm = ({
                   >
                     {t('Page.dashboard.transactionDrawer.form.title.amount')}
                   </FieldLabel>
-                  <Input
-                    {...field}
-                    id="form-amount"
-                    type="text"
-                    inputMode="decimal"
-                    placeholder="0.00"
-                    value={formattedAmount}
-                    onChange={(e) => {
-                      const { display, value } = parseAmountInput(
-                        e.target.value,
-                      );
-                      setFormattedAmount(display);
-                      field.onChange(value);
-                    }}
-                    onBlur={(e) => {
-                      const { value } = parseAmountInput(e.target.value);
-                      setFormattedAmount(formatAmountDisplay(value));
-                      field.onChange(value);
-                    }}
-                    className="h-14 rounded-xl border-2 text-2xl font-semibold tracking-tight"
-                    autoComplete="off"
-                  />
+                  <InputGroup className="h-14">
+                    <InputGroupInput
+                      {...field}
+                      id="form-amount"
+                      type="text"
+                      inputMode="decimal"
+                      placeholder="0.00"
+                      value={formattedAmount}
+                      onChange={(e) => {
+                        const { display, value } = parseAmountInput(
+                          e.target.value,
+                        );
+                        setFormattedAmount(display);
+                        field.onChange(value);
+                      }}
+                      onBlur={(e) => {
+                        const { value } = parseAmountInput(e.target.value);
+                        setFormattedAmount(formatAmountDisplay(value));
+                        field.onChange(value);
+                      }}
+                      autoComplete="off"
+                      className="text-2xl font-semibold tracking-tight"
+                    />
+                    <InputGroupAddon align="inline-end">
+                      <InputGroupButton
+                        size="icon-xs"
+                        onClick={() => {
+                          field.onChange(0);
+                          setFormattedAmount('');
+                        }}
+                      >
+                        <XIcon />
+                      </InputGroupButton>
+                    </InputGroupAddon>
+                  </InputGroup>
                   {fieldState.invalid && (
                     <FieldError errors={[fieldState.error]} />
                   )}
                 </Field>
               )}
             />
+
+            <FieldSeparator />
           </FieldGroup>
         </CardContent>
       </Card>
 
       <Card className="bg-background/60 dark:bg-default-100/50 border-none">
-        <CardContent className="flex flex-col gap-4 p-5">
+        <CardContent className="flex flex-col gap-4">
           <div className="flex flex-col gap-2">
             <div className="flex items-center justify-between gap-2">
-              <p className="text-muted-foreground text-xs font-semibold tracking-wide uppercase">
+              <TypographyLabel className="uppercase">
                 {t('Page.dashboard.transactionDrawer.form.title.type')}
-              </p>
+              </TypographyLabel>
             </div>
 
+            {/* <ToggleGroup
+              variant="outline"
+              spacing={2}
+              defaultValue={type.value}
+            > */}
             <div className="grid grid-cols-2 gap-2">
               {typeOptions.map((option) => {
                 const isActive = option.value === type.value;
@@ -460,21 +490,30 @@ const TransactionDrawerForm = ({
                   <CardButton
                     key={option.value}
                     label={option.label}
+                    size="md"
                     handleOnClick={() => onTypeChange(option)}
                     isActive={isActive}
                   />
+                  // <ToggleGroupItem
+                  //   key={option.value}
+                  //   value={option.value}
+                  //   onClick={() => onTypeChange(option)}
+                  // >
+                  //   {option.label}
+                  // </ToggleGroupItem>
                 );
               })}
             </div>
+            {/* </ToggleGroup> */}
           </div>
 
           <div className="flex items-center justify-between gap-2">
-            <p className="text-muted-foreground text-xs font-semibold tracking-wide uppercase">
+            <TypographyLabel className="uppercase">
               {t('Page.dashboard.transactionDrawer.form.title.category')}
-            </p>
-            <p className="text-muted-foreground text-xs">
+            </TypographyLabel>
+            <TypographyCaption>
               {t('Page.dashboard.transactionDrawer.form.helper.category')}
-            </p>
+            </TypographyCaption>
           </div>
 
           <Controller
@@ -605,9 +644,9 @@ const TransactionDrawerForm = ({
             )}
           />
 
-          <TypographyLabel>
+          <TypographyCaption>
             {t('Page.dashboard.transactionDrawer.form.helper.isRecurring')}
-          </TypographyLabel>
+          </TypographyCaption>
 
           <div className="grid grid-cols-1 gap-3">
             <Controller
