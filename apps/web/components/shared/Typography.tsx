@@ -8,16 +8,16 @@ import {
 const typographyVariantClasses = {
   body: 'text-foreground text-base leading-7',
   bodySm: 'text-foreground text-sm leading-6',
-  caption: 'text-muted text-xs leading-5',
+  caption: 'text-muted-foreground text-xs leading-5',
   cardTitle:
     'text-foreground text-xl leading-tight font-semibold tracking-tight',
   code: 'bg-default text-default-foreground rounded px-1.5 py-0.5 font-mono text-sm leading-5',
   hero: 'text-foreground text-4xl sm:text-5xl lg:text-6xl leading-tight font-extrabold tracking-tight text-balance',
   label: 'text-foreground text-sm leading-5 font-medium',
   lead: 'text-foreground text-lg sm:text-xl leading-8',
-  muted: 'text-muted text-sm leading-6',
+  muted: 'text-muted-foreground text-sm leading-6',
   overline:
-    'text-muted text-xs leading-5 font-semibold uppercase tracking-wider',
+    'text-muted-foreground text-xs leading-5 font-semibold uppercase tracking-wider',
   pageTitle:
     'text-foreground text-3xl sm:text-4xl leading-tight font-bold tracking-tight text-balance',
   sectionTitle:

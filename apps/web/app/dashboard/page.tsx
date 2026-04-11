@@ -6,12 +6,12 @@ import { formatCurrency } from '@shared/utilities/formatCurrency';
 import { DatePicker } from '@web/components/shared/DatePicker';
 import Loader from '@web/components/shared/Loader';
 import {
+  TypographyCaption,
   TypographyLabel,
   TypographyLead,
-  TypographyMuted,
 } from '@web/components/shared/Typography';
 import { Button } from '@web/components/ui/button';
-import { Card } from '@web/components/ui/card';
+import { Card, CardContent } from '@web/components/ui/card';
 import { Separator } from '@web/components/ui/separator';
 import { Skeleton } from '@web/components/ui/skeleton';
 import { useAppDispatch, useAppSelector } from '@web/lib/hooks/use-redux';
@@ -163,66 +163,68 @@ const Dashboard = () => {
           {isFetching ? (
             <Skeleton className="h-40 w-full" />
           ) : (
-            <Card className="flex flex-col gap-3 p-4">
-              {/* Primary Metrics - Balance & Extra */}
-              <div className="flex flex-row justify-between gap-4">
-                <div className="flex flex-col gap-1">
-                  <TypographyMuted>{t('totalDue')}</TypographyMuted>
-                  <TypographyLabel>
-                    {formatCurrency({
-                      value: totalAmount,
-                      currency: currency.label,
-                    })}
-                  </TypographyLabel>
-                </div>
-
-                <div className="flex flex-col items-end gap-1">
-                  <TypographyMuted>{t('monthlyExtra')}</TypographyMuted>
-                  <TypographyLabel>
-                    {formatCurrency({
-                      value: extra,
-                      currency: currency.label,
-                    })}
-                  </TypographyLabel>
-                </div>
-              </div>
-
-              <Separator />
-
-              {/* Secondary Metrics - Total Due, Settled & Unsettled */}
-              <div className="flex flex-row justify-between gap-4">
-                <div className="flex flex-col gap-1">
-                  <TypographyMuted>{t('runningBalance')}</TypographyMuted>
-                  <TypographyLabel>
-                    {formatCurrency({
-                      value: balance,
-                      currency: currency.label,
-                    })}
-                  </TypographyLabel>
-                </div>
-
-                <div className="flex flex-col items-end">
-                  <div className="space-x-2">
-                    <TypographyMuted>{t('settled')}:</TypographyMuted>
+            <Card>
+              <CardContent className="flex flex-col gap-2">
+                {/* Primary Metrics - Balance & Extra */}
+                <div className="flex flex-row justify-between">
+                  <div>
+                    <TypographyCaption>{t('totalDue')}</TypographyCaption>
                     <TypographyLabel>
                       {formatCurrency({
-                        value: totalPaidAmount,
+                        value: totalAmount,
                         currency: currency.label,
                       })}
                     </TypographyLabel>
                   </div>
 
-                  <div className="space-x-2">
-                    <TypographyMuted>{t('unsettled')}:</TypographyMuted>
+                  <div className="flex flex-col items-end">
+                    <TypographyCaption>{t('monthlyExtra')}</TypographyCaption>
                     <TypographyLabel>
                       {formatCurrency({
-                        value: totalAmount - totalPaidAmount,
+                        value: extra,
                         currency: currency.label,
                       })}
                     </TypographyLabel>
                   </div>
                 </div>
-              </div>
+
+                <Separator />
+
+                {/* Secondary Metrics - Total Due, Settled & Unsettled */}
+                <div className="flex flex-row justify-between">
+                  <div>
+                    <div className="flex flex-row items-end gap-2">
+                      <TypographyCaption>{t('settled')}:</TypographyCaption>
+                      <TypographyLabel>
+                        {formatCurrency({
+                          value: totalPaidAmount,
+                          currency: currency.label,
+                        })}
+                      </TypographyLabel>
+                    </div>
+
+                    <div className="flex flex-row items-end gap-2">
+                      <TypographyCaption>{t('unsettled')}:</TypographyCaption>
+                      <TypographyLabel>
+                        {formatCurrency({
+                          value: totalAmount - totalPaidAmount,
+                          currency: currency.label,
+                        })}
+                      </TypographyLabel>
+                    </div>
+                  </div>
+
+                  <div className="flex flex-col items-end">
+                    <TypographyCaption>{t('runningBalance')}</TypographyCaption>
+                    <TypographyLabel>
+                      {formatCurrency({
+                        value: balance,
+                        currency: currency.label,
+                      })}
+                    </TypographyLabel>
+                  </div>
+                </div>
+              </CardContent>
             </Card>
           )}
 
