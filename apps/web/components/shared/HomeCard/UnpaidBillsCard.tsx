@@ -1,11 +1,10 @@
 import CardDialog from '@web/components/shared/CardDialog';
 import CardIcon from '@web/components/shared/CardIcon';
+import { TypographyLabel } from '@web/components/shared/Typography';
 import { Badge } from '@web/components/ui/badge';
 import type { TransactionPaymentCategoryProps } from '@web/types/TransactionPayment';
 import { CheckCircle2Icon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-
-import { TypographyLabel } from '../Typography';
 
 type UnpaidBillsCardProps = {
   unpaidCategories: TransactionPaymentCategoryProps[];

@@ -1,5 +1,9 @@
 import { CircularProgress } from '@heroui/react';
 import { formatCurrency } from '@shared/utilities/formatCurrency';
+import {
+  TypographyLabel,
+  TypographyMuted,
+} from '@web/components/shared/Typography';
 import { Badge } from '@web/components/ui/badge';
 import {
   Card,
@@ -9,8 +13,6 @@ import {
 } from '@web/components/ui/card';
 import { useTranslations } from 'next-intl';
 import { useMemo } from 'react';
-
-import { TypographyLabel, TypographyMuted } from '../Typography';
 
 type BudgetHealthCardProps = {
   budget: number;

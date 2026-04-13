@@ -1,6 +1,7 @@
 'use client';
 
 import { CONSTANTS } from '@shared/constants/common';
+import { TypographyLabel } from '@web/components/shared/Typography';
 import { Avatar, AvatarFallback, AvatarImage } from '@web/components/ui/avatar';
 import {
   SidebarInset,
@@ -11,7 +12,6 @@ import { useAppSelector } from '@web/lib/hooks/use-redux';
 import { usePathname } from 'next/navigation';
 import { ReactNode, useEffect, useState } from 'react';
 
-import { TypographyLabel } from '../shared/Typography';
 import NavDropdownMenu from './NavDropdownMenu';
 import SideNav from './SideNav';
 

@@ -1,5 +1,6 @@
 import { formatCurrency } from '@shared/utilities/formatCurrency';
 import CardIcon from '@web/components/shared/CardIcon';
+import { TypographyLabel } from '@web/components/shared/Typography';
 import {
   Card,
   CardContent,
@@ -9,8 +10,6 @@ import {
 import { Progress } from '@web/components/ui/progress';
 import type { TransactionPaymentCategoryProps } from '@web/types/TransactionPayment';
 import { useTranslations } from 'next-intl';
-
-import { TypographyLabel } from '../Typography';
 
 type TopSpendingCardProps = {
   topSpendingCategories: TransactionPaymentCategoryProps[];

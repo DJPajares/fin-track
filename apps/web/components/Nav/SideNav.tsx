@@ -1,6 +1,7 @@
 'use client';
 
 import { CONSTANTS } from '@shared/constants/common';
+import { TypographyLabel } from '@web/components/shared/Typography';
 import {
   Collapsible,
   CollapsibleContent,
@@ -25,8 +26,6 @@ import { MENU_ITEMS } from '@web/constants/menuItems';
 import { ChevronRightIcon, TrendingUpIcon } from 'lucide-react';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
-
-import { TypographyLabel } from '../shared/Typography';
 
 const SideNav = () => {
   const { setOpenMobile } = useSidebar();

@@ -4,6 +4,10 @@ import type { ListProps } from '@shared/types/List';
 import type { LocaleProps } from '@shared/types/Locale';
 import { sortedLanguages } from '@shared/utilities/common';
 import ProfileDrawer from '@web/components/Nav/ProfileDrawer';
+import {
+  TypographyLabel,
+  TypographyMuted,
+} from '@web/components/shared/Typography';
 import { Button } from '@web/components/ui/button';
 import {
   DropdownMenu,
@@ -42,7 +46,6 @@ import { ReactElement, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import packageInfo from '../../../../package.json';
-import { TypographyLabel, TypographyMuted } from '../shared/Typography';
 
 type NavDropdownMenuProps = {
   children: ReactElement;

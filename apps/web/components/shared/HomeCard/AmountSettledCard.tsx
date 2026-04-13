@@ -1,5 +1,9 @@
 import { formatCurrency } from '@shared/utilities/formatCurrency';
 import {
+  TypographyLabel,
+  TypographyLead,
+} from '@web/components/shared/Typography';
+import {
   Card,
   CardContent,
   CardDescription,
@@ -8,8 +12,6 @@ import {
 } from '@web/components/ui/card';
 import { Progress } from '@web/components/ui/progress';
 import { useTranslations } from 'next-intl';
-
-import { TypographyLabel, TypographyLead } from '../Typography';
 
 type AmountSettledCardProps = {
   totalPaidAmount: number;

@@ -1,5 +1,9 @@
 import { formatCurrency } from '@shared/utilities/formatCurrency';
 import {
+  TypographyLabel,
+  TypographyLead,
+} from '@web/components/shared/Typography';
+import {
   Card,
   CardContent,
   CardDescription,
@@ -11,8 +15,6 @@ import type { UpcomingExtraProps } from '@web/types/HomeCard';
 import { TrendingUpIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { Area, AreaChart } from 'recharts';
-
-import { TypographyLabel, TypographyLead } from '../Typography';
 
 type ExtrasCardProps = {
   accumulativeExtra: number;

@@ -1,13 +1,15 @@
 import { formatCurrency } from '@shared/utilities/formatCurrency';
 import {
+  TypographyLabel,
+  TypographyLead,
+} from '@web/components/shared/Typography';
+import {
   Card,
   CardDescription,
   CardHeader,
   CardTitle,
 } from '@web/components/ui/card';
 import { useTranslations } from 'next-intl';
-
-import { TypographyLabel, TypographyLead } from '../Typography';
 
 type BalanceCardProps = {
   balance: number;

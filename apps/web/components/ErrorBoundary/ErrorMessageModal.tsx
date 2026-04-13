@@ -1,6 +1,7 @@
 'use client';
 
 import type { ErrorProps } from '@shared/types/Error';
+import { TypographyLabel } from '@web/components/shared/Typography';
 import { Button } from '@web/components/ui/button';
 import {
   Dialog,
@@ -13,8 +14,6 @@ import {
 } from '@web/components/ui/dialog';
 import { useTranslations } from 'next-intl';
 import { useMemo } from 'react';
-
-import { TypographyLabel } from '../shared/Typography';
 
 type ErrorMessageModalProps = {
   isOpen: boolean;

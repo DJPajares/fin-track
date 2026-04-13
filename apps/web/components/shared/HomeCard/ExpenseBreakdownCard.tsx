@@ -1,4 +1,5 @@
 import { formatCurrency } from '@shared/utilities/formatCurrency';
+import { TypographyLabel } from '@web/components/shared/Typography';
 import {
   Card,
   CardContent,
@@ -15,8 +16,6 @@ import type { ExpensePieDataProps } from '@web/types/HomeCard';
 import { useTranslations } from 'next-intl';
 import { useMemo } from 'react';
 import { Cell, Pie, PieChart } from 'recharts';
-
-import { TypographyLabel } from '../Typography';
 
 type ExpenseBreakdownCardProps = {
   expensePieData: ExpensePieDataProps[];

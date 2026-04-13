@@ -1,4 +1,5 @@
 import { formatCurrency } from '@shared/utilities/formatCurrency';
+import { TypographyLabel } from '@web/components/shared/Typography';
 import {
   Card,
   CardContent,
@@ -14,8 +15,6 @@ import {
 import type { TrendDataProps } from '@web/types/HomeCard';
 import { useTranslations } from 'next-intl';
 import { Area, AreaChart } from 'recharts';
-
-import { TypographyLabel } from '../Typography';
 
 type TrendsCardProps = {
   trendsData: TrendDataProps[];
