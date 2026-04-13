@@ -18,7 +18,6 @@ import {
   ComboboxChips,
   ComboboxChipsInput,
   ComboboxContent,
-  ComboboxEmpty,
   ComboboxItem,
   ComboboxList,
   ComboboxValue,
@@ -778,7 +777,6 @@ const TransactionDrawerForm = ({
                               <ComboboxChipsInput />
                             </ComboboxChips>
                             <ComboboxContent anchor={anchor}>
-                              <ComboboxEmpty>No items found.</ComboboxEmpty>
                               <ComboboxList>
                                 {excludedDatesArray.map((item) => (
                                   <ComboboxItem
