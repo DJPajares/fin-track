@@ -4,6 +4,7 @@ import type { ListProps } from '@shared/types/List';
 import type { LocaleProps } from '@shared/types/Locale';
 import { sortedLanguages } from '@shared/utilities/common';
 import ProfileDrawer from '@web/components/Nav/ProfileDrawer';
+import { Button } from '@web/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -37,14 +38,14 @@ import {
 import { useRouter } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
 import { useTheme } from 'next-themes';
-import { ReactNode, useState } from 'react';
+import { ReactElement, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import packageInfo from '../../../../package.json';
 import { TypographyLabel, TypographyMuted } from '../shared/Typography';
 
 type NavDropdownMenuProps = {
-  children: ReactNode;
+  children: ReactElement;
 };
 
 const NavDropdownMenu = ({ children }: NavDropdownMenuProps) => {
@@ -105,14 +106,19 @@ const NavDropdownMenu = ({ children }: NavDropdownMenuProps) => {
   return (
     <>
       <DropdownMenu open={isDropdownOpen} onOpenChange={setIsDropdownOpen}>
-        <DropdownMenuTrigger>{children}</DropdownMenuTrigger>
+        <DropdownMenuTrigger
+          render={children}
+          nativeButton={children.type === 'button' || children.type === Button}
+        />
         <DropdownMenuContent className="w-56" align="end">
-          <DropdownMenuLabel className="font-normal">
-            <div className="flex flex-col space-y-1">
-              <TypographyLabel>{user?.name || 'User'}</TypographyLabel>
-              <TypographyMuted>{user?.email || ''}</TypographyMuted>
-            </div>
-          </DropdownMenuLabel>
+          <DropdownMenuGroup>
+            <DropdownMenuLabel className="font-normal">
+              <div className="flex flex-col space-y-1">
+                <TypographyLabel>{user?.name || 'User'}</TypographyLabel>
+                <TypographyMuted>{user?.email || ''}</TypographyMuted>
+              </div>
+            </DropdownMenuLabel>
+          </DropdownMenuGroup>
 
           <DropdownMenuSeparator />
 
