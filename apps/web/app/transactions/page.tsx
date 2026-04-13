@@ -250,7 +250,7 @@ const Transactions = () => {
       {/* FLOATING ACTION BUTTON */}
       <Button
         size="icon-lg"
-        className="fixed right-4 bottom-4 z-50 cursor-pointer rounded-3xl shadow-lg sm:right-8 sm:bottom-8"
+        className="fixed right-4 bottom-4 z-50 cursor-pointer rounded-full shadow-lg sm:right-8 sm:bottom-8"
         onClick={handleAddTransactionButton}
       >
         <PlusIcon className="size-6" />
