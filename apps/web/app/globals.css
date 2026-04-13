@@ -1,15 +1,6 @@
 @import 'tailwindcss';
-@import 'tw-animate-css';
-@import 'shadcn/tailwind.css';
-@import 'tw-animate-css';
-@import 'shadcn/tailwind.css';
-@import 'tw-animate-css';
-@import 'shadcn/tailwind.css';
-@import 'tw-animate-css';
-@import 'shadcn/tailwind.css';
 
 @plugin '../hero.ts';
-@plugin 'tailwindcss-animate';
 
 /* for local environment - as a monorepo structure */
 @source '../../../node_modules/@heroui/theme/dist';
