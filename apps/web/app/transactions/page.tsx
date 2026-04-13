@@ -203,7 +203,7 @@ const Transactions = () => {
 
         <ScrollShadow
           ref={scrollContainerRef}
-          className="h-[70vh] overflow-y-auto"
+          className="h-[70vh] overflow-y-auto p-2"
           hideScrollBar
         >
           <div className="flex flex-col gap-4">
