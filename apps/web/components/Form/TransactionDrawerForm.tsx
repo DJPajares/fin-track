@@ -5,7 +5,6 @@ import CardButton from '@web/components/shared/CardButton';
 import type { IconProps } from '@web/components/shared/CardIcon';
 import ConfirmationDialog from '@web/components/shared/ConfirmationDialog';
 import { DatePicker } from '@web/components/shared/DatePicker';
-import { MultiSelectBox } from '@web/components/shared/MultiSelectBox';
 import {
   TypographyCaption,
   TypographyLabel,
@@ -13,19 +12,18 @@ import {
 import { Button } from '@web/components/ui/button';
 import { Card, CardContent } from '@web/components/ui/card';
 import { Checkbox } from '@web/components/ui/checkbox';
-// import {
-//   Combobox,
-//   ComboboxChip,
-//   ComboboxChips,
-//   ComboboxChipsInput,
-//   ComboboxContent,
-//   ComboboxEmpty,
-//   ComboboxInput,
-//   ComboboxItem,
-//   ComboboxList,
-//   ComboboxValue,
-//   useComboboxAnchor,
-// } from '@web/components/ui/combobox';
+import {
+  Combobox,
+  ComboboxChip,
+  ComboboxChips,
+  ComboboxChipsInput,
+  ComboboxContent,
+  ComboboxEmpty,
+  ComboboxItem,
+  ComboboxList,
+  ComboboxValue,
+  useComboboxAnchor,
+} from '@web/components/ui/combobox';
 import {
   Field,
   FieldError,
@@ -71,7 +69,7 @@ import {
 } from 'lucide-react';
 import moment from 'moment';
 import { useTranslations } from 'next-intl';
-import React, {
+import {
   Dispatch,
   RefObject,
   SetStateAction,
@@ -139,7 +137,7 @@ const TransactionDrawerForm = ({
   resetFormRef,
 }: TransactionDrawerFormProps) => {
   const t = useTranslations();
-  // const anchor = useComboboxAnchor();
+  const anchor = useComboboxAnchor();
 
   const { user } = useAppSelector((state) => state.auth);
   const userId = user?.id || '';
@@ -746,61 +744,45 @@ const TransactionDrawerForm = ({
                           'Page.dashboard.transactionDrawer.form.title.excludedDates',
                         )}
                       </FieldLabel>
-                      <MultiSelectBox
-                        dataArray={excludedDatesArray}
-                        value={field.value || []}
-                        onChange={field.onChange}
-                        placeholder={t(
-                          'Page.dashboard.transactionDrawer.form.placeholder.excludedDates',
+                      <Combobox
+                        value={(field.value ?? []).map(
+                          (item: ExcludedDatesProps) => item.value,
                         )}
-                      />
-                      {/* <Combobox
-                        items={excludedDatesArray}
-                        value={field.value}
-                        onInputValueChange={field.onChange}
+                        onValueChange={(values: string[]) => {
+                          field.onChange(
+                            values.map(
+                              (v) =>
+                                excludedDatesArray.find(
+                                  (item) => item.value === v,
+                                )!,
+                            ),
+                          );
+                        }}
                         multiple
                       >
-                        <ComboboxChips ref={anchor} className="w-full max-w-xs">
+                        <ComboboxChips ref={anchor} className="w-full">
                           <ComboboxValue>
-                            {(values) => {
-                              console.log(
-                                'Rendering ComboboxValue with values:',
-                                values,
-                              );
-                              return (
-                                <React.Fragment>
-                                  {values.map((value: string) => (
-                                    <ComboboxChip key={value}>
-                                      {value}
-                                    </ComboboxChip>
-                                  ))}
-                                  <ComboboxChipsInput />
-                                </React.Fragment>
-                              );
-                            }}
+                            {(field.value ?? []).map(
+                              (item: ExcludedDatesProps) => (
+                                <ComboboxChip key={item.value}>
+                                  {item.label}
+                                </ComboboxChip>
+                              ),
+                            )}
                           </ComboboxValue>
+                          <ComboboxChipsInput />
                         </ComboboxChips>
                         <ComboboxContent anchor={anchor}>
                           <ComboboxEmpty>No items found.</ComboboxEmpty>
                           <ComboboxList>
-                            {(item) => {
-                              console.log(
-                                'Rendering item in ComboboxList:',
-                                item,
-                              );
-
-                              return (
-                                <ComboboxItem
-                                  key={item.value}
-                                  value={item.value}
-                                >
-                                  {item.label}
-                                </ComboboxItem>
-                              );
-                            }}
+                            {excludedDatesArray.map((item) => (
+                              <ComboboxItem key={item.value} value={item.value}>
+                                {item.label}
+                              </ComboboxItem>
+                            ))}
                           </ComboboxList>
                         </ComboboxContent>
-                      </Combobox> */}
+                      </Combobox>
                       {fieldState.invalid && (
                         <FieldError errors={[fieldState.error]} />
                       )}
