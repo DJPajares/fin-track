@@ -166,25 +166,23 @@ const EditCategoryDrawer = ({
             )}
           />
 
-          <ConfirmationDialog
-            title={t('Common.alertDialog.hide.title')}
-            description={t('Common.alertDialog.hide.description')}
-            ok={t('Common.alertDialog.hide.okButton')}
-            handleSubmit={handleCategoryRemoval}
-            isDestructive
-          >
-            <>
-              {!isNew && (
-                <Button
-                  variant="destructive"
-                  size="icon"
-                  aria-label={t('Common.alertDialog.hide.title')}
-                >
-                  <EyeOffIcon className="size-4" />
-                </Button>
-              )}
-            </>
-          </ConfirmationDialog>
+          {!isNew && (
+            <ConfirmationDialog
+              title={t('Common.alertDialog.hide.title')}
+              description={t('Common.alertDialog.hide.description')}
+              ok={t('Common.alertDialog.hide.okButton')}
+              handleSubmit={handleCategoryRemoval}
+              isDestructive
+            >
+              <Button
+                variant="destructive"
+                size="icon"
+                aria-label={t('Common.alertDialog.hide.title')}
+              >
+                <EyeOffIcon className="size-4" />
+              </Button>
+            </ConfirmationDialog>
+          )}
         </div>
       </form>
     </CustomDrawer>
