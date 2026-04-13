@@ -62,7 +62,13 @@ import {
 } from '@web/lib/schemas/transaction';
 import { cn } from '@web/lib/utils';
 import type { CategoryItemProps } from '@web/types/Category';
-import { CalendarIcon, ChevronDownIcon, Trash2Icon, XIcon } from 'lucide-react';
+import {
+  CalendarIcon,
+  ChevronDownIcon,
+  ChevronUpIcon,
+  Trash2Icon,
+  XIcon,
+} from 'lucide-react';
 import moment from 'moment';
 import { useTranslations } from 'next-intl';
 import React, {
@@ -601,14 +607,27 @@ const TransactionDrawerForm = ({
                           (previousValue) => !previousValue,
                         )
                       }
+                      className={`${isShowingAllCategories ? 'animate-[bounce-up_1s_ease-in-out_infinite]' : 'animate-[bounce-down_1s_ease-in-out_infinite]'}`}
                     >
-                      {isShowingAllCategories
-                        ? t(
-                            'Page.dashboard.transactionDrawer.form.title.showLess',
-                          )
-                        : t(
-                            'Page.dashboard.transactionDrawer.form.title.showMore',
-                          )}
+                      <div className="text-muted-foreground flex flex-row items-center justify-between gap-2 lowercase">
+                        {isShowingAllCategories ? (
+                          <>
+                            <ChevronUpIcon className="size-4" />
+                            {t(
+                              'Page.dashboard.transactionDrawer.form.title.showLess',
+                            )}
+                            <ChevronUpIcon className="size-4" />
+                          </>
+                        ) : (
+                          <>
+                            <ChevronDownIcon className="size-4" />
+                            {t(
+                              'Page.dashboard.transactionDrawer.form.title.showMore',
+                            )}
+                            <ChevronDownIcon className="size-4" />
+                          </>
+                        )}
+                      </div>
                     </Button>
                   )}
 
