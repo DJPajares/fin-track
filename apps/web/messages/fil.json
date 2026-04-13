@@ -23,6 +23,7 @@
     "home": {
       "greetings": "Maligayang pagdating",
       "dashboardButton": "Pumunta sa Dashboard",
+      "ariaLabel": "Pangkalahatang-ideya sa Pananalapi",
       "motivation": {
         "title": "Motibasyon ngayon",
         "quotes": [
@@ -135,7 +136,8 @@
           "placeholder": {
             "title": "Hal. Bayarin sa kuryente",
             "currency": "Pumili ng pera",
-            "excludedDates": "Pumili ng mga petsa..."
+            "excludedDates": "Pumili ng mga petsa...",
+            "description": "Magdagdag ng opsyonal na tala"
           },
           "helper": {
             "category": "Pumili ng kategorya",

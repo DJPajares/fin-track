@@ -23,6 +23,7 @@
     "home": {
       "greetings": "مرحبًا",
       "dashboardButton": "انتقل إلى لوحة التحكم",
+      "ariaLabel": "نظرة عامة على الأموال",
       "motivation": {
         "title": "تحفيز اليوم",
         "quotes": [
@@ -135,7 +136,8 @@
           "placeholder": {
             "title": "مثال: فاتورة الكهرباء",
             "currency": "اختر العملة",
-            "excludedDates": "اختر التواريخ..."
+            "excludedDates": "اختر التواريخ...",
+            "description": "أضف ملاحظة اختيارية"
           },
           "helper": {
             "category": "اختر فئة",

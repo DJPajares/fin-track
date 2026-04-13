@@ -23,6 +23,7 @@
     "home": {
       "greetings": "स्वागत है",
       "dashboardButton": "डैशबोर्ड पर जाएँ",
+      "ariaLabel": "वित्त अवलोकन",
       "motivation": {
         "title": "आज की प्रेरणा",
         "quotes": [
@@ -135,7 +136,8 @@
           "placeholder": {
             "title": "जैसे: बिजली का बिल",
             "currency": "एक मुद्रा चुनें",
-            "excludedDates": "तिथियाँ चुनें..."
+            "excludedDates": "तिथियाँ चुनें...",
+            "description": "एक वैकल्पिक नोट जोड़ें"
           },
           "helper": {
             "category": "एक श्रेणी चुनें",

@@ -23,6 +23,7 @@
     "home": {
       "greetings": "Hoşgeldiniz",
       "dashboardButton": "Gösterge Paneline Git",
+      "ariaLabel": "Finansa Genel Bakış",
       "motivation": {
         "title": "Bugünün Motivasyonu",
         "quotes": [
@@ -135,7 +136,8 @@
           "placeholder": {
             "title": "Örneğin: Elektrik faturası",
             "currency": "Bir para birimi seçin",
-            "excludedDates": "Tarihleri seçin..."
+            "excludedDates": "Tarihleri seçin...",
+            "description": "İsteğe bağlı not ekle"
           },
           "helper": {
             "category": "Bir kategori seçin",

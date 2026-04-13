@@ -23,6 +23,7 @@
     "home": {
       "greetings": "ようこそ",
       "dashboardButton": "ダッシュボードへ",
+      "ariaLabel": "財務概要",
       "motivation": {
         "title": "今日のモチベーション",
         "quotes": [
@@ -135,7 +136,8 @@
           "placeholder": {
             "title": "例: 電気代",
             "currency": "通貨を選択",
-            "excludedDates": "日付を選択..."
+            "excludedDates": "日付を選択...",
+            "description": "任意のメモを追加"
           },
           "helper": {
             "category": "カテゴリーを選択",
