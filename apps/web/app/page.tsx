@@ -221,7 +221,7 @@ const Home = () => {
           b: TransactionPaymentCategoryProps,
         ) => a.paymentCompletionRate - b.paymentCompletionRate,
       )
-      .slice(0, 5);
+      .slice(0, 3);
   }, [dashboardData?.categories]);
 
   // Top spending categories — sorted by highest totalAmount
@@ -237,7 +237,7 @@ const Home = () => {
             b: TransactionPaymentCategoryProps,
           ) => b.totalAmount - a.totalAmount,
         )
-        .slice(0, 5);
+        .slice(0, 3);
     }, [dashboardData?.categories]);
 
   // Expense pie chart data — from categories
