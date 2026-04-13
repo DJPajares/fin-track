@@ -165,8 +165,8 @@ const Dashboard = () => {
           <Card className="shrink-0">
             <CardContent className="flex flex-col gap-2">
               {/* Primary Metrics - Balance & Extra */}
-              <div className="flex flex-row justify-between">
-                <span>
+              <div className="flex flex-row items-center justify-between">
+                <span className="flex flex-col items-start">
                   <TypographyCaption>{t('totalDue')}</TypographyCaption>
                   <TypographySubsectionTitle>
                     {formatCurrency({
@@ -190,8 +190,8 @@ const Dashboard = () => {
               <Separator />
 
               {/* Secondary Metrics - Total Due, Settled & Unsettled */}
-              <div className="flex flex-row justify-between">
-                <span>
+              <div className="flex flex-row items-center justify-between">
+                <span className="flex flex-col items-start">
                   <TypographyCaption>{t('runningBalance')}</TypographyCaption>
                   <TypographySubsectionTitle>
                     {formatCurrency({
@@ -202,7 +202,7 @@ const Dashboard = () => {
                 </span>
 
                 <span className="flex flex-col items-end">
-                  <TypographyCaption>{t('settled')}:</TypographyCaption>
+                  <TypographyCaption>{`${t('settled')} (${t('unsettled')})`}</TypographyCaption>
                   <span className="flex flex-row gap-1">
                     <TypographySubsectionTitle>
                       {formatCurrency({
