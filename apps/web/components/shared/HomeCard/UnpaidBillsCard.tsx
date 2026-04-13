@@ -29,7 +29,7 @@ const UnpaidBillsCard = ({ unpaidCategories }: UnpaidBillsCardProps) => {
                 key={category._id}
                 className="flex items-center justify-between gap-2"
               >
-                <div className="flex items-center gap-2 truncate">
+                <div className="flex min-w-0 items-center gap-2">
                   <CardIcon icon={category.icon} />
                   <TypographyLabel className="truncate">
                     {isTranslated
