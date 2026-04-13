@@ -11,7 +11,7 @@ import {
 } from '@web/components/ui/drawer';
 import { useIsMobile } from '@web/lib/hooks/use-mobile';
 import { useTranslations } from 'next-intl';
-import { Dispatch, ReactNode, SetStateAction, useState } from 'react';
+import { Dispatch, ReactElement, SetStateAction, useState } from 'react';
 
 import ConfirmationDialog from './ConfirmationDialog';
 import Loader from './Loader';
@@ -23,8 +23,8 @@ type CustomDrawerProps = {
   description?: string;
   okButtonLabel?: string;
   cancelButtonLabel?: string;
-  children: ReactNode;
-  triggerChildren?: ReactNode;
+  children: ReactElement;
+  triggerChildren?: ReactElement;
   handleSubmit: () => void | Promise<void>;
   onCancel?: () => void;
 };
@@ -65,12 +65,18 @@ const CustomDrawer = ({
     <>
       {isLoading && <Loader />}
 
-      {isMobile ? (
-        <Drawer open={open} onOpenChange={onOpenChange}>
-          {triggerChildren && (
-            <DrawerTrigger asChild>{triggerChildren}</DrawerTrigger>
-          )}
+      <Drawer open={open} onOpenChange={onOpenChange}>
+        {triggerChildren && (
+          <DrawerTrigger
+            render={triggerChildren}
+            nativeButton={
+              triggerChildren.type === 'button' ||
+              triggerChildren.type === Button
+            }
+          />
+        )}
 
+        {isMobile ? (
           <DrawerContent aria-describedby="">
             <div className="mx-auto flex w-full flex-col overflow-hidden">
               <DrawerHeader className="shrink-0 p-2">
@@ -109,11 +115,7 @@ const CustomDrawer = ({
               </div>
             </div>
           </DrawerContent>
-        </Drawer>
-      ) : (
-        <Drawer open={open} onOpenChange={onOpenChange}>
-          <DrawerTrigger asChild>{triggerChildren}</DrawerTrigger>
-
+        ) : (
           <DrawerContent aria-describedby={description}>
             <div className="mx-auto flex w-full max-w-sm flex-col overflow-hidden">
               <DrawerHeader className="shrink-0">
@@ -136,21 +138,23 @@ const CustomDrawer = ({
                     {okButtonLabel || t('Common.button.save')}
                   </Button>
                 </ConfirmationDialog>
-                <DrawerClose asChild>
-                  <Button
-                    className="w-full"
-                    variant="outline"
-                    disabled={isLoading}
-                    onClick={handleCancel}
-                  >
-                    {cancelButtonLabel || t('Common.button.cancel')}
-                  </Button>
-                </DrawerClose>
+                <DrawerClose
+                  render={
+                    <Button
+                      className="w-full"
+                      variant="outline"
+                      disabled={isLoading}
+                      onClick={handleCancel}
+                    >
+                      {cancelButtonLabel || t('Common.button.cancel')}
+                    </Button>
+                  }
+                />
               </DrawerFooter>
             </div>
           </DrawerContent>
-        </Drawer>
-      )}
+        )}
+      </Drawer>
     </>
   );
 };

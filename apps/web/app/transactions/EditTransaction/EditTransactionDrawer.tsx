@@ -17,7 +17,7 @@ import moment from 'moment';
 import { useTranslations } from 'next-intl';
 import {
   Dispatch,
-  ReactNode,
+  ReactElement,
   SetStateAction,
   useEffect,
   useRef,
@@ -29,7 +29,7 @@ type EditTransactionDrawerProps = {
   transaction: TransactionProps;
   isDrawerOpen: boolean;
   setIsDrawerOpen: Dispatch<SetStateAction<boolean>>;
-  children: ReactNode;
+  children: ReactElement;
 };
 
 const EditTransactionDrawer = ({

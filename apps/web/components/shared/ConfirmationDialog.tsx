@@ -11,8 +11,9 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@web/components/ui/alert-dialog';
+import { Button } from '@web/components/ui/button';
 import { useTranslations } from 'next-intl';
-import { ReactNode } from 'react';
+import { ReactElement } from 'react';
 
 type ConfirmationDialogProps = {
   title?: string;
@@ -21,7 +22,7 @@ type ConfirmationDialogProps = {
   cancel?: string;
   handleSubmit: () => void | Promise<void>;
   isDestructive?: boolean;
-  children: ReactNode;
+  children: ReactElement;
 };
 
 const ConfirmationDialog = ({
@@ -37,7 +38,10 @@ const ConfirmationDialog = ({
 
   return (
     <AlertDialog>
-      <AlertDialogTrigger>{children}</AlertDialogTrigger>
+      <AlertDialogTrigger
+        render={children}
+        nativeButton={children.type === 'button' || children.type === Button}
+      />
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>

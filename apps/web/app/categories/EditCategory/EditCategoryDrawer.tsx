@@ -22,7 +22,7 @@ import { categorySchema } from '@web/lib/schemas/category';
 import type { CategoryItemProps } from '@web/types/Category';
 import { EyeOffIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { ReactNode, useRef, useState } from 'react';
+import { ReactElement, useRef, useState } from 'react';
 import {
   Controller,
   type Resolver,
@@ -35,7 +35,7 @@ type EditCategoryDrawerProps = {
   category: CategoryItemProps;
   title: string;
   isNew?: boolean;
-  children: ReactNode;
+  children: ReactElement;
 };
 
 const iconMapArray = Object.keys(iconMap) as (keyof typeof iconMap)[];
@@ -173,15 +173,17 @@ const EditCategoryDrawer = ({
             handleSubmit={handleCategoryRemoval}
             isDestructive
           >
-            {!isNew && (
-              <Button
-                variant="destructive"
-                size="icon"
-                aria-label={t('Common.alertDialog.hide.title')}
-              >
-                <EyeOffIcon className="size-4" />
-              </Button>
-            )}
+            <>
+              {!isNew && (
+                <Button
+                  variant="destructive"
+                  size="icon"
+                  aria-label={t('Common.alertDialog.hide.title')}
+                >
+                  <EyeOffIcon className="size-4" />
+                </Button>
+              )}
+            </>
           </ConfirmationDialog>
         </div>
       </form>

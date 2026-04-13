@@ -4,12 +4,12 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@web/components/ui/popover';
-import { ReactNode, useState } from 'react';
+import { ReactElement, useState } from 'react';
 
 type DatePickerProps = {
   date: Date;
   onChange: (arg0: Date) => void;
-  children: ReactNode;
+  children: ReactElement;
 };
 
 export const DatePicker = ({ date, onChange, children }: DatePickerProps) => {
@@ -22,7 +22,7 @@ export const DatePicker = ({ date, onChange, children }: DatePickerProps) => {
 
   return (
     <Popover open={isCalendarOpen} onOpenChange={setIsCalendarOpen}>
-      <PopoverTrigger>{children}</PopoverTrigger>
+      <PopoverTrigger render={children} />
       <PopoverContent
         className="w-auto border-0 bg-transparent p-0 shadow-none"
         align="center"
