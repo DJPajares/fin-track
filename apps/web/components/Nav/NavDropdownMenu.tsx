@@ -135,7 +135,7 @@ const NavDropdownMenu = ({ children }: NavDropdownMenuProps) => {
 
             <DropdownMenuSub>
               <DropdownMenuSubTrigger>
-                <GlobeIcon className="text-muted-foreground mr-2 size-4" />
+                <GlobeIcon className="text-muted-foreground size-4" />
                 {t('language')}
               </DropdownMenuSubTrigger>
               <DropdownMenuPortal>
@@ -163,7 +163,7 @@ const NavDropdownMenu = ({ children }: NavDropdownMenuProps) => {
 
             <DropdownMenuSub>
               <DropdownMenuSubTrigger>
-                <DollarSignIcon className="text-muted-foreground mr-2 size-4" />
+                <DollarSignIcon className="text-muted-foreground size-4" />
                 {t('currency')}
               </DropdownMenuSubTrigger>
               <DropdownMenuPortal>

@@ -188,7 +188,7 @@ const Categories = () => {
                     handleSubmit={() => handleAddSuggestedCategory(category)}
                   >
                     <div className="hover:bg-border flex cursor-pointer flex-row items-center justify-between p-2">
-                      <div className="flex flex-row items-center justify-between">
+                      <div className="flex cursor-pointer flex-row items-center justify-between gap-2">
                         <CardIcon icon={category.icon} />
                         <TypographyLabel className="italic">
                           {category.name}
