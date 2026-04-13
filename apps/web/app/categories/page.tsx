@@ -123,22 +123,24 @@ const Categories = () => {
             {categories
               .filter(
                 (category) =>
-                  category.type.value === selectedType.value &&
-                  category.isActive,
+                  category.type._id === selectedType.value && category.isActive,
               )
               .map((category, i, { length }) => (
                 <div key={category._id} className="px-2">
                   {category.scope === 'global' ? (
                     <div>
                       <Tooltip>
-                        <TooltipTrigger className="opacity-60">
-                          <div className="flex flex-row items-center gap-2 py-2 opacity-60">
-                            <CardIcon icon={category.icon} />
-                            <TypographyLabel>
-                              {t(`Common.category.${category.id}`)}
-                            </TypographyLabel>
-                          </div>
-                        </TooltipTrigger>
+                        <TooltipTrigger
+                          className="opacity-60"
+                          render={
+                            <div className="flex flex-row items-center gap-2 py-2 opacity-60">
+                              <CardIcon icon={category.icon} />
+                              <TypographyLabel>
+                                {t(`Common.category.${category.id}`)}
+                              </TypographyLabel>
+                            </div>
+                          }
+                        />
                         {t.has(`Common.tooltip.category.${category.id}`) && (
                           <TooltipContent>
                             <p>{t(`Common.tooltip.category.${category.id}`)}</p>
@@ -174,7 +176,7 @@ const Categories = () => {
             {categories
               .filter(
                 (category) =>
-                  category.type.value === selectedType.value &&
+                  category.type._id === selectedType.value &&
                   !category.isActive,
               )
               .map((category, i, { length }) => (

@@ -128,11 +128,13 @@ const EditCategoryDrawer = ({
             control={form.control}
             render={({ field }) => (
               <Popover open={isPopoverOpen} onOpenChange={setIsPopoverOpen}>
-                <PopoverTrigger>
-                  <Button variant="outline" size="icon">
-                    <CardIcon icon={field.value} />
-                  </Button>
-                </PopoverTrigger>
+                <PopoverTrigger
+                  render={
+                    <Button variant="outline" size="icon">
+                      <CardIcon icon={field.value} />
+                    </Button>
+                  }
+                />
 
                 <PopoverContent>
                   <div className="grid grid-cols-6 gap-2 align-middle">
