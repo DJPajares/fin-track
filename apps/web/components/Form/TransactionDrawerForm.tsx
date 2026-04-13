@@ -336,7 +336,7 @@ const TransactionDrawerForm = ({
       onSubmit={form.handleSubmit(onSubmit, onInvalidSubmit)}
       className="flex flex-col gap-4"
     >
-      <Card size="sm">
+      <Card>
         <CardContent>
           <FieldGroup>
             <Controller
@@ -468,264 +468,190 @@ const TransactionDrawerForm = ({
             />
 
             <FieldSeparator />
-          </FieldGroup>
-        </CardContent>
-      </Card>
 
-      <Card className="bg-background/60 dark:bg-default-100/50 border-none">
-        <CardContent className="flex flex-col gap-4">
-          <div className="flex flex-col gap-2">
-            <div className="flex items-center justify-between gap-2">
-              <TypographyLabel className="uppercase">
-                {t('Page.dashboard.transactionDrawer.form.title.type')}
-              </TypographyLabel>
-            </div>
+            <div className="flex flex-col gap-4">
+              <div className="flex flex-col gap-2">
+                <div className="flex items-center justify-between gap-2">
+                  <TypographyLabel>
+                    {t('Page.dashboard.transactionDrawer.form.title.type')}
+                  </TypographyLabel>
+                </div>
 
-            {/* <ToggleGroup
-              variant="outline"
-              spacing={2}
-              defaultValue={type.value}
-            > */}
-            <div className="grid grid-cols-2 gap-2">
-              {typeOptions.map((option) => {
-                const isActive = option.value === type.value;
+                {/* <ToggleGroup
+                  variant="outline"
+                  spacing={2}
+                  defaultValue={type.value}
+                > */}
+                <div className="grid grid-cols-2 gap-2">
+                  {typeOptions.map((option) => {
+                    const isActive = option.value === type.value;
 
-                return (
-                  <CardButton
-                    key={option.value}
-                    label={option.label}
-                    size="md"
-                    handleOnClick={() => onTypeChange(option)}
-                    isActive={isActive}
-                  />
-                  // <ToggleGroupItem
-                  //   key={option.value}
-                  //   value={option.value}
-                  //   onClick={() => onTypeChange(option)}
-                  // >
-                  //   {option.label}
-                  // </ToggleGroupItem>
-                );
-              })}
-            </div>
-            {/* </ToggleGroup> */}
-          </div>
+                    return (
+                      <CardButton
+                        key={option.value}
+                        label={option.label}
+                        size="md"
+                        handleOnClick={() => onTypeChange(option)}
+                        isActive={isActive}
+                      />
+                      // <ToggleGroupItem
+                      //   key={option.value}
+                      //   value={option.value}
+                      //   onClick={() => onTypeChange(option)}
+                      // >
+                      //   {option.label}
+                      // </ToggleGroupItem>
+                    );
+                  })}
+                </div>
+                {/* </ToggleGroup> */}
+              </div>
 
-          <div className="flex items-center justify-between gap-2">
-            <TypographyLabel className="uppercase">
-              {t('Page.dashboard.transactionDrawer.form.title.category')}
-            </TypographyLabel>
-            <TypographyCaption>
-              {t('Page.dashboard.transactionDrawer.form.helper.category')}
-            </TypographyCaption>
-          </div>
+              <div className="flex items-center justify-between gap-2">
+                <TypographyLabel>
+                  {t('Page.dashboard.transactionDrawer.form.title.category')}
+                </TypographyLabel>
+                <TypographyCaption>
+                  {t('Page.dashboard.transactionDrawer.form.helper.category')}
+                </TypographyCaption>
+              </div>
 
-          <Controller
-            control={form.control}
-            name="category"
-            render={({ field, fieldState }) => {
-              const filteredCategories = categories.filter(
-                (category) =>
-                  category.type._id === type.value && category.isActive,
-              );
-              const previewCategories = filteredCategories.slice(
-                0,
-                CATEGORY_PREVIEW_LIMIT,
-              );
-              const isSelectedOutsidePreview =
-                !!field.value &&
-                !previewCategories.some(
-                  (category) => category._id === field.value,
-                );
-              const selectedCategory = isSelectedOutsidePreview
-                ? filteredCategories.find(
-                    (category) => category._id === field.value,
-                  )
-                : undefined;
-              const collapsedCategories =
-                isSelectedOutsidePreview && selectedCategory
-                  ? [
-                      ...previewCategories.slice(
-                        0,
-                        Math.max(CATEGORY_PREVIEW_LIMIT - 1, 0),
-                      ),
-                      selectedCategory,
-                    ]
-                  : previewCategories;
-              const displayedCategories = isShowingAllCategories
-                ? filteredCategories
-                : collapsedCategories;
-              const hasMoreCategories =
-                filteredCategories.length > CATEGORY_PREVIEW_LIMIT;
-
-              return (
-                <Field className="gap-4">
-                  <div className="grid grid-cols-2 gap-2">
-                    {displayedCategories.map((category) => {
-                      const { _id, id, name, icon } = category;
-                      const isTranslated = t.has(`Common.category.${id}`);
-                      const label = isTranslated
-                        ? t(`Common.category.${id}`)
-                        : name;
-                      const isSelected = field.value === _id;
-
-                      return (
-                        <Tooltip key={_id}>
-                          <TooltipTrigger
-                            render={
-                              <span>
-                                <CardButton
-                                  label={label}
-                                  handleOnClick={() =>
-                                    field.onChange(isSelected ? '' : _id)
-                                  }
-                                  isActive={isSelected}
-                                  size="md"
-                                  icon={icon as IconProps}
-                                />
-                              </span>
-                            }
-                          />
-                          {t.has(`Common.tooltip.category.${id}`) && (
-                            <TooltipContent>
-                              <p>{t(`Common.tooltip.category.${id}`)}</p>
-                            </TooltipContent>
-                          )}
-                        </Tooltip>
-                      );
-                    })}
-                  </div>
-
-                  {hasMoreCategories && (
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      onClick={() =>
-                        setIsShowingAllCategories(
-                          (previousValue) => !previousValue,
-                        )
-                      }
-                      className={`${isShowingAllCategories ? 'animate-[bounce-up_1s_ease-in-out_infinite]' : 'animate-[bounce-down_1s_ease-in-out_infinite]'}`}
-                    >
-                      <div className="text-muted-foreground flex flex-row items-center justify-between gap-2 lowercase">
-                        {isShowingAllCategories ? (
-                          <>
-                            <ChevronUpIcon className="size-4" />
-                            {t(
-                              'Page.dashboard.transactionDrawer.form.title.showLess',
-                            )}
-                            <ChevronUpIcon className="size-4" />
-                          </>
-                        ) : (
-                          <>
-                            <ChevronDownIcon className="size-4" />
-                            {t(
-                              'Page.dashboard.transactionDrawer.form.title.showMore',
-                            )}
-                            <ChevronDownIcon className="size-4" />
-                          </>
-                        )}
-                      </div>
-                    </Button>
-                  )}
-
-                  {fieldState.invalid && (
-                    <FieldError errors={[fieldState.error]} />
-                  )}
-                </Field>
-              );
-            }}
-          />
-        </CardContent>
-      </Card>
-
-      <Card className="bg-background/60 dark:bg-default-100/50 border-none">
-        <CardContent className="flex flex-col gap-4 p-5">
-          <Controller
-            control={form.control}
-            name="isRecurring"
-            render={({ field, fieldState }) => (
-              <Field orientation="horizontal">
-                <Checkbox
-                  id="form-isRecurring"
-                  checked={field.value}
-                  onCheckedChange={field.onChange}
-                />
-                <FieldLabel htmlFor="form-isRecurring">
-                  {t('Page.dashboard.transactionDrawer.form.title.isRecurring')}
-                </FieldLabel>
-                {fieldState.invalid && (
-                  <FieldError errors={[fieldState.error]} />
-                )}
-              </Field>
-            )}
-          />
-
-          <TypographyCaption>
-            {t('Page.dashboard.transactionDrawer.form.helper.isRecurring')}
-          </TypographyCaption>
-
-          <div className="grid grid-cols-1 gap-3">
-            <Controller
-              control={form.control}
-              name="startDate"
-              render={({ field, fieldState }) => (
-                <Field>
-                  <FieldLabel
-                    htmlFor="form-startDate"
-                    className="text-sm font-semibold"
-                  >
-                    {isRecurring
-                      ? t(
-                          'Page.dashboard.transactionDrawer.form.title.startDate',
-                        )
-                      : t('Page.dashboard.transactionDrawer.form.title.date')}
-                  </FieldLabel>
-                  <DatePicker date={field.value} onChange={field.onChange}>
-                    <Button
-                      id="form-startDate"
-                      variant="outline"
-                      className="flex h-12 w-full items-center justify-between rounded-xl border-2 text-left font-semibold"
-                    >
-                      <TypographyLabel>
-                        {moment(field?.value).format('MMM DD, YYYY')}
-                      </TypographyLabel>
-                      <CalendarIcon className="ml-auto size-4 opacity-60" />
-                    </Button>
-                  </DatePicker>
-                  {fieldState.invalid && (
-                    <FieldError errors={[fieldState.error]} />
-                  )}
-                </Field>
-              )}
-            />
-          </div>
-
-          {isRecurring && (
-            <div className="grid grid-cols-1 gap-3">
               <Controller
                 control={form.control}
-                name="endDate"
+                name="category"
+                render={({ field, fieldState }) => {
+                  const filteredCategories = categories.filter(
+                    (category) =>
+                      category.type._id === type.value && category.isActive,
+                  );
+                  const previewCategories = filteredCategories.slice(
+                    0,
+                    CATEGORY_PREVIEW_LIMIT,
+                  );
+                  const isSelectedOutsidePreview =
+                    !!field.value &&
+                    !previewCategories.some(
+                      (category) => category._id === field.value,
+                    );
+                  const selectedCategory = isSelectedOutsidePreview
+                    ? filteredCategories.find(
+                        (category) => category._id === field.value,
+                      )
+                    : undefined;
+                  const collapsedCategories =
+                    isSelectedOutsidePreview && selectedCategory
+                      ? [
+                          ...previewCategories.slice(
+                            0,
+                            Math.max(CATEGORY_PREVIEW_LIMIT - 1, 0),
+                          ),
+                          selectedCategory,
+                        ]
+                      : previewCategories;
+                  const displayedCategories = isShowingAllCategories
+                    ? filteredCategories
+                    : collapsedCategories;
+                  const hasMoreCategories =
+                    filteredCategories.length > CATEGORY_PREVIEW_LIMIT;
+
+                  return (
+                    <Field className="gap-4">
+                      <div className="grid grid-cols-2 gap-2">
+                        {displayedCategories.map((category) => {
+                          const { _id, id, name, icon } = category;
+                          const isTranslated = t.has(`Common.category.${id}`);
+                          const label = isTranslated
+                            ? t(`Common.category.${id}`)
+                            : name;
+                          const isSelected = field.value === _id;
+
+                          return (
+                            <Tooltip key={_id}>
+                              <TooltipTrigger
+                                render={
+                                  <span>
+                                    <CardButton
+                                      label={label}
+                                      handleOnClick={() =>
+                                        field.onChange(isSelected ? '' : _id)
+                                      }
+                                      isActive={isSelected}
+                                      size="md"
+                                      icon={icon as IconProps}
+                                    />
+                                  </span>
+                                }
+                              />
+                              {t.has(`Common.tooltip.category.${id}`) && (
+                                <TooltipContent>
+                                  <p>{t(`Common.tooltip.category.${id}`)}</p>
+                                </TooltipContent>
+                              )}
+                            </Tooltip>
+                          );
+                        })}
+                      </div>
+
+                      {hasMoreCategories && (
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          onClick={() =>
+                            setIsShowingAllCategories(
+                              (previousValue) => !previousValue,
+                            )
+                          }
+                          className={`${isShowingAllCategories ? 'animate-[bounce-up_1s_ease-in-out_infinite]' : 'animate-[bounce-down_1s_ease-in-out_infinite]'}`}
+                        >
+                          <div className="text-muted-foreground flex flex-row items-center justify-between gap-2 lowercase">
+                            {isShowingAllCategories ? (
+                              <>
+                                <ChevronUpIcon className="size-4" />
+                                {t(
+                                  'Page.dashboard.transactionDrawer.form.title.showLess',
+                                )}
+                                <ChevronUpIcon className="size-4" />
+                              </>
+                            ) : (
+                              <>
+                                <ChevronDownIcon className="size-4" />
+                                {t(
+                                  'Page.dashboard.transactionDrawer.form.title.showMore',
+                                )}
+                                <ChevronDownIcon className="size-4" />
+                              </>
+                            )}
+                          </div>
+                        </Button>
+                      )}
+
+                      {fieldState.invalid && (
+                        <FieldError errors={[fieldState.error]} />
+                      )}
+                    </Field>
+                  );
+                }}
+              />
+            </div>
+
+            <FieldSeparator />
+
+            <div className="flex flex-col gap-4">
+              <Controller
+                control={form.control}
+                name="isRecurring"
                 render={({ field, fieldState }) => (
-                  <Field>
-                    <FieldLabel
-                      htmlFor="form-endDate"
-                      className="text-sm font-semibold"
-                    >
-                      {t('Page.dashboard.transactionDrawer.form.title.endDate')}
+                  <Field orientation="horizontal">
+                    <Checkbox
+                      id="form-isRecurring"
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
+                    <FieldLabel htmlFor="form-isRecurring">
+                      {t(
+                        'Page.dashboard.transactionDrawer.form.title.isRecurring',
+                      )}
                     </FieldLabel>
-                    <DatePicker date={field.value} onChange={field.onChange}>
-                      <Button
-                        id="form-endDate"
-                        variant="outline"
-                        className="flex h-12 w-full items-center justify-between rounded-xl border-2 text-left font-semibold"
-                      >
-                        <TypographyLabel>
-                          {moment(field?.value).format('MMM DD, YYYY')}
-                        </TypographyLabel>
-                        <CalendarIcon className="ml-auto size-4 opacity-60" />
-                      </Button>
-                    </DatePicker>
                     {fieldState.invalid && (
                       <FieldError errors={[fieldState.error]} />
                     )}
@@ -733,125 +659,213 @@ const TransactionDrawerForm = ({
                 )}
               />
 
-              {excludedDatesArray.length > 1 && (
+              <TypographyCaption>
+                {t('Page.dashboard.transactionDrawer.form.helper.isRecurring')}
+              </TypographyCaption>
+
+              <div className="grid grid-cols-1 gap-3">
                 <Controller
                   control={form.control}
-                  name="excludedDates"
+                  name="startDate"
                   render={({ field, fieldState }) => (
                     <Field>
-                      <FieldLabel className="text-sm font-semibold">
-                        {t(
-                          'Page.dashboard.transactionDrawer.form.title.excludedDates',
-                        )}
-                      </FieldLabel>
-                      <Combobox
-                        value={(field.value ?? []).map(
-                          (item: ExcludedDatesProps) => item.value,
-                        )}
-                        onValueChange={(values: string[]) => {
-                          field.onChange(
-                            values.map(
-                              (v) =>
-                                excludedDatesArray.find(
-                                  (item) => item.value === v,
-                                )!,
-                            ),
-                          );
-                        }}
-                        multiple
+                      <FieldLabel
+                        htmlFor="form-startDate"
+                        className="text-sm font-semibold"
                       >
-                        <ComboboxChips ref={anchor} className="w-full">
-                          <ComboboxValue>
-                            {(field.value ?? []).map(
-                              (item: ExcludedDatesProps) => (
-                                <ComboboxChip key={item.value}>
-                                  {item.label}
-                                </ComboboxChip>
-                              ),
+                        {isRecurring
+                          ? t(
+                              'Page.dashboard.transactionDrawer.form.title.startDate',
+                            )
+                          : t(
+                              'Page.dashboard.transactionDrawer.form.title.date',
                             )}
-                          </ComboboxValue>
-                          <ComboboxChipsInput />
-                        </ComboboxChips>
-                        <ComboboxContent anchor={anchor}>
-                          <ComboboxEmpty>No items found.</ComboboxEmpty>
-                          <ComboboxList>
-                            {excludedDatesArray.map((item) => (
-                              <ComboboxItem key={item.value} value={item.value}>
-                                {item.label}
-                              </ComboboxItem>
-                            ))}
-                          </ComboboxList>
-                        </ComboboxContent>
-                      </Combobox>
+                      </FieldLabel>
+                      <DatePicker date={field.value} onChange={field.onChange}>
+                        <Button
+                          id="form-startDate"
+                          variant="outline"
+                          className="flex h-12 w-full items-center justify-between rounded-xl border-2 text-left font-semibold"
+                        >
+                          <TypographyLabel>
+                            {moment(field?.value).format('MMM DD, YYYY')}
+                          </TypographyLabel>
+                          <CalendarIcon className="ml-auto size-4 opacity-60" />
+                        </Button>
+                      </DatePicker>
                       {fieldState.invalid && (
                         <FieldError errors={[fieldState.error]} />
                       )}
                     </Field>
                   )}
                 />
+              </div>
+
+              {isRecurring && (
+                <div className="grid grid-cols-1 gap-3">
+                  <Controller
+                    control={form.control}
+                    name="endDate"
+                    render={({ field, fieldState }) => (
+                      <Field>
+                        <FieldLabel
+                          htmlFor="form-endDate"
+                          className="text-sm font-semibold"
+                        >
+                          {t(
+                            'Page.dashboard.transactionDrawer.form.title.endDate',
+                          )}
+                        </FieldLabel>
+                        <DatePicker
+                          date={field.value}
+                          onChange={field.onChange}
+                        >
+                          <Button
+                            id="form-endDate"
+                            variant="outline"
+                            className="flex h-12 w-full items-center justify-between rounded-xl border-2 text-left font-semibold"
+                          >
+                            <TypographyLabel>
+                              {moment(field?.value).format('MMM DD, YYYY')}
+                            </TypographyLabel>
+                            <CalendarIcon className="ml-auto size-4 opacity-60" />
+                          </Button>
+                        </DatePicker>
+                        {fieldState.invalid && (
+                          <FieldError errors={[fieldState.error]} />
+                        )}
+                      </Field>
+                    )}
+                  />
+
+                  {excludedDatesArray.length > 1 && (
+                    <Controller
+                      control={form.control}
+                      name="excludedDates"
+                      render={({ field, fieldState }) => (
+                        <Field>
+                          <FieldLabel className="text-sm font-semibold">
+                            {t(
+                              'Page.dashboard.transactionDrawer.form.title.excludedDates',
+                            )}
+                          </FieldLabel>
+                          <Combobox
+                            value={(field.value ?? []).map(
+                              (item: ExcludedDatesProps) => item.value,
+                            )}
+                            onValueChange={(values: string[]) => {
+                              field.onChange(
+                                values.map(
+                                  (v) =>
+                                    excludedDatesArray.find(
+                                      (item) => item.value === v,
+                                    )!,
+                                ),
+                              );
+                            }}
+                            multiple
+                          >
+                            <ComboboxChips ref={anchor} className="w-full">
+                              <ComboboxValue>
+                                {(field.value ?? []).map(
+                                  (item: ExcludedDatesProps) => (
+                                    <ComboboxChip key={item.value}>
+                                      {item.label}
+                                    </ComboboxChip>
+                                  ),
+                                )}
+                              </ComboboxValue>
+                              <ComboboxChipsInput />
+                            </ComboboxChips>
+                            <ComboboxContent anchor={anchor}>
+                              <ComboboxEmpty>No items found.</ComboboxEmpty>
+                              <ComboboxList>
+                                {excludedDatesArray.map((item) => (
+                                  <ComboboxItem
+                                    key={item.value}
+                                    value={item.value}
+                                  >
+                                    {item.label}
+                                  </ComboboxItem>
+                                ))}
+                              </ComboboxList>
+                            </ComboboxContent>
+                          </Combobox>
+                          {fieldState.invalid && (
+                            <FieldError errors={[fieldState.error]} />
+                          )}
+                        </Field>
+                      )}
+                    />
+                  )}
+                </div>
               )}
             </div>
-          )}
-        </CardContent>
-      </Card>
 
-      <Card className="bg-background/60 dark:bg-default-100/50 border-none">
-        <CardContent className="flex flex-col gap-4 p-5">
-          <div className="flex items-center justify-between">
-            <p className="text-muted-foreground text-xs font-semibold tracking-wide uppercase">
-              {isDetailsOpen
-                ? t('Page.dashboard.transactionDrawer.form.title.hideDetails')
-                : t('Page.dashboard.transactionDrawer.form.title.addDetails')}
-            </p>
+            <FieldSeparator />
 
-            <Button
-              variant="ghost"
-              size="icon"
-              type="button"
-              onClick={() => setIsDetailsOpen((prev) => !prev)}
-            >
-              <ChevronDownIcon
-                className={cn(
-                  'size-4 transition-transform',
-                  isDetailsOpen ? 'rotate-180' : 'rotate-0',
-                )}
-              />
-            </Button>
-          </div>
-
-          {isDetailsOpen && (
-            <div>
-              <Controller
-                control={form.control}
-                name="description"
-                render={({ field, fieldState }) => (
-                  <Field>
-                    <FieldLabel
-                      htmlFor="form-description"
-                      className="text-sm font-semibold"
-                    >
-                      {t(
-                        'Page.dashboard.transactionDrawer.form.title.description',
+            <div className="flex flex-col gap-4">
+              <div className="flex items-center justify-between">
+                <p className="text-muted-foreground text-xs font-semibold tracking-wide uppercase">
+                  {isDetailsOpen
+                    ? t(
+                        'Page.dashboard.transactionDrawer.form.title.hideDetails',
+                      )
+                    : t(
+                        'Page.dashboard.transactionDrawer.form.title.addDetails',
                       )}
-                    </FieldLabel>
-                    <Textarea
-                      {...field}
-                      id="form-description"
-                      aria-invalid={fieldState.invalid}
-                      placeholder={t(
-                        'Page.dashboard.transactionDrawer.form.placeholder.description',
-                      )}
-                      rows={3}
-                      // className="border-input bg-background focus-visible:border-ring focus-visible:ring-ring/50 min-h-24 w-full rounded-xl border px-3 py-2 text-sm shadow-xs transition outline-none focus-visible:ring-[3px]"
-                    />
-                    {fieldState.invalid && (
-                      <FieldError errors={[fieldState.error]} />
+                </p>
+
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  type="button"
+                  onClick={() => setIsDetailsOpen((prev) => !prev)}
+                >
+                  <ChevronDownIcon
+                    className={cn(
+                      'size-4 transition-transform',
+                      isDetailsOpen ? 'rotate-180' : 'rotate-0',
                     )}
-                  </Field>
-                )}
-              />
+                  />
+                </Button>
+              </div>
+
+              {isDetailsOpen && (
+                <div>
+                  <Controller
+                    control={form.control}
+                    name="description"
+                    render={({ field, fieldState }) => (
+                      <Field>
+                        <FieldLabel
+                          htmlFor="form-description"
+                          className="text-sm font-semibold"
+                        >
+                          {t(
+                            'Page.dashboard.transactionDrawer.form.title.description',
+                          )}
+                        </FieldLabel>
+                        <Textarea
+                          {...field}
+                          id="form-description"
+                          aria-invalid={fieldState.invalid}
+                          placeholder={t(
+                            'Page.dashboard.transactionDrawer.form.placeholder.description',
+                          )}
+                          rows={3}
+                          // className="border-input bg-background focus-visible:border-ring focus-visible:ring-ring/50 min-h-24 w-full rounded-xl border px-3 py-2 text-sm shadow-xs transition outline-none focus-visible:ring-[3px]"
+                        />
+                        {fieldState.invalid && (
+                          <FieldError errors={[fieldState.error]} />
+                        )}
+                      </Field>
+                    )}
+                  />
+                </div>
+              )}
             </div>
-          )}
+          </FieldGroup>
         </CardContent>
       </Card>
 
