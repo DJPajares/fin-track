@@ -1,4 +1,3 @@
-import { Progress } from '@heroui/react';
 import { formatCurrencyToParts } from '@shared/utilities/formatCurrency';
 import CardIcon from '@web/components/shared/CardIcon';
 import {
@@ -6,6 +5,11 @@ import {
   TypographyMuted,
 } from '@web/components/shared/Typography';
 import { Card } from '@web/components/ui/card';
+import {
+  Progress,
+  ProgressLabel,
+  ProgressValue,
+} from '@web/components/ui/progress';
 import type { TransactionPaymentCategoryProps } from '@web/types/TransactionPayment';
 import { useTranslations } from 'next-intl';
 
@@ -64,21 +68,10 @@ const CategoryCard = ({
         </TypographyLabel>
       </div>
 
-      <div className="flex flex-col justify-between gap-2">
-        <TypographyMuted>{t('Page.dashboard.card.settled')}</TypographyMuted>
-
-        <div className="flex flex-row items-center gap-2">
-          <TypographyMuted>{progressPercentage}%</TypographyMuted>
-          <Progress
-            aria-label="Loading..."
-            value={progressPercentage}
-            classNames={{
-              indicator: 'bg-primary',
-            }}
-            size="sm"
-          />
-        </div>
-      </div>
+      <Progress value={progressPercentage}>
+        <ProgressLabel>{t('Page.dashboard.card.settled')}</ProgressLabel>
+        <ProgressValue />
+      </Progress>
     </Card>
   );
 };
