@@ -47,7 +47,6 @@ import {
   SelectValue,
 } from '@web/components/ui/select';
 import { Textarea } from '@web/components/ui/textarea';
-// import { ToggleGroup, ToggleGroupItem } from '@web/components/ui/toggle-group';
 import {
   Tooltip,
   TooltipContent,
@@ -443,7 +442,7 @@ const TransactionDrawerForm = ({
                         field.onChange(value);
                       }}
                       autoComplete="off"
-                      className="text-2xl font-semibold tracking-tight"
+                      className="text-2xl font-semibold tracking-tight md:text-2xl"
                     />
                     <InputGroupAddon align="inline-end">
                       <InputGroupButton
@@ -474,11 +473,6 @@ const TransactionDrawerForm = ({
                   </TypographyLabel>
                 </div>
 
-                {/* <ToggleGroup
-                  variant="outline"
-                  spacing={2}
-                  defaultValue={type._id}
-                > */}
                 <div className="grid grid-cols-2 gap-2">
                   {typeOptions.map((option) => {
                     const isActive = option._id === type._id;
@@ -491,17 +485,9 @@ const TransactionDrawerForm = ({
                         handleOnClick={() => onTypeChange(option)}
                         isActive={isActive}
                       />
-                      // <ToggleGroupItem
-                      //   key={option._id}
-                      //   value={option._id}
-                      //   onClick={() => onTypeChange(option)}
-                      // >
-                      //   {option.name}
-                      // </ToggleGroupItem>
                     );
                   })}
                 </div>
-                {/* </ToggleGroup> */}
               </div>
 
               <div className="flex items-center justify-between gap-2">
