@@ -1,8 +1,5 @@
 import { formatCurrency } from '@shared/utilities/formatCurrency';
-import {
-  TypographyLabel,
-  TypographyLead,
-} from '@web/components/shared/Typography';
+import { TypographySectionTitle } from '@web/components/shared/Typography';
 import {
   Card,
   CardContent,
@@ -29,25 +26,21 @@ const AmountSettledCard = ({
   const t = useTranslations();
 
   return (
-    <Card className="relative flex flex-col">
-      <CardHeader className="px-4">
-        <CardDescription>
-          {t('Page.home.cards.amountSettled.title')}
-        </CardDescription>
+    <Card>
+      <CardHeader>
+        <CardTitle>{t('Page.home.cards.amountSettled.title')}</CardTitle>
         <CardTitle>
-          <TypographyLead>
+          <TypographySectionTitle>
             {formatCurrency({ value: totalPaidAmount, currency })}
-          </TypographyLead>
+          </TypographySectionTitle>
         </CardTitle>
         <CardDescription>
-          <TypographyLabel>
-            {t('Page.home.cards.amountSettled.outOf', {
-              amount: formatCurrency({ value: totalAmount, currency }),
-            })}
-          </TypographyLabel>
+          {t('Page.home.cards.amountSettled.outOf', {
+            amount: formatCurrency({ value: totalAmount, currency }),
+          })}
         </CardDescription>
       </CardHeader>
-      <CardContent className="px-4">
+      <CardContent>
         <Progress
           aria-label={t('Page.home.cards.amountSettled.title')}
           value={Math.floor(paymentCompletionRate * 100) || 0}

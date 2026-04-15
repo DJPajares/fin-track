@@ -1,10 +1,10 @@
 import { formatCurrency } from '@shared/utilities/formatCurrency';
-import { TypographyLabel } from '@web/components/shared/Typography';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
+  CardTitle,
 } from '@web/components/ui/card';
 import {
   ChartConfig,
@@ -36,16 +36,14 @@ const TrendsCard = ({ trendsData, currency }: TrendsCardProps) => {
   const t = useTranslations();
 
   return (
-    <Card className="relative flex flex-col pb-0">
-      <CardHeader className="px-4">
-        <CardDescription>{t('Page.home.cards.trends.title')}</CardDescription>
+    <Card className="pb-0">
+      <CardHeader>
+        <CardTitle>{t('Page.home.cards.trends.title')}</CardTitle>
         <CardDescription>
-          <TypographyLabel>
-            {t('Page.home.cards.trends.description')}
-          </TypographyLabel>
+          {t('Page.home.cards.trends.description')}
         </CardDescription>
       </CardHeader>
-      <CardContent className="relative mt-auto flex-1 p-0">
+      <CardContent className="flex-1 px-0">
         <ChartContainer
           config={trendsChartConfig}
           className="relative size-full overflow-hidden rounded-xl"

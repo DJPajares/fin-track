@@ -1,15 +1,12 @@
 import { CircularProgress } from '@heroui/react';
 import { formatCurrency } from '@shared/utilities/formatCurrency';
-import {
-  TypographyLabel,
-  TypographyMuted,
-} from '@web/components/shared/Typography';
+import { TypographyCaption } from '@web/components/shared/Typography';
 import { Badge } from '@web/components/ui/badge';
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
+  CardTitle,
 } from '@web/components/ui/card';
 import { useTranslations } from 'next-intl';
 import { useMemo } from 'react';
@@ -51,52 +48,49 @@ const BudgetHealthCard = ({
     budgetHealthColor === 'danger' ? 'destructive' : 'secondary';
 
   return (
-    <Card className="relative flex flex-col">
-      <CardHeader className="px-4">
-        <CardDescription>
-          {t('Page.home.cards.budgetHealth.title')}
-        </CardDescription>
+    <Card>
+      <CardHeader>
+        <CardTitle>{t('Page.home.cards.budgetHealth.title')}</CardTitle>
       </CardHeader>
-      <CardContent className="flex flex-col items-center gap-3 px-4">
-        <CircularProgress
-          aria-label={t('Page.home.cards.budgetHealth.title')}
-          classNames={{
-            svg: 'size-16 drop-shadow-md',
-            value: 'text-base font-semibold',
-            indicator:
-              budgetHealthColor === 'success'
-                ? 'stroke-green-500'
-                : budgetHealthColor === 'warning'
-                  ? 'stroke-yellow-500'
-                  : 'stroke-destructive',
-          }}
-          value={Math.min(budgetUtilization, 100)}
-          strokeWidth={3}
-          showValueLabel={true}
-        />
-        <div className="flex w-full flex-col gap-4">
+      <CardContent className="flex flex-col gap-4">
+        <div className="flex flex-col items-center gap-2">
+          <CircularProgress
+            aria-label={t('Page.home.cards.budgetHealth.title')}
+            classNames={{
+              svg: 'size-16 drop-shadow-md',
+              value: 'text-base font-semibold',
+              indicator:
+                budgetHealthColor === 'success'
+                  ? 'stroke-green-500'
+                  : budgetHealthColor === 'warning'
+                    ? 'stroke-yellow-500'
+                    : 'stroke-destructive',
+            }}
+            value={Math.min(budgetUtilization, 100)}
+            strokeWidth={3}
+            showValueLabel={true}
+          />
           <Badge variant={badgeVariant} className="w-fit self-center">
             {budgetHealthLabel}
           </Badge>
-
-          <div className="flex w-full flex-col">
-            <TypographyMuted>
-              {t('Page.home.cards.budgetHealth.used', {
-                spent: formatCurrency({ value: totalAmount, currency }),
-                budget: formatCurrency({ value: budget, currency }),
-              })}
-            </TypographyMuted>
-            <TypographyLabel
-              className={remaining >= 0 ? 'text-green-500' : 'text-destructive'}
-            >
-              {t('Page.home.cards.budgetHealth.remaining', {
-                amount: formatCurrency({
-                  value: Math.abs(remaining),
-                  currency,
-                }),
-              })}
-            </TypographyLabel>
-          </div>
+        </div>
+        <div className="flex flex-col gap-1">
+          <TypographyCaption>
+            {t('Page.home.cards.budgetHealth.used', {
+              spent: formatCurrency({ value: totalAmount, currency }),
+              budget: formatCurrency({ value: budget, currency }),
+            })}
+          </TypographyCaption>
+          <TypographyCaption
+            className={remaining >= 0 ? 'text-green-500' : 'text-destructive'}
+          >
+            {t('Page.home.cards.budgetHealth.remaining', {
+              amount: formatCurrency({
+                value: Math.abs(remaining),
+                currency,
+              }),
+            })}
+          </TypographyCaption>
         </div>
       </CardContent>
     </Card>

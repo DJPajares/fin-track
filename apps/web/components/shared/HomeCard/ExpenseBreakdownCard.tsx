@@ -1,10 +1,10 @@
 import { formatCurrency } from '@shared/utilities/formatCurrency';
-import { TypographyLabel } from '@web/components/shared/Typography';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
+  CardTitle,
 } from '@web/components/ui/card';
 import {
   ChartConfig,
@@ -36,18 +36,14 @@ const ExpenseBreakdownCard = ({
   }, [expensePieData]);
 
   return (
-    <Card className="relative flex flex-col pb-0">
-      <CardHeader className="px-4">
+    <Card>
+      <CardHeader>
+        <CardTitle>{t('Page.home.cards.expenseBreakdown.title')}</CardTitle>
         <CardDescription>
-          {t('Page.home.cards.expenseBreakdown.title')}
-        </CardDescription>
-        <CardDescription>
-          <TypographyLabel>
-            {t('Page.home.cards.expenseBreakdown.description')}
-          </TypographyLabel>
+          {t('Page.home.cards.expenseBreakdown.description')}
         </CardDescription>
       </CardHeader>
-      <CardContent className="relative mt-auto flex-1 p-0">
+      <CardContent>
         <ChartContainer
           config={expensePieChartConfig}
           className="mx-auto aspect-square max-h-40"

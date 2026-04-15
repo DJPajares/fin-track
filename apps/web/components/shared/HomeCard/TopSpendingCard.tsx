@@ -6,6 +6,7 @@ import {
   CardContent,
   CardDescription,
   CardHeader,
+  CardTitle,
 } from '@web/components/ui/card';
 import { Progress } from '@web/components/ui/progress';
 import type { TransactionPaymentCategoryProps } from '@web/types/TransactionPayment';
@@ -23,18 +24,14 @@ const TopSpendingCard = ({
   const t = useTranslations();
 
   return (
-    <Card className="relative flex flex-col">
-      <CardHeader className="px-4">
+    <Card>
+      <CardHeader>
+        <CardTitle>{t('Page.home.cards.topSpending.title')}</CardTitle>
         <CardDescription>
-          {t('Page.home.cards.topSpending.title')}
-        </CardDescription>
-        <CardDescription>
-          <TypographyLabel>
-            {t('Page.home.cards.topSpending.description')}
-          </TypographyLabel>
+          {t('Page.home.cards.topSpending.description')}
         </CardDescription>
       </CardHeader>
-      <CardContent className="flex flex-col gap-3 px-4">
+      <CardContent className="flex flex-col gap-3">
         {topSpendingCategories.map((category) => {
           const isTranslated = t.has(`Common.category.${category.id}`);
           return (

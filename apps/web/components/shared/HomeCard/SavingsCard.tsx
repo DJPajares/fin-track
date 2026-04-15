@@ -1,8 +1,5 @@
 import { formatCurrency } from '@shared/utilities/formatCurrency';
-import {
-  TypographyLabel,
-  TypographyLead,
-} from '@web/components/shared/Typography';
+import { TypographySectionTitle } from '@web/components/shared/Typography';
 import {
   Card,
   CardContent,
@@ -36,24 +33,22 @@ const SavingsCard = ({
   const t = useTranslations();
 
   return (
-    <Card className="relative flex flex-col pb-0">
-      <CardHeader className="px-4">
-        <CardDescription>{t('Page.home.cards.savings.title')}</CardDescription>
+    <Card className="pb-0">
+      <CardHeader>
+        <CardTitle>{t('Page.home.cards.savings.title')}</CardTitle>
         <CardTitle>
-          <TypographyLead>
+          <TypographySectionTitle>
             {formatCurrency({
               value: accumulativeSavings,
               currency,
             })}
-          </TypographyLead>
+          </TypographySectionTitle>
         </CardTitle>
         <CardDescription>
-          <TypographyLabel>
-            {t('Page.home.cards.savings.description')}
-          </TypographyLabel>
+          {t('Page.home.cards.savings.description')}
         </CardDescription>
       </CardHeader>
-      <CardContent className="relative mt-auto flex-1 p-0">
+      <CardContent className="flex-1 px-0">
         <ChartContainer
           config={previousSavingsChartConfig}
           className="relative size-full overflow-hidden rounded-xl"

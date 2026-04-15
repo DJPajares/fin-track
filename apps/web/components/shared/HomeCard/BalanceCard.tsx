@@ -1,8 +1,5 @@
 import { formatCurrency } from '@shared/utilities/formatCurrency';
-import {
-  TypographyLabel,
-  TypographyLead,
-} from '@web/components/shared/Typography';
+import { TypographySectionTitle } from '@web/components/shared/Typography';
 import {
   Card,
   CardDescription,
@@ -20,20 +17,18 @@ const BalanceCard = ({ balance, currency }: BalanceCardProps) => {
   const t = useTranslations();
 
   return (
-    <Card className="relative flex flex-col">
-      <CardHeader className="px-4">
-        <CardDescription>{t('Page.home.cards.balance.title')}</CardDescription>
+    <Card>
+      <CardHeader>
+        <CardTitle>{t('Page.home.cards.balance.title')}</CardTitle>
         <CardTitle>
-          <TypographyLead
+          <TypographySectionTitle
             className={balance >= 0 ? 'text-green-500' : 'text-destructive'}
           >
             {formatCurrency({ value: balance, currency })}
-          </TypographyLead>
+          </TypographySectionTitle>
         </CardTitle>
         <CardDescription>
-          <TypographyLabel>
-            {t('Page.home.cards.balance.description')}
-          </TypographyLabel>
+          {t('Page.home.cards.balance.description')}
         </CardDescription>
       </CardHeader>
     </Card>
