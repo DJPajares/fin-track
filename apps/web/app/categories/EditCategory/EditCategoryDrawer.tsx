@@ -141,12 +141,8 @@ const EditCategoryDrawer = ({
                     {iconMapArray.map((icon) => (
                       <Button
                         key={icon}
-                        variant="outline"
+                        variant={field.value === icon ? 'default' : 'outline'}
                         size="icon"
-                        className={`${
-                          field.value === icon &&
-                          'bg-primary text-primary-foreground'
-                        }`}
                         onClick={() => handleChangeIcon(icon)}
                       >
                         <CardIcon icon={icon} />
