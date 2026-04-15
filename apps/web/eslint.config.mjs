@@ -16,6 +16,9 @@ const eslintConfig = defineConfig([
       'simple-import-sort/imports': 'error',
       'simple-import-sort/exports': 'error',
     },
+    settings: {
+      react: { version: '19' }, // Avoids auto-detection crash
+    },
   },
 
   prettier, // 👈 must be last
