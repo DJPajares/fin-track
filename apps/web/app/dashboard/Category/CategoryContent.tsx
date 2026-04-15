@@ -61,14 +61,18 @@ const CategoryContent = ({
 
   const paidAmountProgress = useMemo(() => {
     const parsed = parseFloat(customPaidAmount);
-    return isNaN(parsed) ? 0 : parsed / amount;
+    if (isNaN(parsed)) return 0;
+    return Math.min(parsed / amount, 1);
   }, [customPaidAmount, amount]);
 
   const isCompleted = useMemo(() => {
-    return Math.floor(paidAmountProgress) === 1;
-  }, [paidAmountProgress]);
+    const parsed = parseFloat(customPaidAmount);
+    return !isNaN(parsed) && parsed >= parseFloat(amount.toFixed(2));
+  }, [customPaidAmount, amount]);
 
-  const paidAmountPercentage = Math.floor(paidAmountProgress * 100);
+  const paidAmountPercentage = isCompleted
+    ? 100
+    : Math.floor(paidAmountProgress * 100);
 
   useEffect(() => {
     setCustomPaidAmount(paidAmount.toFixed(2));
@@ -94,7 +98,7 @@ const CategoryContent = ({
     <>
       <div className="flex flex-row items-center justify-between gap-2">
         <Card
-          className={`${isTotal && 'bg-accent'} ${isCompleted && 'border-primary/20'} shadow-small m-0 w-full p-4`}
+          className={`${isTotal && 'bg-secondary/40'} ${isCompleted && 'border-primary/20'} shadow-small m-0 w-full p-4`}
         >
           <div className="flex flex-row items-center justify-center gap-4">
             <Checkbox
