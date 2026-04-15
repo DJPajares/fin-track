@@ -7,9 +7,9 @@
 
 ## Architecture and Project Conventions
 
-- Monorepo layout: `packages/api` (Node/Express, Vercel), `packages/web` (Next.js/React/TypeScript), `shared` utilities/types.
-- Reuse shared types from `shared/types` and backend types to keep API and UI aligned. Avoid ad-hoc shapes.
-- Keep feature code colocated (e.g., `app/{feature}` with nearby components/hooks); keep generic UI in `components/ui`, domain UI in `components/shared`.
+- Monorepo layout: `apps/api` (Node/Express, Vercel), `apps/web` (Next.js/React/TypeScript), `packages/shared` utilities/types.
+- Reuse shared types from `packages/shared/types` and backend types to keep API and UI aligned. Avoid ad-hoc shapes.
+- Keep feature code colocated (e.g., `apps/{feature}` with nearby components/hooks); keep generic UI in `components/ui`, domain UI in `components/shared`.
 - Prefer server components in Next.js; add `"use client"` only when browser-only state or effects are required.
 - In Express, keep controllers thin: validate, delegate to services, return typed responses. Keep business logic in services/utilities.
 - Do not introduce new dependencies without need; prefer existing helpers and tokens.
@@ -64,3 +64,5 @@
 - Don't update other translations unless explicitly asked.
 - When implementing a solution, always look out for typescript errors and fix them.
 - Never use "any" type in typescript files.
+- Add as much implementation, tests, and documentation as possible when implementing a solution.
+- Do not modify shadcn components under apps/web/components/ui; if it's a fix, fix it in a way that doesn't modify the original component, for example by wrapping it in another component and applying the fix there or fix from the place where it's being used.
