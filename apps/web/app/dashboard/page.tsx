@@ -8,6 +8,7 @@ import Loader from '@web/components/shared/Loader';
 import {
   TypographyCaption,
   TypographyLead,
+  TypographyMuted,
   TypographySubsectionTitle,
 } from '@web/components/shared/Typography';
 import { Button } from '@web/components/ui/button';
@@ -203,19 +204,19 @@ const Dashboard = () => {
 
                 <span className="flex flex-col items-end">
                   <TypographyCaption>{`${t('settled')} (${t('unsettled')})`}</TypographyCaption>
-                  <span className="flex flex-row gap-1">
+                  <span className="flex flex-row items-center gap-1">
                     <TypographySubsectionTitle>
                       {formatCurrency({
                         value: totalPaidAmount,
                         currency: currency.name,
                       })}
                     </TypographySubsectionTitle>
-                    <TypographySubsectionTitle className="text-muted-foreground italic">
+                    <TypographyMuted className="italic">
                       {`(${formatCurrency({
                         value: totalAmount - totalPaidAmount,
                         currency: currency.name,
                       })})`}
-                    </TypographySubsectionTitle>
+                    </TypographyMuted>
                   </span>
                 </span>
               </div>
