@@ -1,5 +1,5 @@
 {
-  "style": "base-vega",
+  "style": "base-luma",
   "rsc": true,
   "tsx": true,
   "tailwind": {
