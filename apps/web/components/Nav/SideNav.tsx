@@ -78,7 +78,7 @@ const SideNav = () => {
                           size="lg"
                           title={t(item.value)}
                         >
-                          <div className="text-muted-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
+                          <div className="flex aspect-square size-8 items-center justify-center rounded-lg">
                             {item.icon && <item.icon />}
                           </div>
 
@@ -98,7 +98,7 @@ const SideNav = () => {
                       size="lg"
                       title={t(item.value)}
                     >
-                      <div className="text-muted-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
+                      <div className="flex aspect-square size-8 items-center justify-center rounded-lg">
                         {item.icon && <item.icon />}
                       </div>
 
