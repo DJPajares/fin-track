@@ -54,11 +54,14 @@ const CategoryContent = ({
 }: CategoryContentProps) => {
   const t = useTranslations();
 
-  const [customPaidAmount, setCustomPaidAmount] = useState(paidAmount);
+  const [customPaidAmount, setCustomPaidAmount] = useState(
+    paidAmount.toFixed(2),
+  );
   const [openDialog, setOpenDialog] = useState(false);
 
   const paidAmountProgress = useMemo(() => {
-    return customPaidAmount / amount;
+    const parsed = parseFloat(customPaidAmount);
+    return isNaN(parsed) ? 0 : parsed / amount;
   }, [customPaidAmount, amount]);
 
   const isCompleted = useMemo(() => {
@@ -68,13 +71,13 @@ const CategoryContent = ({
   const paidAmountPercentage = Math.floor(paidAmountProgress * 100);
 
   useEffect(() => {
-    setCustomPaidAmount(paidAmount);
+    setCustomPaidAmount(paidAmount.toFixed(2));
   }, [paidAmount]);
 
   const handleChangeCustomPaidAmountInput = (
     event: ChangeEvent<HTMLInputElement>,
   ) => {
-    setCustomPaidAmount(parseFloat(event.target.value));
+    setCustomPaidAmount(event.target.value);
   };
 
   const handleUpdateCustomPaidAmount = () => {
@@ -93,7 +96,7 @@ const CategoryContent = ({
         <Card
           className={`${isTotal && 'bg-accent'} ${isCompleted && 'border-primary/20'} shadow-small m-0 w-full p-4`}
         >
-          <div className="flex flex-row items-center justify-center gap-2">
+          <div className="flex flex-row items-center justify-center gap-4">
             <Checkbox
               checked={isCompleted}
               onCheckedChange={() =>
@@ -142,7 +145,7 @@ const CategoryContent = ({
               <Input
                 type="number"
                 inputMode="decimal"
-                defaultValue={customPaidAmount.toFixed(2)}
+                value={customPaidAmount}
                 max={amount}
                 onChange={handleChangeCustomPaidAmountInput}
               />
