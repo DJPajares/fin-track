@@ -140,7 +140,7 @@ const Dashboard = () => {
         {/* CIRCULAR PROGRESS BAR */}
         <div className="flex flex-col items-center">
           {isFetching ? (
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col items-center gap-2">
               <Skeleton className="aspect-square h-36 rounded-full sm:h-64" />
               <Skeleton className="h-4 w-20" />
             </div>
