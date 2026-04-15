@@ -89,11 +89,13 @@ const NavDropdownMenu = ({ children }: NavDropdownMenuProps) => {
   const handleLanguageChange = (language: LocaleProps) => {
     setUserLocale(language);
     updateUserSettings({ language }).catch(() => {});
+    setIsDropdownOpen(false);
   };
 
   const handleCurrencyChange = (currency: ListProps) => {
     dispatch(setDashboardCurrency({ currency }));
     updateUserSettings({ currency: currency.name }).catch(() => {});
+    setIsDropdownOpen(false);
   };
 
   const handleDarkModeToggle = () => {
