@@ -29,8 +29,8 @@ const UnpaidBillsCard = ({ unpaidCategories }: UnpaidBillsCardProps) => {
                 key={category._id}
                 className="flex items-center justify-between gap-2"
               >
-                <div className="flex min-w-0 items-center gap-2">
-                  <CardIcon icon={category.icon} />
+                <div className="flex min-w-0 flex-row items-center gap-2">
+                  <CardIcon className="shrink-0" icon={category.icon} />
                   <TypographyLabel className="truncate">
                     {isTranslated
                       ? t(`Common.category.${category.id}`)

@@ -38,7 +38,7 @@ const TopSpendingCard = ({
             <div key={category._id} className="flex flex-col gap-1">
               <div className="flex items-center justify-between gap-2">
                 <div className="flex items-center gap-2 truncate">
-                  <CardIcon icon={category.icon} />
+                  <CardIcon className="shrink-0" icon={category.icon} />
                   <TypographyLabel className="truncate">
                     {isTranslated
                       ? t(`Common.category.${category.id}`)
