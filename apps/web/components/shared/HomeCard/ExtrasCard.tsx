@@ -60,10 +60,20 @@ const ExtrasCard = ({
             margin={{ top: 5 }}
             className="size-fit"
           >
+            <defs>
+              <linearGradient id="fillExtra" x1="0" y1="0" x2="0" y2="1">
+                <stop
+                  offset="5%"
+                  stopColor="var(--chart-1)"
+                  stopOpacity={0.3}
+                />
+                <stop offset="95%" stopColor="var(--chart-1)" stopOpacity={0} />
+              </linearGradient>
+            </defs>
             <Area
               dataKey="extra"
-              fill="var(--chart-1)"
-              fillOpacity={0.1}
+              fill="url(#fillExtra)"
+              fillOpacity={1}
               stroke="var(--chart-1)"
               strokeWidth={2}
               type="monotone"

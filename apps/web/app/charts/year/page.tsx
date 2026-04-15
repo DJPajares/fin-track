@@ -329,8 +329,8 @@ const Charts = () => {
                 content={<ChartTooltipContent hideIndicator />}
               />
               <ChartLegend content={<ChartLegendContent />} />
-              <Bar dataKey="income" fill="var(--chart-1)" radius={2} />
-              <Bar dataKey="expense" fill="var(--chart-2)" radius={2} />
+              <Bar dataKey="income" fill="var(--chart-1)" />
+              <Bar dataKey="expense" fill="var(--chart-2)" />
             </BarChart>
           </ChartContainer>
         </CardContent>

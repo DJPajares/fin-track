@@ -49,6 +49,24 @@ const TrendsCard = ({ trendsData, currency }: TrendsCardProps) => {
           className="relative size-full overflow-hidden rounded-xl"
         >
           <AreaChart data={trendsData} margin={{ top: 5 }} className="size-fit">
+            <defs>
+              <linearGradient id="fillIncome" x1="0" y1="0" x2="0" y2="1">
+                <stop
+                  offset="5%"
+                  stopColor="var(--chart-1)"
+                  stopOpacity={0.3}
+                />
+                <stop offset="95%" stopColor="var(--chart-1)" stopOpacity={0} />
+              </linearGradient>
+              <linearGradient id="fillExpense" x1="0" y1="0" x2="0" y2="1">
+                <stop
+                  offset="5%"
+                  stopColor="var(--chart-2)"
+                  stopOpacity={0.3}
+                />
+                <stop offset="95%" stopColor="var(--chart-2)" stopOpacity={0} />
+              </linearGradient>
+            </defs>
             <ChartTooltip
               cursor={false}
               content={
@@ -64,8 +82,8 @@ const TrendsCard = ({ trendsData, currency }: TrendsCardProps) => {
             />
             <Area
               dataKey="income"
-              fill="var(--chart-1)"
-              fillOpacity={0.05}
+              fill="url(#fillIncome)"
+              fillOpacity={1}
               stroke="var(--chart-1)"
               strokeWidth={2}
               type="monotone"
@@ -73,8 +91,8 @@ const TrendsCard = ({ trendsData, currency }: TrendsCardProps) => {
             />
             <Area
               dataKey="expense"
-              fill="var(--chart-2)"
-              fillOpacity={0.05}
+              fill="url(#fillExpense)"
+              fillOpacity={1}
               stroke="var(--chart-2)"
               strokeWidth={2}
               type="monotone"
