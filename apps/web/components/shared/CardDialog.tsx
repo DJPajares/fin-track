@@ -3,6 +3,7 @@ import {
   CardContent,
   CardDescription,
   CardHeader,
+  CardTitle,
 } from '@web/components/ui/card';
 import {
   Dialog,
@@ -12,7 +13,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@web/components/ui/dialog';
-import { Label } from '@web/components/ui/label';
 import { cn } from '@web/lib/utils';
 import { ReactNode } from 'react';
 
@@ -24,10 +24,15 @@ type CardDialogProps = {
   className?: string;
 };
 
-const Content = ({ title, isExpandable, children }: CardDialogProps) =>
+const Content = ({
+  title,
+  description,
+  isExpandable,
+  children,
+}: CardDialogProps) =>
   isExpandable ? (
     <Dialog>
-      <DialogTrigger asChild>
+      <DialogTrigger className="w-full">
         <div className={`${title && 'my-2'}`}>{children}</div>
       </DialogTrigger>
 
@@ -36,7 +41,7 @@ const Content = ({ title, isExpandable, children }: CardDialogProps) =>
           <DialogTitle className="font-extralight tracking-wider">
             {title}
           </DialogTitle>
-          <DialogDescription></DialogDescription>
+          <DialogDescription>{description}</DialogDescription>
         </DialogHeader>
 
         {children}
@@ -57,24 +62,28 @@ const CardDialog = ({
     <Card className={cn(`${isExpandable && 'cursor-pointer'}`, className)}>
       {title ? (
         <>
-          <CardHeader className="px-4">
-            <CardDescription>{title}</CardDescription>
-            {description && (
-              <CardDescription>
-                <Label variant="caption">{description}</Label>
-              </CardDescription>
-            )}
+          <CardHeader>
+            <CardTitle>{title}</CardTitle>
+            {description && <CardDescription>{description}</CardDescription>}
           </CardHeader>
 
-          <CardContent className="px-4">
-            <Content isExpandable={isExpandable} title={title}>
+          <CardContent>
+            <Content
+              isExpandable={isExpandable}
+              title={title}
+              description={description}
+            >
               {children}
             </Content>
           </CardContent>
         </>
       ) : (
         <CardContent className="px-4">
-          <Content isExpandable={isExpandable} title={title}>
+          <Content
+            isExpandable={isExpandable}
+            title={title}
+            description={description}
+          >
             {children}
           </Content>
         </CardContent>

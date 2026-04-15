@@ -1,3 +1,4 @@
+import type { ListProps } from '@shared/types/List';
 import {
   Select,
   SelectContent,
@@ -5,13 +6,12 @@ import {
   SelectItem,
   SelectLabel,
   SelectTrigger,
-  type SelectTriggerProps,
   SelectValue,
 } from '@web/components/ui/select';
-import type { ListProps } from '@web/types/List';
+import { cn } from '@web/lib/utils';
 
 export type SelectBoxProps = {
-  variant?: SelectTriggerProps['variant'];
+  variant?: 'default' | 'ghost';
   items: ListProps[];
   selectedItem: ListProps;
   setSelectedItem: (item: ListProps) => void;
@@ -27,6 +27,12 @@ export const SelectBox = ({
   placeholder,
   className,
 }: SelectBoxProps) => {
+  const triggerClassName = cn(
+    variant === 'ghost' &&
+      'hover:bg-accent hover:text-accent-foreground border-transparent bg-transparent shadow-none focus-visible:ring-ring/50 dark:bg-transparent dark:hover:bg-accent',
+    className,
+  );
+
   return (
     <Select
       value={selectedItem._id.toString()}
@@ -35,7 +41,7 @@ export const SelectBox = ({
         if (selected) setSelectedItem(selected);
       }}
     >
-      <SelectTrigger variant={variant} className={className}>
+      <SelectTrigger className={triggerClassName}>
         <SelectValue placeholder={placeholder}>{selectedItem.name}</SelectValue>
       </SelectTrigger>
       <SelectContent>

@@ -1,4 +1,5 @@
 import { excludedDateStringFormat } from '@shared/constants/dateStringFormat';
+import type { ListProps } from '@shared/types/List';
 import TransactionDrawerForm, {
   type SubmitTransactionProps,
 } from '@web/components/Form/TransactionDrawerForm';
@@ -11,13 +12,12 @@ import {
   useUpdateTransactionMutation,
 } from '@web/lib/redux/services/transactions';
 import type { TransactionFormProps } from '@web/lib/schemas/transaction';
-import type { ListProps } from '@web/types/List';
 import type { TransactionProps } from '@web/types/Transaction';
 import moment from 'moment';
 import { useTranslations } from 'next-intl';
 import {
   Dispatch,
-  ReactNode,
+  ReactElement,
   SetStateAction,
   useEffect,
   useRef,
@@ -29,7 +29,7 @@ type EditTransactionDrawerProps = {
   transaction: TransactionProps;
   isDrawerOpen: boolean;
   setIsDrawerOpen: Dispatch<SetStateAction<boolean>>;
-  children: ReactNode;
+  children: ReactElement;
 };
 
 const EditTransactionDrawer = ({
@@ -81,8 +81,8 @@ const EditTransactionDrawer = ({
     endDate: new Date(transaction.endDate),
     excludedDates:
       transaction.excludedDates?.map((date) => ({
-        value: new Date(date).toDateString(),
-        label: moment(date).format(excludedDateStringFormat),
+        _id: new Date(date).toDateString(),
+        name: moment(date).format(excludedDateStringFormat),
       })) || [],
   };
 

@@ -1,4 +1,4 @@
-import { LocaleProps } from 'packages/shared/types/Locale';
+import type { LocaleProps } from './Locale';
 
 export type AuthResponse = {
   id: string;

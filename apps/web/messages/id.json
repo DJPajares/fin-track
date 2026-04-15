@@ -23,6 +23,7 @@
     "home": {
       "greetings": "Selamat Datang",
       "dashboardButton": "Ke Dasbor",
+      "ariaLabel": "Ikhtisar Keuangan",
       "motivation": {
         "title": "Motivasi Hari Ini",
         "quotes": [
@@ -135,7 +136,8 @@
           "placeholder": {
             "title": "Contoh: Tagihan listrik",
             "currency": "Pilih mata uang",
-            "excludedDates": "Pilih tanggal..."
+            "excludedDates": "Pilih tanggal...",
+            "description": "Tambahkan catatan opsional"
           },
           "helper": {
             "category": "Pilih kategori",

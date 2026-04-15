@@ -1,4 +1,5 @@
 import { formatCurrency } from '@shared/utilities/formatCurrency';
+import { TypographySectionTitle } from '@web/components/shared/Typography';
 import {
   Card,
   CardContent,
@@ -7,7 +8,6 @@ import {
   CardTitle,
 } from '@web/components/ui/card';
 import { ChartConfig, ChartContainer } from '@web/components/ui/chart';
-import { Label } from '@web/components/ui/label';
 import type { UpcomingExtraProps } from '@web/types/HomeCard';
 import { TrendingUpIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
@@ -35,24 +35,22 @@ const ExtrasCard = ({
   const t = useTranslations();
 
   return (
-    <Card className="relative flex flex-col pb-0">
-      <CardHeader className="px-4">
-        <CardDescription>{t('Page.home.cards.extras.title')}</CardDescription>
+    <Card className="pb-0">
+      <CardHeader>
+        <CardTitle>{t('Page.home.cards.extras.title')}</CardTitle>
         <CardTitle>
-          <Label variant="title-xl">
+          <TypographySectionTitle>
             {formatCurrency({
               value: accumulativeExtra,
               currency,
             })}
-          </Label>
+          </TypographySectionTitle>
         </CardTitle>
         <CardDescription>
-          <Label variant="caption">
-            {t('Page.home.cards.extras.description')}
-          </Label>
+          {t('Page.home.cards.extras.description')}
         </CardDescription>
       </CardHeader>
-      <CardContent className="relative mt-auto flex-1 p-0">
+      <CardContent className="flex-1 px-0">
         <ChartContainer
           config={upcomingExtraChartConfig}
           className="relative size-full overflow-hidden rounded-xl"
@@ -62,10 +60,20 @@ const ExtrasCard = ({
             margin={{ top: 5 }}
             className="size-fit"
           >
+            <defs>
+              <linearGradient id="fillExtra" x1="0" y1="0" x2="0" y2="1">
+                <stop
+                  offset="5%"
+                  stopColor="var(--chart-1)"
+                  stopOpacity={0.3}
+                />
+                <stop offset="95%" stopColor="var(--chart-1)" stopOpacity={0} />
+              </linearGradient>
+            </defs>
             <Area
               dataKey="extra"
-              fill="var(--chart-1)"
-              fillOpacity={0.1}
+              fill="url(#fillExtra)"
+              fillOpacity={1}
               stroke="var(--chart-1)"
               strokeWidth={2}
               type="monotone"

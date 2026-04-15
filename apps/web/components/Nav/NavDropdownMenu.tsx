@@ -1,8 +1,14 @@
 'use client';
 
+import type { ListProps } from '@shared/types/List';
 import type { LocaleProps } from '@shared/types/Locale';
 import { sortedLanguages } from '@shared/utilities/common';
 import ProfileDrawer from '@web/components/Nav/ProfileDrawer';
+import {
+  TypographyLabel,
+  TypographyMuted,
+} from '@web/components/shared/Typography';
+import { Button } from '@web/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -18,14 +24,12 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from '@web/components/ui/dropdown-menu';
-import { Label } from '@web/components/ui/label';
 import { Switch } from '@web/components/ui/switch';
 import { useAppSelector } from '@web/lib/hooks/use-redux';
 import { logoutSuccess } from '@web/lib/redux/feature/auth/authSlice';
 import { setDashboardCurrency } from '@web/lib/redux/feature/dashboard/dashboardSlice';
 import { logout, updateUserSettings } from '@web/services/auth';
 import { setUserLocale } from '@web/services/locale';
-import type { ListProps } from '@web/types/List';
 import {
   DollarSignIcon,
   GlobeIcon,
@@ -38,13 +42,13 @@ import {
 import { useRouter } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
 import { useTheme } from 'next-themes';
-import { ReactNode, useState } from 'react';
+import { ReactElement, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import packageInfo from '../../../../package.json';
 
 type NavDropdownMenuProps = {
-  children: ReactNode;
+  children: ReactElement;
 };
 
 const NavDropdownMenu = ({ children }: NavDropdownMenuProps) => {
@@ -85,11 +89,13 @@ const NavDropdownMenu = ({ children }: NavDropdownMenuProps) => {
   const handleLanguageChange = (language: LocaleProps) => {
     setUserLocale(language);
     updateUserSettings({ language }).catch(() => {});
+    setIsDropdownOpen(false);
   };
 
   const handleCurrencyChange = (currency: ListProps) => {
     dispatch(setDashboardCurrency({ currency }));
     updateUserSettings({ currency: currency.name }).catch(() => {});
+    setIsDropdownOpen(false);
   };
 
   const handleDarkModeToggle = () => {
@@ -105,16 +111,19 @@ const NavDropdownMenu = ({ children }: NavDropdownMenuProps) => {
   return (
     <>
       <DropdownMenu open={isDropdownOpen} onOpenChange={setIsDropdownOpen}>
-        <DropdownMenuTrigger asChild>{children}</DropdownMenuTrigger>
-        <DropdownMenuContent className="w-56" align="end" forceMount>
-          <DropdownMenuLabel className="font-normal">
-            <div className="flex flex-col space-y-1">
-              <Label variant="subtitle-md">{user?.name || 'User'}</Label>
-              <Label variant="caption" className="text-muted-foreground">
-                {user?.email || ''}
-              </Label>
-            </div>
-          </DropdownMenuLabel>
+        <DropdownMenuTrigger
+          render={children}
+          nativeButton={children.type === 'button' || children.type === Button}
+        />
+        <DropdownMenuContent className="w-56" align="end">
+          <DropdownMenuGroup>
+            <DropdownMenuLabel className="font-normal">
+              <div className="flex flex-col space-y-1">
+                <TypographyLabel>{user?.name || 'User'}</TypographyLabel>
+                <TypographyMuted>{user?.email || ''}</TypographyMuted>
+              </div>
+            </DropdownMenuLabel>
+          </DropdownMenuGroup>
 
           <DropdownMenuSeparator />
 
@@ -131,7 +140,7 @@ const NavDropdownMenu = ({ children }: NavDropdownMenuProps) => {
 
             <DropdownMenuSub>
               <DropdownMenuSubTrigger>
-                <GlobeIcon className="text-muted-foreground mr-2 size-4" />
+                <GlobeIcon className="text-muted-foreground size-4" />
                 {t('language')}
               </DropdownMenuSubTrigger>
               <DropdownMenuPortal>
@@ -145,12 +154,11 @@ const NavDropdownMenu = ({ children }: NavDropdownMenuProps) => {
                         checked={isSelected}
                         onClick={() => handleLanguageChange(language.value)}
                       >
-                        <Label
-                          variant="subtitle-md"
+                        <TypographyLabel
                           className={`${isSelected && 'font-bold'}`}
                         >
                           {language.label}
-                        </Label>
+                        </TypographyLabel>
                       </DropdownMenuCheckboxItem>
                     );
                   })}
@@ -160,7 +168,7 @@ const NavDropdownMenu = ({ children }: NavDropdownMenuProps) => {
 
             <DropdownMenuSub>
               <DropdownMenuSubTrigger>
-                <DollarSignIcon className="text-muted-foreground mr-2 size-4" />
+                <DollarSignIcon className="text-muted-foreground size-4" />
                 {t('currency')}
               </DropdownMenuSubTrigger>
               <DropdownMenuPortal>
@@ -173,12 +181,11 @@ const NavDropdownMenu = ({ children }: NavDropdownMenuProps) => {
                         checked={isSelected}
                         onClick={() => handleCurrencyChange(currency)}
                       >
-                        <Label
-                          variant="subtitle-md"
+                        <TypographyLabel
                           className={`${isSelected && 'font-bold'}`}
                         >
                           {currency.name}
-                        </Label>
+                        </TypographyLabel>
                       </DropdownMenuCheckboxItem>
                     );
                   })}
@@ -218,9 +225,7 @@ const NavDropdownMenu = ({ children }: NavDropdownMenuProps) => {
               <LogOutIcon className="text-muted-foreground size-4" />
               {t('logout')}
               <DropdownMenuShortcut>
-                <Label variant="caption" className="text-muted-foreground">
-                  {`v${packageInfo.version}`}
-                </Label>
+                <TypographyMuted>{`v${packageInfo.version}`}</TypographyMuted>
               </DropdownMenuShortcut>
             </DropdownMenuItem>
           </DropdownMenuGroup>

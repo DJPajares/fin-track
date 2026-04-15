@@ -1,7 +1,7 @@
 import { dateStringFormat } from '@shared/constants/dateStringFormat';
 import { formatCurrency } from '@shared/utilities/formatCurrency';
 import CustomDrawer from '@web/components/shared/CustomDrawer';
-import { Label } from '@web/components/ui/label';
+import { TypographyLabel } from '@web/components/shared/Typography';
 import { Separator } from '@web/components/ui/separator';
 import { Switch } from '@web/components/ui/switch';
 import { useAppSelector } from '@web/lib/hooks/use-redux';
@@ -198,7 +198,9 @@ const CategoryDrawer = ({
             checked={isLocalCurrency}
             onCheckedChange={() => setIsLocalCurrency(!isLocalCurrency)}
           />
-          <Label>{t('Page.dashboard.cardDrawer.showLocalCurrency')}</Label>
+          <TypographyLabel>
+            {t('Page.dashboard.cardDrawer.showLocalCurrency')}
+          </TypographyLabel>
         </span>
 
         <CategoryContent

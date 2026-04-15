@@ -1,8 +1,15 @@
-import { Progress } from '@heroui/react';
 import { formatCurrencyToParts } from '@shared/utilities/formatCurrency';
 import CardIcon from '@web/components/shared/CardIcon';
+import {
+  TypographyLabel,
+  TypographyMuted,
+} from '@web/components/shared/Typography';
 import { Card } from '@web/components/ui/card';
-import { Label } from '@web/components/ui/label';
+import {
+  Progress,
+  ProgressLabel,
+  ProgressValue,
+} from '@web/components/ui/progress';
 import type { TransactionPaymentCategoryProps } from '@web/types/TransactionPayment';
 import { useTranslations } from 'next-intl';
 
@@ -34,12 +41,9 @@ const CategoryCard = ({
     >
       <div className="flex flex-col gap-3">
         <div className="flex flex-row items-center justify-between">
-          <Label
-            variant="caption"
-            className="text-muted-foreground truncate tracking-wide hover:text-clip"
-          >
+          <TypographyMuted className="truncate tracking-wide hover:text-clip">
             {isTranslated ? t(`Common.category.${id}`) : category.name}
-          </Label>
+          </TypographyMuted>
 
           {
             <CardIcon
@@ -49,7 +53,7 @@ const CategoryCard = ({
           }
         </div>
 
-        <Label variant="title">
+        <TypographyLabel>
           {formatCurrencyToParts({
             value: category.totalAmount,
             currency,
@@ -61,26 +65,13 @@ const CategoryCard = ({
               {part.value}
             </span>
           ))}
-        </Label>
+        </TypographyLabel>
       </div>
 
-      <div className="flex flex-col justify-between gap-2">
-        <Label variant="caption" className="text-muted-foreground">
-          {t('Page.dashboard.card.settled')}
-        </Label>
-
-        <div className="flex flex-row items-center gap-2">
-          <Label variant="caption">{progressPercentage}%</Label>
-          <Progress
-            aria-label="Loading..."
-            value={progressPercentage}
-            classNames={{
-              indicator: 'bg-primary',
-            }}
-            size="sm"
-          />
-        </div>
-      </div>
+      <Progress value={progressPercentage}>
+        <ProgressLabel>{t('Page.dashboard.card.settled')}</ProgressLabel>
+        <ProgressValue />
+      </Progress>
     </Card>
   );
 };

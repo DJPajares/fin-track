@@ -1,6 +1,11 @@
-import { Card, Checkbox, Progress } from '@heroui/react';
 import { formatCurrency } from '@shared/utilities/formatCurrency';
+import {
+  TypographyLabel,
+  TypographyMuted,
+} from '@web/components/shared/Typography';
 import { Button } from '@web/components/ui/button';
+import { Card } from '@web/components/ui/card';
+import { Checkbox } from '@web/components/ui/checkbox';
 import {
   Dialog,
   DialogContent,
@@ -10,7 +15,11 @@ import {
   DialogTitle,
 } from '@web/components/ui/dialog';
 import { Input } from '@web/components/ui/input';
-import { Label } from '@web/components/ui/label';
+import {
+  Progress,
+  ProgressLabel,
+  ProgressValue,
+} from '@web/components/ui/progress';
 import type { DashboardSelectionItemsProps } from '@web/types/Dashboard';
 import type {
   TransactionDataUpdateProps,
@@ -45,27 +54,34 @@ const CategoryContent = ({
 }: CategoryContentProps) => {
   const t = useTranslations();
 
-  const [customPaidAmount, setCustomPaidAmount] = useState(paidAmount);
+  const [customPaidAmount, setCustomPaidAmount] = useState(
+    paidAmount.toFixed(2),
+  );
   const [openDialog, setOpenDialog] = useState(false);
 
   const paidAmountProgress = useMemo(() => {
-    return customPaidAmount / amount;
+    const parsed = parseFloat(customPaidAmount);
+    if (isNaN(parsed)) return 0;
+    return Math.min(parsed / amount, 1);
   }, [customPaidAmount, amount]);
 
   const isCompleted = useMemo(() => {
-    return Math.floor(paidAmountProgress) === 1;
-  }, [paidAmountProgress]);
+    const parsed = parseFloat(customPaidAmount);
+    return !isNaN(parsed) && parsed >= parseFloat(amount.toFixed(2));
+  }, [customPaidAmount, amount]);
 
-  const paidAmountPercentage = Math.floor(paidAmountProgress * 100);
+  const paidAmountPercentage = isCompleted
+    ? 100
+    : Math.floor(paidAmountProgress * 100);
 
   useEffect(() => {
-    setCustomPaidAmount(paidAmount);
+    setCustomPaidAmount(paidAmount.toFixed(2));
   }, [paidAmount]);
 
   const handleChangeCustomPaidAmountInput = (
     event: ChangeEvent<HTMLInputElement>,
   ) => {
-    setCustomPaidAmount(parseFloat(event.target.value));
+    setCustomPaidAmount(event.target.value);
   };
 
   const handleUpdateCustomPaidAmount = () => {
@@ -82,13 +98,12 @@ const CategoryContent = ({
     <>
       <div className="flex flex-row items-center justify-between gap-2">
         <Card
-          className={`${isTotal && 'bg-accent'} ${isCompleted && 'border-primary/20'} shadow-small m-0 w-full p-4`}
+          className={`${isTotal && 'bg-secondary/40'} ${isCompleted && 'border-primary/20'} shadow-small m-0 w-full p-4`}
         >
-          <div className="flex flex-row items-center justify-center gap-2">
+          <div className="flex flex-row items-center justify-center gap-4">
             <Checkbox
-              aria-label="category_content"
-              isSelected={isCompleted}
-              onValueChange={() =>
+              checked={isCompleted}
+              onCheckedChange={() =>
                 handleTransactionDataUpdate({
                   _id,
                   paidAmountPercentage: isCompleted ? 0 : 1,
@@ -102,28 +117,13 @@ const CategoryContent = ({
               onClick={() => setOpenDialog(!isTotal)}
             >
               <div className="flex-1 space-y-1">
-                <Label
-                  variant="title-sm"
-                  className={`${isTotal && 'font-extrabold'}`}
-                >
+                <TypographyLabel className={`${isTotal && 'font-extrabold'}`}>
                   {name}
-                </Label>
-
-                <Progress
-                  label={label}
-                  value={paidAmountPercentage}
-                  size="sm"
-                  radius="sm"
-                  showValueLabel={true}
-                  classNames={{
-                    label: `${
-                      isTotal &&
-                      'text-base font-semibold truncate hover:text-clip'
-                    }`,
-                    value: `${isTotal && 'text-base font-semibold'}`,
-                    indicator: 'bg-primary',
-                  }}
-                />
+                </TypographyLabel>
+                <Progress value={paidAmountPercentage}>
+                  <ProgressLabel>{label}</ProgressLabel>
+                  <ProgressValue />
+                </Progress>
               </div>
             </div>
           </div>
@@ -143,19 +143,19 @@ const CategoryContent = ({
           </DialogHeader>
 
           <div className="flex flex-col gap-2">
-            <Label variant="title-sm">{name}</Label>
+            <TypographyLabel>{name}</TypographyLabel>
 
             <div className="flex flex-col gap-2">
               <Input
                 type="number"
                 inputMode="decimal"
-                defaultValue={customPaidAmount.toFixed(2)}
+                value={customPaidAmount}
                 max={amount}
                 onChange={handleChangeCustomPaidAmountInput}
               />
 
               <span className="flex flex-row justify-end">
-                <Label variant="caption">
+                <TypographyMuted>
                   {t('Page.dashboard.cardDrawer.content.outOf', {
                     amount: formatCurrency({
                       value: amount,
@@ -163,7 +163,7 @@ const CategoryContent = ({
                       decimal: 2,
                     }),
                   })}
-                </Label>
+                </TypographyMuted>
               </span>
             </div>
           </div>

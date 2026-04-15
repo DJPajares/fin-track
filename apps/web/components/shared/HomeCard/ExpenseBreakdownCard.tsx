@@ -4,6 +4,7 @@ import {
   CardContent,
   CardDescription,
   CardHeader,
+  CardTitle,
 } from '@web/components/ui/card';
 import {
   ChartConfig,
@@ -11,7 +12,6 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from '@web/components/ui/chart';
-import { Label } from '@web/components/ui/label';
 import type { ExpensePieDataProps } from '@web/types/HomeCard';
 import { useTranslations } from 'next-intl';
 import { useMemo } from 'react';
@@ -36,18 +36,14 @@ const ExpenseBreakdownCard = ({
   }, [expensePieData]);
 
   return (
-    <Card className="relative flex flex-col pb-0">
-      <CardHeader className="px-4">
+    <Card>
+      <CardHeader>
+        <CardTitle>{t('Page.home.cards.expenseBreakdown.title')}</CardTitle>
         <CardDescription>
-          {t('Page.home.cards.expenseBreakdown.title')}
-        </CardDescription>
-        <CardDescription>
-          <Label variant="caption">
-            {t('Page.home.cards.expenseBreakdown.description')}
-          </Label>
+          {t('Page.home.cards.expenseBreakdown.description')}
         </CardDescription>
       </CardHeader>
-      <CardContent className="relative mt-auto flex-1 p-0">
+      <CardContent>
         <ChartContainer
           config={expensePieChartConfig}
           className="mx-auto aspect-square max-h-40"

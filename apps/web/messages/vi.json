@@ -23,6 +23,7 @@
     "home": {
       "greetings": "Chào Mừng",
       "dashboardButton": "Đi đến Bảng Điều Khiển",
+      "ariaLabel": "Tổng Quan Tài Chính",
       "motivation": {
         "title": "Động Lực Hôm Nay",
         "quotes": [
@@ -135,7 +136,8 @@
           "placeholder": {
             "title": "Ví dụ: Hóa đơn tiền điện",
             "currency": "Chọn tiền tệ",
-            "excludedDates": "Chọn ngày..."
+            "excludedDates": "Chọn ngày...",
+            "description": "Thêm ghi chú tùy chọn"
           },
           "helper": {
             "category": "Chọn danh mục",

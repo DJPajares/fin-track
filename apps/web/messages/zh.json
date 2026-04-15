@@ -23,6 +23,7 @@
     "home": {
       "greetings": "欢迎",
       "dashboardButton": "前往仪表盘",
+      "ariaLabel": "财务概览",
       "motivation": {
         "title": "今日动力",
         "quotes": [
@@ -135,7 +136,8 @@
           "placeholder": {
             "title": "例如：电费账单",
             "currency": "选择货币",
-            "excludedDates": "选择日期..."
+            "excludedDates": "选择日期...",
+            "description": "添加可选备注"
           },
           "helper": {
             "category": "选择类别",

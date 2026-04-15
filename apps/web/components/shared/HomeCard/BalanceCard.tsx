@@ -1,11 +1,11 @@
 import { formatCurrency } from '@shared/utilities/formatCurrency';
+import { TypographySectionTitle } from '@web/components/shared/Typography';
 import {
   Card,
   CardDescription,
   CardHeader,
   CardTitle,
 } from '@web/components/ui/card';
-import { Label } from '@web/components/ui/label';
 import { useTranslations } from 'next-intl';
 
 type BalanceCardProps = {
@@ -17,21 +17,18 @@ const BalanceCard = ({ balance, currency }: BalanceCardProps) => {
   const t = useTranslations();
 
   return (
-    <Card className="relative flex flex-col">
-      <CardHeader className="px-4">
-        <CardDescription>{t('Page.home.cards.balance.title')}</CardDescription>
+    <Card>
+      <CardHeader>
+        <CardTitle>{t('Page.home.cards.balance.title')}</CardTitle>
         <CardTitle>
-          <Label
-            variant="title-xl"
+          <TypographySectionTitle
             className={balance >= 0 ? 'text-green-500' : 'text-destructive'}
           >
             {formatCurrency({ value: balance, currency })}
-          </Label>
+          </TypographySectionTitle>
         </CardTitle>
         <CardDescription>
-          <Label variant="caption">
-            {t('Page.home.cards.balance.description')}
-          </Label>
+          {t('Page.home.cards.balance.description')}
         </CardDescription>
       </CardHeader>
     </Card>

@@ -23,6 +23,7 @@
     "home": {
       "greetings": "Bienvenue",
       "dashboardButton": "Aller au tableau de bord",
+      "ariaLabel": "Aperçu financier",
       "motivation": {
         "title": "Motivation aujourd'hui",
         "quotes": [
@@ -135,7 +136,8 @@
           "placeholder": {
             "title": "Ex. Facture d'électricité",
             "currency": "Sélectionnez une devise",
-            "excludedDates": "Sélectionnez des dates..."
+            "excludedDates": "Sélectionnez des dates...",
+            "description": "Ajouter une note facultative"
           },
           "helper": {
             "category": "Sélectionnez une catégorie",

@@ -1,4 +1,5 @@
 import { dateStringFormat } from '@shared/constants/dateStringFormat';
+import type { ListProps } from '@shared/types/List';
 import TransactionDrawerForm, {
   type SubmitTransactionProps,
   type TransactionDrawerFormRef,
@@ -8,7 +9,6 @@ import { useAppSelector } from '@web/lib/hooks/use-redux';
 import { useLazyGetDashboardDataQuery } from '@web/lib/redux/services/dashboard';
 import { useCreateTransactionMutation } from '@web/lib/redux/services/transactions';
 import type { TransactionFormProps } from '@web/lib/schemas/transaction';
-import type { ListProps } from '@web/types/List';
 import moment from 'moment';
 import { useTranslations } from 'next-intl';
 import {

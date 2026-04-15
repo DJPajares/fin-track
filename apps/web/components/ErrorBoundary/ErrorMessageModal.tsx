@@ -1,6 +1,7 @@
 'use client';
 
 import type { ErrorProps } from '@shared/types/Error';
+import { TypographyLabel } from '@web/components/shared/Typography';
 import { Button } from '@web/components/ui/button';
 import {
   Dialog,
@@ -11,7 +12,6 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@web/components/ui/dialog';
-import { Label } from '@web/components/ui/label';
 import { useTranslations } from 'next-intl';
 import { useMemo } from 'react';
 
@@ -64,24 +64,21 @@ const ErrorMessageModal = ({
   };
 
   return (
-    <Dialog open={isOpen} onOpenChange={handleClose}>
-      <DialogContent
-        className="[&>button]:hidden"
-        onInteractOutside={(e) => {
-          e.preventDefault();
-        }}
-      >
+    <Dialog open={isOpen} onOpenChange={handleClose} disablePointerDismissal>
+      <DialogContent className="[&>button]:hidden">
         <DialogHeader>
           <DialogTitle>{t('Common.title.errorModal')}</DialogTitle>
           <DialogDescription></DialogDescription>
         </DialogHeader>
 
         <div>
-          <Label className="text-destructive">{errorMessage}</Label>
+          <TypographyLabel className="text-destructive-foreground">
+            {errorMessage}
+          </TypographyLabel>
         </div>
 
         <DialogFooter>
-          <DialogClose asChild>
+          <DialogClose>
             <Button onClick={handleOk}>{t('Common.button.ok')}</Button>
           </DialogClose>
         </DialogFooter>

@@ -23,6 +23,7 @@
     "home": {
       "greetings": "Benvenuto",
       "dashboardButton": "Vai al Cruscotto",
+      "ariaLabel": "Panoramica finanziaria",
       "motivation": {
         "title": "Motivazione del giorno",
         "quotes": [
@@ -135,7 +136,8 @@
           "placeholder": {
             "title": "Es. Bolletta elettricità",
             "currency": "Seleziona una valuta",
-            "excludedDates": "Seleziona le date..."
+            "excludedDates": "Seleziona le date...",
+            "description": "Aggiungi una nota opzionale"
           },
           "helper": {
             "category": "Seleziona una categoria",

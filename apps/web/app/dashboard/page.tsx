@@ -5,9 +5,14 @@ import { dateStringFormat } from '@shared/constants/dateStringFormat';
 import { formatCurrency } from '@shared/utilities/formatCurrency';
 import { DatePicker } from '@web/components/shared/DatePicker';
 import Loader from '@web/components/shared/Loader';
+import {
+  TypographyCaption,
+  TypographyLead,
+  TypographyMuted,
+  TypographySubsectionTitle,
+} from '@web/components/shared/Typography';
 import { Button } from '@web/components/ui/button';
-import { Card } from '@web/components/ui/card';
-import { Label } from '@web/components/ui/label';
+import { Card, CardContent } from '@web/components/ui/card';
 import { Separator } from '@web/components/ui/separator';
 import { Skeleton } from '@web/components/ui/skeleton';
 import { useAppDispatch, useAppSelector } from '@web/lib/hooks/use-redux';
@@ -109,180 +114,153 @@ const Dashboard = () => {
 
   return (
     <>
-      <>
-        <ScrollShadow
-          className="flex max-h-[calc(100dvh-theme(height.36))] flex-col gap-4 sm:max-h-none sm:gap-8"
-          hideScrollBar
-        >
-          {/* CALENDAR */}
-          <div className="flex flex-row items-center justify-center gap-1 sm:gap-4">
-            <Button
-              variant="ghost"
-              size="rounded-icon"
-              onClick={handlePrevMonth}
-            >
-              <ChevronLeftIcon className="size-4" />
+      <ScrollShadow
+        className="flex max-h-[calc(100dvh-theme(height.36))] flex-col gap-4 p-2 sm:max-h-none sm:gap-8"
+        hideScrollBar
+      >
+        {/* CALENDAR */}
+        <div className="flex flex-row items-center justify-center gap-1 sm:gap-4">
+          <Button variant="ghost" size="icon-sm" onClick={handlePrevMonth}>
+            <ChevronLeftIcon className="size-4" />
+          </Button>
+
+          <DatePicker date={date} onChange={setDate}>
+            <Button variant="ghost" className="px-1">
+              <TypographyLead className="hover:bg-background hover:underline">
+                {moment(date).format('MMM yyyy')}
+              </TypographyLead>
             </Button>
+          </DatePicker>
 
-            <DatePicker date={date} onChange={setDate}>
-              <Button variant="ghost" className="px-1">
-                <Label
-                  variant="title-xl"
-                  className="hover:bg-background hover:underline"
-                >
-                  {moment(date).format('MMM yyyy')}
-                </Label>
-              </Button>
-            </DatePicker>
+          <Button variant="ghost" size="icon-sm" onClick={handleNextMonth}>
+            <ChevronRightIcon className="size-4" />
+          </Button>
+        </div>
 
-            <Button
-              variant="ghost"
-              size="rounded-icon"
-              onClick={handleNextMonth}
-            >
-              <ChevronRightIcon className="size-4" />
-            </Button>
-          </div>
-
-          {/* CIRCULAR PROGRESS BAR */}
+        {/* CIRCULAR PROGRESS BAR */}
+        <div className="flex flex-col items-center">
           {isFetching ? (
-            <div className="flex flex-col items-center space-y-2">
+            <div className="flex flex-col items-center gap-2">
               <Skeleton className="aspect-square h-36 rounded-full sm:h-64" />
               <Skeleton className="h-4 w-20" />
             </div>
           ) : (
-            <div className="flex flex-col items-center">
-              <CircularProgress
-                classNames={{
-                  svg: 'size-36 sm:size-64 drop-shadow-md',
-                  value: 'text-3xl sm:text-6xl font-semibold',
-                  indicator: 'stroke-primary',
-                }}
-                label={t('completed')}
-                value={Math.floor((totalPaidAmount / totalAmount) * 100) || 0}
-                strokeWidth={3}
-                showValueLabel={true}
-              />
-            </div>
+            <CircularProgress
+              classNames={{
+                svg: 'size-36 sm:size-64 drop-shadow-md',
+                value: 'text-3xl sm:text-6xl font-semibold',
+                indicator: 'stroke-primary',
+              }}
+              label={t('completed')}
+              value={Math.floor((totalPaidAmount / totalAmount) * 100) || 0}
+              strokeWidth={3}
+              showValueLabel={true}
+            />
           )}
+        </div>
 
-          {/* BALANCE CARD */}
-          {isFetching ? (
-            <Skeleton className="h-40 w-full" />
-          ) : (
-            <Card className="flex flex-col gap-3 p-4">
+        {/* BALANCE CARD */}
+        {isFetching ? (
+          <Skeleton className="h-40 w-full shrink-0" />
+        ) : (
+          <Card className="shrink-0">
+            <CardContent className="flex flex-col gap-2">
               {/* Primary Metrics - Balance & Extra */}
-              <div className="flex flex-row justify-between gap-4">
-                <div className="flex flex-col gap-1">
-                  <Label variant="caption" className="text-muted-foreground">
-                    {t('totalDue')}
-                  </Label>
-                  <Label variant="title-lg">
+              <div className="flex flex-row items-center justify-between">
+                <span className="flex flex-col items-start">
+                  <TypographyCaption>{t('totalDue')}</TypographyCaption>
+                  <TypographySubsectionTitle>
                     {formatCurrency({
                       value: totalAmount,
                       currency: currency.name,
                     })}
-                  </Label>
-                </div>
+                  </TypographySubsectionTitle>
+                </span>
 
-                <div className="flex flex-col items-end gap-1">
-                  <Label variant="caption" className="text-muted-foreground">
-                    {t('monthlyExtra')}
-                  </Label>
-                  <Label variant="title-lg">
+                <span className="flex flex-col items-end">
+                  <TypographyCaption>{t('monthlyExtra')}</TypographyCaption>
+                  <TypographySubsectionTitle>
                     {formatCurrency({
                       value: extra,
                       currency: currency.name,
                     })}
-                  </Label>
-                </div>
+                  </TypographySubsectionTitle>
+                </span>
               </div>
 
               <Separator />
 
               {/* Secondary Metrics - Total Due, Settled & Unsettled */}
-              <div className="flex flex-row justify-between gap-4">
-                <div className="flex flex-col gap-1">
-                  <Label variant="caption" className="text-muted-foreground">
-                    {t('runningBalance')}
-                  </Label>
-                  <Label variant="title-lg">
+              <div className="flex flex-row items-center justify-between">
+                <span className="flex flex-col items-start">
+                  <TypographyCaption>{t('runningBalance')}</TypographyCaption>
+                  <TypographySubsectionTitle>
                     {formatCurrency({
                       value: balance,
                       currency: currency.name,
                     })}
-                  </Label>
-                </div>
+                  </TypographySubsectionTitle>
+                </span>
 
-                <div className="flex flex-col items-end">
-                  <div className="space-x-2">
-                    <Label variant="caption" className="text-muted-foreground">
-                      {t('settled')}:
-                    </Label>
-                    <Label variant="title-sm">
+                <span className="flex flex-col items-end">
+                  <TypographyCaption>{`${t('settled')} (${t('unsettled')})`}</TypographyCaption>
+                  <span className="flex flex-row items-center gap-1">
+                    <TypographySubsectionTitle>
                       {formatCurrency({
                         value: totalPaidAmount,
                         currency: currency.name,
                       })}
-                    </Label>
-                  </div>
-
-                  <div className="space-x-2">
-                    <Label variant="caption" className="text-muted-foreground">
-                      {t('unsettled')}:
-                    </Label>
-                    <Label variant="title-sm">
-                      {formatCurrency({
+                    </TypographySubsectionTitle>
+                    <TypographyMuted className="italic">
+                      {`(${formatCurrency({
                         value: totalAmount - totalPaidAmount,
                         currency: currency.name,
-                      })}
-                    </Label>
-                  </div>
+                      })})`}
+                    </TypographyMuted>
+                  </span>
+                </span>
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
+        {/* CATEGORY CARD */}
+        {isFetching ? (
+          <div className="grid grid-cols-2 items-start justify-center gap-4 sm:grid-cols-3 sm:gap-8">
+            <Skeleton className="h-44 w-full sm:h-56" />
+            <Skeleton className="h-44 w-full sm:h-56" />
+          </div>
+        ) : (
+          <div className="grid grid-cols-[repeat(auto-fill,minmax(140px,1fr))] items-start justify-center gap-4 sm:grid-cols-[repeat(auto-fill,minmax(200px,1fr))] sm:gap-8">
+            {dashboardCategories.map(
+              (category: DashboardDataCategoryResult) => (
+                <div key={category._id}>
+                  <CategoryCard
+                    category={category}
+                    currency={currency.name}
+                    handleCardClick={handleCardClick}
+                  />
                 </div>
-              </div>
-            </Card>
-          )}
-
-          {/* CATEGORY CARD */}
-          <ScrollShadow className="max-h-[40vh] sm:max-h-[90vh]" hideScrollBar>
-            {isFetching ? (
-              <div className="grid grid-cols-2 items-start justify-center gap-4 sm:grid-cols-3 sm:gap-8">
-                <Skeleton className="h-44 w-full sm:h-56" />
-                <Skeleton className="h-44 w-full sm:h-56" />
-              </div>
-            ) : (
-              <div className="grid grid-cols-[repeat(auto-fill,minmax(140px,1fr))] items-start justify-center gap-4 sm:grid-cols-[repeat(auto-fill,minmax(200px,1fr))] sm:gap-8">
-                {dashboardCategories.map(
-                  (category: DashboardDataCategoryResult) => (
-                    <div key={category._id}>
-                      <CategoryCard
-                        category={category}
-                        currency={currency.name}
-                        handleCardClick={handleCardClick}
-                      />
-                    </div>
-                  ),
-                )}
-              </div>
+              ),
             )}
-          </ScrollShadow>
-        </ScrollShadow>
+          </div>
+        )}
+      </ScrollShadow>
 
-        {/* TRANSACTION BUTTON */}
-        <div className="sticky right-0 bottom-0 left-0 mt-auto sm:relative">
-          {isFetching ? (
-            <Skeleton className="h-10 w-full" />
-          ) : (
-            <Button
-              size="lg"
-              className="w-full"
-              onClick={handleAddTransactionButton}
-            >
-              {t('transactionButton')}
-            </Button>
-          )}
-        </div>
-      </>
+      {/* TRANSACTION BUTTON */}
+      <div className="sticky right-0 bottom-0 left-0 mt-auto sm:relative">
+        {isFetching ? (
+          <Skeleton className="h-10 w-full" />
+        ) : (
+          <Button
+            size="lg"
+            className="w-full"
+            onClick={handleAddTransactionButton}
+          >
+            {t('transactionButton')}
+          </Button>
+        )}
+      </div>
 
       {/* HIDDEN DRAWERS */}
       <CategoryDrawer

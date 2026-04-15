@@ -23,6 +23,7 @@
     "home": {
       "greetings": "Добро пожаловать",
       "dashboardButton": "Перейти к панели управления",
+      "ariaLabel": "Финансовый обзор",
       "motivation": {
         "title": "Мотивация на сегодня",
         "quotes": [
@@ -135,7 +136,8 @@
           "placeholder": {
             "title": "например, счет за электричество",
             "currency": "Выберите валюту",
-            "excludedDates": "Выберите даты..."
+            "excludedDates": "Выберите даты...",
+            "description": "Добавить необязательную заметку"
           },
           "helper": {
             "category": "Выберите категорию",

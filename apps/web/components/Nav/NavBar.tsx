@@ -1,8 +1,8 @@
 'use client';
 
 import { CONSTANTS } from '@shared/constants/common';
+import { TypographySubsectionTitle } from '@web/components/shared/Typography';
 import { Avatar, AvatarFallback, AvatarImage } from '@web/components/ui/avatar';
-import { Label } from '@web/components/ui/label';
 import {
   SidebarInset,
   SidebarProvider,
@@ -84,9 +84,9 @@ const NavBar = ({ children }: NavBarProps) => {
           <nav className="flex w-full items-center justify-between">
             <SidebarTrigger />
 
-            <Label variant="title-xs" className="font-bold uppercase">
+            <TypographySubsectionTitle className="uppercase">
               {CONSTANTS.APP_NAME}
-            </Label>
+            </TypographySubsectionTitle>
 
             <NavDropdownMenu>
               <Avatar className="hover:border-primary cursor-pointer">

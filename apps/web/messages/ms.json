@@ -23,6 +23,7 @@
     "home": {
       "greetings": "Selamat Datang",
       "dashboardButton": "Pergi ke Papan Pemuka",
+      "ariaLabel": "Gambaran Kewangan",
       "motivation": {
         "title": "Motivasi Hari Ini",
         "quotes": [
@@ -135,7 +136,8 @@
           "placeholder": {
             "title": "Contoh: Bil elektrik",
             "currency": "Pilih mata wang",
-            "excludedDates": "Pilih tarikh..."
+            "excludedDates": "Pilih tarikh...",
+            "description": "Tambah nota pilihan"
           },
           "helper": {
             "category": "Pilih kategori",

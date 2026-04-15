@@ -1,12 +1,13 @@
 import { formatCurrency } from '@shared/utilities/formatCurrency';
 import CardIcon from '@web/components/shared/CardIcon';
+import { TypographyLabel } from '@web/components/shared/Typography';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
+  CardTitle,
 } from '@web/components/ui/card';
-import { Label } from '@web/components/ui/label';
 import { Progress } from '@web/components/ui/progress';
 import type { TransactionPaymentCategoryProps } from '@web/types/TransactionPayment';
 import { useTranslations } from 'next-intl';
@@ -23,37 +24,33 @@ const TopSpendingCard = ({
   const t = useTranslations();
 
   return (
-    <Card className="relative flex flex-col">
-      <CardHeader className="px-4">
+    <Card>
+      <CardHeader>
+        <CardTitle>{t('Page.home.cards.topSpending.title')}</CardTitle>
         <CardDescription>
-          {t('Page.home.cards.topSpending.title')}
-        </CardDescription>
-        <CardDescription>
-          <Label variant="caption">
-            {t('Page.home.cards.topSpending.description')}
-          </Label>
+          {t('Page.home.cards.topSpending.description')}
         </CardDescription>
       </CardHeader>
-      <CardContent className="flex flex-col gap-3 px-4">
+      <CardContent className="flex flex-col gap-3">
         {topSpendingCategories.map((category) => {
           const isTranslated = t.has(`Common.category.${category.id}`);
           return (
             <div key={category._id} className="flex flex-col gap-1">
               <div className="flex items-center justify-between gap-2">
                 <div className="flex items-center gap-2 truncate">
-                  <CardIcon icon={category.icon} />
-                  <Label variant="caption" className="truncate">
+                  <CardIcon className="shrink-0" icon={category.icon} />
+                  <TypographyLabel className="truncate">
                     {isTranslated
                       ? t(`Common.category.${category.id}`)
                       : category.name}
-                  </Label>
+                  </TypographyLabel>
                 </div>
-                <Label variant="caption" className="shrink-0">
+                <TypographyLabel className="shrink-0">
                   {formatCurrency({
                     value: category.totalAmount,
                     currency,
                   })}
-                </Label>
+                </TypographyLabel>
               </div>
               <Progress
                 aria-label={

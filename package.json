@@ -9,6 +9,8 @@
     "lint:fix": "pnpm -r run lint:fix",
     "clean": "turbo clean && rm -rf node_modules",
     "test": "turbo test",
+    "test:watch": "pnpm -r run test:watch",
+    "test:coverage": "turbo test:coverage",
     "prettier": "prettier --check . --ignore-path .gitignore",
     "prettier:fix": "prettier --write . --ignore-path .gitignore",
     "lint-staged": "lint-staged",
@@ -20,15 +22,23 @@
       "prettier --write"
     ],
     "apps/web/**/*.{js,jsx,ts,tsx}": [
-      "pnpm --filter web exec eslint --fix --max-warnings=0"
+      "pnpm --filter web exec eslint --fix --max-warnings=0",
+      "pnpm --filter web exec vitest related --run --passWithNoTests"
+    ],
+    "apps/api/src/**/*.ts": [
+      "pnpm --filter api exec eslint --fix --max-warnings=0",
+      "pnpm --filter api exec vitest related --run --passWithNoTests"
+    ],
+    "packages/shared/**/*.ts": [
+      "pnpm --filter shared exec vitest related --run --passWithNoTests"
     ]
   },
   "devDependencies": {
     "husky": "^9.1.7",
     "lint-staged": "^16.4.0",
-    "prettier": "^3.8.1",
+    "prettier": "^3.8.3",
     "prettier-plugin-tailwindcss": "^0.7.2",
-    "turbo": "^2.9.3",
+    "turbo": "^2.9.6",
     "typescript": "^6.0.2"
   },
   "packageManager": "pnpm@10.33.0"

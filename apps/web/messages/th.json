@@ -23,6 +23,7 @@
     "home": {
       "greetings": "ยินดีต้อนรับ",
       "dashboardButton": "ไปที่แดชบอร์ด",
+      "ariaLabel": "ภาพรวมการเงิน",
       "motivation": {
         "title": "แรงบันดาลใจวันนี้",
         "quotes": [
@@ -135,7 +136,8 @@
           "placeholder": {
             "title": "เช่น ค่าไฟฟ้า",
             "currency": "เลือกสกุลเงิน",
-            "excludedDates": "เลือกวันที่..."
+            "excludedDates": "เลือกวันที่...",
+            "description": "เพิ่มบันทึกย่อที่ไม่บังคับ"
           },
           "helper": {
             "category": "เลือกหมวดหมู่",

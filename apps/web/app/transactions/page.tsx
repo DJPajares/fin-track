@@ -1,16 +1,21 @@
 'use client';
 
-import { CircularProgress, ScrollShadow } from '@heroui/react';
+import { ScrollShadow } from '@heroui/react';
 import { dateStringFormat } from '@shared/constants/dateStringFormat';
+import type { ListProps } from '@shared/types/List';
 import TransactionDrawer from '@web/app/dashboard/Transaction/TransactionDrawer';
 import { DatePicker } from '@web/components/shared/DatePicker';
 import Loader from '@web/components/shared/Loader';
 import { SelectBox } from '@web/components/shared/SelectBox';
+import {
+  TypographyCardTitle,
+  TypographyLabel,
+  TypographyMuted,
+} from '@web/components/shared/Typography';
 import { Button } from '@web/components/ui/button';
-import { Label } from '@web/components/ui/label';
+import { Spinner } from '@web/components/ui/spinner';
 import { useAppSelector } from '@web/lib/hooks/use-redux';
 import { useGetTransactionsQuery } from '@web/lib/redux/services/transactions';
-import type { ListProps } from '@web/types/List';
 import type { TransactionProps } from '@web/types/Transaction';
 import { ChevronLeftIcon, ChevronRightIcon, PlusIcon } from 'lucide-react';
 import moment from 'moment';
@@ -167,22 +172,19 @@ const Transactions = () => {
   return (
     <>
       <div className="flex flex-row items-center justify-center gap-1 sm:gap-4">
-        <Button variant="ghost" size="rounded-icon" onClick={handlePrevMonth}>
+        <Button variant="ghost" size="icon" onClick={handlePrevMonth}>
           <ChevronLeftIcon className="size-4" />
         </Button>
 
         <DatePicker date={date} onChange={updateDate}>
           <Button variant="ghost" className="px-1">
-            <Label
-              variant="title-xl"
-              className="hover:bg-background hover:underline"
-            >
+            <TypographyCardTitle className="hover:bg-background hover:underline">
               {moment(date).format('MMM yyyy')}
-            </Label>
+            </TypographyCardTitle>
           </Button>
         </DatePicker>
 
-        <Button variant="ghost" size="rounded-icon" onClick={handleNextMonth}>
+        <Button variant="ghost" size="icon" onClick={handleNextMonth}>
           <ChevronRightIcon className="size-4" />
         </Button>
       </div>
@@ -201,10 +203,10 @@ const Transactions = () => {
 
         <ScrollShadow
           ref={scrollContainerRef}
-          className="h-[70vh] overflow-y-auto"
+          className="h-[70vh] overflow-y-auto p-2"
           hideScrollBar
         >
-          <div className="space-y-4">
+          <div className="flex flex-col gap-4">
             {transactions.length > 0 &&
               transactions.map((transaction) => (
                 <TransactionCard
@@ -215,32 +217,30 @@ const Transactions = () => {
               ))}
 
             {isLoadingMore && (
-              <div className="flex justify-center py-4">
-                <CircularProgress size="sm" aria-label="Loading more..." />
+              <div className="flex items-center justify-center gap-6">
+                <Spinner className="size-6" />
               </div>
             )}
 
             {isFullyFetched && transactions.length > 0 && (
               <div className="text-center">
-                <Label variant="subtitle" className="text-muted-foreground">
+                <TypographyMuted>
                   {t('Common.label.noMoreData')}
-                </Label>
+                </TypographyMuted>
               </div>
             )}
 
             {!isApiLoading && transactions.length === 0 && (
               <div className="text-center">
-                <Label variant="subtitle" className="text-muted-foreground">
-                  {t('Common.label.noData')}
-                </Label>
+                <TypographyMuted>{t('Common.label.noData')}</TypographyMuted>
               </div>
             )}
 
             {error && (
               <div className="text-center">
-                <Label variant="error">
+                <TypographyLabel className="text-destructive-foreground">
                   {t('Common.label.errorLoadingData')}
-                </Label>
+                </TypographyLabel>
               </div>
             )}
           </div>
@@ -249,8 +249,8 @@ const Transactions = () => {
 
       {/* FLOATING ACTION BUTTON */}
       <Button
-        size="rounded-icon"
-        className="fixed right-4 bottom-4 z-50 size-12 cursor-pointer shadow-lg sm:right-8 sm:bottom-8"
+        size="icon-lg"
+        className="fixed right-4 bottom-4 z-50 cursor-pointer rounded-full shadow-lg sm:right-8 sm:bottom-8"
         onClick={handleAddTransactionButton}
       >
         <PlusIcon className="size-6" />

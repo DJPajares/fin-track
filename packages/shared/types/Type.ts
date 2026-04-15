@@ -1,4 +1,4 @@
-import type { PaginationPageProps } from 'packages/shared/types/Pagination';
+import type { PaginationPageProps } from './Pagination';
 
 type TypeDataResponse = {
   _id: string;

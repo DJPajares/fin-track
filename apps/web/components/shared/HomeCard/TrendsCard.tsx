@@ -4,6 +4,7 @@ import {
   CardContent,
   CardDescription,
   CardHeader,
+  CardTitle,
 } from '@web/components/ui/card';
 import {
   ChartConfig,
@@ -11,7 +12,6 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from '@web/components/ui/chart';
-import { Label } from '@web/components/ui/label';
 import type { TrendDataProps } from '@web/types/HomeCard';
 import { useTranslations } from 'next-intl';
 import { Area, AreaChart } from 'recharts';
@@ -36,21 +36,37 @@ const TrendsCard = ({ trendsData, currency }: TrendsCardProps) => {
   const t = useTranslations();
 
   return (
-    <Card className="relative flex flex-col pb-0">
-      <CardHeader className="px-4">
-        <CardDescription>{t('Page.home.cards.trends.title')}</CardDescription>
+    <Card className="pb-0">
+      <CardHeader>
+        <CardTitle>{t('Page.home.cards.trends.title')}</CardTitle>
         <CardDescription>
-          <Label variant="caption">
-            {t('Page.home.cards.trends.description')}
-          </Label>
+          {t('Page.home.cards.trends.description')}
         </CardDescription>
       </CardHeader>
-      <CardContent className="relative mt-auto flex-1 p-0">
+      <CardContent className="flex-1 px-0">
         <ChartContainer
           config={trendsChartConfig}
           className="relative size-full overflow-hidden rounded-xl"
         >
           <AreaChart data={trendsData} margin={{ top: 5 }} className="size-fit">
+            <defs>
+              <linearGradient id="fillIncome" x1="0" y1="0" x2="0" y2="1">
+                <stop
+                  offset="5%"
+                  stopColor="var(--chart-1)"
+                  stopOpacity={0.3}
+                />
+                <stop offset="95%" stopColor="var(--chart-1)" stopOpacity={0} />
+              </linearGradient>
+              <linearGradient id="fillExpense" x1="0" y1="0" x2="0" y2="1">
+                <stop
+                  offset="5%"
+                  stopColor="var(--chart-2)"
+                  stopOpacity={0.3}
+                />
+                <stop offset="95%" stopColor="var(--chart-2)" stopOpacity={0} />
+              </linearGradient>
+            </defs>
             <ChartTooltip
               cursor={false}
               content={
@@ -66,8 +82,8 @@ const TrendsCard = ({ trendsData, currency }: TrendsCardProps) => {
             />
             <Area
               dataKey="income"
-              fill="var(--chart-1)"
-              fillOpacity={0.05}
+              fill="url(#fillIncome)"
+              fillOpacity={1}
               stroke="var(--chart-1)"
               strokeWidth={2}
               type="monotone"
@@ -75,8 +91,8 @@ const TrendsCard = ({ trendsData, currency }: TrendsCardProps) => {
             />
             <Area
               dataKey="expense"
-              fill="var(--chart-2)"
-              fillOpacity={0.05}
+              fill="url(#fillExpense)"
+              fillOpacity={1}
               stroke="var(--chart-2)"
               strokeWidth={2}
               type="monotone"

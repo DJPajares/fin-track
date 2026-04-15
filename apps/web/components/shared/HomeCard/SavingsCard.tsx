@@ -1,4 +1,5 @@
 import { formatCurrency } from '@shared/utilities/formatCurrency';
+import { TypographySectionTitle } from '@web/components/shared/Typography';
 import {
   Card,
   CardContent,
@@ -7,7 +8,6 @@ import {
   CardTitle,
 } from '@web/components/ui/card';
 import { ChartConfig, ChartContainer } from '@web/components/ui/chart';
-import { Label } from '@web/components/ui/label';
 import type { PreviousSavingsProps } from '@web/types/HomeCard';
 import { useTranslations } from 'next-intl';
 import { Area, AreaChart } from 'recharts';
@@ -33,24 +33,22 @@ const SavingsCard = ({
   const t = useTranslations();
 
   return (
-    <Card className="relative flex flex-col pb-0">
-      <CardHeader className="px-4">
-        <CardDescription>{t('Page.home.cards.savings.title')}</CardDescription>
+    <Card className="pb-0">
+      <CardHeader>
+        <CardTitle>{t('Page.home.cards.savings.title')}</CardTitle>
         <CardTitle>
-          <Label variant="title-xl">
+          <TypographySectionTitle>
             {formatCurrency({
               value: accumulativeSavings,
               currency,
             })}
-          </Label>
+          </TypographySectionTitle>
         </CardTitle>
         <CardDescription>
-          <Label variant="caption">
-            {t('Page.home.cards.savings.description')}
-          </Label>
+          {t('Page.home.cards.savings.description')}
         </CardDescription>
       </CardHeader>
-      <CardContent className="relative mt-auto flex-1 p-0">
+      <CardContent className="flex-1 px-0">
         <ChartContainer
           config={previousSavingsChartConfig}
           className="relative size-full overflow-hidden rounded-xl"
@@ -60,10 +58,20 @@ const SavingsCard = ({
             margin={{ top: 5 }}
             className="size-fit"
           >
+            <defs>
+              <linearGradient id="fillAmount" x1="0" y1="0" x2="0" y2="1">
+                <stop
+                  offset="5%"
+                  stopColor="var(--chart-1)"
+                  stopOpacity={0.3}
+                />
+                <stop offset="95%" stopColor="var(--chart-1)" stopOpacity={0} />
+              </linearGradient>
+            </defs>
             <Area
               dataKey="amount"
-              fill="var(--chart-1)"
-              fillOpacity={0.1}
+              fill="url(#fillAmount)"
+              fillOpacity={1}
               stroke="var(--chart-1)"
               strokeWidth={2}
               type="monotone"

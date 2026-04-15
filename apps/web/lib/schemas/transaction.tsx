@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from 'zod/v4';
 
 const transactionSchema = z.object({
   id: z.string().optional(),
@@ -29,8 +29,8 @@ const transactionSchema = z.object({
   endDate: z.date(),
   excludedDates: z
     .object({
-      value: z.string(),
-      label: z.string(),
+      _id: z.string(),
+      name: z.string(),
     })
     .array()
     .optional(),

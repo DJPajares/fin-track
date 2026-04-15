@@ -1,4 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
+import type { ListProps } from '@shared/types/List';
 import CardIcon, {
   iconMap,
   type IconProps,
@@ -19,18 +20,22 @@ import {
 } from '@web/lib/redux/feature/main/mainSlice';
 import { categorySchema } from '@web/lib/schemas/category';
 import type { CategoryItemProps } from '@web/types/Category';
-import type { ListProps } from '@web/types/List';
 import { EyeOffIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { ReactNode, useRef, useState } from 'react';
-import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import { ReactElement, useRef, useState } from 'react';
+import {
+  Controller,
+  type Resolver,
+  SubmitHandler,
+  useForm,
+} from 'react-hook-form';
 
 type EditCategoryDrawerProps = {
   type?: ListProps;
   category: CategoryItemProps;
   title: string;
   isNew?: boolean;
-  children: ReactNode;
+  children: ReactElement;
 };
 
 const iconMapArray = Object.keys(iconMap) as (keyof typeof iconMap)[];
@@ -53,7 +58,11 @@ const EditCategoryDrawer = ({
   const formRef = useRef<HTMLFormElement>(null);
 
   const form = useForm<CategoryItemProps>({
-    resolver: zodResolver(categorySchema),
+    resolver: (
+      zodResolver as unknown as (
+        schema: typeof categorySchema,
+      ) => Resolver<CategoryItemProps>
+    )(categorySchema),
     defaultValues: category,
   });
 
@@ -112,50 +121,48 @@ const EditCategoryDrawer = ({
       description={type?.name}
       triggerChildren={children}
     >
-      <>
-        <form onSubmit={form.handleSubmit(onSubmit)} ref={formRef}>
-          <div className="flex flex-row items-center justify-center space-x-2 sm:space-x-4">
-            <Controller
-              name="icon"
-              control={form.control}
-              render={({ field }) => (
-                <Popover open={isPopoverOpen} onOpenChange={setIsPopoverOpen}>
-                  <PopoverTrigger asChild>
+      <form onSubmit={form.handleSubmit(onSubmit)} ref={formRef}>
+        <div className="flex flex-row items-center justify-center gap-2">
+          <Controller
+            name="icon"
+            control={form.control}
+            render={({ field }) => (
+              <Popover open={isPopoverOpen} onOpenChange={setIsPopoverOpen}>
+                <PopoverTrigger
+                  render={
                     <Button variant="outline" size="icon">
                       <CardIcon icon={field.value} />
                     </Button>
-                  </PopoverTrigger>
+                  }
+                />
 
-                  <PopoverContent>
-                    <div className="grid grid-cols-6 gap-2 align-middle">
-                      {iconMapArray.map((icon) => (
-                        <Button
-                          key={icon}
-                          variant="outline"
-                          size="icon"
-                          className={`${
-                            field.value === icon &&
-                            'bg-primary text-primary-foreground'
-                          }`}
-                          onClick={() => handleChangeIcon(icon)}
-                        >
-                          <CardIcon icon={icon} />
-                        </Button>
-                      ))}
-                    </div>
-                  </PopoverContent>
-                </Popover>
-              )}
-            />
+                <PopoverContent>
+                  <div className="grid grid-cols-6 gap-2 align-middle">
+                    {iconMapArray.map((icon) => (
+                      <Button
+                        key={icon}
+                        variant={field.value === icon ? 'default' : 'outline'}
+                        size="icon"
+                        onClick={() => handleChangeIcon(icon)}
+                      >
+                        <CardIcon icon={icon} />
+                      </Button>
+                    ))}
+                  </div>
+                </PopoverContent>
+              </Popover>
+            )}
+          />
 
-            <Controller
-              name="name"
-              control={form.control}
-              render={({ field }) => (
-                <Input placeholder="Category name" {...field} />
-              )}
-            />
+          <Controller
+            name="name"
+            control={form.control}
+            render={({ field }) => (
+              <Input placeholder="Category name" {...field} />
+            )}
+          />
 
+          {!isNew && (
             <ConfirmationDialog
               title={t('Common.alertDialog.hide.title')}
               description={t('Common.alertDialog.hide.description')}
@@ -163,19 +170,17 @@ const EditCategoryDrawer = ({
               handleSubmit={handleCategoryRemoval}
               isDestructive
             >
-              {!isNew && (
-                <Button
-                  variant="destructive"
-                  size="icon"
-                  aria-label={t('Common.alertDialog.hide.title')}
-                >
-                  <EyeOffIcon className="size-4" />
-                </Button>
-              )}
+              <Button
+                variant="destructive"
+                size="icon"
+                aria-label={t('Common.alertDialog.hide.title')}
+              >
+                <EyeOffIcon className="size-4" />
+              </Button>
             </ConfirmationDialog>
-          </div>
-        </form>
-      </>
+          )}
+        </div>
+      </form>
     </CustomDrawer>
   );
 };

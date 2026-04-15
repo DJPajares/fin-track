@@ -1,4 +1,5 @@
-import type { ListProps } from './List';
+import type { ListProps } from '@shared/types/List';
+
 import type {
   TransactionPaymentCategoryProps,
   TransactionPaymentMainProps,

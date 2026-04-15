@@ -23,6 +23,7 @@
     "home": {
       "greetings": "Willkommen",
       "dashboardButton": "Zum Dashboard",
+      "ariaLabel": "Finanzübersicht",
       "motivation": {
         "title": "Tagesmotivation",
         "quotes": [
@@ -135,7 +136,8 @@
           "placeholder": {
             "title": "z. B. Stromrechnung",
             "currency": "Wählen Sie eine Währung",
-            "excludedDates": "Wählen Sie Daten aus..."
+            "excludedDates": "Wählen Sie Daten aus...",
+            "description": "Optionale Notiz hinzufügen"
           },
           "helper": {
             "category": "Kategorie auswählen",

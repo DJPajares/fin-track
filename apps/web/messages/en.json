@@ -134,9 +134,10 @@
             "showLess": "Show less"
           },
           "placeholder": {
-            "title": "e.g. Electricity bill",
+            "title": "Electricity bill",
             "currency": "Select a currency",
-            "excludedDates": "Select dates..."
+            "excludedDates": "Select dates...",
+            "description": "Add an optional note"
           },
           "helper": {
             "category": "Select a category",

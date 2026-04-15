@@ -221,7 +221,7 @@ const Home = () => {
           b: TransactionPaymentCategoryProps,
         ) => a.paymentCompletionRate - b.paymentCompletionRate,
       )
-      .slice(0, 5);
+      .slice(0, 3);
   }, [dashboardData?.categories]);
 
   // Top spending categories — sorted by highest totalAmount
@@ -237,7 +237,7 @@ const Home = () => {
             b: TransactionPaymentCategoryProps,
           ) => b.totalAmount - a.totalAmount,
         )
-        .slice(0, 5);
+        .slice(0, 3);
     }, [dashboardData?.categories]);
 
   // Expense pie chart data — from categories
@@ -265,7 +265,7 @@ const Home = () => {
     <>
       <ScrollShadow
         aria-label={t('Page.home.ariaLabel')}
-        className="flex max-h-[calc(100dvh-theme(height.36))] flex-col gap-4 sm:max-h-none sm:gap-8"
+        className="flex max-h-[calc(100dvh-theme(height.36))] flex-col gap-4 p-2 sm:max-h-none sm:gap-8"
         hideScrollBar
       >
         {/* Finance Overview Cards */}
@@ -319,7 +319,7 @@ const Home = () => {
 
         <Separator />
 
-        <Card className="relative flex flex-col">
+        <Card className="relative flex shrink-0 flex-col">
           <CardHeader className="gap-4 px-4">
             <CardDescription>{t('Page.home.motivation.title')}</CardDescription>
             <CardTitle

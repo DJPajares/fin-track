@@ -2,10 +2,7 @@
 
 import { STORAGE_KEYS } from '@web/constants/storageKeys';
 import { useAppDispatch, useAppSelector } from '@web/lib/hooks/use-redux';
-import {
-  DashboardSliceProps,
-  setDashboardCurrency,
-} from '@web/lib/redux/feature/dashboard/dashboardSlice';
+import { setDashboardCurrency } from '@web/lib/redux/feature/dashboard/dashboardSlice';
 import {
   fetchCategories,
   setCurrencies,
@@ -42,7 +39,14 @@ export const ClientDataProvider = ({ children }: ClientDataProviderProps) => {
           return a.name.localeCompare(b.name);
         },
       );
-      dispatch(setCurrencies(sortedCurrencies));
+      dispatch(
+        setCurrencies(
+          sortedCurrencies.map((c: CurrencyProps) => ({
+            _id: c._id,
+            name: c.name,
+          })),
+        ),
+      );
 
       // Set initial dashboard currency (if not set)
       // Currency is set during login from user settings
@@ -66,15 +70,17 @@ export const ClientDataProvider = ({ children }: ClientDataProviderProps) => {
         if (!defaultCurrency) {
           defaultCurrency =
             sortedCurrencies.find(
-              (currency: DashboardSliceProps['currency']) =>
-                currency.name === 'SGD',
+              (currency: CurrencyProps) => currency.name === 'SGD',
             ) || sortedCurrencies[0];
         }
 
         if (defaultCurrency) {
           dispatch(
             setDashboardCurrency({
-              currency: defaultCurrency,
+              currency: {
+                _id: defaultCurrency._id,
+                name: defaultCurrency.name,
+              },
             }),
           );
         }
