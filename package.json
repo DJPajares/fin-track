@@ -22,7 +22,15 @@
       "prettier --write"
     ],
     "apps/web/**/*.{js,jsx,ts,tsx}": [
-      "pnpm --filter web exec eslint --fix --max-warnings=0"
+      "pnpm --filter web exec eslint --fix --max-warnings=0",
+      "pnpm --filter web exec vitest related --run --passWithNoTests"
+    ],
+    "apps/api/src/**/*.ts": [
+      "pnpm --filter api exec eslint --fix --max-warnings=0",
+      "pnpm --filter api exec vitest related --run --passWithNoTests"
+    ],
+    "packages/shared/**/*.ts": [
+      "pnpm --filter shared exec vitest related --run --passWithNoTests"
     ]
   },
   "devDependencies": {
