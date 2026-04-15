@@ -29,8 +29,8 @@ const transactionSchema = z.object({
   endDate: z.date(),
   excludedDates: z
     .object({
-      value: z.string(),
-      label: z.string(),
+      _id: z.string(),
+      name: z.string(),
     })
     .array()
     .optional(),

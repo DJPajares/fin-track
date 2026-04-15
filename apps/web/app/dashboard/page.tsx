@@ -61,11 +61,11 @@ const Dashboard = () => {
   const { data, isFetching, isLoading } = useGetDashboardDataQuery(
     {
       date: dashboardDate,
-      currency: currency.label,
+      currency: currency.name,
       userId,
     },
     {
-      skip: !currency.label || !userId,
+      skip: !currency.name || !userId,
     },
   );
 
@@ -109,7 +109,7 @@ const Dashboard = () => {
     setDate(moment(newDate).toDate());
   };
 
-  if (isLoading || !currency.label) return <Loader />;
+  if (isLoading || !currency.name) return <Loader />;
 
   return (
     <>
@@ -171,7 +171,7 @@ const Dashboard = () => {
                   <TypographySubsectionTitle>
                     {formatCurrency({
                       value: totalAmount,
-                      currency: currency.label,
+                      currency: currency.name,
                     })}
                   </TypographySubsectionTitle>
                 </span>
@@ -181,7 +181,7 @@ const Dashboard = () => {
                   <TypographySubsectionTitle>
                     {formatCurrency({
                       value: extra,
-                      currency: currency.label,
+                      currency: currency.name,
                     })}
                   </TypographySubsectionTitle>
                 </span>
@@ -196,7 +196,7 @@ const Dashboard = () => {
                   <TypographySubsectionTitle>
                     {formatCurrency({
                       value: balance,
-                      currency: currency.label,
+                      currency: currency.name,
                     })}
                   </TypographySubsectionTitle>
                 </span>
@@ -207,13 +207,13 @@ const Dashboard = () => {
                     <TypographySubsectionTitle>
                       {formatCurrency({
                         value: totalPaidAmount,
-                        currency: currency.label,
+                        currency: currency.name,
                       })}
                     </TypographySubsectionTitle>
                     <TypographySubsectionTitle className="text-muted-foreground italic">
                       {`(${formatCurrency({
                         value: totalAmount - totalPaidAmount,
-                        currency: currency.label,
+                        currency: currency.name,
                       })})`}
                     </TypographySubsectionTitle>
                   </span>
@@ -236,7 +236,7 @@ const Dashboard = () => {
                 <div key={category._id}>
                   <CategoryCard
                     category={category}
-                    currency={currency.label}
+                    currency={currency.name}
                     handleCardClick={handleCardClick}
                   />
                 </div>

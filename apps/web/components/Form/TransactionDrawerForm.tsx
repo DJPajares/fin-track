@@ -1,6 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { excludedDateStringFormat } from '@shared/constants/dateStringFormat';
 import type { ListProps } from '@shared/types/List';
+import { toSelectItems } from '@shared/utilities/toSelectItem';
 import CardButton from '@web/components/shared/CardButton';
 import type { IconProps } from '@web/components/shared/CardIcon';
 import ConfirmationDialog from '@web/components/shared/ConfirmationDialog';
@@ -81,8 +82,8 @@ import {
 import { Controller, type Resolver, useForm, useWatch } from 'react-hook-form';
 
 type ExcludedDatesProps = {
-  value: string;
-  label: string;
+  _id: string;
+  name: string;
 };
 
 export type SubmitTransactionProps = {
@@ -146,7 +147,7 @@ const TransactionDrawerForm = ({
     const start = defaultValues?.startDate ?? today;
     const end = defaultValues?.endDate ?? start;
     const currencyFallback =
-      defaultValues?.currency || currencies[0]?.value || '';
+      defaultValues?.currency || currencies[0]?._id || '';
 
     return {
       id: defaultValues?.id,
@@ -258,8 +259,8 @@ const TransactionDrawerForm = ({
       const date = moment(startDate).add(monthOffset, 'months').toDate();
 
       return {
-        value: date.toDateString(),
-        label: moment(date).format(excludedDateStringFormat),
+        _id: date.toDateString(),
+        name: moment(date).format(excludedDateStringFormat),
       };
     });
   }, [endDate, startDate]);
@@ -273,7 +274,7 @@ const TransactionDrawerForm = ({
   const onSubmit = async (data: TransactionFormProps) => {
     try {
       const excludedDates = data.excludedDates
-        ? data.excludedDates.map((date) => new Date(date.value))
+        ? data.excludedDates.map((date) => new Date(date._id))
         : [];
 
       const {
@@ -377,7 +378,7 @@ const TransactionDrawerForm = ({
                     {t('Page.dashboard.transactionDrawer.form.title.currency')}
                   </FieldLabel>
                   <Select
-                    items={currencies}
+                    items={toSelectItems(currencies)}
                     name={field.name}
                     value={field.value}
                     onValueChange={field.onChange}
@@ -396,11 +397,8 @@ const TransactionDrawerForm = ({
                     <SelectContent>
                       <SelectGroup>
                         {currencies.map((currency) => (
-                          <SelectItem
-                            key={currency.value}
-                            value={currency.value}
-                          >
-                            {currency.label}
+                          <SelectItem key={currency._id} value={currency._id}>
+                            {currency.name}
                           </SelectItem>
                         ))}
                       </SelectGroup>
@@ -479,26 +477,26 @@ const TransactionDrawerForm = ({
                 {/* <ToggleGroup
                   variant="outline"
                   spacing={2}
-                  defaultValue={type.value}
+                  defaultValue={type._id}
                 > */}
                 <div className="grid grid-cols-2 gap-2">
                   {typeOptions.map((option) => {
-                    const isActive = option.value === type.value;
+                    const isActive = option._id === type._id;
 
                     return (
                       <CardButton
-                        key={option.value}
-                        label={option.label}
+                        key={option._id}
+                        label={option.name}
                         size="md"
                         handleOnClick={() => onTypeChange(option)}
                         isActive={isActive}
                       />
                       // <ToggleGroupItem
-                      //   key={option.value}
-                      //   value={option.value}
+                      //   key={option._id}
+                      //   value={option._id}
                       //   onClick={() => onTypeChange(option)}
                       // >
-                      //   {option.label}
+                      //   {option.name}
                       // </ToggleGroupItem>
                     );
                   })}
@@ -521,7 +519,7 @@ const TransactionDrawerForm = ({
                 render={({ field, fieldState }) => {
                   const filteredCategories = categories.filter(
                     (category) =>
-                      category.type._id === type.value && category.isActive,
+                      category.type._id === type._id && category.isActive,
                   );
                   const previewCategories = filteredCategories.slice(
                     0,
@@ -750,14 +748,14 @@ const TransactionDrawerForm = ({
                           </FieldLabel>
                           <Combobox
                             value={(field.value ?? []).map(
-                              (item: ExcludedDatesProps) => item.value,
+                              (item: ExcludedDatesProps) => item._id,
                             )}
                             onValueChange={(values: string[]) => {
                               field.onChange(
                                 values.map(
                                   (v) =>
                                     excludedDatesArray.find(
-                                      (item) => item.value === v,
+                                      (item) => item._id === v,
                                     )!,
                                 ),
                               );
@@ -768,8 +766,8 @@ const TransactionDrawerForm = ({
                               <ComboboxValue>
                                 {(field.value ?? []).map(
                                   (item: ExcludedDatesProps) => (
-                                    <ComboboxChip key={item.value}>
-                                      {item.label}
+                                    <ComboboxChip key={item._id}>
+                                      {item.name}
                                     </ComboboxChip>
                                   ),
                                 )}
@@ -779,11 +777,8 @@ const TransactionDrawerForm = ({
                             <ComboboxContent anchor={anchor}>
                               <ComboboxList>
                                 {excludedDatesArray.map((item) => (
-                                  <ComboboxItem
-                                    key={item.value}
-                                    value={item.value}
-                                  >
-                                    {item.label}
+                                  <ComboboxItem key={item._id} value={item._id}>
+                                    {item.name}
                                   </ComboboxItem>
                                 ))}
                               </ComboboxList>

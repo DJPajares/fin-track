@@ -54,7 +54,7 @@ export type TransactionPaymentsByCategoryResult = {
 export type UpdateDashboardPaymentsDataProps = {
   _id: TransactionProps['paymentId'];
   transaction: TransactionProps['_id'];
-  currency: TransactionProps['localAmount']['currency']['value'];
+  currency: TransactionProps['localAmount']['currency']['_id'];
   amount: TransactionProps['localAmount']['paidAmount'];
   date: Moment;
 };

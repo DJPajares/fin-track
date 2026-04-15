@@ -49,16 +49,16 @@ const EditTransactionDrawer = ({
   );
 
   const [type, setType] = useState<ListProps>({
-    value: transaction.typeId,
-    label: transaction.typeName,
+    _id: transaction.typeId,
+    name: transaction.typeName,
   });
 
   const newTypes = types.map((type) => {
     const isTranslated = t.has(`Common.type.${type.id}`);
 
     return {
-      value: type.value,
-      label: isTranslated ? t(`Common.type.${type.id}`) : type.label,
+      _id: type._id,
+      name: isTranslated ? t(`Common.type.${type.id}`) : type.name,
     };
   });
 
@@ -81,19 +81,19 @@ const EditTransactionDrawer = ({
     endDate: new Date(transaction.endDate),
     excludedDates:
       transaction.excludedDates?.map((date) => ({
-        value: new Date(date).toDateString(),
-        label: moment(date).format(excludedDateStringFormat),
+        _id: new Date(date).toDateString(),
+        name: moment(date).format(excludedDateStringFormat),
       })) || [],
   };
 
   useEffect(() => {
-    if (type.value && newTypes.length > 0) {
-      const updatedType = newTypes.find((t) => t.value === type.value);
-      if (updatedType && updatedType.label !== type.label) {
+    if (type._id && newTypes.length > 0) {
+      const updatedType = newTypes.find((t) => t._id === type._id);
+      if (updatedType && updatedType.name !== type.name) {
         setType(updatedType);
       }
     }
-  }, [newTypes, type.value, type.label]);
+  }, [newTypes, type._id, type.name]);
 
   const submitTransaction = async (postData: SubmitTransactionProps) => {
     try {
@@ -106,7 +106,7 @@ const EditTransactionDrawer = ({
         await lazyGetTransactions({
           page: 1,
           limit: 8,
-          body: { type: type.value, date: date.toISOString(), userId },
+          body: { type: type._id, date: date.toISOString(), userId },
         });
 
         // Invalidate dashboard cache to refresh data
@@ -134,7 +134,7 @@ const EditTransactionDrawer = ({
       await lazyGetTransactions({
         page: 1,
         limit: 8,
-        body: { type: type.value, date: date.toISOString(), userId },
+        body: { type: type._id, date: date.toISOString(), userId },
       });
 
       // Invalidate dashboard cache to refresh data
@@ -167,7 +167,7 @@ const EditTransactionDrawer = ({
       triggerChildren={children}
     >
       <TransactionDrawerForm
-        key={`${type.value || 'type'}-${defaultValues.id || 'edit'}-${defaultValues.startDate.toISOString()}-${defaultValues.endDate?.toISOString() || defaultValues.startDate.toISOString()}-${defaultValues.currency}-${defaultValues.category}-${defaultValues.amount}`}
+        key={`${type._id || 'type'}-${defaultValues.id || 'edit'}-${defaultValues.startDate.toISOString()}-${defaultValues.endDate?.toISOString() || defaultValues.startDate.toISOString()}-${defaultValues.currency}-${defaultValues.category}-${defaultValues.amount}`}
         type={type}
         typeOptions={newTypes}
         onTypeChange={setType}

@@ -93,7 +93,7 @@ const NavDropdownMenu = ({ children }: NavDropdownMenuProps) => {
 
   const handleCurrencyChange = (currency: ListProps) => {
     dispatch(setDashboardCurrency({ currency }));
-    updateUserSettings({ currency: currency.label }).catch(() => {});
+    updateUserSettings({ currency: currency.name }).catch(() => {});
   };
 
   const handleDarkModeToggle = () => {
@@ -172,18 +172,17 @@ const NavDropdownMenu = ({ children }: NavDropdownMenuProps) => {
               <DropdownMenuPortal>
                 <DropdownMenuSubContent className="max-h-100 overflow-y-auto">
                   {currencies.map((currency) => {
-                    const isSelected =
-                      dashboardCurrency.label === currency.label;
+                    const isSelected = dashboardCurrency.name === currency.name;
                     return (
                       <DropdownMenuCheckboxItem
-                        key={currency.value}
+                        key={currency._id}
                         checked={isSelected}
                         onClick={() => handleCurrencyChange(currency)}
                       >
                         <TypographyLabel
                           className={`${isSelected && 'font-bold'}`}
                         >
-                          {currency.label}
+                          {currency.name}
                         </TypographyLabel>
                       </DropdownMenuCheckboxItem>
                     );

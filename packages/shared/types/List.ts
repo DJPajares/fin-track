@@ -1,4 +1,4 @@
 export type ListProps = {
-  value: string;
-  label: string;
+  _id: string;
+  name: string;
 };

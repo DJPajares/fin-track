@@ -35,23 +35,21 @@ export const SelectBox = ({
 
   return (
     <Select
-      value={selectedItem.value.toString()}
+      value={selectedItem._id.toString()}
       onValueChange={(value) => {
-        const selected = items.find((item) => item.value.toString() === value);
+        const selected = items.find((item) => item._id.toString() === value);
         if (selected) setSelectedItem(selected);
       }}
     >
       <SelectTrigger className={triggerClassName}>
-        <SelectValue placeholder={placeholder}>
-          {selectedItem.label}
-        </SelectValue>
+        <SelectValue placeholder={placeholder}>{selectedItem.name}</SelectValue>
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
           <SelectLabel>
             {items.map((item) => (
-              <SelectItem key={item.value} value={item.value.toString()}>
-                {item.label}
+              <SelectItem key={item._id} value={item._id.toString()}>
+                {item.name}
               </SelectItem>
             ))}
           </SelectLabel>

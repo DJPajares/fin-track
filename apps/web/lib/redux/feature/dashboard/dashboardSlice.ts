@@ -16,8 +16,8 @@ export type DashboardSliceProps = DashboardDateProps & DashboardCurrencyProps;
 const initialState: DashboardSliceProps = {
   date: moment(new Date()).format(dateStringFormat),
   currency: {
-    value: '',
-    label: '',
+    _id: '',
+    name: '',
   },
 };
 

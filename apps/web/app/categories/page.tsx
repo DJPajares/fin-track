@@ -31,8 +31,6 @@ const baseCategory: CategoryItemProps = {
   type: {
     _id: '',
     name: '',
-    value: '',
-    label: '',
   },
   icon: 'default',
   isActive: true,
@@ -40,8 +38,8 @@ const baseCategory: CategoryItemProps = {
 };
 
 const defaultType = {
-  value: '',
-  label: '',
+  _id: '',
+  name: '',
 };
 
 const Categories = () => {
@@ -59,14 +57,14 @@ const Categories = () => {
     const isTranslated = t.has(`Common.type.${type.id}`);
 
     return {
-      value: type.value,
-      label: isTranslated ? t(`Common.type.${type.id}`) : type.label,
+      _id: type._id,
+      name: isTranslated ? t(`Common.type.${type.id}`) : type.name,
     };
   });
 
   const selectedType = useMemo(() => {
     return (
-      newTypes.find((type) => type.value === selectedTypeId) ??
+      newTypes.find((type) => type._id === selectedTypeId) ??
       newTypes[0] ??
       defaultType
     );
@@ -76,7 +74,7 @@ const Categories = () => {
     const updatedCategory = {
       ...category,
       isActive: true,
-      type: category.type.value,
+      type: category.type._id,
       userId,
     };
 
@@ -94,7 +92,7 @@ const Categories = () => {
           variant="ghost"
           items={newTypes}
           selectedItem={selectedType}
-          setSelectedItem={(item) => setSelectedTypeId(item.value)}
+          setSelectedItem={(item) => setSelectedTypeId(item._id)}
           placeholder={t('Common.label.selectPlaceholder')}
           className="w-fit text-base font-semibold"
         />
@@ -123,7 +121,7 @@ const Categories = () => {
             {categories
               .filter(
                 (category) =>
-                  category.type._id === selectedType.value && category.isActive,
+                  category.type._id === selectedType._id && category.isActive,
               )
               .map((category, i, { length }) => (
                 <div key={category._id} className="px-2">
@@ -176,8 +174,7 @@ const Categories = () => {
             {categories
               .filter(
                 (category) =>
-                  category.type._id === selectedType.value &&
-                  !category.isActive,
+                  category.type._id === selectedType._id && !category.isActive,
               )
               .map((category, i, { length }) => (
                 <div key={category._id}>

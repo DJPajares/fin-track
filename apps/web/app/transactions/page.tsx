@@ -25,8 +25,8 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import TransactionCard from './Transaction/TransactionCard';
 
 const defaultType: ListProps = {
-  value: '',
-  label: '',
+  _id: '',
+  name: '',
 };
 
 const Transactions = () => {
@@ -41,8 +41,8 @@ const Transactions = () => {
     const isTranslated = t.has(`Common.type.${type.id}`);
 
     return {
-      value: type.value,
-      label: isTranslated ? t(`Common.type.${type.id}`) : type.label,
+      _id: type._id,
+      name: isTranslated ? t(`Common.type.${type.id}`) : type.name,
     };
   });
 
@@ -58,7 +58,7 @@ const Transactions = () => {
 
   const selectedType = useMemo(() => {
     return (
-      newTypes.find((type) => type.value === selectedTypeId) ??
+      newTypes.find((type) => type._id === selectedTypeId) ??
       newTypes[0] ??
       defaultType
     );
@@ -70,11 +70,11 @@ const Transactions = () => {
       limit: 8,
       body: {
         date: date.toISOString(),
-        type: selectedType.value,
+        type: selectedType._id,
         userId,
       },
     }),
-    [date, page, selectedType.value, userId],
+    [date, page, selectedType._id, userId],
   );
 
   const {
@@ -84,7 +84,7 @@ const Transactions = () => {
     error,
     refetch,
   } = useGetTransactionsQuery(queryParams, {
-    skip: !selectedType.value || !userId || types.length === 0,
+    skip: !selectedType._id || !userId || types.length === 0,
   });
 
   const transactions: TransactionProps[] = useMemo(() => {
@@ -144,7 +144,7 @@ const Transactions = () => {
   };
 
   const handleTypeChange = (nextType: ListProps) => {
-    setSelectedTypeId(nextType.value);
+    setSelectedTypeId(nextType._id);
     setPage(1);
     scrollToTop();
   };

@@ -42,15 +42,15 @@ export const ClientDataProvider = ({ children }: ClientDataProviderProps) => {
       dispatch(
         setCurrencies(
           sortedCurrencies.map((c: CurrencyProps) => ({
-            value: c._id,
-            label: c.name,
+            _id: c._id,
+            name: c.name,
           })),
         ),
       );
 
       // Set initial dashboard currency (if not set)
       // Currency is set during login from user settings
-      if (sortedCurrencies.length > 0 && !currency.label) {
+      if (sortedCurrencies.length > 0 && !currency.name) {
         // Try to load from localStorage first
         const storedCurrency = localStorage.getItem(STORAGE_KEYS.USER_CURRENCY);
         let defaultCurrency: CurrencyProps | undefined;
@@ -78,8 +78,8 @@ export const ClientDataProvider = ({ children }: ClientDataProviderProps) => {
           dispatch(
             setDashboardCurrency({
               currency: {
-                value: defaultCurrency._id,
-                label: defaultCurrency.name,
+                _id: defaultCurrency._id,
+                name: defaultCurrency.name,
               },
             }),
           );
@@ -90,11 +90,11 @@ export const ClientDataProvider = ({ children }: ClientDataProviderProps) => {
     if (isAuthenticated && !isLoading) {
       fetchData();
     }
-  }, [dispatch, currency.label, isAuthenticated, isLoading, userId]);
+  }, [dispatch, currency.name, isAuthenticated, isLoading, userId]);
 
   // Automatically sync currency to localStorage whenever it changes
   useEffect(() => {
-    if (currency.label) {
+    if (currency.name) {
       localStorage.setItem(
         STORAGE_KEYS.USER_CURRENCY,
         JSON.stringify(currency),

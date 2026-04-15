@@ -83,7 +83,7 @@ const EditCategoryDrawer = ({
     dispatch(
       updateCategory({
         ...data,
-        type: type?.value || '',
+        type: type?._id || '',
         userId,
         isActive: false,
       }),
@@ -96,7 +96,7 @@ const EditCategoryDrawer = ({
         createCustomCategory({
           name: data.name,
           icon: data.icon,
-          type: type?.value || '',
+          type: type?._id || '',
           isActive: data.isActive,
           userId,
         }),
@@ -105,7 +105,7 @@ const EditCategoryDrawer = ({
       dispatch(
         updateCategory({
           ...data,
-          type: type?.value || '',
+          type: type?._id || '',
           userId,
         }),
       );
@@ -118,7 +118,7 @@ const EditCategoryDrawer = ({
       onOpenChange={setIsDrawerOpen}
       handleSubmit={handleSubmit}
       title={title}
-      description={type?.label}
+      description={type?.name}
       triggerChildren={children}
     >
       <form onSubmit={form.handleSubmit(onSubmit)} ref={formRef}>

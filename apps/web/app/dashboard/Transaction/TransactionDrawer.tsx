@@ -45,8 +45,8 @@ const TransactionDrawer = ({
   const dashboard = useAppSelector((state) => state.dashboard);
 
   const [type, setType] = useState<ListProps>({
-    value: '',
-    label: '',
+    _id: '',
+    name: '',
   });
   const [storedFormValues, setStoredFormValues] =
     useState<TransactionFormProps | null>(null);
@@ -64,8 +64,8 @@ const TransactionDrawer = ({
     const isTranslated = t.has(`Common.type.${type.id}`);
 
     return {
-      value: type.value,
-      label: isTranslated ? t(`Common.type.${type.id}`) : type.label,
+      _id: type._id,
+      name: isTranslated ? t(`Common.type.${type.id}`) : type.name,
     };
   });
 
@@ -78,7 +78,7 @@ const TransactionDrawer = ({
       storedFormValues || {
         category: '',
         name: '',
-        currency: dashboard.currency.value,
+        currency: dashboard.currency._id,
         amount: 0,
         description: '',
         isRecurring: false,
@@ -86,12 +86,12 @@ const TransactionDrawer = ({
         endDate: date,
         excludedDates: [],
       },
-    [storedFormValues, dashboard.currency.value, date],
+    [storedFormValues, dashboard.currency._id, date],
   );
 
   useEffect(() => {
     if (types && types.length > 0) {
-      if (defaultType && defaultType.value) {
+      if (defaultType && defaultType._id) {
         setType(defaultType);
       } else {
         setType(types[0]);
@@ -101,13 +101,13 @@ const TransactionDrawer = ({
 
   // Update type name when translations change
   useEffect(() => {
-    if (type.value && newTypes.length > 0) {
-      const updatedType = newTypes.find((t) => t.value === type.value);
-      if (updatedType && updatedType.label !== type.label) {
+    if (type._id && newTypes.length > 0) {
+      const updatedType = newTypes.find((t) => t._id === type._id);
+      if (updatedType && updatedType.name !== type.name) {
         setType(updatedType);
       }
     }
-  }, [newTypes, type.value, type.label]);
+  }, [newTypes, type._id, type.name]);
 
   const formRef = useRef<HTMLFormElement>(null);
   const resetFormRef = useRef<TransactionDrawerFormRef>(null);
@@ -132,7 +132,7 @@ const TransactionDrawer = ({
         } else {
           await fetchDashboardData({
             date,
-            currency: dashboard.currency.label,
+            currency: dashboard.currency.name,
             userId,
           });
         }
@@ -180,7 +180,7 @@ const TransactionDrawer = ({
       description={t('Page.dashboard.transactionDrawer.description')}
     >
       <TransactionDrawerForm
-        key={`${type.value || 'type'}-${defaultValues.id || 'new'}-${defaultValues.startDate.toISOString()}-${defaultValues.endDate?.toISOString() || defaultValues.startDate.toISOString()}-${defaultValues.currency}-${defaultValues.category}-${defaultValues.amount}`}
+        key={`${type._id || 'type'}-${defaultValues.id || 'new'}-${defaultValues.startDate.toISOString()}-${defaultValues.endDate?.toISOString() || defaultValues.startDate.toISOString()}-${defaultValues.currency}-${defaultValues.category}-${defaultValues.amount}`}
         type={type}
         typeOptions={newTypes}
         onTypeChange={setType}

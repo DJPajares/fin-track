@@ -68,11 +68,11 @@ const Home = () => {
     useGetDashboardDataQuery(
       {
         date,
-        currency: currency.label,
+        currency: currency.name,
         userId,
       },
       {
-        skip: !userId || !currency.label,
+        skip: !userId || !currency.name,
       },
     );
 
@@ -83,11 +83,11 @@ const Home = () => {
     {
       startDate: moment(date).add(1, 'months').toDate(),
       endDate: moment(date).add(3, 'months').toDate(),
-      currency: currency.label,
+      currency: currency.name,
       userId,
     },
     {
-      skip: !userId || !currency.label,
+      skip: !userId || !currency.name,
     },
   );
 
@@ -98,12 +98,12 @@ const Home = () => {
     {
       startDate: moment(date).subtract(2, 'months').toDate(),
       endDate: date,
-      currency: currency.label,
+      currency: currency.name,
       userId,
       category: 'savings',
     },
     {
-      skip: !userId || !currency.label,
+      skip: !userId || !currency.name,
     },
   );
 
@@ -112,11 +112,11 @@ const Home = () => {
       {
         startDate: moment(date).subtract(5, 'months').toDate(),
         endDate: date,
-        currency: currency.label,
+        currency: currency.name,
         userId,
       },
       {
-        skip: !userId || !currency.label,
+        skip: !userId || !currency.name,
       },
     );
 
@@ -257,7 +257,7 @@ const Home = () => {
     isTransactionsByTypeDataFetching ||
     isTransactionPaymentsByCategoryDataFetching ||
     isIncomeTrendsDataFetching ||
-    !currency.label;
+    !currency.name;
 
   if (isLoading) return <Loader />;
 
@@ -276,44 +276,44 @@ const Home = () => {
             paymentCompletionRate={
               dashboardData?.main?.paymentCompletionRate ?? 0
             }
-            currency={currency.label}
+            currency={currency.name}
           />
 
           <SavingsCard
             accumulativeSavings={accumulativeSavings}
             previousSavings={previousSavings}
-            currency={currency.label}
+            currency={currency.name}
           />
 
           <ExtrasCard
             accumulativeExtra={accumulativeExtra}
             upcomingExtras={upcomingExtras}
-            currency={currency.label}
+            currency={currency.name}
           />
 
-          <TrendsCard trendsData={trendsData} currency={currency.label} />
+          <TrendsCard trendsData={trendsData} currency={currency.name} />
 
           <BalanceCard
             balance={dashboardData?.main?.balance ?? 0}
-            currency={currency.label}
+            currency={currency.name}
           />
 
           <UnpaidBillsCard unpaidCategories={unpaidCategories} />
 
           <TopSpendingCard
             topSpendingCategories={topSpendingCategories}
-            currency={currency.label}
+            currency={currency.name}
           />
 
           <ExpenseBreakdownCard
             expensePieData={expensePieData}
-            currency={currency.label}
+            currency={currency.name}
           />
 
           <BudgetHealthCard
             budget={dashboardData?.main?.budget ?? 0}
             totalAmount={dashboardData?.main?.totalAmount ?? 0}
-            currency={currency.label}
+            currency={currency.name}
           />
         </div>
 
