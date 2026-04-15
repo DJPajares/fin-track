@@ -32,5 +32,5 @@ export default defineConfig([
       'simple-import-sort/exports': 'error',
     },
   },
-  globalIgnores(['dist/**', 'node_modules/**']),
+  globalIgnores(['dist/**', 'node_modules/**', 'coverage/**']),
 ]);
