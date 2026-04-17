@@ -23,6 +23,7 @@ export type FetchByDateRangeProps = {
   startDate: Date;
   endDate: Date;
   type?: string;
+  aggregateBy?: 'amount' | 'paidAmount';
   currency: string;
   userId: string;
 };

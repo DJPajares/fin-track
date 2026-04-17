@@ -19,7 +19,10 @@ import type {
 } from '../../types/v1/transactionRequestTypes';
 import convertCurrency from '../../utilities/convertCurrency';
 import createPagination from '../../utilities/createPagination';
-import { getBaseTransactionDateConditions } from '../../utilities/getBaseTransactionDateConditions';
+import {
+  getBaseTransactionDateConditions,
+  getYearMonthExpression,
+} from '../../utilities/getBaseTransactionDateConditions';
 
 const ensureUserId = (data: { userId?: string }) => {
   if (!data.userId) {
@@ -297,6 +300,17 @@ const getByDate = async (data: FetchByDateProps) => {
   };
 };
 
+const getPaymentMonthConditions = (yearMonth: number) => {
+  return [
+    {
+      $lte: [getYearMonthExpression('date'), yearMonth],
+    },
+    {
+      $gte: [getYearMonthExpression('date'), yearMonth],
+    },
+  ];
+};
+
 const getByDateRange = async (data: FetchByDateRangeProps) => {
   const startDate = new Date(data.startDate);
   const endDate = new Date(data.endDate);
@@ -318,9 +332,12 @@ const getByDateRange = async (data: FetchByDateRangeProps) => {
 
   const output = await Promise.all(
     datesArray.map(async (date) => {
+      const currentDate = new Date(date);
+      const currentYearMonth = formatYearMonth(currentDate);
+      const shouldUsePaidAmount = data.aggregateBy === 'paidAmount';
       const dataToFilter = {
         ...data,
-        date: new Date(date),
+        date: currentDate,
       };
 
       const filters = buildFilters(dataToFilter);
@@ -346,6 +363,50 @@ const getByDateRange = async (data: FetchByDateRangeProps) => {
           },
         },
         { $unwind: '$currency' },
+        ...(shouldUsePaidAmount
+          ? [
+              {
+                $lookup: {
+                  from: 'payments',
+                  localField: '_id',
+                  foreignField: 'transaction',
+                  as: 'payment',
+                  pipeline: [
+                    {
+                      $match: {
+                        userId: data.userId,
+                        $expr: {
+                          $and: [
+                            ...getPaymentMonthConditions(currentYearMonth),
+                          ],
+                        },
+                      },
+                    },
+                  ],
+                },
+              },
+              {
+                $unwind: {
+                  path: '$payment',
+                  preserveNullAndEmptyArrays: true,
+                },
+              },
+              {
+                $lookup: {
+                  from: 'currencies',
+                  localField: 'payment.currency',
+                  foreignField: '_id',
+                  as: 'paymentCurrency',
+                },
+              },
+              {
+                $unwind: {
+                  path: '$paymentCurrency',
+                  preserveNullAndEmptyArrays: true,
+                },
+              },
+            ]
+          : []),
         {
           $lookup: {
             from: 'types',
@@ -369,6 +430,8 @@ const getByDateRange = async (data: FetchByDateRangeProps) => {
             currencyId: '$currency._id',
             currencyName: '$currency.name',
             amount: { $toDouble: '$amount' },
+            paidAmount: '$payment.amount',
+            paidCurrencyName: '$paymentCurrency.name',
             description: '$description',
           },
         },
@@ -378,6 +441,8 @@ const getByDateRange = async (data: FetchByDateRangeProps) => {
       const convertedTransactions = transactions.map((transaction) => {
         const fromCurrency = transaction.currencyName;
         const amount = transaction.amount;
+        const paidAmount = Number(transaction.paidAmount ?? 0);
+        const paidCurrencyName = transaction.paidCurrencyName ?? fromCurrency;
 
         const convertedAmount = convertCurrency({
           value: amount,
@@ -386,9 +451,20 @@ const getByDateRange = async (data: FetchByDateRangeProps) => {
           rates,
         });
 
+        const convertedPaidAmount =
+          paidAmount > 0
+            ? convertCurrency({
+                value: paidAmount,
+                fromCurrency: paidCurrencyName,
+                toCurrency: currency,
+                rates,
+              })
+            : 0;
+
         return {
           ...transaction,
           convertedAmount,
+          convertedPaidAmount,
           convertedCurrency: currency,
         };
       });
@@ -523,14 +599,23 @@ const getMonthlyCategories = async (data: FetchByDateRangeProps) => {
     const { date, transactions } = dataRow;
 
     transactions.forEach((transaction) => {
-      const { categoryName, convertedAmount } = transaction;
+      const { categoryName, convertedAmount, convertedPaidAmount } =
+        transaction;
       const key = serializeText(categoryName);
+      const amountToUse =
+        data.aggregateBy === 'paidAmount'
+          ? Number(convertedPaidAmount ?? 0)
+          : Number(convertedAmount ?? 0);
+
+      if (amountToUse <= 0) {
+        return;
+      }
 
       if (!categories[key]) {
         categories[key] = 0;
       }
 
-      categories[key] += Math.floor(convertedAmount);
+      categories[key] += Math.floor(amountToUse);
     });
 
     return {

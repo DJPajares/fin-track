@@ -13,6 +13,7 @@ type TransactionsMonthlyCategoriesProps = {
   endDate: Date;
   currency: string;
   type?: string;
+  aggregateBy?: 'amount' | 'paidAmount';
   userId: string;
 };
 
@@ -36,12 +37,13 @@ const formatTransactionsMonthlyCategoriesQueryKey = ({
   endDate,
   currency,
   type,
+  aggregateBy,
   userId,
 }: TransactionsMonthlyCategoriesProps) => {
   const start = moment(startDate).format('YYYYMM');
   const end = moment(endDate).format('YYYYMM');
 
-  return `${start}_${end}_${currency}_${type ?? ''}_${userId}`;
+  return `${start}_${end}_${currency}_${type ?? ''}_${aggregateBy ?? 'amount'}_${userId}`;
 };
 
 export const transactionsApi = createApi({

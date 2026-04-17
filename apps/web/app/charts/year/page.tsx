@@ -173,6 +173,7 @@ const Charts = () => {
       endDate: moment(selectedYear, 'YYYY').endOf('year').toDate(),
       currency: currency.name,
       type: expenseTypeId,
+      aggregateBy: 'paidAmount',
       userId,
     },
     {
