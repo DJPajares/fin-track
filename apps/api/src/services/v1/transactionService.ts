@@ -524,7 +524,7 @@ const getMonthlyCategories = async (data: FetchByDateRangeProps) => {
 
     transactions.forEach((transaction) => {
       const { categoryName, convertedAmount } = transaction;
-      const key = categoryName.toLowerCase();
+      const key = serializeText(categoryName);
 
       if (!categories[key]) {
         categories[key] = 0;

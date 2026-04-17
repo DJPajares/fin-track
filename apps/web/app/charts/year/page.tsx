@@ -2,6 +2,7 @@
 
 import { dateStringFormat } from '@shared/constants/dateStringFormat';
 import { formatCurrency } from '@shared/utilities/formatCurrency';
+import { serializeText } from '@shared/utilities/serializeText';
 import Loader from '@web/components/shared/Loader';
 import { TypographyLead } from '@web/components/shared/Typography';
 import { Button } from '@web/components/ui/button';
@@ -67,6 +68,7 @@ type ChartDataPropsB = {
 };
 
 type SavingsDataProps = { month: string; yearMonth: string; amount: number };
+type YearlyTopCategory = { name: string; amount: number; colorIdx: number };
 
 const generateYearsArray = (range: number): number[] => {
   const currentYear = new Date().getFullYear();
@@ -79,12 +81,41 @@ const generateYearsArray = (range: number): number[] => {
   );
 };
 
+const buildYearlyTop5 = (
+  rows: Array<Record<string, number | string>> | undefined,
+): YearlyTopCategory[] => {
+  const totals: Record<string, number> = {};
+
+  (rows ?? []).forEach((row) => {
+    Object.entries(row).forEach(([key, val]) => {
+      if (key === 'date') return;
+      const num = typeof val === 'number' ? val : Number(val);
+
+      if (!Number.isNaN(num)) {
+        totals[key] = (totals[key] ?? 0) + num;
+      }
+    });
+  });
+
+  return Object.entries(totals)
+    .sort(([, a], [, b]) => b - a)
+    .slice(0, 5)
+    .map(([name, amount], idx) => ({ name, amount, colorIdx: idx + 1 }));
+};
+
+const formatFallbackLabel = (value: string) => {
+  return value
+    .replace(/[-_]+/g, ' ')
+    .replace(/\b\w/g, (char) => char.toUpperCase());
+};
+
 const Charts = () => {
   const t = useTranslations();
   const isMobile = useIsMobile();
 
   const { user } = useAppSelector((state) => state.auth);
   const userId = user?.id || '';
+  const { types } = useAppSelector((state) => state.main);
   const dashboardDateString = useAppSelector((state) => state.dashboard.date);
 
   const dashboardDate = useMemo(
@@ -125,20 +156,43 @@ const Charts = () => {
       },
     );
 
+  const expenseTypeId = useMemo(() => {
+    return types.find((type) => type.id === 'expense')?._id ?? '';
+  }, [types]);
+
+  const incomeTypeId = useMemo(() => {
+    return types.find((type) => type.id === 'income')?._id ?? '';
+  }, [types]);
+
   const {
-    data: monthlyCategoriesData,
-    isFetching: isMonthlyCategoriesDataFetching,
+    data: expenseCategoriesData,
+    isFetching: isExpenseCategoriesFetching,
   } = useGetTransactionsMonthlyCategoriesByDateRangeQuery(
     {
       startDate: moment(selectedYear, 'YYYY').startOf('year').toDate(),
       endDate: moment(selectedYear, 'YYYY').endOf('year').toDate(),
       currency: currency.name,
+      type: expenseTypeId,
       userId,
     },
     {
-      skip: !userId || !currency.name,
+      skip: !userId || !currency.name || !expenseTypeId,
     },
   );
+
+  const { data: incomeCategoriesData, isFetching: isIncomeCategoriesFetching } =
+    useGetTransactionsMonthlyCategoriesByDateRangeQuery(
+      {
+        startDate: moment(selectedYear, 'YYYY').startOf('year').toDate(),
+        endDate: moment(selectedYear, 'YYYY').endOf('year').toDate(),
+        currency: currency.name,
+        type: incomeTypeId,
+        userId,
+      },
+      {
+        skip: !userId || !currency.name || !incomeTypeId,
+      },
+    );
 
   const chartDataA = useMemo<ChartDataPropsA[]>(() => {
     return (transactionsData ?? []).map((transaction) => {
@@ -179,26 +233,13 @@ const Charts = () => {
       });
   }, [savingsData, selectedYear]);
 
-  type YearlyTopCategory = { name: string; amount: number; colorIdx: number };
+  const yearlyTopExpenses = useMemo<YearlyTopCategory[]>(() => {
+    return buildYearlyTop5(expenseCategoriesData);
+  }, [expenseCategoriesData]);
 
-  const yearlyTop5 = useMemo<YearlyTopCategory[]>(() => {
-    const totals: Record<string, number> = {};
-
-    (monthlyCategoriesData ?? []).forEach((row) => {
-      Object.entries(row).forEach(([key, val]) => {
-        if (key === 'date') return;
-        const num = typeof val === 'number' ? val : Number(val);
-        if (!Number.isNaN(num)) {
-          totals[key] = (totals[key] ?? 0) + num;
-        }
-      });
-    });
-
-    return Object.entries(totals)
-      .sort(([, a], [, b]) => b - a)
-      .slice(0, 5)
-      .map(([name, amount], idx) => ({ name, amount, colorIdx: idx + 1 }));
-  }, [monthlyCategoriesData]);
+  const yearlyTopIncome = useMemo<YearlyTopCategory[]>(() => {
+    return buildYearlyTop5(incomeCategoriesData);
+  }, [incomeCategoriesData]);
 
   const yearsArray = generateYearsArray(10);
 
@@ -217,7 +258,92 @@ const Charts = () => {
   const isLoading =
     isTransactionsDataFetching ||
     isSavingsDataFetching ||
-    isMonthlyCategoriesDataFetching;
+    isExpenseCategoriesFetching ||
+    isIncomeCategoriesFetching;
+
+  const getCategoryLabel = (rawName: string) => {
+    const serializedName = serializeText(rawName);
+
+    return t.has(`Common.category.${serializedName}`)
+      ? t(`Common.category.${serializedName}`)
+      : formatFallbackLabel(rawName);
+  };
+
+  const renderTop5Card = (
+    items: YearlyTopCategory[],
+    title: string,
+    description: string,
+  ) => {
+    if (!items.length) return null;
+
+    return (
+      <Card>
+        <CardHeader>
+          <CardTitle>{title}</CardTitle>
+          <CardDescription>{description}</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <ol className="flex flex-col gap-3">
+            {items.map((item, index) => {
+              const maxAmount = items[0]?.amount ?? 0;
+              const pct = maxAmount > 0 ? (item.amount / maxAmount) * 100 : 0;
+              const label = getCategoryLabel(item.name);
+              const amountLabel = formatCurrency({
+                value: item.amount,
+                currency: currency.name,
+              });
+              const percentageLabel = `${Math.round(pct)}%`;
+
+              return (
+                <li key={`${title}-${item.name}`}>
+                  <Progress
+                    value={pct}
+                    style={
+                      {
+                        '--progress-color': `var(--chart-${item.colorIdx})`,
+                      } as CSSProperties
+                    }
+                    className="border-border/50 bg-background/80 **:data-[slot=progress-track]:bg-muted w-full rounded-2xl border p-4 shadow-sm **:data-[slot=progress-indicator]:bg-(--progress-color) **:data-[slot=progress-track]:h-2.5"
+                  >
+                    <div className="flex w-full items-start justify-between gap-3 sm:items-center">
+                      <div className="flex min-w-0 items-center gap-3">
+                        <div className="bg-muted text-muted-foreground flex size-9 shrink-0 items-center justify-center rounded-full border text-xs font-semibold shadow-sm">
+                          {index + 1}
+                        </div>
+
+                        <div className="min-w-0">
+                          <div className="flex items-center gap-2">
+                            <span
+                              className="inline-flex size-2.5 shrink-0 rounded-full"
+                              style={{
+                                backgroundColor: `var(--chart-${item.colorIdx})`,
+                              }}
+                            />
+                            <ProgressLabel className="block truncate text-sm font-semibold sm:text-base">
+                              {label}
+                            </ProgressLabel>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="shrink-0 text-right">
+                        <span className="block text-base font-semibold tabular-nums">
+                          {amountLabel}
+                        </span>
+                        <span className="text-muted-foreground text-xs">
+                          {percentageLabel}
+                        </span>
+                      </div>
+                    </div>
+                  </Progress>
+                </li>
+              );
+            })}
+          </ol>
+        </CardContent>
+      </Card>
+    );
+  };
 
   const chartConfig = {
     income: {
@@ -420,78 +546,24 @@ const Charts = () => {
         </CardContent>
       </Card>
 
-      {/* Top 5 Categories */}
-      {yearlyTop5.length > 0 && (
-        <Card>
-          <CardHeader>
-            <CardTitle>{t('Page.charts.yearly.topCategoriesTitle')}</CardTitle>
-            <CardDescription>
-              {t('Page.charts.yearly.topCategoriesDescription')}
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <ol className="flex flex-col gap-3">
-              {yearlyTop5.map((item, index) => {
-                const maxAmount = yearlyTop5[0]?.amount ?? 0;
-                const pct = maxAmount > 0 ? (item.amount / maxAmount) * 100 : 0;
-                const isTranslated = t.has(`Common.category.${item.name}`);
-                const label = isTranslated
-                  ? t(`Common.category.${item.name}`)
-                  : item.name;
-                const amountLabel = formatCurrency({
-                  value: item.amount,
-                  currency: currency.name,
-                });
-                const percentageLabel = `${Math.round(pct)}%`;
-
-                return (
-                  <li key={item.name}>
-                    <Progress
-                      value={pct}
-                      style={
-                        {
-                          '--progress-color': `var(--chart-${item.colorIdx})`,
-                        } as CSSProperties
-                      }
-                      className="border-border/50 bg-background/80 **:data-[slot=progress-track]:bg-muted w-full rounded-2xl border p-4 shadow-sm **:data-[slot=progress-indicator]:bg-(--progress-color) **:data-[slot=progress-track]:h-2.5"
-                    >
-                      <div className="flex w-full items-start justify-between gap-3 sm:items-center">
-                        <div className="flex min-w-0 items-center gap-3">
-                          <div className="bg-muted text-muted-foreground flex size-9 shrink-0 items-center justify-center rounded-full border text-xs font-semibold shadow-sm">
-                            {index + 1}
-                          </div>
-
-                          <div className="min-w-0">
-                            <div className="flex items-center gap-2">
-                              <span
-                                className="inline-flex size-2.5 shrink-0 rounded-full"
-                                style={{
-                                  backgroundColor: `var(--chart-${item.colorIdx})`,
-                                }}
-                              />
-                              <ProgressLabel className="block truncate text-sm font-semibold sm:text-base">
-                                {label}
-                              </ProgressLabel>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div className="shrink-0 text-right">
-                          <span className="block text-base font-semibold tabular-nums">
-                            {amountLabel}
-                          </span>
-                          <span className="text-muted-foreground text-xs">
-                            {percentageLabel}
-                          </span>
-                        </div>
-                      </div>
-                    </Progress>
-                  </li>
-                );
-              })}
-            </ol>
-          </CardContent>
-        </Card>
+      {/* Top 5 by type */}
+      {(yearlyTopExpenses.length > 0 || yearlyTopIncome.length > 0) && (
+        <div className="grid gap-4 xl:grid-cols-2">
+          {renderTop5Card(
+            yearlyTopExpenses,
+            t('Page.charts.yearly.topCategoriesTitle'),
+            t('Page.charts.yearly.topCategoriesDescription'),
+          )}
+          {renderTop5Card(
+            yearlyTopIncome,
+            t.has('Page.charts.yearly.topIncomeSourcesTitle')
+              ? t('Page.charts.yearly.topIncomeSourcesTitle')
+              : 'Top 5 Income Sources',
+            t.has('Page.charts.yearly.topIncomeSourcesDescription')
+              ? t('Page.charts.yearly.topIncomeSourcesDescription')
+              : 'Largest income sources this year',
+          )}
+        </div>
       )}
     </>
   );

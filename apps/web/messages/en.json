@@ -159,8 +159,10 @@
         "incomeVsExpensesTitle": "Income vs Expenses",
         "incomeAndExpensesTitle": "Income and Expenses",
         "savingsTitle": "Savings",
-        "topCategoriesTitle": "Top 5 Categories",
-        "topCategoriesDescription": "Highest spending categories this year"
+        "topCategoriesTitle": "Top 5 Expenses",
+        "topCategoriesDescription": "Highest expense categories this year",
+        "topIncomeSourcesTitle": "Top 5 Income Sources",
+        "topIncomeSourcesDescription": "Largest income sources this year"
       }
     },
     "transactions": {
