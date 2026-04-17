@@ -39,6 +39,7 @@ import {
   BarChart,
   Cell,
   Label as ChartLabel,
+  LabelList,
   Pie,
   PieChart,
   XAxis,
@@ -140,13 +141,17 @@ const Charts = () => {
 
   const isLoading = isTransactionsByCategoryFetching;
 
-  const chartConfig: ChartConfig = chartData.reduce((acc, item) => {
-    const isTranslated = t.has(`Common.category.${item.idSerialized}`);
+  const getCategoryLabel = (idSerialized: string, fallback?: string) => {
+    const isTranslated = t.has(`Common.category.${idSerialized}`);
 
+    return isTranslated
+      ? t(`Common.category.${idSerialized}`)
+      : (fallback ?? idSerialized);
+  };
+
+  const chartConfig: ChartConfig = chartData.reduce((acc, item) => {
     acc[item.idSerialized] = {
-      label: isTranslated
-        ? t(`Common.category.${item.idSerialized}`)
-        : item.category,
+      label: getCategoryLabel(item.idSerialized, item.category),
     };
     return acc;
   }, {} as ChartConfig);
@@ -302,22 +307,20 @@ const Charts = () => {
               </CardHeader>
               <CardContent>
                 <ChartContainer config={chartConfig} className="w-full">
-                  <BarChart layout="vertical" data={sortedChartData}>
+                  <BarChart
+                    layout="vertical"
+                    data={sortedChartData}
+                    margin={{
+                      left: 8,
+                      right: 16,
+                    }}
+                  >
                     <YAxis
                       type="category"
                       dataKey="idSerialized"
                       axisLine={false}
                       tickLine={false}
-                      tickFormatter={(value: string) => {
-                        const isTranslated = t.has(`Common.category.${value}`);
-                        const raw = sortedChartData.find(
-                          (d) => d.idSerialized === value,
-                        )?.category;
-                        return isTranslated
-                          ? t(`Common.category.${value}`)
-                          : (raw ?? value);
-                      }}
-                      tick={{ fontSize: 12 }}
+                      hide
                     />
                     <XAxis
                       type="number"
@@ -336,9 +339,6 @@ const Charts = () => {
                           hideIndicator
                           formatter={(value, name, item) => {
                             const { idSerialized, category } = item.payload;
-                            const isTranslated = t.has(
-                              `Common.category.${idSerialized}`,
-                            );
                             const amount =
                               typeof value === 'number'
                                 ? value
@@ -347,9 +347,7 @@ const Charts = () => {
                             return (
                               <div className="flex flex-col justify-between">
                                 <TypographyLabel>
-                                  {isTranslated
-                                    ? t(`Common.category.${idSerialized}`)
-                                    : category}
+                                  {getCategoryLabel(idSerialized, category)}
                                 </TypographyLabel>
                                 <TypographyLabel className="italic">
                                   {formatCurrency({
@@ -364,13 +362,59 @@ const Charts = () => {
                         />
                       }
                     />
-                    <Bar dataKey="amount" radius={4} isAnimationActive={false}>
+                    <Bar
+                      dataKey="amount"
+                      radius={4}
+                      minPointSize={20}
+                      isAnimationActive={false}
+                    >
                       {sortedChartData.map((entry, index) => (
                         <Cell
                           key={`bar-cell-${index}`}
                           fill={`var(--chart-${(chartData.indexOf(entry) % 15) + 1})`}
                         />
                       ))}
+                      <LabelList
+                        dataKey="idSerialized"
+                        content={({ x, y, width, height, value }) => {
+                          const labelX =
+                            typeof x === 'number' ? x : Number(x ?? 0);
+                          const labelY =
+                            typeof y === 'number' ? y : Number(y ?? 0);
+                          const barWidth =
+                            typeof width === 'number'
+                              ? width
+                              : Number(width ?? 0);
+                          const barHeight =
+                            typeof height === 'number'
+                              ? height
+                              : Number(height ?? 0);
+                          const normalizedValue = String(value ?? '');
+                          const raw = sortedChartData.find(
+                            (d) => d.idSerialized === normalizedValue,
+                          )?.category;
+                          const label = getCategoryLabel(normalizedValue, raw);
+                          const shouldRenderOutside = barWidth < 72;
+
+                          return (
+                            <text
+                              x={
+                                shouldRenderOutside
+                                  ? labelX + barWidth + 8
+                                  : labelX + 8
+                              }
+                              y={labelY + barHeight / 2}
+                              fill="var(--foreground)"
+                              fontSize={12}
+                              fontWeight={500}
+                              textAnchor="start"
+                              dominantBaseline="middle"
+                            >
+                              {label}
+                            </text>
+                          );
+                        }}
+                      />
                     </Bar>
                   </BarChart>
                 </ChartContainer>
