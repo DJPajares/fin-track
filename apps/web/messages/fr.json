@@ -159,8 +159,10 @@
         "incomeVsExpensesTitle": "Revenus vs Dépenses",
         "incomeAndExpensesTitle": "Revenus et Dépenses",
         "savingsTitle": "Économies",
-        "topCategoriesTitle": "Top 5 des catégories",
-        "topCategoriesDescription": "Catégories les plus dépensières cette année"
+        "topCategoriesTitle": "Top 5 des dépenses",
+        "topCategoriesDescription": "Catégories de dépenses les plus élevées cette année",
+        "topIncomeSourcesTitle": "Top 5 des sources de revenus",
+        "topIncomeSourcesDescription": "Principales sources de revenus cette année"
       }
     },
     "transactions": {

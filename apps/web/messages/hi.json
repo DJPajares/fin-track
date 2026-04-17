@@ -159,8 +159,10 @@
         "incomeVsExpensesTitle": "आय बनाम खर्च",
         "incomeAndExpensesTitle": "आय और खर्च",
         "savingsTitle": "बचत",
-        "topCategoriesTitle": "शीर्ष 5 श्रेणियाँ",
-        "topCategoriesDescription": "इस वर्ष सबसे अधिक खर्च वाली श्रेणियाँ"
+        "topCategoriesTitle": "शीर्ष 5 खर्च",
+        "topCategoriesDescription": "इस वर्ष सबसे अधिक खर्च वाली श्रेणियाँ",
+        "topIncomeSourcesTitle": "शीर्ष 5 आय स्रोत",
+        "topIncomeSourcesDescription": "इस वर्ष के सबसे बड़े आय स्रोत"
       }
     },
     "transactions": {

@@ -7,7 +7,7 @@ import { DatePicker } from '@web/components/shared/DatePicker';
 import Loader from '@web/components/shared/Loader';
 import {
   TypographyCaption,
-  TypographyLead,
+  TypographyCardTitle,
   TypographyMuted,
   TypographySubsectionTitle,
 } from '@web/components/shared/Typography';
@@ -120,19 +120,19 @@ const Dashboard = () => {
       >
         {/* CALENDAR */}
         <div className="flex flex-row items-center justify-center gap-1 sm:gap-4">
-          <Button variant="ghost" size="icon-sm" onClick={handlePrevMonth}>
+          <Button variant="ghost" size="icon" onClick={handlePrevMonth}>
             <ChevronLeftIcon className="size-4" />
           </Button>
 
           <DatePicker date={date} onChange={setDate}>
-            <Button variant="ghost" className="px-1">
-              <TypographyLead className="hover:bg-background hover:underline">
+            <Button variant="ghost">
+              <TypographyCardTitle>
                 {moment(date).format('MMM yyyy')}
-              </TypographyLead>
+              </TypographyCardTitle>
             </Button>
           </DatePicker>
 
-          <Button variant="ghost" size="icon-sm" onClick={handleNextMonth}>
+          <Button variant="ghost" size="icon" onClick={handleNextMonth}>
             <ChevronRightIcon className="size-4" />
           </Button>
         </div>

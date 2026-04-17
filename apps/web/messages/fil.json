@@ -159,8 +159,10 @@
         "incomeVsExpensesTitle": "Kita vs Gastos",
         "incomeAndExpensesTitle": "Kita at Gastos",
         "savingsTitle": "Ipon",
-        "topCategoriesTitle": "Nangungunang 5 Kategorya",
-        "topCategoriesDescription": "Mga kategoryang may pinakamataas na gastos ngayong taon"
+        "topCategoriesTitle": "Nangungunang 5 Gastos",
+        "topCategoriesDescription": "Mga kategoryang may pinakamataas na gastusin ngayong taon",
+        "topIncomeSourcesTitle": "Nangungunang 5 Pinagmumulan ng Kita",
+        "topIncomeSourcesDescription": "Pinakamalalaking pinagmumulan ng kita ngayong taon"
       }
     },
     "transactions": {

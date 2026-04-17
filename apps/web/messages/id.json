@@ -159,8 +159,10 @@
         "incomeVsExpensesTitle": "Pemasukan vs Pengeluaran",
         "incomeAndExpensesTitle": "Pemasukan dan Pengeluaran",
         "savingsTitle": "Tabungan",
-        "topCategoriesTitle": "5 Kategori Teratas",
-        "topCategoriesDescription": "Kategori dengan pengeluaran tertinggi tahun ini"
+        "topCategoriesTitle": "5 Pengeluaran Teratas",
+        "topCategoriesDescription": "Kategori pengeluaran tertinggi tahun ini",
+        "topIncomeSourcesTitle": "5 Sumber Pemasukan Teratas",
+        "topIncomeSourcesDescription": "Sumber pemasukan terbesar tahun ini"
       }
     },
     "transactions": {

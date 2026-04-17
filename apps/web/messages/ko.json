@@ -159,8 +159,10 @@
         "incomeVsExpensesTitle": "수입 대 지출",
         "incomeAndExpensesTitle": "수입과 지출",
         "savingsTitle": "저축",
-        "topCategoriesTitle": "상위 5개 카테고리",
-        "topCategoriesDescription": "올해 지출이 가장 많은 카테고리"
+        "topCategoriesTitle": "상위 5개 지출",
+        "topCategoriesDescription": "올해 지출이 가장 많은 카테고리",
+        "topIncomeSourcesTitle": "상위 5개 수입원",
+        "topIncomeSourcesDescription": "올해 가장 큰 수입원"
       }
     },
     "transactions": {

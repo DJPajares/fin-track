@@ -159,8 +159,10 @@
         "incomeVsExpensesTitle": "Thu nhập và Chi tiêu",
         "incomeAndExpensesTitle": "Thu nhập và Chi tiêu",
         "savingsTitle": "Tiết kiệm",
-        "topCategoriesTitle": "Top 5 Danh mục",
-        "topCategoriesDescription": "Các danh mục có mức chi tiêu cao nhất trong năm nay"
+        "topCategoriesTitle": "Top 5 Chi tiêu",
+        "topCategoriesDescription": "Các danh mục chi tiêu cao nhất trong năm nay",
+        "topIncomeSourcesTitle": "Top 5 Nguồn thu nhập",
+        "topIncomeSourcesDescription": "Các nguồn thu nhập lớn nhất trong năm nay"
       }
     },
     "transactions": {

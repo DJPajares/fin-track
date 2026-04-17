@@ -159,8 +159,10 @@
         "incomeVsExpensesTitle": "Доходы против расходов",
         "incomeAndExpensesTitle": "Доходы и расходы",
         "savingsTitle": "Сбережения",
-        "topCategoriesTitle": "Топ-5 категорий",
-        "topCategoriesDescription": "Категории с самыми высокими расходами в этом году"
+        "topCategoriesTitle": "Топ-5 расходов",
+        "topCategoriesDescription": "Категории с самыми высокими расходами в этом году",
+        "topIncomeSourcesTitle": "Топ-5 источников дохода",
+        "topIncomeSourcesDescription": "Крупнейшие источники дохода в этом году"
       }
     },
     "transactions": {

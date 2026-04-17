@@ -159,8 +159,10 @@
         "incomeVsExpensesTitle": "Einnahmen vs. Ausgaben",
         "incomeAndExpensesTitle": "Einnahmen und Ausgaben",
         "savingsTitle": "Ersparnisse",
-        "topCategoriesTitle": "Top 5 Kategorien",
-        "topCategoriesDescription": "Kategorien mit den höchsten Ausgaben in diesem Jahr"
+        "topCategoriesTitle": "Top 5 Ausgaben",
+        "topCategoriesDescription": "Höchste Ausgabenkategorien in diesem Jahr",
+        "topIncomeSourcesTitle": "Top 5 Einnahmequellen",
+        "topIncomeSourcesDescription": "Größte Einnahmequellen in diesem Jahr"
       }
     },
     "transactions": {

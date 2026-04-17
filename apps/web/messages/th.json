@@ -159,8 +159,10 @@
         "incomeVsExpensesTitle": "รายรับเทียบกับรายจ่าย",
         "incomeAndExpensesTitle": "รายรับและรายจ่าย",
         "savingsTitle": "เงินออม",
-        "topCategoriesTitle": "5 หมวดหมู่ยอดนิยม",
-        "topCategoriesDescription": "หมวดหมู่ที่มีการใช้จ่ายสูงสุดในปีนี้"
+        "topCategoriesTitle": "5 อันดับค่าใช้จ่าย",
+        "topCategoriesDescription": "หมวดหมู่ค่าใช้จ่ายสูงสุดในปีนี้",
+        "topIncomeSourcesTitle": "5 แหล่งรายได้สูงสุด",
+        "topIncomeSourcesDescription": "แหล่งรายได้ที่มากที่สุดในปีนี้"
       }
     },
     "transactions": {

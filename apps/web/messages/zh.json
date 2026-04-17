@@ -159,8 +159,10 @@
         "incomeVsExpensesTitle": "收入 vs 支出",
         "incomeAndExpensesTitle": "收入和支出",
         "savingsTitle": "储蓄",
-        "topCategoriesTitle": "前 5 类别",
-        "topCategoriesDescription": "今年支出最高的类别"
+        "topCategoriesTitle": "前 5 项支出",
+        "topCategoriesDescription": "今年支出最高的类别",
+        "topIncomeSourcesTitle": "前 5 大收入来源",
+        "topIncomeSourcesDescription": "今年最大的收入来源"
       }
     },
     "transactions": {

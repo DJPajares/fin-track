@@ -159,8 +159,10 @@
         "incomeVsExpensesTitle": "Gelir ve Giderler",
         "incomeAndExpensesTitle": "Gelir ve Giderler",
         "savingsTitle": "Tasarruflar",
-        "topCategoriesTitle": "İlk 5 Kategori",
-        "topCategoriesDescription": "Bu yıl en yüksek harcama yapılan kategoriler"
+        "topCategoriesTitle": "İlk 5 Gider",
+        "topCategoriesDescription": "Bu yıl en yüksek gider kategorileri",
+        "topIncomeSourcesTitle": "İlk 5 Gelir Kaynağı",
+        "topIncomeSourcesDescription": "Bu yıl en büyük gelir kaynakları"
       }
     },
     "transactions": {

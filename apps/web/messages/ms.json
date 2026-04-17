@@ -159,8 +159,10 @@
         "incomeVsExpensesTitle": "Pendapatan vs Perbelanjaan",
         "incomeAndExpensesTitle": "Pendapatan dan Perbelanjaan",
         "savingsTitle": "Simpanan",
-        "topCategoriesTitle": "5 Kategori Teratas",
-        "topCategoriesDescription": "Kategori dengan perbelanjaan tertinggi tahun ini"
+        "topCategoriesTitle": "5 Perbelanjaan Teratas",
+        "topCategoriesDescription": "Kategori perbelanjaan tertinggi tahun ini",
+        "topIncomeSourcesTitle": "5 Sumber Pendapatan Teratas",
+        "topIncomeSourcesDescription": "Sumber pendapatan terbesar tahun ini"
       }
     },
     "transactions": {

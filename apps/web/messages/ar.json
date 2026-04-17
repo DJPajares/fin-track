@@ -159,8 +159,10 @@
         "incomeVsExpensesTitle": "الدخل مقابل المصروفات",
         "incomeAndExpensesTitle": "الدخل والمصروفات",
         "savingsTitle": "المدخرات",
-        "topCategoriesTitle": "أفضل 5 فئات",
-        "topCategoriesDescription": "الفئات الأعلى إنفاقًا هذا العام"
+        "topCategoriesTitle": "أفضل 5 مصروفات",
+        "topCategoriesDescription": "أعلى فئات المصروفات هذا العام",
+        "topIncomeSourcesTitle": "أفضل 5 مصادر دخل",
+        "topIncomeSourcesDescription": "أكبر مصادر الدخل هذا العام"
       }
     },
     "transactions": {

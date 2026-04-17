@@ -159,8 +159,10 @@
         "incomeVsExpensesTitle": "Entrate vs Uscite",
         "incomeAndExpensesTitle": "Entrate e Uscite",
         "savingsTitle": "Risparmi",
-        "topCategoriesTitle": "Top 5 categorie",
-        "topCategoriesDescription": "Categorie con la spesa più alta di quest'anno"
+        "topCategoriesTitle": "Top 5 spese",
+        "topCategoriesDescription": "Categorie di spesa più alte di quest'anno",
+        "topIncomeSourcesTitle": "Top 5 fonti di reddito",
+        "topIncomeSourcesDescription": "Maggiori fonti di reddito di quest'anno"
       }
     },
     "transactions": {

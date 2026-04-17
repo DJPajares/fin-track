@@ -159,8 +159,10 @@
         "incomeVsExpensesTitle": "収入対支出",
         "incomeAndExpensesTitle": "収入と支出",
         "savingsTitle": "貯金",
-        "topCategoriesTitle": "上位5カテゴリー",
-        "topCategoriesDescription": "今年の支出額が最も高いカテゴリー"
+        "topCategoriesTitle": "支出トップ5",
+        "topCategoriesDescription": "今年の支出額が最も高いカテゴリー",
+        "topIncomeSourcesTitle": "収入源トップ5",
+        "topIncomeSourcesDescription": "今年の最大の収入源"
       }
     },
     "transactions": {

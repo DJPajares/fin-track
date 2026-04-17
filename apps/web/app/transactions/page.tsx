@@ -177,8 +177,8 @@ const Transactions = () => {
         </Button>
 
         <DatePicker date={date} onChange={updateDate}>
-          <Button variant="ghost" className="px-1">
-            <TypographyCardTitle className="hover:bg-background hover:underline">
+          <Button variant="ghost">
+            <TypographyCardTitle>
               {moment(date).format('MMM yyyy')}
             </TypographyCardTitle>
           </Button>

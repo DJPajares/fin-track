@@ -159,8 +159,10 @@
         "incomeVsExpensesTitle": "Ingresos vs Gastos",
         "incomeAndExpensesTitle": "Ingresos y Gastos",
         "savingsTitle": "Ahorros",
-        "topCategoriesTitle": "Top 5 categorías",
-        "topCategoriesDescription": "Categorías con mayor gasto este año"
+        "topCategoriesTitle": "Top 5 gastos",
+        "topCategoriesDescription": "Categorías de gasto más altas este año",
+        "topIncomeSourcesTitle": "Top 5 fuentes de ingresos",
+        "topIncomeSourcesDescription": "Mayores fuentes de ingresos este año"
       }
     },
     "transactions": {
