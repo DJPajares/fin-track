@@ -161,8 +161,8 @@ const Charts = () => {
         </Button>
 
         <DatePicker date={date} onChange={setDate}>
-          <Button variant="ghost" className="px-1">
-            <TypographyCardTitle className="hover:bg-background hover:underline">
+          <Button variant="ghost">
+            <TypographyCardTitle>
               {moment(date).format('MMM yyyy')}
             </TypographyCardTitle>
           </Button>

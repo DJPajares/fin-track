@@ -8,6 +8,7 @@ import { Button } from '@web/components/ui/button';
 import {
   Card,
   CardContent,
+  CardDescription,
   CardHeader,
   CardTitle,
 } from '@web/components/ui/card';
@@ -19,6 +20,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from '@web/components/ui/chart';
+import { Progress, ProgressLabel } from '@web/components/ui/progress';
 import {
   Select,
   SelectContent,
@@ -43,7 +45,7 @@ import {
 } from 'lucide-react';
 import moment from 'moment';
 import { useTranslations } from 'next-intl';
-import { useMemo, useState } from 'react';
+import { type CSSProperties, useMemo, useState } from 'react';
 import {
   Bar,
   BarChart,
@@ -198,8 +200,6 @@ const Charts = () => {
       .map(([name, amount], idx) => ({ name, amount, colorIdx: idx + 1 }));
   }, [monthlyCategoriesData]);
 
-  console.log('monthlyCategoriesData', monthlyCategoriesData);
-
   const yearsArray = generateYearsArray(10);
 
   const handlePrevYear = () => {
@@ -266,8 +266,8 @@ const Charts = () => {
             }
           }}
         >
-          <SelectTrigger className="w-fit text-2xl font-bold">
-            <SelectValue placeholder="Year..."></SelectValue>
+          <SelectTrigger className="text-2xl font-bold">
+            <SelectValue placeholder="Year..." />
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>
@@ -425,9 +425,9 @@ const Charts = () => {
         <Card>
           <CardHeader>
             <CardTitle>{t('Page.charts.yearly.topCategoriesTitle')}</CardTitle>
-            <p className="text-muted-foreground text-sm">
+            <CardDescription>
               {t('Page.charts.yearly.topCategoriesDescription')}
-            </p>
+            </CardDescription>
           </CardHeader>
           <CardContent>
             <ol className="flex flex-col gap-3">
@@ -438,38 +438,54 @@ const Charts = () => {
                 const label = isTranslated
                   ? t(`Common.category.${item.name}`)
                   : item.name;
+                const amountLabel = formatCurrency({
+                  value: item.amount,
+                  currency: currency.name,
+                });
+                const percentageLabel = `${Math.round(pct)}%`;
 
                 return (
-                  <li key={item.name} className="flex flex-col gap-1">
-                    <div className="flex items-center justify-between gap-2">
-                      <div className="flex items-center gap-2">
-                        <span className="text-muted-foreground w-4 text-right text-xs font-medium">
-                          {index + 1}
-                        </span>
-                        <span
-                          className="size-2.5 shrink-0 rounded-full"
-                          style={{
-                            backgroundColor: `var(--chart-${item.colorIdx})`,
-                          }}
-                        />
-                        <span className="text-sm font-medium">{label}</span>
+                  <li key={item.name}>
+                    <Progress
+                      value={pct}
+                      style={
+                        {
+                          '--progress-color': `var(--chart-${item.colorIdx})`,
+                        } as CSSProperties
+                      }
+                      className="border-border/50 bg-background/80 **:data-[slot=progress-track]:bg-muted w-full rounded-2xl border p-4 shadow-sm **:data-[slot=progress-indicator]:bg-(--progress-color) **:data-[slot=progress-track]:h-2.5"
+                    >
+                      <div className="flex w-full items-start justify-between gap-3 sm:items-center">
+                        <div className="flex min-w-0 items-center gap-3">
+                          <div className="bg-muted text-muted-foreground flex size-9 shrink-0 items-center justify-center rounded-full border text-xs font-semibold shadow-sm">
+                            {index + 1}
+                          </div>
+
+                          <div className="min-w-0">
+                            <div className="flex items-center gap-2">
+                              <span
+                                className="inline-flex size-2.5 shrink-0 rounded-full"
+                                style={{
+                                  backgroundColor: `var(--chart-${item.colorIdx})`,
+                                }}
+                              />
+                              <ProgressLabel className="block truncate text-sm font-semibold sm:text-base">
+                                {label}
+                              </ProgressLabel>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="shrink-0 text-right">
+                          <span className="block text-base font-semibold tabular-nums">
+                            {amountLabel}
+                          </span>
+                          <span className="text-muted-foreground text-xs">
+                            {percentageLabel}
+                          </span>
+                        </div>
                       </div>
-                      <span className="text-muted-foreground text-sm tabular-nums">
-                        {formatCurrency({
-                          value: item.amount,
-                          currency: currency.name,
-                        })}
-                      </span>
-                    </div>
-                    <div className="bg-muted ml-8 h-1.5 w-full overflow-hidden rounded-full">
-                      <div
-                        className="h-full rounded-full transition-all duration-500"
-                        style={{
-                          width: `${pct}%`,
-                          backgroundColor: `var(--chart-${item.colorIdx})`,
-                        }}
-                      />
-                    </div>
+                    </Progress>
                   </li>
                 );
               })}

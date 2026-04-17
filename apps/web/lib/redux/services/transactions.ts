@@ -16,6 +16,10 @@ type TransactionsMonthlyCategoriesProps = {
   userId: string;
 };
 
+type TransactionsMonthlyCategoriesResult = Array<
+  Record<string, number | string>
+>;
+
 const formatTransactionsByCategoryQueryKey = ({
   date,
   currency,
@@ -134,7 +138,7 @@ export const transactionsApi = createApi({
       },
     }),
     getTransactionsMonthlyCategoriesByDateRange: builder.query<
-      Array<Record<string, number | string>>,
+      TransactionsMonthlyCategoriesResult,
       TransactionsMonthlyCategoriesProps
     >({
       query: (body) => ({
@@ -142,10 +146,12 @@ export const transactionsApi = createApi({
         method: 'POST',
         body,
       }),
-      transformResponse: (response: {
-        data: Array<Record<string, number | string>>;
-      }) => {
-        return response.data;
+      transformResponse: (
+        response:
+          | TransactionsMonthlyCategoriesResult
+          | { data: TransactionsMonthlyCategoriesResult },
+      ) => {
+        return Array.isArray(response) ? response : response.data;
       },
       serializeQueryArgs: ({ endpointName, queryArgs }) => {
         const provider = formatTransactionsMonthlyCategoriesQueryKey(queryArgs);
