@@ -301,22 +301,11 @@ const Charts = () => {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <ChartContainer
-                  config={chartConfig}
-                  className="h-auto w-full"
-                  style={{
-                    height: `${Math.max(sortedChartData.length * 40, 120)}px`,
-                  }}
-                >
-                  <BarChart
-                    layout="vertical"
-                    data={sortedChartData}
-                    margin={{ top: 4, right: 16, bottom: 4, left: 0 }}
-                  >
+                <ChartContainer config={chartConfig} className="w-full">
+                  <BarChart layout="vertical" data={sortedChartData}>
                     <YAxis
                       type="category"
                       dataKey="idSerialized"
-                      width={96}
                       axisLine={false}
                       tickLine={false}
                       tickFormatter={(value: string) => {
