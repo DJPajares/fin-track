@@ -128,12 +128,7 @@ const NavDropdownMenu = ({ children }: NavDropdownMenuProps) => {
           <DropdownMenuSeparator />
 
           <DropdownMenuGroup>
-            <DropdownMenuItem
-              onSelect={(event) => {
-                event.preventDefault();
-                handleProfileDrawerChange(true);
-              }}
-            >
+            <DropdownMenuItem onClick={() => handleProfileDrawerChange(true)}>
               <SquarePenIcon className="text-muted-foreground size-4" />
               {t('editProfile')}
             </DropdownMenuItem>

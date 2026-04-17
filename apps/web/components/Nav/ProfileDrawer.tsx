@@ -306,11 +306,14 @@ const ProfileDrawer = ({ open, onOpenChange }: ProfileDrawerProps) => {
               </p>
             </div>
             <AlertDialog>
-              <AlertDialogTrigger>
-                <Button variant="destructive" size="sm">
-                  {t('Profile.delete.button')}
-                </Button>
-              </AlertDialogTrigger>
+              <AlertDialogTrigger
+                render={
+                  <Button variant="destructive" size="sm">
+                    {t('Profile.delete.button')}
+                  </Button>
+                }
+                nativeButton
+              />
               <AlertDialogContent>
                 <AlertDialogHeader>
                   <AlertDialogTitle>
