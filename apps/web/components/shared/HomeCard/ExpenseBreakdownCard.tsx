@@ -15,7 +15,7 @@ import {
 import type { ExpensePieDataProps } from '@web/types/HomeCard';
 import { useTranslations } from 'next-intl';
 import { useMemo } from 'react';
-import { Cell, Pie, PieChart } from 'recharts';
+import { Pie, PieChart } from 'recharts';
 
 type ExpenseBreakdownCardProps = {
   expensePieData: ExpensePieDataProps[];
@@ -28,12 +28,19 @@ const ExpenseBreakdownCard = ({
 }: ExpenseBreakdownCardProps) => {
   const t = useTranslations();
 
+  const pieDataWithColors = useMemo(() => {
+    return expensePieData.map((item, index) => ({
+      ...item,
+      fill: `var(--chart-${(index % 15) + 1})`,
+    }));
+  }, [expensePieData]);
+
   const expensePieChartConfig = useMemo((): ChartConfig => {
-    return expensePieData.reduce((acc: ChartConfig, item) => {
+    return pieDataWithColors.reduce((acc: ChartConfig, item) => {
       acc[item.id] = { label: item.name };
       return acc;
     }, {});
-  }, [expensePieData]);
+  }, [pieDataWithColors]);
 
   return (
     <Card>
@@ -70,21 +77,14 @@ const ExpenseBreakdownCard = ({
               }
             />
             <Pie
-              data={expensePieData}
+              data={pieDataWithColors}
               dataKey="amount"
               nameKey="id"
               innerRadius={30}
               outerRadius={55}
               strokeWidth={3}
-              paddingAngle={expensePieData.length > 1 ? 2 : 0}
-            >
-              {expensePieData.map((_entry, index) => (
-                <Cell
-                  key={`cell-${index}`}
-                  fill={`var(--chart-${(index % 15) + 1})`}
-                />
-              ))}
-            </Pie>
+              paddingAngle={pieDataWithColors.length > 1 ? 2 : 0}
+            />
           </PieChart>
         </ChartContainer>
       </CardContent>

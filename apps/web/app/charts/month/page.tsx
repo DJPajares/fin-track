@@ -37,7 +37,6 @@ import { type CSSProperties, useMemo, useState } from 'react';
 import {
   Bar,
   BarChart,
-  Cell,
   Label as ChartLabel,
   LabelList,
   Pie,
@@ -53,6 +52,8 @@ type TransactionByCategory = {
   category: string;
   icon: IconProps;
   amount: number;
+  colorIdx: number;
+  fill: string;
 };
 
 const Charts = () => {
@@ -107,8 +108,20 @@ const Charts = () => {
     },
   );
 
+  const getChartColor = (index: number) => {
+    return `var(--chart-${(index % 15) + 1})`;
+  };
+
   const chartData = useMemo<TransactionByCategory[]>(() => {
-    return transactionsByCategory ?? [];
+    const baseData = (transactionsByCategory ?? []) as Array<
+      Omit<TransactionByCategory, 'colorIdx' | 'fill'>
+    >;
+
+    return baseData.map((item, index) => ({
+      ...item,
+      colorIdx: (index % 15) + 1,
+      fill: getChartColor(index),
+    }));
   }, [transactionsByCategory]);
 
   const totalAmount = useMemo(() => {
@@ -211,13 +224,6 @@ const Charts = () => {
                     strokeWidth={5}
                     paddingAngle={chartData.length > 1 ? 2 : 0}
                   >
-                    {chartData.map((entry, index) => (
-                      <Cell
-                        key={`cell-${index}`}
-                        fill={`var(--chart-${(index % 15) + 1})`}
-                      />
-                    ))}
-
                     <ChartLabel
                       content={({ viewBox }) => {
                         if (viewBox && 'cx' in viewBox && 'cy' in viewBox) {
@@ -364,16 +370,42 @@ const Charts = () => {
                     />
                     <Bar
                       dataKey="amount"
-                      radius={4}
                       minPointSize={20}
                       isAnimationActive={false}
+                      shape={(props) => {
+                        const x =
+                          typeof props.x === 'number'
+                            ? props.x
+                            : Number(props.x ?? 0);
+                        const y =
+                          typeof props.y === 'number'
+                            ? props.y
+                            : Number(props.y ?? 0);
+                        const width =
+                          typeof props.width === 'number'
+                            ? props.width
+                            : Number(props.width ?? 0);
+                        const height =
+                          typeof props.height === 'number'
+                            ? props.height
+                            : Number(props.height ?? 0);
+                        const fill = String(
+                          props.payload?.fill ?? 'var(--chart-1)',
+                        );
+
+                        return (
+                          <rect
+                            x={x}
+                            y={y}
+                            width={width}
+                            height={height}
+                            rx={4}
+                            ry={4}
+                            fill={fill}
+                          />
+                        );
+                      }}
                     >
-                      {sortedChartData.map((entry, index) => (
-                        <Cell
-                          key={`bar-cell-${index}`}
-                          fill={`var(--chart-${(chartData.indexOf(entry) % 15) + 1})`}
-                        />
-                      ))}
                       <LabelList
                         dataKey="idSerialized"
                         content={({ x, y, width, height, value }) => {
@@ -436,7 +468,7 @@ const Charts = () => {
               <CardContent>
                 <ol className="flex flex-col gap-3">
                   {top5ChartData.map((item, index) => {
-                    const colorIdx = (chartData.indexOf(item) % 15) + 1;
+                    const colorIdx = item.colorIdx;
                     const pct =
                       top5MaxAmount > 0
                         ? (item.amount / top5MaxAmount) * 100
