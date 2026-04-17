@@ -129,6 +129,11 @@ const Charts = () => {
 
   const { currency } = useAppSelector((state) => state.dashboard);
 
+  const isCurrentSelectedYear = selectedYear === moment().format('YYYY');
+  const incomeTopEndDate = isCurrentSelectedYear
+    ? new Date()
+    : moment(selectedYear, 'YYYY').endOf('year').toDate();
+
   const { data: transactionsData, isFetching: isTransactionsDataFetching } =
     useGetTransactionsByTypeDateRangeQuery(
       {
@@ -185,7 +190,7 @@ const Charts = () => {
     useGetTransactionsMonthlyCategoriesByDateRangeQuery(
       {
         startDate: moment(selectedYear, 'YYYY').startOf('year').toDate(),
-        endDate: moment(selectedYear, 'YYYY').endOf('year').toDate(),
+        endDate: incomeTopEndDate,
         currency: currency.name,
         type: incomeTypeId,
         userId,
