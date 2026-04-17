@@ -8,6 +8,14 @@ type TransactionsByCategoryProps = {
   userId: string;
 };
 
+type TransactionsMonthlyCategoriesProps = {
+  startDate: Date;
+  endDate: Date;
+  currency: string;
+  type?: string;
+  userId: string;
+};
+
 const formatTransactionsByCategoryQueryKey = ({
   date,
   currency,
@@ -17,6 +25,19 @@ const formatTransactionsByCategoryQueryKey = ({
   const yearMonth = moment(date).format('YYYYMM');
 
   return `${yearMonth}_${currency}_${type}_${userId}`;
+};
+
+const formatTransactionsMonthlyCategoriesQueryKey = ({
+  startDate,
+  endDate,
+  currency,
+  type,
+  userId,
+}: TransactionsMonthlyCategoriesProps) => {
+  const start = moment(startDate).format('YYYYMM');
+  const end = moment(endDate).format('YYYYMM');
+
+  return `${start}_${end}_${currency}_${type ?? ''}_${userId}`;
 };
 
 export const transactionsApi = createApi({
@@ -112,6 +133,26 @@ export const transactionsApi = createApi({
         return `${endpointName}_${provider}`;
       },
     }),
+    getTransactionsMonthlyCategoriesByDateRange: builder.query<
+      Array<Record<string, number | string>>,
+      TransactionsMonthlyCategoriesProps
+    >({
+      query: (body) => ({
+        url: `/monthly-categories`,
+        method: 'POST',
+        body,
+      }),
+      transformResponse: (response: {
+        data: Array<Record<string, number | string>>;
+      }) => {
+        return response.data;
+      },
+      serializeQueryArgs: ({ endpointName, queryArgs }) => {
+        const provider = formatTransactionsMonthlyCategoriesQueryKey(queryArgs);
+
+        return `${endpointName}_${provider}`;
+      },
+    }),
   }),
 });
 
@@ -122,4 +163,5 @@ export const {
   useUpdateTransactionMutation, // updateTransaction
   useDeleteTransactionMutation, // deleteTransaction
   useGetTransactionsByCategoryQuery, // getTransactionsByCategory
+  useGetTransactionsMonthlyCategoriesByDateRangeQuery, // getTransactionsMonthlyCategoriesByDateRange
 } = transactionsApi;

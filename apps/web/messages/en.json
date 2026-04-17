@@ -150,12 +150,17 @@
       "monthly": {
         "byCategoryTitle": "By Category",
         "byCategoryDescription": "Monthly expenses by category",
-        "amountLabel": "Amount"
+        "amountLabel": "Amount",
+        "horizontalBarTitle": "Expenses by Category",
+        "topCategoriesTitle": "Top 5 Categories",
+        "topCategoriesDescription": "Highest spending categories this month"
       },
       "yearly": {
         "incomeVsExpensesTitle": "Income vs Expenses",
         "incomeAndExpensesTitle": "Income and Expenses",
-        "savingsTitle": "Savings"
+        "savingsTitle": "Savings",
+        "topCategoriesTitle": "Top 5 Categories",
+        "topCategoriesDescription": "Highest spending categories this year"
       }
     },
     "transactions": {

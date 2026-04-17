@@ -34,6 +34,7 @@ import {
   useGetTransactionPaymentsByCategoryQuery,
   useGetTransactionsByTypeDateRangeQuery,
 } from '@web/lib/redux/services/dashboard';
+import { useGetTransactionsMonthlyCategoriesByDateRangeQuery } from '@web/lib/redux/services/transactions';
 import {
   ChevronLeftIcon,
   ChevronRightIcon,
@@ -122,6 +123,21 @@ const Charts = () => {
       },
     );
 
+  const {
+    data: monthlyCategoriesData,
+    isFetching: isMonthlyCategoriesDataFetching,
+  } = useGetTransactionsMonthlyCategoriesByDateRangeQuery(
+    {
+      startDate: moment(selectedYear, 'YYYY').startOf('year').toDate(),
+      endDate: moment(selectedYear, 'YYYY').endOf('year').toDate(),
+      currency: currency.name,
+      userId,
+    },
+    {
+      skip: !userId || !currency.name,
+    },
+  );
+
   const chartDataA = useMemo<ChartDataPropsA[]>(() => {
     return (transactionsData ?? []).map((transaction) => {
       const month = moment(transaction.date).format('MMM');
@@ -161,6 +177,29 @@ const Charts = () => {
       });
   }, [savingsData, selectedYear]);
 
+  type YearlyTopCategory = { name: string; amount: number; colorIdx: number };
+
+  const yearlyTop5 = useMemo<YearlyTopCategory[]>(() => {
+    const totals: Record<string, number> = {};
+
+    (monthlyCategoriesData ?? []).forEach((row) => {
+      Object.entries(row).forEach(([key, val]) => {
+        if (key === 'date') return;
+        const num = typeof val === 'number' ? val : Number(val);
+        if (!Number.isNaN(num)) {
+          totals[key] = (totals[key] ?? 0) + num;
+        }
+      });
+    });
+
+    return Object.entries(totals)
+      .sort(([, a], [, b]) => b - a)
+      .slice(0, 5)
+      .map(([name, amount], idx) => ({ name, amount, colorIdx: idx + 1 }));
+  }, [monthlyCategoriesData]);
+
+  console.log('monthlyCategoriesData', monthlyCategoriesData);
+
   const yearsArray = generateYearsArray(10);
 
   const handlePrevYear = () => {
@@ -175,7 +214,10 @@ const Charts = () => {
     setSelectedYear(moment(newDate).format('YYYY'));
   };
 
-  const isLoading = isTransactionsDataFetching || isSavingsDataFetching;
+  const isLoading =
+    isTransactionsDataFetching ||
+    isSavingsDataFetching ||
+    isMonthlyCategoriesDataFetching;
 
   const chartConfig = {
     income: {
@@ -377,6 +419,64 @@ const Charts = () => {
           )}
         </CardContent>
       </Card>
+
+      {/* Top 5 Categories */}
+      {yearlyTop5.length > 0 && (
+        <Card>
+          <CardHeader>
+            <CardTitle>{t('Page.charts.yearly.topCategoriesTitle')}</CardTitle>
+            <p className="text-muted-foreground text-sm">
+              {t('Page.charts.yearly.topCategoriesDescription')}
+            </p>
+          </CardHeader>
+          <CardContent>
+            <ol className="flex flex-col gap-3">
+              {yearlyTop5.map((item, index) => {
+                const maxAmount = yearlyTop5[0]?.amount ?? 0;
+                const pct = maxAmount > 0 ? (item.amount / maxAmount) * 100 : 0;
+                const isTranslated = t.has(`Common.category.${item.name}`);
+                const label = isTranslated
+                  ? t(`Common.category.${item.name}`)
+                  : item.name;
+
+                return (
+                  <li key={item.name} className="flex flex-col gap-1">
+                    <div className="flex items-center justify-between gap-2">
+                      <div className="flex items-center gap-2">
+                        <span className="text-muted-foreground w-4 text-right text-xs font-medium">
+                          {index + 1}
+                        </span>
+                        <span
+                          className="size-2.5 shrink-0 rounded-full"
+                          style={{
+                            backgroundColor: `var(--chart-${item.colorIdx})`,
+                          }}
+                        />
+                        <span className="text-sm font-medium">{label}</span>
+                      </div>
+                      <span className="text-muted-foreground text-sm tabular-nums">
+                        {formatCurrency({
+                          value: item.amount,
+                          currency: currency.name,
+                        })}
+                      </span>
+                    </div>
+                    <div className="bg-muted ml-8 h-1.5 w-full overflow-hidden rounded-full">
+                      <div
+                        className="h-full rounded-full transition-all duration-500"
+                        style={{
+                          width: `${pct}%`,
+                          backgroundColor: `var(--chart-${item.colorIdx})`,
+                        }}
+                      />
+                    </div>
+                  </li>
+                );
+              })}
+            </ol>
+          </CardContent>
+        </Card>
+      )}
     </>
   );
 };
