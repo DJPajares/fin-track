@@ -150,12 +150,17 @@
       "monthly": {
         "byCategoryTitle": "Kategoriye Göre",
         "byCategoryDescription": "Kategoriye göre aylık harcamalar",
-        "amountLabel": "Tutar"
+        "amountLabel": "Tutar",
+        "horizontalBarTitle": "Kategoriye Göre Harcamalar",
+        "topCategoriesTitle": "İlk 5 Kategori",
+        "topCategoriesDescription": "Bu ay en yüksek harcama yapılan kategoriler"
       },
       "yearly": {
-        "incomeVsExpensesTitle": "Gelir ve Gider",
+        "incomeVsExpensesTitle": "Gelir ve Giderler",
         "incomeAndExpensesTitle": "Gelir ve Giderler",
-        "savingsTitle": "Tasarruflar"
+        "savingsTitle": "Tasarruflar",
+        "topCategoriesTitle": "İlk 5 Kategori",
+        "topCategoriesDescription": "Bu yıl en yüksek harcama yapılan kategoriler"
       }
     },
     "transactions": {

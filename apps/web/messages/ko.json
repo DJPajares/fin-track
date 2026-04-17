@@ -150,12 +150,17 @@
       "monthly": {
         "byCategoryTitle": "카테고리별",
         "byCategoryDescription": "카테고리별 월간 지출",
-        "amountLabel": "금액"
+        "amountLabel": "금액",
+        "horizontalBarTitle": "카테고리별 지출",
+        "topCategoriesTitle": "상위 5개 카테고리",
+        "topCategoriesDescription": "이번 달 지출이 가장 많은 카테고리"
       },
       "yearly": {
         "incomeVsExpensesTitle": "수입 대 지출",
-        "incomeAndExpensesTitle": "수입 및 지출",
-        "savingsTitle": "저축"
+        "incomeAndExpensesTitle": "수입과 지출",
+        "savingsTitle": "저축",
+        "topCategoriesTitle": "상위 5개 카테고리",
+        "topCategoriesDescription": "올해 지출이 가장 많은 카테고리"
       }
     },
     "transactions": {

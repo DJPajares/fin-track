@@ -150,12 +150,17 @@
       "monthly": {
         "byCategoryTitle": "Berdasarkan Kategori",
         "byCategoryDescription": "Pengeluaran bulanan berdasarkan kategori",
-        "amountLabel": "Jumlah"
+        "amountLabel": "Jumlah",
+        "horizontalBarTitle": "Pengeluaran berdasarkan kategori",
+        "topCategoriesTitle": "5 Kategori Teratas",
+        "topCategoriesDescription": "Kategori dengan pengeluaran tertinggi bulan ini"
       },
       "yearly": {
-        "incomeVsExpensesTitle": "Pendapatan vs Pengeluaran",
-        "incomeAndExpensesTitle": "Pendapatan dan Pengeluaran",
-        "savingsTitle": "Tabungan"
+        "incomeVsExpensesTitle": "Pemasukan vs Pengeluaran",
+        "incomeAndExpensesTitle": "Pemasukan dan Pengeluaran",
+        "savingsTitle": "Tabungan",
+        "topCategoriesTitle": "5 Kategori Teratas",
+        "topCategoriesDescription": "Kategori dengan pengeluaran tertinggi tahun ini"
       }
     },
     "transactions": {

@@ -150,12 +150,17 @@
       "monthly": {
         "byCategoryTitle": "Por Categoría",
         "byCategoryDescription": "Gastos mensuales por categoría",
-        "amountLabel": "Monto"
+        "amountLabel": "Monto",
+        "horizontalBarTitle": "Gastos por categoría",
+        "topCategoriesTitle": "Top 5 categorías",
+        "topCategoriesDescription": "Categorías con mayor gasto este mes"
       },
       "yearly": {
         "incomeVsExpensesTitle": "Ingresos vs Gastos",
         "incomeAndExpensesTitle": "Ingresos y Gastos",
-        "savingsTitle": "Ahorros"
+        "savingsTitle": "Ahorros",
+        "topCategoriesTitle": "Top 5 categorías",
+        "topCategoriesDescription": "Categorías con mayor gasto este año"
       }
     },
     "transactions": {

@@ -150,12 +150,17 @@
       "monthly": {
         "byCategoryTitle": "Theo danh mục",
         "byCategoryDescription": "Chi tiêu hàng tháng theo danh mục",
-        "amountLabel": "Số tiền"
+        "amountLabel": "Số tiền",
+        "horizontalBarTitle": "Chi tiêu theo danh mục",
+        "topCategoriesTitle": "Top 5 Danh mục",
+        "topCategoriesDescription": "Các danh mục có mức chi tiêu cao nhất trong tháng này"
       },
       "yearly": {
-        "incomeVsExpensesTitle": "Thu nhập vs Chi tiêu",
+        "incomeVsExpensesTitle": "Thu nhập và Chi tiêu",
         "incomeAndExpensesTitle": "Thu nhập và Chi tiêu",
-        "savingsTitle": "Tiết kiệm"
+        "savingsTitle": "Tiết kiệm",
+        "topCategoriesTitle": "Top 5 Danh mục",
+        "topCategoriesDescription": "Các danh mục có mức chi tiêu cao nhất trong năm nay"
       }
     },
     "transactions": {

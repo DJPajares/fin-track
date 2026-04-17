@@ -150,12 +150,17 @@
       "monthly": {
         "byCategoryTitle": "По категории",
         "byCategoryDescription": "Ежемесячные расходы по категориям",
-        "amountLabel": "Сумма"
+        "amountLabel": "Сумма",
+        "horizontalBarTitle": "Расходы по категориям",
+        "topCategoriesTitle": "Топ-5 категорий",
+        "topCategoriesDescription": "Категории с самыми высокими расходами в этом месяце"
       },
       "yearly": {
-        "incomeVsExpensesTitle": "Доходы против Расходов",
-        "incomeAndExpensesTitle": "Доходы и Расходы",
-        "savingsTitle": "Сбережения"
+        "incomeVsExpensesTitle": "Доходы против расходов",
+        "incomeAndExpensesTitle": "Доходы и расходы",
+        "savingsTitle": "Сбережения",
+        "topCategoriesTitle": "Топ-5 категорий",
+        "topCategoriesDescription": "Категории с самыми высокими расходами в этом году"
       }
     },
     "transactions": {

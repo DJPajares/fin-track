@@ -150,12 +150,17 @@
       "monthly": {
         "byCategoryTitle": "Nach Kategorie",
         "byCategoryDescription": "Monatliche Ausgaben nach Kategorie",
-        "amountLabel": "Betrag"
+        "amountLabel": "Betrag",
+        "horizontalBarTitle": "Ausgaben nach Kategorie",
+        "topCategoriesTitle": "Top 5 Kategorien",
+        "topCategoriesDescription": "Kategorien mit den höchsten Ausgaben in diesem Monat"
       },
       "yearly": {
         "incomeVsExpensesTitle": "Einnahmen vs. Ausgaben",
         "incomeAndExpensesTitle": "Einnahmen und Ausgaben",
-        "savingsTitle": "Ersparnisse"
+        "savingsTitle": "Ersparnisse",
+        "topCategoriesTitle": "Top 5 Kategorien",
+        "topCategoriesDescription": "Kategorien mit den höchsten Ausgaben in diesem Jahr"
       }
     },
     "transactions": {

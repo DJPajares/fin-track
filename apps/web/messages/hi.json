@@ -150,12 +150,17 @@
       "monthly": {
         "byCategoryTitle": "श्रेणी के अनुसार",
         "byCategoryDescription": "श्रेणी के अनुसार मासिक खर्च",
-        "amountLabel": "राशि"
+        "amountLabel": "राशि",
+        "horizontalBarTitle": "श्रेणी के अनुसार खर्च",
+        "topCategoriesTitle": "शीर्ष 5 श्रेणियाँ",
+        "topCategoriesDescription": "इस महीने सबसे अधिक खर्च वाली श्रेणियाँ"
       },
       "yearly": {
         "incomeVsExpensesTitle": "आय बनाम खर्च",
         "incomeAndExpensesTitle": "आय और खर्च",
-        "savingsTitle": "बचत"
+        "savingsTitle": "बचत",
+        "topCategoriesTitle": "शीर्ष 5 श्रेणियाँ",
+        "topCategoriesDescription": "इस वर्ष सबसे अधिक खर्च वाली श्रेणियाँ"
       }
     },
     "transactions": {

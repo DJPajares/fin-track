@@ -150,12 +150,17 @@
       "monthly": {
         "byCategoryTitle": "按类别",
         "byCategoryDescription": "按类别的每月开支",
-        "amountLabel": "金额"
+        "amountLabel": "金额",
+        "horizontalBarTitle": "按类别划分的支出",
+        "topCategoriesTitle": "前 5 类别",
+        "topCategoriesDescription": "本月支出最高的类别"
       },
       "yearly": {
         "incomeVsExpensesTitle": "收入 vs 支出",
         "incomeAndExpensesTitle": "收入和支出",
-        "savingsTitle": "储蓄"
+        "savingsTitle": "储蓄",
+        "topCategoriesTitle": "前 5 类别",
+        "topCategoriesDescription": "今年支出最高的类别"
       }
     },
     "transactions": {

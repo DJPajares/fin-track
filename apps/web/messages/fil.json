@@ -150,12 +150,17 @@
       "monthly": {
         "byCategoryTitle": "Ayon sa Kategorya",
         "byCategoryDescription": "Buwanang gastusin ayon sa kategorya",
-        "amountLabel": "Halaga"
+        "amountLabel": "Halaga",
+        "horizontalBarTitle": "Mga Gastusin ayon sa Kategorya",
+        "topCategoriesTitle": "Nangungunang 5 Kategorya",
+        "topCategoriesDescription": "Mga kategoryang may pinakamataas na gastos ngayong buwan"
       },
       "yearly": {
         "incomeVsExpensesTitle": "Kita vs Gastos",
         "incomeAndExpensesTitle": "Kita at Gastos",
-        "savingsTitle": "Mga Ipon"
+        "savingsTitle": "Ipon",
+        "topCategoriesTitle": "Nangungunang 5 Kategorya",
+        "topCategoriesDescription": "Mga kategoryang may pinakamataas na gastos ngayong taon"
       }
     },
     "transactions": {

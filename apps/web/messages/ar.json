@@ -150,12 +150,17 @@
       "monthly": {
         "byCategoryTitle": "حسب الفئة",
         "byCategoryDescription": "المصروفات الشهرية حسب الفئة",
-        "amountLabel": "المبلغ"
+        "amountLabel": "المبلغ",
+        "horizontalBarTitle": "المصروفات حسب الفئة",
+        "topCategoriesTitle": "أفضل 5 فئات",
+        "topCategoriesDescription": "الفئات الأعلى إنفاقًا هذا الشهر"
       },
       "yearly": {
         "incomeVsExpensesTitle": "الدخل مقابل المصروفات",
         "incomeAndExpensesTitle": "الدخل والمصروفات",
-        "savingsTitle": "المدخرات"
+        "savingsTitle": "المدخرات",
+        "topCategoriesTitle": "أفضل 5 فئات",
+        "topCategoriesDescription": "الفئات الأعلى إنفاقًا هذا العام"
       }
     },
     "transactions": {

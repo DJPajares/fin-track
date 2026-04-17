@@ -150,12 +150,17 @@
       "monthly": {
         "byCategoryTitle": "Per Categoria",
         "byCategoryDescription": "Spese mensili per categoria",
-        "amountLabel": "Importo"
+        "amountLabel": "Importo",
+        "horizontalBarTitle": "Spese per categoria",
+        "topCategoriesTitle": "Top 5 categorie",
+        "topCategoriesDescription": "Categorie con la spesa più alta di questo mese"
       },
       "yearly": {
-        "incomeVsExpensesTitle": "Entrate vs Spese",
-        "incomeAndExpensesTitle": "Entrate e Spese",
-        "savingsTitle": "Risparmi"
+        "incomeVsExpensesTitle": "Entrate vs Uscite",
+        "incomeAndExpensesTitle": "Entrate e Uscite",
+        "savingsTitle": "Risparmi",
+        "topCategoriesTitle": "Top 5 categorie",
+        "topCategoriesDescription": "Categorie con la spesa più alta di quest'anno"
       }
     },
     "transactions": {

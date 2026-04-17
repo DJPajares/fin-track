@@ -150,12 +150,17 @@
       "monthly": {
         "byCategoryTitle": "Mengikut Kategori",
         "byCategoryDescription": "Perbelanjaan bulanan mengikut kategori",
-        "amountLabel": "Jumlah"
+        "amountLabel": "Jumlah",
+        "horizontalBarTitle": "Perbelanjaan mengikut kategori",
+        "topCategoriesTitle": "5 Kategori Teratas",
+        "topCategoriesDescription": "Kategori dengan perbelanjaan tertinggi bulan ini"
       },
       "yearly": {
         "incomeVsExpensesTitle": "Pendapatan vs Perbelanjaan",
         "incomeAndExpensesTitle": "Pendapatan dan Perbelanjaan",
-        "savingsTitle": "Simpanan"
+        "savingsTitle": "Simpanan",
+        "topCategoriesTitle": "5 Kategori Teratas",
+        "topCategoriesDescription": "Kategori dengan perbelanjaan tertinggi tahun ini"
       }
     },
     "transactions": {

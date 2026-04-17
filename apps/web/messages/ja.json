@@ -150,12 +150,17 @@
       "monthly": {
         "byCategoryTitle": "カテゴリ別",
         "byCategoryDescription": "カテゴリ別の月次支出",
-        "amountLabel": "金額"
+        "amountLabel": "金額",
+        "horizontalBarTitle": "カテゴリ別支出",
+        "topCategoriesTitle": "上位5カテゴリー",
+        "topCategoriesDescription": "今月の支出額が最も高いカテゴリー"
       },
       "yearly": {
         "incomeVsExpensesTitle": "収入対支出",
         "incomeAndExpensesTitle": "収入と支出",
-        "savingsTitle": "貯金"
+        "savingsTitle": "貯金",
+        "topCategoriesTitle": "上位5カテゴリー",
+        "topCategoriesDescription": "今年の支出額が最も高いカテゴリー"
       }
     },
     "transactions": {

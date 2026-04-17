@@ -150,12 +150,17 @@
       "monthly": {
         "byCategoryTitle": "Par catégorie",
         "byCategoryDescription": "Dépenses mensuelles par catégorie",
-        "amountLabel": "Montant"
+        "amountLabel": "Montant",
+        "horizontalBarTitle": "Dépenses par catégorie",
+        "topCategoriesTitle": "Top 5 des catégories",
+        "topCategoriesDescription": "Catégories les plus dépensières ce mois-ci"
       },
       "yearly": {
         "incomeVsExpensesTitle": "Revenus vs Dépenses",
         "incomeAndExpensesTitle": "Revenus et Dépenses",
-        "savingsTitle": "Épargnes"
+        "savingsTitle": "Économies",
+        "topCategoriesTitle": "Top 5 des catégories",
+        "topCategoriesDescription": "Catégories les plus dépensières cette année"
       }
     },
     "transactions": {
