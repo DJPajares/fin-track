@@ -1,8 +1,9 @@
 'use client';
 
-import { CircularProgress, ScrollShadow } from '@heroui/react';
+import { ScrollShadow } from '@heroui/react';
 import { dateStringFormat } from '@shared/constants/dateStringFormat';
 import { formatCurrency } from '@shared/utilities/formatCurrency';
+import { CircularProgress } from '@web/components/shared/CircularProgress';
 import { DatePicker } from '@web/components/shared/DatePicker';
 import Loader from '@web/components/shared/Loader';
 import {
@@ -146,14 +147,8 @@ const Dashboard = () => {
             </div>
           ) : (
             <CircularProgress
-              classNames={{
-                svg: 'size-36 sm:size-64 drop-shadow-md',
-                value: 'text-3xl sm:text-6xl font-semibold',
-                indicator: 'stroke-primary',
-              }}
               label={t('completed')}
               value={Math.floor((totalPaidAmount / totalAmount) * 100) || 0}
-              strokeWidth={3}
               showValueLabel={true}
             />
           )}

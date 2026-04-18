@@ -1,5 +1,5 @@
-import { CircularProgress } from '@heroui/react';
 import { formatCurrency } from '@shared/utilities/formatCurrency';
+import { CircularProgress } from '@web/components/shared/CircularProgress';
 import { TypographyCaption } from '@web/components/shared/Typography';
 import { Badge } from '@web/components/ui/badge';
 import {
@@ -55,20 +55,18 @@ const BudgetHealthCard = ({
       <CardContent className="flex flex-col gap-4">
         <div className="flex flex-col items-center gap-2">
           <CircularProgress
-            aria-label={t('Page.home.cards.budgetHealth.title')}
             classNames={{
-              svg: 'size-16 drop-shadow-md',
+              svg: 'size-16',
               value: 'text-base font-semibold',
               indicator:
                 budgetHealthColor === 'success'
-                  ? 'stroke-green-500'
+                  ? 'color-success'
                   : budgetHealthColor === 'warning'
-                    ? 'stroke-yellow-500'
-                    : 'stroke-destructive',
+                    ? 'color-warning'
+                    : 'color-destructive',
             }}
             value={Math.min(budgetUtilization, 100)}
             strokeWidth={3}
-            showValueLabel={true}
           />
           <Badge variant={badgeVariant} className="w-fit self-center">
             {budgetHealthLabel}
