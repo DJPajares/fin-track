@@ -1,11 +1,11 @@
 'use client';
 
-import { ScrollShadow } from '@heroui/react';
 import { dateStringFormat } from '@shared/constants/dateStringFormat';
 import { formatCurrency } from '@shared/utilities/formatCurrency';
 import { CircularProgress } from '@web/components/shared/CircularProgress';
 import { DatePicker } from '@web/components/shared/DatePicker';
 import Loader from '@web/components/shared/Loader';
+import { ScrollShadow } from '@web/components/shared/ScrollShadow';
 import {
   TypographyCaption,
   TypographyCardTitle,

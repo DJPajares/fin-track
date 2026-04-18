@@ -1,6 +1,5 @@
 'use client';
 
-import { ScrollShadow } from '@heroui/react';
 import AmountSettledCard from '@web/components/shared/HomeCard/AmountSettledCard';
 import BalanceCard from '@web/components/shared/HomeCard/BalanceCard';
 import BudgetHealthCard from '@web/components/shared/HomeCard/BudgetHealthCard';
@@ -11,6 +10,7 @@ import TopSpendingCard from '@web/components/shared/HomeCard/TopSpendingCard';
 import TrendsCard from '@web/components/shared/HomeCard/TrendsCard';
 import UnpaidBillsCard from '@web/components/shared/HomeCard/UnpaidBillsCard';
 import Loader from '@web/components/shared/Loader';
+import { ScrollShadow } from '@web/components/shared/ScrollShadow';
 import { Button } from '@web/components/ui/button';
 import {
   Card,

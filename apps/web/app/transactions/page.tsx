@@ -1,11 +1,11 @@
 'use client';
 
-import { ScrollShadow } from '@heroui/react';
 import { dateStringFormat } from '@shared/constants/dateStringFormat';
 import type { ListProps } from '@shared/types/List';
 import TransactionDrawer from '@web/app/dashboard/Transaction/TransactionDrawer';
 import { DatePicker } from '@web/components/shared/DatePicker';
 import Loader from '@web/components/shared/Loader';
+import { ScrollShadow } from '@web/components/shared/ScrollShadow';
 import { SelectBox } from '@web/components/shared/SelectBox';
 import {
   TypographyCardTitle,
