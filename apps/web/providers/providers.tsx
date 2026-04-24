@@ -1,6 +1,5 @@
 'use client';
 
-import { HeroUIProvider } from '@heroui/react';
 import ErrorMessageModal from '@web/components/ErrorBoundary/ErrorMessageModal';
 import { ProtectedRoute } from '@web/components/shared/ProtectedRoute';
 import { useAppDispatch, useAppSelector } from '@web/lib/hooks/use-redux';
@@ -39,17 +38,15 @@ export function Providers({ children }: ProviderProps) {
 
   return (
     <ReduxProvider store={appStore}>
-      <HeroUIProvider>
-        <NextThemesProvider attribute="class" defaultTheme="dark">
-          <ThemeColorProvider />
-          <ProtectedRoute>
-            <ClientDataProvider>
-              <GlobalApiErrorModal />
-              {children}
-            </ClientDataProvider>
-          </ProtectedRoute>
-        </NextThemesProvider>
-      </HeroUIProvider>
+      <NextThemesProvider attribute="class" defaultTheme="dark">
+        <ThemeColorProvider />
+        <ProtectedRoute>
+          <ClientDataProvider>
+            <GlobalApiErrorModal />
+            {children}
+          </ClientDataProvider>
+        </ProtectedRoute>
+      </NextThemesProvider>
     </ReduxProvider>
   );
 }

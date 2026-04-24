@@ -2,13 +2,6 @@
 @import 'tw-animate-css';
 @import 'shadcn/tailwind.css';
 
-@plugin '../hero.ts';
-
-/* for local environment - as a monorepo structure */
-@source '../../../node_modules/@heroui/theme/dist';
-/* for production environment - as a sub-package */
-@source '../node_modules/@heroui/theme/dist';
-
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
