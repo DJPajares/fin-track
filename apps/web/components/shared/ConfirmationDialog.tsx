@@ -13,7 +13,7 @@ import {
 } from '@web/components/ui/alert-dialog';
 import { Button } from '@web/components/ui/button';
 import { useTranslations } from 'next-intl';
-import { ReactElement } from 'react';
+import { ReactElement, useState } from 'react';
 
 type ConfirmationDialogProps = {
   title?: string;
@@ -35,9 +35,18 @@ const ConfirmationDialog = ({
   children,
 }: ConfirmationDialogProps) => {
   const t = useTranslations();
+  const [open, setOpen] = useState(false);
+
+  const handleActionClick = async () => {
+    try {
+      await handleSubmit();
+    } finally {
+      setOpen(false);
+    }
+  };
 
   return (
-    <AlertDialog>
+    <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogTrigger
         render={children}
         nativeButton={children.type === 'button' || children.type === Button}
@@ -56,7 +65,7 @@ const ConfirmationDialog = ({
             {cancel || t('Common.alertDialog.generic.cancelButton')}
           </AlertDialogCancel>
           <AlertDialogAction
-            onClick={handleSubmit}
+            onClick={handleActionClick}
             className={isDestructive ? 'bg-destructive' : ''}
           >
             {ok || t('Common.alertDialog.generic.okButton')}
