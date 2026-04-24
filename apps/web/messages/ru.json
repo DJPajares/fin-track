@@ -301,7 +301,8 @@
       "errorLoadingData": "Ошибка загрузки данных"
     },
     "datePicker": {
-      "today": "Сегодня"
+      "today": "Сегодня",
+      "inMonths": "+{count} мес."
     },
     "type": {
       "income": "Доход",

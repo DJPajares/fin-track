@@ -301,7 +301,8 @@
       "errorLoadingData": "데이터 로드 오류"
     },
     "datePicker": {
-      "today": "오늘"
+      "today": "오늘",
+      "inMonths": "+{count}개월"
     },
     "type": {
       "income": "수입",

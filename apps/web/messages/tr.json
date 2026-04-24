@@ -301,7 +301,8 @@
       "errorLoadingData": "Veri yükleme hatası"
     },
     "datePicker": {
-      "today": "Bugün"
+      "today": "Bugün",
+      "inMonths": "+{count} ay"
     },
     "type": {
       "income": "Gelir",

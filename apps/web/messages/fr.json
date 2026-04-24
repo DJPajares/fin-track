@@ -301,7 +301,8 @@
       "errorLoadingData": "Erreur lors du chargement des données"
     },
     "datePicker": {
-      "today": "Aujourd'hui"
+      "today": "Aujourd'hui",
+      "inMonths": "+{count} mois"
     },
     "type": {
       "income": "Revenu",

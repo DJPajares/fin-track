@@ -301,7 +301,8 @@
       "errorLoadingData": "データの読み込みエラー"
     },
     "datePicker": {
-      "today": "今日"
+      "today": "今日",
+      "inMonths": "+{count}か月"
     },
     "type": {
       "income": "収入",

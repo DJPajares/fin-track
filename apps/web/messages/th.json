@@ -301,7 +301,8 @@
       "errorLoadingData": "เกิดข้อผิดพลาดในการโหลดข้อมูล"
     },
     "datePicker": {
-      "today": "วันนี้"
+      "today": "วันนี้",
+      "inMonths": "+{count} เดือน"
     },
     "type": {
       "income": "รายได้",

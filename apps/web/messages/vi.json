@@ -301,7 +301,8 @@
       "errorLoadingData": "Lỗi tải dữ liệu"
     },
     "datePicker": {
-      "today": "Hôm nay"
+      "today": "Hôm nay",
+      "inMonths": "+{count} tháng"
     },
     "type": {
       "income": "Thu nhập",

@@ -301,7 +301,8 @@
       "errorLoadingData": "خطأ في تحميل البيانات"
     },
     "datePicker": {
-      "today": "اليوم"
+      "today": "اليوم",
+      "inMonths": "+{count} أشهر"
     },
     "type": {
       "income": "دخل",

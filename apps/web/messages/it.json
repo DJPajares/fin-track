@@ -301,7 +301,8 @@
       "errorLoadingData": "Errore nel caricamento dei dati"
     },
     "datePicker": {
-      "today": "Oggi"
+      "today": "Oggi",
+      "inMonths": "+{count} mesi"
     },
     "type": {
       "income": "Entrata",

@@ -301,7 +301,8 @@
       "errorLoadingData": "加载数据时出错"
     },
     "datePicker": {
-      "today": "今天"
+      "today": "今天",
+      "inMonths": "+{count} 个月"
     },
     "type": {
       "income": "收入",

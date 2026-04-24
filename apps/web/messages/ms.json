@@ -301,7 +301,8 @@
       "errorLoadingData": "Ralat memuat data"
     },
     "datePicker": {
-      "today": "Hari ini"
+      "today": "Hari ini",
+      "inMonths": "+{count} bulan"
     },
     "type": {
       "income": "Pendapatan",

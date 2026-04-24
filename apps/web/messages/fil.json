@@ -301,7 +301,8 @@
       "errorLoadingData": "Error sa pag-load ng data"
     },
     "datePicker": {
-      "today": "Ngayon"
+      "today": "Ngayon",
+      "inMonths": "+{count} buwan"
     },
     "type": {
       "income": "Kita",

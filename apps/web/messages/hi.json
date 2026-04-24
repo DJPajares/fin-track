@@ -301,7 +301,8 @@
       "errorLoadingData": "डेटा लोड करने में त्रुटि"
     },
     "datePicker": {
-      "today": "आज"
+      "today": "आज",
+      "inMonths": "+{count} महीने"
     },
     "type": {
       "income": "आय",
