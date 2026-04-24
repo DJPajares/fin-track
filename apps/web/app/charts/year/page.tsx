@@ -31,7 +31,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@web/components/ui/select';
-import { useIsMobile } from '@web/lib/hooks/use-mobile';
+import { useIsMobile } from '@web/hooks/use-mobile';
 import { useAppSelector } from '@web/lib/hooks/use-redux';
 import {
   useGetTransactionPaymentsByCategoryQuery,

@@ -9,7 +9,7 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from '@web/components/ui/drawer';
-import { useIsMobile } from '@web/lib/hooks/use-mobile';
+import { useIsMobile } from '@web/hooks/use-mobile';
 import { useTranslations } from 'next-intl';
 import { Dispatch, ReactElement, SetStateAction, useState } from 'react';
 

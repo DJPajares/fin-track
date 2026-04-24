@@ -27,7 +27,7 @@ import {
   ChartTooltipContent,
 } from '@web/components/ui/chart';
 import { Progress, ProgressLabel } from '@web/components/ui/progress';
-import { useIsMobile } from '@web/lib/hooks/use-mobile';
+import { useIsMobile } from '@web/hooks/use-mobile';
 import { useAppSelector } from '@web/lib/hooks/use-redux';
 import { useGetTransactionsByCategoryQuery } from '@web/lib/redux/services/transactions';
 import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';

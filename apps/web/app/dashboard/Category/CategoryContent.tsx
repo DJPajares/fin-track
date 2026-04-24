@@ -26,7 +26,7 @@ import type {
   TransactionProps,
 } from '@web/types/TransactionPayment';
 import { useTranslations } from 'next-intl';
-import { ChangeEvent, useEffect, useMemo, useState } from 'react';
+import { ChangeEvent, useMemo, useState } from 'react';
 
 type PartialTransactionProps = Pick<
   TransactionProps,
@@ -59,24 +59,36 @@ const CategoryContent = ({
   );
   const [openDialog, setOpenDialog] = useState(false);
 
+  const currentPaidAmount = useMemo(() => {
+    return paidAmount <= amount ? paidAmount : amount;
+  }, [amount, paidAmount]);
+
   const paidAmountProgress = useMemo(() => {
-    const parsed = parseFloat(customPaidAmount);
-    if (isNaN(parsed)) return 0;
-    return Math.min(parsed / amount, 1);
-  }, [customPaidAmount, amount]);
+    if (amount <= 0) return 0;
+    return Math.min(currentPaidAmount / amount, 1);
+  }, [amount, currentPaidAmount]);
 
   const isCompleted = useMemo(() => {
-    const parsed = parseFloat(customPaidAmount);
-    return !isNaN(parsed) && parsed >= parseFloat(amount.toFixed(2));
-  }, [customPaidAmount, amount]);
+    return amount > 0 && currentPaidAmount >= amount;
+  }, [amount, currentPaidAmount]);
 
   const paidAmountPercentage = isCompleted
     ? 100
     : Math.floor(paidAmountProgress * 100);
 
-  useEffect(() => {
-    setCustomPaidAmount(paidAmount.toFixed(2));
-  }, [paidAmount]);
+  const customPaidAmountProgress = useMemo(() => {
+    const parsed = Number.parseFloat(customPaidAmount);
+
+    if (Number.isNaN(parsed) || amount <= 0) {
+      return 0;
+    }
+
+    if (parsed < 0) {
+      return 0;
+    }
+
+    return Math.min(parsed / amount, 1);
+  }, [amount, customPaidAmount]);
 
   const handleChangeCustomPaidAmountInput = (
     event: ChangeEvent<HTMLInputElement>,
@@ -87,7 +99,7 @@ const CategoryContent = ({
   const handleUpdateCustomPaidAmount = () => {
     handleTransactionDataUpdate({
       _id,
-      paidAmountPercentage: paidAmountProgress,
+      paidAmountPercentage: customPaidAmountProgress,
       isTotal,
     });
 
@@ -103,10 +115,10 @@ const CategoryContent = ({
           <div className="flex flex-row items-center justify-center gap-4">
             <Checkbox
               checked={isCompleted}
-              onCheckedChange={() =>
+              onCheckedChange={(checked) =>
                 handleTransactionDataUpdate({
                   _id,
-                  paidAmountPercentage: isCompleted ? 0 : 1,
+                  paidAmountPercentage: checked === true ? 1 : 0,
                   isTotal,
                 })
               }
@@ -114,7 +126,12 @@ const CategoryContent = ({
 
             <div
               className={`${!isTotal && 'cursor-pointer'} flex w-full justify-between`}
-              onClick={() => setOpenDialog(!isTotal)}
+              onClick={() => {
+                if (!isTotal) {
+                  setCustomPaidAmount(paidAmount.toFixed(2));
+                  setOpenDialog(true);
+                }
+              }}
             >
               <div className="flex-1 space-y-1">
                 <TypographyLabel className={`${isTotal && 'font-extrabold'}`}>

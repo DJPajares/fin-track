@@ -25,7 +25,7 @@ import {
 import { deleteAccount, updateProfile } from '@web/services/auth';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 type ProfileDrawerProps = {
@@ -49,8 +49,12 @@ const ProfileDrawer = ({ open, onOpenChange }: ProfileDrawerProps) => {
   const [isUpdatingProfile, setIsUpdatingProfile] = useState(false);
   const [isDeletingAccount, setIsDeletingAccount] = useState(false);
 
-  useEffect(() => {
-    if (open) {
+  const handleDrawerOpenChange = (
+    value: boolean | ((prev: boolean) => boolean),
+  ) => {
+    const nextOpen = typeof value === 'function' ? value(open) : value;
+
+    if (nextOpen) {
       setName(user?.name || '');
       setEmail(user?.email || '');
     } else {
@@ -60,7 +64,9 @@ const ProfileDrawer = ({ open, onOpenChange }: ProfileDrawerProps) => {
       setProfileError('');
       setProfileSuccess('');
     }
-  }, [open, user?.email, user?.name]);
+
+    onOpenChange(nextOpen);
+  };
 
   const initials = useMemo(() => {
     if (!user?.name && !user?.email) return 'U';
@@ -171,10 +177,7 @@ const ProfileDrawer = ({ open, onOpenChange }: ProfileDrawerProps) => {
   return (
     <CustomDrawer
       open={open}
-      onOpenChange={(value) => {
-        const nextOpen = typeof value === 'function' ? value(open) : value;
-        onOpenChange(nextOpen);
-      }}
+      onOpenChange={handleDrawerOpenChange}
       title={t('Profile.title')}
       description={t('Profile.description')}
       okButtonLabel={

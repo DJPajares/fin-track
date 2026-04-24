@@ -4,6 +4,7 @@ import userEvent from '@testing-library/user-event';
 import authSlice from '@web/lib/redux/feature/auth/authSlice';
 import dashboardSlice from '@web/lib/redux/feature/dashboard/dashboardSlice';
 import mainSlice from '@web/lib/redux/feature/main/mainSlice';
+import { useState } from 'react';
 import { Provider } from 'react-redux';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
@@ -350,11 +351,22 @@ describe('ProfileDrawer', () => {
 
   describe('form reset on close', () => {
     it('clears password fields when drawer is closed and reopened', async () => {
-      const { rerender } = renderDrawer(true, vi.fn(), {
-        name: 'Alice',
-        email: 'a@b.com',
-      });
       const store = buildStore({ name: 'Alice', email: 'a@b.com' });
+
+      const Wrapper = () => {
+        const [open, setOpen] = useState(true);
+
+        return (
+          <Provider store={store}>
+            <button data-testid="reopen-drawer" onClick={() => setOpen(true)}>
+              reopen
+            </button>
+            <ProfileDrawer open={open} onOpenChange={setOpen} />
+          </Provider>
+        );
+      };
+
+      render(<Wrapper />);
 
       await userEvent.type(
         screen.getByLabelText('Profile.currentPassword'),
@@ -364,19 +376,8 @@ describe('ProfileDrawer', () => {
         'secret',
       );
 
-      // Close the drawer (open=false triggers cleanup effect)
-      rerender(
-        <Provider store={store}>
-          <ProfileDrawer open={false} onOpenChange={vi.fn()} />
-        </Provider>,
-      );
-
-      // Reopen
-      rerender(
-        <Provider store={store}>
-          <ProfileDrawer open={true} onOpenChange={vi.fn()} />
-        </Provider>,
-      );
+      await userEvent.click(screen.getByTestId('drawer-cancel'));
+      await userEvent.click(screen.getByTestId('reopen-drawer'));
 
       await waitFor(() => {
         expect(screen.getByLabelText('Profile.currentPassword')).toHaveValue(

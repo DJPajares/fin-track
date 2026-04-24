@@ -54,13 +54,6 @@ const Home = () => {
     Math.floor(Math.random() * quotes.length),
   );
   const [fade, setFade] = useState(false);
-  const [upcomingExtras, setUpcomingExtras] = useState<UpcomingExtraProps[]>(
-    [],
-  );
-  const [previousSavings, setPreviousSavings] = useState<
-    PreviousSavingsProps[]
-  >([]);
-  const [trendsData, setTrendsData] = useState<TrendDataProps[]>([]);
 
   const date = new Date();
 
@@ -141,8 +134,8 @@ const Home = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useEffect(() => {
-    setUpcomingExtras(
+  const upcomingExtras = useMemo<UpcomingExtraProps[]>(
+    () =>
       transactionsByTypeData
         ? transactionsByTypeData.map((transaction) => {
             const yearMonth = moment(transaction.date).format('MMM YYYY');
@@ -157,11 +150,11 @@ const Home = () => {
             };
           })
         : [],
-    );
-  }, [transactionsByTypeData]);
+    [transactionsByTypeData],
+  );
 
-  useEffect(() => {
-    setPreviousSavings(
+  const previousSavings = useMemo<PreviousSavingsProps[]>(
+    () =>
       transactionPaymentsByCategoryData
         ? transactionPaymentsByCategoryData.map((transaction) => {
             const yearMonth = moment(transaction.date).format('MMM YYYY');
@@ -175,11 +168,11 @@ const Home = () => {
             };
           })
         : [],
-    );
-  }, [transactionPaymentsByCategoryData]);
+    [transactionPaymentsByCategoryData],
+  );
 
-  useEffect(() => {
-    setTrendsData(
+  const trendsData = useMemo<TrendDataProps[]>(
+    () =>
       incomeTrendsData
         ? incomeTrendsData.map((transaction) => {
             const yearMonth = moment(transaction.date).format('MMM YYYY');
@@ -193,8 +186,8 @@ const Home = () => {
             };
           })
         : [],
-    );
-  }, [incomeTrendsData]);
+    [incomeTrendsData],
+  );
 
   // Calculate accumulative extra per month
   const accumulativeExtra =
@@ -238,7 +231,7 @@ const Home = () => {
           ) => b.totalAmount - a.totalAmount,
         )
         .slice(0, 3);
-    }, [dashboardData?.categories]);
+    }, [dashboardData]);
 
   // Expense pie chart data — from categories
   const expensePieData = useMemo((): ExpensePieDataProps[] => {
@@ -250,7 +243,7 @@ const Home = () => {
         name: cat.name,
         amount: cat.totalAmount,
       }));
-  }, [dashboardData?.categories]);
+  }, [dashboardData]);
 
   const isLoading =
     isDashboardDataFetching ||

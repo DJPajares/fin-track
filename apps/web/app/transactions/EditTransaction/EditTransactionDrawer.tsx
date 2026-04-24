@@ -19,7 +19,8 @@ import {
   Dispatch,
   ReactElement,
   SetStateAction,
-  useEffect,
+  useCallback,
+  useMemo,
   useRef,
   useState,
 } from 'react';
@@ -48,10 +49,7 @@ const EditTransactionDrawer = ({
     (state) => state.main,
   );
 
-  const [type, setType] = useState<ListProps>({
-    _id: transaction.typeId,
-    name: transaction.typeName,
-  });
+  const [selectedTypeId, setSelectedTypeId] = useState(transaction.typeId);
 
   const newTypes = types.map((type) => {
     const isTranslated = t.has(`Common.type.${type.id}`);
@@ -86,14 +84,18 @@ const EditTransactionDrawer = ({
       })) || [],
   };
 
-  useEffect(() => {
-    if (type._id && newTypes.length > 0) {
-      const updatedType = newTypes.find((t) => t._id === type._id);
-      if (updatedType && updatedType.name !== type.name) {
-        setType(updatedType);
-      }
-    }
-  }, [newTypes, type._id, type.name]);
+  const type = useMemo<ListProps>(
+    () =>
+      newTypes.find((item) => item._id === selectedTypeId) || {
+        _id: transaction.typeId,
+        name: transaction.typeName,
+      },
+    [newTypes, selectedTypeId, transaction.typeId, transaction.typeName],
+  );
+
+  const handleTypeChange = useCallback((nextType: ListProps) => {
+    setSelectedTypeId(nextType._id);
+  }, []);
 
   const submitTransaction = async (postData: SubmitTransactionProps) => {
     try {
@@ -170,7 +172,7 @@ const EditTransactionDrawer = ({
         key={`${type._id || 'type'}-${defaultValues.id || 'edit'}-${defaultValues.startDate.toISOString()}-${defaultValues.endDate?.toISOString() || defaultValues.startDate.toISOString()}-${defaultValues.currency}-${defaultValues.category}-${defaultValues.amount}`}
         type={type}
         typeOptions={newTypes}
-        onTypeChange={setType}
+        onTypeChange={handleTypeChange}
         categories={categories}
         currencies={currencies}
         defaultValues={defaultValues}

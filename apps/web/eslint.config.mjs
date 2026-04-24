@@ -21,6 +21,13 @@ const eslintConfig = defineConfig([
     },
   },
 
+  {
+    files: ['hooks/use-mobile.ts', 'components/ui/carousel.tsx'],
+    rules: {
+      'react-hooks/set-state-in-effect': 'off',
+    },
+  },
+
   prettier, // 👈 must be last
 
   // Override default ignores of eslint-config-next.

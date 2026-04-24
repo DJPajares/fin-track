@@ -15,7 +15,6 @@ import {
   Dispatch,
   SetStateAction,
   useCallback,
-  useEffect,
   useMemo,
   useRef,
   useState,
@@ -44,10 +43,7 @@ const TransactionDrawer = ({
   );
   const dashboard = useAppSelector((state) => state.dashboard);
 
-  const [type, setType] = useState<ListProps>({
-    _id: '',
-    name: '',
-  });
+  const [selectedTypeId, setSelectedTypeId] = useState<string | null>(null);
   const [storedFormValues, setStoredFormValues] =
     useState<TransactionFormProps | null>(null);
 
@@ -89,25 +85,29 @@ const TransactionDrawer = ({
     [storedFormValues, dashboard.currency._id, date],
   );
 
-  useEffect(() => {
-    if (types && types.length > 0) {
-      if (defaultType && defaultType._id) {
-        setType(defaultType);
-      } else {
-        setType(types[0]);
-      }
-    }
-  }, [types, defaultType]);
+  const fallbackType = useMemo<ListProps>(
+    () =>
+      (defaultType && defaultType._id ? defaultType : newTypes[0]) || {
+        _id: '',
+        name: '',
+      },
+    [defaultType, newTypes],
+  );
 
-  // Update type name when translations change
-  useEffect(() => {
-    if (type._id && newTypes.length > 0) {
-      const updatedType = newTypes.find((t) => t._id === type._id);
-      if (updatedType && updatedType.name !== type.name) {
-        setType(updatedType);
+  const type = useMemo<ListProps>(() => {
+    const activeTypeId = selectedTypeId || fallbackType._id;
+    return (
+      newTypes.find((item) => item._id === activeTypeId) ||
+      fallbackType || {
+        _id: '',
+        name: '',
       }
-    }
-  }, [newTypes, type._id, type.name]);
+    );
+  }, [fallbackType, newTypes, selectedTypeId]);
+
+  const handleTypeChange = useCallback((nextType: ListProps) => {
+    setSelectedTypeId(nextType._id);
+  }, []);
 
   const formRef = useRef<HTMLFormElement>(null);
   const resetFormRef = useRef<TransactionDrawerFormRef>(null);
@@ -183,7 +183,7 @@ const TransactionDrawer = ({
         key={`${type._id || 'type'}-${defaultValues.id || 'new'}-${defaultValues.startDate.toISOString()}-${defaultValues.endDate?.toISOString() || defaultValues.startDate.toISOString()}-${defaultValues.currency}-${defaultValues.category}-${defaultValues.amount}`}
         type={type}
         typeOptions={newTypes}
-        onTypeChange={setType}
+        onTypeChange={handleTypeChange}
         categories={categories}
         currencies={currencies}
         defaultValues={defaultValues}
