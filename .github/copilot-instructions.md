@@ -33,7 +33,7 @@
 - State: prefer local state and hooks; use Redux slices only when global state is required; avoid duplicating sources of truth.
 - Components: keep pure/composable; avoid prop drilling—lift state or use context sparingly. Memoize expensive UI; lazy-load non-critical charts.
 - Assets: prefer `next/image`; optimize and reuse assets; respect existing `public/` structure.
-- Testing mindset: add or adjust tests when changing logic, especially date ranges, currency handling, and category filtering.
+- Testing mindset: add or adjust tests when changing logic, especially date ranges, currency handling, and category filtering. Tests should not stop at the happy path; cover edge cases, invalid or empty states, guard clauses, regression-prone branches, and behavior likely to break during refactors or larger UI changes.
 
 ## Backend Engineering (Express)
 
@@ -65,4 +65,5 @@
 - When implementing a solution, always look out for typescript errors and fix them.
 - Never use "any" type in typescript files.
 - Add as much implementation, tests, and documentation as possible when implementing a solution.
+- When adding or updating tests, prefer meaningful coverage that protects the component or feature against regressions: verify edge cases, failure paths, conditional branches, and inputs that could break after major changes, not just straightforward success flows.
 - Do not modify shadcn components under apps/web/components/ui; if it's a fix, fix it in a way that doesn't modify the original component, for example by wrapping it in another component and applying the fix there or fix from the place where it's being used.
