@@ -31,7 +31,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@web/components/ui/select';
-import { useIsMobile } from '@web/hooks/use-mobile';
 import { useAppSelector } from '@web/lib/hooks/use-redux';
 import {
   useGetTransactionPaymentsByCategoryQuery,
@@ -55,8 +54,9 @@ import {
   CartesianGrid,
   Cell,
   LabelList,
+  Line,
+  LineChart,
   XAxis,
-  YAxis,
 } from 'recharts';
 
 type ChartDataPropsA = {
@@ -114,7 +114,6 @@ const formatFallbackLabel = (value: string) => {
 
 const Charts = () => {
   const t = useTranslations();
-  const isMobile = useIsMobile();
 
   const { user } = useAppSelector((state) => state.auth);
   const userId = user?.id || '';
@@ -562,10 +561,24 @@ const Charts = () => {
         <CardContent className="p-1">
           {savingsChartData?.length ? (
             <ChartContainer config={savingsChartConfig}>
-              <BarChart accessibilityLayer data={savingsChartData}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="month" type="category" />
-                {!isMobile && <YAxis dataKey="amount" type="number" />}
+              <LineChart
+                accessibilityLayer
+                data={savingsChartData}
+                margin={{
+                  left: 12,
+                  right: 12,
+                  top: 12,
+                  bottom: 12,
+                }}
+              >
+                <CartesianGrid vertical={false} />
+                <XAxis
+                  dataKey="month"
+                  tickLine={false}
+                  axisLine={false}
+                  tickMargin={8}
+                  tickFormatter={(value) => value.slice(0, 3)}
+                />
                 <ChartTooltip
                   cursor={false}
                   content={
@@ -585,8 +598,14 @@ const Charts = () => {
                     />
                   }
                 />
-                <Bar dataKey="amount" fill="var(--chart-1)" />
-              </BarChart>
+                <Line
+                  dataKey="amount"
+                  type="bump"
+                  stroke="var(--chart-1)"
+                  strokeWidth={2}
+                  dot={false}
+                />
+              </LineChart>
             </ChartContainer>
           ) : (
             <div className="flex items-center justify-center">
