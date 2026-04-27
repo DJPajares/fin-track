@@ -53,7 +53,8 @@ import {
   Bar,
   BarChart,
   CartesianGrid,
-  ReferenceLine,
+  Cell,
+  LabelList,
   XAxis,
   YAxis,
 } from 'recharts';
@@ -202,7 +203,7 @@ const Charts = () => {
       },
     );
 
-  const chartDataA = useMemo<ChartDataPropsA[]>(() => {
+  const chartDataB = useMemo<ChartDataPropsA[]>(() => {
     return (transactionsData ?? []).map((transaction) => {
       const month = moment(transaction.date).format('MMM');
       const year = moment(transaction.date).format('YYYY');
@@ -215,12 +216,12 @@ const Charts = () => {
     });
   }, [transactionsData]);
 
-  const chartDataB = useMemo<ChartDataPropsB[]>(() => {
-    return chartDataA.map((data) => ({
+  const chartDataA = useMemo<ChartDataPropsB[]>(() => {
+    return chartDataB.map((data) => ({
       ...data,
       incomeVsExpenses: (data.income || 0) - (data.expense || 0),
     }));
-  }, [chartDataA]);
+  }, [chartDataB]);
 
   const savingsChartData = useMemo<SavingsDataProps[]>(() => {
     return (savingsData ?? [])
@@ -428,23 +429,8 @@ const Charts = () => {
         </CardHeader>
         <CardContent className="p-1">
           <ChartContainer config={chartConfig}>
-            <BarChart data={chartDataB}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis
-                dataKey="month"
-                // tickLine={false}
-                axisLine={false}
-                tickMargin={8}
-                tickFormatter={(value) => value.slice(0, 3)}
-              />
-              {!isMobile && (
-                <YAxis
-                  axisLine={false}
-                  tickFormatter={(value) =>
-                    formatCurrency({ value, currency: currency.name })
-                  }
-                />
-              )}
+            <BarChart accessibilityLayer data={chartDataA}>
+              <CartesianGrid vertical={false} />
               <ChartTooltip
                 cursor={false}
                 content={
@@ -462,13 +448,25 @@ const Charts = () => {
                   />
                 }
               />
-              <Bar
-                dataKey="incomeVsExpenses"
-                fill="var(--chart-1)"
-                radius={2}
-              />
-              {/* <ReferenceLine y={0} stroke="var(--primary)" /> */}
-              <ReferenceLine y={0} stroke="#808080" />
+              <Bar dataKey="incomeVsExpenses" radius={4}>
+                <LabelList
+                  position="top"
+                  dataKey="month"
+                  className="fill-muted-foreground"
+                  fillOpacity={1}
+                  fontSize={11}
+                />
+                {chartDataA.map((item, index) => (
+                  <Cell
+                    key={index}
+                    fill={
+                      item.incomeVsExpenses > 0
+                        ? 'var(--chart-1)'
+                        : 'var(--chart-2)'
+                    }
+                  />
+                ))}
+              </Bar>
             </BarChart>
           </ChartContainer>
         </CardContent>
@@ -483,7 +481,7 @@ const Charts = () => {
         </CardHeader>
         <CardContent className="p-1">
           <ChartContainer config={chartConfig}>
-            <AreaChart data={chartDataA}>
+            <AreaChart data={chartDataB}>
               <defs>
                 <linearGradient id="fillExpense" x1="0" y1="0" x2="0" y2="1">
                   <stop
