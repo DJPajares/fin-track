@@ -110,6 +110,16 @@ export const CircularProgress = ({
             <Label
               content={({ viewBox }) => {
                 if (viewBox && 'cx' in viewBox && 'cy' in viewBox) {
+                  const outerRadius =
+                    'outerRadius' in viewBox &&
+                    typeof viewBox.outerRadius === 'number'
+                      ? viewBox.outerRadius
+                      : 32;
+                  const computedFontSize = Math.max(
+                    12,
+                    Math.min(32, Math.round(outerRadius * 0.55)),
+                  );
+
                   return (
                     <text
                       x={viewBox.cx}
@@ -120,8 +130,9 @@ export const CircularProgress = ({
                       <tspan
                         x={viewBox.cx}
                         y={viewBox.cy}
+                        style={{ fontSize: `${computedFontSize}px` }}
                         className={cn(
-                          'fill-foreground text-xl font-bold sm:text-4xl',
+                          'fill-foreground font-bold',
                           classNames?.value,
                         )}
                       >

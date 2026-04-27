@@ -55,8 +55,9 @@ const BudgetHealthCard = ({
       <CardContent className="flex flex-col gap-4">
         <div className="flex flex-col items-center gap-2">
           <CircularProgress
+            className="w-full max-w-20 sm:max-w-24"
             classNames={{
-              svg: 'size-16',
+              svg: 'h-full w-full sm:h-full sm:w-full',
               value: 'text-base font-semibold',
               indicator:
                 budgetHealthColor === 'success'
