@@ -48,6 +48,8 @@ import moment from 'moment';
 import { useTranslations } from 'next-intl';
 import { type CSSProperties, useMemo, useState } from 'react';
 import {
+  Area,
+  AreaChart,
   Bar,
   BarChart,
   CartesianGrid,
@@ -481,31 +483,75 @@ const Charts = () => {
         </CardHeader>
         <CardContent className="p-1">
           <ChartContainer config={chartConfig}>
-            <BarChart accessibilityLayer data={chartDataA}>
+            <AreaChart data={chartDataA}>
+              <defs>
+                <linearGradient id="fillExpense" x1="0" y1="0" x2="0" y2="1">
+                  <stop
+                    offset="5%"
+                    stopColor="var(--chart-2)"
+                    stopOpacity={0.8}
+                  />
+                  <stop
+                    offset="95%"
+                    stopColor="var(--chart-2)"
+                    stopOpacity={0.1}
+                  />
+                </linearGradient>
+                <linearGradient id="fillIncome" x1="0" y1="0" x2="0" y2="1">
+                  <stop
+                    offset="5%"
+                    stopColor="var(--chart-1)"
+                    stopOpacity={0.8}
+                  />
+                  <stop
+                    offset="95%"
+                    stopColor="var(--chart-1)"
+                    stopOpacity={0.1}
+                  />
+                </linearGradient>
+              </defs>
               <CartesianGrid vertical={false} />
               <XAxis
                 dataKey="month"
-                // tickLine={false}
-                // axisLine={false}
+                tickLine={false}
+                axisLine={false}
                 tickMargin={8}
+                minTickGap={32}
                 tickFormatter={(value) => value.slice(0, 3)}
               />
-              {!isMobile && (
-                <YAxis
-                  axisLine={false}
-                  tickFormatter={(value) =>
-                    formatCurrency({ value, currency: currency.name })
-                  }
-                />
-              )}
               <ChartTooltip
                 cursor={false}
-                content={<ChartTooltipContent hideIndicator />}
+                content={
+                  <ChartTooltipContent
+                    hideIndicator
+                    formatter={(value) => {
+                      const amount =
+                        typeof value === 'number' ? value : Number(value ?? 0);
+
+                      return formatCurrency({
+                        value: amount,
+                        currency: currency.name,
+                      });
+                    }}
+                  />
+                }
+              />
+              <Area
+                dataKey="income"
+                type="natural"
+                fill="url(#fillIncome)"
+                stroke="var(--chart-1)"
+                stackId="a"
+              />
+              <Area
+                dataKey="expense"
+                type="natural"
+                fill="url(#fillExpense)"
+                stroke="var(--chart-2)"
+                stackId="a"
               />
               <ChartLegend content={<ChartLegendContent />} />
-              <Bar dataKey="income" fill="var(--chart-1)" />
-              <Bar dataKey="expense" fill="var(--chart-2)" />
-            </BarChart>
+            </AreaChart>
           </ChartContainer>
         </CardContent>
       </Card>
