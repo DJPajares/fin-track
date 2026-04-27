@@ -13,14 +13,13 @@ import {
   TypographyMuted,
 } from '@web/components/shared/Typography';
 import { Button } from '@web/components/ui/button';
-import { Spinner } from '@web/components/ui/spinner';
 import { useAppSelector } from '@web/lib/hooks/use-redux';
 import { useGetTransactionsQuery } from '@web/lib/redux/services/transactions';
 import type { TransactionProps } from '@web/types/Transaction';
 import { ChevronLeftIcon, ChevronRightIcon, PlusIcon } from 'lucide-react';
 import moment from 'moment';
 import { useTranslations } from 'next-intl';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 
 import TransactionCard from './Transaction/TransactionCard';
 
@@ -53,7 +52,6 @@ const Transactions = () => {
 
   const [date, setDate] = useState<Date>(dashboardDate);
   const [selectedTypeId, setSelectedTypeId] = useState('');
-  const [page, setPage] = useState(1);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const selectedType = useMemo(() => {
@@ -66,20 +64,17 @@ const Transactions = () => {
 
   const queryParams = useMemo(
     () => ({
-      page,
-      limit: 8,
       body: {
         date: date.toISOString(),
         type: selectedType._id,
         userId,
       },
     }),
-    [date, page, selectedType._id, userId],
+    [date, selectedType._id, userId],
   );
 
   const {
     data,
-    isFetching,
     isLoading: isApiLoading,
     error,
     refetch,
@@ -91,43 +86,14 @@ const Transactions = () => {
     return data?.data ?? [];
   }, [data]);
 
-  const isFullyFetched = useMemo(() => {
-    return data?.isFullyFetched ?? false;
-  }, [data]);
-
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   const scrollToTop = () => {
     scrollContainerRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  useEffect(() => {
-    const onScroll = () => {
-      const container = scrollContainerRef.current;
-      const isLoadingMore = isFetching && page > 1;
-
-      if (!container || isFullyFetched || isFetching || isLoadingMore) return;
-
-      const scrolledToBottom =
-        container.scrollHeight - container.scrollTop <=
-        container.clientHeight + 100;
-
-      if (scrolledToBottom) {
-        setPage((prevPage) => prevPage + 1);
-      }
-    };
-
-    const container = scrollContainerRef.current;
-    container?.addEventListener('scroll', onScroll);
-
-    return () => {
-      container?.removeEventListener('scroll', onScroll);
-    };
-  }, [isFetching, isFullyFetched, page]);
-
   const updateDate = (nextDate: Date) => {
     setDate(nextDate);
-    setPage(1);
     scrollToTop();
   };
 
@@ -145,7 +111,6 @@ const Transactions = () => {
 
   const handleTypeChange = (nextType: ListProps) => {
     setSelectedTypeId(nextType._id);
-    setPage(1);
     scrollToTop();
   };
 
@@ -155,17 +120,10 @@ const Transactions = () => {
 
   const handleTransactionSuccess = async () => {
     scrollToTop();
-
-    if (page !== 1) {
-      setPage(1);
-      return;
-    }
-
     await refetch();
   };
 
-  const isLoadingMore = isFetching && page > 1;
-  const isLoading = isApiLoading || (isFetching && page === 1);
+  const isLoading = isApiLoading;
 
   if (isLoading) return <Loader />;
 
@@ -215,20 +173,6 @@ const Transactions = () => {
                   transaction={transaction}
                 />
               ))}
-
-            {isLoadingMore && (
-              <div className="flex items-center justify-center gap-6">
-                <Spinner className="size-6" />
-              </div>
-            )}
-
-            {isFullyFetched && transactions.length > 0 && (
-              <div className="text-center">
-                <TypographyMuted>
-                  {t('Common.label.noMoreData')}
-                </TypographyMuted>
-              </div>
-            )}
 
             {!isApiLoading && transactions.length === 0 && (
               <div className="text-center">

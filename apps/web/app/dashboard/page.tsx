@@ -99,7 +99,7 @@ const Dashboard = () => {
     setIsTransactionDrawerOpen(true);
   };
 
-  const handlePrevMonth = () => {
+  const handlePreviousMonth = () => {
     const newDate = moment(dashboardDate).add(-1, 'months');
 
     setDate(moment(newDate).toDate());
@@ -121,7 +121,7 @@ const Dashboard = () => {
       >
         {/* CALENDAR */}
         <div className="flex flex-row items-center justify-center gap-1 sm:gap-4">
-          <Button variant="ghost" size="icon" onClick={handlePrevMonth}>
+          <Button variant="ghost" size="icon" onClick={handlePreviousMonth}>
             <ChevronLeftIcon className="size-4" />
           </Button>
 

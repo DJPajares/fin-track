@@ -106,8 +106,6 @@ const EditTransactionDrawer = ({
 
       if (response) {
         await lazyGetTransactions({
-          page: 1,
-          limit: 8,
           body: { type: type._id, date: date.toISOString(), userId },
         });
 
@@ -134,8 +132,6 @@ const EditTransactionDrawer = ({
       await deleteTransaction(transactionId).unwrap();
 
       await lazyGetTransactions({
-        page: 1,
-        limit: 8,
         body: { type: type._id, date: date.toISOString(), userId },
       });
 

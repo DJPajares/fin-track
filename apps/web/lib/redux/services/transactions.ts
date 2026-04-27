@@ -1,5 +1,30 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import type { TransactionProps } from '@web/types/Transaction';
 import moment from 'moment';
+
+type GetTransactionsBody = {
+  date: string;
+  type: string;
+  userId: string;
+};
+
+type GetTransactionsQueryArgs = {
+  body: GetTransactionsBody;
+};
+
+type TransactionsPagination = {
+  currentPage: number;
+  totalPages: number;
+};
+
+type TransactionsPageResponse = {
+  data: TransactionProps[];
+  pagination: TransactionsPagination;
+};
+
+type GetTransactionsResult = {
+  data: TransactionProps[];
+};
 
 type TransactionsByCategoryProps = {
   date: Date;
@@ -46,13 +71,25 @@ const formatTransactionsMonthlyCategoriesQueryKey = ({
   return `${start}_${end}_${currency}_${type ?? ''}_${aggregateBy ?? 'amount'}_${userId}`;
 };
 
+const formatTransactionsQueryKey = ({
+  date,
+  type,
+  userId,
+}: GetTransactionsBody) => {
+  const yearMonth = moment(date).format('YYYYMM');
+
+  return `${yearMonth}_${type}_${userId}`;
+};
+
+const TRANSACTIONS_BATCH_SIZE = 100;
+
 export const transactionsApi = createApi({
   reducerPath: 'transactionsApi',
   baseQuery: fetchBaseQuery({
     baseUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/transactions`,
   }),
   endpoints: (builder) => ({
-    getTransactions: builder.query({
+    getTransactionsPagination: builder.query({
       query: ({ page, limit, body }) => ({
         url: `/getAdvanced?page=${page}&limit=${limit}`,
         method: 'POST',
@@ -92,8 +129,48 @@ export const transactionsApi = createApi({
           isFullyFetched: newItems.isFullyFetched,
         };
       },
-      forceRefetch({ currentArg, previousArg }) {
-        return currentArg !== previousArg;
+    }),
+    getTransactions: builder.query<
+      GetTransactionsResult,
+      GetTransactionsQueryArgs
+    >({
+      queryFn: async (queryArg, _queryApi, _extraOptions, fetchWithBQ) => {
+        const allTransactions: TransactionProps[] = [];
+        let currentPage = 1;
+
+        while (true) {
+          const response = await fetchWithBQ({
+            url: `/getAdvanced?page=${currentPage}&limit=${TRANSACTIONS_BATCH_SIZE}`,
+            method: 'POST',
+            body: queryArg.body,
+          });
+
+          if (response.error) {
+            return { error: response.error };
+          }
+
+          const pageData = response.data as TransactionsPageResponse;
+          allTransactions.push(...pageData.data);
+
+          if (
+            pageData.pagination.currentPage >= pageData.pagination.totalPages
+          ) {
+            break;
+          }
+
+          currentPage += 1;
+        }
+
+        return {
+          data: {
+            data: allTransactions,
+          },
+        };
+      },
+      serializeQueryArgs: ({ endpointName, queryArgs }) => {
+        const provider = formatTransactionsQueryKey(queryArgs.body);
+
+        return `${endpointName}_${provider}`;
       },
     }),
     createTransaction: builder.mutation({
@@ -165,6 +242,8 @@ export const transactionsApi = createApi({
 });
 
 export const {
+  useGetTransactionsPaginationQuery, // getTransactionsPagination
+  useLazyGetTransactionsPaginationQuery, // getTransactionsPagination
   useGetTransactionsQuery, // getTransactions
   useLazyGetTransactionsQuery, // getTransactions
   useCreateTransactionMutation, // createTransaction
