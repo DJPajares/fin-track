@@ -4,7 +4,10 @@ import { dateStringFormat } from '@shared/constants/dateStringFormat';
 import { formatCurrency } from '@shared/utilities/formatCurrency';
 import { serializeText } from '@shared/utilities/serializeText';
 import Loader from '@web/components/shared/Loader';
-import { TypographyLead } from '@web/components/shared/Typography';
+import {
+  TypographyLead,
+  TypographySectionTitle,
+} from '@web/components/shared/Typography';
 import { Button } from '@web/components/ui/button';
 import {
   Card,
@@ -21,16 +24,14 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from '@web/components/ui/chart';
-import { Progress, ProgressLabel } from '@web/components/ui/progress';
 import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from '@web/components/ui/select';
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuTrigger,
+} from '@web/components/ui/dropdown-menu';
+import { Progress, ProgressLabel } from '@web/components/ui/progress';
 import { useAppSelector } from '@web/lib/hooks/use-redux';
 import {
   useGetTransactionPaymentsByCategoryQuery,
@@ -128,6 +129,7 @@ const Charts = () => {
   const [selectedYear, setSelectedYear] = useState<string>(
     dashboardDate.getFullYear().toString(),
   );
+  const [isYearDropdownOpen, setIsYearDropdownOpen] = useState(false);
 
   const { currency } = useAppSelector((state) => state.dashboard);
 
@@ -392,29 +394,30 @@ const Charts = () => {
           <ChevronLeftIcon className="size-4" />
         </Button>
 
-        <Select
-          value={selectedYear}
-          onValueChange={(value) => {
-            if (value) {
-              setSelectedYear(value);
-            }
-          }}
+        <DropdownMenu
+          open={isYearDropdownOpen}
+          onOpenChange={setIsYearDropdownOpen}
         >
-          <SelectTrigger className="text-2xl font-bold">
-            <SelectValue placeholder="Year..." />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectGroup>
-              <SelectLabel>
-                {yearsArray.map((year) => (
-                  <SelectItem key={year} value={year.toString()}>
-                    {year}
-                  </SelectItem>
-                ))}
-              </SelectLabel>
-            </SelectGroup>
-          </SelectContent>
-        </Select>
+          <DropdownMenuTrigger render={<Button variant="ghost" />}>
+            <TypographySectionTitle>{selectedYear}</TypographySectionTitle>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="center" className="max-h-72">
+            <DropdownMenuGroup>
+              {yearsArray.map((year) => (
+                <DropdownMenuCheckboxItem
+                  key={year}
+                  checked={selectedYear === year.toString()}
+                  onClick={() => {
+                    setSelectedYear(year.toString());
+                    setIsYearDropdownOpen(false);
+                  }}
+                >
+                  {year}
+                </DropdownMenuCheckboxItem>
+              ))}
+            </DropdownMenuGroup>
+          </DropdownMenuContent>
+        </DropdownMenu>
 
         <Button variant="ghost" size="icon" onClick={handleNextMonth}>
           <ChevronRightIcon className="size-4" />
@@ -428,7 +431,14 @@ const Charts = () => {
         </CardHeader>
         <CardContent className="p-1">
           <ChartContainer config={chartConfig}>
-            <BarChart accessibilityLayer data={chartDataA}>
+            <BarChart
+              accessibilityLayer
+              data={chartDataA}
+              margin={{
+                top: 12,
+                bottom: 12,
+              }}
+            >
               <CartesianGrid vertical={false} />
               <ChartTooltip
                 cursor={false}
@@ -571,7 +581,7 @@ const Charts = () => {
                   bottom: 12,
                 }}
               >
-                <CartesianGrid vertical={false} />
+                <CartesianGrid horizontal={false} />
                 <XAxis
                   dataKey="month"
                   tickLine={false}
