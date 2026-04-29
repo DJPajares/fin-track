@@ -183,12 +183,27 @@
   },
   "Auth": {
     "redirectingToLogin": "Redirecting to login...",
+    "panel": {
+      "tagline": "Take control of your finances",
+      "feature1": "Track spending in real-time",
+      "feature2": "Visualize with beautiful charts",
+      "feature3": "Manage categories & budgets"
+    },
+    "passwordStrength": {
+      "label": "Password strength",
+      "weak": "Weak",
+      "fair": "Fair",
+      "good": "Good",
+      "strong": "Strong"
+    },
     "login": {
       "title": "Login to your account",
       "description": "Enter your email below to login to your account",
       "email": "Email",
       "emailPlaceholder": "m@example.com",
       "password": "Password",
+      "showPassword": "Show password",
+      "hidePassword": "Hide password",
       "submit": "Login",
       "loading": "Logging in...",
       "signupPrompt": "Don't have an account?",
@@ -208,6 +223,8 @@
       "emailPlaceholder": "m@example.com",
       "password": "Password",
       "confirmPassword": "Confirm Password",
+      "showPassword": "Show password",
+      "hidePassword": "Hide password",
       "submit": "Sign up",
       "loading": "Creating account...",
       "loginPrompt": "Already have an account?",

@@ -2,27 +2,32 @@
 
 import { Button } from '@web/components/ui/button';
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@web/components/ui/card';
-import {
   Field,
   FieldDescription,
+  FieldError,
   FieldGroup,
   FieldLabel,
 } from '@web/components/ui/field';
 import { Input } from '@web/components/ui/input';
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupInput,
+} from '@web/components/ui/input-group';
 import { loginSuccess } from '@web/lib/redux/feature/auth/authSlice';
 import { cn } from '@web/lib/utils';
 import { signup } from '@web/services/auth';
+import { motion } from 'framer-motion';
+import { Eye, EyeOff } from 'lucide-react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
+
+import { PasswordStrengthIndicator } from './PasswordStrengthIndicator';
 
 export function SignupForm({
   className,
@@ -33,6 +38,8 @@ export function SignupForm({
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [name, setName] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
@@ -42,13 +49,11 @@ export function SignupForm({
     e.preventDefault();
     setError('');
 
-    // Validate password match
     if (password !== confirmPassword) {
       setError(t('error.passwordMismatch'));
       return;
     }
 
-    // Validate password length
     if (password.length < 8) {
       setError(t('error.passwordTooShort'));
       return;
@@ -59,18 +64,16 @@ export function SignupForm({
     try {
       const result = await signup({ email, password, name });
 
-      // Update Redux state
       dispatch(
         loginSuccess({
           user: result.user,
           session: {
             token: result.token,
-            expiresAt: Date.now() + 7 * 24 * 60 * 60 * 1000, // 7 days
+            expiresAt: Date.now() + 7 * 24 * 60 * 60 * 1000,
           },
         }),
       );
 
-      // Redirect to onboarding so the user can start the guided tour
       router.push('/onboarding');
     } catch (err) {
       if (err && typeof err === 'object' && 'response' in err) {
@@ -94,79 +97,139 @@ export function SignupForm({
   };
 
   return (
-    <div className={cn('flex flex-col gap-6', className)} {...props}>
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-2xl">{t('title')}</CardTitle>
-          <CardDescription>{t('description')}</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSubmit}>
-            <FieldGroup>
-              {error && (
-                <div className="rounded-md bg-red-50 p-3 text-sm text-red-800">
-                  {error}
-                </div>
-              )}
-              <Field>
-                <FieldLabel htmlFor="name">{t('name')}</FieldLabel>
-                <Input
-                  id="name"
-                  type="text"
-                  placeholder={t('namePlaceholder')}
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                />
-              </Field>
-              <Field>
-                <FieldLabel htmlFor="email">{t('email')}</FieldLabel>
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder={t('emailPlaceholder')}
-                  required
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </Field>
-              <Field>
-                <FieldLabel htmlFor="password">{t('password')}</FieldLabel>
-                <Input
+    <div className={cn('w-full', className)} {...props}>
+      <motion.div
+        initial={{ opacity: 0, y: 24 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, ease: 'easeOut' }}
+        className="space-y-6"
+      >
+        {/* Mobile-only logo */}
+        <div className="flex items-center gap-3 lg:hidden">
+          <Image
+            src="/icons/icon-192x192.png"
+            alt="FinTrack"
+            width={36}
+            height={36}
+            className="rounded-xl"
+          />
+          <span className="font-[--font-sans] text-xl font-bold">FinTrack</span>
+        </div>
+
+        <div>
+          <h1 className="font-[--font-sans] text-2xl font-semibold">
+            {t('title')}
+          </h1>
+          <p className="text-muted-foreground mt-1 text-sm">
+            {t('description')}
+          </p>
+        </div>
+
+        <form onSubmit={handleSubmit}>
+          <FieldGroup>
+            {error && <FieldError>{error}</FieldError>}
+
+            <Field>
+              <FieldLabel htmlFor="name">{t('name')}</FieldLabel>
+              <Input
+                id="name"
+                type="text"
+                placeholder={t('namePlaceholder')}
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+            </Field>
+
+            <Field>
+              <FieldLabel htmlFor="email">{t('email')}</FieldLabel>
+              <Input
+                id="email"
+                type="email"
+                placeholder={t('emailPlaceholder')}
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </Field>
+
+            <Field>
+              <FieldLabel htmlFor="password">{t('password')}</FieldLabel>
+              <InputGroup>
+                <InputGroupInput
                   id="password"
-                  type="password"
+                  type={showPassword ? 'text' : 'password'}
                   required
                   minLength={8}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
-              </Field>
-              <Field>
-                <FieldLabel htmlFor="confirmPassword">
-                  {t('confirmPassword')}
-                </FieldLabel>
-                <Input
+                <InputGroupAddon align="inline-end">
+                  <InputGroupButton
+                    type="button"
+                    size="icon-sm"
+                    aria-label={
+                      showPassword ? t('hidePassword') : t('showPassword')
+                    }
+                    onClick={() => setShowPassword((v) => !v)}
+                  >
+                    {showPassword ? (
+                      <EyeOff className="size-4" />
+                    ) : (
+                      <Eye className="size-4" />
+                    )}
+                  </InputGroupButton>
+                </InputGroupAddon>
+              </InputGroup>
+              <PasswordStrengthIndicator password={password} />
+            </Field>
+
+            <Field>
+              <FieldLabel htmlFor="confirmPassword">
+                {t('confirmPassword')}
+              </FieldLabel>
+              <InputGroup>
+                <InputGroupInput
                   id="confirmPassword"
-                  type="password"
+                  type={showConfirmPassword ? 'text' : 'password'}
                   required
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                 />
-              </Field>
-              <Field>
-                <Button type="submit" disabled={isLoading}>
-                  {isLoading ? t('loading') : t('submit')}
-                </Button>
-                <FieldDescription className="text-center">
-                  {t('loginPrompt')}{' '}
-                  <Link href="/auth" className="underline">
-                    {t('loginLink')}
-                  </Link>
-                </FieldDescription>
-              </Field>
-            </FieldGroup>
-          </form>
-        </CardContent>
-      </Card>
+                <InputGroupAddon align="inline-end">
+                  <InputGroupButton
+                    type="button"
+                    size="icon-sm"
+                    aria-label={
+                      showConfirmPassword
+                        ? t('hidePassword')
+                        : t('showPassword')
+                    }
+                    onClick={() => setShowConfirmPassword((v) => !v)}
+                  >
+                    {showConfirmPassword ? (
+                      <EyeOff className="size-4" />
+                    ) : (
+                      <Eye className="size-4" />
+                    )}
+                  </InputGroupButton>
+                </InputGroupAddon>
+              </InputGroup>
+            </Field>
+
+            <Field>
+              <Button type="submit" className="w-full" disabled={isLoading}>
+                {isLoading ? t('loading') : t('submit')}
+              </Button>
+              <FieldDescription className="text-center">
+                {t('loginPrompt')}{' '}
+                <Link href="/auth" className="underline">
+                  {t('loginLink')}
+                </Link>
+              </FieldDescription>
+            </Field>
+          </FieldGroup>
+        </form>
+      </motion.div>
     </div>
   );
 }
