@@ -82,12 +82,12 @@ export function ProtectedRoute({ children }: ProtectedRouteProps) {
 
   // Show loading state while checking authentication
   if (isLoading || !isInitialized) {
-    return <Loader />;
+    return <Loader fullScreen />;
   }
 
   // If authenticated and on a public route, don't render children (redirect in progress)
   if (isAuthenticated && publicRoutes.includes(pathname || '')) {
-    return <Loader />;
+    return <Loader fullScreen />;
   }
 
   // If not authenticated and not on a public route, don't render children

@@ -1,8 +1,16 @@
 'use client';
 
-const Loader = () => {
+type LoaderProps = {
+  fullScreen?: boolean;
+};
+
+const Loader = ({ fullScreen = false }: LoaderProps) => {
+  const containerClasses = fullScreen
+    ? 'bg-background/90 fixed inset-0 z-60 flex items-center justify-center'
+    : 'flex min-h-[calc(100dvh-theme(height.36))] w-full items-center justify-center';
+
   return (
-    <div className="bg-background/90 fixed inset-0 z-60 flex items-center justify-center">
+    <div className={containerClasses}>
       <div className="flex flex-col items-center rounded-lg p-6">
         <div className="relative flex items-center justify-center">
           {/* Outer breathing ring */}
