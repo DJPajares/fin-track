@@ -116,7 +116,7 @@ const getCategoryTransactionAmounts = ({
       String(expenseTransactionPayment.paidAmount),
     );
 
-    paidAmount =
+    const rawPaidAmount =
       currency === paidCurrency
         ? transactionPaidAmount
         : convertValue({
@@ -126,6 +126,7 @@ const getCategoryTransactionAmounts = ({
             rates,
           });
 
+    paidAmount = Math.min(rawPaidAmount, amount);
     localPaidAmount = transactionPaidAmount;
   }
 
@@ -149,15 +150,7 @@ const getIncomeTransactions = async ({
       $match: {
         userId,
         $expr: {
-          $and: [
-            // { $lte: [{ $year: '$startDate' }, year] },
-            // { $lte: [{ $month: '$startDate' }, month] },
-            // { $gte: [{ $year: '$endDate' }, year] },
-            // { $gte: [{ $month: '$endDate' }, month] },
-            // { $lte: ['$startDate', new Date(data.date)] },
-            // { $gte: ['$endDate', new Date(data.date)] },
-            ...getBaseTransactionDateConditions(yearMonth),
-          ],
+          $and: [...getBaseTransactionDateConditions(yearMonth)],
         },
       },
     },
@@ -241,15 +234,7 @@ const getExpenseTransactionPayments = async ({
       $match: {
         userId,
         $expr: {
-          $and: [
-            // { $lte: [{ $year: '$startDate' }, year] },
-            // { $lte: [{ $month: '$startDate' }, month] },
-            // { $gte: [{ $year: '$endDate' }, year] },
-            // { $gte: [{ $month: '$endDate' }, month] },
-            // { $lte: ['$startDate', new Date(data.date)] },
-            // { $gte: ['$endDate', new Date(data.date)] },
-            ...getBaseTransactionDateConditions(yearMonth),
-          ],
+          $and: [...getBaseTransactionDateConditions(yearMonth)],
         },
       },
     },
@@ -265,41 +250,7 @@ const getExpenseTransactionPayments = async ({
             $match: {
               userId,
               $expr: {
-                // $and: [
-                //   { $gte: [{ $year: '$date' }, year] },
-                //   { $gte: [{ $month: '$date' }, month] }
-                // ]
-                $and: [
-                  ...getPaymentMonthConditions(yearMonth),
-                  // {
-                  //   $not: {
-                  //     $in: [
-                  //       month,
-                  //       {
-                  //         $map: {
-                  //           input: '$excludedDates',
-                  //           as: 'date',
-                  //           in: { $month: '$$date' }
-                  //         }
-                  //       }
-                  //     ]
-                  //   }
-                  // },
-                  // {
-                  //   $not: {
-                  //     $in: [
-                  //       year,
-                  //       {
-                  //         $map: {
-                  //           input: '$excludedDates',
-                  //           as: 'date',
-                  //           in: { $year: '$$date' }
-                  //         }
-                  //       }
-                  //     ]
-                  //   }
-                  // }
-                ],
+                $and: [...getPaymentMonthConditions(yearMonth)],
               },
             },
           },
@@ -424,22 +375,31 @@ const processTransactionPaymentData = ({
 
   expenseTransactionPayments.forEach(
     (expenseTransactionPayment: ExpenseTransactionPaymentsProps) => {
+      let transactionAmountInDisplayCurrency = 0;
+
       if (expenseTransactionPayment.amount) {
-        totalAmount += convertValue({
+        transactionAmountInDisplayCurrency = convertValue({
           value: parseFloat(String(expenseTransactionPayment.amount)),
           fromCurrency: expenseTransactionPayment.currency,
           currency,
           rates,
         });
+
+        totalAmount += transactionAmountInDisplayCurrency;
       }
 
       if (expenseTransactionPayment.paidAmount) {
-        totalPaidAmount += convertValue({
+        const rawPaidAmount = convertValue({
           value: parseFloat(String(expenseTransactionPayment.paidAmount)),
           fromCurrency: expenseTransactionPayment.paidCurrency,
           currency,
           rates,
         });
+
+        totalPaidAmount += Math.min(
+          rawPaidAmount,
+          transactionAmountInDisplayCurrency,
+        );
       }
     },
   );
