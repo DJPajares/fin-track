@@ -302,7 +302,7 @@
     },
     "datePicker": {
       "today": "Bugün",
-      "inMonths": "+{count} ay"
+      "inMonths": "{count} ay"
     },
     "type": {
       "income": "Gelir",

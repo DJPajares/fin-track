@@ -302,7 +302,7 @@
     },
     "datePicker": {
       "today": "Oggi",
-      "inMonths": "+{count} mesi"
+      "inMonths": "{count} mesi"
     },
     "type": {
       "income": "Entrata",

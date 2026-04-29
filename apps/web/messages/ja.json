@@ -302,7 +302,7 @@
     },
     "datePicker": {
       "today": "今日",
-      "inMonths": "+{count}か月"
+      "inMonths": "{count}か月"
     },
     "type": {
       "income": "収入",

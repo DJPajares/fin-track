@@ -1,7 +1,7 @@
 import { Button } from '@web/components/ui/button';
 import { Calendar } from '@web/components/ui/calendar';
 import { Card, CardContent, CardFooter } from '@web/components/ui/card';
-import { addMonths, addYears, subYears } from 'date-fns';
+import { addMonths, addYears, subMonths, subYears } from 'date-fns';
 import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
@@ -39,11 +39,19 @@ export default function CustomCalendar({
       getDate: () => addYears(date, 1),
     },
     {
-      label: t('Common.datePicker.inMonths', { count: 2 }),
+      label: t('Common.datePicker.inMonths', { count: '-2' }),
+      getDate: () => subMonths(date, 2),
+    },
+    {
+      label: t('Common.datePicker.inMonths', { count: '+2' }),
       getDate: () => addMonths(date, 2),
     },
     {
-      label: t('Common.datePicker.inMonths', { count: 6 }),
+      label: t('Common.datePicker.inMonths', { count: '-6' }),
+      getDate: () => subMonths(date, 6),
+    },
+    {
+      label: t('Common.datePicker.inMonths', { count: '+6' }),
       getDate: () => addMonths(date, 6),
     },
   ];

@@ -302,7 +302,7 @@
     },
     "datePicker": {
       "today": "आज",
-      "inMonths": "+{count} महीने"
+      "inMonths": "{count} महीने"
     },
     "type": {
       "income": "आय",

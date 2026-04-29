@@ -302,7 +302,7 @@
     },
     "datePicker": {
       "today": "Hôm nay",
-      "inMonths": "+{count} tháng"
+      "inMonths": "{count} tháng"
     },
     "type": {
       "income": "Thu nhập",

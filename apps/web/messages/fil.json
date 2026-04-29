@@ -302,7 +302,7 @@
     },
     "datePicker": {
       "today": "Ngayon",
-      "inMonths": "+{count} buwan"
+      "inMonths": "{count} buwan"
     },
     "type": {
       "income": "Kita",

@@ -1,5 +1,5 @@
 import { fireEvent, render, screen } from '@testing-library/react';
-import { addMonths, addYears, subYears } from 'date-fns';
+import { addMonths, addYears, subMonths, subYears } from 'date-fns';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import CustomCalendar from './Calendar';
@@ -10,17 +10,18 @@ const { calendarMock, mockSelectedDate } = vi.hoisted(() => ({
 }));
 
 vi.mock('next-intl', () => ({
-  useTranslations: () => (key: string, values?: { count?: number }) => {
-    if (key === 'Common.datePicker.today') {
-      return 'Today';
-    }
+  useTranslations:
+    () => (key: string, values?: { count?: string | number }) => {
+      if (key === 'Common.datePicker.today') {
+        return 'Today';
+      }
 
-    if (key === 'Common.datePicker.inMonths') {
-      return `+${values?.count} months`;
-    }
+      if (key === 'Common.datePicker.inMonths') {
+        return `${values?.count} months`;
+      }
 
-    return key;
-  },
+      return key;
+    },
 }));
 
 vi.mock('@web/components/ui/button', () => ({
@@ -112,7 +113,13 @@ describe('CustomCalendar', () => {
     expect(screen.getByRole('button', { name: 'Today' })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: '2027' })).toBeInTheDocument();
     expect(
+      screen.getByRole('button', { name: '-2 months' }),
+    ).toBeInTheDocument();
+    expect(
       screen.getByRole('button', { name: '+2 months' }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: '-6 months' }),
     ).toBeInTheDocument();
     expect(
       screen.getByRole('button', { name: '+6 months' }),
@@ -137,13 +144,19 @@ describe('CustomCalendar', () => {
     fireEvent.click(screen.getByRole('button', { name: '2027' }));
     expect(onChange).toHaveBeenLastCalledWith(addYears(selectedDate, 1));
 
+    fireEvent.click(screen.getByRole('button', { name: '-2 months' }));
+    expect(onChange).toHaveBeenLastCalledWith(subMonths(selectedDate, 2));
+
     fireEvent.click(screen.getByRole('button', { name: '+2 months' }));
     expect(onChange).toHaveBeenLastCalledWith(addMonths(selectedDate, 2));
+
+    fireEvent.click(screen.getByRole('button', { name: '-6 months' }));
+    expect(onChange).toHaveBeenLastCalledWith(subMonths(selectedDate, 6));
 
     fireEvent.click(screen.getByRole('button', { name: '+6 months' }));
     expect(onChange).toHaveBeenLastCalledWith(addMonths(selectedDate, 6));
 
-    expect(closeCalendar).toHaveBeenCalledTimes(4);
+    expect(closeCalendar).toHaveBeenCalledTimes(6);
     expect(closeCalendar).toHaveBeenNthCalledWith(1, false);
   });
 

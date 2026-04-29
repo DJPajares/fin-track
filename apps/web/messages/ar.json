@@ -302,7 +302,7 @@
     },
     "datePicker": {
       "today": "اليوم",
-      "inMonths": "+{count} أشهر"
+      "inMonths": "{count} أشهر"
     },
     "type": {
       "income": "دخل",

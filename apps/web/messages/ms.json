@@ -302,7 +302,7 @@
     },
     "datePicker": {
       "today": "Hari ini",
-      "inMonths": "+{count} bulan"
+      "inMonths": "{count} bulan"
     },
     "type": {
       "income": "Pendapatan",

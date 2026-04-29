@@ -302,7 +302,7 @@
     },
     "datePicker": {
       "today": "Сегодня",
-      "inMonths": "+{count} мес."
+      "inMonths": "{count} мес."
     },
     "type": {
       "income": "Доход",

@@ -302,7 +302,7 @@
     },
     "datePicker": {
       "today": "오늘",
-      "inMonths": "+{count}개월"
+      "inMonths": "{count}개월"
     },
     "type": {
       "income": "수입",
