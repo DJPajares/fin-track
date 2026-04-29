@@ -91,7 +91,9 @@ vi.mock('@web/components/ui/sidebar', () => ({
       {children}
     </div>
   ),
-  SidebarRail: () => <div data-testid="sidebar-rail" />,
+  SidebarFooter: ({ children }: { children: React.ReactNode }) => (
+    <footer>{children}</footer>
+  ),
   useSidebar: () => ({ setOpenMobile: mockSetOpenMobile }),
 }));
 

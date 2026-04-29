@@ -1,7 +1,10 @@
 'use client';
 
 import { CONSTANTS } from '@shared/constants/common';
-import { TypographyLabel } from '@web/components/shared/Typography';
+import {
+  TypographyCaption,
+  TypographyLabel,
+} from '@web/components/shared/Typography';
 import {
   Collapsible,
   CollapsibleContent,
@@ -10,6 +13,7 @@ import {
 import {
   Sidebar,
   SidebarContent,
+  SidebarFooter,
   SidebarGroup,
   SidebarGroupLabel,
   SidebarHeader,
@@ -19,13 +23,14 @@ import {
   SidebarMenuSub,
   SidebarMenuSubButton,
   SidebarMenuSubItem,
-  SidebarRail,
   useSidebar,
 } from '@web/components/ui/sidebar';
 import { MENU_ITEMS } from '@web/constants/menuItems';
 import { ChevronRightIcon, TrendingUpIcon } from 'lucide-react';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
+
+import packageInfo from '../../../../package.json';
 
 const SideNav = () => {
   const { setOpenMobile } = useSidebar();
@@ -136,7 +141,10 @@ const SideNav = () => {
           </SidebarMenu>
         </SidebarGroup>
       </SidebarContent>
-      <SidebarRail />
+
+      <SidebarFooter>
+        <TypographyCaption className="flex justify-end">{`v${packageInfo.version}`}</TypographyCaption>
+      </SidebarFooter>
     </Sidebar>
   );
 };

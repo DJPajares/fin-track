@@ -1,6 +1,6 @@
 {
   "name": "fin-track",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "scripts": {
     "dev": "turbo dev",
     "build": "turbo build",

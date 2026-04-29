@@ -45,8 +45,6 @@ import { useTheme } from 'next-themes';
 import { ReactElement, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import packageInfo from '../../../../package.json';
-
 type NavDropdownMenuProps = {
   children: ReactElement;
 };
@@ -219,9 +217,6 @@ const NavDropdownMenu = ({ children }: NavDropdownMenuProps) => {
             <DropdownMenuItem onClick={handleLogout}>
               <LogOutIcon className="text-muted-foreground size-4" />
               {t('logout')}
-              <DropdownMenuShortcut>
-                <TypographyMuted>{`v${packageInfo.version}`}</TypographyMuted>
-              </DropdownMenuShortcut>
             </DropdownMenuItem>
           </DropdownMenuGroup>
         </DropdownMenuContent>
