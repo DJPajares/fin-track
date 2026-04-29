@@ -11,8 +11,8 @@
     "test": "turbo test",
     "test:watch": "pnpm -r run test:watch",
     "test:coverage": "turbo test:coverage",
-    "prettier": "prettier --check . --ignore-path .gitignore",
-    "prettier:fix": "prettier --write . --ignore-path .gitignore",
+    "prettier": "prettier --check .",
+    "prettier:fix": "prettier --write .",
     "lint-staged": "lint-staged",
     "prepare": "husky",
     "deps:check": "pnpm -r outdated"
@@ -37,9 +37,9 @@
     "husky": "^9.1.7",
     "lint-staged": "^16.4.0",
     "prettier": "^3.8.3",
-    "prettier-plugin-tailwindcss": "^0.7.3",
+    "prettier-plugin-tailwindcss": "^0.8.0",
     "turbo": "^2.9.6",
     "typescript": "^6.0.3"
   },
-  "packageManager": "pnpm@10.33.0"
+  "packageManager": "pnpm@10.33.2"
 }
