@@ -73,14 +73,12 @@ const Transactions = () => {
     [date, selectedType._id, userId],
   );
 
-  const {
-    data,
-    isLoading: isApiLoading,
-    error,
-    refetch,
-  } = useGetTransactionsQuery(queryParams, {
-    skip: !selectedType._id || !userId || types.length === 0,
-  });
+  const { data, isFetching, error, refetch } = useGetTransactionsQuery(
+    queryParams,
+    {
+      skip: !selectedType._id || !userId || types.length === 0,
+    },
+  );
 
   const transactions: TransactionProps[] = useMemo(() => {
     return data?.data ?? [];
@@ -123,9 +121,7 @@ const Transactions = () => {
     await refetch();
   };
 
-  const isLoading = isApiLoading;
-
-  if (isLoading) return <Loader />;
+  if (isFetching) return <Loader />;
 
   return (
     <>
@@ -174,7 +170,7 @@ const Transactions = () => {
                 />
               ))}
 
-            {!isApiLoading && transactions.length === 0 && (
+            {!isFetching && transactions.length === 0 && (
               <div className="text-center">
                 <TypographyMuted>{t('Common.label.noData')}</TypographyMuted>
               </div>

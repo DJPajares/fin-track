@@ -1,7 +1,5 @@
 'use client';
 
-import React from 'react';
-
 const Loader = () => {
   return (
     <div className="bg-background/90 fixed inset-0 z-60 flex items-center justify-center">
