@@ -182,8 +182,23 @@
     }
   },
   "Auth": {
+    "panel": {
+      "tagline": "Kunin ang kontrol sa iyong pananalapi",
+      "feature1": "Subaybayan ang paggastos nang real-time",
+      "feature2": "I-visualize gamit ang magagandang chart",
+      "feature3": "Pamahalaan ang kategorya at badyet"
+    },
+    "passwordStrength": {
+      "label": "Tibay ng password",
+      "weak": "Mahina",
+      "fair": "Katamtaman",
+      "good": "Mabuti",
+      "strong": "Malakas"
+    },
     "redirectingToLogin": "Inililipat sa pag-login...",
     "login": {
+      "showPassword": "Ipakita ang password",
+      "hidePassword": "Itago ang password",
       "title": "Mag-login sa inyong account",
       "description": "Ilagay ang inyong email upang mag-login",
       "email": "Email",
@@ -200,6 +215,8 @@
       }
     },
     "signup": {
+      "showPassword": "Ipakita ang password",
+      "hidePassword": "Itago ang password",
       "title": "Lumikha ng account",
       "description": "Ilagay ang inyong impormasyon upang lumikha ng account",
       "name": "Pangalan (opsyonal)",

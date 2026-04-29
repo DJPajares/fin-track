@@ -182,8 +182,23 @@
     }
   },
   "Auth": {
+    "panel": {
+      "tagline": "Prenez le contrôle de vos finances",
+      "feature1": "Suivez vos dépenses en temps réel",
+      "feature2": "Visualisez avec de beaux graphiques",
+      "feature3": "Gérez les catégories et les budgets"
+    },
+    "passwordStrength": {
+      "label": "Robustesse du mot de passe",
+      "weak": "Faible",
+      "fair": "Moyen",
+      "good": "Bon",
+      "strong": "Fort"
+    },
     "redirectingToLogin": "Redirection vers la connexion...",
     "login": {
+      "showPassword": "Afficher le mot de passe",
+      "hidePassword": "Masquer le mot de passe",
       "title": "Connectez-vous à votre compte",
       "description": "Entrez votre e-mail ci-dessous pour vous connecter",
       "email": "E-mail",
@@ -200,6 +215,8 @@
       }
     },
     "signup": {
+      "showPassword": "Afficher le mot de passe",
+      "hidePassword": "Masquer le mot de passe",
       "title": "Créer un compte",
       "description": "Entrez vos informations pour créer votre compte",
       "name": "Nom (optionnel)",

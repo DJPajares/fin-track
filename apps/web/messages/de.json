@@ -182,6 +182,19 @@
     }
   },
   "Auth": {
+    "panel": {
+      "tagline": "Übernehmen Sie die Kontrolle über Ihre Finanzen",
+      "feature1": "Ausgaben in Echtzeit verfolgen",
+      "feature2": "Mit schönen Diagrammen visualisieren",
+      "feature3": "Kategorien und Budgets verwalten"
+    },
+    "passwordStrength": {
+      "label": "Passwortstärke",
+      "weak": "Schwach",
+      "fair": "Mittel",
+      "good": "Gut",
+      "strong": "Stark"
+    },
     "redirectingToLogin": "Weiterleitung zur Anmeldung...",
     "login": {
       "title": "Melden Sie sich an Ihrem Konto an",
@@ -189,6 +202,8 @@
       "email": "E-Mail",
       "emailPlaceholder": "m@example.com",
       "password": "Passwort",
+      "showPassword": "Passwort anzeigen",
+      "hidePassword": "Passwort verbergen",
       "submit": "Anmelden",
       "loading": "Wird angemeldet...",
       "signupPrompt": "Sie haben kein Konto?",
@@ -207,6 +222,8 @@
       "email": "E-Mail",
       "emailPlaceholder": "m@example.com",
       "password": "Passwort",
+      "showPassword": "Passwort anzeigen",
+      "hidePassword": "Passwort verbergen",
       "confirmPassword": "Passwort bestätigen",
       "submit": "Registrieren",
       "loading": "Konto wird erstellt...",

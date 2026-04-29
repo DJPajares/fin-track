@@ -182,8 +182,23 @@
     }
   },
   "Auth": {
+    "panel": {
+      "tagline": "あなたの資産をコントロールしましょう",
+      "feature1": "支出をリアルタイムで追跡",
+      "feature2": "美しいグラフで視覚化",
+      "feature3": "カテゴリーと予算を管理"
+    },
+    "passwordStrength": {
+      "label": "パスワードの強度",
+      "weak": "弱い",
+      "fair": "普通",
+      "good": "良い",
+      "strong": "強い"
+    },
     "redirectingToLogin": "ログインにリダイレクト中...",
     "login": {
+      "showPassword": "パスワードを表示",
+      "hidePassword": "パスワードを非表示",
       "title": "アカウントにログイン",
       "description": "ログインするにはメールアドレスを入力してください",
       "email": "メールアドレス",
@@ -200,6 +215,8 @@
       }
     },
     "signup": {
+      "showPassword": "パスワードを表示",
+      "hidePassword": "パスワードを非表示",
       "title": "アカウントを作成する",
       "description": "情報を入力してアカウントを作成してください",
       "name": "名前 (オプション)",

@@ -182,8 +182,23 @@
     }
   },
   "Auth": {
+    "panel": {
+      "tagline": "Nắm quyền kiểm soát tài chính của bạn",
+      "feature1": "Theo dõi chi tiêu theo thời gian thực",
+      "feature2": "Trực quan hóa với biểu đồ đẹp mắt",
+      "feature3": "Quản lý danh mục & ngân sách"
+    },
+    "passwordStrength": {
+      "label": "Độ mạnh mật khẩu",
+      "weak": "Yếu",
+      "fair": "Trung bình",
+      "good": "Tốt",
+      "strong": "Mạnh"
+    },
     "redirectingToLogin": "Đang chuyển hướng đến đăng nhập...",
     "login": {
+      "showPassword": "Hiển thị mật khẩu",
+      "hidePassword": "Ẩn mật khẩu",
       "title": "Đăng nhập vào tài khoản của bạn",
       "description": "Nhập email của bạn để đăng nhập",
       "email": "Email",
@@ -200,6 +215,8 @@
       }
     },
     "signup": {
+      "showPassword": "Hiển thị mật khẩu",
+      "hidePassword": "Ẩn mật khẩu",
       "title": "Tạo tài khoản",
       "description": "Nhập thông tin của bạn để tạo tài khoản",
       "name": "Tên (tùy chọn)",

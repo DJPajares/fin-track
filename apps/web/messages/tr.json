@@ -182,8 +182,23 @@
     }
   },
   "Auth": {
+    "panel": {
+      "tagline": "Finansmanızı kontrol altına alın",
+      "feature1": "Harcamaları gerçek zamanlı takip edin",
+      "feature2": "Güzel grafiklerle görselleştirin",
+      "feature3": "Kategorileri ve bütçeleri yönetin"
+    },
+    "passwordStrength": {
+      "label": "Parola gücü",
+      "weak": "Zayıf",
+      "fair": "Orta",
+      "good": "İyi",
+      "strong": "Güçlü"
+    },
     "redirectingToLogin": "Giriş sayfasına yönlendiriliyor...",
     "login": {
+      "showPassword": "Parolayı göster",
+      "hidePassword": "Parolayı gizle",
       "title": "Hesabınıza giriş yapın",
       "description": "Giriş yapmak için e-postanızı girin",
       "email": "E-posta",
@@ -200,6 +215,8 @@
       }
     },
     "signup": {
+      "showPassword": "Parolayı göster",
+      "hidePassword": "Parolayı gizle",
       "title": "Hesap oluşturun",
       "description": "Hesap oluşturmak için bilgilerinizi girin",
       "name": "Ad (isteğe bağlı)",

@@ -182,8 +182,23 @@
     }
   },
   "Auth": {
+    "panel": {
+      "tagline": "Kuasai kewangan anda",
+      "feature1": "Jejak perbelanjaan secara masa nyata",
+      "feature2": "Visualkan dengan carta yang menarik",
+      "feature3": "Urus kategori & belanjawan"
+    },
+    "passwordStrength": {
+      "label": "Kekuatan kata laluan",
+      "weak": "Lemah",
+      "fair": "Sederhana",
+      "good": "Baik",
+      "strong": "Kuat"
+    },
     "redirectingToLogin": "Mengalihkan ke log masuk...",
     "login": {
+      "showPassword": "Tunjukkan kata laluan",
+      "hidePassword": "Sembunyikan kata laluan",
       "title": "Masuk ke akaun anda",
       "description": "Masukkan e-mel anda untuk log masuk",
       "email": "E-mel",
@@ -200,6 +215,8 @@
       }
     },
     "signup": {
+      "showPassword": "Tunjukkan kata laluan",
+      "hidePassword": "Sembunyikan kata laluan",
       "title": "Buat akaun",
       "description": "Masukkan maklumat anda untuk membuat akaun",
       "name": "Nama (pilihan)",

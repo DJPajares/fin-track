@@ -182,8 +182,23 @@
     }
   },
   "Auth": {
+    "panel": {
+      "tagline": "Toma control de tus finanzas",
+      "feature1": "Controla tus gastos en tiempo real",
+      "feature2": "Visualiza con gráficos atractivos",
+      "feature3": "Gestiona categorías y presupuestos"
+    },
+    "passwordStrength": {
+      "label": "Fortaleza de la contraseña",
+      "weak": "Débil",
+      "fair": "Regular",
+      "good": "Buena",
+      "strong": "Fuerte"
+    },
     "redirectingToLogin": "Redirigiendo al inicio de sesión...",
     "login": {
+      "showPassword": "Mostrar contraseña",
+      "hidePassword": "Ocultar contraseña",
       "title": "Inicia sesión en tu cuenta",
       "description": "Ingresa tu correo electrónico para iniciar sesión",
       "email": "Correo electrónico",
@@ -200,6 +215,8 @@
       }
     },
     "signup": {
+      "showPassword": "Mostrar contraseña",
+      "hidePassword": "Ocultar contraseña",
       "title": "Crear una cuenta",
       "description": "Ingresa tu información para crear tu cuenta",
       "name": "Nombre (opcional)",

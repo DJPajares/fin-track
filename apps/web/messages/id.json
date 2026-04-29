@@ -182,8 +182,23 @@
     }
   },
   "Auth": {
+    "panel": {
+      "tagline": "Ambil kendali atas keuangan Anda",
+      "feature1": "Lacak pengeluaran secara real-time",
+      "feature2": "Visualisasikan dengan grafik yang indah",
+      "feature3": "Kelola kategori & anggaran"
+    },
+    "passwordStrength": {
+      "label": "Kekuatan kata sandi",
+      "weak": "Lemah",
+      "fair": "Sedang",
+      "good": "Baik",
+      "strong": "Kuat"
+    },
     "redirectingToLogin": "Mengalihkan ke login...",
     "login": {
+      "showPassword": "Tampilkan kata sandi",
+      "hidePassword": "Sembunyikan kata sandi",
       "title": "Masuk ke akun Anda",
       "description": "Masukkan email Anda untuk login",
       "email": "Email",
@@ -200,6 +215,8 @@
       }
     },
     "signup": {
+      "showPassword": "Tampilkan kata sandi",
+      "hidePassword": "Sembunyikan kata sandi",
       "title": "Buat akun",
       "description": "Masukkan informasi Anda untuk membuat akun",
       "name": "Nama (opsional)",
