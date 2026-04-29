@@ -6,7 +6,7 @@ import { serializeText } from '@shared/utilities/serializeText';
 import Loader from '@web/components/shared/Loader';
 import {
   TypographyLead,
-  TypographySectionTitle,
+  TypographyPageTitle,
 } from '@web/components/shared/Typography';
 import { Button } from '@web/components/ui/button';
 import {
@@ -46,7 +46,7 @@ import {
 } from 'lucide-react';
 import moment from 'moment';
 import { useTranslations } from 'next-intl';
-import { type CSSProperties, useMemo, useState } from 'react';
+import { type CSSProperties, useEffect, useMemo, useState } from 'react';
 import {
   Area,
   AreaChart,
@@ -130,6 +130,20 @@ const Charts = () => {
     dashboardDate.getFullYear().toString(),
   );
   const [isYearDropdownOpen, setIsYearDropdownOpen] = useState(false);
+
+  useEffect(() => {
+    if (!isYearDropdownOpen) return;
+
+    const frameId = requestAnimationFrame(() => {
+      const selectedYearItem = document.querySelector<HTMLElement>(
+        `[data-year-dropdown="true"] [data-year-item="${selectedYear}"]`,
+      );
+
+      selectedYearItem?.scrollIntoView({ block: 'center' });
+    });
+
+    return () => cancelAnimationFrame(frameId);
+  }, [isYearDropdownOpen, selectedYear]);
 
   const { currency } = useAppSelector((state) => state.dashboard);
 
@@ -399,18 +413,24 @@ const Charts = () => {
           onOpenChange={setIsYearDropdownOpen}
         >
           <DropdownMenuTrigger render={<Button variant="ghost" />}>
-            <TypographySectionTitle>{selectedYear}</TypographySectionTitle>
+            <TypographyPageTitle>{selectedYear}</TypographyPageTitle>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="center" className="max-h-72">
+          <DropdownMenuContent
+            align="center"
+            className="max-h-72"
+            data-year-dropdown="true"
+          >
             <DropdownMenuGroup>
               {yearsArray.map((year) => (
                 <DropdownMenuCheckboxItem
                   key={year}
+                  data-year-item={year.toString()}
                   checked={selectedYear === year.toString()}
                   onClick={() => {
                     setSelectedYear(year.toString());
                     setIsYearDropdownOpen(false);
                   }}
+                  className={`${selectedYear === year.toString() && 'font-extrabold'}`}
                 >
                   {year}
                 </DropdownMenuCheckboxItem>
@@ -423,7 +443,6 @@ const Charts = () => {
           <ChevronRightIcon className="size-4" />
         </Button>
       </div>
-
       {/* CHART A */}
       <Card>
         <CardHeader className="flex flex-row items-center justify-center">
@@ -480,7 +499,6 @@ const Charts = () => {
           </ChartContainer>
         </CardContent>
       </Card>
-
       {/* CHART B */}
       <Card>
         <CardHeader className="flex flex-row items-center justify-center">
@@ -562,7 +580,6 @@ const Charts = () => {
           </ChartContainer>
         </CardContent>
       </Card>
-
       {/* CHART C - Savings */}
       <Card>
         <CardHeader className="flex flex-row items-center justify-center">
@@ -624,7 +641,6 @@ const Charts = () => {
           )}
         </CardContent>
       </Card>
-
       {/* Top 5 by type */}
       {(yearlyTopExpenses.length > 0 || yearlyTopIncome.length > 0) && (
         <div className="grid gap-4 xl:grid-cols-2">
@@ -643,7 +659,7 @@ const Charts = () => {
               : 'Largest income sources this year',
           )}
         </div>
-      )}
+      )}{' '}
     </>
   );
 };
