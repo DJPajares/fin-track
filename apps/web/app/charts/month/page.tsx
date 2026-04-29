@@ -21,8 +21,6 @@ import {
 import {
   ChartConfig,
   ChartContainer,
-  ChartLegend,
-  ChartLegendContent,
   ChartTooltip,
   ChartTooltipContent,
 } from '@web/components/ui/chart';
@@ -37,7 +35,7 @@ import { type CSSProperties, useMemo, useState } from 'react';
 import {
   Bar,
   BarChart,
-  Label as ChartLabel,
+  Label,
   LabelList,
   Pie,
   PieChart,
@@ -224,7 +222,7 @@ const Charts = () => {
                     strokeWidth={5}
                     paddingAngle={chartData.length > 1 ? 2 : 0}
                   >
-                    <ChartLabel
+                    <Label
                       content={({ viewBox }) => {
                         if (viewBox && 'cx' in viewBox && 'cy' in viewBox) {
                           return (
@@ -237,7 +235,7 @@ const Charts = () => {
                               <tspan
                                 x={viewBox.cx}
                                 y={viewBox.cy}
-                                className="fill-foreground text-2xl font-semibold"
+                                className="fill-foreground text-3xl font-bold"
                               >
                                 {formatCurrency({
                                   value: totalAmount,
@@ -294,10 +292,10 @@ const Charts = () => {
                       />
                     }
                   />
-                  <ChartLegend
+                  {/* <ChartLegend
                     content={<ChartLegendContent />}
-                    className="basis-1/4 flex-wrap justify-center gap-1"
-                  />
+                    className="-translate-y-2 flex-wrap gap-2 *:basis-1/4 *:justify-center"
+                  /> */}
                 </PieChart>
               </ChartContainer>
             </CardContent>
