@@ -12,6 +12,7 @@ import {
   AlertDialogTrigger,
 } from '@web/components/ui/alert-dialog';
 import { Button } from '@web/components/ui/button';
+import { Spinner } from '@web/components/ui/spinner';
 import { useTranslations } from 'next-intl';
 import { ReactElement, useState } from 'react';
 
@@ -36,11 +37,14 @@ const ConfirmationDialog = ({
 }: ConfirmationDialogProps) => {
   const t = useTranslations();
   const [open, setOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleActionClick = async () => {
+    setIsLoading(true);
     try {
       await handleSubmit();
     } finally {
+      setIsLoading(false);
       setOpen(false);
     }
   };
@@ -61,14 +65,23 @@ const ConfirmationDialog = ({
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel>
+          <AlertDialogCancel disabled={isLoading}>
             {cancel || t('Common.alertDialog.generic.cancelButton')}
           </AlertDialogCancel>
           <AlertDialogAction
             onClick={handleActionClick}
+            disabled={isLoading}
+            aria-busy={isLoading}
             className={isDestructive ? 'bg-destructive' : ''}
           >
-            {ok || t('Common.alertDialog.generic.okButton')}
+            {isLoading && (
+              <Spinner
+                aria-hidden="true"
+                role="presentation"
+                className="motion-safe:animate-spin motion-reduce:animate-none"
+              />
+            )}
+            <span>{ok || t('Common.alertDialog.generic.okButton')}</span>
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
