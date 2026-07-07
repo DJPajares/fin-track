@@ -738,11 +738,10 @@ const TransactionDrawerForm = ({
                             )}
                             onValueChange={(values: string[]) => {
                               field.onChange(
-                                values.map(
-                                  (v) =>
-                                    excludedDatesArray.find(
-                                      (item) => item._id === v,
-                                    )!,
+                                values.map((v) =>
+                                  excludedDatesArray.find(
+                                    (item) => item._id === v,
+                                  )!,
                                 ),
                               );
                             }}
