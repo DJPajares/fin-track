@@ -407,12 +407,12 @@ const Charts = () => {
   const chartConfig = {
     income: {
       label: t('Common.type.income'),
-      color: 'var(--primary)',
+      color: 'var(--chart-2)',
       icon: TrendingUpIcon,
     },
     expense: {
       label: t('Common.type.expense'),
-      color: 'var(--secondary)',
+      color: 'var(--chart-1)',
       icon: TrendingDownIcon,
     },
     incomeVsExpenses: {
@@ -558,28 +558,16 @@ const Charts = () => {
           <ChartContainer config={chartConfig}>
             <AreaChart data={chartDataB}>
               <defs>
-                <linearGradient id="fillExpense" x1="0" y1="0" x2="0" y2="1">
-                  <stop
-                    offset="5%"
-                    stopColor="var(--chart-2)"
-                    stopOpacity={0.8}
-                  />
-                  <stop
-                    offset="95%"
-                    stopColor="var(--chart-2)"
-                    stopOpacity={0.1}
-                  />
-                </linearGradient>
                 <linearGradient id="fillIncome" x1="0" y1="0" x2="0" y2="1">
                   <stop
                     offset="5%"
-                    stopColor="var(--chart-1)"
-                    stopOpacity={0.8}
+                    stopColor="var(--color-income)"
+                    stopOpacity={0.35}
                   />
                   <stop
                     offset="95%"
-                    stopColor="var(--chart-1)"
-                    stopOpacity={0.1}
+                    stopColor="var(--color-income)"
+                    stopOpacity={0.05}
                   />
                 </linearGradient>
               </defs>
@@ -611,19 +599,20 @@ const Charts = () => {
               />
               <Area
                 dataKey="income"
-                type="natural"
+                type="monotone"
                 fill="url(#fillIncome)"
-                stroke="var(--chart-1)"
-                stackId="a"
+                stroke="var(--color-income)"
+                strokeDasharray="4 4"
+                strokeWidth={2}
               />
-              <Area
+              <Line
                 dataKey="expense"
-                type="natural"
-                fill="url(#fillExpense)"
-                stroke="var(--chart-2)"
-                stackId="a"
+                type="monotone"
+                stroke="var(--color-expense)"
+                strokeWidth={3}
+                dot={false}
               />
-              <ChartLegend content={<ChartLegendContent />} />
+              <ChartLegend content={<ChartLegendContent hideIcon />} />
             </AreaChart>
           </ChartContainer>
         </CardContent>
@@ -691,7 +680,7 @@ const Charts = () => {
                         return (
                           <>
                             <span
-                              className="size-2.5 shrink-0 rounded-[2px]"
+                              className="size-2.5 shrink-0 rounded-xs"
                               style={{ backgroundColor: item.color }}
                             />
                             <span className="text-muted-foreground">
