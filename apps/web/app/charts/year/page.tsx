@@ -56,7 +56,6 @@ import {
   Cell,
   LabelList,
   Line,
-  LineChart,
   XAxis,
 } from 'recharts';
 
@@ -71,7 +70,12 @@ type ChartDataPropsB = {
   incomeVsExpenses: number;
 };
 
-type SavingsDataProps = { month: string; yearMonth: string; amount: number };
+type SavingsDataProps = {
+  month: string;
+  yearMonth: string;
+  amount: number;
+  paidAmount?: number;
+};
 type YearlyTopCategory = { name: string; amount: number; colorIdx: number };
 
 const generateYearsArray = (range: number): number[] => {
@@ -218,6 +222,19 @@ const Charts = () => {
       },
     );
 
+  const { data: savingsGoalData, isFetching: isSavingsGoalDataFetching } =
+    useGetTransactionsMonthlyCategoriesByDateRangeQuery(
+      {
+        startDate: moment(selectedYear, 'YYYY').startOf('year').toDate(),
+        endDate: moment(selectedYear, 'YYYY').endOf('year').toDate(),
+        currency: currency.name,
+        userId,
+      },
+      {
+        skip: !userId || !currency.name,
+      },
+    );
+
   const chartDataB = useMemo<ChartDataPropsA[]>(() => {
     return (transactionsData ?? []).map((transaction) => {
       const month = moment(transaction.date).format('MMM');
@@ -239,23 +256,40 @@ const Charts = () => {
   }, [chartDataB]);
 
   const savingsChartData = useMemo<SavingsDataProps[]>(() => {
-    return (savingsData ?? [])
+    const savingsActualByMonth = new Map(
+      (savingsData ?? [])
+        .filter(
+          (transaction) =>
+            moment(transaction.date).utc().year().toString() === selectedYear,
+        )
+        .map((transaction) => [
+          moment(transaction.date).utc().format('YYYYMM'),
+          transaction.paidAmount,
+        ]),
+    );
+
+    return (savingsGoalData ?? [])
       .filter(
-        (transaction) =>
-          moment(transaction.date).utc().year().toString() === selectedYear,
+        (row) => moment(row.date).utc().year().toString() === selectedYear,
       )
-      .map((transaction) => {
-        const yearMonth = moment(transaction.date).utc().format('YYYYMM');
-        const month = moment(transaction.date).utc().format('MMM');
-        const amount = transaction.paidAmount;
+      .map((row) => {
+        const transactionMonth = moment(row.date).utc();
+        const yearMonth = transactionMonth.format('YYYYMM');
+        const month = transactionMonth.format('MMM');
+        const amount = Number(row.savings ?? 0);
+        const paidAmount = transactionMonth.isAfter(moment().utc(), 'month')
+          ? undefined
+          : savingsActualByMonth.get(yearMonth);
 
         return {
           yearMonth,
           month,
           amount,
+          paidAmount,
         };
-      });
-  }, [savingsData, selectedYear]);
+      })
+      .filter((row) => row.amount > 0 || (row.paidAmount ?? 0) > 0);
+  }, [savingsData, savingsGoalData, selectedYear]);
 
   const yearlyTopExpenses = useMemo<YearlyTopCategory[]>(() => {
     return buildYearlyTop5(expenseCategoriesData);
@@ -282,6 +316,7 @@ const Charts = () => {
   const isLoading =
     isTransactionsDataFetching ||
     isSavingsDataFetching ||
+    isSavingsGoalDataFetching ||
     isExpenseCategoriesFetching ||
     isIncomeCategoriesFetching;
 
@@ -394,10 +429,23 @@ const Charts = () => {
 
   const savingsChartConfig = {
     amount: {
-      label: 'Amount',
+      label: 'Goal',
+      color: 'var(--chart-2)',
+    },
+    paidAmount: {
+      label: 'Actual',
       color: 'var(--chart-1)',
     },
   } satisfies ChartConfig;
+
+  const formatChartCurrency = (value: unknown) => {
+    const amount = typeof value === 'number' ? value : Number(value ?? 0);
+
+    return formatCurrency({
+      value: amount,
+      currency: currency.name,
+    });
+  };
 
   if (isLoading || !currency.name) return <Loader />;
 
@@ -588,7 +636,7 @@ const Charts = () => {
         <CardContent className="p-1">
           {savingsChartData?.length ? (
             <ChartContainer config={savingsChartConfig}>
-              <LineChart
+              <AreaChart
                 accessibilityLayer
                 data={savingsChartData}
                 margin={{
@@ -598,7 +646,27 @@ const Charts = () => {
                   bottom: 12,
                 }}
               >
-                <CartesianGrid horizontal={false} />
+                <defs>
+                  <linearGradient
+                    id="fillSavingsGoal"
+                    x1="0"
+                    y1="0"
+                    x2="0"
+                    y2="1"
+                  >
+                    <stop
+                      offset="5%"
+                      stopColor="var(--color-amount)"
+                      stopOpacity={0.35}
+                    />
+                    <stop
+                      offset="95%"
+                      stopColor="var(--color-amount)"
+                      stopOpacity={0.05}
+                    />
+                  </linearGradient>
+                </defs>
+                <CartesianGrid vertical={false} />
                 <XAxis
                   dataKey="month"
                   tickLine={false}
@@ -610,29 +678,51 @@ const Charts = () => {
                   cursor={false}
                   content={
                     <ChartTooltipContent
-                      hideIndicator
-                      formatter={(value) => {
-                        const amount =
-                          typeof value === 'number'
-                            ? value
-                            : Number(value ?? 0);
+                      labelFormatter={(_value, payload) => {
+                        return payload[0]?.payload?.month;
+                      }}
+                      formatter={(value, name, item) => {
+                        const key = String(name);
+                        const label =
+                          savingsChartConfig[
+                            key as keyof typeof savingsChartConfig
+                          ]?.label ?? key;
 
-                        return formatCurrency({
-                          value: amount,
-                          currency: currency.name,
-                        });
+                        return (
+                          <>
+                            <span
+                              className="size-2.5 shrink-0 rounded-[2px]"
+                              style={{ backgroundColor: item.color }}
+                            />
+                            <span className="text-muted-foreground">
+                              {label}
+                            </span>
+                            <span className="text-foreground ml-auto font-mono font-medium tabular-nums">
+                              {formatChartCurrency(value)}
+                            </span>
+                          </>
+                        );
                       }}
                     />
                   }
                 />
-                <Line
+                <Area
                   dataKey="amount"
-                  type="bump"
-                  stroke="var(--chart-1)"
+                  type="monotone"
+                  fill="url(#fillSavingsGoal)"
+                  stroke="var(--color-amount)"
+                  strokeDasharray="4 4"
                   strokeWidth={2}
+                />
+                <Line
+                  dataKey="paidAmount"
+                  type="monotone"
+                  stroke="var(--color-paidAmount)"
+                  strokeWidth={3}
                   dot={false}
                 />
-              </LineChart>
+                <ChartLegend content={<ChartLegendContent />} />
+              </AreaChart>
             </ChartContainer>
           ) : (
             <div className="flex items-center justify-center">

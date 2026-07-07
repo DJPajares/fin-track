@@ -8,6 +8,7 @@
     "categoryName": "Credit Card",
     "currencyId": "671f018c855aa876c09f12fb",
     "currencyName": "SGD",
+    "amount": 3200,
     "paidAmount": 2867.4900000000002
   },
   {
@@ -19,6 +20,7 @@
     "categoryName": "Credit Card",
     "currencyId": "671f018c855aa876c09f12fb",
     "currencyName": "SGD",
+    "amount": 4500,
     "paidAmount": 4228.18
   }
 ]

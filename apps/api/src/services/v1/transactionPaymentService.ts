@@ -684,6 +684,22 @@ const fetchMonthlyByCategory = async (
               },
             },
 
+            // Lookup transaction currency details for the goal amount
+            {
+              $lookup: {
+                from: 'currencies',
+                localField: 'transactionData.currency',
+                foreignField: '_id',
+                as: 'transactionCurrencyData',
+              },
+            },
+            {
+              $unwind: {
+                path: '$transactionCurrencyData',
+                preserveNullAndEmptyArrays: true,
+              },
+            },
+
             // Match category name (if provided)
             {
               $match: categoryName
@@ -741,21 +757,23 @@ const fetchMonthlyByCategory = async (
                   categoryName: '$categoryData.name',
                   currencyId: '$currencyData._id',
                   currencyName: '$currencyData.name',
+                  transactionCurrencyName: '$transactionCurrencyData.name',
                 },
                 paymentId: { $first: '$_id' },
-                totalAmount: { $sum: { $toDouble: '$amount' } },
+                totalPaidAmount: { $sum: { $toDouble: '$amount' } },
+                totalAmount: { $sum: { $toDouble: '$transactionData.amount' } },
               },
             },
             // Add currency conversion in the payments pipeline
             {
               $addFields: {
-                convertedAmount: {
+                convertedPaidAmount: {
                   $cond: {
                     if: { $eq: ['$_id.currencyName', currency] },
-                    then: '$totalAmount',
+                    then: '$totalPaidAmount',
                     else: {
                       $multiply: [
-                        '$totalAmount',
+                        '$totalPaidAmount',
                         {
                           $divide: [
                             {
@@ -795,6 +813,64 @@ const fetchMonthlyByCategory = async (
                     },
                   },
                 },
+                convertedAmount: {
+                  $cond: {
+                    if: { $eq: ['$_id.transactionCurrencyName', currency] },
+                    then: '$totalAmount',
+                    else: {
+                      $multiply: [
+                        '$totalAmount',
+                        {
+                          $divide: [
+                            {
+                              $ifNull: [
+                                {
+                                  $toDouble: {
+                                    $getField: {
+                                      field: currency,
+                                      input: rates,
+                                    },
+                                  },
+                                },
+                                1,
+                              ],
+                            },
+                            {
+                              $ifNull: [
+                                {
+                                  $toDouble: {
+                                    $getField: {
+                                      field: {
+                                        $ifNull: [
+                                          '$_id.transactionCurrencyName',
+                                          currency,
+                                        ],
+                                      },
+                                      input: rates,
+                                    },
+                                  },
+                                },
+                                1,
+                              ],
+                            },
+                          ],
+                        },
+                      ],
+                    },
+                  },
+                },
+              },
+            },
+            {
+              $group: {
+                _id: {
+                  yearMonth: '$_id.yearMonth',
+                  categoryId: '$_id.categoryId',
+                  categoryName: '$_id.categoryName',
+                },
+                paymentId: { $first: '$paymentId' },
+                amount: { $sum: '$convertedAmount' },
+                paidAmount: { $sum: '$convertedPaidAmount' },
               },
             },
           ],
@@ -841,9 +917,12 @@ const fetchMonthlyByCategory = async (
                         null,
                       ],
                     },
+                    amount: {
+                      $ifNull: [{ $arrayElemAt: ['$$payment.amount', 0] }, 0],
+                    },
                     paidAmount: {
                       $ifNull: [
-                        { $arrayElemAt: ['$$payment.convertedAmount', 0] },
+                        { $arrayElemAt: ['$$payment.paidAmount', 0] },
                         0,
                       ],
                     },
