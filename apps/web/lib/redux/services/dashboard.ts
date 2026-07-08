@@ -48,6 +48,7 @@ export type TransactionPaymentsByCategoryResult = {
   categoryName: string;
   currencyId: string;
   currencyName: string;
+  amount: number;
   paidAmount: number;
 };
 

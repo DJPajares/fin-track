@@ -258,11 +258,12 @@ const Home = () => {
     <>
       <ScrollShadow
         aria-label={t('Page.home.ariaLabel')}
-        className="flex max-h-[calc(100dvh-theme(height.36))] flex-col gap-4 sm:max-h-none sm:gap-8"
+        className="flex max-h-[calc(100dvh-theme(height.36))] flex-col gap-4 px-1 pt-1 pb-3 sm:max-h-none sm:gap-8"
         hideScrollBar
+        size={16}
       >
         {/* Finance Overview Cards */}
-        <div className="grid auto-rows-fr grid-cols-2 gap-5 sm:grid-cols-3 sm:gap-10">
+        <div className="grid auto-rows-fr grid-cols-2 gap-4 sm:grid-cols-3 sm:gap-10">
           <AmountSettledCard
             totalPaidAmount={dashboardData?.main?.totalPaidAmount ?? 0}
             totalAmount={dashboardData?.main?.totalAmount ?? 0}

@@ -9,6 +9,7 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from '@web/components/ui/drawer';
+import { Spinner } from '@web/components/ui/spinner';
 import { useIsMobile } from '@web/hooks/use-mobile';
 import { useTranslations } from 'next-intl';
 import { Dispatch, ReactElement, SetStateAction, useState } from 'react';
@@ -29,6 +30,34 @@ type CustomDrawerProps = {
   onCancel?: () => void;
 };
 
+type RenderDrawerSaveButtonProps = {
+  isLoading: boolean;
+  label: string;
+  mobile?: boolean;
+};
+
+const renderDrawerSaveButton = ({
+  isLoading,
+  label,
+  mobile = false,
+}: RenderDrawerSaveButtonProps) => (
+  <Button
+    className={mobile ? undefined : 'w-full'}
+    variant={mobile ? 'ghost' : 'default'}
+    disabled={isLoading}
+    aria-busy={isLoading}
+  >
+    {isLoading && (
+      <Spinner
+        aria-hidden="true"
+        role="presentation"
+        className="motion-safe:animate-spin motion-reduce:animate-none"
+      />
+    )}
+    <span>{label}</span>
+  </Button>
+);
+
 const CustomDrawer = ({
   open,
   onOpenChange,
@@ -44,6 +73,7 @@ const CustomDrawer = ({
   const isMobile = useIsMobile();
   const t = useTranslations();
   const [isLoading, setIsLoading] = useState(false);
+  const saveButtonLabel = okButtonLabel || t('Common.button.save');
 
   const handleSubmitWithLoading = async () => {
     setIsLoading(true);
@@ -102,9 +132,11 @@ const CustomDrawer = ({
                       ok={t('Common.alertDialog.save.okButton')}
                       handleSubmit={handleSubmitWithLoading}
                     >
-                      <Button variant="ghost" disabled={isLoading}>
-                        {okButtonLabel || t('Common.button.save')}
-                      </Button>
+                      {renderDrawerSaveButton({
+                        isLoading,
+                        label: saveButtonLabel,
+                        mobile: true,
+                      })}
                     </ConfirmationDialog>
                   </div>
                 </div>
@@ -134,9 +166,10 @@ const CustomDrawer = ({
                   ok={t('Common.alertDialog.save.okButton')}
                   handleSubmit={handleSubmitWithLoading}
                 >
-                  <Button className="w-full" disabled={isLoading}>
-                    {okButtonLabel || t('Common.button.save')}
-                  </Button>
+                  {renderDrawerSaveButton({
+                    isLoading,
+                    label: saveButtonLabel,
+                  })}
                 </ConfirmationDialog>
                 <DrawerClose
                   render={
