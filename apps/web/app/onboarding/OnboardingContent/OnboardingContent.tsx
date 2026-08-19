@@ -14,6 +14,7 @@ import {
 import { cn } from '@web/lib/utils';
 import type { FeatureCardProps } from '@web/types/Onboarding';
 import Image from 'next/image';
+import { redirect } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 
@@ -32,7 +33,7 @@ function OnboardingContent({ features }: { features: FeatureCardProps[] }) {
 
   const handleNext = () => {
     if (currentStep === features.length - 1) {
-      window.location.href = '/dashboard';
+      redirect('/dashboard');
     } else {
       api?.scrollNext();
       setCurrentStep(currentStep + 1);
@@ -47,7 +48,7 @@ function OnboardingContent({ features }: { features: FeatureCardProps[] }) {
   };
 
   const handleSkip = () => {
-    window.location.href = '/dashboard';
+    redirect('/dashboard');
   };
 
   return (
